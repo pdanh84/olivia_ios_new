@@ -1,0 +1,7 @@
+{
+  "name": "olivia_ios_new",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
