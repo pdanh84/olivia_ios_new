@@ -1,0 +1,365 @@
+
+
+.flight-booking-detail-content{
+    .p-16{
+        padding: 16px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    .m-bottom-10{
+        margin-bottom: 10px;
+    }
+
+    .div-split{
+        border-bottom: solid 0.5px rgba(205,205,205, 0.5) !important;
+        margin: 16px 0;
+    }
+    .div-split-1{
+        border-bottom: solid 0.5px rgba(205,205,205, 0.5);
+        margin: 16px 0;
+    }
+    .div-width-400{
+        width: 400%;
+    }
+    .div-width-100{
+        width: 100%;
+    }
+    .div-width-150{
+        width: 150%;
+    }
+    .text-name{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #222222;
+    }
+
+    .text-phone{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #000000;
+    }
+
+    .pax-title{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #828282;
+        margin-bottom: 8px;
+    }
+
+    .pax-gender{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #333333;
+        width: 50px;
+    }
+
+    .pax-name{
+        font-size: 16px;
+        color: #333333;
+    }
+
+
+    .div-flight-inout{
+        padding: 0px 18px;
+        width: 32px;
+        height: 32px;
+        position: relative;
+  
+        .img-flight-inout{
+          width: 32px;
+          height: 32px;
+          position: absolute;
+          left: 0;
+          top: -2px;
+        }
+      }
+      .div-width-600{
+        width: 600%;
+      }
+      .div-width-60{
+        width: 60%;
+      }
+      .text-right{
+        text-align: right;
+      }
+      .text-flight-datetime{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #000000;
+      }
+
+      .text-flight-title{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.51px;
+        color: #000000;
+      }
+      .v-align-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    //   .div-split{
+    //     margin: 16px 0;
+    //     border-bottom: solid 0.5px #bdbdbd;
+    //   }
+      .img-oneway{
+        width: 12px !important;
+        margin-left: 12px;
+      }
+
+    .text-cin{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #4f4f4f;
+        margin-bottom: 12px;
+    }
+
+    .div-logo{
+        margin-right: 8px;
+        .img-logo{
+            height: 18px;
+        }
+    }
+    .div-icon-flight{
+        margin-left: 32px;
+        margin-right: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        
+    }
+
+    .img-flight{
+        width: 14px;
+        margin-left: 15%;
+        position: absolute;
+        margin-top: 4px;
+    }
+
+    .div-icon{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 4px;
+        margin-top: -2px;
+    }
+
+    .text-airlinecode{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #333333;
+    }
+
+    .div-airlineclass{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+    }
+
+    .text-time{
+        font-size: 16px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #333333;
+    }
+
+    .text-code{
+        font-size: 12px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+    }
+
+    .div-flight-condition{
+        margin: 0 -16px;
+        padding: 10px 16px;
+        background: #f2f2f2;
+    }
+
+    .img-info{
+        width: 14px;
+        height: 14px;
+    }
+
+    .div-text-refund{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #828282;
+    }
+
+    .div-text-changeflight{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #9fc43a;
+    }
+
+    .div-flight-condition{
+        margin-top: 16px;
+    }
+    .not-allow{
+        color: #828282 !important;
+    }
+    .pax-dob{
+        color: #828282;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: -0.4px;
+    }
+    .text-p
+    {
+        font-size: 14px;
+        color: #4f4f4f;
+        letter-spacing: -0.4px;
+    }
+    .p-top-12{
+        padding-top:12px;
+    }
+    .text-hotel-name{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #222222;
+    }
+    .cls-hr
+    {
+        margin-left: -16px;
+        margin-right: -16px;
+        height: 7px;
+        background-color: #f2f2f2 !important;
+    }
+    .mt-10{
+        margin-top: 10px;
+    }
+    .text-charge{
+        right: 17px;
+        position: absolute;
+      }
+      .div-flight-label{
+        padding-bottom: 6px;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+      }
+    .div-flight-time{
+
+        .div-time{
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 1.5;
+          letter-spacing: -0.48px;
+          color: #333333;
+        }
+        .div-location{
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 1.67;
+            letter-spacing: -0.34px;
+            color: #828282;
+            text-align: center;
+        }
+        .flight-img-arrow{
+          margin-left: 20px;
+          margin-right: 20px;
+        }
+        .font-size-14{
+          font-size: 14px;
+        }
+        
+      }
+      .letter-spacing{
+        letter-spacing:1.7px
+      }
+      .font-size-14{
+        font-size: 14px;
+      }
+      .font-size-12{
+        font-size: 12px;
+      }
+      .div-logo{
+        height: 21px;
+      
+        .img-logo{
+            height: 21px;
+        }
+      
+        .logo-vna{
+            height: 16px !important;
+        }
+      }
+      .div-flight-name{
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.36px;
+        color: #333333;
+      }
+      .div-flight-ticket
+      {
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+        font-size: 12px;
+      }
+      .margin-left-5
+      {
+        margin-left: 5px;
+      }
+      .div-none
+      {
+        display: none;
+      }
+      .text-operatedBy{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+        position: relative;
+        margin-top: 4px;
+    }
+
+    .cls-error{
+      color: #e52822 !important;
+      font-weight: bold !important;
+
+      .pax-dob{
+          color: #e52822 !important;
+          font-weight: bold !important;
+      }
+    }
+
+}

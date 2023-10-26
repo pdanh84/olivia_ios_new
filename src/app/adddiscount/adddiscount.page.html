@@ -1,0 +1,52 @@
+<ion-header  [ngClass]="_voucherService.hasVoucher || !loginuser ? 'header-discount no-shadow' : 'header-discount'">
+  <ion-toolbar class="toolbar-infobkg">
+    <ion-title class="title-infobkg">Chọn hoặc nhập mã voucher</ion-title>
+    <ion-buttons start class="cls-button">
+      <button slot="primary" routerDirection="root" class="btn-close div-close" (click)="closeModal()">
+        <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="cls-m16">
+      <div class="d-flex">
+        <div class="div-search d-flex">
+          <div *ngIf="!promocode" class="div-img-header div-right">
+            <img class="img-header w-36" src="./assets/ic_voucher/zoom-in.svg" >
+          </div>
+          <div class="div-inputcode">
+            <ion-input (ionFocus)="click()" style=" font-size: 14px;color: #6d6e71;--padding-start:0" placeholder="Nhập mã ưu đãi..."  (ionInput)="textchange()" [(ngModel)]="promocode" type="text" [ngClass]="ischecktext == 3 ? 'text-input none' : (ischecktext==0 ? 'text-input click' : 'text-input error')"  ></ion-input>
+          </div>
+          
+          <div></div>
+        </div>
+        <div class="div-button">
+          <button *ngIf="!ischeckbtnpromo" (click)="applyVoucher()" ion-button round outline [ngClass]=" promocode? 'button btnnone' : 'button btnnone cls-deactive'">Áp dụng</button>
+            <button *ngIf="ischeckbtnpromo"  ion-button round outline class="button btnnonesuccess"><span>
+                <ion-icon name="checkmark"></ion-icon>
+            </span></button>
+        </div>
+    </div>
+      <ion-row *ngIf="msg">
+        <ion-label *ngIf="ischeckerror==1" style="color: rgb(229, 40, 34);font-size: 12px; margin-bottom: 12px;">{{msg}}</ion-label>
+        <ion-label *ngIf="ischeckerror==0" style="color:#828282;font-size: 12px; margin-bottom: 12px;">{{msg}}</ion-label>
+      </ion-row>
+</div>
+</ion-header>
+<ion-content>
+  <div class="div-split-panel" *ngIf="_voucherService.hasVoucher"></div>
+  <div class="cls-m16" *ngIf="_voucherService.hasVoucher">
+    <div class="title-voucher">Voucher của bạn</div>
+    <app-voucherslide class="voucher-list cls-flightaddservice" *ngIf="_voucherService.openFrom == 'flightaddservice'"></app-voucherslide>
+    <app-voucherslidehotel class="voucher-list cls-roomdetailreview" *ngIf="_voucherService.openFrom == 'roomdetailreview'"></app-voucherslidehotel>
+    <app-voucherslidecarcombo class="voucher-list cls-carcomboreview" *ngIf="_voucherService.openFrom == 'combocarnew'"></app-voucherslidecarcombo>
+    <app-voucherslideflightcombo class="voucher-list cls-flightcomboreview" *ngIf="_voucherService.openFrom == 'flightcomboreview'"></app-voucherslideflightcombo>
+    <app-voucherslidetour class="voucher-list cls-flightaddservice" *ngIf="_voucherService.openFrom == 'touradddetails'"></app-voucherslidetour>
+    <app-voucherslideticket class="voucher-list cls-flightaddservice" *ngIf="_voucherService.openFrom == 'ticketadddetails'"></app-voucherslideticket>
+
+</div>
+</ion-content>
+<ion-footer *ngIf="loginuser">
+  <div class="div-voucher-footer">
+    <button (click)="applyVoucher()" ion-button round outline class="button button2">Áp dụng Voucher</button>
+  </div>
+</ion-footer>

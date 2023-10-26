@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;">
+        <div style="align-self: center">
+          <div>
+            <label class="text-title">Đổi điểm đón trả</label>
+          </div>
+          <div><label style="font-size: 11px;color: #828282">{{placetitle}}</label></div>
+          <div style="position: absolute;height: 60px;width: 54px;right: 2px;text-align: right;top: -2px;">
+            <ion-icon style="height: 32px;width: 48px;padding: 12px;" name="close" (click)="goback()"></ion-icon>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+  <ion-segment [(ngModel)]="tabplace">
+    <ion-segment-button (click)="Selectdepart()" style="color:#828282;text-transform: none;min-height: 36px;" value="placed">
+      Điểm đón
+    </ion-segment-button>
+    <ion-segment-button (click)="Selectreturn()" style="color:#828282;text-transform: none;min-height: 36px;" value="placet">
+      Điểm trả
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content class="ion-padding-16">
+  <ion-list *ngIf="activeTap==1" >
+    <div>
+      <ion-label class="text-title">
+        Điểm đón
+      </ion-label>
+    </div>
+    <ion-radio-group>
+      <ion-item *ngFor="let item of arrplaced" class="ion-item">
+        <ion-label>
+          <span class="combo-departure-time">{{item.pickup_time}}</span>
+          <span style="font-size: 14px;margin-left: 5px;">{{item.name}}</span>
+          <p class="text-infocar">{{item.address}}</p>
+          <label *ngIf="item.surcharge>0" class="text-thin-italic">Phụ thu {{item.surchargeshow}}/ khách</label>
+        </ion-label>
+      
+        <ion-radio slot="end" (ionSelect)="itemrddep(item)" value="{{item.ischeck}}"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    <!-- show điểm trung chuyển -->
+    <div class="mt20" *ngIf="arrplacetcd&&arrplacetcd.length>0">
+      <ion-label class="text-title">
+        Điểm trung chuyển
+      </ion-label>
+      <ion-radio-group>
+        <ion-item *ngFor="let item of arrplacetcd" class="ion-item">
+          <ion-label>
+            <span class="combo-departure-time">{{item.pickup_time}}</span>
+            <span style="font-size: 14px;margin-left: 5px;">{{item.name}}</span>
+            <p class="text-infocar">{{item.address}}</p>
+            <label *ngIf="item.surcharge>0" class="text-thin-italic">Phụ thu {{item.surchargeshow}}/ khách</label>
+          </ion-label>
+        
+          <ion-radio slot="end" (ionSelect)="itemrddep(item)" value="{{item.ischeck}}"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  
+    
+  </ion-list>
+  <ion-list *ngIf="activeTap==2">
+    <div>
+      <ion-label class="text-title">
+        Điểm trả
+      </ion-label>
+    </div>
+    <ion-radio-group>
+      <ion-item  *ngFor="let item of arrplacet" class="ion-item">
+        <ion-label>
+          <span class="combo-departure-time">{{item.dropoff_time}}</span>
+          <span style="font-size: 14px;margin-left: 5px;">{{item.name}}</span>
+          <p class="text-infocar">{{item.address}}</p>
+          <label *ngIf="item.surcharge>0" class="text-thin-italic">Phụ thu {{item.surchargeshow}}/ khách</label>
+        </ion-label>
+        <ion-radio slot="end" (ionSelect)="itemrdret(item)"  value="{{item.ischeck}}"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+     <!-- show điểm trung chuyển -->
+     <div class="mt20" *ngIf="arrplacetct&&arrplacetct.length>0">
+      <ion-label class="text-title">
+        Điểm trung chuyển
+      </ion-label>
+      <ion-radio-group>
+        <ion-item  *ngFor="let item of arrplacetct" class="ion-item">
+          <ion-label>
+            <span class="combo-departure-time">{{item.dropoff_time}}</span>
+            <span style="font-size: 14px;margin-left: 5px;">{{item.name}}</span>
+            <p class="text-infocar">{{item.address}}</p>
+            <label *ngIf="item.surcharge>0" class="text-thin-italic">Phụ thu {{item.surchargeshow}}/ khách</label>
+          </ion-label>
+          <ion-radio slot="end"  (ionSelect)="itemrdret(item)" value="{{item.ischeck}}"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+  </ion-list>
+</ion-content>

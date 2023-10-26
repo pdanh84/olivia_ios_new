@@ -1,0 +1,45 @@
+
+<ion-header class="biztravel-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-header-title">
+          <div class="div-title">Xác thực thanh toán</div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="ion-padding-16">
+<div style="text-align: center">
+  <img  src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/empty/imgdone.svg">
+</div>
+<div class="text">
+  <div>
+    <ion-label class="text">
+      Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com
+    </ion-label>
+  </div>
+  <div>
+    <div class="p-top-12">  
+      <ion-label class="text">
+        Quý khách đã thanh toán <span class="text-bold">{{totaldisplay}}đ</span> thành công cho đơn hàng <span class="text-bold text-tealish">{{bookingCode}}</span>
+      </ion-label>
+    </div>
+    <div class="p-top-12">
+      <ion-label class="text" text-wrap>
+        Credit còn lại: <span class="text-bold">{{gf.numberToCurrency(bizTravelService.bizAccount.balanceAvaiable, '.')}}đ</span>
+      </ion-label>
+    </div>
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+<div class="div-button-payment-done">
+  <button (click)="next()" ion-button round outline class="button btn-home">Quay về trang chủ</button>
+</div>
+</ion-footer>

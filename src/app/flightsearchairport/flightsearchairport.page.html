@@ -1,0 +1,93 @@
+
+<ion-header class="flightsearchairport-header">
+    <ion-row>
+      <ion-col class="col-header" size="1.5">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back-header.svg" >
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col-header" size="10.1">
+        <div class="div-header-title">
+        
+            <form action=".">
+              <ion-searchbar searchIcon="false" #ipSearchAiport id="input" class="ip-search-flight" style="padding: 0;padding-bottom: 15px;" autocomplete="on" autocorrect="true" debounce="300" placeholder="Nhập tên sân bay..." (ionInput)="getItems($event)" ></ion-searchbar>
+            </form>
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content>
+    <!-- <div class="text-normal">Danh sách các sân bay</div> -->
+    <div class="search-content-result p-16">
+      <div *ngIf="!itemsFilter || itemsFilter.length == 0">
+        <div *ngIf="listLastSearch && listLastSearch.length >0" class="div-list-last-search">
+          <div class="div-label-text">Sân bay tìm kiếm gần đây</div>
+          <div *ngFor="let itemLastSearch of listLastSearch; let idx = index" (click)="itemclick(itemLastSearch)">
+            <div [ngClass]="idx == listLastSearch.length -1 ? (listLastSearch.length ==1 ? 'div-item-search m-top-16' : 'div-item-search') : (idx==0 ? 'div-item-search div-border-bottom m-top-16' : 'div-item-search div-border-bottom m-top-12')">
+              <div class="title-text">
+                {{itemLastSearch.city}} ({{itemLastSearch.code}})
+              </div>
+              <div class="aiport-text">{{itemLastSearch.airport}}</div>
+            </div>
+          </div>
+          
+        </div>
+  
+        <div class="div-label-text m-top-8">Sân bay nội địa phổ biến</div>
+        
+          <div (click)="itemclick(item)" *ngFor="let item of itemsRegular; let idxr = index">
+            <div *ngIf="item && item.show">
+              <div [ngClass]="idxr == itemsRegular.length -1 ? 'div-item-search' : (idxr==0 ? 'div-item-search div-border-bottom m-top-16' : 'div-item-search div-border-bottom m-top-12') ">
+                <div class="title-text">
+                  {{item.city}} ({{item.code}})
+                </div>
+                <div class="aiport-text">{{item.airport}}</div>
+              </div>
+             
+            </div>
+          </div>
+        
+          <div class="div-label-text m-top-8">Sân bay quốc tế phổ biến</div>
+        
+          <div (click)="itemclick(item)" *ngFor="let item of itemsRegularInternational; let idxr = index">
+            <div *ngIf="item && item.show">
+              <div [ngClass]="idxr == itemsRegularInternational.length -1 ? 'div-item-search' : (idxr==0 ? 'div-item-search div-border-bottom m-top-16' : 'div-item-search div-border-bottom m-top-12') ">
+                <div class="title-text">
+                  {{item.city}} ({{item.code}})
+                </div>
+                <div class="aiport-text">{{item.airport}}</div>
+              </div>
+             
+            </div>
+          </div>
+      </div>
+      <div *ngIf="itemsFilter && itemsFilter.length >0">
+        <div (click)="itemclick(item)" *ngFor="let item of itemsFilter">
+          <div *ngIf="item && item.show">
+            <div class="d-flex m-bottom-8">
+              <div class="div-text-result" >
+                <div class="text-bold">
+                  {{item.city}} ({{item.code}})
+                </div>
+                <div class="text-code f-12" >
+                  {{item.airport}}
+                </div>
+
+              </div>
+          </div>
+          <div class="div-split-panel"></div>
+          </div>
+          
+        </div>
+      </div>
+     
+    </div>
+    <div style="margin-top: 20px" *ngIf="loaddatadone && (!items || (items && items.length ==0 && itemsfull && itemsfull.length ==0))">
+        <label>Không tìm thấy kết quả tìm kiếm.Vui lòng nhập lại!</label>
+    </div>
+  
+  
+  </ion-content>

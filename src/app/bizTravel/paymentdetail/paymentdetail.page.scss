@@ -1,0 +1,112 @@
+.d-flex {
+    display: flex;
+}
+.m-top-3{
+    margin-top: 3px;
+}
+.m-top-1{
+    margin-top: 1px;
+}
+.div-button-refresh {
+    display: flex;
+    position: absolute;
+    right: 16px;
+    top: 18px;
+}
+.div-paymentdetail-content {
+    padding: 16px;
+    padding-top: 0;
+
+    .div-transaction-history{
+        background-color: #f9fbfc;
+        padding: 16px;
+        margin: 0px -16px;
+        line-height: 1.4;
+
+        .div-button-item {
+          margin: 0 13px 1px 0;
+          padding: 8px 20px;
+          border-radius: 4px;
+          background-color: #ffffff;
+          border: solid 1px #cccccc;
+          color: #333;
+          font-size: 14px;
+        }
+
+        .div-button-item.btn-active {
+          border: solid 1px #26bed6 !important;
+          background-color: #26bed6 !important;
+          color: #fff !important;
+          font-weight: 600 !important;
+          
+        }
+        
+    }
+
+    .div-item-transaction{
+      background-color: #ffffff;
+      margin: 8px 0px 4px 0px;
+      padding: 8px;
+      }
+      .cls-even{
+      background-color: #f9fbfc !important;
+      
+      }
+    .cls-bold{
+      font-weight: 600 !important;
+  }
+
+  .cls-text-sub{
+      font-size: 12px;
+      line-height: 1.2;
+      text-align: left;
+      color: #868998;
+  }
+  .text-right{
+      text-align: right;
+  }
+  .f-12{
+      font-size: 12px !important;
+  }
+
+  .div-transaction-history-list{
+      margin: 0 -8px;
+      overflow: scroll;
+  }
+
+  .div-empty-tran{
+      text-align: center;
+
+      .img-trip-empty
+        {
+            text-align: center;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+        .cls-text{
+            padding-top: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            text-align: center;
+            color: #333;
+        }
+
+        .cls-text-sub{
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: center;
+            color: #828282;
+        }
+  }
+
+  .div-loading-content{
+    .cls-border-bottom{
+        padding: 12px 0px;
+        margin: 0 16px;
+        border-bottom: solid 1px rgba(201, 201, 201, 0.5);
+      }
+  }
+  
+}

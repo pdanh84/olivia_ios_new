@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-row>
+    <ion-col style="text-align: center;height: 48px;margin-bottom: 8px;">
+      <div style="align-self: center">
+        <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+          <img style="height: 48px; padding: 8px;margin-top: 0px;margin-left:-14px; top:2px"
+            src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+        <div style="padding-top: 10px;font-size: 20px;font-weight: bold;"><label class="text-title">Đổi mật khẩu</label>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content class="ion-padding-16">
+
+  <!-- <ion-item style="--padding-start:0;">
+    <ion-label style="font-size:14px;color: #828282" position="floating">Mật khẩu mới</ion-label>
+    <ion-input clearInput  id="newpassword"></ion-input>
+  </ion-item> -->
+  <ion-item style="--padding-start: 0px">
+    <ion-label position="floating">Mật khẩu</ion-label>
+    <ion-input class="text-color"  [type]="passwordType"  [(ngModel)]="pass" clearOnEdit="false">
+    </ion-input>
+    <ion-icon style="margin-top: 33px;" slot="end" class="passwordIcon" [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+  </ion-item>
+  <div style="margin-top: 30px;"><button ion-button round outline class="button btn-changepass" (click)="saveChange()">Đổi mật khẩu</button>
+  </div>
+</ion-content>

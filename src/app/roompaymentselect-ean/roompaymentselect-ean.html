@@ -1,0 +1,219 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding-16">
+  <img src="./assets/step/step_3.svg">
+  <ion-row>
+    <ion-col size="4">
+      <div class="div-wrapimg">
+        <img style="border-radius: 5px;height: 100%" src={{Avatar}}>
+      </div>
+    </ion-col>
+    <ion-col size="8" style="padding:3px" class="col-description-roompayment">
+      <div style="margin-left: 3px">
+        <h2 class="text-name" style="margin-top: 0" text-wrap>{{Name}}
+        </h2>
+        <p style="font-size: 14px;color: #4f4f4f" text-wrap>
+          <ion-icon name="pin"></ion-icon> {{Address}}
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <hr>
+  <div>
+    <ion-grid style="padding:0">
+      <ion-row style="font-size:12px">
+        <ion-col size="5" style="padding:0">
+          <ion-label style="font-weight: 300;color: #4f4f4f" stacked>Nhận phòng</ion-label>
+        </ion-col>
+        <ion-col size="5" style="padding:0">
+          <ion-label style="font-weight: 300;color: #4f4f4f" stacked>Trả phòng</ion-label>
+        </ion-col>
+        <ion-col size="2" style="padding:0">
+          <ion-label style="font-weight: 300;padding-left: 4px;color: #4f4f4f" stacked>Số đêm</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4.5" style="padding:0">
+          <ion-label style="padding: 0px;font-weight: bold;font-size: 14px" stacked>{{cin}}</ion-label>
+        </ion-col>
+        <ion-col size="0.5" style="padding: 0;">
+          <ion-label style="margin-top: 32px;color: #666666;text-align: center">|</ion-label>
+        </ion-col>
+        <ion-col size="4.5" style="padding:0">
+          <ion-label style="padding: 0px;font-weight: bold;font-size: 14px" stacked>{{cout}}
+          </ion-label>
+        </ion-col>
+        <ion-col size="0.5" style="padding: 0;margin-left: -3px;">
+          <ion-label style="margin-top: 32px;color: #666666;text-align: center">|</ion-label>
+        </ion-col>
+        <ion-col size="2" style="padding:0">
+          <ion-label style="padding: 0px;font-weight: bold;font-size: 14px;margin-left: 10px" stacked>{{dur}}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <hr>
+  <div>
+    <label class="text-name">
+      {{nameroom}}
+    </label>
+    <p style="color: #666;font-size: 14px" text-wrap>
+      <img class="image-card" src="./assets/ic_facility/ic_people.svg"> {{roomnumber}} phòng | {{adults}} người lớn |
+      {{children}} trẻ em {{textage}}
+      <p>
+        <p style="color: #666;font-size: 14px">
+          <img class="image-card" *ngIf="breakfast" src="./assets/ic_facility/ic_food_b.svg"> {{breakfast}}
+          <p>
+  </div>
+  <hr>
+
+<div class="div-voucher-apply" *ngIf="_voucherService.hotelPromoCode">
+  <div class="width-200"><span class="text-normal">Ưu đãi (</span><span class="text-code">{{_voucherService.hotelPromoCode}}</span><span class="text-normal">)</span> </div>
+  <div class="width-100 text-normal text-right p-r-5">{{gf.convertNumberToString(_voucherService.hotelTotalDiscount)}}đ</div>
+</div>
+  <div class="cls-divpayment">
+    <ion-row class="cls-rowheight">
+      <ion-col size="5">
+        <div>
+          <h2 class="text-name" style="font-size: 18px;" position="stacked">Tổng cộng</h2>
+          <p style="font-size: 10px;font-weight: 300;margin: 0">Giá đã bao gồm thuế & phí</p>
+        </div>
+      </ion-col>
+      <ion-col size="7">
+        <p class="total-price" style="text-align: right;margin: 0" *ngIf="!(_voucherService.hotelPromoCode)">
+          {{priceshow}}đ
+          <sup>
+          <img src="./assets/ic_green/ic_info.svg">
+        </sup>
+        </p>
+
+        <p class="total-price" style="text-align: right; margin: 0;" *ngIf="_voucherService.hotelPromoCode">
+          {{gf.convertNumberToString(totalPrice)}}đ
+          <sup>
+            <img  src="./assets/ic_green/ic_info.svg">
+          </sup>
+        </p>
+        <p class="text-normal text-strike" *ngIf="_voucherService.hotelPromoCode">
+          {{roomtype.PriceAvgPlusTAStr}}đ
+        </p>
+      </ion-col>
+    </ion-row>
+  </div>
+  <hr class="cls-hr">
+  <ion-list class="cls-list">
+    <ion-item *ngIf="bizTravelService.isCompany" (click)="paymentbiztravel()" class="=cls-minheight h-54">
+      <label  class="text-list m-bottom-8">
+        Tài khoản công ty
+      </label>
+      <div class="text-warning-creadit" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - totalPrice) <=0">Số dư Credit không đủ để thực hiện thanh toán</div>
+      <!-- <ion-icon slot="end" name="arrow-forward-outline" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - totalPrice) >0" class='cls-arrow-payment-align-right m-r-21'></ion-icon> -->
+      <img src="./assets/imgs/ic_arrow_grey.svg" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - totalPrice) >0" class='ic-arrow-right'/>
+    </ion-item>
+    
+    <ion-item (click)="roompaymentatm()" class="h-54">
+      <label class="text-list">
+        Thẻ ATM nội địa /Internet Banking
+      </label>
+      <!-- <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/> -->
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-item (click)="roompaymentvisa()" class="ion-item1 h-54">
+      <label class="text-list">
+        Thẻ tín dụng <img class="img-visa" src="./assets/imgs/ic_visa.png">
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-radio-group *ngIf="arrbankrmb.length>0&&ischeckvisa">
+      <ion-item class="ion-item" *ngFor="let item of arrbankrmb">
+        <ion-radio   [checked]="item.checked" (click)="chooseacc(item)"></ion-radio>
+        <img class="imgcard ml8" src={{item.imgbank}}>
+        <ion-label  class="text-infobank ml8">
+          {{item.name_Bank}}
+        </ion-label>
+        <ion-label class="text-infobank "><span style="vertical-align: middle;"> •••• •••• ••••</span>
+          {{item.vpc_CardNum}}</ion-label>
+      </ion-item>
+      <ion-item class="ion-item">
+        <ion-radio (click)="nochooseacc()"></ion-radio>
+        <ion-label  class="text-infobank ml8">
+          Chon tài khoản khác
+        </ion-label>
+        </ion-item>
+    </ion-radio-group>
+    <div *ngIf="isshowRemember" style="margin-left: 20px;margin-bottom: 10px;">
+      <ion-checkbox [disabled]="isdisable" (ionChange)="rememberCard()"  class="ion-checkbox" [value]="isremember" color="secondary"></ion-checkbox>
+      <ion-label class="label-input" >Lưu và bảo mật thẻ để đặt dịch vụ nhanh hơn lần sau</ion-label>
+    </div>
+    <hr style="margin-left: 15px;">
+
+    <ion-item  (click)="flightbuynowpaylater()" class='h-54'>
+      <label class="text-list m-bottom-16">
+        Mua trước trả sau <img class="img-homecredit" src="./assets/ic_ticket/logo-home-credit.jpg">
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+      <div  class="text-bnpl-discount" >Giảm thêm 300.000đ</div>
+    </ion-item>
+
+    <ion-item (click)="roompaymentmomo()" class="h-54">
+      <label class="text-list">
+        Thanh toán bằng Momo <img class="img-momo" src="https://res.ivivu.com/payment/img/momo/logo.png">
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-item  (click)="roompaymentpayooqr()" class="h-54">
+      <label class="text-list">
+        Thanh toán bằng mã QR <img class="img-payoo" src="https://res.ivivu.com/payment/img/payoo/payoo-logo.png">
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-item *ngIf="checkpayment" (click)="roompaymentpayoolive()" class="h-54">
+      <label class="text-list">
+        Trực tiếp tại cửa hàng tiện lợi <img class="img-payoo"
+          src="https://res.ivivu.com/payment/img/payoo/payoo-logo.png">
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-item *ngIf="checkpayment" (click)="roompaymentbank()" class="h-54">
+      <label class="text-list">
+        Chuyển khoản ngân hàng
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+    <ion-item *ngIf="checkpayment" (click)="roompaymentlive()" class="h-54">
+      <label class="text-list">
+        Trực tiếp tại văn phòng iVIVU
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
+  </ion-list>
+  <div class="div-DK">
+    <ion-checkbox mode='md' class="checkbox-DK"  [checked]="ischeckedDK" (ionChange)="checkDk()"></ion-checkbox>
+    <div class="text-DK">
+      Tôi đồng ý với các <span (click)="openWebpageDK('https://www.ivivu.com/dieu-kien-dieu-khoan')" class="text-link-DK">điều kiện và điều khoản</span> về đặt dịch vụ trên app iVIVU.com
+    </div>
+  </div>
+</ion-content>
+<ion-footer *ngIf="isbtn">
+  <div style="background-color: #ffffff; text-align: center">
+    <button [disabled]="!ischeckedDK" (click)="next()" ion-button round outline  [ngClass]="ischeckedDK?'button2':'btn-disabled'" class="button button2">Thanh toán và hoàn thành</button>
+  </div>
+</ion-footer>

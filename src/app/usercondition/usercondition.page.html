@@ -1,0 +1,131 @@
+<ion-header class="biztravel-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Điều kiện và điều khoản</div>
+            <div class="text-ivivu text-bold f-13">{{subtitle}}</div>
+          </div>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content>
+    <div class="user-condition-content">
+        <div class="p-16">Khi thực hiện đặt dịch vụ iVIVU (vé máy bay, khách sạn, tour, …), Quý Khách chấp thuận những điều kiện và điều khoản dưới đây:
+        </div>
+        <div class=" text-bold">1.  Định nghĩa:</div>
+        <div class="text-subtitle">-       Dịch vụ iVIVU/dịch vụ: là việc iVIVU thay mặt khách hàng thực hiện đặt phòng khách sạn, đặt vé máy bay, tour, tư vấn, đặt dịch vụ, hỗ trợ sau đặt dịch vụ, … với đối tác.</div>
+        <div class="text-subtitle">-       Nhà cung cấp bao gồm khách sạn, hãng hàng không, tour, nhà xe, …</div>
+        <div class=" text-bold">2.  Độ tuổi:</div>
+        <div class="text-subtitle">Quý Khách phải từ 18 tuổi trở lên mới được phép đặt dịch vụ iVIVU.</div>
+        <div class=" text-bold">3. Thanh toán:</div>
+        <div class="text-subtitle">iVIVU.com có nhiều phương thức thanh toán để thuận tiện cho Khách hàng khi đặt dịch vụ, Khách hàng có thể tham khảo và lựa chọn phương thức phù hợp:</div>
+        <div class="text-subtitle">Chuyển khoản qua ngân hàng: Sau khi đặt hàng, Khách hàng chuyển khoản số tiền đơn hàng vào tài khoản của iVIVU.com tại các hệ thống ngân hàng.
+            Thanh toán bằng thẻ ATM nội địa: Khách hàng sử dụng thẻ ATM nội địa để thanh toán.
+            Thanh toán bằng thẻ tín dụng quốc tế: Khách hàng sử dụng thẻ Visa/ Master Card/ JCB để thanh toán.
+            </div>
+        <div class="text-subtitle">Thanh toán tại cửa hàng tiện lợi Payoo hoặc qua QR code Payoo
+            Thanh toán tại các Văn phòng của iVIVU.com: tại Hồ Chí Minh, Hà Nội, Cần Thơ
+            </div>
+        <div class=" text-bold">4. Xác nhận thông tin đặt dịch vụ:</div>
+        <div class="text-subtitle">Thông tin đặt dịch vụ được xác nhận thể hiện trong email xác nhận (đặt phòng, combo, vé máy bay, …) được gởi từ iVIVU đến email Quý Khách đã đăng ký tại thời điểm đặt phòng với iVIVU và trên hệ thống iVIVU (bao gồm website và ứng dụng iVIVU). Đây là cơ sở xác định các dịch vụ cung cấp cho khách hàng.</div>
+        <div class="text-subtitle">Trường hợp Quý Khách thực hiện thanh toán trễ hơn hạn thanh toán được thông báo từ iVIVU.com qua email, website, ứng dụng, việc đặt dịch vụ của Quý khách sẽ không còn hiệu lực.</div>
+        <div class="text-subtitle">Chúng tôi không đảm bảo bất kỳ thông tin đặt phòng nào cho đến khi quý khách nhận được email xác nhận lần cuối.</div>
+        <div class="text-subtitle">Khi thực hiện đặt dịch vụ và thanh toán, xem như Quý Khách đã đồng ý các điều kiện, điều khoản, chính sách áp dụng của iVIVU và nhà cung cấp.</div>
+
+        <div class=" text-bold">5.  Thực hiện thay đổi cho thông tin đặt dịch vụ:</div>
+        <div class="text-subtitle">Sau khi đặt dịch vụ thành công (dịch vụ đã được xác nhận qua email), nếu Quý Khách muốn thay đổi thông tin đặt dịch vụ, vui lòng gởi yêu cầu đến email tc@ivivu.com hoặc số điện thoại 1900 1870. Chúng tôi sẽ cố gắng để hỗ trợ Quý Khách một cách tốt nhất, tuy nhiên chúng tôi không đảm bảo mọi yêu cầu thay đổi sẽ được thực hiện. </div>
+        <div class="text-subtitle">Nếu Quý Khách được phép hủy hoặc thay đổi Đặt dịch vụ nhưng không hủy hoặc thay đổi trước thời hạn cho phép, Quý Khách sẽ có trách nhiệm trả phí hủy theo quy định tại thời điểm đó, thuế hoặc phí khôi phục thuế (áp dụng hiện hành theo quy định), phí dịch vụ hoặc phí đặt dịch vụ khác dù Quý Khách có sử dụng dịch vụ hay không.</div>
+        <div class="text-subtitle">Nếu Quý Khách không sử dụng dịch vụ (lên máy bay, tham gia tour, nhận phòng khách sạn, …) vào ngày/đêm đặt dịch vụ đầu tiên nhưng dự định nhận phòng/tiếp tục sử dụng dịch vụ cho các đêm tiếp theo thì Quý Khách phải xác nhận với iVIVU và nhà cung cấp/đơn vị liên kết của iVIVU tối thiểu 6 tiếng trước giờ khởi hành/ngày/đêm đặt dịch vụ đầu tiên và trong thời gian làm việc (08.00 am – 20.00 pm). Nếu Quý Khách không làm như vậy, Đặt dịch vụ của Quý Khách sẽ bị hủy và Quý Khách sẽ không được sử dụng dịch vụ cũng như hoàn trả.</div>
+        <div class="text-subtitle">Trường hợp Quý Khách muốn thay đổi, hủy, hoàn tiền cho đặt dịch vụ đã đặt vì bất kỳ lý do gì vui lòng liên hệ iVIVU để được hỗ trợ trước khi sử dụng dịch vụ/nhận phòng (check in)/ khởi hành hoặc theo thời gian quy định tại thời điểm đó. iVIVU sẽ nỗ lực hết sức để hỗ trợ Quý Khách trong khả năng của iVIVU. Trường hợp Quý Khách đã sử dụng dịch vụ, mọi yêu cầu hoàn, hủy, thay đổi sẽ không được thực hiện.</div>
+        <div class="text-subtitle">Ngoài ra, iVIVU cũng áp dụng phí quản lý cho các yêu cầu thay đổi đặt dịch vụ /thông tin hủy phòng được chấp nhận (phí cộng thêm ngoài mức phí huỷ dịch vụ của nhà cung cấp).</div>
+        <div class="text-subtitle">Trường hợp có sự thay đổi từ nhà cung cấp dịch vụ (hãng hàng không, khách sạn, dịch vụ khác, ...) các điều kiện khách quan khác (bao gồm và không giới hạn các trường hợp bất khả kháng như thiên tai, dịch bệnh, ...) dẫn đến Quý Khách không thể sử dụng dịch vụ hoặc thay đổi dịch vụ, tùy theo quyết định của nhà cung cấp, iVIVU sẽ thông báo lại cho Quý khách phương án áp dụng hoặc các chi phí hoàn lại, phát sinh tại thời điểm đó. Trường hợp nhà cung cấp cho phép hủy dịch vụ và hoàn lại tiền, iVIVU sẽ hoàn lại số tiền Quý Khách đã thanh toán sau khi trừ đi phí dịch vụ của iVIVU.</div>
+
+        <div class=" text-bold">6.  Yêu cầu đăng ký thông tin:</div>
+        <div class="text-subtitle">Chúng tôi không cung cấp thông tin chi tiết thẻ tín dụng của Quý Khách cho bất kỳ nhà cung cấp phòng nào.</div>
+        <div class="text-subtitle">Cho nên, nhà cung cấp của chúng tôi có thể yêu cầu Quý khách cung cấp thông tin có trên thẻ đã sử dụng để thanh toán cho việc đặt dịch vụ và chữ ký chủ thẻ tương. Nhà cung cấp sẽ yêu cầu xuất trình giấy CMND hoặc hộ chiếu tại thời điểm sử dụng dịch vụ. Một bản lưu của thẻ tín dụng / CMND hoặc hộ chiếu (passport) của Quý Khách cũng có thể được nhà cung cấp giữ lại.</div>
+
+        <div class=" text-bold">7.  Thông tin trang web:</div>
+        <div class="text-subtitle">Chúng tôi nỗ lực cam kết độ chính xác cao nhất của các thông tin được hiển thị trên trang web, tuy nhiên xin lưu ý các thông tin cũng được chỉnh sửa từ nhà cung cấp dịch vụ và điều chỉnh theo đánh giá khách quan, phù hợp từ khách hàng (bao gồm cả thông tin, xếp hạng, đánh giá khách sạn, khu nghỉ dưỡng, ...). Do đó, chúng tôi không đảm bảo được tất cả thông tin trên là chính xác hoàn toàn hoặc không có bất kỳ lỗi nào. Chúng tôi bảo lưu quyền thay đổi thông tin hiển thị trên trang web (bao gồm Điều khoản và Điều kiện này) bất kỳ thời điểm nào mà không phải báo trước và các thay đổi này có hiệu lực ngay cho tất cả các dịch vụ của iVIVU ở mọi thời điểm.   </div>
+        <div class=" text-bold">8.  Trách nhiệm:</div>
+        <div class="text-subtitle">Chúng tôi sẽ không chịu trách nhiệm với bất kỳ thiệt hại, mất mát, khiếu nại hoặc khoản phí nào (bao gồm những nguyên nhân sau: sự sai lệch thông tin hậu quả trực tiếp hay gián tiếp gây ra) được phát sinh từ trang web chúng tôi liên quan đến những sản phẩm hay những dịch vụ được niêm yết trên trang này.</div>
+        <div class="text-subtitle">Chúng tôi không bảo đảm hay là người đại diện cho những sản phẩm phòng ở hay dịch vụ nào trên trang web hoặc các trang kết nối. Ở đây trách nhiệm của chúng tôi chỉ cho phép thực hiện việc đặt phòng. Chúng tôi không chịu trách nhiệm với lý do không có phòng trống vì khách sạn đã cho thuê vượt quá số phòng.</div>
+        <div class="text-subtitle">Trường hợp nhà cung cấp không cung cấp những dịch vụ đã được iVIVU.com thay mặt cho khách hàng đặt trước (bao gồm và không giới hạn: phòng không còn trống, loại phòng không chính xác, …) hoặc khách hàng không nhận được dịch vụ như đã xác nhận, iVIVU.com sẽ nỗ lực hết sức phối hợp với nhà cung cấp để cung cấp dịch vụ đúng như yêu cầu đã được xác nhận dựa vào chính sách, quy định của đối tác cung cấp tại thời điểm phát sinh</div>
+        <div class="text-subtitle">Trong trường hợp không cung cấp dịch vụ được do hết phòng, hết chỗ, hủy chuyến, ..., iVIVU có quyền lựa chọn dịch vụ thay thế, đặt lại dịch vụ cho Quý Khách:</div>
+        <div class="text-subtitle">   (i) Đặt dịch vụ thay thế cho Quý Khách với một nhà cung cấp khác tương đương.;</div>
+        <div class="text-subtitle">   (ii) Trường hợp không có nhà cung cấp tương đương, iVIVU sẽ đặt dịch vụ với một nhà cung cấp khác.</div>
+        <div class="text-subtitle">   (iii) Trường hợp Quý khách không đồng ý với (i) và (ii) hoặc không có dịch vụ thay thế, iVIVU sẽ hoàn lại phần tiền Quý khách đã thanh toán cho dịch vụ Quý Khách chưa sử dụng.</div>
+        <div >Tương đương được định nghĩa như sau:</div>
+        <div class="text-subtitle">-       Đối với đặt phòng khách sạn: chỗ lưu trú tại khách sạn cùng hạng sao, ở cùng khu vực (tỉnh, thành phố), loại phòng có sức chứa giống nhau (số lượng khách), các dịch vụ bao gồm nhau: bữa ăn sáng/bữa ăn trưa/bữa ăn tối, ... (đảm bảo đủ số bữa, số lượng dịch vụ, không đảm bảo về món ăn, chi tiết dịch vụ).</div>
+        <div class="text-subtitle">Giá trị/loại dịch vụ thay thế được xác định dựa trên giá công bố dịch vụ đó trên website iVIVU.com hoặc các trang web online khác do iVIVU.com xác định, vào thời điểm do iVIVU.com xác định.</div>
+        <div class="text-subtitle">Trường hợp khách hàng không đồng ý với dịch vụ thay thế, khách hàng có quyền hủy đơn đặt dịch vụ và nhận lại khoản tiền hoàn cho phần dịch vụ chưa sử dụng. Trường hợp khách hàng đã sử dụng dịch vụ, sẽ không được hoàn tiền. </div>
+        <div class="text-subtitle">-       Đối với phương tiện vận chuyển (Vé máy bay/ tàu lửa/ Xe khách...): thời gian khởi hành cho lựa chọn mới đúng hoặc chênh lệch +/- 3 tiếng so với giờ khởi hành ban đầu đã đặt dịch vụ. Hoặc dựa vào chính sách, quy định của nhà cung cấp tại thời điểm phát sinh</div>
+        <div class="text-subtitle">Chúng tôi và các nhà cung cấp của chúng tôi sẽ nỗ lực hợp lý trong việc cập nhật Thông tin để đảm bảo thông tin được chính xác. Tuy nhiên, Thông tin của chúng tôi là do các nhà cung cấp Đặt phòng khách sạn cung cấp. Vì vậy:</div>
+        <div class="text-subtitle">Thông tin của chúng tôi có thể được thay đổi, bổ sung, sửa đổi hoặc xóa bất kỳ lúc nào, thông tin có thể không còn hoặc được thay đổi bất kỳ lúc nào mà không có thông báo và chúng tôi không chịu trách nhiệm pháp lý;</div>
+        <div class="text-subtitle">Chúng tôi khước từ toàn bộ trách nhiệm pháp lý về bất kỳ lỗi hay sự không chính xác nào liên quan đến Thông tin của chúng tôi (bao gồm nhưng không giới hạn ở giá Đặt phòng khách sạn, ảnh khách sạn, danh sách tiện nghi khách sạn và mô tả chung về khách sạn, …);</div>
+        <div class="text-subtitle">Chúng tôi không đảm bảo khả năng cung cấp của Đặt phòng khách sạn cụ thể;</div>
+        <div class="text-subtitle">Chúng tôi không cam đoan về tính phù hợp của Thông tin của chúng tôi cho bất kỳ mục đích nào;</div>
+        <div class="text-subtitle">Xếp hạng khách sạn hiển thị trong Thông tin của chúng tôi chỉ nhằm mục đích hướng dẫn chung dựa trên thông tin nhà cung cấp cập nhật và đánh giá khách quan, phù hợp từ khách hàng, chúng tôi không thể đảm bảo tính chính xác của các xếp hạng đó;</div>
+        <div class="text-subtitle">Khước từ mọi bảo đảm và điều kiện rằng Thông tin của chúng tôi, dịch vụ hay bất kỳ email nào mà chúng tôi gửi đều không chứa virus hay các thành phần độc hại khác và
+            Toàn bộ Thông tin và dịch vụ của chúng tôi đều được cung cấp “nguyên trạng” mà không có bất kỳ loại bảo đảm nào.
+            </div>
+        <div class="text-subtitle">Chúng tôi công khai bảo lưu quyền sửa mọi lỗi về giá và/hoặc các Đặt phòng được thực hiện với mức giá không chính xác.Trong trường hợp như vậy, nếu có, Quý Khách sẽ có cơ hội giữ Đặt phòng với mức giá được sửa đổi hoặc quý vị có thể hủy đặt phòng mà không bị phạt tiền.</div>
+        <div >iVIVU.com sẽ được miễn trừ nghĩa vụ cung cấp dịch vụ và bồi thường trong các trường hợp sau:</div>
+        <div class="text-subtitle">- Trong trường hợp bất khả kháng như thiên tai, chiến tranh, biểu tình, dịch bệnh hoặc các quyết định cấm đi/đến địa điểm cung cấp dịch vụ của các cơ quan quản lý nhà nước. </div>
+        <div class="text-subtitle">Quý Khách được lựa chọn một trong các phương án nhà cung cấp thông báo, có thể là hủy đơn đặt dịch vụ, hoàn lại một phần hay toàn bộ phí; hoặc bảo lưu dịch vụ để sử dụng vào thời điểm khác (có phụ thu hoặc không) hoặc phương án khác. iVIVU sẽ thông báo các phương án này để Quý khách lựa chọn. Trong tất cả các trường hợp, iVIVU sẽ giữ lại phí dịch vụ của iVIVU và không hoàn lại.</div>
+        <div class="text-subtitle">- Nếu có sự thay đổi lịch trình của các phương tiện vận chuyển công cộng như: tàu thuyền, tàu hỏa,.…theo thông báo từ phía nhà cung cấp, IVIVU.com sẽ giữ quyền thay đổi lộ trình hoặc buộc phải thông báo hoãn hủy chuyến đi vì sự an toàn cho Quý khách.</div>
+        <div class="text-subtitle">- Chuyến bay/xe/tàu bị chậm, hủy theo thông báo của hãng hàng không/tàu/xe ngoài tầm kiểm soát của iVIVU.com.</div>
+        <div class="text-subtitle">- iVIVU.com không thông thông báo được cho hành khách về việc chậm, huỷ chuyến do hành khách không đăng ký địa chỉ hay thông tin liên lạc (email, số điện thoại); hoặc không liên hệ được với hành khách theo thông tin đã đăng ký.</div>
+        <div class="text-subtitle">- Miễn trừ bồi thường cho khách bị từ chối trong trường hơp lý do từ hành khách (như tình trạng sức khỏe, dịch bệnh, việc khách không tuân thủ đúng điều lệ/ hợp đồng vận chuyển/quy định của nhà chức trách…), theo yêu cầu của nhà chức trách, an ninh hàng không, ...</div>
+
+        <div class=" text-bold">9.  Mức độ công bằng:</div>
+        <div class="text-subtitle">Chúng tôi luôn mong muốn giải quyết những đề xuất hoặc thắc mắc một cách nhanh chóng và công bằng nhất. Mọi ý kiến đóng góp xin gửi về Bộ Phận Chăm Sóc Khách Hàng:
+        </div>
+        <div class="text-subtitle">- Văn phòng tại Hồ Chí Minh: Lầu 2, Tòa nhà Anh Đăng, 215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, Tp. Hồ Chí Minh, Việt Nam</div>
+        <div class="text-subtitle">- Văn phòng tại Hà Nội: P.308, Tầng 3, Tòa nhà The One, số 2 Chương Dương Độ, Q.Chương Dương, Q.Hoàn Kiếm, Hà Nội, Việt Nam</div>
+        <div class="text-subtitle">- Văn phòng tại Cần Thơ: Tầng 7 - Tòa nhà STS - 11B Đại Lộ Hòa Bình, Phường Tân An, Quận Ninh Kiều, TP. Cần Thơ</div>
+        <div class="text-subtitle">- Điện thoại 1900 1870, hoặc gửi qua địa chỉ email TC@iVIVU.com</div>
+        <div  class=" text-bold">10.  Bản quyền:</div>
+        <div class="text-subtitle">Những hình ảnh và nội dung trên iVIVU.com là không được phép sao chép hoặc được sử dụng lại với bất kỳ phiên bản nào khác mà chỉ được sử dụng trên trang web của chúng tôi.</div>
+        <div class=" text-bold">11.  Chung:</div>
+        <div class="text-subtitle">Tất cả những điều khoản và điều kiện được công nhận bởi pháp luật Việt Nam. Chúng tôi nhận những thanh toán từ khách sạn thành viên từ việc cung cấp dịch vụ phòng đặt phòng của chúng tôi. Mọi thắc mắc liên hệ Công ty VIVU để xác nhận đặt phòng qua email. Thông tin chi tiết của chúng tôi về cách thức xử lý thông tin cá nhân xin Quý Khách tham khảo Chính sách quyền cá nhân.</div>
+        <div class="text-subtitle">Các đặt phòng được đặt qua đối tác EAN sẽ tuân theo các điều kiện và điều khoản của đối tác, vui lòng xem tại đây.</div>
+        
+        <div class="text-title text-bold">ĐIỀU KHOẢN VỀ MẢNG ĂN UỐNG</div>
+        <div class="text-subtitle">iVIVU.com nhận đặt bữa trưa theo tuần, áp dụng từ thứ 2 đến thứ 6.</div>
+        <div class="text-subtitle">iVIVU.com chốt đơn đặt bữa ăn hàng tuần vào 12h Chủ nhật và bắt đầu giao từ thứ 2 hàng tuần.</div>
+        <div class="text-subtitle">Đối với những ngày lễ rơi vào một trong các ngày từ thứ 2 đến thứ 6, iVIVU.com sẽ không tính tiền phần ăn vào những ngày nghỉ lễ và sẽ không giao các phần ăn trong những ngày đó.</div>
+        <div class="text-subtitle">Các bước đặt bữa ăn</div>
+        <div class="text-subtitle">Khách hàng đặt bữa ăn tại website iVIVU.com hoặc ứng dụng iVIVU.com thực hiện theo các bước sau:</div>
+        <div class="text-subtitle">Bước 1: Truy cập vào website iVIVU.com hoặc ứng dụng iVIVU.com.     </div>
+        <div class="text-subtitle">Bước 2: Tham khảo bữa ăn trên website iVIVU.com hoặc ứng dụng iVIVU.com.</div>
+        <div class="text-subtitle">Bước 3: Khách hàng chọn đặt bữa ăn mong muốn với số lượng và điền thông tin cụ thể của Khách hàng, sau đó đặt lệnh mua bữa ăn.</div>
+        <div class="text-subtitle">Bước 4: Thanh toán và nhận xác nhận bữa ăn đã đặt qua Hộp thư điện tử (Email).</div>
+        <div class="text-subtitle">Bước 5: Khách hàng sử dụng gói bữa ăn đã mua.</div>
+        <div class="text-subtitle">Bước 6: Phản hồi về bữa ăn sau khi đã sử dụng hoàn tất.</div>
+        <div class="text-subtitle">Phương thức thanh toán</div>
+        <div class="text-subtitle">Khách hàng khi đặt bữa ăn tại iVIVU.com có thể thanh toán bằng 2 cách như sau:</div>
+        <div class="text-subtitle">- Thanh toán chuyển khoản qua ngân hàng.</div>
+        <div class="text-subtitle">- Thanh toán thẻ tín dụng/ATM có kết nối thanh toán online tại website iVIVU.com.</div>
+        <div class="text-subtitle">Xác nhận đơn đặt bữa ăn</div>
+        <div class="text-subtitle">Sau khi khách hàng đặt và thanh toán thành công tại website iVIVU.com, thư điện tử xác nhận đặt bữa ăn sẽ được gửi tới email Quý khách đăng ký. Nếu Quý khách không nhận được Thư xác nhận trong vòng 30 phút sau khi thanh toán, Quý khách cần liên hệ ngay với iVIVU.com để được trợ giúp.</div>
+        <div class="text-subtitle">Quý khách vui lòng kiểm tra kỹ địa chỉ và số điện thoại đăng kí trong Thư xác nhận để đảm bảo việc giao bữa ăn cho Quý khách.</div>
+        <div class="text-subtitle">Các yêu cầu đặc biệt từ Quý khách sẽ được iVIVU.com ghi chú và cố gắng đáp ứng trong khả năng cho phép.</div>
+        <div class="text-subtitle">Chính sách giao bữa ăn – nhận bữa ăn</div>
+        <div class="text-subtitle">iVIVU.com sẽ liên hệ với Quý khách theo số điện thoại và giao bữa ăn đến địa chỉ Quý khách đăng ký từ 11h30 – 12h15 từ thứ 2 đến thứ 6 hàng tuần.</div>
+        <div class="text-subtitle">Tại thời điểm giao hàng, khách hàng kiểm tra phần ăn theo đơn hàng ghi trên hóa đơn. Việc giao hàng kết thúc khi khách hàng xác nhận đủ phần ăn.</div>
+        <div class="text-subtitle">Chính sách thay đổi, hoàn trả</div>
+        <div class="text-subtitle text-bold">a) Chính sách thay đổi:</div>
+        <div class="text-subtitle">Sau khi đặt bữa ăn thành công, khách hàng có thể liên hệ tổng đài để yêu cầu nhân viên tổng đài điều chỉnh đơn hàng hoặc thay đổi thông tin liên hệ / địa chỉ giao hàng trước giờ chốt bữa ăn tức 12h Chủ nhât của tuần đó. Mọi trường hợp điều chỉnh đơn hàng quá thời gian nêu trên rất tiếc iVIVU.com không thể hỗ trợ.</div>
+        <div class="text-subtitle text-bold">b) Chính sách hoàn trả:</div>
+        <div class="text-subtitle">Sau khi đặt bữa ăn thành công, khách hàng sẽ không thể hủy đơn hàng.</div>
+        <div class="text-subtitle text-bold">Những lưu ý về bữa ăn:</div>
+        <div class="text-subtitle">Bữa ăn do iVIVU.com cung cấp được nấu từ nguyên liệu tuyển chọn, tươi ngon mỗi ngày, bữa ăn sau khi nấu được đóng gói cẩn thận & giao đến tay khách hàng trong ngày. Các bữa ăn từ iVIVU.com không sử dụng chất bảo quản thực phẩm cũng như không phải là bữa ăn đã đông lạnh sẵn. Vì thế, để đảm bảo chất lượng bữa ăn, khách hàng vui lòng sử dụng bữa ăn ngay trong ngày được giao.</div>
+       
+    </div>
+</ion-content>

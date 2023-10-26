@@ -1,0 +1,139 @@
+<ion-header class="installment-payment-header">
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col class="text-center">
+        <div  class="align-self-center" >
+          <div class="div-goback" (click)="goback()" >
+              <img class="img-goback" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="title-header"><label class="text-title">Trả góp 0%</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="installment-payment-content">
+    <img src="./assets/step/step_3.svg">
+    <div class="booking-info">
+      <div class="hotel-name">{{Name}}</div>
+
+      <div class="booking-info-detail">
+
+        <div class="div-img-left p-top-10">
+          <img class="img-left" src="{{Avatar}}">
+        </div>
+
+        <div class="div-content-right p-top-10">
+          <div>
+            <img class="img-date" src="./assets/imgs/ic_date.svg" > 
+            <ion-label class="p-left-6">{{cin}} → {{cout}}</ion-label>
+          </div>
+
+          <div>
+            <img class="img-people" src="./assets/imgs/ic_people.svg" > 
+            <ion-label class="p-left-6">{{adults}} người lớn | {{children}} trẻ em</ion-label>
+          </div>
+
+          <div>
+            <img class="img-food" src="./assets/ic_hoteldetail/ic_food_b.svg" > 
+            <ion-label class="p-left-6">{{nameroom}} | {{breakfast}}</ion-label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="div-price">
+      {{PriceAvgPlusTAStr}}đ
+    </div>
+
+    <div class="text-title p-top-16">Chọn ngân hàng trả góp</div>
+    <div class="div-bank">
+      <div [ngClass]=" (idx==0 || idx ==4 || idx == 8 || idx == 12 || idx == 16 || idx == 20 || idx == 24)? 'item-bank' : 'item-bank m-left-8' " *ngFor="let bank of banks; let idx = index" id={{bank.bankCode}} (click)="itemBankClick(bank)">
+        <div >
+          <img class="img-bank" *ngIf="bank.bankCode == 'SACOMBANK'" src="./assets/ic_bank/ic_SACOMBANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'HOMECREDIT'" src="./assets/ic_bank/ic_HOMECREDIT.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'BIDV'" src="./assets/ic_bank/ic_BIDV_1.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'TECHCOMBANK'" src="./assets/ic_bank/ic_TECHCOMBANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'HSBC'" src="./assets/ic_bank/ic_HSBC.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'SC'" src="./assets/ic_bank/ic_SC.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'FE'" src="./assets/ic_bank/ic_FE.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'CTB'" src="./assets/ic_bank/ic_CTB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'VPBANK'" src="./assets/ic_bank/ic_VPBANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'ACB'" src="./assets/ic_bank/ic_ACB_1.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'ANZ'" src="./assets/ic_bank/ic_ANZ.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'SHINHANBANK'" src="./assets/ic_bank/ic_SHINHANBANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'EXIMBANK'" src="./assets/ic_bank/ic_EXIMBANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'VIB'" src="./assets/ic_bank/ic_VIB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'SEABANK'" src="./assets/ic_bank/ic_SEABANK.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'TPB'" src="./assets/ic_bank/ic_TPB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'SCB'" src="./assets/ic_bank/ic_SCB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'NAB'" src="./assets/ic_bank/ic_NAB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'OCB'" src="./assets/ic_bank/ic_OCB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'KLB'" src="./assets/ic_bank/ic_KLB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'SHB'" src="./assets/ic_bank/ic_SHB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'VCB'" src="./assets/ic_bank/ic_VCB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'MB'" src="./assets/ic_bank/ic_MB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'BVB'" src="./assets/ic_bank/ic_BVB.png">
+          <img class="img-bank" *ngIf="bank.bankCode == 'VIETINBANK'" src="./assets/ic_bank/VIETINBANK.png">
+        </div>
+      </div>
+    </div>
+
+    <div class="text-title p-top-32" *ngIf="cards && cards.length >0">Chọn loại thẻ</div>
+    <div class="div-card p-top-6" *ngIf="cards && cards.length >0">
+      <div [ngClass]=" (idx==0)? 'item-card' : 'item-card m-left-8' " id={{card.paymentMethod}} *ngFor="let card of cards; let idx = index" (click)="itemCardClick(card)">
+        <div >
+          <img class="img-card" *ngIf="card.paymentMethod == 'VISA'" src="./assets/ic_bank/ic_VISA.png">
+          <img class="img-card" *ngIf="card.paymentMethod == 'JCB'" src="./assets/ic_bank/ic_JCB.png">
+          <img class="img-card" *ngIf="card.paymentMethod == 'MASTERCARD'" src="./assets/ic_bank/ic_MASTERCARD.png">
+        </div>
+      </div>
+    </div>
+
+    <div class="text-title p-top-32" *ngIf="periods && periods.length >0">Trả góp qua thẻ {{paymentMethod}} - {{bankCode}}</div>
+    <div class="div-option p-top-6" *ngIf="periods && periods.length >0">
+      <div [ngClass]="idx ==0 ? 'item-option' : 'item-option m-left-8'" id={{period.month}} *ngFor="let period of periods; let idx=index" (click)="itemPeriodClick(period)"><div class="div-month">{{ period.month }} tháng</div></div>
+    </div>
+    
+    <div *ngIf="periodSelected">
+      <div class="row-flex" >
+        <div class="col-flex border-right">
+          <div class="price-permonth">{{amountByMonth}}đ</div>
+          <div class="text-sub">Góp mỗi tháng</div>
+        </div>
+        <div class="col-flex">
+          <div class="price-text">{{amountFinal}}đ</div>
+          <div class="text-sub">Tổng tiền trả góp</div>
+        </div>
+      </div>
+      <div class="row-flex border-top">
+        <div class="col-flex border-right">
+          <div class="price-text">{{amountFee}}đ</div>
+          <div class="text-sub">Chênh lệch với trả thẳng</div>
+        </div>
+        <div class="col-flex">
+          <div class="price-text">{{PriceAvgPlusTAStr}}đ</div>
+          <div class="text-sub">Giá mua trả thẳng</div>
+        </div>
+      </div>
+    </div>
+    <div class="div-text-note">
+      <div>* Quý khách sẽ không được thay đổi hoặc huỷ đơn hàng vì bất kỳ lý do gì sau khi đơn hàng đã chuyển sang trả góp.</div>
+      <div class="p-top-16">
+        <span class="p-right-6"><ion-checkbox class="ion-checkbox" checked="true" (ionChange)="checknote($event)" ></ion-checkbox> </span>
+        <span >Tôi đồng ý với các điều khoản và điều kiện về đơn hàng trên website iVIVU.com</span>
+      </div>
+      
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <div *ngIf="ischeckNote" style="background-color: #ffffff; text-align: center;">
+    <button (click)="installment()" ion-button round outline class="button button2">Trả góp</button>
+  </div>
+  <div *ngIf="!ischeckNote" style="background-color: #ffffff; text-align: center;">
+    <button  ion-button round outline class="button btn-disabled">Trả góp</button>
+  </div>
+</ion-footer>

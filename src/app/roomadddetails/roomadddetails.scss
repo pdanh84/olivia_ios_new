@@ -1,0 +1,176 @@
+    .text{
+        font-size: 18px;
+        font-weight: bold
+    }
+    .button2
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 96%;
+        font-size: 18px !important;
+    } 
+    .button-installment
+    {
+        background: #ffffff;
+        color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 90%;
+        font-size: 14px !important;
+        letter-spacing: -0.4px;
+        padding: 0px;
+    } 
+    .button4
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 30%;
+        font-size: 12px;
+    }
+ 
+    .list-departure{
+        margin: 0;
+        display: inline-flex;
+    }
+
+    .rd-departure .radio-icon{
+        width: 12px;
+        height: 12px;
+    }
+   
+    .radio-md .radio-inner{
+        left: 1px;
+        top: 1px;
+        width: 6px;
+        height: 6px;
+    }
+    .radio-md .radio-checked {
+        border-color: #26bed6;
+    }
+    .toolbar-title-md {
+        text-align: center;
+        margin-right: 70px;
+      }  
+    .cls-label
+    {
+        color: #828282;
+        font-size: 14px;
+    }
+
+      
+      .label-name{
+          font-size: 14px;
+          font-weight: 300;
+          color: #828282;
+      }
+      .label-input{
+        font-size: 18px;
+        font-weight: 300;
+        color: #000000;
+
+        -webkit-user-select: auto !important;
+        -khtml-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        -o-user-select: auto !important;
+        user-select: auto !important;
+      }
+      .label-input-order{
+        font-size: 14px;
+        font-weight: 300;
+        color: #828282;
+        margin-left: 2px;
+      }
+
+      .div-title-other-request{
+        font-size: 18px;
+        font-weight: 600;
+        color: #000000;
+        padding-top: 30px;
+      }
+      .div-title-export-order{
+        font-size: 18px;
+        font-weight: 600;
+        color: #000000;
+        padding-top: 12px;
+      }
+
+      .text-sub{
+        margin: 0;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: -0.36px;
+      }
+      .div-button-flex{
+        display: flex;
+        width: 100%;
+      }
+     
+
+      .div-close-paxhint{
+        right: -6px;
+        position: absolute;
+        z-index: 14;
+        top: -0;
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .div-pax-hint{
+        padding: 16px 16px 0 16px;
+        width: 100%;
+        height: 128px;
+        overflow: scroll;
+
+        border-bottom: solid 2px #f2f2f2;
+
+        .d-flex{
+          display: flex;
+        }
+        .m-bottom-16{
+          margin-bottom: 16px;
+        }
+       // margin: 16px -16px;
+        .icon-pax{
+            margin-right: 12px;
+        }
+
+        .text-pax-hint{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #222222;
+        }
+    }
+    ::ng-deep {
+      .label-stacked.sc-ion-label-md-h {
+        transform: translateY(50%) scale(1) !important;
+      }
+      .native-input.sc-ion-input-md {
+        font-size: 18px;
+        font-weight: 300;
+        padding-bottom: 0;
+      }
+    }
+
+    .v-align-center {
+      display: flex;
+      align-items: center;
+    } 
+    .m-top-20 {
+      margin-top: 20px;
+    }
+    .div-check-namemail {
+      margin-top: 10px;
+      display: flex;
+
+      .ion-checkbox {
+        margin-right: 8px;
+      }
+    }

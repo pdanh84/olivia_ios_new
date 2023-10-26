@@ -1,0 +1,26 @@
+<ion-header>
+  <div class="border-bottom">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+            <img style="height: auto; padding: 14px;margin-left:-14px" src="./assets/imgs/ic_arrow_w.svg">
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="11">
+        <div *ngIf="!tourName" class="div-hotel-name">Video về {{hotelName}}</div>
+        <div *ngIf="tourName" class="div-tour-name">Video về {{tourName}}</div>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+<ion-content>
+    
+          
+  <div class="center">
+    <div class="div-video m-bottom-16">
+      <iframe width="100%" height="233" [src]="trustedVideoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</ion-content>

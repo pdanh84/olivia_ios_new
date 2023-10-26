@@ -1,0 +1,122 @@
+.login-header {
+  .div-goback{
+    margin-left: 6px;
+    z-index: 1;
+  }
+  
+  .header-img-back {
+    margin-top: 4px !important;
+    width: 32px;
+    margin-left: 4px;
+  }
+  .div-header-title {
+    margin-right: 36px;
+        position: relative !important;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+.d-flex {
+  display: flex;
+}
+    ion-item.item-ios {
+        padding-left: 0;
+      }
+      .passwordIcon{
+        font-size: 1.5rem !important;
+        position: relative !important;
+        top: 28px !important;
+        margin: 0 3px !important;
+     }
+    
+    .d-flex {
+      display: flex;
+    }
+    .div-content-register {
+      padding: 16px;
+      background-color: #ffffff;
+      .cls-grid {
+        padding: 0;
+      }
+      .no-padding {
+        padding: 0;
+      }
+        .text-label {
+          font-size: 16px;
+          text-align: left;
+          color: #828282;
+        }
+        .text-label-14 {
+          font-size: 14px;
+          text-align: left;
+          color: #828282;
+        }
+        .cls-invalid {
+          background: #828282 !important;
+          opacity: 0.5;
+      }
+    }
+      ion-item{
+          --background: initial;
+          --border-color: #fff;
+      }
+      .text-button{
+        border-color: #f79221;
+        color: #ffffff;
+        background: #f79221;
+        height: 48px;
+        text-transform: none;
+        font-size: 18px !important;
+        border-radius: 4px !important;
+        text-align: center;
+        width: 100%;
+        margin: 12px 0;
+      }
+    .button-outline {
+      --border-color:#ffffff;
+      --border-width: 1px;
+      --border-style: solid;
+    }
+    .div-go-back{
+      position: absolute;
+      top: 16px;
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      z-index: 1;
+    }
+    .text-color
+    {
+      color:#3f3b3b;
+    }
+    .passwordIcon[_ngcontent-c0] {
+      font-size: 2rem !important;
+      position: relative !important;
+      top: 36px !important;
+      margin: 0 auto !important;
+      opacity: 0.8;
+  }
+  .ion-item
+  {
+    --padding-start: 0px;
+    --inner-border-width: 0 0 0px 0;
+    width: 108%;
+    margin-top: 5px;
+    // margin-left: 10px;
+  }
+  .img-pass{
+    position: absolute;
+    right: 0px;
+    bottom: 8px;
+    color: #fff;
+  }
+
+  .div-button-register {
+    text-align: center;
+      width: 100%;
+  }
+  

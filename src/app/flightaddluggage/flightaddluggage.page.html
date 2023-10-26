@@ -1,0 +1,191 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title">
+          <div class="div-title">Thêm hành lý ký gửi</div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-segment [(ngModel)]="tabluggage" class="div-segment"  mode="md">
+      <ion-segment-button (click)="SelectTab(1)" mode="md" style="text-transform: inherit;" value="1" >
+        Chiều đi
+        </ion-segment-button>
+        <ion-segment-button (click)="SelectTab(2)" mode="md" style="text-transform: inherit;" value="2" *ngIf="roundtrip">
+        Chiều về
+        </ion-segment-button>
+      </ion-segment>
+  </ion-row>
+
+</ion-header>
+  <ion-content #scrollFlightAddLuggage>
+    <div class="content-flightaddluggage">
+      <swiper-container #slideTab (slidechange)="slidetabchange()" [options]="slideOpts">
+        <!-- Chiều đi -->
+        <swiper-slide style="display: block;" *ngIf="(departLuggage && departLuggage.length>0) else nodepartluggage">
+          <div *ngIf="departLuggage && departLuggage.length>0 && _flightService.itemFlightCache.adults && _flightService.itemFlightCache.adults.length >0">
+            <div class=" m-top-16" *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
+              <div class="text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
+              
+              <div class="d-flex div-wrap-item-luggage">
+                <div id="itemluguc_adult_{{idxa}}" [ngClass]="emptyAdultLug ? 'div-item-notselected div-item-luggage selected' : 'div-item-notselected div-item-luggage '" (click)="unchoiceLug(itemAdult, idxa, 1, true)">
+                  <div class="div-lug-name">Không có</div>
+                  <div class="div-lug-weight">0 đ</div>
+                </div>
+                <div *ngFor="let lug of departLuggage; let idx = index" (click)="choiceLuggage(itemAdult, lug, idx, idxa, 1, true)">
+                  <div id="itemlug_adult_{{idxa}}" [ngClass]="itemAdult.itemLug && itemAdult.indexLugSelected == idx ? 'd-flex div-item-luggage selected' : 'd-flex div-item-luggage'" *ngIf="lug.weight >0" >
+                      <div class="div-lug-name">{{lug.weight}} kg <span class="text-normal" *ngIf="lug.title.indexOf('Oversize') != -1"> (HLQK)</span></div>
+                      <div class="div-lug-weight">{{lug.priceshow}}</div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+            <div *ngIf="_flightService.itemFlightCache.childs && _flightService.itemFlightCache.childs.length >0">
+              <div class=" m-top-16" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
+                <div *ngIf="!itemChild.isInfant else divinfant">
+                  <div class="text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                  <div class="d-flex div-wrap-item-luggage">
+                    <div id="itemluguc_child_{{idxc}}" [ngClass]="emptyChildLug ? 'div-item-notselected div-item-luggage selected' :'div-item-notselected div-item-luggage '" (click)="unchoiceLug(itemChild, idxc, 2, true)">
+                      <div class="div-lug-name">Không có</div>
+                      <div class="div-lug-weight">0 đ</div>
+                    </div>
+                    <div *ngFor="let lug of departLuggage; let idx = index" (click)="choiceLuggage(itemChild, lug, idx, idxc, 2, true)" >
+                      <div id="itemlug_child_{{idxc}}" [ngClass]="itemChild.itemLug && itemChild.indexLugSelected == idx ? 'd-flex div-item-luggage selected' : 'd-flex div-item-luggage'" *ngIf="lug.weight >0" >
+                          <div class="div-lug-name">{{lug.weight}} kg  <span class="text-normal" *ngIf="lug.title.indexOf('Oversize') != -1"> (HLQK)</span></div>
+                          <div class="div-lug-weight">{{lug.priceshow}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <ng-template #divinfant>
+                  <div class="text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                  <div class="m-top-8 text-normal">Trẻ sơ sinh không đặt hành lý</div>
+                </ng-template>
+                
+              </div>
+            </div>
+            
+          
+        </div>
+        </swiper-slide>
+        <ng-template #nodepartluggage>
+          <swiper-slide style="display: block;" *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && departLuggage.length ==0 && !_flightService.itemFlightCache.isApiDirect)">
+            <div class="div-empty text-center">
+              <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+            </div>
+            <div class="div-text-empty text-center div-width-100 m-top-16">Đã bao gồm trong vé máy bay ({{ departConditionInfo.luggageSigned }} kg/1 khách).</div>
+          </swiper-slide>
+
+          <swiper-slide style="display: block;" *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 && departLuggage.length ==0 && _flightService.itemFlightCache.isApiDirect)">
+            <div class="div-empty text-center">
+              <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+            </div>
+            <div class="div-text-empty text-center div-width-100 m-top-16">Đã bao gồm trong vé máy bay ({{ departConditionInfo.luggageSigned }}).</div>
+          </swiper-slide>
+
+            <swiper-slide style="display: block;" *ngIf="(departConditionInfo && !departConditionInfo.luggageSigned && departLuggage.length ==0)">
+              <div class="div-empty text-center">
+                <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+              </div>
+              <div class="div-text-empty text-center div-width-100 m-top-16">Không được phép mua hành lý.</div>
+            </swiper-slide>
+        </ng-template>
+        <!-- Chiều về -->
+        <swiper-slide style="display: block;" *ngIf="(returnLuggage && returnLuggage.length>0)  else noreturnluggage">
+          <div *ngIf="returnLuggage && returnLuggage.length>0 && _flightService.itemFlightCache.adults && _flightService.itemFlightCache.adults.length >0">
+            <div class=" m-top-16" *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
+              <div class="text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
+              
+              <div class="d-flex div-wrap-item-luggage">
+                <div id="itemluguc_return_adult_{{idxa}}" [ngClass]="emptyAdultLugReturn ? 'div-item-notselected div-item-luggage selected' : 'div-item-notselected div-item-luggage'" (click)="unchoiceLug(itemAdult, idxa, 1, false)">
+                  <div class="div-lug-name">Không có</div>
+                  <div class="div-lug-weight">0 đ</div>
+                </div>
+                <div *ngFor="let lug of returnLuggage; let idx = index" (click)="choiceLuggage(itemAdult, lug, idx, idxa, 1, false)">
+                  <div id="itemlug_return_adult_{{idxa}}" [ngClass]="itemAdult.itemLugReturn && itemAdult.indexLugReturnSelected == idx ? 'd-flex div-item-luggage selected' : 'd-flex div-item-luggage'" *ngIf="lug.weight >0" >
+                      <div class="div-lug-name">{{lug.weight}} kg <span class="text-normal" *ngIf="lug.title.indexOf('Oversize') != -1"> (HLQK)</span></div>
+                      <div class="div-lug-weight">{{lug.priceshow}}</div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div *ngIf="_flightService.itemFlightCache.childs && _flightService.itemFlightCache.childs.length >0">
+              <div class=" m-top-16" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
+                <div *ngIf="!itemChild.isInfant else divinfant">
+                  <div class="text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                  <div class="d-flex div-wrap-item-luggage">
+                    <div id="itemluguc_return_child_{{idxc}}" [ngClass]="emptyChildLugReturn ? 'div-item-notselected div-item-luggage selected' : 'div-item-notselected div-item-luggage' " (click)="unchoiceLug(itemChild, idxc, 2, false)">
+                      <div class="div-lug-name">Không có</div>
+                      <div class="div-lug-weight">0 đ</div>
+                    </div>
+                    <div *ngFor="let lug of returnLuggage; let idx = index" (click)="choiceLuggage(itemChild, lug, idx, idxc, 2, false)" >
+                      <div id="itemlug_return_child_{{idxc}}" [ngClass]="itemChild.itemLugReturn && itemChild.indexLugReturnSelected == idx ? 'd-flex div-item-luggage selected' : 'd-flex div-item-luggage'" *ngIf="lug.weight >0" >
+                          <div class="div-lug-name">{{lug.weight}} kg  <span class="text-normal" *ngIf="lug.title.indexOf('Oversize') != -1"> (HLQK)</span></div>
+                          <div class="div-lug-weight">{{lug.priceshow}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <ng-template #divinfant>
+                  <div class="text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                  <div class="m-top-8 text-normal">Trẻ sơ sinh không đặt hành lý</div>
+                </ng-template>
+                
+              </div>
+            </div>
+            
+          
+        </div>
+         
+          </swiper-slide>
+          <ng-template #noreturnluggage>
+            <swiper-slide style="display: block;" *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && returnLuggage.length == 0 && !_flightService.itemFlightCache.isApiDirect)">
+              <div class="div-empty text-center">
+                <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+              </div>
+              <div class="div-text-empty text-center div-width-100 m-top-16">Đã bao gồm trong vé máy bay ({{ returnConditionInfo.luggageSigned }} kg/1 khách).</div>
+            </swiper-slide>
+
+            <swiper-slide style="display: block;" *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0 && returnLuggage.length == 0 && _flightService.itemFlightCache.isApiDirect) ">
+              <div class="div-empty text-center">
+                <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+              </div>
+              <div class="div-text-empty text-center div-width-100 m-top-16">Đã bao gồm trong vé máy bay ({{ returnConditionInfo.luggageSigned }}).</div>
+            </swiper-slide>
+              
+                <swiper-slide style="display: block;" *ngIf="(returnConditionInfo && !returnConditionInfo.luggageSigned && returnLuggage.length ==0)">
+                  <div class="div-empty text-center">
+                    <img class="img-empty-lug" src="./assets/ic_flight/luggage_empty.svg">
+                  </div>
+                  <div class="div-text-empty text-center div-width-100 m-top-16">Không được phép mua hành lý.</div>
+                </swiper-slide>
+          </ng-template>
+      </swiper-container>
+    </div>
+  </ion-content>
+  <ion-footer>
+    <div class="div-footer d-flex-footer">
+      <div class="div-total">
+        <div class="d-flex-footer text-sub-total" *ngIf="(departLuggage && departLuggage.length>0) || (returnLuggage && returnLuggage.length>0)">
+          <div *ngIf="(departLuggage && departLuggage.length>0) || (returnLuggage && returnLuggage.length>0)">Hành lý mua thêm</div>
+        </div>
+        <div class="text-total" *ngIf="totalprice >0">{{totalpricedisplay}} 
+      </div>
+      </div>
+      <div class="div-button">
+        <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+      </div>
+    </div>
+  </ion-footer>
+  

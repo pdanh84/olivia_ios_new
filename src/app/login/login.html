@@ -1,0 +1,81 @@
+<ion-header class="login-header">
+  <ion-toolbar>
+    <div class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+          <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+        <div class="div-header-title">
+          <div  class="div-title">Đăng nhập</div>
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-content">
+
+  <div class="p-all-16" >
+    <div class="m-top-logo">
+      <img class="img-logo" src="./assets/logo/ivv_logo.png" />
+    </div>
+
+    <ion-grid class="no-padding m-top-32">
+      <ion-row justify-content-around>
+        <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3 align-self-center class="no-padding">
+          <form  [formGroup]="loginData" >
+              <ion-item style="--padding-start: 0px;--background-focused: #fff;">
+              <ion-label class="text-input m-bottom-8" position="stacked">Số điện thoại hoặc email</ion-label>
+              <ion-input  #user  clearInput type="text" class="text-input bg-white" [(ngModel)]="emailorphone" formControlName="emailorphone" autofocus></ion-input>
+            </ion-item>
+            <ion-item style="--padding-start: 0px;--background-focused: #fff;">
+              <ion-label class="text-input m-bottom-8"position="stacked">Mật khẩu</ion-label>
+              <ion-input clearInput type="password" class="text-input bg-white" [(ngModel)]="password" formControlName="password"></ion-input>
+            </ion-item>
+            <div class="div-forgotpass m-top-16">
+              <label (click)="resetpassword()">
+                Quên mật khẩu
+            </label>
+            </div>
+            <div class="div-button m-top-24">
+              <button (click)="next()" class="button btn-login">Đăng nhập</button>
+            </div>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <div class="div-other-login m-top-24 d-flex">
+      <div class="cls-border div-left"></div>
+      <div class="text-normal">Hoặc là</div>
+      <div class="cls-border div-right"></div>
+    </div>
+    <div class="m-top-32">
+
+      <div class="div-btn-other-login">
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/sms.svg" /></div>
+        <button shape="round" fill="outline"  (click)="logintksms()"  class="button text-button">Đăng nhập bằng SMS</button >
+      </div>
+      <div class="div-btn-other-login m-top-12">
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Facebook.svg" /></div>
+        <button ion-button round (click)="loginfb()" class="button text-button button-fb">
+          Đăng nhập bằng Facebook
+        </button>
+      </div>
+<!--       
+      <div class="div-btn-other-login m-top-12">
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Google.svg" /></div>
+        <button ion-button round (click)="logingg()" class="button text-button button-gg">
+          Đăng nhập bằng Google
+        </button>
+      </div> -->
+
+      <div class="div-btn-other-login m-top-12">
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Apple.svg" /></div>
+        <button shape="round" fill="outline"  (click)="loginapple()"  class="button text-button btn-apple">Đăng
+          nhập bằng Apple</button >
+      </div>
+      
+    </div>
+   
+  </div>
+</ion-content>

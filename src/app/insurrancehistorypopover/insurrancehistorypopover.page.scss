@@ -1,0 +1,31 @@
+.text-bhcd
+{
+    margin-left: 11px;
+    margin-top: 16px;
+    font-size: 14px;
+}
+.text-bhtn
+{
+    color: #000000;
+    margin-left: 11px;
+    margin-top: 22px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+.had-claimed{
+    opacity: 0.3;
+}
+.img-support{
+    padding-right: 8px;
+}
+.p-top-8{
+    padding-top: 8px;
+}
+::ng-deep{
+    .popover-history .popover-content.sc-ion-popover-md {
+        width: 258px;
+    }
+    .had-claimed .action-sheet-button-inner.sc-ion-action-sheet-md{
+        opacity: 0.3;
+    }
+}

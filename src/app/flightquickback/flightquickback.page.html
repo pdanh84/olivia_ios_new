@@ -1,0 +1,29 @@
+
+
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-button-close" (click)="close()">
+            <div class="div-text-close">
+              <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+            </div>
+        </div>
+          <div class="div-header-title">
+                <div class="div-text-version">{{ currentVersion }}</div>
+          </div>
+
+        
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content >
+      <div class="flight-changeinfo-content">
+        <div class="m-bottom-24 div-text-close" (click)="goToHomePage(1)">Về trang chủ khách sạn</div>
+        <div class="m-bottom-24 div-text-close" (click)="goToHomePage(2)">Về trang chủ vé máy bay</div>
+        <div class="m-bottom-24 div-text-close" (click)="goToHomePage(3)">Về trang chủ bữa trưa</div>
+        <div class="m-bottom-24 div-text-close" (click)="close()">Chia sẻ kết quả này</div>
+      </div>
+  </ion-content>

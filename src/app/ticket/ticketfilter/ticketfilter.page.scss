@@ -1,0 +1,126 @@
+.flightpage-header .m-top-5{
+    margin-top: 5px !important;
+}
+.padding-all{
+    padding: 14px 24px;
+}
+.text-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #3f3b3b;
+}
+.cls-input-search{
+    margin-left: 12px;
+    font-size: 16px;
+    color: #9c9eab;
+}
+.cls-input-search-text{
+    margin-left: 12px;
+    font-size: 16px;
+    width: 85%;
+}
+.div-search{
+    border: solid 0.5px #bdbdbd;
+    border-radius: 6px;
+    height: 42px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333333;
+    background: #ffffff;
+}
+.img-search{
+    position: absolute;
+    top: 8%;
+    color: #ffffff;
+    right: 34px;
+}
+
+.div-line{
+    height: 8px;
+    background-color: #ecf0f5;
+    margin-left: -24px;
+    margin-right: -24px;
+}
+.m-top-5{
+    margin-top: 5px;
+}
+.m-top-12{
+    margin-top: 12px;
+}
+.m-top-21{
+    margin-top: 21px;
+}
+.m-top-11{
+    margin-top: 11px;
+}
+.m-top-13{
+    margin-top: 13px;
+}
+.m-top-16{
+    margin-top: 16px;
+}
+.m-bottom-16{
+    margin-bottom: 16px;
+}
+.m-left-4{
+    margin-left: 4px;
+}
+.m-left-39{
+    margin-left: 39px;
+}
+.d-flex{
+    display: flex;
+}
+.text-normal{
+    font-size: 16px;
+    color: #3f3b3b;
+    align-self: end;
+}
+.img-updown{
+    position: absolute;
+    right: 24px;
+    width: 16px;
+}
+.cls-checkbox{
+    width: 24px;
+    height: 24px;
+    --border-width: 1px;
+}
+.div-flightfilter-footer{
+    background-color: #ffffff; text-align: center; display: flex;
+    .div-button-flex{
+        display: flex;
+        width: 100%;
+      }
+      .button-filter
+      {
+          background: #ff9500;
+          color: #ffffff;
+          border-color: #ff9500;
+          width: 100%;
+          font-size: 16px !important;
+          letter-spacing: -0.6px;
+          padding: 0;
+          margin-right: 8px;
+      } 
+      .button-clear
+      {
+          background: #ffffff;
+          color: #ff9500;
+          border: solid 1px #ff9500;
+          width: 90%;
+          font-size: 16px !important;
+          letter-spacing: -0.4px;
+          margin: 8px 0 8px 8px;
+      } 
+
+      
+  }
+  .img-location{
+    width: 16px;
+    height: 16px;
+  }
+// .custom-checkbox::part(checkmark) {
+//     border: 0.5px solid #b2b3bd; /* Đổi màu và độ dày viền tùy ý */
+// }
+ 

@@ -1,0 +1,173 @@
+
+.d-flex {
+    display: flex;
+}
+.m-t-12 {
+    margin-top: 12px;
+}
+.m-t-6 {
+    margin-top: 6px;
+}
+.m-t-8 {
+    margin-top: 8px;
+}
+.m-r-12{
+    margin-right: 12px;
+}
+.content-background {
+    --background: #f9fbfc;
+}
+
+.button-detail
+      {
+        background: #ffffff;
+        color: #f59233;
+        border: solid 1px #f59233;
+        width: 90%;
+        font-size: 17px !important;
+        letter-spacing: -0.4px;
+        margin: 8px 8px 8px 16px;
+      } 
+      .button-purchase
+      {
+        background: #f59233;
+        color: #ffffff;
+        border-color: #f59233;
+        width: 100%;
+        font-size: 17px !important;
+        letter-spacing: -0.6px;
+        padding: 0;
+        margin: 8px 16px 8px 0px;
+          
+      } 
+
+
+.div-company-info-content{
+    padding: 16px;
+    background: #fff;
+
+    .div-split-panel {
+        height: 8px;
+        margin: 16px -16px;
+        background-color: #f9fbfc;
+    }
+    .div-title{
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.4;
+        text-align: left;
+        color: #333;
+    }
+
+    .div-change-info {
+        margin: 0 -8px;
+        padding: 4px 8px;
+        background-color: #f9fbfc;
+        
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: left;
+        color: #868998;
+    }
+
+    .cls-label {
+        font-size: 13px;
+        line-height: 1.4;
+        text-align: left;
+        color: #828282;
+    }
+
+    .cls-text {
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: left;
+        color: #333;
+    }
+
+    .div-total-balance {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.4;
+        text-align: left;
+        color: #333;
+    }
+
+    .div-balance{
+        margin-right: 8px;
+    }
+    .div-width-100 {
+        width: 100%;
+    }
+    .div-button{
+        text-align: right;
+    }
+    .img-info{
+        width: 16px;
+        max-width: initial !important;
+        margin-right: 6px;
+        position: absolute;
+        margin-top: 1px;
+    }
+
+    
+      .div-transaction-history{
+          background-color: #f9fbfc;
+          padding: 16px;
+          margin: 16px -16px;
+
+          .div-button-item {
+            margin: 0 13px 1px 0;
+            padding: 8px 20px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            border: solid 1px #cccccc;
+            color: #333;
+            font-size: 14px;
+          }
+
+          .div-button-item.btn-active {
+            border: solid 1px #26bed6 !important;
+            background-color: #26bed6 !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+            
+          }
+          
+      }
+
+      .div-item-transaction{
+        background-color: #ffffff;
+        margin: 8px 0px;
+        padding: 8px 8px 9px;
+        }
+        .cls-even{
+        background-color: #f9fbfc !important;
+        
+        }
+      .cls-bold{
+        font-weight: 600 !important;
+    }
+
+    .cls-text-sub{
+        font-size: 12px;
+        line-height: 1.2;
+        text-align: left;
+        color: #868998;
+    }
+    .text-right{
+        text-align: right;
+    }
+    .f-12{
+        font-size: 12px !important;
+    }
+
+    .div-transaction-history-list{
+        margin: 0 -8px;
+        height: 290px;
+        overflow: scroll;
+    }
+
+    .text-info{
+        padding-left: 20px;
+    }
+}

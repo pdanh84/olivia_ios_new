@@ -1,0 +1,55 @@
+
+.d-flex{
+    display: flex;
+}
+.div-title{
+    font-size: 18px !important;
+    position: relative;
+    padding: 0 40px;
+    line-height: 1.2 !important;
+}
+
+.flighttopdealdetailpage-content{
+
+    .p-16{
+        padding: 16px;
+    }
+    .p-top-8{
+        padding-top: 8px;
+    }
+
+    .text-content{
+        font-size: 14px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #333333;
+
+        .text-seemore{
+            letter-spacing: -0.14px;
+            color: #2f80ed;
+            text-decoration: underline;
+        }
+    }
+}
+
+.div-flighttopdealdetail-footer{
+    background-color: #ffffff; text-align: center; display: flex;
+    .div-button-flex{
+        display: flex;
+        width: 100%;
+      }
+      .button-book
+      {
+          background: #f59233;
+          color: #ffffff;
+          border-color: #f59233;
+          width: 100%;
+          font-size: 17px !important;
+          padding: 0;
+          margin: 8px 16px;
+      } 
+      
+  }

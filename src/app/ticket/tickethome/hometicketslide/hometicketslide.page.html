@@ -1,0 +1,176 @@
+<div class="div-itemtourslide div-itemticketslide">
+  <div *ngIf="loadslidedatadone else loadskslide">
+      <div *ngIf="slideData.length >0">
+            <div *ngFor="let itemSlide of slideData; let idx = index;" [ngClass]=" (idx%2) == 0 ? 'cls-itemtour-color' : 'cls-odd'">
+              <div class="title-padding p-left-16 p-right-48 p-top-16 position-relative" *ngIf="itemSlide.topicName" >
+                <ion-label class="text-title2">
+                  {{ itemSlide.topicName }}
+                </ion-label>
+                <div class="sub-title" *ngIf="itemSlide.abbreviation">
+                  <ion-label class="text-subtitle">
+                  {{itemSlide.abbreviation}}
+                  </ion-label>
+                </div>
+                <div class="text-seemore" *ngIf="itemSlide.topicName && itemSlide.experienceHomeModels.length > 1" (click)="showTicketList(itemSlide)">
+                  <img src="../../../../../assets/ic_tour/viewall.svg" />
+                </div>
+              </div>
+              <div  (scroll)="onScroll($event, idx)"
+                class="slide2-scroll item-ticketslide-scroll-{{idx}}"
+                *ngIf="itemSlide && itemSlide.experienceHomeModelsDisplay && itemSlide.experienceHomeModelsDisplay.length >0">
+                <div 
+                    (click)="showDetail(slide)"
+                    [ngClass]="idx == 0 ? 'cls-deal position-relative' : 'cls-deal m-l-16 position-relative' "
+                    *ngFor="let slide of itemSlide.experienceHomeModelsDisplay; let idx = index">
+                    <div class="div-wrap-deal"> 
+                      <div class="div-wrap-image">
+                        <img class="slide2 img" [src]="slide.avatarLink" />
+                        <div class="float-promo" *ngIf="slide.promotionTitle && slide.promotionTitle.length >0">
+                          <p class="float-promo-description">
+                            {{ slide.promotionTitle }}
+                          </p>
+                        </div>
+                      </div>
+                      <div [ngClass]="itemSlide.hasTopSale ? 'float-info min-height-186' : 'float-info'">
+                        <div class="div-hotel-name">
+                          <h2 class="hotel-name">
+                            {{ slide.experienceName }}
+                          </h2>
+                        </div>
+                      
+        
+                          <div [ngClass]="slide.numberOfBooking>0?'text-point-des m-h-20 m-top-8':'text-point-des m-h-20 m-top-8 m-bottom-45'" *ngIf="slide.avgPoint else noavgPoint">
+                          <div class="div-badge">
+                              <div class="text-point">{{slide.avgPoint}}</div>
+                              <div class="text-point-des" *ngIf="slide.avgPointStr">{{slide.avgPointStr}}</div>
+                              <div  *ngIf="slide.numOfReview"> | <span class="text-comment">{{slide.numOfReview}} đánh giá</span></div>
+                          </div>
+                        </div>
+                        <ng-template #noavgPoint>
+                          <div [ngClass]="slide.numberOfBooking>0?'text-point-des m-h-20 m-top-8':'text-point-des m-h-20 m-top-8 m-bottom-45'"></div>
+
+                        </ng-template>
+                      
+                      <div class="d-flex m-top-8 div-button-sale" *ngIf="slide.numberOfBooking>0">
+                        <ion-label class="text-topsale">{{slide.numberOfBooking}} khách đặt trong 24 giờ qua</ion-label>
+                      </div>
+                        <div class="cls-price" *ngIf="slide.salePrice > 0"><span class="text-giatu">Giá từ </span>{{ gf.convertNumberToString(slide.salePrice) }}đ</div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <!-- <div *ngIf="showloadmore" class="div-loadmore">
+                    <ion-spinner
+                      name="bubbles"
+                      class="spinner-bubbles hydrated"
+                    ></ion-spinner>
+                  </div> -->
+                  <div class="cls-deal m-l-16 position-relative" *ngIf="itemSlide.pageIndex < itemSlide.totalPage">
+                    <ion-skeleton-text animated style="width:278px;margin-right: 16px;height: 326px;border-radius: 6px;"></ion-skeleton-text>
+                  </div>
+                  
+              </div>
+            </div>
+          </div>
+  </div>
+    
+    <ng-template #loadskslide>
+      <div *ngFor="let itemSlide of arrsk; let idx = index;" [ngClass]=" (idx%2) == 0 ? 'cls-itemtour-color' : 'cls-odd'">
+        <div class="title-padding p-left-16 p-right-48 p-top-16 position-relative" >
+          <ion-skeleton-text animated style="width:80%;height: 24px;border-radius: 4px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:60%;height: 18px;border-radius: 4px;margin-top:8px"></ion-skeleton-text>
+          <div class="text-seemore">
+            <ion-skeleton-text animated style="width:32px;height: 32px;border-radius: 6px;"></ion-skeleton-text>
+          </div>
+        </div>
+
+        <div class="slide2-scroll div-width-200 m-top-16">
+          <ion-skeleton-text animated style="width:278px;margin-right: 16px;height: 326px;border-radius: 6px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:278px;margin-right: 16px;height: 326px;border-radius: 6px;"></ion-skeleton-text>
+        </div>
+      </div>
+    </ng-template>
+
+    <div *ngIf="slidePopular" class="cls-itemtour-bkgwhite">
+      <div class="title-padding p-left-16 p-top-30" *ngIf="slidePopular">
+        <ion-label class="text-title2 f-22">
+          Các điểm đến hàng đầu
+        </ion-label>
+      </div>
+      <div class="sub-title p-left-16" *ngIf="slidePopularVN && slidePopularVN.length >0">
+        <ion-label class="text-subtitle f-16">
+          Hành trình đáng giá đang chờ đợi
+        </ion-label>
+      </div>
+      <div class="d-flex p-all-16" *ngIf="slidePopularVN && slidePopularVN.length >0">
+        <div class="div-col1">
+          <div class="div-item m-right-8" *ngIf="slidePopularVN.vertical" (click)="showRegionList(slidePopularVN.vertical)">
+            <div class="div-item-image"><img class="item-img h-296" [src]="slidePopularVN.vertical.avatarLink" /></div>
+            <div class="div-item-text">{{slidePopularVN.vertical.name}}</div>
+          </div>
+        </div>
+        <div class="div-col2 ">
+          <div class="div-col2-row1 d-flex">
+            <div class="div-item m-right-8 m-bottom-4 width-50" *ngIf="slidePopularVN.horizontals[0]" (click)="showRegionList(slidePopularVN.horizontals[0],0)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopularVN.horizontals[0].avatarLink" /></div>
+              <div class="div-item-text">{{slidePopularVN.horizontals[0].name}}</div>
+            </div>
+            <div class="div-item m-bottom-4 width-50" *ngIf="slidePopularVN.horizontals[1]" (click)="showRegionList(slidePopularVN.horizontals[1],0)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopularVN.horizontals[1].avatarLink" /></div>
+              <div class="div-item-text">{{slidePopularVN.horizontals[1].name}}</div>
+            </div>
+          </div>
+          <div class="div-col2-row2 d-flex">
+            <div class="div-item m-right-8 m-bottom-4 width-50" *ngIf="slidePopularVN.horizontals[2]" (click)="showRegionList(slidePopularVN.horizontals[2],0)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopularVN.horizontals[2].avatarLink" /></div>
+            <div class="div-item-text">{{slidePopularVN.horizontals[2].name}}</div>
+            </div>
+            <div class="div-item m-bottom-4 width-50" *ngIf="slidePopularVN.horizontals[3]" (click)="showRegionList(slidePopularVN.horizontals[3],0)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopularVN.horizontals[3].avatarLink" /></div>
+            <div class="div-item-text">{{slidePopularVN.horizontals[3].name}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="slidePopular" class="cls-itemtour-bkgwhite">
+      <div class="title-padding p-left-16 p-top-30" *ngIf="slidePopular&& slidePopular.length >0">
+        <ion-label class="text-title2 f-22">
+          Điểm đến yêu thích ở nước ngoài
+        </ion-label>
+      </div>
+      <div class="sub-title p-left-16" *ngIf="slidePopular&& slidePopular.length >0">
+        <ion-label class="text-subtitle f-16">
+          Một ngôn ngữ mới, một văn hóa mới
+        </ion-label>
+      </div>
+      <div class="d-flex p-all-16" *ngIf="slidePopular&& slidePopular.length >0">
+       
+        <div class="div-col2 ">
+          <div class="div-col2-row1 d-flex">
+            <div class="div-item m-bottom-4 width-100" *ngIf="slidePopular.horizontals[0]" (click)="showRegionList(slidePopular.horizontals[0],1)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopular.horizontals[0].avatarLink" /></div>
+              <div class="div-item-text">{{slidePopular.horizontals[0].name}}</div>
+            </div>
+          </div>
+          <div class="div-col2-row2 d-flex">
+            <div class="div-item m-right-8 m-bottom-4 width-50" *ngIf="slidePopular.horizontals[1]" (click)="showRegionList(slidePopular.horizontals[1],1)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopular.horizontals[1].avatarLink" /></div>
+            <div class="div-item-text">{{slidePopular.horizontals[1].name}}</div>
+            </div>
+            <div class="div-item m-bottom-4 width-50" *ngIf="slidePopular.horizontals[2]" (click)="showRegionList(slidePopular.horizontals[2],1)">
+              <div class="div-item-image"><img class="item-img h-144" [src]="slidePopular.horizontals[2].avatarLink" /></div>
+            <div class="div-item-text">{{slidePopular.horizontals[2].name}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="div-col1">
+          <div class="div-item m-left-8" *ngIf="slidePopular.vertical" (click)="showRegionList(slidePopular.vertical,1)">
+            <div class="div-item-image"><img class="item-img h-296" [src]="slidePopular.vertical.avatarLink" /></div>
+            <div class="div-item-text">{{slidePopular.vertical.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

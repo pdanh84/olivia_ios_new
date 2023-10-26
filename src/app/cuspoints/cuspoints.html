@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+          <div style="align-self: center" >
+          <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">iVIVUPoint</label></div>
+          </div>
+      </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="cuspoint-content ion-padding-16">
+  <div class="div-point" *ngIf="expPointNowYear>0">
+    <div>
+     <span class="text-point-32">{{expPointNowYear}}</span> <span class="text-point-16"> điểm khả dụng</span>
+    </div>
+    <div>
+      <span class="text-date">{{expPointNowYear}} điểm sẽ hết hạn vào</span>  <span class="text-date font-weight-600"> {{currentYear}}</span> 
+    </div>
+  </div>
+  <div class="div-point" *ngIf="expPointNextYear>0">
+    <div>
+     <span class="text-point-32">{{expPointNextYear}}</span> <span class="text-point-16"> điểm khả dụng</span>
+    </div>
+    <div>
+      <span class="text-date">{{expPointNextYear}} điểm sẽ hết hạn vào</span>  <span class="text-date font-weight-600"> {{currentNextYear}}</span> 
+    </div>
+  </div>
+  <div class="text-title m-bottom-16">
+    Lịch sử điểm
+  </div>
+  <div *ngFor="let item of actionHistory">
+    <ion-row >
+      <ion-col text-left size="10" class="padding-0">
+        <label class="text-limit-2">
+          {{item.contentNote}}
+        </label>
+        <label class="text-date">
+          {{item.date}}
+        </label>
+      </ion-col>
+      <ion-col text-right size="2" class="padding-0">
+        <label *ngIf="item.unitPoint>0" class="text-plus">
+          +{{item.unitPoint}}
+        </label>
+        <label *ngIf="item.unitPoint<0" class="text-subtraction">
+          {{item.unitPoint}}
+        </label>
+      </ion-col>
+    </ion-row>
+    <ion-row style="border-bottom:solid 1px #ccc;margin: 10px 0px;"></ion-row>
+  </div>
+</ion-content>

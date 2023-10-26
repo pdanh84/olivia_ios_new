@@ -1,0 +1,55 @@
+<ion-header class="header-infobkg">
+  <ion-toolbar class="toolbar-infobkg">
+    <div class="btn-close div-close" (click)="closeModal()">
+      <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </div>
+        <ion-title class="title-infobkg">Thông tin đặt phòng</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-infobkg ion-padding-16">
+  <div>
+      <div class="cls-row" (touchend)="openPickupCalendar()">
+        <div class="div-img-left p-0">
+            <img class="img-padding img-checkin" src="./assets/imgs/icon_calender.svg">
+        </div>
+
+        <div class="col-calendar">
+          <div class="font-thu"> 
+            <label class="text-color text-cinthu">Nhận phòng</label>
+          </div>
+          <div class="text-cin  m-top-5">
+            <label class="text-cin-input">{{cinthu}}, {{cindisplay}}</label>
+          </div>
+        </div>
+
+        <div class="number-night">
+          <div class="div-night-count">{{nightCount}}</div> <div class="div-icon-moon"><img class="img-moon" src="./assets/imgs/ic_moon.svg"></div> 
+        </div>
+
+        <div class="col-calendar">
+          <div  class="font-thu" >
+            <label class="text-color text-cinthu">Trả phòng</label>
+          </div>
+          <div class="text-cout m-top-5">
+            <label class="text-cout-input">{{coutthu}}, {{coutdisplay}}</label>
+          </div>
+        </div>
+      </div>
+      <div  class="cls-row m-top-16" (click)="openmnu()">
+        <div class="div-img-right">
+            <img class="img-padding img-people" src="./assets/imgs/icon_people.svg">
+        </div>
+        <div> 
+          <div class="m-top-22">
+            <label class="text-pax"><span class="text-bold">{{adult}}</span> người lớn · <span class="text-bold">{{child}}</span> trẻ em · <span class="text-bold">{{roomnumber}}</span> phòng</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button ion-button round (click)="search()" class="button btn-search" clear>Tìm
+          kiếm</button>
+      </div>
+
+    </div>
+</ion-content>

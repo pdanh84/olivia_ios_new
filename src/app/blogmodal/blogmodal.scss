@@ -1,0 +1,165 @@
+
+    .text-title{
+        font-size: 18px;
+        font-weight: bold
+    }
+    ::ng-deep{
+        img {
+            max-width: 100% ;
+            border: 0;
+            height: auto;
+        }
+        p{
+            line-height: 1.5;
+            text-align: justify;
+        }
+        .img-item
+        {
+            margin-bottom: 10px;
+
+        }
+        .divcss{
+            line-height: 1.5;
+            text-align: justify;
+        }
+        .searchbar-input.sc-ion-searchbar-md {
+            padding: 0;
+            box-shadow: none;
+            padding-left: 8px !important;
+            padding-top: 4px !important;
+            width: 98% !important;
+        }
+    }
+    .link-morepost{
+        text-decoration: none;
+        color: #003c71;
+        cursor: pointer;
+    }
+    a:hover{    
+        color: #26bed6;
+    }
+    .row-item-hotellist{
+        padding: 11px 0px 8px 11px;
+      }
+      .col-img-hotellist{
+        height: 109px;
+      }
+      .img-radius
+      {
+        position: relative;
+          border-radius: 5px;
+          width: 104px !important;
+          height: 104px !important;
+          object-fit: cover;
+      }
+      .title-blog
+      {
+        font-size: 14px;
+        color: #333333;
+        white-space: normal
+      }
+    .img-share-top{
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 54px;
+        margin-top: 18px;
+    }
+    .img-heart-top{
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 16px;
+        margin-top: 18px;
+    }
+    ::ng-deep{
+        .input-search-blog .searchbar-input.sc-ion-searchbar-md {
+            -webkit-padding-start: 10px !important;
+            padding-inline-start: 10px !important;
+            -webkit-padding-end: 0;
+            padding-inline-end: 0;
+            background: #fff;
+        }
+        .input-search-blog .searchbar-input.sc-ion-searchbar-md {
+            padding: 0;
+            box-shadow: none;
+            padding-left: 8px !important;
+            padding-top: 4px !important;
+            width: 98% !important;
+
+            max-width: 217px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .searchbar-clear-button.sc-ion-searchbar-md{
+            display: none !important;
+        }
+    }
+
+    //////// css searchblog
+    .img-blog
+    { 
+        border-radius: 5px;
+        width: 100% !important;
+        height: 180px !important;
+        object-fit: cover;
+        margin-top: 10px
+    }
+    
+    .p-left-4{
+        padding-left: 4px !important;
+    }
+
+    .p-top-4{
+        padding-top:4px !important;
+    }
+
+    .cls-row-width{
+        width: 100%;
+    }
+    .label-item-search{
+        padding: 8px 0px;
+        font-weight: 300;
+        font-size: 14px;
+    }
+
+    .row-bloglist{
+        padding-top: 5px;
+        line-height: 15px;
+    }
+    .no-padding{
+        padding:0;
+    }
+
+    .no-padding{
+        padding:0;
+    }
+    .cls-row-width{
+        padding: 0 0 20px 0;
+    }
+    .cls-row-width-first{
+        padding: 16px 0 20px 0;
+    }
+    .label-item-blog{
+        font-size: 16px;
+        color: #333333;
+    }
+    .img-search-blog{
+        width: 16px;
+        padding-top: 4px;
+    }
+    .p-left-6{
+        padding-left: 6px;
+    }
+    
+    .img-close{
+        right: 0;
+        position: absolute;
+        margin-right: 74px; 
+    }
+    .img-header-close{
+        height: 32px;
+        margin-top: 13px;
+    }
+    ///////////////////////

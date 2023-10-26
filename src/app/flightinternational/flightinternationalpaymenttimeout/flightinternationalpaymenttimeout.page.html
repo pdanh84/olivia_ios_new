@@ -1,0 +1,38 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Đặt vé máy bay</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="flight-payment-error-content">
+          <div  class="text-center">
+            <img  src="./assets/ic_flight/step_4.svg">
+          </div>
+
+            <div class="text-center m-top-24">
+                <img class="img-payment-err" src="./assets/ic_flight/ic_timeout.svg" >
+
+                <div class="text-title">Thanh toán không thành công. {{errorMsg}}</div>
+
+                <div class="text-err">
+                  <div>Quý khách vui lòng thanh toán lại hoặc chọn lại chuyến bay khác</div>
+                  <div class="m-top-8">Nếu cần sự hỗ trợ vui lòng liên hệ tổng đài (028) 3933 8008 hoặc email vemaybay@ivivu.com để được trợ giúp.</div>
+                </div>
+            </div>
+      </div>
+  </ion-content>
+  <ion-footer>
+    <div class="div-footer">
+      <div class="div-button-flex">
+        <button (click)="gotoSearchPage()" ion-button round outline [ngClass]="showbutton ? 'button button-change-flight' : 'button button-change-flight btn-disabled' ">Chọn chuyến khác</button>
+        <button (click)="rePayment()" ion-button round outline [ngClass]="allowrepay ? 'button button-payment' : 'button button-payment btn-disabled'">Thanh toán lại</button>
+      </div>
+    </div>
+  </ion-footer>

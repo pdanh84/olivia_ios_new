@@ -1,0 +1,205 @@
+.text-copy{
+    padding-left: 4px;
+}
+.text-booking{
+    color: #e52822;
+}
+.d-flex{
+    display: flex;
+}
+.d-img{
+    width: 60%;
+    margin-right: 10px;
+    align-self: center;
+}
+.cls-text{
+    font-size: 14px;
+    letter-spacing: -0.56px;
+}
+.cls-textopen
+{
+    color: #26bed6;
+    font-size: 14px;
+    letter-spacing: -0.56px;
+}
+.mt6
+{
+    margin-top: 6px;
+}
+.div-split-panel{
+    height: 6px;
+    background: #f2f2f2;
+    margin-top: 18px;
+    margin-bottom: 13px;
+}
+.d-flex-later{
+    display: flex;
+    margin-top: 20px;
+}
+.mt20
+{
+    margin-top: 20px;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+  .text-bold{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #222222;
+    font-weight: 600;
+    letter-spacing: -0.28px;
+}
+.button2
+    {
+        background: #fff;
+        color: #ff9500;
+        border-color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 96%;
+        font-size: 17px !important;
+    }
+.text-payment-info{
+    white-space: normal !important;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: -0.4px;
+    line-height: 28px;
+    margin: 0;
+}
+.div-text-payment{
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: -0.4px;
+    font-weight: 300;
+    padding-top: 4px;
+}
+.div-quick-back {
+    font-size: 32px;
+    position: absolute;
+    right: 16px;
+    color: #bdbdbd;
+    letter-spacing: -3.5px;
+    top: -5px;
+}
+.text-title {
+    font-size: 18px;
+    letter-spacing: -0.4px;
+    font-weight: 600;
+}
+.mt12{
+    margin-top: 12px;
+}
+
+.div-button-payment-done{
+    background-color: #ffffff; 
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+}
+::ng-deep {
+    .cls-alert-showmore {
+    align-items: center !important;
+    
+    .sc-ion-alert-ios-h {
+        --background: var(--ion-overlay-background-color,var(--ion-color-step-150,#f9f9f9)) !important;
+        --max-width: 270px !important;
+    
+        font-size: 14px !important;
+        --min-width: 250px !important;
+        --width: auto !important;
+        --min-height: auto !important;
+        --height: auto !important;
+        --max-height: 90% !important;
+        -webkit-font-smoothing: antialiased !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        display: flex !important;
+        position: fixed !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-family: var(--ion-font-family,inherit) !important;
+        touch-action: none !important;
+        user-select: none !important;
+    }
+
+    .alert-head.sc-ion-alert-ios{
+    padding-top: 12px !important;
+    padding-bottom: 7px !important;
+    text-align: center !important;
+    display: block !important;
+    }
+    .alert-wrapper.sc-ion-alert-ios{
+    border-radius: 13px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: var(--width) !important;
+    min-width: var(--min-width) !important;
+    max-width: var(--max-width) !important;
+    height: var(--height) !important;
+    min-height: var(--min-height) !important;
+    max-height: var(--max-height) !important;
+    background: var(--background) !important;
+    }
+    .alert-button-inner.sc-ion-alert-ios {
+    flex-flow: row nowrap !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    }
+    .alert-button.sc-ion-alert-ios{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 50% !important;
+    height: 44px !important;
+    border-top: .55px solid rgba(var(--ion-text-color-rgb,0,0,0),.2) !important;
+    background-color: transparent !important;
+    color: var(--ion-color-primary,#3880ff) !important;
+    font-size: 15px !important;
+    overflow: hidden !important;
+    width: auto;
+    }
+    .alert-button-group.sc-ion-alert-ios button:first-child{
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    }
+    .alert-button.sc-ion-alert-ios {
+        border-color: none;
+        background: none;
+        text-transform: none;
+        font-size: 15px !important;
+    }
+
+    .alert-button.sc-ion-alert-md{
+        text-transform: none;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}
+.alert-button-group.sc-ion-alert-md{
+    flex-wrap: nowrap;
+}
+.alert-button-inner.sc-ion-alert-md {
+    justify-content: center;
+}
+.alert-button.sc-ion-alert-md {
+    padding-right: 0;
+    width: 100%;
+    text-transform: none;
+}
+}

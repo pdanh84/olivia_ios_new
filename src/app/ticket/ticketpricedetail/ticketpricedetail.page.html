@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary" class="p-absolute" (click)="goback()">
+      <img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-buttons>
+    <ion-title class="text-title">
+      Chi tiết giá
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="div-content div-ticket-price-content">
+      <div *ngIf="ticketService.bookingInfo" class="div-service-name">
+         {{ticketService.bookingInfo.experienceInfo.ticketName}} 
+      </div>
+
+      <div class="d-flex m-top-12">
+        <div *ngIf="ticketService.bookingInfo" class="div-img">
+          <img class="img-service" [src]="ticketService.bookingInfo.experienceInfo.avartarLink" >
+        </div>
+        <div class="div-text-right align-self-center">
+          <div class=" d-flex">
+            <div class="div-image"><img class="img-ticket" src="./assets/ic_ticket/date.svg" ></div>
+            <div class="text-service m-left-5">{{ticketService.itemTicketService.AllotmentDateDisplay}}</div>
+          </div>
+          <div class="d-flex m-top-7">
+            <div class="div-image"><img class="img-date" src="./assets/ic_ticket/ticket.svg" ></div>
+            <div class="text-service m-left-5">Xuất vé điện tử</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-top-16">
+        <div class="text-sub">Chi tiết giá</div>
+        <div *ngIf="ticketService.bookingInfo && ticketService.adult>0" class="d-flex m-top-8">
+          <div class="text-normal width-70">Người lớn</div>
+          <div  class="text-normal text-right width-30">{{ticketService.adult}} x {{gf.convertNumberToString(ticketService.bookingInfo.booking.adultAvgPrice)}}</div> 
+        </div>
+
+        <div  *ngIf="ticketService.bookingInfo && ticketService.child>0" class="d-flex m-top-8">
+          <div class="text-normal width-70">Trẻ em 
+            <!-- <span class="text-note">(100-140cm)</span> -->
+          </div>
+          <div class="text-normal text-right width-30">{{ticketService.child}} x {{gf.convertNumberToString(ticketService.bookingInfo.booking.childAvgPrice)}}</div> 
+        </div>
+        <div  *ngIf="ticketService.bookingInfo && ticketService.bookingInfo.booking.custom1No>0" class="d-flex m-top-8" >
+          <div class="text-normal width-70">{{ticketService.bookingInfo.booking.custom1Name}}</div>
+          <div class="text-normal text-right width-30">{{ticketService.bookingInfo.booking.custom1No}} x {{gf.convertNumberToString(ticketService.bookingInfo.booking.custom1AvgPrice)}}</div> 
+        </div>
+        <div  *ngIf="ticketService.bookingInfo && ticketService.bookingInfo.booking.custom2No>0" class="d-flex m-top-8" >
+          <div class="text-normal width-70">{{ticketService.bookingInfo.booking.custom2Name}}</div>
+          <div class="text-normal text-right width-30">{{ticketService.bookingInfo.booking.custom2No}} x {{gf.convertNumberToString(ticketService.bookingInfo.booking.custom2AvgPrice)}}</div> 
+        </div>
+        <div  *ngIf="ticketService.elder>0" class="d-flex m-top-8" >
+          <div class="text-normal width-70">Người lớn tuổi <span class="text-note">(60+)</span></div>
+          <div class="text-normal text-right width-30">{{ticketService.elder}} x {{gf.convertNumberToString(ticketService.bookingInfo.booking.seniorAvgPrice)}}</div> 
+        </div>
+        <div  *ngIf="_voucherService.ticketPromoCode" class="d-flex m-top-8" >
+          <div class="text-normal width-70">Ưu đãi (<span class="text-code">{{_voucherService.ticketPromoCode}}</span><span class="text-normal">)</span> </div>
+          <div class="text-normal text-right width-30"> - {{gf.convertNumberToString(_voucherService.ticketTotalDiscount)}}đ</div> 
+        </div>
+        <div class="div-line m-top-16"></div>
+        <div class="text-normal m-12">Xem chi tiết <span (click)="goTicketinfo()" class="text-blue">điều kiện vé</span> <span class="m-left-8 "><img class="img-arrow" src="./assets/ic_ticket/arr_link.svg" /></span></div>
+        <div class="div-line"></div>
+
+        <div class="m-top-12 d-flex">
+          <div class="width-50">
+            <div class="text-normal">Tổng tiền thanh toán</div>
+            <div class="text-sub">Giá đã bao gồm thuế, phí</div>
+          </div>
+          <div class="text-total text-right width-50">{{gf.convertNumberToString(ticketService.totalPriceNum)}}đ</div>
+        </div>
+      </div>
+  </div>
+</ion-content>

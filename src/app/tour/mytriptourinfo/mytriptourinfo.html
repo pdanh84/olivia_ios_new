@@ -1,0 +1,41 @@
+<!--
+  Generated template for the PolicyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-row style="padding-top:11px;height: 48px">
+    <ion-col style="text-align: center">
+      <div style="align-self: center" >
+        <div style="position: absolute;height: 48px;width: 48px;align-self: center;top:0" (click)="goback()">
+          <img class="header-img-twoline" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        
+        <div><label class="text-title">Thông tin Tour</label></div>
+      </div>
+    </ion-col>
+  </ion-row>
+  </ion-header>
+  <ion-content>
+       <div class="description-content">
+        <div *ngIf="trip.itemTourDetail.TourGuide" >
+          <div class="text-headline" >Hướng dẫn viên</div>
+          <div class="text-content " [innerHTML]="trip.itemTourDetail.TourGuide" ></div>
+      </div>
+
+      <div class="text-headline"  *ngIf="trip && trip.itemTourDetail && trip.itemTourDetail.ProgramContent">Chương trình tour</div>
+          <div class="div-tour-program-content div-wrap-content" *ngIf="trip && trip.itemTourDetail && trip.itemTourDetail.ProgramContent" [innerHTML]="trip.itemTourDetail.ProgramContent"></div>
+          <!-- <div class="d-flex"><span class="m-right-8" *ngIf="!expanddivcontent"> ...</span>
+            <div class="text-show-more-content" *ngIf="!expanddivcontent" (click)="expandDiv(1)">
+            Xem thêm <img class="img-seemoreroom" src="./assets/imgs/ic_down.svg">
+          </div>
+          <div class="text-show-more-content" *ngIf="expanddivcontent" (click)="expandDiv(2)">
+              Ẩn <img class="img-seemoreroom" src="./assets/imgs/ic_up.svg">
+            </div>
+          </div> 
+          <div class="text-end" *ngIf="!expanddivcontent">Thứ tự tham quan có thể thay đổi nhưng vẫn bảo đảm đầy đủ điểm tham quan có trong chương trình.</div>-->
+          
+       </div>
+
+  </ion-content>

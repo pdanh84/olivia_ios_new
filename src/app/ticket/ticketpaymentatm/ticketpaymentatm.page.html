@@ -1,0 +1,206 @@
+<!--
+  Generated template for the RoomchoosebankPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -7px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="p-all-16">
+    <div class="div-img-step m-bottom-16">
+      <img class="img-step" src="./assets/ic_tour/tour_step2.png">
+    </div>
+    <!-- Thanh toán bằng thẻ đã lưu -->
+    <div *ngIf="arrbankrmb.length>0" class="mt16">
+    <ion-label class="text-option">Thanh toán bằng thẻ đã lưu</ion-label>
+    <div *ngFor="let item of arrbankrmb" class="div-border">
+      <div class="div-flex">
+        <!-- <ion-radio  [checked]="item.checked" (click)="checkacc(item)"></ion-radio> -->
+        <div class="mt28">
+          <ion-checkbox class="ml18" [checked]="item.checked" (ionChange)="checkacc(item,$event)"></ion-checkbox>
+        </div>
+        <div>
+          <img class="ml12" class="img1" src={{item.imgbank}}>
+        </div>
+      </div>
+        <div class="div-2">
+          <ion-label class="text-infobank"><span style="vertical-align: middle;"> •••• •••• ••••</span>
+            {{item.vpc_CardNum}}</ion-label>
+          <ion-label class="text-infobank">{{item.name_Bank}}</ion-label>
+        </div>
+      </div>
+
+    </div>
+    <!-- Hoặc chọn ngân hàng khác -->
+    <div class="mt24">
+      <ion-label *ngIf="arrbankrmb.length>0" class="text-option">Hoặc chọn ngân hàng khác</ion-label>
+      <ion-grid>
+        <ion-row style="margin-left: -10px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970407')" [class.active]="id=='970407' "
+              src="https://res.ivivu.com/payment/img/onepay/970407.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970423')" [class.active]="id=='970423' "
+              src="https://res.ivivu.com/payment/img/onepay/970423.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970415')" [class.active]="id=='970415' "
+              src="https://res.ivivu.com/payment/img/onepay/970415.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970441')" [class.active]="id=='970441' "
+              src="https://res.ivivu.com/payment/img/onepay/970441.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970427')" [class.active]="id=='970427' "
+              src="https://res.ivivu.com/payment/img/onepay/970427.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970426')" [class.active]="id=='970426' "
+              src="https://res.ivivu.com/payment/img/onepay/970426.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970431')" [class.active]="id=='970431' "
+              src="https://res.ivivu.com/payment/img/onepay/970431.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970443')" [class.active]="id=='970443' "
+              src="https://res.ivivu.com/payment/img/onepay/970443.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970437')" [class.active]="id=='970437' "
+              src="https://res.ivivu.com/payment/img/onepay/970437.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970436')" [class.active]="id=='970436' "
+              src="https://res.ivivu.com/payment/img/onepay/970436.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970406')" [class.active]="id=='970406' "
+              src="https://res.ivivu.com/payment/img/onepay/970406.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970422')" [class.active]="id=='970422' "
+              src="https://res.ivivu.com/payment/img/onepay/970422.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970428')" [class.active]="id=='970428' "
+              src="https://res.ivivu.com/payment/img/onepay/970428.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970440')" [class.active]="id=='970440' "
+              src="https://res.ivivu.com/payment/img/onepay/970440.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970414')" [class.active]="id=='970414' "
+              src="https://res.ivivu.com/payment/img/onepay/970414.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970418')" [class.active]="id=='970418' "
+              src="https://res.ivivu.com/payment/img/onepay/970418.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970409')" [class.active]="id=='970409' "
+              src="https://res.ivivu.com/payment/img/onepay/970409.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970432')" [class.active]="id=='970432' "
+              src="https://res.ivivu.com/payment/img/onepay/970432.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970419')" [class.active]="id=='970419' "
+              src="https://res.ivivu.com/payment/img/onepay/970419.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970405')" [class.active]="id=='970405' "
+              src="https://res.ivivu.com/payment/img/onepay/970405.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970429')" [class.active]="id=='970429' "
+              src="https://res.ivivu.com/payment/img/onepay/970429.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970403')" [class.active]="id=='970403' "
+              src="https://res.ivivu.com/payment/img/onepay/970403.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970425')" [class.active]="id=='970425' "
+              src="https://res.ivivu.com/payment/img/onepay/970425.png">
+
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970412')" [class.active]="id=='970412' "
+              src="https://res.ivivu.com/payment/img/onepay/970412.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row style="margin-left: -10px;margin-top: -15px">
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('970454')" [class.active]="id=='970454' "
+              src="https://res.ivivu.com/payment/img/onepay/970454.png">
+          </ion-col>
+          <ion-col size="3">
+            <img class="img" (click)="clickitem('9704331')" [class.active]="id=='9704331' "
+              src="https://res.ivivu.com/payment/img/onepay/vietbank.png">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="isshowRemember" style="margin-top: 22px">
+      <ion-checkbox (ionChange)="rememberCard()" [disabled]="isdisable" class="ion-checkbox" checked="isremember" color="secondary"></ion-checkbox>
+      <ion-label class="label-input" >Lưu và bảo mật thẻ để đặt dịch vụ nhanh hơn lần sau</ion-label>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Thanh toán và hoàn thành</button>
+  </div>
+</ion-footer>

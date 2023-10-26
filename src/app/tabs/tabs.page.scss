@@ -1,1 +1,80 @@
+.tabbar{
+    background: #f8f8f8;
+    padding: 0;
+    border: none;
+    height: 56px;
+  }
 
+.icon-tab {
+  height: 24px;
+}
+
+  ion-tab-button {
+    font-weight: normal;
+    color: rgba(60, 60, 60, 0.7);
+    padding: 0;
+  }
+
+  // .tabbar .tab-button[aria-selected=true] {
+  //   color: #26bed6;
+  //   padding: 0;
+    
+    
+  //   }
+
+    .tabbar .tab-button.tab-selected {
+      color: #26bed6;
+      padding: 0;
+      }
+      
+    .tab-button a{
+        margin: 0;
+    }
+
+    .tab-button{
+        min-width: 82px;
+        --padding-end: 0;
+        --padding-start: 0;
+    }
+    @media (min-width: 278px) and (max-width: 319px) {
+      .tab-button{
+          --padding-end: 0;
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: -0.5px;
+          min-width: 56px;
+      }
+    }
+    @media (min-width: 320px) and (max-width: 339px) {
+        .tab-button{
+            --padding-end: 0;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            min-width: 60px;
+        }
+      }
+      @media (min-width: 340px) and (max-width: 359px) {
+        .tab-button{
+            --padding-end: 0;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            min-width: 64px;
+        }
+      }
+      @media (min-width: 360px) and (max-width: 399px) {
+        .tab-button{
+            --padding-end: 0;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: -0.8px;
+            min-width: 72px;
+        }
+      }
+      .div-split{
+        //padding-right: 4px;
+        width: 0px;
+        height: 100%;
+        background-color: #fff;
+      }

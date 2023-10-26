@@ -1,0 +1,40 @@
+page-roomcanceldat {
+    .header-title{
+        text-align: center;
+        font-size: 20px;
+        right: 6%;
+        align-self: center;
+    }
+    .header-arrow{
+        margin: 3px 11px;
+    }
+    .room-cancel-content{
+        padding: 16px 16px 16px 16px;
+    }
+    .btn-cancel{
+        width: 90%;
+        border:none;
+        color: #ffffff;
+        background-color: #F79221;
+        border-color: #F79221;
+    }
+    .room-cancel-name{
+        font-size: 18px;
+        font-weight: bold;
+        padding: 8px 0px;
+    }
+    .room-cancel-fee-price{
+        color: #e52822;
+        text-align: right;
+        padding-right: 0px;
+    }
+    .room-cancel-fee-title{
+        padding-left: 0px;
+    }
+    label.penalty-active-description > p{
+        margin: 4px 0px;
+    }
+    .penalty-active-description{
+        color: #e52822;
+    }
+}

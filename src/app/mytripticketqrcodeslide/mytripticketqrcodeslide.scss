@@ -1,0 +1,160 @@
+
+    .text-center {
+      text-align: center;
+    }
+    .d-flex {
+      display: flex;
+    }
+    .div-header-qrcodeslide {
+      .div-goback {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        margin-top: -5px;
+        margin-left: 6px;
+      }
+      .text-title {
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        color: #3f3b3b;
+      }
+    }
+
+    .div-content-qrcodeslide {
+        .div-skeleton {
+          width: 100%;
+          height: 350px;
+          margin: 0 auto;
+          background-color: #fff;
+        }
+
+        .img-slide {
+          height: 250px;
+          width: 250px;
+          object-fit: cover;
+        }
+
+        .div-qrtoken {
+          font-size: 20px;
+          font-weight: 500;
+          line-height: 1.2;
+          letter-spacing: -0.4px;
+          text-align: center;
+          color: #26bed6;
+          font-weight: 600;
+        }
+        .div-qrtitle {
+          font-size: 18px;
+          text-align: center;
+          color: #3f3b3b;
+          margin-top: 4px;
+        }
+        .div-img-back {
+          left: 16px;
+          position: absolute;
+
+          @media (min-height:840px) and (max-height: 950px) {
+            top: 26%;
+          }
+
+          @media (min-height:600px) and (max-height: 667px) {
+            top: 33%;
+          }
+          
+        }
+
+        .div-img-next {
+          left: 90%;
+          position: absolute;
+
+          @media (min-height:840px) and (max-height: 950px) {
+            top: 26%;
+          }
+
+          @media (min-height:600px) and (max-height: 667px) {
+            top: 33%;
+          }
+          
+        }
+    }
+    .button
+    {
+        background: #F79221;
+        color: #ffffff;
+        border-color: #F79221;
+        width: 90%;
+        font-size: 20px;
+        height: 48px;
+    } 
+    .img1 {
+        object-fit: cover;
+        width: 100%;
+        height: 350px;
+    }
+    
+    .div-align-center {
+      display: flex;
+      justify-items: center;
+      justify-content: center;
+    }
+    img {
+        left: 0;
+        bottom: 0;
+        object-fit: contain;
+        max-width: initial;
+        z-index: 9;
+    }
+    .border-bottom {
+      border-bottom: solid 0.5px #f2f2f2;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .m-right-36 {
+      margin-right: 36px;
+    }
+    .center
+    {
+      margin-top: 25%;
+    }
+    .slide
+    {
+      @media (min-width:320px) and (max-width: 360px) {
+        margin-top: 20px;
+      }
+      @media (min-width:360px) and (max-width: 375px) {
+        margin-top: 50px;
+      }
+      @media (min-width: 376px) and (max-width: 384px) {
+        margin-top: 50px;
+
+      }
+      @media (min-width: 384px) and (max-width: 412px) {
+        margin-top: 70px;
+      }
+      @media (min-width: 412px) and (max-width: 480px) {
+        margin-top: 80px;
+
+      }
+      @media (min-width: 480px) and (max-width: 600px) {
+        margin-top: 90px;
+
+      }
+      @media (min-width: 600px) and (max-width: 720px) {
+        margin-top: 90px;
+
+      }
+      @media (min-width: 720px) and (max-width: 768px) {
+        margin-top: 100px;
+
+      }
+      @media (min-width: 768px) and (max-width: 800px) {
+        margin-top: 120px;
+
+      }
+      @media (min-width: 800px) {
+        margin-top: 120px;
+
+      }
+    }

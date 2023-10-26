@@ -1,0 +1,49 @@
+
+<ion-header class="searchdeparture-header">
+    <ion-row>
+      <ion-col class="col-header" size="1.5">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back"
+              src="./assets/imgs/icon_back.svg">
+          </div>
+        </div>
+      </ion-col>
+      <ion-col class="col-header" size="10.1">
+        <div class="div-header-title">
+        
+            <form action=".">
+              <ion-searchbar searchIcon="false" #ipSearchDeparture id="input" class="ip-search-flight" style="padding: 0;padding-bottom: 15px;padding-inline-start: 10px" autocomplete="on" autocorrect="true" debounce="300" placeholder="Khởi hành từ..." (ionChange)="getItems($event)" ></ion-searchbar>
+            </form>
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content>
+    <div class="text-normal">Địa điểm khởi hành</div>
+    <div class="search-content-result p-16">
+  
+      <div>
+        <div (click)="itemclick(item)" *ngFor="let item of items">
+          <div *ngIf="item && item.show">
+            <div class="d-flex m-bottom-8" >
+              <div class="div-text-result" >
+                <div class="text-bold">
+                  {{item.Name}}
+                </div>
+              </div>
+          </div>
+          <div class="div-split-panel"></div>
+          </div>
+          
+        </div>
+      </div>
+     
+    </div>
+    <div style="margin-top: 20px" *ngIf="!items || (items && items.length ==0 && loaddatadone)">
+        <label>Không tìm thấy kết quả tìm kiếm.Vui lòng nhập lại!</label>
+    </div>
+  
+  
+  </ion-content>

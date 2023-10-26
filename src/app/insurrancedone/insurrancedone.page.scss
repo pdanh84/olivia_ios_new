@@ -1,0 +1,73 @@
+.insurrance-done-header{
+    .header-toolbar{
+        min-height: 0px;text-align: center
+    }
+    .header-title{
+        padding-top: 6px;font-size: 20px;font-weight: bold;
+    }
+}
+.insurrance-done-page{
+    
+
+    .text
+    {
+        font-size: 14px;
+    }
+    .mtp
+    {
+        margin-top: 10px;
+    }
+    .img-trip-empty{
+        text-align: center;
+    }
+    .img-empty{
+        padding-top: 20%;
+    }
+    
+    .text-center{
+        text-align: center;
+        color: #4f4f4f;
+    }
+    .text-title{
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .p-top-8{
+        padding-top: 8px;
+    }
+    .p-top-16{
+        padding-top: 16px;
+    }
+    .p-16{
+        padding: 0 16px;
+    }
+}
+.insurrance-done-footer{
+    text-align: center;
+    background: #ffffff;
+    .text-center{
+        background: #ffffff;
+        text-align: center;
+    }
+    .button2
+    {
+        border-color: #F79221;
+        background-color: #F79221;
+        color: #ffffff;
+        width: 90%;
+        height: 48px;
+        font-size: 17px;
+        border-radius: 4px;
+
+    }
+}
+
+:ng-deep{
+    @media(min-width:414px) and (max-width: 480px) {
+        .text-title{
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 24px;
+        }
+    }
+}

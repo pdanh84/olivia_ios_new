@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-row style="padding-top:11px">
+    <ion-col style="text-align: center;height: 48px;">
+      <div style="align-self: center">
+        <div style="position: absolute;height: 48px;width: 48px;" (click)="goback()">
+          <img style="height: 48px; padding: 8px;margin-top:-4px;margin-left:-8px"
+            src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+
+        <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Lịch trình shuttlebus</label>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+
+<ion-content>
+  <!-- <div class="text" style="padding: 16px;">
+    Dành cho khách hàng đăng ký trước tại thời điểm đặt phòng (giờ khởi hành tùy thuộc vào tình trạng chỗ có sẵn) <br>
+    Quý khách vui lòng có mặt trước ít nhất 15 phút, thời gian di chuyển: 2 tiếng.
+  </div>
+  <table style="border-collapse:collapse;border:none;margin: 0px 13px 0px 16px;">
+    <tbody>
+        <tr>
+            <td style="width: 155.8pt;border: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+            </td>
+            <td style="width: 155.85pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>Khởi h&agrave;nh từ Hồ Ch&iacute; Minh</p>
+            </td>
+            <td style="width: 155.85pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>Khởi h&agrave;nh từ Melia Hồ Tr&agrave;m</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 155.8pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 3.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;font-weight: 600;'>Thứ 2 &ndash; Thứ 6</p>
+            </td>
+            <td style="width: 155.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>14:00</p>
+            </td>
+            <td style="width: 155.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>11:00</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 155.8pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 3.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;font-weight: 600;'>Thứ 7 &ndash; Chủ nhật</p>
+            </td>
+            <td style="width: 155.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>14:00</p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>15:00</p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>20:00</p>
+            </td>
+            <td style="width: 155.85pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>11:00</p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>12:00</p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:12px;font-family:"Calibri",sans-serif;text-align:center;font-weight: 600;'>17:00</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="text" style="padding: 16px;">
+  <span style="font-weight: 600;">
+    Địa điểm đón khách:
+  </span> Ba Lá Trà Milk Tea Shop - Sarimi Building Block A2 - 00.09, Đường D09, Sala City, Phường An Lợi Đông, Quận 2, Thành phố Thủ Đức
+</div> -->
+<div class="padding16">
+  <label [innerHTML]="text" text-wrap>
+  </label>
+</div>
+</ion-content>

@@ -1,0 +1,157 @@
+
+
+.myvoucher-content {
+    background-color: #f2f2f2;
+    height: 106px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    margin: 5px -16px;
+
+    .d-flex {
+        display: flex;
+    }
+
+    .div-header-spice {
+        width: 6px;
+        background-color: #26bed6;
+        border-radius: 6px 0 0 6px;
+    }
+
+    .div-item-voucher {
+
+        .div-box-shadow {
+            margin-right: 12px;
+        }
+        .h-74 {
+            height: 74px;
+        }
+        .div-content-item {
+            padding: 8px;
+            border-radius: 0 6px 6px 0;
+            background: #fff;
+            width: 246px;
+
+            .div-icon {
+                width: 42px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .div-content {
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                .div-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #3f3b3b;
+
+                    max-width: 162px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .div-valid-date {
+                    margin-top: 2px;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #6d6e71;
+                }
+                .div-code {
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #f79321;
+                }
+            }
+
+           
+        }
+        .div-apply {
+            background: #fff;
+            border-radius: 6px 0 0 6px;
+            width: 50px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #26bed6;
+            padding-left: 8px;
+        }
+        .div-text-apply {
+            width: 54px;
+        }
+    }
+    
+    .width-100 {
+        width: 100% !important;
+    }
+    .m-r-0 {
+        margin-right: 0 !important;
+    }
+    .width-25 {
+        width: 25% !important;
+    }
+    .div-split-voucher {
+        width: 1px;
+        flex-grow: 0;
+        background-color: #fff;
+        border-left: dotted 5px #ecf0f5;
+    }
+    .cls-claimed {
+        background: #f6feff !important;
+    }
+
+    .cls-deactive {
+        opacity: 0.6;
+        filter: grayscale(1);
+        -webkit-filter: grayscale(1);
+    }
+    .text-tealish {
+        color: #26bed6;
+    }
+}
+
+
+::ng-deep {
+    .div-item-voucher {
+    @media (min-width: 360px) and (max-width: 390px) { 
+        .div-title {
+            max-width: 192px !important;
+        }
+        .div-apply {
+            width: 60px !important;
+        }
+    }
+    @media (min-width: 414px) and (max-width: 480px) { 
+        .div-title {
+            max-width: 224px !important;
+        }
+        .div-apply {
+            width: 70px !important;
+        }
+        .div-content-item {
+            width: 278px !important;
+        }
+    }
+    }
+}

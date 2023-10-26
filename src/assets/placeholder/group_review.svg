@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="328" height="1075" fill="none" viewBox="0 0 328 1075">
+    <path fill="#F2F2F2" d="M112 0h104v16H112zM112 32h216v16H112zM112 56h160v16H112zM112 88h104v16H112zM0 120h104v16H0zM224 224h104v16H224zM168 248h160v16H168zM0 144h271v16H0zM0 168h215v16H0zM0 192h328v16H0z"/>
+    <rect width="104" height="104" fill="#F2F2F2" rx="6"/>
+    <rect width="328" height="45" y="280" fill="#F2F2F2" rx="22.5"/>
+    <path fill="#F2F2F2" d="M112 375h104v16H112zM112 407h216v16H112zM112 431h160v16H112zM112 463h104v16H112zM0 495h104v16H0zM224 599h104v16H224zM168 623h160v16H168zM0 519h271v16H0zM0 543h215v16H0zM0 567h328v16H0z"/>
+    <rect width="104" height="104" y="375" fill="#F2F2F2" rx="6"/>
+    <rect width="328" height="45" y="655" fill="#F2F2F2" rx="22.5"/>
+    <path fill="#F2F2F2" d="M112 750h104v16H112zM112 782h216v16H112zM112 806h160v16H112zM112 838h104v16H112zM0 870h104v16H0zM224 974h104v16H224zM168 998h160v16H168zM0 894h271v16H0zM0 918h215v16H0zM0 942h328v16H0z"/>
+    <rect width="104" height="104" y="750" fill="#F2F2F2" rx="6"/>
+    <rect width="328" height="45" y="1030" fill="#F2F2F2" rx="22.5"/>
+</svg>

@@ -1,0 +1,109 @@
+<ion-header class="cls-header-tourlist">
+  <ion-toolbar>
+    <ion-buttons slot="secondary" style="position: absolute;" (click)="goback()">
+      <img class="img-back" style="height: 48px; padding: 8px;margin-left: -3px" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-buttons>
+
+    <ion-title class="text-title" (click)="changeInfo()">
+        {{name}}
+        <div><label class="text-hr">{{cindisplayhr}} | {{fromPlace}}</label></div>
+      </ion-title>
+
+      <ion-buttons slot="secondary" style="position: absolute;right: 0;" (click)="openSortTour()">
+        <img class="img-sort" src="./assets/imgs/ic_filter_b.svg" >
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  <ion-content>
+    <div *ngIf="loaddatadone else loadskeleton">
+      <div class="innerdeals1 slide2-scroll div-tourlist-content" style="overflow-x: auto;overflow-y: hidden" padding *ngIf="(slideData && slideData.length >0) else emptydata">
+          <div class="cls-deal" *ngFor="let slide of slideData">
+            <img class="slide2 img" [src]="slide.AvartarLink" (click)="itemclickht(slide)" >
+            <div class="float-promo" *ngIf="slide.PromotionTitle">
+              <p class="float-promo-description">{{slide.PromotionTitle}}</p>
+            </div>
+            <div class="div-wrappadding">
+              <h2 class="hotel-name m-top-8" (click)="itemclickht(slide)" >
+                  {{slide.Name}}
+              </h2>
+              <div class="d-flex m-top-8" *ngIf="slide.AvgPoint">
+                <div class="div-badge" >
+                    <div class="text-point">{{gf.convertNumberFormat(slide.AvgPoint)}}</div>
+                    <div class="text-point-des" *ngIf="slide.AvgPoint >=9 && slide.AvgPoint <=10">Xuất sắc</div>
+                    <div class="text-point-des" *ngIf="slide.AvgPoint>8 && slide.AvgPoint <=9">Rất tốt</div>
+                    <div class="text-point-des" *ngIf="slide.AvgPoint>7 && slide.AvgPoint <=8">Khá tốt</div>
+                    <div class="text-point-des" *ngIf="slide.AvgPoint>6 && slide.AvgPoint <=7">Tạm được</div>
+                    <div class="text-point-des" *ngIf="slide.AvgPoint>5 && slide.AvgPoint <=6">Không tốt</div>
+                    <div  *ngIf="slide.TotalReview"> | <span class="text-comment">{{gf.convertNumberToString(slide.TotalReview)}} đánh giá</span></div>
+                    <div  *ngIf="slide.NumOfReview"> | <span class="text-comment">{{gf.convertNumberToString(slide.NumOfReview)}} đánh giá</span></div>
+                </div>
+              </div>
+
+              <div class="cls-row-viewtopsale d-flex" >
+                <div class="width-125 div-flex-end"><span *ngIf="slide.TopSale" class="text-topsale">{{ slide.TopSale }} khách đặt trong 24h qua</span></div>
+                <div class=" width-100 " >
+                  <div  class="text-departureTime" *ngIf="slide.priceShow">Khởi hành {{slide.DepartureTime}}</div>
+                  <!-- <div  class="cls-price-strike" *ngIf="slide.AdultSalePrice > slide.priceShow">{{ gf.convertNumberToString(slide.MinPrice) }}đ</div> -->
+                  <!-- <div  class="cls-price-strike" *ngIf="slide.PriceAdult && slide.priceShow && slide.PriceAdult < slide.priceShow && slide.priceShow > slide.AdultSalePrice">{{ gf.convertNumberToString(slide.priceShow) }}đ</div> -->
+                  <div  class="cls-price-strike" *ngIf="slide.PriceAdult && slide.priceShow && slide.PriceAdult > slide.priceShow && slide.priceShow == slide.AdultSalePrice">{{ gf.convertNumberToString(slide.PriceAdult) }}đ</div>
+                  <div  class="cls-price-strike" *ngIf="slide.PriceAdult && slide.priceShow && slide.priceShow < slide.AdultSalePrice">{{ gf.convertNumberToString(slide.AdultSalePrice) }}đ</div>
+                 
+                  <div  class="text-price" *ngIf="slide.priceShow else noprice">{{ gf.convertNumberToString(slide.priceShow) }}đ</div>
+                  <ng-template #noprice><div  class="text-noprice ">Hết chỗ</div> </ng-template>
+                </div>
+                
+            </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptydata>
+          <div style="text-align: center;margin-top: 10px">
+            <img src="./assets/imgs/empty.svg">
+            <div class="text-empty m-top-8">Vui lòng chọn lại điều kiện tìm kiếm.</div>
+            <div class="div-button-empty d-flex">
+                <div class="div-width-100">
+                  <button ion-button round (click)="reFilter()" class="button btn-change-search" clear>Lọc lại</button>
+                </div>
+                <div class="div-width-100 m-left-8" *ngIf="enableFilterTopdeal">
+                  <button ion-button round (click)="clearFilter()" class="button btn-clear-search" clear>Xóa lọc</button>
+                </div>
+            </div>
+          </div>
+        </ng-template>
+    <div padding="" *ngIf="!isConnected" style="text-align: center;margin-top: 10px">
+        <img src="./assets/imgs/empty.svg">
+        <div *ngIf="!isConnected">
+          <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>
+        </div>
+      </div>
+  </div>
+  <ng-template #loadskeleton>
+    <div style="margin-top:30px">
+      <ion-list lines="none" *ngFor="let item of arrslk" >
+        <div >
+          <ion-item style="--inner-padding-end: 16px">
+              <ion-skeleton-text animated style="width: 100%;margin: 0;border-radius: 5px;
+              width: 100% !important;
+              height: 180px !important;
+              object-fit: cover" ></ion-skeleton-text>
+          </ion-item>
+            <ion-row>
+              <ion-col style="padding:0">
+                  <ion-skeleton-text animated style="width: 75%;margin: 16px 16px 0 16px;height: 16px;"></ion-skeleton-text>
+              </ion-col>
+              </ion-row>
+            
+          <ion-row>
+              <ion-col style="padding:0">
+                <ion-skeleton-text animated style="width: 91%;margin: 0;margin: 16px 16px 0 16px;height: 16px"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-list>
+    </div>
+  </ng-template>
+<!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="slideData1.length < slideData.length">
+<ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
+  </ion-content>

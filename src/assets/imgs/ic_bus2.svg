@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="12" fill="#003C71"/>
+    <path fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M15.967 16.023H8.102a.236.236 0 0 1-.236-.234V7.234c0-.129.107-.234.236-.234h7.865c.13 0 .236.105.236.234v8.555a.236.236 0 0 1-.236.234z"/>
+    <path fill="#003C71" d="M9.38 14.172a.502.502 0 0 0 .504-.5c0-.276-.226-.5-.504-.5a.502.502 0 0 0-.504.5c0 .276.226.5.504.5zM14.892 14.172a.502.502 0 0 0 .504-.5c0-.276-.226-.5-.504-.5a.502.502 0 0 0-.504.5c0 .276.225.5.504.5z"/>
+    <path fill="#fff" d="M9.697 16.102v.664A.236.236 0 0 1 9.46 17H8.437a.236.236 0 0 1-.236-.234v-.664"/>
+    <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M9.697 16.102v.664A.236.236 0 0 1 9.46 17H8.437a.236.236 0 0 1-.236-.234v-.664"/>
+    <path fill="#fff" d="M15.78 16.102v.664a.236.236 0 0 1-.237.234H14.52a.236.236 0 0 1-.237-.234v-.664"/>
+    <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".5" d="M15.78 16.102v.664a.236.236 0 0 1-.237.234H14.52a.236.236 0 0 1-.237-.234v-.664M7 10.066V8.484c0-.129.106-.234.236-.234h.709M17 10.066V8.484a.236.236 0 0 0-.236-.234h-.709"/>
+    <path stroke="#003C71" stroke-miterlimit="10" stroke-width=".5" d="M7.66 8h8.83M7 12h10"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="328" height="784" fill="none" viewBox="0 0 328 784">
+    <path fill="none" d="M0 0h328v784H0z"/>
+    <path fill="none" d="M0 0h328v104H0z"/>
+    <rect width="104" height="104" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 0h216v16H112zM112 25h104v16H112zM112 88h216v16H112z"/>
+    <path fill="none" d="M0 136h328v104H0z"/>
+    <rect width="104" height="104" y="136" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 136h216v16H112zM112 161h104v16H112zM112 224h216v16H112z"/>
+    <path fill="none" d="M0 272h328v104H0z"/>
+    <rect width="104" height="104" y="272" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 272h216v16H112zM112 297h104v16H112zM112 360h216v16H112z"/>
+    <path fill="none" d="M0 408h328v104H0z"/>
+    <rect width="104" height="104" y="408" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 408h216v16H112zM112 433h104v16H112zM112 496h216v16H112z"/>
+    <path stroke="#BDBDBD" stroke-width=".5" d="M0 119.75h328M0 255.75h328M0 391.75h328"/>
+    <path fill="none" d="M0 544h328v104H0z"/>
+    <rect width="104" height="104" y="544" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 544h216v16H112zM112 569h104v16H112zM112 632h216v16H112z"/>
+    <path fill="none" d="M0 680h328v104H0z"/>
+    <rect width="104" height="104" y="680" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M112 680h216v16H112zM112 705h104v16H112zM112 768h216v16H112z"/>
+    <path stroke="#BDBDBD" stroke-width=".5" d="M0 527.75h328M0 663.75h328"/>
+</svg>

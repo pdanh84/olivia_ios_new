@@ -1,0 +1,134 @@
+
+        .list-ios {
+            margin: -1px 0 0px;
+        }
+        .text-title{
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            align-self: center;
+            margin-top: 6px;
+            margin-left: 36px;
+        }
+        .button-header{
+            width: 48px;
+            text-align: right;
+            height: 48px;
+            align-self: center;
+            align-items: center;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .content-picker-calendar{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 16px 18px 0px 18px;
+        }
+        .div-date{
+            border-right: solid 1px #cdcdcd;
+            font-size: 14px;
+            color:#000000;
+            font-weight: bold;
+            padding-top: 4px;
+        }
+        .div-date-cout{
+            font-size: 14px;
+            color:#000000;
+            font-weight: bold;
+            padding-top: 4px;
+        }
+        .div-label-date{
+            color: #4f4f4f;
+            font-size: 12px;
+        }
+        .cls-date-picker{
+            width: 100%;
+        }
+        .cls-calendar{
+            padding: 0;
+        
+        }
+        .btn-ok-calendar{
+            width: 90%;
+            border:none;
+            color: #ffffff;
+            background-color: #F79221;
+            border-color: #F79221;
+            height: 48px;
+        }
+        .ion-calendar-month .primary .days .on-selected, ion-calendar-month .primary .startSelection button.days-btn, ion-calendar-month .primary .endSelection button.days-btn {
+            background-color: #26bed6;
+            color: #fff;
+        }
+        ion-calendar-month .primary .startSelection:after {
+            height: 36px;
+            width: 50%;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: block;
+            background-color: #C8EEF4 ;
+        }
+        ion-calendar-month .primary .startSelection:after {
+            height: 36px;
+            width: 50%;
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: block;
+            background-color: #C8EEF4 ;
+        }
+        
+        ion-calendar-month .primary .endSelection:after {
+            height: 36px;
+            width: 50%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            background-color: #C8EEF4;
+        }
+        
+        ion-calendar-month .primary .between button.days-btn {
+            background-color: #C8EEF4;
+            width: 100%;
+            border-radius: 0;
+        }
+        ion-calendar-month .primary .days .on-selected, ion-calendar-month .primary .startSelection button.days-btn, ion-calendar-month .primary .endSelection button.days-btn {
+            background-color: #26bed6;
+            color: #fff;
+        }
+        ion-calendar-month .primary button.days-btn small, ion-calendar-month .primary .days .marked p, ion-calendar-month .primary .days .today p {
+            color: #26bed6;
+        }
+        page-pickup-calendar .label-md {
+            margin: 13px 8px 0px 8px;
+        }
+        ion-calendar-week .week-title.transparent {
+            color: #000000;
+        }
+        ion-calendar .title .forward {
+            margin-left: -30px;
+            right: -18px;
+            width: 30px;
+        }
+        ion-calendar .title {
+            padding: 0 30px 0 41px;
+            overflow: hidden;
+        }
+        ion-calendar .item-md [item-left], .item-md [item-right], .item-md [item-start], .item-md [item-end] {
+            margin: 13px 8px 0px 0;
+        }
+        :host{
+            --ion-color-primary: #26bed6; 
+        }
+        .days-btn.is-last.on-selected::after{
+            border-radius: 0;
+        }
+               
+        .startSelection.is-last-wrap[_ngcontent-c3]::after{
+            border-radius: 0;
+        }
+        

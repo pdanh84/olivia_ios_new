@@ -1,0 +1,207 @@
+
+    .request-combo-title{
+        color: #26bed6;
+        padding-left: 5px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .hotel-request-combo-content{
+        padding: 15px;
+    }
+    .text-label{
+        font-size: 12px;
+        color: #818180;
+        font-weight: 400;
+    }
+    .text-cin{
+        border: solid 1px #cdcdcd;
+        border-radius: 5px;
+        padding: 8px 0px 8px 8px;
+        font-size: 14px;
+    }
+    .img-cin{
+        position: absolute;
+        right: 16px;
+        top: 11px;
+    }
+    .text-pax{
+        border: solid 1px #cdcdcd;
+        border-radius: 5px;
+        padding: 8px 0px 8px 8px;
+        font-size: 14px;
+    }
+    .item-md.item-block .item-inner{
+        border:none;
+        padding: 0;
+    }
+    .label-md{
+        font-size: 14px;
+        border: none;
+    }
+    .ion-label{
+        color: #3d3f47;
+    }
+    .list-departure{
+        display: inline-flex;
+        white-space: nowrap;
+    }
+    .rd-departure{
+        padding: 2px;
+        margin-left: 2px;
+        --color-checked: #26bed6;
+        top: 5px;
+    }
+    .rd-departure .radio-icon{
+        width: 12px;
+        height: 12px;
+    }
+    .rd-text{
+        padding-left: 4px;
+    }
+    .radio-md .radio-inner{
+        left: 1px;
+        top: 1px;
+        width: 6px;
+        height: 6px;
+    }
+    .btn-cancel{
+        width: 90%;
+        border:none;
+        color: #ffffff;
+        background-color: #F79221;
+        border-color: #F79221;
+        height: 48px;
+    }
+    .request-input{
+        border: solid 1px #cdcdcd;
+        border-radius: 5px;
+        margin: 5px;
+    }
+    .validate-error{
+        color: red;
+    }
+
+    //support
+    .label-header{
+        font-size: 12px;
+        color: #818180;
+        padding-left: 5px;
+    }
+    .item-list{
+        font-size: 14px;
+    }
+    .icon-list{
+        opacity: 0.7;
+    }
+    .support{
+        padding-top:20px;
+       
+    }
+    .support-text{
+        color: #26bed6;
+    }
+    .support-text-offline{
+        color: #bdbdbd;
+    }
+    .item-call{
+        font-weight: bold;
+        text-decoration: none;
+        color: #26bed6;
+    }
+    .div-icon-close{
+        float: left;
+        opacity: 0.6;
+        padding: 0;
+        font-size: 30px;
+
+        .header-img-close{
+            width: 36px;
+            margin-top: 30px;
+            margin-right: 16px;
+            margin-left: 8px;
+        }
+    }
+    .btn-disable{
+        opacity: 0.5;
+    }
+    .radio-ios .radio-checked .radio-inner {
+        left: 7px;
+        top: 0px;
+        position: absolute;
+        width: 5px;
+        height: 12px;
+        border-width: 2px;
+        border-top-width: 0;
+        border-left-width: 0;
+        border-style: solid;
+        border-color: #488aff;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .radio-ios .radio-icon {
+        position: relative;
+        display: block;
+        width: 19px !important;
+        height: 18px !important;
+        border: solid 1px #cdcdcd;
+        width: 16px;
+    }
+    .text-error{
+        color:red;
+    }
+
+    ::ng-deep{
+        .alert-button.sc-ion-alert-md{
+            width: 100% !important;
+        }
+    }
+    ion-item{
+        --padding-start: 0px;
+      --inner-border-width: 0 0 0px 0;
+      --min-height: 0px;
+    }
+    .ml5
+    {
+        margin-left: 5px;
+    }
+
+    .div-close-paxhint{
+        right: -6px;
+        position: absolute;
+        z-index: 14;
+        top: -0;
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .div-pax-hint{
+        padding: 16px 16px 0 16px;
+        width: 100%;
+        height: 128px;
+        overflow: scroll;
+
+        border-bottom: solid 2px #f2f2f2;
+
+        .d-flex{
+          display: flex;
+        }
+        .m-bottom-16{
+          margin-bottom: 16px;
+        }
+       // margin: 16px -16px;
+        .icon-pax{
+            margin-right: 12px;
+        }
+
+        .text-pax-hint{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #222222;
+        }
+    }

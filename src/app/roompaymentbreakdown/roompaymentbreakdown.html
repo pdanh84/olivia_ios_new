@@ -1,0 +1,111 @@
+<!--
+  Generated template for the RoompaymentbreakdownPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;"  (click)="goback()">
+            <!-- <ion-icon color="dark-tint" (click)="goback()" style="font-size: 2em;" name="arrow-back" class="card-title">
+            </ion-icon> -->
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Chi Tiết Thanh
+              Toán</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding-16">
+    <!-- 
+  <ion-list no-lines>
+    <ion-item style="margin-left: -10px">
+      <ion-thumbnail item-start>
+        <img style="width: 100px;height: 100px;object-fit: cover" src={{imgroom}}>
+      </ion-thumbnail>
+      <div style="margin-bottom:45px">
+        <h2 class="text-name" text-wrap>{{Name}}
+
+        </h2>
+        <p class="text">{{roomnumber}} phòng</p>
+      </div>
+      <p text-wrap>
+        <img class="image-card" *ngIf="breakfast" src="./assets/ic_facility/ic_food_b.svg"> {{breakfast}}
+      </p>
+     
+ 
+    </ion-item>
+   
+  </ion-list> -->
+    <ion-row>
+      <ion-col size="4">
+          <div class="div-wrapimg">
+              <img style="width: 100px;height: 100px;object-fit: cover;border-radius: 5px;" src={{imgroom}}>
+          </div>
+      </ion-col>
+  
+    <ion-col size="8" style="padding:3px" class="col-description-roomdetailreview">
+      <div style="margin-left: 3px">
+        <h2 class="text-name" text-wrap>{{Name}}
+        </h2>
+        <p class="text">{{roomnumber}} phòng</p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <div style="margin-left: -15px">
+      <ion-item>
+        <ion-label style="font-size: 14px">Giá 1 phòng/đêm</ion-label>
+        <p class="total-price"   slot="end">
+          {{PriceAvgMinPriceStr}}đ
+        </p>
+      </ion-item>
+    </div>
+
+    <div style="margin-left: -15px">
+      <ion-item>
+        <ion-label style="font-size: 14px">Giá phòng x {{roomnumber}}| {{dur}} đêm</ion-label>
+        <p class="total-price"  slot="end">
+          {{PriceAvgPlusOTAStr}}đ
+        </p>
+      </ion-item>
+      <ion-item  *ngFor="let msg of arr">
+          <ion-label style="font-size: 14px;white-space: normal">{{msg.text}}</ion-label>
+          <p  slot="end" class="total-price">
+            {{msg.price}}đ
+          </p>
+        </ion-item>
+    </div>
+   <hr>
+   <div class="div-voucher-apply" *ngIf="_voucherService.hotelPromoCode">
+    <ion-item>
+      <div class="width-250 div-overflow"><span class="text-normal">Ưu đãi (</span><span class="text-code">{{_voucherService.hotelPromoCode}}</span><span class="text-normal">)</span> </div>
+      <div class="width-100 text-normal text-right total-price">{{gf.convertNumberToString(_voucherService.hotelTotalDiscount)}}đ</div>
+    </ion-item>
+    
+  </div>
+   <!-- <div class="div-voucher-apply" *ngIf="_voucherService.hotelPromoCode">
+    <ion-item>
+      <div class="width-200"><span class="text-normal">Ưu đãi (</span><span class="text-code">{{_voucherService.selectVoucher.code}}</span><span class="text-normal">)</span> </div>
+      <div class="width-100 text-normal text-right total-price">{{gf.convertNumberToString(_voucherService.hotelTotalDiscount)}}đ</div>
+    </ion-item>
+  </div> -->
+    <div style="margin-left: -15px">
+      <ion-item style="--border-style: none">
+        <ion-label style="font-size: 14px">Tổng cộng</ion-label>
+        <p class="total-price1"  slot="end" *ngIf="!(_voucherService.hotelPromoCode)">
+          {{total}}đ
+        </p>
+        <p class="total-price1"  slot="end"  *ngIf="_voucherService.hotelPromoCode">
+          {{gf.convertNumberToString((totalPrice - _voucherService.hotelTotalDiscount) >0 ? totalPrice - _voucherService.hotelTotalDiscount : 0)}}đ
+        </p>
+      </ion-item>
+    </div>
+  </ion-content>

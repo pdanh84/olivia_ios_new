@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;">
+            <label *ngIf="stt==0" class="text-title">Hoàn thành</label>
+            <label *ngIf="stt!=0" class="text-title">Thanh toán</label>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <div class="p-all-16">
+  <div style="text-align: center;">
+    <img src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div *ngIf="stt=='0'">
+    <div class="mt12">
+      <ion-label class="text" text-wrap>
+        Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU
+      </ion-label>
+      <ion-label class="text" text-wrap>
+        Vui lòng thanh toán đặt chỗ {{bookingCode}} theo thông tin bên dưới
+      </ion-label>
+    </div>
+    <div>
+      <ion-label class="text" text-wrap>
+        Tổng tiền: <span class="totalPrice">{{total}}</span>
+      </ion-label>
+    </div>
+    <div>
+      <ion-label class="text" text-wrap>
+        Mã thanh toán Payoo: <span class="totalPrice">{{BillingCode}}</span>
+      </ion-label>
+    </div>
+    <div>
+      <ion-label class="text" text-wrap>
+        Hạn thanh toán: <span class="totalPrice">Trước {{textHours}} </span><span>{{PeriodPaymentDate}}</span>
+      </ion-label>
+    </div>
+    <div class="mt15">
+      <img src="./assets/imgpayoo/PayooStore.png">
+    </div>
+    <div (click)="openWebpagePayoo()">
+      <label class="text-size-12" >Để tìm cửa hàng gần nhất, hãy <a style="color:#46a7ef" target="_blank" >xem tại đây</a></label>
+    </div>
+    <div class="div-split-panel"></div>
+    <div> <p class="text-payment-info" text-wrap>
+      Thông tin thanh toán cũng được gửi đến email <span class="text-bold">{{_email}}</span>. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư Spam hoặc Junk Folder. 
+    </p>
+     <p class="text-payment-info mt20" text-wrap>
+      Chúng tôi sẽ gửi vé máy bay ngay khi nhận được thanh toán của Quý khách.
+    </p>
+  </div>
+  </div>
+  <div *ngIf="stt=='1'&&qrimg">
+    <p>
+      Quý khách vui lòng quét mã QR dưới đây để thanh toán trước khi "Tiếp tục"												
+    </p>
+    <div>
+      <img style="width:170px"  src={{qrimg}}>
+    </div>
+    <div class="mt15">
+      <img src="./assets/imgpayoo/help_qrcode.jpg">
+    </div>
+  </div>
+</div>
+ </ion-content>
+ <ion-footer>
+  <div *ngIf="stt==0" style="background-color: #ffffff; text-align: center">
+    <!-- <button (click)="addToCalendar()" ion-button round outline class="button button2">Thêm thông tin chuyến bay vào lịch</button> -->
+    <button (click)="next()" ion-button round outline class="button button2">Hoàn thành</button>
+  </div>
+  <div *ngIf="stt!=0" style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Tiếp tục</button>
+  </div>
+</ion-footer>

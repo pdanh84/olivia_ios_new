@@ -1,0 +1,652 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Bộ lọc</div>
+          </div>
+
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close m-top-5" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content class="flight-search-filter-content">
+    <div class="p-16">
+      <div *ngIf="step ==2 else filterReturn">
+        <div class="div-price">
+          <div class="text-title m-bottom-8">Giá</div>
+          <div class="div-fitler-price d-flex">
+            <div class="div-left text-price">{{minpricedisplay}}</div>
+            <div class="div-right text-price">{{maxpricedisplay}}</div>
+          </div>
+          <div>
+            <ion-range class="flight-filter-range" step=50000 (ionChange)="changeprice()" [min]="minvalue" [max]="maxvalue" dualKnobs="true" [(ngModel)]="priceobject"></ion-range>
+          </div>
+        </div>
+        
+  
+        <div class="div-depart-time">
+          <div class="div-flight-time-title text-title">Giờ cất cánh</div>
+  
+          <div class="d-flex m-bottom-8">
+            <div [ngClass]="departTimeRange.indexOf(1) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="departTimeClick(1)" *ngIf="listDepartTimeRange.indexOf(1) != -1 else itemDepart1Disabled">
+              <div class="item-text">Sáng sớm</div>
+              <div class="item-time">00:00-06:00</div>
+            </div>
+            <ng-template #itemDepart1Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Sáng sớm</div>
+                <div class="item-time-disabled">00:00-06:00</div>
+              </div>
+            </ng-template>
+            <div [ngClass]="departTimeRange.indexOf(2) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="departTimeClick(2)" *ngIf="listDepartTimeRange.indexOf(2) != -1 else itemDepart2Disabled">
+              <div class="item-text">Buổi sáng</div>
+              <div class="item-time">06:00-12:00</div>
+            </div>
+            <ng-template #itemDepart2Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi sáng</div>
+                <div class="item-time-disabled">06:00-12:00</div>
+              </div>
+            </ng-template>
+          </div>
+    
+          <div class="d-flex">
+            <div [ngClass]="departTimeRange.indexOf(3) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="departTimeClick(3)" *ngIf="listDepartTimeRange.indexOf(3) != -1 else itemDepart3Disabled">
+              <div class="item-text">Buổi chiều</div>
+              <div class="item-time">12:00-18:00</div>
+            </div>
+            <ng-template #itemDepart3Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Buổi chiều</div>
+              <div class="item-time-disabled">12:00-18:00</div>
+              </div>
+            </ng-template>
+            <div [ngClass]="departTimeRange.indexOf(4) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="departTimeClick(4)" *ngIf="listDepartTimeRange.indexOf(4) != -1 else itemDepart4Disabled">
+              <div class="item-text">Buổi tối</div>
+              <div class="item-time">18:00-00:00</div>
+            </div>
+            <ng-template #itemDepart4Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi tối</div>
+                <div class="item-time-disabled">18:00-00:00</div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        
+  
+        <div class="div-return-time">
+          <div class="div-flight-time-title text-title">Giờ hạ cánh</div>
+  
+          <div class="d-flex m-bottom-8">
+            <div [ngClass]="returnTimeRange.indexOf(1) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="returnTimeClick(1)" *ngIf="listDepartLandingTimeRange.indexOf(1) != -1 else itemDepartLanding1Disabled">
+              <div class="item-text">Sáng sớm</div>
+              <div class="item-time">00:00-06:00</div>
+            </div>
+            <ng-template #itemDepartLanding1Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Sáng sớm</div>
+                <div class="item-time-disabled">00:00-06:00</div>
+              </div>
+            </ng-template>
+  
+            <div [ngClass]="returnTimeRange.indexOf(2) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="returnTimeClick(2)" *ngIf="listDepartLandingTimeRange.indexOf(2) != -1 else itemDepartLanding2Disabled">
+              <div class="item-text">Buổi sáng</div>
+              <div class="item-time">06:00-12:00</div>
+            </div>
+            <ng-template #itemDepartLanding2Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi sáng</div>
+                <div class="item-time-disabled">06:00-12:00</div>
+              </div>
+            </ng-template>
+  
+          </div>
+  
+          <div class="d-flex">
+            <div [ngClass]="returnTimeRange.indexOf(3) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="returnTimeClick(3)" *ngIf="listDepartLandingTimeRange.indexOf(3) != -1 else itemDepartLanding3Disabled">
+              <div class="item-text">Buổi chiều</div>
+              <div class="item-time">12:00-18:00</div>
+            </div>
+            <ng-template #itemDepartLanding3Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Buổi chiều</div>
+                <div class="item-time-disabled">12:00-18:00</div>
+              </div>
+            </ng-template>
+  
+            <div [ngClass]="returnTimeRange.indexOf(4) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="returnTimeClick(4)" *ngIf="listDepartLandingTimeRange.indexOf(4) != -1 else itemDepartLanding4Disabled">
+              <div class="item-text">Buổi tối</div>
+              <div class="item-time">18:00-00:00</div>
+            </div>
+            <ng-template #itemDepartLanding4Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi tối</div>
+                <div class="item-time-disabled">18:00-00:00</div>
+              </div>
+            </ng-template>
+  
+          </div>
+        </div>
+        
+        <div class="div-flight-airline">
+          <div class="div-flight-airline-title text-title">Hãng</div>
+            <div class="div-airline d-flex" *ngIf="isdepart else returnflightairline">
+              <div [ngClass]="airlineSelected.indexOf(1) != -1 ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(1)" *ngIf="listDepartAirlines.indexOf('VietnamAirlines') != -1">Vietnam Airlines</div>
+              <div [ngClass]="airlineSelected.indexOf(2) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(2)" *ngIf="listDepartAirlines.indexOf('BambooAirways') != -1">Bamboo Airways</div>
+              <div [ngClass]="airlineSelected.indexOf(3) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(3)" *ngIf="listDepartAirlines.indexOf('JetStar') != -1">Jetstar</div>
+              <div [ngClass]="airlineSelected.indexOf(4) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(4)" *ngIf="listDepartAirlines.indexOf('VietJetAir') != -1">Vietjet Air</div>
+              <div [ngClass]="airlineSelected.indexOf(5) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(5)" *ngIf="listDepartAirlines.indexOf('AirAsia') != -1">Air Asia</div>
+              
+            </div>
+            <ng-template #returnflightairline>
+              <div class="div-airline d-flex">
+                <div [ngClass]="airlineSelected.indexOf(1) != -1 ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(1)" *ngIf="listReturnAirlines.indexOf('VietnamAirlines') != -1">Vietnam Airlines</div>
+                <div [ngClass]="airlineSelected.indexOf(2) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(2)" *ngIf="listReturnAirlines.indexOf('BambooAirways') != -1">Bamboo Airways</div>
+                <div [ngClass]="airlineSelected.indexOf(3) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(3)" *ngIf="listReturnAirlines.indexOf('JetStar') != -1">Jetstar</div>
+                <div [ngClass]="airlineSelected.indexOf(4) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(4)" *ngIf="listReturnAirlines.indexOf('VietJetAir') != -1">Vietjet Air</div>
+                <div [ngClass]="airlineSelected.indexOf(5) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(5)" *ngIf="listReturnAirlines.indexOf('AirAsia') != -1">Air Asia</div>
+                
+              </div>
+            </ng-template>
+            <!-- <div class="d-flex">
+              
+            </div> -->
+          
+        </div>
+  
+        <div class="div-flight-class">
+            <div class="div-flight-class-title text-title">Hạng</div>
+            <div class="div-flight-class-item d-flex" *ngIf="isdepart else returnTicketClass">
+              <div [ngClass]="classSelected.indexOf(4) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(4)" *ngIf="listDepartTicketClass.indexOf(4) != -1 else departTicketClass4Disabled">Tiết kiệm</div>
+              <ng-template #departTicketClass4Disabled>
+                <div class="div-class-item disabled item-text" >Tiết kiệm</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelected.indexOf(1) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(1)" *ngIf="listDepartTicketClass.indexOf(1) != -1 else departTicketClass1Disabled">Phổ thông</div>
+              <ng-template #departTicketClass1Disabled>
+                <div class="div-class-item disabled item-text" >Phổ thông</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelected.indexOf(3) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(3)" *ngIf="listDepartTicketClass.indexOf(3) != -1 else departTicketClass3Disabled">Linh hoạt</div>
+              <ng-template #departTicketClass3Disabled>
+                <div class="div-class-item disabled item-text" >Linh hoạt</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelected.indexOf(2) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(2)" *ngIf="listDepartTicketClass.indexOf(2) != -1 else departTicketClass2Disabled">Thương gia</div>
+              <ng-template #departTicketClass2Disabled>
+                <div class="div-class-item disabled item-text" >Thương gia</div>
+              </ng-template>
+            </div>
+            <!-- <div class="d-flex m-bottom-8" *ngIf="isdepart else returnTicketClass">
+              <div [ngClass]="classSelected.indexOf(1) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(1)" *ngIf="listDepartTicketClass.indexOf(1) != -1 else departTicketClass1Disabled">Phổ thông</div>
+              <ng-template #departTicketClass1Disabled>
+                <div class="div-class-item disabled item-text" >Phổ thông</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelected.indexOf(2) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(2)" *ngIf="listDepartTicketClass.indexOf(2) != -1 else departTicketClass2Disabled">Thương gia</div>
+              <ng-template #departTicketClass2Disabled>
+                <div class="div-class-item disabled item-text" >Thương gia</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelected.indexOf(3) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(3)" *ngIf="listDepartTicketClass.indexOf(3) != -1 else departTicketClass3Disabled">Hạng nhất</div>
+              <ng-template #departTicketClass3Disabled>
+                <div class="div-class-item disabled item-text" >Hạng nhất</div>
+              </ng-template>
+  
+            </div> -->
+            <ng-template #returnTicketClass>
+              <!-- <div class="d-flex m-bottom-8">
+                <div [ngClass]="classSelected.indexOf(1) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(1)" *ngIf="listReturnTicketClass.indexOf(1) != -1 else returnTicketClass1Disabled">Phổ thông</div>
+                <ng-template #returnTicketClass1Disabled>
+                  <div class="div-class-item disabled item-text" >Phổ thông</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelected.indexOf(2) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(2)" *ngIf="listReturnTicketClass.indexOf(2) != -1 else returnTicketClass2Disabled">Thương gia</div>
+                <ng-template #returnTicketClass2Disabled>
+                  <div class="div-class-item disabled item-text" >Thương gia</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelected.indexOf(3) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(3)" *ngIf="listReturnTicketClass.indexOf(3) != -1 else returnTicketClass3Disabled">Hạng nhất</div>
+                <ng-template #returnTicketClass3Disabled>
+                  <div class="div-class-item disabled item-text" >Hạng nhất</div>
+                </ng-template>
+                
+              </div> -->
+              <div class="div-flight-class-item d-flex">
+                <div [ngClass]="classSelected.indexOf(4) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(4)" *ngIf="listReturnTicketClass.indexOf(4) != -1 else returnTicketClass4Disabled">Tiết kiệm</div>
+                <ng-template #returnTicketClass4Disabled>
+                  <div class="div-class-item disabled item-text" >Tiết kiệm</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelected.indexOf(1) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(1)" *ngIf="listReturnTicketClass.indexOf(1) != -1 else returnTicketClass1Disabled">Phổ thông</div>
+                <ng-template #returnTicketClass1Disabled>
+                  <div class="div-class-item disabled item-text" >Phổ thông</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelected.indexOf(3) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(3)" *ngIf="listReturnTicketClass.indexOf(3) != -1 else returnTicketClass3Disabled">Linh hoạt</div>
+                <ng-template #returnTicketClass3Disabled>
+                  <div class="div-class-item disabled item-text" >Linh hoạt</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelected.indexOf(2) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(2)" *ngIf="listReturnTicketClass.indexOf(2) != -1 else returnTicketClass2Disabled">Thương gia</div>
+                <ng-template #returnTicketClass2Disabled>
+                  <div class="div-class-item disabled item-text" >Thương gia</div>
+                </ng-template>
+              </div>
+            </ng-template>
+        </div>
+  
+        <div class="div-flight-stop">
+          <div class="div-flight-stop-title text-title">Điểm dừng</div>
+          <div *ngIf="isdepart else returnStops">
+            <div class="d-flex m-bottom-8">
+              <div [ngClass]="stopSelected.indexOf(1) != -1? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(1)" *ngIf="listDepartStops.indexOf(1) != -1 else departStop1Disabled">Không có điểm dừng</div>
+              <ng-template #departStop1Disabled>
+                <div class="div-stop-item disabled item-text">Không có điểm dừng</div>
+              </ng-template>
+  
+              <div [ngClass]="stopSelected.indexOf(2) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(2)" *ngIf="listDepartStops.indexOf(2) != -1 else departStop2Disabled">Tối đa 1 điểm dừng</div>
+              <ng-template #departStop2Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 1 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+            <div class="d-flex">
+              <div [ngClass]="stopSelected.indexOf(3) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(3)" *ngIf="listDepartStops.indexOf(3) != -1 else departStop3Disabled">Tối đa 2 điểm dừng</div>
+              <ng-template #departStop3Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 2 điểm dừng</div>
+              </ng-template>
+
+              <div [ngClass]="stopSelected.indexOf(4) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(4)" *ngIf="listDepartStops.indexOf(4) != -1 else departStop4Disabled">Tối đa 3 điểm dừng</div>
+              <ng-template #departStop4Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 3 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+          </div>
+          <ng-template #returnStops>
+            <div class="d-flex m-bottom-8">
+              <div [ngClass]="stopSelected.indexOf(1) != -1? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(1)" *ngIf="listReturnStops.indexOf(1) != -1 else returnStop1Disabled">Không có điểm dừng</div>
+              <ng-template #returnStop1Disabled>
+                <div class="div-stop-item disabled item-text">Không có điểm dừng</div>
+              </ng-template>
+  
+              <div [ngClass]="stopSelected.indexOf(2) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(2)" *ngIf="listReturnStops.indexOf(2) != -1 else returnStop2Disabled">Tối đa 1 điểm dừng</div>
+              <ng-template #returnStop2Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 1 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+            <div class="d-flex">
+              <div [ngClass]="stopSelected.indexOf(3) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(3)" *ngIf="listReturnStops.indexOf(3) != -1 else returnStop3Disabled">Tối đa 2 điểm dừng</div>
+              <ng-template #returnStop3Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 2 điểm dừng</div>
+              </ng-template>
+  
+              <div [ngClass]="stopSelected.indexOf(4) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(4)" *ngIf="listReturnStops.indexOf(4) != -1 else returnStop4Disabled">Tối đa 3 điểm dừng</div>
+              <ng-template #returnStop4Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 3 điểm dừng</div>
+              </ng-template>
+            </div>
+          </ng-template>
+          
+          <div class="div-flight-facility">
+            <div class="div-flight-facility-title text-title">Tiện ích phổ biến</div>
+  
+                <div class="div-airline d-flex">
+                  <div [ngClass]="facilitySelected.indexOf(1) != -1 ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(1)" *ngIf="listDepartFacility.indexOf(1) != -1 else departFacility1Disabled">Hoàn hủy linh hoạt</div>
+                    <ng-template #departFacility1Disabled>
+                      <div class="div-facility-item item-text disabled m-top-8">Hoàn hủy linh hoạt</div>
+                    </ng-template>
+                  <div [ngClass]="facilitySelected.indexOf(2) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(2)" *ngIf="listDepartFacility.indexOf(2) != -1 else departFacility2Disabled">Vé khuyến mãi</div>
+                    <ng-template #departFacility2Disabled>
+                      <div class="div-facility-item item-text disabled m-top-8">Vé khuyến mãi</div>
+                    </ng-template>
+                  <div [ngClass]="facilitySelected.indexOf(3) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(3)" *ngIf="listDepartFacility.indexOf(3) != -1 else departFacility3Disabled">Có sẵn hành lý</div>
+                    <ng-template #departFacility3Disabled>
+                      <div class="div-facility-item item-text disabled m-top-8">Có sẵn hành lý</div>
+                    </ng-template>
+                  <div [ngClass]="facilitySelected.indexOf(4) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(4)" *ngIf="listDepartFacility.indexOf(4) != -1 else departFacility4Disabled">Check in ưu tiên</div>
+                    <ng-template #departFacility4Disabled>
+                      <div class="div-facility-item item-text disabled m-top-8">Check in ưu tiên</div>
+                    </ng-template>
+                  
+                </div>
+                
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Chiều về -->
+      <ng-template #filterReturn>
+        <div class="div-price">
+          <div class="text-title m-bottom-8">Giá</div>
+          <div class="div-fitler-price d-flex">
+            <div class="div-left text-price">{{minpricereturndisplay}}</div>
+            <div class="div-right text-price">{{maxpricereturndisplay}}</div>
+          </div>
+          <div>
+            <ion-range class="flight-filter-range" step=50000 (ionChange)="changeprice()" [min]="minvalueReturn" [max]="maxvalueReturn" dualKnobs="true" [(ngModel)]="priceobjectreturn"></ion-range>
+          </div>
+        </div>
+        
+  
+        <div class="div-depart-time">
+          <div class="div-flight-time-title text-title">Giờ cất cánh</div>
+  
+          <div class="d-flex m-bottom-8">
+            <div [ngClass]="departTimeRangeReturn.indexOf(1) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="departTimeClick(1)" *ngIf="listReturnTimeRangeReturn.indexOf(1) != -1 else itemDepart1Disabled">
+              <div class="item-text">Sáng sớm</div>
+              <div class="item-time">00:00-06:00</div>
+            </div>
+            <ng-template #itemDepart1Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Sáng sớm</div>
+                <div class="item-time-disabled">00:00-06:00</div>
+              </div>
+            </ng-template>
+            <div [ngClass]="departTimeRangeReturn.indexOf(2) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="departTimeClick(2)" *ngIf="listReturnTimeRangeReturn.indexOf(2) != -1 else itemDepart2Disabled">
+              <div class="item-text">Buổi sáng</div>
+              <div class="item-time">06:00-12:00</div>
+            </div>
+            <ng-template #itemDepart2Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi sáng</div>
+                <div class="item-time-disabled">06:00-12:00</div>
+              </div>
+            </ng-template>
+          </div>
+    
+          <div class="d-flex">
+            <div [ngClass]="departTimeRangeReturn.indexOf(3) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="departTimeClick(3)" *ngIf="listReturnTimeRangeReturn.indexOf(3) != -1 else itemDepart3Disabled">
+              <div class="item-text">Buổi chiều</div>
+              <div class="item-time">12:00-18:00</div>
+            </div>
+            <ng-template #itemDepart3Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Buổi chiều</div>
+              <div class="item-time-disabled">12:00-18:00</div>
+              </div>
+            </ng-template>
+            <div [ngClass]="departTimeRangeReturn.indexOf(4) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="departTimeClick(4)" *ngIf="listReturnTimeRangeReturn.indexOf(4) != -1 else itemDepart4Disabled">
+              <div class="item-text">Buổi tối</div>
+              <div class="item-time">18:00-00:00</div>
+            </div>
+            <ng-template #itemDepart4Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi tối</div>
+                <div class="item-time-disabled">18:00-00:00</div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        
+  
+        <div class="div-return-time">
+          <div class="div-flight-time-title text-title">Giờ hạ cánh</div>
+  
+          <div class="d-flex m-bottom-8">
+            <div [ngClass]="returnTimeRangeReturn.indexOf(1) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="returnTimeClick(1)" *ngIf="listReturnLandingTimeRangeReturn.indexOf(1) != -1 else itemDepartLanding1Disabled">
+              <div class="item-text">Sáng sớm</div>
+              <div class="item-time">00:00-06:00</div>
+            </div>
+            <ng-template #itemDepartLanding1Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Sáng sớm</div>
+                <div class="item-time-disabled">00:00-06:00</div>
+              </div>
+            </ng-template>
+  
+            <div [ngClass]="returnTimeRangeReturn.indexOf(2) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="returnTimeClick(2)" *ngIf="listReturnLandingTimeRangeReturn.indexOf(2) != -1 else itemDepartLanding2Disabled">
+              <div class="item-text">Buổi sáng</div>
+              <div class="item-time">06:00-12:00</div>
+            </div>
+            <ng-template #itemDepartLanding2Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi sáng</div>
+                <div class="item-time-disabled">06:00-12:00</div>
+              </div>
+            </ng-template>
+  
+          </div>
+  
+          <div class="d-flex">
+            <div [ngClass]="returnTimeRangeReturn.indexOf(3) != -1 ? 'div-item-left selected' : 'div-item-left'" (click)="returnTimeClick(3)" *ngIf="listReturnLandingTimeRangeReturn.indexOf(3) != -1 else itemDepartLanding3Disabled">
+              <div class="item-text">Buổi chiều</div>
+              <div class="item-time">12:00-18:00</div>
+            </div>
+            <ng-template #itemDepartLanding3Disabled>
+              <div class="div-item-left item-disabled">
+                <div class="item-text-disabled">Buổi chiều</div>
+                <div class="item-time-disabled">12:00-18:00</div>
+              </div>
+            </ng-template>
+  
+            <div [ngClass]="returnTimeRangeReturn.indexOf(4) != -1 ? 'div-item-right selected' : 'div-item-right'" (click)="returnTimeClick(4)" *ngIf="listReturnLandingTimeRangeReturn.indexOf(4) != -1 else itemDepartLanding4Disabled">
+              <div class="item-text">Buổi tối</div>
+              <div class="item-time">18:00-00:00</div>
+            </div>
+            <ng-template #itemDepartLanding4Disabled>
+              <div class="div-item-right item-disabled">
+                <div class="item-text-disabled">Buổi tối</div>
+                <div class="item-time-disabled">18:00-00:00</div>
+              </div>
+            </ng-template>
+  
+          </div>
+        </div>
+        
+        <div class="div-flight-airline">
+          <div class="div-flight-airline-title text-title">Hãng</div>
+            <div class="div-airline d-flex" *ngIf="isdepart else returnflightairline">
+              <div [ngClass]="airlineSelectedReturn.indexOf(1) != -1 ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(1)" *ngIf="listDepartAirlinesReturn.indexOf('VietnamAirlines') != -1">Vietnam Airlines</div>
+              <div [ngClass]="airlineSelectedReturn.indexOf(2) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(2)" *ngIf="listDepartAirlinesReturn.indexOf('BambooAirways') != -1">Bamboo Airways</div>
+              <div [ngClass]="airlineSelectedReturn.indexOf(3) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(3)" *ngIf="listDepartAirlinesReturn.indexOf('JetStar') != -1">Jetstar</div>
+              <div [ngClass]="airlineSelectedReturn.indexOf(4) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(4)" *ngIf="listDepartAirlinesReturn.indexOf('VietJetAir') != -1">Vietjet Air</div>
+              <div [ngClass]="airlineSelectedReturn.indexOf(5) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(5)" *ngIf="listDepartAirlinesReturn.indexOf('AirAsia') != -1">Air Asia</div>
+              
+            </div>
+            <ng-template #returnflightairline>
+              <div class="div-airline d-flex">
+                <div [ngClass]="airlineSelectedReturn.indexOf(1) != -1 ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(1)" *ngIf="listReturnAirlinesReturn.indexOf('VietnamAirlines') != -1">Vietnam Airlines</div>
+                <div [ngClass]="airlineSelectedReturn.indexOf(2) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(2)" *ngIf="listReturnAirlinesReturn.indexOf('BambooAirways') != -1">Bamboo Airways</div>
+                <div [ngClass]="airlineSelectedReturn.indexOf(3) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(3)" *ngIf="listReturnAirlinesReturn.indexOf('JetStar') != -1">Jetstar</div>
+                <div [ngClass]="airlineSelectedReturn.indexOf(4) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(4)" *ngIf="listReturnAirlinesReturn.indexOf('VietJetAir') != -1">Vietjet Air</div>
+                <div [ngClass]="airlineSelectedReturn.indexOf(5) != -1  ? 'div-airline-item selected item-text m-top-8' : 'div-airline-item item-text m-top-8'" (click)="airlineFitlerClick(5)" *ngIf="listReturnAirlinesReturn.indexOf('AirAsia') != -1">Air Asia</div>
+                
+              </div>
+            </ng-template>
+            <!-- <div class="d-flex">
+              
+            </div> -->
+          
+        </div>
+  
+        <div class="div-flight-class">
+            <div class="div-flight-class-title text-title">Hạng</div>
+            <!-- <div class="d-flex m-bottom-8" *ngIf="isdepart else returnTicketClass">
+              <div [ngClass]="classSelectedReturn.indexOf(1) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(1)" *ngIf="listDepartTicketClassReturn.indexOf(1) != -1 else departTicketClass1Disabled">Phổ thông</div>
+              <ng-template #departTicketClass1Disabled>
+                <div class="div-class-item disabled item-text" >Phổ thông</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelectedReturn.indexOf(2) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(2)" *ngIf="listDepartTicketClassReturn.indexOf(2) != -1 else departTicketClass2Disabled">Thương gia</div>
+              <ng-template #departTicketClass2Disabled>
+                <div class="div-class-item disabled item-text" >Thương gia</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelectedReturn.indexOf(3) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(3)" *ngIf="listDepartTicketClassReturn.indexOf(3) != -1 else departTicketClass3Disabled">Hạng nhất</div>
+              <ng-template #departTicketClass3Disabled>
+                <div class="div-class-item disabled item-text" >Hạng nhất</div>
+              </ng-template>
+  
+            </div> -->
+            <div class="div-flight-class-item d-flex" *ngIf="isdepart else returnTicketClass">
+              <div [ngClass]="classSelectedReturn.indexOf(4) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(4)" *ngIf="listDepartTicketClassReturn.indexOf(4) != -1 else departTicketClass4Disabled">Tiết kiệm</div>
+              <ng-template #departTicketClass4Disabled>
+                <div class="div-class-item disabled item-text" >Tiết kiệm</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelectedReturn.indexOf(1) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(1)" *ngIf="listDepartTicketClassReturn.indexOf(1) != -1 else departTicketClass1Disabled">Phổ thông</div>
+              <ng-template #departTicketClass1Disabled>
+                <div class="div-class-item disabled item-text" >Phổ thông</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelectedReturn.indexOf(3) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(3)" *ngIf="listDepartTicketClassReturn.indexOf(3) != -1 else departTicketClass3Disabled">Hạng nhất</div>
+              <ng-template #departTicketClass3Disabled>
+                <div class="div-class-item disabled item-text" >Linh hoạt</div>
+              </ng-template>
+  
+              <div [ngClass]="classSelectedReturn.indexOf(2) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(2)" *ngIf="listDepartTicketClassReturn.indexOf(2) != -1 else departTicketClass2Disabled">Thương gia</div>
+              <ng-template #departTicketClass2Disabled>
+                <div class="div-class-item disabled item-text" >Thương gia</div>
+              </ng-template>
+            </div>
+            <ng-template #returnTicketClass>
+              <!-- <div class="d-flex m-bottom-8">
+                <div [ngClass]="classSelectedReturn.indexOf(1) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(1)" *ngIf="listReturnTicketClassReturn.indexOf(1) != -1 else returnTicketClass1Disabled">Phổ thông</div>
+                <ng-template #returnTicketClass1Disabled>
+                  <div class="div-class-item disabled item-text" >Phổ thông</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelectedReturn.indexOf(2) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(2)" *ngIf="listReturnTicketClassReturn.indexOf(2) != -1 else returnTicketClass2Disabled">Thương gia</div>
+                <ng-template #returnTicketClass2Disabled>
+                  <div class="div-class-item disabled item-text" >Thương gia</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelectedReturn.indexOf(3) != -1? 'div-class-item selected item-text' : 'div-class-item item-text'" (click)="classFitlerClick(3)" *ngIf="listReturnTicketClassReturn.indexOf(3) != -1 else returnTicketClass3Disabled">Hạng nhất</div>
+                <ng-template #returnTicketClass3Disabled>
+                  <div class="div-class-item disabled item-text" >Hạng nhất</div>
+                </ng-template>
+                
+              </div> -->
+              <div class="div-flight-class-item d-flex m-bottom-8">
+                <div [ngClass]="classSelectedReturn.indexOf(4) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(4)" *ngIf="listReturnTicketClassReturn.indexOf(4) != -1 else returnTicketClass4Disabled">Tiết kiệm</div>
+              <ng-template #returnTicketClass4Disabled>
+                <div class="div-class-item disabled item-text" >Tiết kiệm</div>
+              </ng-template>
+  
+                <div [ngClass]="classSelectedReturn.indexOf(1) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(1)" *ngIf="listReturnTicketClassReturn.indexOf(1) != -1 else returnTicketClass1Disabled">Phổ thông</div>
+                <ng-template #returnTicketClass1Disabled>
+                  <div class="div-class-item disabled item-text" >Phổ thông</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelectedReturn.indexOf(3) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(3)" *ngIf="listReturnTicketClassReturn.indexOf(3) != -1 else returnTicketClass3Disabled">Linh hoạt</div>
+                <ng-template #returnTicketClass3Disabled>
+                  <div class="div-class-item disabled item-text" >Linh hoạt</div>
+                </ng-template>
+  
+                <div [ngClass]="classSelectedReturn.indexOf(2) != -1? 'div-class-item selected item-text m-bottom-8' : 'div-class-item item-text m-bottom-8'" (click)="classFitlerClick(2)" *ngIf="listReturnTicketClassReturn.indexOf(2) != -1 else returnTicketClass2Disabled">Thương gia</div>
+                <ng-template #returnTicketClass2Disabled>
+                  <div class="div-class-item disabled item-text" >Thương gia</div>
+                </ng-template>
+              </div>
+            </ng-template>
+        </div>
+  
+        <div class="div-flight-stop">
+          <div class="div-flight-stop-title text-title">Điểm dừng</div>
+          <div *ngIf="isdepart else returnStops">
+            <div class="d-flex m-bottom-8">
+              <div [ngClass]="stopSelectedReturn.indexOf(1) != -1? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(1)" *ngIf="listDepartStopsReturn.indexOf(1) != -1 else departStop1Disabled">Không có điểm dừng</div>
+              <ng-template #departStop1Disabled>
+                <div class="div-stop-item disabled item-text">Không có điểm dừng</div>
+              </ng-template>
+  
+              <div [ngClass]="stopSelectedReturn.indexOf(2) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(2)" *ngIf="listDepartStopsReturn.indexOf(2) != -1 else departStop2Disabled">Tối đa 1 điểm dừng</div>
+              <ng-template #departStop2Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 1 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+            <div class="d-flex">
+              <div [ngClass]="stopSelectedReturn.indexOf(3) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(3)" *ngIf="listDepartStopsReturn.indexOf(3) != -1 else departStop3Disabled">Tối đa 2 điểm dừng</div>
+              <ng-template #departStop3Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 2 điểm dừng</div>
+              </ng-template>
+
+              <div [ngClass]="stopSelectedReturn.indexOf(4) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(4)" *ngIf="listDepartStopsReturn.indexOf(4) != -1 else departStop4Disabled">Tối đa 3 điểm dừng</div>
+              <ng-template #departStop4Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 3 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+          </div>
+          <ng-template #returnStops>
+            <div class="d-flex m-bottom-8">
+              <div [ngClass]="stopSelectedReturn.indexOf(1) != -1? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(1)" *ngIf="listReturnStopsReturn.indexOf(1) != -1 else returnStop1Disabled">Không có điểm dừng</div>
+              <ng-template #returnStop1Disabled>
+                <div class="div-stop-item disabled item-text">Không có điểm dừng</div>
+              </ng-template>
+  
+              <div [ngClass]="stopSelectedReturn.indexOf(2) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(2)" *ngIf="listReturnStopsReturn.indexOf(2) != -1 else returnStop2Disabled">Tối đa 1 điểm dừng</div>
+              <ng-template #returnStop2Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 1 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+            <div class="d-flex">
+              <div [ngClass]="stopSelectedReturn.indexOf(3) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(3)" *ngIf="listReturnStopsReturn.indexOf(3) != -1 else returnStop3Disabled">Tối đa 2 điểm dừng</div>
+              <ng-template #returnStop3Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 2 điểm dừng</div>
+              </ng-template>
+
+              <div [ngClass]="stopSelectedReturn.indexOf(4) != -1 ? 'div-stop-item selected item-text' : 'div-stop-item item-text'" (click)="stopFitlerClick(4)" *ngIf="listReturnStopsReturn.indexOf(4) != -1 else returnStop4Disabled">Tối đa 3 điểm dừng</div>
+              <ng-template #returnStop4Disabled>
+                <div class="div-stop-item disabled item-text">Tối đa 3 điểm dừng</div>
+              </ng-template>
+  
+            </div>
+          </ng-template>
+
+          <div class="div-flight-facility">
+            <div class="div-flight-facility-title text-title">Tiện ích phổ biến</div>
+                  <div class="div-airline d-flex">
+                    <div [ngClass]="facilitySelectedReturn.indexOf(1) != -1 ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(1)" *ngIf="listReturnFacility.indexOf(1) != -1 else returnFacility1Disabled">Hoàn hủy linh hoạt</div>
+                      <ng-template #returnFacility1Disabled>
+                        <div class="div-facility-item item-text disabled m-top-8">Hoàn hủy linh hoạt</div>
+                      </ng-template>
+                    <div [ngClass]="facilitySelectedReturn.indexOf(2) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(2)" *ngIf="listReturnFacility.indexOf(2) != -1 else returnFacility2Disabled">Vé khuyến mãi</div>
+                      <ng-template #returnFacility2Disabled>
+                        <div class="div-facility-item item-text disabled m-top-8">Vé khuyến mãi</div>
+                      </ng-template>
+                    <div [ngClass]="facilitySelectedReturn.indexOf(3) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(3)" *ngIf="listReturnFacility.indexOf(3) != -1 else returnFacility3Disabled" >Có sẵn hành lý</div>
+                      <ng-template #returnFacility3Disabled>
+                        <div class="div-facility-item item-text disabled m-top-8">Có sẵn hành lý</div>
+                      </ng-template>
+                    <div [ngClass]="facilitySelectedReturn.indexOf(4) != -1  ? 'div-facility-item selected item-text m-top-8' : 'div-facility-item item-text m-top-8'" (click)="flightFacilityFitlerClick(4)" *ngIf="listReturnFacility.indexOf(4) != -1 else returnFacility4Disabled">Check in ưu tiên</div>
+                      <ng-template #returnFacility4Disabled>
+                        <div class="div-facility-item item-text disabled m-top-8">Check in ưu tiên</div>
+                      </ng-template>
+                  </div>
+          </div>
+          
+        </div>
+      </ng-template>
+
+     
+    </div>
+  </ion-content>
+  <ion-footer>
+    <ion-row>
+      <ion-col style="padding:0">
+        <div class="div-flightfilter-footer">
+          <div class="div-button-flex">
+            <button  (click)="clearFilter()" ion-button round outline class="button button-clear">Xóa lọc</button>
+            <button (click)="filter()" ion-button round outline class="button button-filter" *ngIf="step == 2 else countReturn">Xem <span *ngIf="countFilter >0">{{countFilter}} chuyến bay</span></button>
+            <ng-template #countReturn>
+                <button (click)="filter()" ion-button round outline class="button button-filter">Xem <span *ngIf="countFilterReturn >0">{{countFilterReturn}} chuyến bay</span></button>
+            </ng-template>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  
+  </ion-footer>

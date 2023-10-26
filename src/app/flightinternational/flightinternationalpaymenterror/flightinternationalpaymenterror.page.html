@@ -1,0 +1,31 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Đặt vé máy bay</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="flight-payment-error-content">
+            <div class="text-center">
+                <img class="img-payment-err" src="./assets/ic_flight/payment_err.svg" >
+
+                <div class="text-title">Giao dịch thanh toán thất bại</div>
+                
+                <div class="text-err">
+                  <div>Quý khách có thể thực hiện đặt lại vé khác tại website ivivu.com</div>
+                  <div class="m-top-8">Nếu cần sự hỗ trợ vui lòng liên hệ email support@ivivu.com hoặc số tổng đài sau: (028) 3933 8008
+                    Thời gian làm việc: Từ 08h00 đến 20h00</div>
+                </div>
+
+                <div class="div-button">
+                    <button (click)="gohome()" ion-button round outline class="button btnhome">Về lại trang chủ</button>
+                </div>
+            </div>
+      </div>
+  </ion-content>

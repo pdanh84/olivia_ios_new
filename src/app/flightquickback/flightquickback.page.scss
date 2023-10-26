@@ -1,0 +1,54 @@
+
+.div-header-title{
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.14px;
+  color: #828282;
+
+  width: 400% !important;
+  text-align: right;
+  padding-right: 11px;
+  z-index: 1 !important;
+  position: relative !important;
+}
+
+.div-button-close{
+  width: 50%;
+  .header-img-close {
+    width: 36px;
+  }
+}
+.d-flex {
+  display: flex;
+}
+
+.div-text-close{
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.14px;
+  color: #26bed6;
+}
+
+.flight-changeinfo-content{
+
+
+  padding: 16px;
+  text-align: center;
+
+  .m-bottom-24{
+    margin-bottom: 24px;
+  }
+}
+
+::ng-deep{
+  .sc-ion-modal-md-h.modal-flight-quick-back{
+      --height: calc( env(safe-area-inset-top) +  268px);
+      align-items: flex-start;
+  }
+}

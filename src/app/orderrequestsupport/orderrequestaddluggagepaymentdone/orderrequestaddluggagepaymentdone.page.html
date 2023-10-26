@@ -1,0 +1,262 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content >
+  <div class="p-all-16">
+    <div  style="text-align: center">
+      <img  src="./assets/ic_ordersupport/step_4.svg">
+    </div>
+    
+    <div class="img-trip-empty">
+        <img class="img-empty" src="./assets/empty/imgdone.svg">
+    </div>
+    <div *ngIf="!_flightService.fromOrderRequestChangeFlight">
+      <div style="margin-top: 5px">
+        <div>
+          <ion-label class="text">
+            Quý khách đã mua thêm hành lý thành công
+          </ion-label>
+        </div>
+          <div class="p-top-12">  
+            <ion-label *ngIf="total" class="text">
+              Số tiền thanh toán <span style="font-weight: bold">{{total}}</span>
+            </ion-label>
+          </div>
+      </div>
+
+      <div class="div-split-panel"></div>
+      <div *ngIf="itemAddLuggage && arrlugdepart && arrlugdepart.length >0">
+        <div class="d-flex" *ngIf="bookingCode">
+          <div class="div-width-200">Mã đơn hàng: <span class="text-bold">{{bookingCode}}</span></div>
+        </div>
+
+        <div class="m-top-12">
+          <div *ngFor="let lugg of arrlugdepart; let idx = index" [ngClass]="idx >= 1 ? 'm-top-14': '' ">
+            <div class="text-normal text-bold">{{idx+1}}. {{ lugg.lastName}} {{ lugg.firstName.replace('MSTR','').replace('MISS','').replace('MR','').replace('MRS','').replace('MS','').trim() }}</div>
+          
+            <div class="div-luggest d-flex">
+              <div><img class="img-luggage" src="./assets/ic_flight/vali.svg"> </div>
+              <div class="p-top-1 m-left-6">
+                  <span *ngIf="lugg.baggages[0].weight">{{departCode}} </span> 
+                  <span *ngIf="lugg.baggages[0].weight">
+                    <span *ngIf="lugg.baggages[0].weight">| </span> {{lugg.baggages[0].weight}} kg
+                  </span>
+              </div>
+            </div>
+
+            <div *ngFor="let luggreturn of arrlugreturn">
+              <div class="div-luggest d-flex" *ngIf="luggreturn.lastName + ' ' + luggreturn.firstName.replace('MSTR','').replace('MISS','').replace('MR','').replace('MRS','').replace('MS','').trim() == lugg.lastName + ' ' + lugg.firstName.replace('MSTR','').replace('MISS','').replace('MR','').replace('MRS','').replace('MS','').trim()  ">
+                <div><img class="img-luggage" src="./assets/ic_flight/vali.svg"> </div>
+                <div class="p-top-1 m-left-6">
+                    <span *ngIf="luggreturn.baggages[0].weight">{{returnCode}} </span> 
+                    <span *ngIf="luggreturn.baggages[0].weight">
+                      <span *ngIf="luggreturn.baggages[0].weight">| </span> {{luggreturn.baggages[0].weight}} kg
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngFor="let luggdiff of itemLuggageDifferent; let idx1 = index" class="m-top-14">
+            <div class="text-normal text-bold">{{arrlugdepart.length + idx1+1}}. {{ luggdiff.lastName}} {{ luggdiff.firstName.replace('MSTR','').replace('MISS','').replace('MR','').replace('MRS','').replace('MS','').trim() }}</div>
+
+                <div class="div-luggest d-flex">
+                  <div><img class="img-luggage" src="./assets/ic_flight/vali.svg"> </div>
+                  <div class="p-top-1 m-left-6">
+                      <span *ngIf="luggdiff.baggages[0].weight">{{diffcode}} </span> 
+                      <span *ngIf="luggdiff.baggages[0].weight">
+                        <span *ngIf="luggdiff.baggages[0].weight">| </span> {{luggdiff.baggages[0].weight}} kg
+                      </span>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case chỉ mua hành lý chặng về -->
+      <div *ngIf="itemAddLuggage && itemAddLuggage.objectDepartLuggage && !itemAddLuggage.objectDepartLuggage.items && itemAddLuggage.objectReturnLuggage && itemAddLuggage.objectReturnLuggage.items">
+        <div class="d-flex" *ngIf="bookingCode">
+          <div class="div-width-200">Mã đơn hàng: <span class="text-bold">{{bookingCode}}</span></div>
+        </div>
+
+        <div class="m-top-12">
+          <div *ngFor="let lugg of arrlugreturn; let idx = index" [ngClass]="idx == 1 ? 'm-top-14': '' ">
+            <div class="text-normal text-bold">{{idx+1}}. {{ lugg.lastName}} {{ lugg.firstName.replace('MSTR','').replace('MISS','').replace('MR','').replace('MRS','').replace('MS','').trim() }}</div>
+          
+            <div class="div-luggest d-flex">
+              <div><img class="img-luggage" src="./assets/ic_flight/vali.svg"> </div>
+              <div class="p-top-1 m-left-6">
+                  <span *ngIf="lugg.baggages[0].weight">{{returnCode}} </span> 
+                  <span *ngIf="lugg.baggages[0].weight">
+                    <span *ngIf="lugg.baggages[0].weight">| </span> {{lugg.baggages[0].weight}} kg
+                  </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="_flightService.fromOrderRequestChangeFlight">
+      <div class="text-normal m-top-8">Quý khách đã chuyển đổi chuyến bay thành công.</div>
+      <div class="text-normal m-top-16">Số tiền thanh toán <span style="font-weight: bold">{{total}}đ</span></div>
+
+      <div class="div-split-panel"></div>
+
+      <div class="div-change-flight">
+        <div class="d-flex">
+          <div class=" div-width-100">
+            <div class="text-normal">Mã đặt chỗ: <span class="text-bold">{{ trip.itemdepart.ticketCode }}</span></div>
+          </div>
+          <!-- <div class="div-width-100 f-14 text-right text-tealish" (click)="">Xem đặt chỗ</div> -->
+        </div>
+
+        <div >
+          <div *ngIf="trip.itemdepart && activityService.typeChangeFlight == 1" class="m-top-24">
+            <div class=" d-flex " >
+              <div>
+                  <div class="text-flight-code">{{ trip.itemdepart.flightFrom }} ({{ trip.itemdepart.departCode }})</div>
+                  <div class="text-flight-datetime">{{ trip.dayDisplay }} </div>
+              </div>
+              <div class="div-flight-inout">
+                  <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="trip.roundTrip else oneway">
+                  <ng-template #oneway><img class="img-flight-inout img-oneway" src="./assets/imgs/ic_arrow.svg"></ng-template>
+              </div> 
+              <div>
+                  <div class="text-flight-code">{{ trip.itemdepart.flightTo }}  ({{ trip.itemdepart.arrivalCode }})</div>
+                  <div class="text-flight-datetime" > </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="div-width-100 d-flex">
+                <div class="div-img-logo-new">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[0].airlineName.indexOf('VIETJET') != -1 "
+                    src="./assets/ic_airticket/vj.png">
+                  <img class="img-logo-new logo_vna"
+                    *ngIf="(trip.bookingsComboData[0].airlineName.indexOf('Vietnam Airlines') != -1  || trip.bookingsComboData[0].airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && !trip.operatedBy "
+                    src="./assets/ic_airticket/vna.png">
+                  <img class="img-logo-new logo_vna"
+                    *ngIf="(trip.bookingsComboData[0].airlineName.indexOf('Vietnam Airlines') != -1  || trip.bookingsComboData[0].airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && trip.operatedBy"
+                    src="./assets/ic_airticket/vna.png">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[0].airlineName.indexOf('JETSTAR') != -1"
+                    src="./assets/ic_airticket/ic_jetstar_b.png">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[0].airlineName.indexOf('BAMBOO') != -1 "
+                    src="./assets/ic_airticket/bb.png">
+  
+                  </div>
+                  <div  *ngIf="trip.bookingsComboData[0].airlineName" class="div-airlinename">{{trip.bookingsComboData[0].airlineName }}</div>
+                </div>
+              </div>
+              <div class="div-width-100 text-right">
+                <div *ngIf="trip.bookingsComboData[0].ticketTypeName" class="div-ticket">{{trip.bookingsComboData[0].ticketTypeName }}<span *ngIf="trip.bookingsComboData[0].lugfree"> · {{trip.bookingsComboData[0].lugfree }}</span>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="div-width-300 d-flex">
+                  <div class="text-time width-80">{{ _flightService.orderRequestDepartFlight.departTimeDisplay }}</div>
+                  <div class="div-icon"><img src="./assets/ic_flight/icon_flight_right.svg"></div>
+                  <div class="text-time width-80">{{ _flightService.orderRequestDepartFlight.landingTimeDisplay }}</div>
+                </div>
+                <div class="div-width-100 text-time text-center">{{ _flightService.orderRequestDepartFlight.flightTimeDisplay }}</div>
+              </div>
+              <div class="d-flex">
+                <div class="div-width-300 d-flex">
+                  <div class="text-sub  width-80">{{ trip.itemdepart.flightFrom }} ({{ trip.itemdepart.departCode }})</div>
+                  <div class="div-icon div-hidden"><img src="./assets/ic_flight/icon_flight_right.svg"></div>
+                  <div class="text-sub  width-80">{{ trip.itemdepart.flightTo }} ({{ trip.itemdepart.arrivalCode }})</div>
+                </div>
+                <div class="div-width-100 text-sub text-center" *ngIf="!trip.hasStops">Bay thẳng</div>
+                <div class="div-width-100 text-sub text-center" *ngIf="trip.hasStops">Quá cảnh</div>
+              </div>
+          </div>
+
+
+
+          <div *ngIf="trip.itemreturn && (activityService.typeChangeFlight == 2 || activityService.typeChangeFlight == 3)" class="m-top-24">
+            <div class=" d-flex">
+              <div>
+                  <div class="text-flight-code">{{ trip.itemreturn.flightFrom }} ({{ trip.itemreturn.departCode }})</div>
+                  <div class="text-flight-datetime">{{ trip.dayReturnDisplay }} </div>
+              </div>
+              <div class="div-flight-inout">
+                  <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="trip.roundTrip else oneway">
+                  <ng-template #oneway><img class="img-flight-inout img-oneway" src="./assets/imgs/ic_arrow.svg"></ng-template>
+              </div> 
+              <div>
+                  <div class="text-flight-code">{{ trip.itemreturn.flightTo }}  ({{ trip.itemreturn.arrivalCode }})</div>
+                  <div class="text-flight-datetime" > </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="div-width-100 d-flex">
+                <div class="div-img-logo-new">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[1].airlineName.indexOf('VIETJET') != -1 "
+                    src="./assets/ic_airticket/vj.png">
+                  <img class="img-logo-new logo_vna"
+                    *ngIf="(trip.bookingsComboData[1].airlineName.indexOf('Vietnam Airlines') != -1  || trip.bookingsComboData[1].airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && !trip.operatedBy "
+                    src="./assets/ic_airticket/vna.png">
+                  <img class="img-logo-new logo_vna"
+                    *ngIf="(trip.bookingsComboData[1].airlineName.indexOf('Vietnam Airlines') != -1  || trip.bookingsComboData[1].airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && trip.operatedBy"
+                    src="./assets/ic_airticket/vna.png">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[1].airlineName.indexOf('JETSTAR') != -1"
+                    src="./assets/ic_airticket/ic_jetstar_b.png">
+                  <img class="img-logo-new" *ngIf="trip.bookingsComboData[1].airlineName.indexOf('BAMBOO') != -1 "
+                    src="./assets/ic_airticket/bb.png">
+  
+                  </div>
+                  <div  *ngIf="trip.bookingsComboData[1].airlineName" class="div-airlinename">{{trip.bookingsComboData[1].airlineName }}</div>
+                </div>
+              </div>
+              <div class="div-width-100 text-right">
+                <div *ngIf="trip.bookingsComboData[1].ticketTypeName" class="div-ticket">{{trip.bookingsComboData[1].ticketTypeName }}<span *ngIf="trip.bookingsComboData[1].lugfree"> · {{trip.bookingsComboData[1].lugfree }}</span>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="div-width-300 d-flex">
+                  <div class="text-time width-80">{{ _flightService.orderRequestReturnFlight.departTimeDisplay }}</div>
+                  <div class="div-icon"><img src="./assets/ic_flight/icon_flight_right.svg"></div>
+                  <div class="text-time width-80">{{ _flightService.orderRequestReturnFlight.landingTimeDisplay }}</div>
+                </div>
+                <div class="div-width-100 text-time text-center">{{ _flightService.orderRequestReturnFlight.flightTimeDisplay }}</div>
+              </div>
+              <div class="d-flex">
+                <div class="div-width-300 d-flex">
+                  <div class="text-sub width-80">{{ trip.itemreturn.flightFrom }} ({{ trip.itemreturn.departCode }})</div>
+                  <div class="div-icon div-hidden"><img src="./assets/ic_flight/icon_flight_right.svg"></div>
+                  <div class="text-sub width-80">{{ trip.itemreturn.flightTo }} ({{ trip.itemreturn.arrivalCode }})</div>
+                </div>
+                <div class="div-width-100 text-sub text-center" *ngIf="!trip.hasStops">Bay thẳng</div>
+                <div class="div-width-100 text-sub text-center" *ngIf="trip.hasStops">Quá cảnh</div>
+              </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done"> 
+    <button (click)="next()" ion-button round outline class="button button2">Quay về chuyến đi của tôi</button>
+  </div>
+</ion-footer>

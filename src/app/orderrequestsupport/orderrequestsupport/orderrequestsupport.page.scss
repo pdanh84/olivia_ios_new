@@ -1,0 +1,73 @@
+.div-orderrequestsupport-content {
+    .d-flex {
+        display: flex;
+    }
+
+    .label-title {
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        text-align: left;
+        color: #3f3b3b;
+    }
+
+    .text-normal {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        text-align: left;
+        color: #3f3b3b;
+    }
+
+    .row-item {
+        width: 100%;
+        height: 46px;
+        margin: 8px 0px 12px;
+        padding: 13px 10px 12px;
+        border-radius: 4px;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+    }
+
+    .icon-right {
+        text-align: right;
+    }
+
+    .sub-text {
+        color: #6d6e71 !important;
+        font-weight: 500 !important;
+        margin-left: 4px;
+    }
+    .ico-support{
+        width: 32px;
+        display: flex;
+        align-content: center;
+        margin-right: 6px;
+    }
+    .text-support {
+        color: var(--ion-color-primary);
+    }
+
+    .div-width-200 {
+        width: 200%;
+    }
+
+    .div-width-100 {
+        width: 50%;
+    }
+    .cls-disabled-luggage{
+        opacity: 0.6;
+    }
+    .link-zalo {
+        width: 360px;
+        position: absolute;
+        height: 30px;
+        z-index: 99;
+    }
+}

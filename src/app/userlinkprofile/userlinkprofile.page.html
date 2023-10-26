@@ -1,0 +1,28 @@
+<ion-header class="biztravel-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Liên kết tài khoản</div>
+          </div>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="user-link-profile-content">
+          <div class="d-flex">
+              <div class="div-logo"><ion-icon class="logo-fb" name="logo-facebook"></ion-icon></div>
+              <div class="div-text div-width-200 v-align-center">Facebook</div>
+              <div class="div-button div-width-100">
+                  <button *ngIf="!link" class="btn-link" (click)="linkfb()">Liên kết</button>
+                  <button *ngIf="link" class="btn-unlink"  (click)="unlinkfb()">Hủy liên kết</button>
+              </div>
+          </div>
+      </div>
+  </ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;align-self: center" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold"><label class="text-title">Quên mật khẩu</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div class="p-all-16">
+    <form [formGroup]="forgotpassData">
+            <div class="m-top-8">
+              <ion-item style="--padding-start: 0px" >
+                <ion-label class="text-normal" position="stacked">Số điện thoại hoặc email</ion-label>
+                <ion-input class="cls-inputmail" [(ngModel)]="phoneoremail" formControlName="phoneoremail"></ion-input>
+              </ion-item>
+            </div>
+         
+            <!-- <div class="m-top-24">
+              <re-captcha
+              [(ngModel)]="captcha"
+              ></re-captcha>
+            </div> -->
+            <div class="m-top-16 text-normal">Vui lòng nhập số điện thoại hoặc Email Quý khách đã đăng ký với iVIVU</div>
+      <div class="m-top-16"><button ion-button round outline [ngClass]="forgotpassData.invalid ? 'button btn-save-phone cls-invalid' : 'button btn-save-phone' " [disabled]="forgotpassData.invalid" (click)="next()">Kích hoạt lại mật khẩu</button></div>
+    </form>
+  </div>
+
+</ion-content>

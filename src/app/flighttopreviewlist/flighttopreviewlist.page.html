@@ -1,0 +1,96 @@
+
+
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-button-close" (click)="close()">
+            <div class="div-text-close">
+              <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+            </div>
+        </div>
+          <div class="div-header-title">
+                Đánh giá của khách hàng
+          </div>
+
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content class="flight-review-content">
+      <div class="p-all-16 div-bg">
+        <div class="div-title m-bottom-4">Đánh giá của khách hàng sử dụng dịch vụ đặt vé iVIVU</div>
+        <div class="div-reviews d-flex">
+          <div class="div-badge" *ngIf="avgPoint">
+            <div class="text-point">{{avgPoint}}/10</div>
+          </div>
+          
+          <div class="text-point-des" *ngIf="avgPoint>9 && avgPoint <=10">Xuất sắc</div>
+          <div class="text-point-des" *ngIf="avgPoint>8 && avgPoint <=9">Rất tốt</div>
+          <div class="text-point-des" *ngIf="avgPoint>7 && avgPoint <=8">Khá tốt</div>
+          <div class="text-point-des" *ngIf="avgPoint>6 && avgPoint <=7">Tạm được</div>
+          <div class="text-point-des" *ngIf="avgPoint>5 && avgPoint <=6">Không tốt</div>
+          <div  *ngIf="numOfReview"> | <span class="text-comment">{{numOfReview}} đánh giá</span></div>
+        </div>
+        <div class="div-images m-top-16" *ngIf="listImages && listImages.length >0">
+          <div class="div-item-image" *ngFor="let image of listImages; let idximg = index" (click)="imgreview(listImages, idximg, 'Ảnh của khách hàng', '',1)">
+            <img *ngIf="idximg<4" class="item-image" [src]="image.thumpUrl" />
+            <div *ngIf="idximg==3 && listImages && listImages.length >4" class="div-wrap-image-over"></div>
+            <div *ngIf="idximg==3 && listImages && listImages.length >4" class="div-image-over" >Xem thêm</div>
+          </div>
+          
+      </div>
+        <div class="m-top-24 text-header">Đánh giá gần đây</div>
+        <div class="div-line m-top-10 m-bottom-16"></div>
+        <div class="div-content-review m-top-24">
+          <div class="div-wrap-review-item" *ngFor="let slide of listflighttopreview; let idx = index" [id]="slide.reviewId">
+            <div class="d-flex">
+                <div class="div-avatar">
+                  <img class="slide2 img" src="./assets/ic_flight/user_pic.jpg" />
+                </div>
+                <div class="v-align-center">
+                  <div class="div-name">{{slide.customerName}}</div>
+                  <div class="div-date">{{slide.reviewDateDisplay}}</div>
+                </div>
+            </div>
+            <div class="m-top-14 div-text" *ngIf="slide.bestFeature">{{slide.bestFeature}}</div>
+            <div class="div-reply-mess" *ngIf="slide.replyMessage">
+              <div class=" d-flex">
+                <div class="div-icon"><img class="img-ivivu" src="./assets/ic_flight/avatar_ivivu.webp" /></div>
+                <div class="m-left-8 v-align-center">
+                  <div class="div-name">Phản hồi từ iVIVU.com</div>
+                  <div class="div-date" *ngIf="slide.replyDate">{{slide.replyDateDisplay}}</div>
+                </div>
+              </div>
+              
+              <div class="m-top-8 div-text">
+                {{slide.replyMessage}}
+              </div>
+            </div>
+            <div class="div-images" *ngIf="slide.images && slide.images.length >0" >
+                <div class="div-item-image" *ngFor="let image of slide.images; let idximg = index"  (click)="imgreview(slide.images, idximg, slide.customerName, slide.reviewDateDisplay,2)">
+                  <img *ngIf="idximg<4" class="item-image" [src]="image.thumpUrl" />
+                  <div *ngIf="idximg==3 && slide.images && slide.images.length >4" class="div-wrap-image-over"></div>
+                  <div *ngIf="idximg==3 && slide.images && slide.images.length >4" class="div-image-over">Xem thêm</div>
+                </div>
+                
+            </div>
+            <div class="div-line m-top-16 m-bottom-12" *ngIf="idx != listflighttopreview.length-1"></div>
+          </div>
+          
+         
+        </div>
+        <div class="div-relative">
+          <div class="div-see-more m-top-16" (click)="showMoreReview()">
+            Hiển thị thêm đánh giá
+          </div>
+        </div>
+       
+        <div class="div-text-note">
+          *Các đánh giá không có nội dung đã được ẩn
+        </div>
+
+      </div>
+  </ion-content>

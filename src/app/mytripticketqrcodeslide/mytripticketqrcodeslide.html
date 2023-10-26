@@ -1,0 +1,36 @@
+<ion-header class="div-header-qrcodeslide">
+  <ion-toolbar>
+    <div class="d-flex">
+      <div class="div-goback" (click)="goback()">
+        <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg">
+      </div>
+      <div class="text-center text-title div-width-100" >
+          {{cusnamereview}}
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="div-content-qrcodeslide">
+    
+          
+  <div class="center">
+    <swiper-container (ionSlideTransitionStart)="ionSlideTransitionStart()" (slidechange)="onSlideChange()" #mySlider >
+     
+      <swiper-slide *ngFor="let slide of arrimgreview; let idx = index">
+        <img *ngIf="slide.qrLink" class="img-slide"  [src]="slide.qrLink" />
+
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="div-skeleton" *ngIf="!ischeckslide">
+    <ion-skeleton-text animated style="width: 100%;height: 350px;margin: 0 auto" ></ion-skeleton-text>
+  </div>
+      
+  <div *ngIf="token" class="div-qrtoken">{{token}}</div>
+  <div *ngIf="title" class="div-qrtitle">{{title}}</div>
+  <div><img class="div-img-back" (click)="backslide()"  src="./assets/ic_ticket/back.svg"></div>
+  <div><img class="div-img-next" (click)="nextslide()" src="./assets/ic_ticket/next.svg"></div>
+  
+  
+</ion-content>

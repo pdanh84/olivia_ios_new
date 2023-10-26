@@ -1,0 +1,80 @@
+page-cuspoints {
+  .title-header{
+    text-align: center;
+  }
+    .text
+    {
+        font-size: 16px;
+        color: #26bed6
+    }
+      .toolbar-title-md {
+      text-align: center;
+      margin-right: 70px;
+    }  
+    .row-line{
+      border-bottom: solid 1px #ccc;
+    }
+    .header-icon{
+      width: 48px;
+      height: 48px;
+      padding-top: 8px;
+      text-align: center;
+    }
+
+}
+.cuspoint-content {
+
+  .text-limit-2{
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    /* autoprefixer: ignore next */ -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  .text-date{
+    font-size: 14px;
+    color: #828282;
+  }
+  .text-subtraction{
+    font-size: 16px;
+    color: #e52822;
+    margin-left: 5px;
+  }
+  .text-plus{
+    font-size: 16px;
+    color: #26bed6;
+    margin-left: 5px;
+  }
+  .text-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #3f3b3b;
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+  .m-bottom-16{
+    margin-bottom: 16px;
+  }
+  .div-point{
+    padding: 12px 0px 16px 15px;
+    background-color: #f9fbfc;
+    margin: -16px -16px 0px;
+  }
+  .text-point-32{
+    font-size: 32px;
+    font-weight: 600;
+    color: #26bed6;
+  }
+  .text-point-16{
+    font-size: 16px;
+    color: #26bed6;
+  }
+  .font-weight-600{
+    font-weight: 600;
+  }
+  .padding-0{
+    padding: 0px;
+  }
+}

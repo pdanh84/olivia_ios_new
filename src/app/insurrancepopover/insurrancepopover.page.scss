@@ -1,0 +1,94 @@
+.insurrance-popover{
+    .div-insurance{
+        padding-top: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        .cls-label-info{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .logo-insurance{
+            width: 36px;
+            height: 22px;
+        }
+        .cls-label-text{
+          font-size: 12px;
+          color: #4f4f4f;
+          letter-spacing: -0.34px;
+          
+        }
+        .p-lt-4{
+          position: absolute;
+          padding-left: 4px;
+          padding-top: 4px;
+        }
+        .item-text{
+            font-size: 14px;
+            letter-spacing: -0.4px;
+        }
+        .cls-insuranceno{
+            padding-left: 4px;
+            font-weight: bold;
+        }
+        .cls-require-text{
+            color: #26bed6;
+            text-decoration: underline;
+            padding: 8px 8px 0 8px;
+        }
+        .cls-hadclaimed{
+            font-size: 14px;
+            color: #828282;
+        }
+        .div-item-insurance{
+          padding-bottom: 16px;
+        }
+        .p-top-8{
+            padding-top: 8px;
+        }
+        .img-hadclaimed{
+          margin: -6px 4px;
+          width: 24px;
+          height: 24px;
+        }
+  
+        .insurrance-contact{
+            font-size: 14px;
+            padding-top: 8px;
+            position: relative;
+  
+            .insurrance-contact-name{
+                position: relative;
+            }
+  
+            .insurrance-contact-phone{
+                position: absolute;
+                top: 8px;
+                left: 116px;
+                color: #26bed6;
+                right: 0;
+                text-align: right;
+            }
+            .insurrance-contact-arrow{
+                position: absolute;
+                right: 0;
+                bottom: -2px;
+            }
+        }
+        .p-top-10{
+            padding-top: 10px;
+        }
+        .text-right{
+            right: 0;
+        }
+    }
+}
+::ng-deep{
+    .popover-content-history .popover-content.sc-ion-popover-md {
+        width: 93%;
+        top: auto;
+        left: 16px;
+        height: 200px;
+    }
+}
+    
+

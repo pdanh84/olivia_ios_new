@@ -1,0 +1,416 @@
+.div-itemtourslide,.div-ticketdetail-content{
+  background-color: #f6f8fa;
+  //margin-bottom: 68px;
+ 
+  .div-width-200 {
+    width: 200% !important;
+  }
+  .cls-itemtour-bkgwhite {
+    background-color: #ffffff !important;
+  }
+    .title-padding{
+        padding:16px 0px 0px 0px;
+    }
+    .p-l-16 {
+      padding-left: 16px;
+    }
+    .p-left-16 {
+        padding-left:16px !important;
+        padding-right:16px !important;
+      }
+      .p-top-21{
+        padding-top: 21px !important;
+      }
+      .p-top-30{
+        padding-top: 30px !important;
+      }
+      .width-50 {
+        width: 50%;
+      }
+      .width-100 {
+        width: 100%;
+      }
+      .text-title2
+    {
+      font-weight: bold;
+      font-size: 20px;
+      color: #3f3b3b;
+    }
+    .f-22 {
+      font-size: 22px !important;
+    }
+    .f-16 {
+      font-size: 16px !important;
+    }
+    .text-seemore{
+        margin-top: 5px;
+        text-align: right;
+        float: right;
+        color: var(--ion-color-primary);
+        position: absolute;
+        right: 16px;
+        top: 10px;
+    }
+    .sub-title{
+        line-height: 17px;
+        padding-top:4px;
+      }
+      .text-subtitle{
+        font-size: 14px;
+        color:#717484;
+      }
+
+      .innerdeals1{
+        height: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        
+        div{
+          display:table-cell;
+        }
+        
+      }
+
+      .slide2-scroll
+    {
+      padding: 16px;
+      display: flex;
+      width: 100%;
+    }
+
+      .position-relative {
+        position: relative;
+      }
+
+    .cls-itemtour-color, .cls-odd{
+        .slide2-scroll {
+          padding-bottom: 24px !important;
+        }
+      }
+.div-wrap-deal{
+    display: flex !important;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #dedfe3;
+
+    .float-infoicon{
+      left: 12px !important;
+    }
+    .div-wrap-image{
+      position: relative;
+    }
+    .m-0 {
+      margin:0;
+    }
+    .min-height-186 {
+      min-height: 186px !important;
+    }
+    
+    .float-info{
+      position: relative !important;
+      left: 0 !important;
+      bottom: 0px !important;
+      background: #fff;
+      padding: 8px;
+      border-radius: 0 0 4px 4px;
+      padding-bottom: 17px;
+      height: 150px;
+      .div-hotel-name {
+        //height: 45px;
+
+        .hotel-name {
+          color: #003c71;
+          margin:0;
+          font-size: 18px;
+          line-height: 1.4;
+          font-weight: 600;
+
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 278px;
+          //-webkit-line-clamp: 2;
+          //display: -webkit-box;
+          ///* autoprefixer: ignore next */ -webkit-box-orient: vertical;
+        }
+      }
+     
+      .div-button-sale {
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+    
+
+        .text-topsale {
+          padding: 4px 8px;
+          background-color: rgba(229, 40, 34, 0.1);
+          color: #e52822;
+          height: 25px;
+        }
+    }
+          
+      .div-icon-right {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+
+        .icon_right {
+          width: 16px;
+          margin-left: 6px;
+        }
+        .icon_treking {
+          width: 12px !important;
+          opacity: 0.5;
+        }
+      }
+
+      .div-top-place {
+        .div-wrap-item-topplace {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .div-item-topplace {
+          margin-right: 16px;
+          margin-top: 6px;
+          color: var(--ion-color-primary);
+
+          .cls-dot {
+            font-size: 24px;
+            line-height: 12px;
+          }
+          .div-text-topplace {
+            margin-left: 2px;
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+        
+      }
+
+      .cls-tour-duration {
+        font-size: 14px;
+        color: #3f3b3b;
+      }
+      .cls-price{
+        margin-top: 12px;
+        font-size: 22px;
+        font-weight: 600;
+        text-align: right;
+        color: var(--ion-color-primary);
+
+        bottom: 12px;
+        right: 8px;
+
+      }
+      .cls-price-strike {
+        margin-top: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: right;
+        color: #828282;
+        text-decoration: line-through;
+      }
+      .m-top-0 {
+        margin-top: 0 !important;
+      }
+      .div-badge {
+        display: flex;
+        align-items: center;
+
+        .text-point {
+          margin-top: 8px 4px 0 0;
+          padding: 2px 0 0 0;
+          border-radius: 6px;
+          background-color: #9fc43a;
+          color: #fff;
+          height: 20px;
+          font-size: 14px;
+          margin-right: 4px;
+          width: 36px;
+          text-align: center;
+        }
+        
+        .text-comment {
+          font-size: 14px;
+          letter-spacing: -0.4px;
+          text-align: left;
+          color: #3f3b3b;
+          color: var(--ion-color-primary);
+        }
+      }
+
+      .text-point-des {
+        font-size: 14px;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #3f3b3b;
+        margin-right: 4px;
+      }
+    }
+
+    .img {
+      border-radius: 5px 5px 0 0px !important;
+    }
+
+    .slide2 {
+      height: 170px !important;
+    }
+
+    .slide2
+      {
+        min-width: 272px;
+        height: 208px;
+        width: 100%;
+      }
+
+    .text-title-blog{
+      color: #222222;
+    }
+
+  }
+  
+  .cls-deal {
+    min-width: 278px;
+    border-radius: 5px;
+    overflow-x: unset !important;
+  }
+  .m-l-16 {
+    margin-left: 16px;
+  }
+
+  .item-md ion-thumbnail img {
+    border-radius: 5px;
+  }
+  .item-ios ion-thumbnail img {
+    border-radius: 5px;
+  }
+
+  .float-promo{
+    position: absolute;
+    top: 19px;
+    left: -4px;
+    background-color: #e52822;
+    color: #fff;
+    font-size:12px;
+    height: 22px;
+    padding: 3px 8px 0px 12px;
+    max-width: 95%;
+  }
+  
+  .float-promo-description{
+   
+    font-weight: 600;
+    margin: 0 !important;
+    width: 100%;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1.4;
+
+  }
+
+  .float-promo:after {
+    content: " ";
+    position: absolute;
+    left: 0px;
+    top: 22px;
+    border-top: 4px solid #851f1c;
+    border-left: 4px solid transparent;
+    border-bottom: none;
+  }
+
+  .d-flex{
+    display: flex;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .p-right-48 {
+    padding-right: 48px !important;
+  }
+  .p-right-8 {
+    padding-right: 8px;
+  }
+  .m-top-8{
+    margin-top: 8px;
+  }
+  .m-right-8{
+    margin-right: 8px;
+  }
+  .m-left-8{
+    margin-left: 8px;
+  }
+  .m-bottom-4 {
+    margin-bottom: 4px;
+  }
+  .div-col1 {
+    width: 34%;
+  }
+  .div-col2 {
+    width: 66%;
+  }
+  .m-h-20 {
+    height: 20px;
+  }
+  
+  .div-item{
+    position: relative;
+
+    .div-item-image {
+      .item-img {
+        object-fit: cover;
+        transform: scale(1);
+        transition: transform 0.3s ease 0s;
+      }
+
+    }
+    .div-item-text {
+      position: absolute;
+      bottom: 4px;
+
+      color: #fff;
+      padding: 10px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .h-144 {
+      height: 144px;
+    }
+    .h-296 {
+      height: 296px;
+    }
+  }
+
+  .div-item-note {
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: left;
+      color: #26bed6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+
+  .cls-odd {
+    background-color: #f2f2f2;
+  }
+}
+.height-63{
+  height: 63px;
+}
+.m-bottom-45{
+  margin-bottom: 45px;
+}
+.text-giatu{
+  font-size: 14px;
+  color: #717484;
+}

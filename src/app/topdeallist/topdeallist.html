@@ -1,0 +1,99 @@
+<ion-header>
+        <ion-row>
+          <ion-col size="2" class="header-text header-icon" (click)="goback()">
+              <img style="height: 48px; padding: 6px; padding-top: 12px" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </ion-col>
+          <ion-col size="8" class="header-text">
+              <ion-title class="text-title">
+                  Combo du lịch
+              </ion-title>
+          </ion-col>
+          <ion-col size="2" (click)="showFilterTopdeal()" style="text-align: right;">
+            <img style="height: 48px; padding: 13px; padding-top: 18px; padding-right: 10px;"  src="./assets/imgs/ic_filter_b.svg" />
+            <ion-badge *ngIf="enableFilterTopdeal" class="cls-badge-filter">{{enableFilterTopdeal}}</ion-badge>
+          </ion-col>
+        </ion-row>
+    </ion-header>
+    <ion-content>
+            <div *ngIf="loaddatadone else loadskeleton">
+                <div class="innerdeals1 slide2-scroll div-topdeal-content" *ngIf="(slideData1 && slideData1.length >0) else emptydata">
+                    <div class="cls-deal" *ngFor="let slide of slideData1">
+                      <img class="slide2 img" [src]="slide.imageUrl" (click)="itemclickht(slide)" >
+                      <div class="float-promo">
+                        <p *ngIf="slide.priceshow" class="float-promo-description">{{slide.description}} | {{slide.priceshow}} triệu/<span *ngIf="slide.priceFor!=0">khách</span><span *ngIf="slide.priceFor==0">phòng</span></p>
+                        <p *ngIf="!slide.priceshow" class="float-promo-description">{{slide.description}}</p>
+                      </div>
+                      <div class='div-wrappadding'>
+                        <h2 class="hotel-name" style="margin-top: 4px;margin-bottom: 0;" (click)="itemclickht(slide)" >
+                            {{slide.name}}
+                        </h2>
+                        <img *ngIf="slide.rating!=0" src={{slide.rating}} (click)="itemclickht(slide)" >
+                        <ion-row class="cls-row-viewtopsale" >
+                            <ion-col class="p-5 d-flex min-height-28">
+                                <ion-label *ngIf="slide.topsale24Total > 2" class="text-topsale">Đã bán {{ slide.topsale24Total }} phòng trong 24h qua</ion-label>
+                                <ion-label *ngIf="slide.textRandomSale" class="text-topsale"> {{ slide.textRandomSale }}</ion-label>
+                            </ion-col>
+                            <ion-col size="2" class="p-5">
+                              <div class="div-share" (click)="share(slide.url)">
+                                <img  style="width:48px;height:48px;padding: 15px" src="./assets/imgs/ic_share_black.svg">
+                              </div>
+                              <div class="div-like" >
+                                <img *ngIf="!slide.Liked" class="img-heart" (click)="likeItem(slide.id)" src="./assets/imgs/heart-empty-black.svg" style="width:48px;height:48px;padding: 15px">
+                                <img *ngIf="slide.Liked" class="img-heart" (click)="unlikeItem(slide.id)" src="./assets/imgs/heart-red.svg" style="width:48px;height:48px;padding: 15px">
+                              </div>
+                            </ion-col>
+                        </ion-row>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #emptydata>
+                    <div style="text-align: center;margin-top: 10px">
+                      <img src="./assets/imgs/empty.svg">
+                      <div class="text-empty m-top-8">Vui lòng chọn lại điều kiện tìm kiếm.</div>
+                      <div class="div-button-empty d-flex">
+                          <div class="div-width-100">
+                            <button ion-button round (click)="reFilter()" class="button btn-change-search" clear>Lọc lại</button>
+                          </div>
+                          <div class="div-width-100 m-left-8" *ngIf="enableFilterTopdeal">
+                            <button ion-button round (click)="clearFilter()" class="button btn-clear-search" clear>Xóa lọc</button>
+                          </div>
+                      </div>
+                    </div>
+                  </ng-template>
+              <div padding="" *ngIf="!isConnected" style="text-align: center;margin-top: 10px">
+                  <img src="./assets/imgs/empty.svg">
+                  <div *ngIf="!isConnected">
+                    <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>
+                  </div>
+                </div>
+            </div>
+            <ng-template #loadskeleton>
+              <div style="margin-top:30px">
+                <ion-list lines="none" *ngFor="let item of blogtripssk" >
+                  <div >
+                    <ion-item style="--inner-padding-end: 16px">
+                        <ion-skeleton-text animated style="width: 100%;margin: 0;border-radius: 5px;
+                        width: 100% !important;
+                        height: 180px !important;
+                        object-fit: cover" ></ion-skeleton-text>
+                    </ion-item>
+                      <ion-row>
+                        <ion-col style="padding:0">
+                            <ion-skeleton-text animated style="width: 75%;margin: 16px 16px 0 16px;height: 16px;"></ion-skeleton-text>
+                        </ion-col>
+                        </ion-row>
+                      
+                    <ion-row>
+                        <ion-col style="padding:0">
+                          <ion-skeleton-text animated style="width: 91%;margin: 0;margin: 16px 16px 0 16px;height: 16px"></ion-skeleton-text>
+                      </ion-col>
+                    </ion-row>
+                  </div>
+                </ion-list>
+              </div>
+            </ng-template>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="slideData1.length < slideData.length">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>

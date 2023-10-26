@@ -1,0 +1,82 @@
+<ion-header>
+      <ion-toolbar style="min-height: 0px;text-align: center">
+          <ion-row>
+          <ion-col style="text-align: center;height: 48px;">
+              <div style="align-self: center" >
+                <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+                  <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+                </div>
+                <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Đánh giá của {{username}}</label></div>
+              </div>
+          </ion-col>
+          </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content >
+    <div class="userreward-content">
+        <div *ngIf="arrHotelReviews && arrHotelReviews.length >0" style="margin-top: 16px">
+            <ion-list style="margin-left: 10px" *ngFor="let  msg of arrHotelReviews">
+              <!-- <ion-row>
+                <ion-col><label style="font-size: 14px;font-weight: bold;">{{msg.hotelName}}</label></ion-col>
+              </ion-row> -->
+              <ion-row>
+                <ion-col text-left>
+                  <label style="color: #000;font-size:14px;letter-spacing: -0.4px;" *ngIf="msg.reviewPoint>=9 && msg.reviewPoint<=10">
+                    Tuyệt vời
+                  </label>
+                  <label style="color: #000;font-size:14px;letter-spacing: -0.4px;" *ngIf="msg.reviewPoint>=7 && msg.reviewPoint<9">
+                    Rất tốt
+                  </label>
+                  <label style="color: #000;font-size:14px;letter-spacing: -0.4px;" *ngIf="msg.reviewPoint>=6 && msg.reviewPoint<7">
+                    Tốt
+                  </label>
+                  <label style="color: #000;font-size:14px;letter-spacing: -0.4px;" *ngIf="msg.reviewPoint<6">
+                    Bình thường
+                  </label>
+                </ion-col>
+                <ion-col text-right>
+                  <label style="color:#26bed6;font-size: 18px;padding-right: 11px;letter-spacing: -0.51px;">
+                     {{msg.reviewPoint}}
+                  </label>
+                </ion-col>
+      
+              </ion-row>
+              <ion-row>
+                <ion-col text-left>
+                  <label style="margin:0;font-weight: 300;font-size: 14px;letter-spacing: -0.4px;" text-wrap>
+                    {{msg.bestFeature}}
+                  </label>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="msg.images.length >0">
+                <ion-col >
+                  <swiper-container (slidechange)="onSlideChange()" #mySlider>
+                    <!-- <div id="grad1" class="grad1">
+                      </div> -->
+                  <swiper-slide *ngFor="let slide of msg.images" style="width: 150px;">
+                    <img style="height: auto;width: 100%;border-radius: 5px;width: 150px;" [src]="slide.thumpUrl" />
+                  </swiper-slide>
+                  
+                </swiper-container>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-left>
+                  <label style="margin:0" style="color: #828282;font-size: 12px;padding-right: 16px;letter-spacing: -0.34px;" text-wrap>
+                      {{msg.hotelName}} • {{msg.dateStayed}}
+                  </label>
+                </ion-col>
+              </ion-row>
+              <hr style="margin: 8px 16px 0px 5px;">
+            </ion-list>
+          </div>
+          <div *ngIf="loaddatadone && arrHotelReviews.length ==0" style="margin-top: 16px;text-align: center">
+              <div class="div-img-empty">
+                <img class="img-empty" src="./assets/empty/empty_reviews.svg">
+              </div>
+              <div class="text-reviews-empty">
+                <label style="color: #bdbdbd;">Bạn chưa viết đánh giá trên iVIVU.</label>
+              </div>
+          </div>
+    </div>
+</ion-content>  

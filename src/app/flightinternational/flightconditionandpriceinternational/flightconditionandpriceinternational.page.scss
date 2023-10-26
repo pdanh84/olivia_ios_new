@@ -1,0 +1,44 @@
+ion-header {
+    box-shadow: 1px 0px 2px 0px #828282 !important;
+}
+.flight-info-content{
+    .p-16{
+        padding: 16px;
+        padding-bottom: 100px;
+        background-color: #f6f8fa;
+    }
+    
+    .d-flex {
+        display: flex;
+        line-height: 23px;
+    }
+    .d-flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .a-baseline {
+        font-size: 14px;
+        text-align: left;
+        margin-bottom: 24px;
+    }
+    .text-title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .text-normal {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .text-bold, .text-alert {
+        font-weight: 600 !important;
+    }
+    .m-top-12 {
+        margin-top: 12px;
+    }
+    .p-lr-4 {
+        padding-top: 4px;
+        padding-right: 4px;
+    }
+}

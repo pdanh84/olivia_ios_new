@@ -1,0 +1,722 @@
+<ion-header class="insurrance-header">
+  <ion-toolbar class="header-toolbar">
+    <ion-row>
+      <ion-col class="header-col">
+        <div class="as-center">
+          <div class="div-goback" (click)="goback()">
+            <img class="img-goback" src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div *ngIf="item" class="header-title"><label style="font-size: 18px">Bảo hiểm {{item.insurance_code}}</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="insurrance-page">
+  <div>
+    <ion-label *ngIf=" (type==1 || type==3) else returnFlight" class="text">
+      Chiều đi | {{ flightNumberDisplay}} | {{ departCodeDisplay}}
+    </ion-label>
+    <ng-template #returnFlight>
+        <ion-label class="text">
+            Chiều về | {{ flightNumberDisplay}} | {{ arrivalCodeDisplay}}
+          </ion-label>
+    </ng-template>
+  </div>
+  <!-- Giờ bay (trễ chuyến)-->
+  <div *ngIf="(type == 1 || type ==2) else cancelFlight">
+      <div class="mtop">
+          <ion-label class="text-small">
+            Giờ bay dự kiến
+          </ion-label>
+          <div class="m-top-8 div-datetime">
+            <img src="./assets/iocnsearch/ic_checkin.svg">
+           <div class="ip-expecteddate"><label class="ip-padding">{{expecteddate}}</label></div>
+           <div class="ip-expectedtime"><label class="ip-padding">{{expectedtime}}</label></div>
+          </div>
+        </div>
+        <hr>
+        <div class="mtop">
+          <ion-label class="text-small">
+            Giờ bay thực tế
+          </ion-label>
+          <div class="m-top-8 div-datetime">
+            <img src="./assets/iocnsearch/ic_checkin.svg">
+            <div class="ip-expecteddate" (click)="openPickupCalendar()"><label class="ip-padding">{{realdate}}</label></div>
+            <div class="ip-expectedtime ip-realtime"><ion-datetime class="input-datetime" displayFormat="HH:mm" [value]="realtime" required (ionChange)="changeFlightTime($event)"></ion-datetime></div>
+          </div>
+        </div>
+        <hr class="hr-margin">
+        <!-- Đổi mã chuyến bay -->
+        <div class="m-top-10 div-relative">
+          <ion-checkbox color="primary" [(ngModel)]="checkChangeFlight"></ion-checkbox>
+          <ion-label class="div-changeflight-label" (click)="changeFlight()">Đổi mã chuyến bay</ion-label>
+          <ion-item class="ion-item" *ngIf="checkChangeFlight">
+              <ion-input #ipFlightNumber [(ngModel)]="flightNumber" type="text" required></ion-input>
+          </ion-item>
+        </div>
+    
+  </div>
+  <!-- Hủy chuyến bay -->
+  <ng-template #cancelFlight>
+      <div class="mtop">
+        <ion-label class="text-small">
+          Giờ bay dự kiến
+        </ion-label>
+        <div class="m-top-8 div-datetime">
+          <img src="./assets/iocnsearch/ic_checkin.svg">
+        <div class="ip-expecteddate"><label class="ip-padding">{{expecteddate}}</label></div>
+        <div class="ip-expectedtime"><label class="ip-padding">{{expectedtime}}</label></div>
+        </div>
+      </div>
+      <div class="cancel-flight text-normal"> 
+        Chuyến bay bị hủy bởi hãng hàng không
+      </div>
+  </ng-template>
+  
+  
+
+  <div class="div-insurrance-info">
+    <div class="customer-label">
+        <ion-label>Người nhận bảo hiểm</ion-label>
+    </div>
+    <div class="div-customer-info">
+        <img class="img-people" src="./assets/imgs/ic_people.svg">
+        <div class="customer-info" *ngIf="item && !isChildren"><label>{{item.customer_name}} | {{item.customer_id}} | {{item.customer_dob}}</label></div>
+        <div class="customer-info" *ngIf="item && isChildren"><label>{{item.customer_name}} | {{item.customer_dob}}</label></div>
+    </div>
+    <div *ngIf="isChildren" class="p-top-16">
+      <ion-row>
+        <ion-col size="4" class="no-padding">
+          <ion-label class="ip-label" position="floating">Quan hệ</ion-label>
+            <ion-select class="cls-item-select" cancelText="Thoát" interface="action-sheet" (ionChange)="selectedRelation($event, 0)">
+                <ion-select-option value="Con" selected>Con</ion-select-option>
+                <ion-select-option value="Khác">Khác</ion-select-option>
+            </ion-select>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="!isChildren">
+      <div class="phone-info">
+        <ion-item class="ion-item">
+          <ion-label class="ip-label" position="floating">Điện thoại</ion-label>
+          <ion-input #ipPhone [(ngModel)]="phone" maxlength=10 type="tel" required></ion-input>
+        </ion-item>
+      </div>
+      <div class="email-info">
+            <ion-item class="ion-item">
+              <ion-label class="ip-label" position="floating">Email</ion-label>
+              <ion-input #ipEmail [(ngModel)]="email" type="text" required></ion-input>
+            </ion-item>
+      </div>
+    </div>
+    <div *ngIf='isChildren' class="p-top-32">
+      <div class="customer-label">
+        <ion-label>Người được ủy quyền</ion-label>
+    </div>
+      <div class="name-info">
+        <ion-item class="ion-item">
+          <ion-label class="ip-label" position="floating">Họ tên</ion-label>
+          <ion-input #ipName [(ngModel)]="name" type="text" required (ionInput)="inputAdultName($event)"></ion-input>
+        </ion-item>
+      </div>
+      <div class="cmnd-info">
+            <ion-item class="ion-item">
+              <ion-label class="ip-label" position="floating">CMND/Hộ chiếu</ion-label>
+              <ion-input #ipCMND [(ngModel)]="identityno" type="number" required></ion-input>
+            </ion-item>
+      </div>
+      <div class="phone-info">
+        <ion-item class="ion-item">
+          <ion-label class="ip-label" position="floating">Điện thoại</ion-label>
+          <ion-input #ipPhone [(ngModel)]="phone" maxlength=10 type="tel" required></ion-input>
+        </ion-item>
+      </div>
+      <div class="email-info">
+            <ion-item class="ion-item">
+              <ion-label class="ip-label" position="floating">Email</ion-label>
+              <ion-input #ipEmail [(ngModel)]="email" type="text" required></ion-input>
+            </ion-item>
+      </div>
+    </div>
+    
+   
+
+    <div class="div-child-info" *ngIf="childlist && childlist.length >0">
+      <!-- <div *ngFor="let child of childlist; let i = index"  [ngClass]="i == 0 ? 'row-item-child show ' : 'row-item-child hidden'"> -->
+        <div *ngFor="let child of childlist; let i = index"  class="row-item-child hidden">
+        <div class="child-label">Trẻ {{ i+1 }}</div>
+          <ion-row class="item-child-{{i+1}}">
+            <ion-col class="no-padding">
+              <ion-row>
+                  <ion-col size="8" class="col-left">
+                      <ion-label class="ip-label" position="floating">Họ tên trẻ em</ion-label>
+                      <ion-select class="cls-item-select item-child-select-{{i}}" cancelText="Thoát" interface="action-sheet" (ionChange)="selectedChildren($event, i)">
+                          <ion-select-option class="item-children-{{i}}" *ngFor="let children of childlist" value="{{children.id}}|{{children.name}}|{{children.birth}}" name="{{children.name}}">{{children.name}}</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+                  <ion-col size="4">
+                      <ion-label class="ip-label" position="floating">Quan hệ</ion-label>
+                      <ion-select class="cls-item-select" cancelText="Thoát" interface="action-sheet" (ionChange)="selectedRelation($event, i)">
+                          <ion-select-option value="Con" selected>Con</ion-select-option>
+                          <ion-select-option value="Khác">Khác</ion-select-option>
+                      </ion-select>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col class="no-padding">
+                    <div class="ip-label div-dob">Ngày sinh</div>
+                    <div>
+                      <ion-label *ngIf="i==0">{{child1Dob}}</ion-label>
+                      <ion-label *ngIf="i==1">{{child2Dob}}</ion-label>
+                      <ion-label *ngIf="i==2">{{child3Dob}}</ion-label>
+                      <ion-label *ngIf="i==3">{{child4Dob}}</ion-label>
+                      <ion-label *ngIf="i==4">{{child5Dob}}</ion-label>
+                    </div>
+                    <hr class="hr-margin">
+                </ion-col>
+              </ion-row>
+              
+            </ion-col>
+           
+
+          </ion-row>
+          
+      </div>
+      <div class="div-add-child" (click)="addChildInfo()" *ngIf="countchild <= childlist.length-1">
+          <img class="img-add-child" src="./assets/imgs/icon_content_add.svg">
+          <div class="text-add-child"><ion-label >Thêm trẻ em đi kèm</ion-label></div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="div-text-payment">
+    <ion-label class="text">
+      Hình thức thanh toán
+    </ion-label>
+  </div>
+  <ion-radio-group>
+    <div class="p-8">
+      <!-- <ion-item class="ion-item" > -->
+        <ion-radio (ionSelect)="itemrd()" class="rd-bank">
+        </ion-radio>
+        <label class="label-rd" *ngIf="!ischeck">Chuyển khoản ngân hàng</label>
+        <label class="label-rd rd-selected" *ngIf="ischeck">Chuyển khoản ngân hàng</label>
+      <!-- </ion-item> -->
+      <div *ngIf="ischeck">
+            <div *ngIf="showTransferInfo">
+              <app-insurrancebankselect id="ipbanktransferselected"></app-insurrancebankselect>
+              <ion-item class="ion-item">
+                <ion-label position="floating" class="text-info" >Chi nhánh</ion-label>
+                <ion-input #ipTransferBranch type="text" required [(ngModel)]="bankTransferBranch"></ion-input>
+              </ion-item>
+              <ion-item class="ion-item">
+                <ion-label position="floating" class="text-info">Tên chủ tài khoản</ion-label>
+                <ion-input #ipAccountName type="text" required [(ngModel)]="bankAccountName" (ionInput)="inputBankAccountName($event)"></ion-input>
+              </ion-item>
+              <ion-item class="ion-item">
+                <ion-label position="floating" class="text-info" >Số tài khoản</ion-label>
+                <ion-input #ipAccountNumber type="number" required [(ngModel)]="bankAccountNumber"></ion-input>
+              </ion-item>
+          </div>
+      </div>
+     
+    </div>
+    <div  class="p-8">
+      <!-- <ion-item class="ion-item"> -->
+        <ion-radio (ionSelect)="itemrdinbank()" class="rd-bank">
+        </ion-radio>
+        <label class="label-rd" *ngIf="ischeck" >Nhận tại ngân hàng</label>
+        <label class="label-rd rd-selected" *ngIf="!ischeck">Nhận tại ngân hàng</label>
+      <!-- </ion-item> -->
+      <div *ngIf="!ischeck">
+          <div *ngIf="showReceiveInfo">
+            <app-insurrancebankselect id="ipbankreceiveselected"></app-insurrancebankselect>
+            <ion-item class="ion-item">
+              <ion-label position="floating" class="text-info">Chi nhánh</ion-label>
+              <ion-input #ipReceiveBranch type="text" required [(ngModel)]="bankReceiveBranch"></ion-input>
+            </ion-item>
+
+            <ion-item class="ion-item">
+              <ion-label position="floating" class="text-info">Tỉnh/ thành</ion-label>
+              <ion-input #ipProvince type="text" required [(ngModel)]="province"></ion-input>
+            </ion-item>
+          </div>
+      </div>
+      
+    </div>
+  </ion-radio-group>
+  <!-- -------------------Hình ảnh bổ sung -->
+  <div class="div-upload-image">
+    <ion-label class="text">
+      Hình ảnh bổ sung
+    </ion-label>
+    <div class="m-top-15">
+
+      <div class="div-item-selectimage">
+          <div class="div-item-selectimage-label">
+              <ion-label>
+                  Thẻ lên tàu bay:
+              </ion-label>
+          </div>
+          <div class="div-item-selectimage-chip" (click)="getImages(1, 1 , -1)">
+            <ion-chip  class="ionchip">
+              <img src="./assets/imgs/loadimg.svg" />
+              <ion-label class="loadimg">Tải hình</ion-label>
+            </ion-chip>
+            <!-- <input type="file" id="fileBoarding" name='files[]' accept="image/*" class="input-boarding-pass" multiple="multiple" upload="uploadImage($event,1)" capture/> -->
+          </div>
+        <div *ngIf="imageResponse.length>0&&imageResponse.length<2" class="cls-image-response"  >
+          <div *ngFor="let img of imageResponse; let idx= index" class="div-img-boarding-only">
+              <img [src]="img.img"  class="img-boardingpass-only">
+              <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImg(1, undefined)">
+          </div>
+        </div>
+        <div *ngIf="imageResponse.length>0&&imageResponse.length>=2" class="cls-image-response" >
+            <div  class="div-img-boarding">
+                 <label *ngFor="let img of imageResponse; let idx= index" >
+                  <img [src]="img.img"  class="img-boardingpass-many">
+                  <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImg(1,idx)">
+              </label> 
+            </div>
+        </div>
+      </div>
+
+      <div class="m-top-10 div-item-selectimage">
+          <div class="div-item-selectimage-label">
+              <ion-label *ngIf="!isChildren else divChildGKS">
+                  CMND/hộ chiếu:
+              </ion-label>
+              <ng-template #divChildGKS>
+                <ion-label class="fix-width-103">
+                  Giấy khai sinh:
+                </ion-label>
+              </ng-template>
+          </div>
+          <div class="div-item-selectimage-chip">
+              <ion-chip class="ionchip" (click)="getImages(2, 1, -1)">
+                  <img src="./assets/imgs/loadimg.svg" />
+                  <ion-label class="loadimg">Tải hình</ion-label>
+                </ion-chip>
+                <!-- <input type="file" accept="image/*, application/pdf" class="input-boarding-pass" multiple="multiple" (change)="uploadImage($event,2)" /> -->
+          </div>
+        <div *ngIf="imageResponseCMND && imageResponseCMND.length >0 && imageResponseCMND.length <2" class="cls-image-response"  >
+            <div *ngFor="let img of imageResponseCMND" class="div-img-boarding-only">
+                <img [src]="img.img"  class="img-boardingpass-only">
+                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImg(2, undefined)">
+            </div>
+        </div>
+        <div *ngIf="imageResponseCMND && imageResponseCMND.length>=2" class="cls-image-response"  >
+            <div class="div-img-boarding">
+              <label *ngFor="let img of imageResponseCMND; let idx= index">
+                <img [src]="img.img"  class="img-boardingpass-many">
+                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImg(2,idx)">
+              </label>
+            </div>
+              
+        </div>
+      </div>
+
+      <div class="m-top-10 div-item-selectimage">
+          <div class="div-item-selectimage-label">
+              <ion-label class="fix-width-103" *ngIf="!isChildren else divChildOther">
+                  Giấy tờ khác:
+                </ion-label>
+                <ng-template #divChildOther>
+                  <ion-label class="fix-width-103">
+                    Giấy ủy quyền:
+                  </ion-label>
+                </ng-template>
+          </div>
+          <div class="div-item-selectimage-chip">
+              <ion-chip class="ionchip" (click)="getImages(3, 1, -1)">
+                  <img src="./assets/imgs/loadimg.svg" />
+                  <ion-label class="loadimg">Tải hình</ion-label>
+                </ion-chip>
+                <!-- <input type="file" accept="image/*, application/pdf" class="input-boarding-pass" multiple="multiple" (change)="uploadImage($event,3)" /> -->
+            </div>
+          <div *ngIf="imageResponseGKS && imageResponseGKS.length >0 && imageResponseGKS.length <2" class="cls-image-response"  >
+              <div *ngFor="let img of imageResponseGKS" class="div-img-boarding-only">
+                  <img [src]="img.img"  class="img-boardingpass-only">
+                  <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImg(3, undefined)">
+              </div>
+                
+          </div>
+          <div *ngIf="imageResponseGKS && imageResponseGKS.length>=2" class="cls-image-response"  >
+              <div class="div-img-boarding">
+                <label *ngFor="let img of imageResponseGKS; let idx= index">
+                  <img [src]="img.img"  class="img-boardingpass-many">
+                  <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImg(3,idx)">
+                </label>
+              </div>
+          </div>
+        </div>
+
+    </div>
+     <!-- Trẻ em -->
+     <div class="m-top-24" *ngIf="childlist && childlist.length >0">
+        <!-- <div *ngFor="let child of childlist; let i = index"  [ngClass]="i == 0 ? 'row-item-child show ' : 'row-item-child hidden'"> -->
+          <div *ngFor="let child of childlist; let i = index"  class="row-item-child hidden">
+          <div class="item-child-{{i+1}}">
+            <ion-label class="text">
+                Trẻ {{ i+1 }} | {{child.name}}
+            </ion-label>
+            <div class="div-item-selectimage m-top-15">
+                <div class="div-item-selectimage-label">
+                    <ion-label>
+                        Thẻ lên tàu bay:
+                    </ion-label>
+                </div>
+                <div class="div-item-selectimage-chip">
+                  <ion-chip  class="ionchip" (click)="getImages(1, 2, i+1)">
+                    <img src="./assets/imgs/loadimg.svg" />
+                    <ion-label class="loadimg">Tải hình</ion-label>
+                  </ion-chip>
+                  <!-- <input type="file" accept="image/*, application/pdf" class="input-boarding-pass" multiple="multiple" (change)="uploadImageChild($event, 1, i+1)"/> -->
+                </div>
+                <div *ngIf="i==0">
+                    <div *ngIf="child1ImageResponse.length>0&&child1ImageResponse.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child1ImageResponse; let idx= index" class="div-img-boarding-only">
+                            <img [src]="img.img"  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(1, i+1, undefined)">
+                        </div>
+                          
+                      </div>
+                      <div *ngIf="child1ImageResponse.length>0&&child1ImageResponse.length>=2" class="cls-image-response" >
+                          <div  class="div-img-boarding">
+                              <label *ngFor="let img of child1ImageResponse; let idx= index" >
+                                <img [src]="img.img"  class="img-boardingpass-many">
+                                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(1, i+1,idx)">
+                            </label> 
+                                
+                          </div>
+                      </div>
+                </div>
+
+                <div *ngIf="i==1">
+                    <div *ngIf="child2ImageResponse.length>0&&child2ImageResponse.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child2ImageResponse; let idx= index" class="div-img-boarding-only">
+                            <img [src]="img.img"  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(1, i+1, undefined)">
+                        </div>
+                          
+                      </div>
+                      <div *ngIf="child2ImageResponse.length>0&&child2ImageResponse.length>=2" class="cls-image-response" >
+                          <div  class="div-img-boarding">
+                              <label *ngFor="let img of child2ImageResponse; let idx= index" >
+                                <img [src]="img.img"  class="img-boardingpass-many">
+                                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(1, i+1,idx)">
+                            </label> 
+                                
+                          </div>
+                      </div>
+                </div>
+
+                <div *ngIf="i==2">
+                    <div *ngIf="child3ImageResponse.length>0&&child3ImageResponse.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child3ImageResponse; let idx= index" class="div-img-boarding-only">
+                            <img [src]="img.img"  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(1, i+1, undefined)">
+                        </div>
+                          
+                      </div>
+                      <div *ngIf="child3ImageResponse.length>0&&child3ImageResponse.length>=2" class="cls-image-response" >
+                          <div  class="div-img-boarding">
+                              <label *ngFor="let img of child3ImageResponse; let idx= index" >
+                                <img [src]="img.img"  class="img-boardingpass-many">
+                                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(1, i+1,idx)">
+                            </label> 
+                                
+                          </div>
+                      </div>
+                </div>
+
+                <div *ngIf="i==3">
+                    <div *ngIf="child4ImageResponse.length>0&&child4ImageResponse.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child4ImageResponse; let idx= index" class="div-img-boarding-only">
+                            <img [src]="img.img"  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(1, i+1, undefined)">
+                        </div>
+                          
+                      </div>
+                      <div *ngIf="child4ImageResponse.length>0&&child4ImageResponse.length>=2" class="cls-image-response" >
+                          <div  class="div-img-boarding">
+                              <label *ngFor="let img of child4ImageResponse; let idx= index" >
+                                <img [src]="img.img"  class="img-boardingpass-many">
+                                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(1, i+1,idx)">
+                            </label> 
+                                
+                          </div>
+                      </div>
+                </div>
+
+                <div *ngIf="i==4">
+                    <div *ngIf="child5ImageResponse.length>0&&child5ImageResponse.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child5ImageResponse; let idx= index" class="div-img-boarding-only">
+                            <img [src]="img.img"  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(1, i+1, undefined)">
+                        </div>
+                          
+                      </div>
+                      <div *ngIf="child5ImageResponse.length>0&&child5ImageResponse.length>=2" class="cls-image-response" >
+                          <div  class="div-img-boarding">
+                              <label *ngFor="let img of child5ImageResponse; let idx= index" >
+                                <img [src]="img.img"  class="img-boardingpass-many">
+                                <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(1, i+1,idx)">
+                            </label> 
+                                
+                          </div>
+                      </div>
+                </div>
+                
+              </div>
+
+              <div class="div-item-selectimage m-top-10">
+                  <div class="div-item-selectimage-label">
+                      <ion-label>
+                          Giấy khai sinh:
+                        </ion-label>
+                  </div>
+                  <div class="div-item-selectimage-chip">
+                    <ion-chip class="ionchip p-left-15"  (click)="getImages(2, 2, i+1)">
+                      <img src="./assets/imgs/loadimg.svg" />
+                      <ion-label class="loadimg">Tải hình</ion-label>
+                    </ion-chip>
+                    <!-- <input type="file" accept="image/*, application/pdf" class="input-boarding-pass" (change)="uploadImageChild($event,2, i+1)"/> -->
+                  </div>
+                <div *ngIf="i==0">
+                    <div *ngIf="child1ImageResponseGKS.length>0 && child1ImageResponseGKS.length<2" class="cls-image-response"  >
+                        <div *ngFor="let img of child1ImageResponseGKS" class="div-img-boarding-only">
+                            <img src={{img.img}}  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(2, i+1, undefined)">
+                        </div>
+                          
+                    </div>
+      
+                    <div *ngIf="child1ImageResponseGKS.length>0 && child1ImageResponseGKS.length >= 2" class="cls-image-response"  >
+                        <div  class="div-img-boarding-many">
+                          <label *ngFor="let img of child1ImageResponseGKS ; let idx= index" >
+                            <img src={{img.img}}  class="img-boardingpass-many">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(2, i+1, idx)">
+                          </label>
+                        </div>
+                          
+                    </div>
+                </div>
+
+                <div *ngIf="i==1">
+                    <div *ngIf="child2ImageResponseGKS.length>0 && child2ImageResponseGKS.length <2" class="cls-image-response"  >
+                        <div *ngFor="let img of child2ImageResponseGKS" class="div-img-boarding-only">
+                            <img src={{img.img}}  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(2, i+1, undefined)">
+                        </div>
+                          
+                    </div>
+      
+                    <div *ngIf="child2ImageResponseGKS.length>0 && child2ImageResponseGKS.length >= 2" class="cls-image-response"  >
+                        <div class="div-img-boarding-many">
+                          <label  *ngFor="let img of child2ImageResponseGKS ; let idx= index">
+                            <img src={{img.img}}  class="img-boardingpass-many">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(2, i+1, idx)">
+                          </label>
+                        </div>
+                          
+                    </div>
+                </div>
+
+                <div *ngIf="i==2">
+                    <div *ngIf="child3ImageResponseGKS.length>0 && child3ImageResponseGKS.length <2" class="cls-image-response"  >
+                        <div *ngFor="let img of child3ImageResponseGKS" class="div-img-boarding-only">
+                            <img src={{img.img}}  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(2, i+1, undefined)">
+                        </div>
+                          
+                    </div>
+      
+                    <div *ngIf="child3ImageResponseGKS.length>0 && child3ImageResponseGKS.length >= 2" class="cls-image-response"  >
+                        <div class="div-img-boarding-many">
+                          <label  *ngFor="let img of child3ImageResponseGKS ; let idx= index">
+                            <img src={{img.img}}  class="img-boardingpass-many">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(2, i+1, idx)">
+                          </label>
+                        </div>
+                          
+                    </div>
+                </div>
+
+                <div *ngIf="i==3">
+                    <div *ngIf="child4ImageResponseGKS.length>0 && child4ImageResponseGKS.length <2" class="cls-image-response"  >
+                        <div *ngFor="let img of child4ImageResponseGKS" class="div-img-boarding-only">
+                            <img src={{img.img}}  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(2, i+1, undefined)">
+                        </div>
+                          
+                    </div>
+      
+                    <div *ngIf="child4ImageResponseGKS.length>0 && child4ImageResponseGKS.length >= 2" class="cls-image-response"  >
+                        <div class="div-img-boarding-many">
+                          <label *ngFor="let img of child4ImageResponseGKS ; let idx= index">
+                            <img src={{img.img}}  class="img-boardingpass-many">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(2, i+1, idx)">
+                          </label>
+                        </div>
+                          
+                    </div>
+                </div>
+
+                <div *ngIf="i==4">
+                    <div *ngIf="child5ImageResponseGKS.length>0 && child5ImageResponseGKS.length <2" class="cls-image-response"  >
+                        <div *ngFor="let img of child5ImageResponseGKS" class="div-img-boarding-only">
+                            <img src={{img.img}}  class="img-boardingpass-only">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(2, i+1, undefined)">
+                        </div>
+                          
+                    </div>
+      
+                    <div *ngIf="child5ImageResponseGKS.length>0 && child5ImageResponseGKS.length >= 2" class="cls-image-response"  >
+                        <div class="div-img-boarding-many">
+                          <label *ngFor="let img of child5ImageResponseGKS ; let idx= index">
+                            <img src={{img.img}}  class="img-boardingpass-many">
+                            <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(2, i+1, idx)">
+                          </label>
+                        </div>
+                          
+                    </div>
+                </div>
+              </div>
+
+              <div class="div-item-selectimage m-top-10">
+                <div class="div-item-selectimage-label">
+                    <ion-label>
+                        Giấy tờ khác:
+                      </ion-label>
+                </div>
+                <div class="div-item-selectimage-chip">
+                  <ion-chip class="ionchip p-left-15"  (click)="getImages(3, 2, i+1)">
+                    <img src="./assets/imgs/loadimg.svg" />
+                    <ion-label class="loadimg">Tải hình</ion-label>
+                  </ion-chip>
+                  <!-- <input type="file" accept="image/*, application/pdf" class="input-boarding-pass" (change)="uploadImageChild($event,2, i+1)"/> -->
+                </div>
+              <div *ngIf="i==0">
+                  <div *ngIf="child1ImageResponseOther.length>0 && child1ImageResponseOther.length<2" class="cls-image-response"  >
+                      <div *ngFor="let img of child1ImageResponseOther" class="div-img-boarding-only">
+                          <img src={{img.img}}  class="img-boardingpass-only">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(3, i+1, undefined)">
+                      </div>
+                        
+                  </div>
+    
+                  <div *ngIf="child1ImageResponseOther.length>0 && child1ImageResponseOther.length >= 2" class="cls-image-response"  >
+                      <div  class="div-img-boarding-many">
+                        <label *ngFor="let img of child1ImageResponseOther ; let idx= index" >
+                          <img src={{img.img}}  class="img-boardingpass-many">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(3, i+1, idx)">
+                        </label>
+                      </div>
+                        
+                  </div>
+              </div>
+
+              <div *ngIf="i==1">
+                  <div *ngIf="child2ImageResponseOther.length>0 && child2ImageResponseOther.length <2" class="cls-image-response"  >
+                      <div *ngFor="let img of child2ImageResponseOther" class="div-img-boarding-only">
+                          <img src={{img.img}}  class="img-boardingpass-only">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(3, i+1, undefined)">
+                      </div>
+                        
+                  </div>
+    
+                  <div *ngIf="child2ImageResponseOther.length>0 && child2ImageResponseOther.length >= 2" class="cls-image-response"  >
+                      <div class="div-img-boarding-many">
+                        <label  *ngFor="let img of child2ImageResponseOther ; let idx= index">
+                          <img src={{img.img}}  class="img-boardingpass-many">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(3, i+1, idx)">
+                        </label>
+                      </div>
+                        
+                  </div>
+              </div>
+
+              <div *ngIf="i==2">
+                  <div *ngIf="child3ImageResponseOther.length>0 && child3ImageResponseOther.length <2" class="cls-image-response"  >
+                      <div *ngFor="let img of child3ImageResponseOther" class="div-img-boarding-only">
+                          <img src={{img.img}}  class="img-boardingpass-only">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(3, i+1, undefined)">
+                      </div>
+                        
+                  </div>
+    
+                  <div *ngIf="child3ImageResponseOther.length>0 && child3ImageResponseOther.length >= 2" class="cls-image-response"  >
+                      <div class="div-img-boarding-many">
+                        <label  *ngFor="let img of child3ImageResponseOther ; let idx= index">
+                          <img src={{img.img}}  class="img-boardingpass-many">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(3, i+1, idx)">
+                        </label>
+                      </div>
+                        
+                  </div>
+              </div>
+
+              <div *ngIf="i==3">
+                  <div *ngIf="child4ImageResponseOther.length>0 && child4ImageResponseOther.length <2" class="cls-image-response"  >
+                      <div *ngFor="let img of child4ImageResponseOther" class="div-img-boarding-only">
+                          <img src={{img.img}}  class="img-boardingpass-only">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(3, i+1, undefined)">
+                      </div>
+                        
+                  </div>
+    
+                  <div *ngIf="child4ImageResponseOther.length>0 && child4ImageResponseOther.length >= 2" class="cls-image-response"  >
+                      <div class="div-img-boarding-many">
+                        <label *ngFor="let img of child4ImageResponseOther ; let idx= index">
+                          <img src={{img.img}}  class="img-boardingpass-many">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(3, i+1, idx)">
+                        </label>
+                      </div>
+                        
+                  </div>
+              </div>
+
+              <div *ngIf="i==4">
+                  <div *ngIf="child5ImageResponseOther.length>0 && child5ImageResponseOther.length <2" class="cls-image-response"  >
+                      <div *ngFor="let img of child5ImageResponseOther" class="div-img-boarding-only">
+                          <img src={{img.img}}  class="img-boardingpass-only">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-only" (click) = "clearImgChild(3, i+1, undefined)">
+                      </div>
+                        
+                  </div>
+    
+                  <div *ngIf="child5ImageResponseOther.length>0 && child5ImageResponseOther.length >= 2" class="cls-image-response"  >
+                      <div class="div-img-boarding-many">
+                        <label *ngFor="let img of child5ImageResponseOther ; let idx= index">
+                          <img src={{img.img}}  class="img-boardingpass-many">
+                          <img src="../../assets/imgs/close_img.svg" class="img-close-boardingpass-many" (click) = "clearImgChild(3, i+1, idx)">
+                        </label>
+                      </div>
+                        
+                  </div>
+              </div>
+              
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-top-24">
+    <p class="text-note">
+      Bảo hiểm Cathay sẽ thông báo kết quả bồi thường đến Quý khách trong vòng 3 ngày làm việc
+    </p>
+  </div>
+</ion-content>
+<ion-footer class="insurrance-page-footer" >
+    <!-- <div class="div-button-footer" >
+        <button (click)="test()" ion-button round outline class="button button2">Test</button>
+    </div> -->
+    <div class="div-button-footer" >
+        <button (click)="next()" ion-button round outline class="button button2">Yêu cầu bồi thường bảo hiểm</button>
+    </div>
+</ion-footer>

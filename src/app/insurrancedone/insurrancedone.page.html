@@ -1,0 +1,33 @@
+<ion-header class="insurrance-done-header">
+  <ion-toolbar class="header-toolbar">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div class="header-title"><label>Hoàn thành</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="insurrance-done-page">
+    <div class="img-trip-empty">
+        <img class="img-empty" src="./assets/empty/trip_empty.svg">
+      </div>
+      <div>
+        <div class="text-center p-top-16">
+          <div class="p-16"><ion-label class="text-title">Gửi yêu cầu bảo hiểm thành công!</ion-label></div>
+          <div class="p-top-8">
+            <ion-label class="text">
+              Quý khách đã hoàn tất gửi yêu cầu bồi thường Bảo hiểm đến Cathay. Vui lòng kiểm tra email để xem thêm chi tiết.
+            </ion-label>
+          </div>
+          
+        </div>
+      </div>
+</ion-content>
+<ion-footer class="insurrance-done-footer">
+    <div class="text-center">
+        <button (click)="next()" ion-button round outline class="button2">Hoàn thành</button>
+      </div>
+  </ion-footer>

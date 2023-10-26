@@ -1,0 +1,694 @@
+<div class="div-flight-content">
+    <div [ngClass]="isNotice ? (flighttype == 'twoway' ? 'background cls-bg-twoway' : 'background cls-bg-oneway') : (flighttype == 'twoway' ? 'background cls-bg-twoway' : 'background cls-bg-oneway') ">
+    <img [ngClass]="isNotice ? (flighttype == 'twoway' ? 'img-background-notice cls-bg-twoway' : 'img-background-notice cls-bg-oneway') : (flighttype == 'twoway' ? 'img-background cls-bg-twoway' : 'img-background cls-bg-oneway') " src="./assets/ic_flight/flight.jpg">
+    <div class="div-wrap-background"></div>
+    <div class="text-center">
+        <img class="img-logo" src="./assets/logo/logo.svg" />
+    </div>
+    <div class="padding div-wrap-content">
+            <div class="text-home-hotel d-flex"  >
+                <div class="div-width-100 d-flex">
+                    <label class="label-home-hotel m-right-8">Đặt vé máy bay giá rẻ</label>
+                        <div class="div-point" *ngIf="valueGlobal.flightAvgPoint" (click)="scrollToDivReview()">{{valueGlobal.flightAvgPoint}} <img class="img-star" src="./assets/ic_flight/star_icon.svg"/> <span class="text-point">({{valueGlobal.flightNumOfReview}})</span></div>
+                </div>
+                <!-- <div class="div-width-150 d-flex d-flex-end">
+                    <div class="div-point" *ngIf="valueGlobal.flightAvgPoint" (click)="scrollToDivReview()">{{valueGlobal.flightAvgPoint}}</div>
+                    <div class=" text-point" *ngIf="valueGlobal.flightNumOfReview" (click)="scrollToDivReview()">{{valueGlobal.flightNumOfReview}} reviews</div>
+                </div> -->
+                
+            </div>
+        <div [ngClass]="flighttype == 'twoway' ? 'div-wrap-search-input div-wc-twoway' : 'div-wrap-search-input div-wc-oneway' "></div>
+        <div class="div-direction">
+        </div>
+
+        <ion-row class="row-flight ">
+            <div class="div-width div-relative">
+                <div class="img-input"  (click)="searchFlight(1)">
+                    <img class="img-padding img-location" src="./assets/ic_flight/flight_cin.svg"/>
+                </div>
+
+                <div class="div-input-right text-input-flight div-flex-center " *ngIf="departCode else choiceDepartCode"  (click)="searchFlight(1)">
+                    <div class="text-location div-departcode">{{departCity}}<span class="text-code">{{departCode}}</span></div>
+                    <div class="text-location-desc div-departcode">{{departAirport}}</div>
+                </div>
+                <ng-template #choiceDepartCode>
+                    <div class="div-input-right text-input-flight div-flex-center" (click)="searchFlight(1)">
+                        <div class="text-code-empty f-14">
+                            Chọn nơi khởi hành
+                        </div>
+                    </div>
+                </ng-template>
+
+                <div class="div-switch" (click)="switchDepart()" *ngIf="departCode && returnCode">
+                    <img class="img-switch" src="./assets/ic_flight/ic_switch.svg">
+                </div>
+            </div>
+        </ion-row>
+
+        <ion-row class="row-flight">
+            <div class="div-width">
+                <div class="img-input"  (click)="searchFlight(2)">
+                    <img class="img-padding img-location" src="./assets/ic_flight/flight_cout.svg"/>
+                </div>
+
+                <div class="div-input-right text-input-flight div-flex-center" *ngIf="returnCode else choiceReturnCode"  (click)="searchFlight(2)">
+                    <div class="text-location div-returncode">{{returnCity}}<span class="text-code">{{returnCode}}</span></div>
+                    <div class="text-location-desc div-returncode">{{returnAirport}}</div>
+                </div>
+                <ng-template #choiceReturnCode>
+                    <div class="div-input-right text-input-flight div-flex-center"  (click)="searchFlight(2)">
+                        <div class="text-code-empty f-14">
+                            Chọn nơi đến
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </ion-row>
+
+        <div>
+            <ion-row class="row-cin-cout " >
+                <div class="div-width d-flex">
+                    <div class="div-cin div-width-100" (click)="openPickupCalendar()">
+                        <div class="img-cin-cout">
+                            <img class="img-padding img-checkin" src="./assets/iocnsearch/ic_checkin.svg"/>
+                        </div>
+                        <div class="div-input-right text-input-cin div-flex-center">
+                            <div class="text-cin">
+                                <label class="text-cin-input">{{ cindisplaymonth }}</label>
+                            </div>
+                            <div class="font-thu" *ngIf="!cofdate">
+                                <label class="text-color text-cinthu">{{ cinthu }}</label>
+                            </div>
+                            <div class="font-thu" *ngIf="cofdate">
+                                <label class="text-color text-cinthu text-red">{{cinthu}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-roundtrip  div-width-100">
+                        <div class=" d-flex t-right">
+                            <div class="j-center h-48 text-roundtrip div-width-100">Khứ hồi?</div>
+                            <div class="j-center h-48 m-r-16"><ion-toggle (ionChange)="changeRoundTrip($event)" [checked]="flighttype == 'twoway' ? true : false"></ion-toggle></div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </ion-row>
+
+            <ion-row (click)="openPickupCalendar()" [ngClass]="flighttype == 'twoway' ? 'row-cin-cout' : 'row-cin-cout div-hidden'">
+                <div class="div-width">
+                    <div class="div-cin">
+                        <div class="img-cin-cout">
+                            <img class="img-padding img-checkin" src="./assets/iocnsearch/ic_checkout.svg"/>
+                        </div>
+                        <div class="div-input-right text-input-cin div-flex-center">
+                            <div class="text-cin">
+                                <label class="text-cin-input">{{ coutdisplaymonth }}</label>
+                            </div>
+                            <div class="font-thu" *ngIf="!cotdate">
+                                <label *ngIf="!cotdate" class="text-color text-cinthu">{{coutthu}}</label>
+                            </div>
+                            <div class="font-thu" *ngIf="cotdate">
+                                <label *ngIf="cotdate" class="text-color text-cinthu text-red">{{coutthu}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </ion-row>
+
+            <ion-row class="row-pax" (click)="choicePax()">
+                <div class="div-width">
+                    <div class="img-cin-cout">
+                        <img class="img-padding img-people" src="./assets/iocnsearch/ic_people.svg"/>
+                    </div>
+
+                    <div class="div-input-right div-flex-center">
+                        <div class="text-pax">
+                            <div class="div-adult">{{ adult }} người lớn<span *ngIf="child">, {{ child }}  trẻ em</span><span *ngIf="infant">, {{ infant }} em bé</span></div>
+                        </div>
+                    </div>
+                </div>
+            </ion-row>
+
+            <ion-row>
+                <button ion-button round (click)="search()" class="button btn-search" clear>
+                    Tìm kiếm
+                </button>
+            </ion-row>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+<div  class="div-topSale">
+    <img class="img-fire" src="./assets/imgs/ic_fire_homeflight.svg"/>
+    <div class="text-topSale">
+    {{topsale}} khách đã đặt vé trong 24h qua
+    </div>
+
+  </div>
+<div class="div-topdeal">
+    <app-flighttopdeal></app-flighttopdeal>
+</div>
+
+
+<div [ngClass]="(myflight && myflight.departCity && myflight.returnCity) ? 'div-topdeal-flight' : 'div-topdeal-flight'" *ngIf="listflighttopdeal && listflighttopdeal.length >0">
+
+    <div *ngIf="myflight && myflight.departCity && myflight.returnCity" (click)="showMyFlight()">
+        <div class="div-text-yourflight">
+            Chuyến bay của bạn
+        </div>
+        <div class="div-content-yourflight">
+            <div class="d-flex">
+                <div class="text-flight-title div-width-250 d-flex">
+                    <div>
+                        <div class="div-text-overflow">{{ myflight.departCity }} </div>
+                        <div class="text-flight-datetime">{{ myflight.checkInDisplayMonth }} </div>
+                    </div>
+                    <div class="div-flight-inout">
+                        <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="myflight.roundTrip else oneway">
+                        <ng-template #oneway><img class="img-flight-inout img-oneway" src="./assets/imgs/ic_arrow.svg"></ng-template>
+                    </div>
+                    <div>
+                        <div class="div-text-overflow">{{ myflight.returnCity }} </div>
+                        <div class="text-flight-datetime" *ngIf="myflight.roundTrip">{{ myflight.checkOutDisplayMonth }} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div-text-pax">{{ myflight.paxDisplay }}</div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<div class="div-topdeal-flight" >
+    <div class="div-wrap-flighttopdeal" *ngIf=" listflighttopdeal && listflighttopdeal.length >0">
+       
+            <div class="div-flight-topdeal m-top-16 m-bottom-16" *ngIf="flighttype == 'oneway' &&listflighttopdealoneway && listflighttopdealoneway.slide && listflighttopdealoneway.slide.length >0 ">
+                <div class="title-topdeal">Giá vé nội địa tốt nhất</div>
+                <div class="subtitle-topdeal m-bottom-16">Giá tốt nhất từ VietnamAirlines, Bamboo, Vietjet...</div>
+            </div>
+                <!-- List 1 chiều -->
+            <!-- <swiper-container #sliderInboundTab (slidechange)="slidetabchange(1)"  mode="ios" [options]="slideOpts" *ngIf="flighttype == 'oneway' && listflighttopdealoneway && listflighttopdealoneway.slide && listflighttopdealoneway.slide.length >0">
+                    <swiper-slide style="display: block;" *ngFor="let itemslide of listflighttopdealoneway.slide">
+                        <div >
+                                <div  *ngFor="let itemdeal of itemslide.list; let idx = index" (click)="select(itemdeal)" >
+                                <div [ngClass]="idx == itemslide.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                    <div class="div-first d-flex">
+
+                                        <div class="text-flight-title div-width-600 d-flex">
+                                            <div class="div-width-100 text-left">
+                                                <div class="div-text-overflow">{{ itemdeal.fromPlaceName }} </div>
+                                                <div class="text-flight-datetime">{{ itemdeal.dateDepartDisplay }} </div>
+                                            </div>
+                                            <div class="div-flight-inout width-36">
+                                                <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal.roundTrip else oneway">
+                                                <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                            </div>
+                                            <div class="div-width-100  text-left">
+                                                <div class="div-text-overflow">{{ itemdeal.toPlaceNameDisplay }} </div>
+                                                <div class="text-flight-datetime">{{ itemdeal.dateReturnDisplay }} </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="div-logo div-width-100 text-right">
+                                            <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                            <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                            <img class="img-logo logo-vna" *ngIf="itemdeal.depart.airCode == 'VietnamAirlines'"src="./assets/ic_airticket/logo_vna.png">
+                                            <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                        </div>
+
+                                    </div>
+                                        <div class="div-date m-top-4 div-width-250">
+                                        </div>
+
+                                        <div class="div-second d-flex p-top-8 m-bottom-16">
+                                            <div class="flight-price">{{itemdeal.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                            <div class="div-button">
+                                                <button ion-button round (click)="select(itemdeal)" class="button btn-select" clear>
+                                                Xem
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <ng-template #loadsdkinbound>
+                            <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                            <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                            <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                        </ng-template>
+                    </swiper-slide>
+            </swiper-container>
+           
+            <div class="div-wrap-dot" *ngIf="flighttype == 'oneway' &&listflighttopdealoneway && listflighttopdealoneway.slide && listflighttopdealoneway.slide.length >0">
+                <div [ngClass]=" tabInbound== idxinbound+1 ? 'div-dot selected' : 'div-dot'" *ngFor="let itemdot of listflighttopdealoneway.slide; let idxinbound=index" (click)="selectDot(idxinbound)"></div>
+            </div> -->
+            <div *ngIf="flighttype == 'oneway' && listflighttopdealoneway && listflighttopdealoneway.slide && listflighttopdealoneway.slide.length >0"  class="div-wrap-slide">
+                <div *ngFor="let itemslide of listflighttopdealoneway.slide"  class="div-wrap-itemslide">
+                            <div  *ngFor="let itemdeal of itemslide.list; let idx = index" (click)="select(itemdeal)" >
+                            <div [ngClass]="idx == itemslide.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                <div class="div-first d-flex">
+
+                                    <div class="text-flight-title div-width-600 d-flex">
+                                        <div class="div-width-100 text-left">
+                                            <div class="div-text-overflow">{{ itemdeal.fromPlaceName }} </div>
+                                            <div class="text-flight-datetime">{{ itemdeal.dateDepartDisplay }} </div>
+                                        </div>
+                                        <div class="div-flight-inout width-36">
+                                            <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal.roundTrip else oneway">
+                                            <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                        </div>
+                                        <div class="div-width-100  text-left">
+                                            <div class="div-text-overflow">{{ itemdeal.toPlaceNameDisplay }} </div>
+                                            <div class="text-flight-datetime">{{ itemdeal.dateReturnDisplay }} </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="div-logo div-width-100 text-right">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                        <img class="img-logo logo-vna" *ngIf="itemdeal.depart.airCode == 'VietnamAirlines'"src="./assets/ic_airticket/logo_vna.png">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                    </div>
+
+                                </div>
+                                    <div class="div-date m-top-4 div-width-250">
+                                    </div>
+
+                                    <div class="div-second d-flex p-top-8 m-bottom-16">
+                                        <div class="flight-price">{{itemdeal.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                        <div class="div-button">
+                                            <button ion-button round (click)="select(itemdeal)" class="button btn-select" clear>
+                                            Xem
+                                            </button>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+        
+            <div class="div-flight-topdeal m-top-16 m-bottom-16" *ngIf="flighttype == 'twoway' &&listflighttopdealroundtrip && listflighttopdealroundtrip.slide && listflighttopdealroundtrip.slide.length >0 ">
+                <div class="title-topdeal">Giá vé nội địa tốt nhất</div>
+                <div class="subtitle-topdeal m-bottom-16">Giá tốt nhất từ VietnamAirlines, Bamboo, Vietjet...</div>
+            </div>
+                <!-- List 2 chiều -->
+                <div *ngIf="flighttype == 'twoway' && listflighttopdealroundtrip && listflighttopdealroundtrip.slide && listflighttopdealroundtrip.slide.length >0" class="div-wrap-slide">
+                    <div *ngFor="let itemslide of listflighttopdealroundtrip.slide"  class="div-wrap-itemslide">
+                        <div  *ngFor="let itemdeal of itemslide.list; let idx = index" (click)="select(itemdeal)">
+                            <div [ngClass]="idx == itemslide.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                <div class="div-first d-flex">
+
+                                    <div class="text-flight-title div-width-600 d-flex">
+                                        <div class="div-width-100 text-left">
+                                            <div class="div-text-overflow">{{ itemdeal.fromPlaceName }} </div>
+                                            <div class="text-flight-datetime">{{ itemdeal.dateDepartDisplay }} </div>
+                                        </div>
+                                        <div class="div-flight-inout width-36">
+                                            <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal.roundTrip else oneway">
+                                            <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                        </div>
+                                        <div class="div-width-100  text-left">
+                                            <div class="div-text-overflow">{{ itemdeal.toPlaceNameDisplay }} </div>
+                                            <div class="text-flight-datetime">{{ itemdeal.dateReturnDisplay }} </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="div-logo div-width-100 text-right">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                        <img class="img-logo logo-vna" *ngIf="itemdeal.depart.airCode == 'VietnamAirlines'"src="./assets/ic_airticket/logo_vna.png">
+                                        <img class="img-logo" *ngIf="itemdeal.depart.airCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                    </div>
+
+                                </div>
+                                    <div class="div-date m-top-4 div-width-250">
+                                    </div>
+
+                                    <div class="div-second d-flex p-top-8 m-bottom-16">
+                                        <div class="flight-price">{{itemdeal.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                        <div class="div-button">
+                                            <button ion-button round (click)="select(itemdeal)" class="button btn-select" clear>
+                                            Xem
+                                            </button>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+       
+
+    </div>
+
+        <div class="div-flightinternational-topdeal p-top-24 m-bottom-16" *ngIf="listinternationalflighttopdeal && listinternationalflighttopdeal.length >0 && ((flighttype == 'oneway' && hassomelistinteroneway) || (flighttype == 'twoway' && hassomelistintertwoway ) )">
+            <div class="title-topdeal">Giá vé quốc tế tốt nhất</div>
+            <div class="subtitle-topdeal m-bottom-16">Đảm bảo giá tốt từ 1000+ hãng bay quốc tế</div>
+        </div>
+
+        <div *ngIf=" listinternationalflighttopdeal && listinternationalflighttopdeal.length >0 && ((flighttype == 'oneway' && hassomelistinteroneway) || (flighttype == 'twoway' && hassomelistintertwoway ) )">
+
+            <div  *ngFor="let itemgroup of listinternationalflighttopdeal; let idx = index" >
+
+                <div class="div-wrap-flighttopdeal" *ngIf="idx==0">
+                
+                    <div [ngClass]="idx==0 ? 'div-group-name m-top-16' : 'div-group-name m-top-24' " *ngIf="flighttype == 'oneway' && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0">{{itemgroup.groupName}}</div>
+                    <div *ngIf="flighttype == 'oneway' && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0" class="div-wrap-slide">
+                        <div *ngFor="let itemslide1 of itemgroup.listflighttopdealoneway" class="div-wrap-itemslide">
+                            <div  *ngFor="let itemdeal1 of itemslide1.list; let idx = index" (click)="select(itemdeal1)">
+                                <div [ngClass]="idx == itemslide1.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                    <div class="div-first d-flex">
+
+                                        <div class="text-flight-title div-width-600 d-flex">
+                                            <div class="div-width-100 text-left">
+                                                <div class="div-text-overflow">{{ itemdeal1.fromPlaceName }} </div>
+                                                <div class="text-flight-datetime">{{ itemdeal1.dateDepartDisplay }} </div>
+                                            </div>
+                                            <div class="div-flight-inout width-36">
+                                                <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal1.roundTrip else oneway">
+                                                <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                            </div>
+                                            <div class="div-width-100 text-left ">
+                                                <div class="div-text-overflow">{{ itemdeal1.toPlaceNameDisplay }} </div>
+                                                <div class="text-flight-datetime">{{ itemdeal1.dateReturnDisplay }} </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="div-logo div-width-100 text-right">
+                                            <img class="img-logo" *ngIf="itemdeal1.depart.airLogo" [src]="itemdeal1.depart.airLogo">
+                                        </div>
+
+                                    </div>
+                                        <div class="div-date m-top-4 div-width-250">
+                                        </div>
+
+                                        <div class="div-second d-flex p-top-8 m-bottom-16">
+                                            <div class="flight-price">{{itemdeal1.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                            <div class="div-button">
+                                                <button ion-button round (click)="select(itemdeal1)" class="button btn-select" clear>
+                                                Xem
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                                <ng-template #loadsdk>
+                                    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                        <div [ngClass]="idx==0 ? 'div-group-name m-top-16' : 'div-group-name m-top-24' " *ngIf=" flighttype == 'twoway' && itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0">{{itemgroup.groupName}}</div>
+                        <div *ngIf=" flighttype == 'twoway' &&itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0" class="div-wrap-slide">
+                            <div *ngFor="let itemslide1 of itemgroup.listflighttopdealroundtrip" class="div-wrap-itemslide">
+                                <div  *ngFor="let itemdeal1 of itemslide1.list; let idx = index" (click)="select(itemdeal1)">
+                                    <div [ngClass]="idx == itemslide1.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                        <div class="div-first d-flex">
+
+                                            <div class="text-flight-title div-width-600 d-flex">
+                                                <div class="div-width-100 text-left">
+                                                    <div class="div-text-overflow">{{ itemdeal1.fromPlaceName }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal1.dateDepartDisplay }} </div>
+                                                </div>
+                                                <div class="div-flight-inout width-36">
+                                                    <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal1.roundTrip else oneway">
+                                                    <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                                </div>
+                                                <div class="div-width-100 text-left ">
+                                                    <div class="div-text-overflow">{{ itemdeal1.toPlaceNameDisplay }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal1.dateReturnDisplay }} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="div-logo div-width-100 text-right">
+                                                <img class="img-logo" *ngIf="itemdeal1.depart.airLogo" [src]="itemdeal1.depart.airLogo">
+                                            </div>
+
+                                        </div>
+                                            <div class="div-date m-top-4 div-width-250">
+                                            </div>
+
+                                            <div class="div-second d-flex p-top-8 m-bottom-16">
+                                                <div class="flight-price">{{itemdeal1.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                                <div class="div-button">
+                                                    <button ion-button round (click)="select(itemdeal1)" class="button btn-select" clear>
+                                                    Xem
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                    <ng-template #loadsdk>
+                                        <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                        <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                        <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="div-wrap-flighttopdeal" *ngIf="idx==1">
+                    <div *ngIf="flighttype == 'oneway' else group2twoway">
+                        <div class="div-group-name m-top-24 " *ngIf="itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0">{{itemgroup.groupName}}</div>
+                                <div *ngIf=" itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0" class="div-wrap-slide">
+                                    <div *ngFor="let itemslide2 of itemgroup.listflighttopdealoneway" class="div-wrap-itemslide">
+                                        <div  *ngFor="let itemdeal2 of itemslide2.list; let idx = index" (click)="select(itemdeal2)" >
+                                            <div [ngClass]="idx == itemslide2.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                                <div class="div-first d-flex">
+
+                                                    <div class="text-flight-title div-width-600 d-flex">
+                                                        <div class="div-width-100 text-left">
+                                                            <div class="div-text-overflow">{{ itemdeal2.fromPlaceName }} </div>
+                                                            <div class="text-flight-datetime">{{ itemdeal2.dateDepartDisplay }} </div>
+                                                        </div>
+                                                        <div class="div-flight-inout width-36">
+                                                            <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal2.roundTrip else oneway">
+                                                            <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                                        </div>
+                                                        <div class="div-width-100 text-left ">
+                                                            <div class="div-text-overflow">{{ itemdeal2.toPlaceNameDisplay }} </div>
+                                                            <div class="text-flight-datetime">{{ itemdeal2.dateReturnDisplay }} </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="div-logo div-width-100 text-right">
+                                                        <img class="img-logo" *ngIf="itemdeal2.depart.airLogo" [src]="itemdeal2.depart.airLogo">
+                                                    </div>
+
+                                                </div>
+                                                    <div class="div-date m-top-4 div-width-250">
+                                                    </div>
+
+                                                    <div class="div-second d-flex p-top-8 m-bottom-16">
+                                                        <div class="flight-price">{{itemdeal2.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                                        <div class="div-button">
+                                                            <button ion-button round (click)="select(itemdeal2)" class="button btn-select" clear>
+                                                            Xem
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                    <ng-template #group2twoway>
+                        <div class="div-group-name m-top-24 " *ngIf="itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0">{{itemgroup.groupName}}</div>
+                        <div *ngIf=" itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0" class="div-wrap-slide">
+                            <div *ngFor="let itemslide2 of itemgroup.listflighttopdealroundtrip" class="div-wrap-itemslide">
+                                <div  *ngFor="let itemdeal2 of itemslide2.list; let idx = index" (click)="select(itemdeal2)" >
+                                    <div [ngClass]="idx == itemslide2.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                        <div class="div-first d-flex">
+
+                                            <div class="text-flight-title div-width-600 d-flex">
+                                                <div class="div-width-100 text-left">
+                                                    <div class="div-text-overflow">{{ itemdeal2.fromPlaceName }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal2.dateDepartDisplay }} </div>
+                                                </div>
+                                                <div class="div-flight-inout width-36">
+                                                    <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal2.roundTrip else oneway">
+                                                    <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                                </div>
+                                                <div class="div-width-100 text-left ">
+                                                    <div class="div-text-overflow">{{ itemdeal2.toPlaceNameDisplay }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal2.dateReturnDisplay }} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="div-logo div-width-100 text-right">
+                                                <img class="img-logo" *ngIf="itemdeal2.depart.airLogo" [src]="itemdeal2.depart.airLogo">
+                                            </div>
+
+                                        </div>
+                                            <div class="div-date m-top-4 div-width-250">
+                                            </div>
+
+                                            <div class="div-second d-flex p-top-8 m-bottom-16">
+                                                <div class="flight-price">{{itemdeal2.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                                <div class="div-button">
+                                                    <button ion-button round (click)="select(itemdeal2)" class="button btn-select" clear>
+                                                    Xem
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </div>
+
+
+                <div class="div-wrap-flighttopdeal" *ngIf="idx==2">
+                    <div *ngIf="flighttype == 'oneway' else group3twoway">
+                        <div class="div-group-name m-top-24 " *ngIf="itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0">{{itemgroup.groupName}}</div>
+                        <div *ngIf=" itemgroup.listflighttopdealoneway && itemgroup.listflighttopdealoneway.length >0" class="div-wrap-slide">
+                            <div *ngFor="let itemslide3 of itemgroup.listflighttopdealoneway" class="div-wrap-itemslide">
+                                <div  *ngFor="let itemdeal3 of itemslide3.list; let idx = index" (click)="select(itemdeal3)">
+                                    <div [ngClass]="idx == itemslide3.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                        <div class="div-first d-flex">
+
+                                            <div class="text-flight-title div-width-600 d-flex">
+                                                <div class="div-width-100 text-left">
+                                                    <div class="div-text-overflow">{{ itemdeal3.fromPlaceName }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal3.dateDepartDisplay }} </div>
+                                                </div>
+                                                <div class="div-flight-inout width-36">
+                                                    <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal3.roundTrip else oneway">
+                                                    <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                                </div>
+                                                <div class="div-width-100 text-left ">
+                                                    <div class="div-text-overflow">{{ itemdeal3.toPlaceNameDisplay }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal3.dateReturnDisplay }} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="div-logo div-width-100 text-right">
+                                                <img class="img-logo" *ngIf="itemdeal3.depart.airLogo" [src]="itemdeal3.depart.airLogo">
+                                            </div>
+
+                                        </div>
+                                            <div class="div-date m-top-4 div-width-250">
+                                            </div>
+
+                                            <div class="div-second d-flex p-top-8 m-bottom-16">
+                                                <div class="flight-price">{{itemdeal3.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                                <div class="div-button">
+                                                    <button ion-button round (click)="select(itemdeal3)" class="button btn-select" clear>
+                                                    Xem
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #group3twoway>
+                        <div class="div-group-name m-top-24 " *ngIf="itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0">{{itemgroup.groupName}}</div>
+                        <div *ngIf=" itemgroup.listflighttopdealroundtrip && itemgroup.listflighttopdealroundtrip.length >0" class="div-wrap-slide">
+                            <div *ngFor="let itemslide3 of itemgroup.listflighttopdealroundtrip" class="div-wrap-itemslide">
+                                <div  *ngFor="let itemdeal3 of itemslide3.list; let idx = index" (click)="select(itemdeal3)">
+                                    <div [ngClass]="idx == itemslide3.list.length-1? 'div-item-flight':'div-item-flight m-bottom-16'" >
+                                        <div class="div-first d-flex">
+
+                                            <div class="text-flight-title div-width-600 d-flex">
+                                                <div class="div-width-100 text-left">
+                                                    <div class="div-text-overflow">{{ itemdeal3.fromPlaceName }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal3.dateDepartDisplay }} </div>
+                                                </div>
+                                                <div class="div-flight-inout width-36">
+                                                    <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout1.svg" *ngIf="itemdeal3.roundTrip else oneway">
+                                                    <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                                                </div>
+                                                <div class="div-width-100 text-left ">
+                                                    <div class="div-text-overflow">{{ itemdeal3.toPlaceNameDisplay }} </div>
+                                                    <div class="text-flight-datetime">{{ itemdeal3.dateReturnDisplay }} </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="div-logo div-width-100 text-right">
+                                                <img class="img-logo" *ngIf="itemdeal3.depart.airLogo" [src]="itemdeal3.depart.airLogo">
+                                            </div>
+
+                                        </div>
+                                            <div class="div-date m-top-4 div-width-250">
+                                            </div>
+
+                                            <div class="div-second d-flex p-top-8 m-bottom-16">
+                                                <div class="flight-price">{{itemdeal3.priceDisplay}}<span class="text-sub-price">đ</span></div>
+                                                <div class="div-button">
+                                                    <button ion-button round (click)="select(itemdeal3)" class="button btn-select" clear>
+                                                    Xem
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                </div>
+
+            </div>
+
+        </div>
+</div>
+
+<ng-template #loadtopdealsdk>
+    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 100%;height: 120px; border-radius: 4px;margin-bottom: 10px"></ion-skeleton-text>
+</ng-template>
+
+<div class="div-plan">
+    <app-flighttopplan></app-flighttopplan>
+</div>
+
+<div class="div-useful">
+    <app-flightuseful type="1"></app-flightuseful>
+</div>
+
+<div class="div-reivews" id="divReviews">
+    <app-flighttopreview></app-flighttopreview>
+</div>
+
+<div class="div-award p-bottom-16">
+    <div class="item-award">
+      <div class="div-logo-award"><img class="img-award" src="./assets/ic_home/wta-winner-shield.png" /></div>
+      <div class="div-text-award m-top-8">Đại lý du lịch Trực tuyến hàng đầu Việt Nam</div>
+    </div>
+
+    <div class="item-award">
+      <div class="div-logo-award"><img class="img-award" src="./assets/ic_home/HRA.png" /></div>
+      <div class="div-text-award m-top-8">Best Companies to Work for in Asia</div>
+    </div>
+
+    <div class="item-award">
+      <div class="div-logo-award"><img class="img-award" src="./assets/ic_home/APEA.png" /></div>
+      <div class="div-text-award m-top-8">APEA Inspirational Brand Award</div>
+    </div>
+  </div>
+</div>

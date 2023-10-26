@@ -1,0 +1,20 @@
+<div class="flighttopdeal-section">
+    <div class="title-padding">
+        <ion-label class="text-title2">
+          Khuyến mãi và ưu đãi 
+        </ion-label>
+      </div>
+
+      <div class="sub-title">
+        <ion-label class="text-subtitle">
+          Tận hưởng ưu đãi - Trải nghiệm thoải mái
+        </ion-label>
+      </div>
+
+      <div class="innerdeals1 slide2-scroll">
+      <div (click)="itemclickht(slide)"
+          class="cls-deal" *ngFor="let slide of listflighttopdeal">
+          <img class="slide2 img" [src]="slide.linkImage" />
+    </div>
+</div>
+

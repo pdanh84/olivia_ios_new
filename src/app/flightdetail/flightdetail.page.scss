@@ -1,0 +1,494 @@
+.flightdetail-header{
+    .col-header{
+        text-align: center;
+        height: 56px;
+
+        .div-goback{
+            height: 48px;
+            width: 48px;
+
+            .header-img-back{
+                width: 36px;
+                margin-top: 6px;
+            }
+        }
+
+        .div-header-title{
+            width: 100%;
+            z-index: -1;
+            position: absolute;
+
+            .div-title{
+                font-size: 15px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.6;
+                letter-spacing: -0.45px;
+            }
+            .div-subtitle{
+                font-size: 11px;
+                font-weight: 300;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.82;
+                letter-spacing: -0.31px;
+            }
+        }
+       
+        .div-close{
+            position: absolute;
+            right: 0;
+        }
+    }
+}
+
+.div-flightdetail-content, .div-loading-content{
+    background: #f2f2f2;
+    //padding: 0 16px;
+    height: 100%;
+
+    .p-left-10{
+        padding-left: 10px;
+    }
+    .p-left-22{
+        padding-left: 22px;
+    }
+    .p-left-16{
+        padding-left: 16px;
+    }
+    .m-left-8{
+        margin-left: 8px;
+    }
+    .m-top-28{
+        margin-top: 28px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    .div-width-250{
+        width: 250%;
+    }
+    .div-width-100{
+        width: 100%;
+    }
+    .div-width-200{
+        width: 200%;
+    }
+    .div-width-300{
+        width: 300%;
+    }
+    .div-width-150{
+        width: 150%;
+    }
+    
+    .width-50{
+        width: 50px;
+    }
+    .v-align-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .div-background-gray{
+        background: #f2f2f2;
+    }
+
+    .div-wrap-background{
+        background: #f2f2f2;
+        padding-bottom: 28px;
+    }
+
+    .div-over-stop{
+        background: rgba(255,255,255, 0.5);
+        margin: 0 16px;
+        padding: 10px 14px;
+        font-family: Helvetica;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        color: #333333;
+        margin-top: 16px;
+        //margin-bottom: 28px;
+        
+    }
+
+    .div-flight-detail{
+        padding-top: 19px;
+        text-align: left;
+
+        .text-title{
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: -0.48px;
+            color: #222222;
+        }
+        .div-right{
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #000000;
+            padding-right: 16px;
+
+            .div-icon-clock{                                                    
+                margin-top: -14px;
+                margin-right: -6px;
+            }
+        }
+        .text-operatedBy{
+            font-size: 12px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.67;
+            letter-spacing: -0.34px;
+            color: #e52822;
+        }
+        .div-detail{
+            background: #fff;
+            //margin: 0 -16px;
+            padding: 0 16px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+            padding-bottom: 16px;
+
+            .div-time-display{
+                width: 60px;                                                                                                                                                                                                                                                                                                                                                                                
+            }                                                               
+          
+            .div-time-display, .div-city{
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 1.5;
+                letter-spacing: -0.48px;
+                color: #222222;
+
+                .city-code{
+                    color: #828282 !important;
+                }
+            }
+            
+            .div-line{
+                border-left: solid 1px #26bed6;
+                position: absolute;
+                left: 87.5px;
+                //height: 276px;
+                height: 159px;
+                margin-top: 15px;
+            }
+            // .h-254{
+            //     height: 254px ;
+            // }
+            // .h-234{
+            //     height: 234px ;
+            // }
+            // .h-210{
+            //     height: 210px ;
+            // }
+            .line-bottom{
+                margin-top: -150px;
+            }
+            
+            .div-icon{
+                width: 8px;
+                height: 8px;
+                border: solid 1px #26bed6;
+                border-radius: 8px;
+                margin: 8px;
+            }
+            .div-icon-left{
+                width: 16.5px;
+            }
+            
+            .div-month-display{
+                width: 70px;
+
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 1.5;
+                letter-spacing: -0.68px;
+                color: #828282;
+            }
+
+            .div-align-center{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                
+
+                .div-airport{
+
+                    
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 1.5;
+                    letter-spacing: -0.4px;
+                    color: #828282;
+                }
+
+                .div-detail-right{
+                    padding: 8px;
+                    border-radius: 4px;
+                    background-color: #f2f2f2;
+                    width: 100%;
+                    margin-left: 39px;
+
+                    
+
+                   
+
+                    .div-split{
+                        border-bottom: solid 0.5px #828282;
+                        margin-top: 4px;
+                        margin-bottom: 8px;
+                    }
+
+                    .img-lug{
+                        height: 16px;
+                        margin-top: 2px;
+                    }
+
+                    .img-left{
+                        margin-top: 3px;
+                    }
+                }
+
+               
+            }
+        }
+    }
+    .text-detail{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #828282;
+    }
+    .text-airline{
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #000000;
+        margin-right: 8px;
+    }
+    .div-logo{
+        height: 21px;
+
+        .img-logo{
+            height: 21px;
+        }
+    }
+    ///////////////
+    .div-flight-condition{
+        margin: 0 -16px;
+        padding: 10px 16px;
+        background: rgba(242, 242, 242, 0.5);
+        margin-top: 16px;
+
+        .div-icon{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-right: 8px;
+            margin-top: -2px;
+        }
+
+        .img-info{
+            width: 14px;
+            height: 14px;
+        }
+    
+        .div-text-refund{
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #828282;
+        }
+    
+        .div-text-changeflight{
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #9fc43a;
+        }
+    
+        .not-allow{
+            color: #828282 !important;
+        }
+    }
+
+    
+    /////////////
+
+    .div-ticket-detail{
+        background: #f2f2f2;
+        padding: 0 16px;
+        text-align: left;
+
+        .div-text-title{
+            font-size: 16px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.48px;
+            color: #222222;
+            padding-bottom: 16px;
+        }
+
+        .div-flight-info{
+            background: #ffffff;
+            margin: 0 -16px;
+            padding: 16px;
+            padding-bottom: 0;
+        }
+        .div-flight-pricesummary{
+            background: #ffffff;
+            margin: 0 -16px;
+            padding: 16px;
+        }
+
+        .text-name{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #333333;
+        }
+
+        .text-price{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #000000;
+        }
+        .text-name-total{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #222222;
+        }
+
+        .text-total-price{
+            font-size: 24px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: -0.69px;
+            color: #26bed6;
+        }
+
+        .text-right{
+            text-align: right;
+        }
+
+        .div-split{
+            border-bottom: solid 0.5px #bdbdbd;
+            margin: 8px 0px 14px 0px;
+        }
+
+        .div-total{
+            padding-bottom: 11px;
+        }
+    }
+    .city-code{
+        color: #828282 !important;
+    }
+    .div-width-400{
+        width: 400%;
+    }
+    .div-width-100{
+        width: 100%;
+    }
+    .p-left-16{
+        padding-left: 16px;
+    }
+}
+
+
+.div-footer{
+    background-color: #ffffff; 
+    text-align: center;
+    height: 60px;
+
+    .div-total{
+        width: 210px;
+        margin-left: 16px;
+
+        .text-sub-total{
+            font-size: 12px;
+            font-weight: 300;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .text-total{
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.69px;
+            color: #26bed6;
+            text-align: left;
+        }
+    }
+
+    .div-button{
+        width: 50%;
+        margin-right: 16px;
+    }
+    
+    .button
+    {
+        background: #F79221;
+        color: #ffffff;
+        border-color: #F79221;
+        font-size: 22px;
+        height: 40px !important;
+        margin: 10px 0;
+        font-size: 17px !important;
+        width: 100%;
+        border-radius: 4px !important;
+        padding: 0;
+    }
+}
+
+.d-flex-footer{
+    display: flex;
+    width: 100%;
+}
+
+::ng-deep{
+    @media (min-width:414px) and (max-width: 430px) {
+        // .div-line{
+        //     height: 254px !important;
+        // }
+
+        // .h-254{
+        //     height: 234px !important;
+        // }
+
+        // .h-234{
+        //     height: 212px !important;
+        // }
+
+        // .h-210{
+        //     height: 192px !important;
+        // }
+    }
+}

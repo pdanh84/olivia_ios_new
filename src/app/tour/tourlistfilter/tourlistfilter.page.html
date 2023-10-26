@@ -1,0 +1,76 @@
+<!--
+  Generated template for the SearchHotelFilterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="search-filter-header">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="1" style="text-align: right" (click)="close()">
+        <div class="div-close">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+      </ion-col>
+      <ion-col size="11" style="text-align: center">
+        <ion-title class="text-title">Lọc</ion-title>
+      </ion-col>
+     
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div  class="p-all-16">
+
+  <div *ngIf="dataForeignRegion && dataForeignRegion.length >0">
+    <ion-label class="text-title1 m-top-8">
+      Địa điểm HOT nước ngoài
+    </ion-label>
+    <div class="item-local p-top">
+      <div *ngFor="let item of dataForeignRegion; let i = index" [ngClass]="tourService.foreignList && tourService.foreignList.length >0 && tourService.foreignList.indexOf(item.id) != -1 ? 'cls-col-border local-check' :'cls-col-border'"
+        (click)="localClick(item, 'foreign')">{{ item.name }}
+      </div>
+    </div>
+  </div>
+
+  <div class="cls-order-style" *ngIf="dataLocalRegion && dataLocalRegion.length >0">
+    <ion-label class="text-title1">
+      Địa điểm HOT trong nước
+    </ion-label>
+    <div class="item-style p-top">
+      <div *ngFor="let itemLocal of dataLocalRegion; let i = index" id="{{itemLocal.id}}"
+      [ngClass]="tourService.localList && tourService.localList.length >0 && tourService.localList.indexOf(itemLocal.id) != -1 ? 'cls-col-border local-check' :'cls-col-border'" (click)="localClick(itemLocal, 'local')">{{ itemLocal.name }}</div>
+    </div>
+  </div>
+
+  <div class="cls-order-style" *ngIf="dataTourType && dataTourType.length >0">
+    <ion-label class="text-title1">
+      Loại Tour
+    </ion-label>
+    <div class="item-hotel-tyle p-top">
+      <div *ngFor="let itemTourType of dataTourType; let i = index" id="{{itemTourType.id}}"
+      [ngClass]="tourService.typeList && tourService.typeList.length >0 && tourService.typeList.indexOf(itemTourType.id) != -1 ? 'cls-col-border local-check' :'cls-col-border'" (click)="localClick(itemTourType, 'type')">{{ itemTourType.name }}
+      </div>
+    </div>
+  </div>
+
+  <div class="cls-order-facility" *ngIf="tourService.listTourTopic && tourService.listTourTopic.length >0">
+    <ion-label class="text-title1">
+      Tour theo chủ đề
+    </ion-label>
+    <div class="item-facility p-top">
+      <div *ngFor="let itemTopic of tourService.listTourTopic; let j = index" id="{{itemTopic.Id}}"
+      [ngClass]="tourService.topicList && tourService.topicList.length >0 && tourService.topicList.indexOf(itemTopic.Id) != -1 ? 'cls-col-border local-check' :'cls-col-border'" (click)="localClick(itemTopic,'topic')">{{ itemTopic.Name }}</div>
+    </div>
+  </div>
+  
+</div>
+</ion-content>
+<ion-footer style="text-align: center">
+  <ion-toolbar>
+    <button ion-button round outline class="button btn-clear" [class.click]=" ischeckbtnreset==true "
+      [class.none]=" ischeckbtn==true " (click)="clickCancel()">Xóa Lọc</button>
+    <button ion-button round outline class="button" [class.click]=" ischeckbtn==true "
+      [class.none]=" ischeckbtnreset==true " (click)="clickOk()">Chọn</button>
+  </ion-toolbar>
+</ion-footer>

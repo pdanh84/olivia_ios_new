@@ -1,0 +1,86 @@
+
+<ion-content class="ion-padding-16">
+    <ion-row>
+        <ion-col class="no-padding">
+            <div class="div-icon-close" (click)="close()"><ion-icon name="close" ></ion-icon></div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <div class="exchangegift-content" *ngIf="record && userInfoData">
+            <div><label class="item-title">Đổi {{record.title}} - {{record.unitPoint| number:"1.0"}} điểm</label></div>
+            <div>Sau khi quy đổi, quý khách còn {{(userInfoData.point - record.unitPoint) | number:"1.0"}} điểm.</div>
+            <div>
+                <ion-row>
+                    <ion-list radio-group name="case" class="list-location" [(ngModel)]="location">
+                        <ion-row>
+                            <ion-col class="no-padding" (click)="radioCheck(1)">
+                                <ion-radio value="1" class="rd-location" (click)="radioCheck(1)"></ion-radio>
+                                <label class="rd-text">Nhận tại văn phòng iVIVU</label>
+                                <div class="div-ivivu-office" *ngIf="optCheck == 1">
+                                        <div class="title-band">Quý khách vui lòng đến một trong những địa điểm sau để nhận quà:
+                                            <div class="office-brand"><span class="office-title">Văn phòng tại Tp. Hồ Chí Minh:</span> Lầu 2, tòa nhà Anh Đăng, 215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3. Tp.HCM.</div>
+                                            <div>Thời gian làm việc</div>
+                                            <div>
+                                                <div class="time-office">Thứ 2 - Thứ 7: từ 07h30 đến 21h00</div>
+                                                <div  class="time-office">CN: từ 07h30 đến 20h00</div>
+                                            </div>
+        
+                                            <div class="office-brand"><span class="office-title">Văn phòng tại Tp. Hà Nội:</span> P.308, Tầng 3, Tòa nhà The One, số 2 Chương Dương Độ, Q.Chương Dương, Q.Hoàn Kiếm, Hà Nội</div>
+                                            <div>Thời gian làm việc</div>
+                                            <div class="time-office">Thứ 2 - Thứ 6: từ 09h30 đến 17h00</div>
+        
+                                            <div class="office-brand"><span class="office-title">Văn phòng tại Tp. Cần Thơ:</span> 166B Trần Hưng Đạo, P. An Nghiệp, Quận Ninh Kiều, Tp. Cần Thơ</div>
+                                            <div>Thời gian làm việc</div>
+                                            <div>
+                                                <div class="time-office">Thứ 2 - Thứ 7: từ 07h30 đến 21h00</div>
+                                                <div class="time-office">CN: từ 07h30 đến 20h00</div>
+                                            </div>
+        
+                                            <div class="office-brand"><span class="office-title">Văn phòng tại Tp. Đà Nẵng:</span> Lầu 2, PGT Tower, 220 Nguyễn Hữu Thọ, Quận Hải Châu, Tp. Đà Nẵng</div>
+                                            Thời gian làm việc
+                                            <div class="time-office">Thứ 2 - Thứ 6: từ 08h00 đến 17h00</div>
+                                        </div>
+                                    </div>
+                            </ion-col>
+                            
+                        </ion-row>
+                        <ion-row>
+                            <hr style="width:100%">
+                        </ion-row>
+                        <ion-row>
+                            <ion-col  class="no-padding" (click)="radioCheck(2)">
+                                <ion-radio value="2" class="rd-location" (click)="radioCheck(2)"></ion-radio>
+                                <label class="rd-text">Giao tới địa chỉ của bạn</label>
+                                <div class="div-customer-address" *ngIf="optCheck == 2">
+                                        <!-- Họ tên -->
+                                        <ion-row>
+                                            <ion-col col-3 class="input-label">Họ tên</ion-col>
+                                            <ion-col col-9><ion-input id="ipName" class="exchange-input" [ngClass]="!nameValidate ? 'validate-error' : ''" placeholder="Nhập họ tên..." [(ngModel)]="customerName"></ion-input></ion-col>
+                                        </ion-row>
+                                        <!-- Số di động -->
+                                        <ion-row>
+                                            <ion-col col-3 class="input-label">Số di động</ion-col>
+                                            <ion-col col-9><ion-input id="ipMobile" class="exchange-input" [ngClass]="!mobileValidate ? 'validate-error' : ''" placeholder="Nhập số di động..." [(ngModel)]="customerMobile"></ion-input></ion-col>
+                                        </ion-row>
+                                        <!-- Địa chỉ -->
+                                        <ion-row>
+                                            <ion-col col-3 class="input-label">Địa chỉ</ion-col>
+                                            <ion-col col-9><ion-textarea id="ipAddress" class="exchange-input" [ngClass]="!addressValidate ? 'validate-error' : ''" placeholder="Nhập địa chỉ..." [(ngModel)]="customerAddress"></ion-textarea></ion-col>
+                                        </ion-row>
+                                    </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-list>
+                </ion-row>
+            </div>
+        </div>
+    </ion-row>
+    <ion-row>
+        <ion-col class="no-padding">
+            <button ion-button round outline class="button btn-cancel" (click)="close()" >Hủy</button>
+        </ion-col>
+        <ion-col class="no-padding">
+            <button ion-button round outline class="button btn-exchange" [disabled]="!optCheck" (click)="exchange()" >Đổi quà ngay</button>
+        </ion-col>
+    </ion-row>
+</ion-content>

@@ -1,0 +1,87 @@
+
+    .text-title{
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+.description-content{
+    padding: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    letter-spacing: -0.4px;
+    font-size: 14px;
+
+    // height: 1010px;
+    // overflow: scroll;
+
+    .text-headline {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 8px 0;
+    }
+    .text-show-more-content {
+        color: var(--ion-color-tertiary);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    .text-end {
+        color: var(--ion-color-primary);
+        font-size: 14px;
+    }
+    .img-seemoreroom {
+        margin-left: 6px;
+    }
+    .m-right-8 {
+        margin-right: 8px;
+    }
+    .d-flex {
+        display: flex;
+    }
+    .div-wrap-content .div-expand{
+        display: block;
+        height: auto;
+        animation: showNav 500ms ease-in-out both;
+      }
+      .div-collapse {
+        transition: opacity 1s ease-out;
+        //display: none;
+        //opacity: 0; 
+        height: 1010px;
+        overflow: scroll;
+        padding: 0;
+        //animation: hideNav 500ms ease-in-out both;
+      }
+    
+      @keyframes showNav {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+    
+      @keyframes hideNav {
+        from {opacity: 1;}
+        to {opacity: 0;}
+      }
+}
+
+::ng-deep {
+    .description-content{
+        h3 {
+            font-size: 14px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        img {
+            margin: 8px 0;
+          }
+
+          .div-tour-program-content p:last-child {
+            font-size: 14px;
+            color: var(--ion-color-primary);
+          }
+
+          .div-tour-program-content p:last-child > em {
+            font-style: normal;
+          }
+    }
+}

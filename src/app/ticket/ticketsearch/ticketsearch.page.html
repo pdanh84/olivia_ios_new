@@ -1,0 +1,102 @@
+<ion-header class="div-ticketsearch-header">
+    <!-- <ion-toolbar>
+      <ion-buttons slot="secondary" style="position: absolute;" (click)="goback()">
+        <img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </ion-buttons>
+  
+      <ion-title class="text-title">
+          Tìm kiếm vé vui chơi
+        </ion-title>
+    </ion-toolbar> -->
+    <ion-toolbar class="new-background">
+        <div class="img-back" (click)="goback()">
+          <img 
+            src="./assets/imgs/icon_back.svg">
+        </div>
+        <div class="div-search">
+          <ion-input (keyup.enter)="onEnter()"  #ipSearch [(ngModel)]="ticketService.inputText" (ionChange)="getItems($event)" [ngClass]="ticketService.inputText ? 'cls-input-search-text' : 'cls-input-search'" placeholder="Nhập tên địa điểm,thành phố..."></ion-input>
+        </div>
+        <div *ngIf="ticketService.inputText"  class="img-close" >
+          <img (click)="clearText()"
+            src="./assets/imgs/icon_close.svg">
+        </div>
+      </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div class="p-all-16 div-ticketsearch-content" *ngIf="!ticketService.inputText">
+        <div class="div-history-search" *ngIf="listHistorySearch && listHistorySearch.length>0">
+            <div class="div-title m-bottom-8">Lịch sử tìm kiếm</div>
+            <div class="d-flex div-item-history ">
+              <div *ngFor="let item of listHistorySearch" >
+                <div *ngIf="item.name" (click)="clickItemRegion(item)" class="item-region">
+                  {{item.name}}
+              </div>
+              <div *ngIf="item.expName" (click)="clickItemRegion(item)" class="item-region width-250">
+                {{item.expName}}
+              </div>
+              </div>
+             
+            </div>
+        </div>
+
+        <div class="div-region-search" *ngIf="listRegionSearch && listRegionSearch.length>0">
+            <div class="div-title m-top-8 m-bottom-8">Địa điểm phổ biến</div>
+            <div  class="d-flex div-item-region " >
+                <div *ngFor="let item of listRegionSearch" class="item-region" (click)="clickItemRegion(item)">
+                    {{item.name}}
+                </div>
+            </div>
+        </div>
+
+        <div class="div-hot-search">
+            <div class="div-title m-top-8 m-bottom-8">Vé bán chạy nhất</div>
+            <div  class="div-item-region-hot ">
+                <div *ngFor="let item of listHotExperience" class="d-flex m-bottom-12" (click)="funcHotExperience(item)">
+                   <div class="div-img">
+                    <img *ngIf="item.expAvatar" class="img-hot" [src]="item.expAvatar">
+                    <img *ngIf="!item.expAvatar" class="img-hot" src='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-60x45.jpg'>
+                  </div>
+                   <div class="div-text">
+                        {{item.expName}}
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="ticketService.inputText">
+      <div *ngIf="ischecklist" style="padding: 16px;">
+        <div (click)="itemclick(item,0)" *ngFor="let item of itemRegion">
+          <ion-row >
+            <ion-col text-left style="padding:16px 0px">
+             
+              <ion-label  class="label-item-search">
+                <img src="./assets/ic_facility/Group.svg"> {{ item.name }}
+              </ion-label>
+  
+  
+            </ion-col>
+            <!-- <ion-col *ngIf="item.TotalTour && !item.IndexType" text-right style="padding:16px 0px">
+              <ion-label style="color: #26bed6">
+                {{item.TotalTour}} Tours
+              </ion-label>
+            </ion-col> -->
+          </ion-row>
+        </div>
+        <div (click)="itemclick(item,1)" *ngFor="let item of itemTicket">
+          <ion-row>
+            <ion-col text-left style="padding:16px 0px">
+
+  
+              <ion-label  class="label-item-search">
+                <img class="img-search" src="./assets/ic_facility/ic_ticket_search.svg"> 
+                {{ item.name }}
+              </ion-label>
+  
+            </ion-col>
+  
+          </ion-row>
+        </div>
+      </div>
+    </div>
+  </ion-content>

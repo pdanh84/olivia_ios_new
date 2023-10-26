@@ -1,0 +1,45 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div class="div-goback" (click)="next()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Xác nhận yêu cầu</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/empty/imgdone.svg">
+</div>
+<div class="p-all-16">
+ 
+  <div>
+    <div>
+      <ion-label class="text">
+        Gửi yêu cầu thành công. <span *ngIf="tourService.tourBookingCode" class="text">Mã yêu cầu đặt: <span class="text-bold text-tealish">{{tourService.tourBookingCode}}</span></span>
+      </ion-label>
+    </div>
+    <div class="p-top-8">  
+      <div>
+        <ion-label class="text">
+          Tư vấn viên iVIVU sẽ liên hệ Quý khách ngay sau khi kiểm tra thông tin
+        </ion-label>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="next()" ion-button round outline class="button button2 m-top-0">Quay về chuyến đi của tôi</button>
+  </div>
+</ion-footer>

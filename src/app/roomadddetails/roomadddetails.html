@@ -1,0 +1,149 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+        <ion-row>
+          <ion-col style="text-align: center;height: 48px;">
+            <div style="align-self: center" >
+              <div style="position: absolute;height: 48px;width: 48px;top: 8px;"  (click)="goback()">
+                  <!-- <ion-icon (click)="goback()" color="dark-tint" style="font-size: 2em;" name="arrow-back" class="card-title"></ion-icon> -->
+                  <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+              </div>
+              
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thông tin khách</label></div>
+            </div>
+          </ion-col>
+        </ion-row>
+        </ion-toolbar>
+  </ion-header>
+<ion-content class="ion-padding-16">
+  <img *ngIf="ischeckpayment"  src="./assets/step/step_2.svg">
+  <div *ngIf="!ischeckpayment" style="text-align: center">
+    <img src="./assets/step/fc_step_2.svg">
+    </div>
+
+  <div style="margin-top: 10px">
+    <ion-label class="text">
+      Khách nhận phòng
+    </ion-label>
+  </div>
+  <div >
+        <div >
+            <ion-item style="--padding-start: 0px">
+                <ion-label class="label-name" position="stacked">Họ Tên</ion-label>
+                <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
+            </ion-item>
+        </div>
+      <div >
+        <ion-item style="--padding-start: 0px">
+          <ion-label class="label-name" position="stacked">Số điện thoại</ion-label>
+          <ion-input class="label-input" [(ngModel)]="phone" type="tel" required></ion-input>
+        </ion-item>
+      </div>
+    
+    <div *ngIf="!validemail">
+      <div >
+        <ion-item style="--padding-start: 0px">
+          <ion-label class="label-name" position="stacked">Email</ion-label>
+          <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
+  
+        </ion-item>
+      </div>
+    </div>
+    <!-- <ion-row *ngIf="arrbed.length>1" style="margin-left: 15px;margin-top: 10px;" radio-group>
+      <ion-col *ngFor="let item of arrbed; let itemindex = index" color="xanh" col-6>
+
+        <ion-radio value={{item.text}} class="rd-departure" (click)="itemrd(item.text,itemindex)"
+          checked="{{item.ischeck}}"></ion-radio>
+        <label class="rd-text">{{item.text}}</label>
+
+      </ion-col>
+
+    </ion-row> -->
+  </div>
+  <div class="div-title-other-request">
+    <ion-label class="text">
+      Thông tin yêu cầu khác
+    </ion-label>
+  </div>
+  <div style="margin-left: -5px">
+      <ion-row>
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px" id="ipNote">
+              <ion-label class="label-name" position="stacked">Yêu cầu khác</ion-label>
+              <ion-input class="label-input" [(ngModel)]="note" (ionFocus)="setFocusInput()"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+    </div>
+  <ion-row *ngIf="!Roomif.ExcludeVAT" style="margin-top: 20px">
+      <ion-checkbox (ionChange)="edit(0)" [(ngModel)]="ischeck" color="secondary"></ion-checkbox>
+      <ion-label class="label-input" style="margin: 1px 10px">Xuất hóa đơn điện tử</ion-label>
+  </ion-row>
+    <div *ngIf="ischeck && !Roomif.ExcludeVAT">
+      <ion-row >
+        <ion-col size="12">
+          <ion-item style="--padding-start: 0px">
+            <ion-label class="label-input-order" position="stacked">Tên công ty</ion-label>
+            <ion-input class="label-input" [(ngModel)]="companyname" type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="--padding-start: 0px">
+            <ion-label class="label-input-order" position="stacked">Địa chỉ</ion-label>
+            <ion-input class="label-input" [(ngModel)]="address" type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="--padding-start: 0px">
+            <ion-label class="label-input-order" position="stacked">Mã số thuế</ion-label>
+            <ion-input class="label-input" [(ngModel)]="tax" type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <div class="div-check-namemail">
+        <ion-checkbox (ionChange)="showNameMail($event)" [value]="ishideNameMail" class="ion-checkbox" color="secondary"></ion-checkbox>
+        <ion-label class="label-input" >Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
+      </div>
+      <div *ngIf="!ishideNameMail">
+        <ion-col size="12">
+          <ion-item style="--padding-start: 0px">
+            <ion-label class="cls-label" position="stacked">Họ tên</ion-label>
+            <ion-input class="label-input" [(ngModel)]="hotenhddt" type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="--padding-start: 0px">
+            <ion-label class="cls-label" position="stacked">Email nhận HĐ</ion-label>
+            <ion-input class="label-input" [(ngModel)]="emailhddt" type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </div>
+    </div>
+</ion-content>
+<ion-footer>
+  <div class='div-close-paxhint' *ngIf="inputtext && listpaxhint && listpaxhint.length >0" (click)="hidePaxHint()"><img src='./assets/ic_close_b.svg'></div>
+  <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
+                  
+    <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
+        <div class="icon-pax">
+                <img src="./assets/ic_flight/icon-pax.svg">
+        </div>
+        <div class="text-pax-hint">
+            {{itempax.fullName}}
+        </div>
+    </div>
+    
+  </div>
+  
+  <div *ngIf=" (priceshow>0||ischeckbtn==true)" style="background-color: #ffffff; text-align: center; display: flex;">
+    <div *ngIf="showInstallmentButton else hideInstallmentButton" class="div-button-flex">
+      <button  (click)="installment()" ion-button round outline class="button button-installment">Trả góp <br><p class="text-sub">chỉ từ {{installmentPriceStr}}</p></button>
+      <button (click)="next()" ion-button round outline class="button button2">Thanh toán ngay</button>
+    </div>
+    <ng-template #hideInstallmentButton>
+      <button (click)="next()" ion-button round outline class="button button2">Tiếp tục</button>
+    </ng-template>
+  </div>
+  <div *ngIf="priceshow==0" style="background-color: #ffffff; text-align: center">
+    <button (click)="next1()" ion-button round outline class="button button2">Hoàn thành đặt phòng</button>
+  </div>
+</ion-footer>

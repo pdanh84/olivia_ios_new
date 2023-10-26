@@ -1,0 +1,81 @@
+<ion-header>
+    <ion-toolbar style="text-align: center;height: 56px;">
+      <div class="btn-close" (click)="closeModal()" >
+        <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </div>
+      <ion-title>Số lượng đặt phòng</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="content-occupancy ion-padding-16" >
+    <div>
+        <div>
+          <div class="d-flex border-bottom">
+              <div class="text-left">
+                  <label class="text-room" class="text-room">Phòng</label>
+              </div>
+              <div  class="t-center ic-minus d-flex" (click)="minusroom()">
+                <div class="m-width-26">
+                  <img *ngIf="ischeckroom==true"  src="./assets/ic_facility/ic_minus.svg">
+                  <img *ngIf="ischeckroom==false" src="./assets/ic_facility/ic_minus_in.svg">
+                </div>
+                <div class="div-width-100 t-center"><label class="number-room" >{{room}}</label></div>
+              </div>
+              <div class="t-center ic-plus" (click)="plusroom()">
+                <img  src="./assets/ic_facility/ic_plus.svg">
+              </div>
+          </div>
+          <div class="d-flex border-bottom">
+              <div  class="text-left">
+                  <label class="text-room">Người lớn</label>
+              </div>
+              <div class="t-center  ic-minus d-flex" (click)="minusadults()">
+                <div  class="m-width-26">
+                  <img *ngIf="ischeckadults==true"  src="./assets/ic_facility/ic_minus.svg">
+                  <img *ngIf="ischeckadults==false" src="./assets/ic_facility/ic_minus_in.svg">
+                </div>
+                <div class="div-width-100 t-center"> <label class="number-room">{{adults}}</label></div>
+              </div>
+              <div class="t-center ic-plus" (click)="plusadults()">
+                <img src="./assets/ic_facility/ic_plus.svg">
+              </div>
+          </div>
+          <div class="d-flex no-border-bottom">
+              <div class="text-left" >
+                  <label class="text-room">Trẻ em</label>
+              </div>
+              <div  class="t-center  ic-minus d-flex" (click)="minuschild()">
+                <div class="m-width-26">
+                  <img *ngIf="ischeckchild==true" src="./assets/ic_facility/ic_minus.svg">
+                  <img *ngIf="ischeckchild==false" src="./assets/ic_facility/ic_minus_in.svg">
+                </div>
+                <div class="div-width-100 t-center"> <label class="number-room">{{child}}</label></div>
+              </div>
+              <div class="t-center  ic-plus" (click)="pluschild()">
+                <img  src="./assets/ic_facility/ic_plus.svg">
+    
+              </div>
+          </div>
+          
+        </div>
+      </div>
+    <div class="p-top-20">
+        <label class="text-child-age" *ngIf="arrchild.length >0">
+            Tuổi trẻ em
+          </label>
+          <div *ngFor="let msg of arrchild; let idx = index" class="p-top-20">
+            <div (click)="selectAge(msg.text)"  class="div-age no-border-bottom">
+              <ion-label class="text-child">{{msg.text}}</ion-label>
+              <div class="div-text-age">
+                <ion-label class="selected-age p-right-8" *ngIf="msg.numage">{{msg.numage}}</ion-label>
+                <img class="img-down" src="./assets/imgs/ic_down.svg"></div>
+            </div>
+      
+          </div>
+      
+    </div>
+  </ion-content>
+  <ion-footer>
+    <div style="background-color: #ffffff; text-align: center">
+      <button (click)="data()" ion-button round outline class="button">Xác nhận</button>
+    </div>
+  </ion-footer>

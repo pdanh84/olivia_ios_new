@@ -1,0 +1,180 @@
+.d-flex{
+    display: flex;
+}
+.p-l-8{
+    padding-left: 8px;
+}
+.m-b-8{
+    margin-bottom: 8px;
+}
+.v-align-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.f-12{
+    font-size: 12px;
+}
+.p-16 {
+    padding: 16px;
+}
+
+.text-normal{
+    color: #333333;
+    font-size: 14px;
+    padding: 13px 0 11px 16px;
+    background-color: #f2f2f2;
+}
+
+.flightsearchairport-header{
+    background: #26bed6;
+    .col-header{
+        text-align: center;
+        height: 60px;
+        margin-top: 0;
+        padding: 3px;
+
+        .div-goback{
+            height: 48px;
+            width: 48px;
+
+            .header-img-back{
+                width: 42px;
+                padding-top: 9px;
+                margin-left: 2px;
+            }
+        }
+
+        .div-header-title{
+            width: 100%;
+            z-index: -1;
+            //position: absolute;
+            padding-top: 6px;
+            color: #fff;
+            
+            .div-title{
+                font-size: 18px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.6;
+                letter-spacing: -0.45px;
+            }
+            .div-subtitle{
+                font-size: 11px;
+                font-weight: 300;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.82;
+                letter-spacing: -0.31px;
+            }
+        }
+       
+    }
+}
+
+.search-content-result{
+ 
+    .m-bottom-8{
+        margin-bottom: 8px;
+    }
+    .p-l-8{
+        padding-left: 8px;
+    }
+    .p-l-16{
+        padding-left: 16px;
+    }
+    .div-icon{
+
+        .img-plane{
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .div-text-result{
+        width: 100%;
+        //padding-left: 8px;
+
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 21px;
+        letter-spacing: -0.4px;
+
+    }
+
+    .text-code{
+        color: #828282;
+    }
+
+    .text-bold{
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .div-split-panel{
+        margin: 12px 0;
+        border-bottom: solid 0.5px #f2f2f2;
+    }
+
+    .div-label-text {
+        padding: 12px 16px;
+        margin: -16px -16px 0;
+        background-color: #f2f2f2;
+    }
+   
+
+    .title-text {
+        height: 17px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        color: #3f3b3b;
+    }
+    .aiport-text {
+        margin-top: 4px;
+        height: 14px;
+        font-size: 12px;
+        text-align: left;
+        color: #828282;
+    }
+
+
+    .div-item-search {
+        margin-bottom: 12px;
+        padding-bottom: 16px;
+    }
+    .div-border-bottom {
+        border-bottom: solid 1px #f2f2f2;
+    }
+    .m-top-24 {
+        margin-top: 24px;
+    }
+    .m-top-16 {
+        margin-top: 16px;
+    }
+    .m-top-12 {
+        margin-top: 12px;
+    }
+    .m-top-8 {
+        margin-top: 8px !important;
+    }
+}
+
+::ng-deep {
+    .ip-search-flight .searchbar-input.sc-ion-searchbar-ios {
+        background: #fff;
+        border-radius: 4px;
+        width: 100%;
+        padding-inline-start: 13px !important;
+        left: 30px;
+        text-align: left;
+    }
+    .ip-search-flight .searchbar-input-container.sc-ion-searchbar-ios {
+        height: 48px;
+    }
+
+    .searchbar-search-icon.sc-ion-searchbar-ios {
+        display: none;
+    }
+}

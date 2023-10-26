@@ -1,0 +1,87 @@
+
+
+.flight-payment-error-content{
+    padding: 16px;
+
+    .text-center{
+        text-align: center;
+
+        .img-payment-err{
+            margin: 32px 0 24px 0;
+        }
+
+        .text-title{
+            font-size: 14px;
+            font-weight: bold;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.4;
+            letter-spacing: normal;
+            color: #828282;
+        }
+
+        .text-err{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.4;
+            letter-spacing: normal;
+            color: #828282;
+
+            margin: 12px 0 16px 0;
+        }
+
+        .div-button{
+
+            .btnhome{
+                border-color: #F79221;
+                background-color: #F79221;
+                color: #ffffff;
+                width: 90%;
+                height: 48px;
+                font-size: 17px !important;
+            }
+        }
+    }
+}
+
+
+.div-footer{
+    background-color: #ffffff; 
+    text-align: center; 
+    display: flex;
+    margin: 0px 8px;
+
+    .div-button-flex{
+        display: flex;
+        width: 100%;
+      }
+
+      .button-payment
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 90%;
+        font-size: 17px !important;
+        letter-spacing: -0.4px;
+        margin-left: 8px;
+    } 
+    .button-change-flight
+    {
+        background: #ffffff;
+        color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 100%;
+        font-size: 17px !important;
+        letter-spacing: -0.4px;
+        padding: 0;
+    } 
+
+    .btn-disabled{
+        background: #bdbdbd !important;
+        border: solid 1px #bdbdbd !important;
+        color: #ffffff !important;
+    }
+}

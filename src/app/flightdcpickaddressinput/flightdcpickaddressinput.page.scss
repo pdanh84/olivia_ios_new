@@ -1,0 +1,82 @@
+.text-title{
+    font-size: 18px;
+    line-height: 1.4;
+    color: #333333;
+    font-weight: 300;
+}
+.ion-item{
+    --inner-border-width: 0 0 0px 0;
+}
+.text-place{
+    font-size: 14px;
+    line-height: 1.4;
+    color: #828282;
+}
+.align-self{
+    align-self: center
+}
+.div-search{
+    border-radius: 6px;
+    border: solid 0.5px #bdbdbd;
+    background-color: #ffffff;
+    margin: 0px 16px;
+    height: 48px;
+    margin-top: 6px;
+}
+.div-img{
+    margin-left: 13px;
+    margin-top: 16px;
+}
+.searchhotel-bar{
+    border: solid 0.5px #bdbdbd;
+    border-radius: 6px;
+    background-image: url('../../assets/ic_flight/icfilght_location.svg');
+    background-position: 13px 12px;
+    background-repeat: no-repeat;
+    height: 48px;
+    width: 92%;
+    margin-left: 16px;
+    padding-left: 32px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333333;
+    margin-top: 6px;
+  }
+  .div-img-close{
+    position: absolute;
+    top: 5px;
+    right: 16px;
+  }
+  .label-text-search{
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333333;
+  }
+  .label-item-search{
+    font-size: 14px;
+    line-height: 1.4;
+    color: #828282;
+  }
+  .div-result{
+    margin-left:34px;
+    margin-top:17px;
+  }
+  ::ng-deep{
+    .searchbar-input.sc-ion-searchbar-md {
+      border: solid 0.5px #bdbdbd;
+      border-radius: 6px;
+      background-image: url('../../assets/ic_flight/icfilght_location.svg');
+      background-position: 13px 12px;
+      background-repeat: no-repeat;
+      height: 48px;
+      width: 92%;
+      margin-left: 16px;
+      padding-left: 32px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #333333;
+      margin-top: 6px;
+    }
+
+  }
+ 

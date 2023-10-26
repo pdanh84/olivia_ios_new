@@ -1,0 +1,139 @@
+.d-flex{
+    display: flex;
+}
+.p-l-8{
+    padding-left: 8px;
+}
+.m-b-8{
+    margin-bottom: 8px;
+}
+.v-align-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.f-12{
+    font-size: 12px;
+}
+.p-16 {
+    padding: 16px;
+}
+
+.text-normal{
+    color: #333333;
+    font-size: 14px;
+    padding: 13px 0 11px 16px;
+    background-color: #f2f2f2;
+}
+
+.searchdeparture-header{
+    background: #26bed6;
+    .col-header{
+        text-align: center;
+        height: 60px;
+        margin-top: 0;
+        padding: 3px;
+
+        .div-goback{
+            height: 48px;
+            width: 48px;
+
+            .header-img-back{
+                width: 42px;
+                padding-top: 9px;
+                margin-left: 2px;
+            }
+        }
+
+        .div-header-title{
+            width: 100%;
+            z-index: -1;
+            //position: absolute;
+            padding-top: 6px;
+            color: #fff;
+            
+            .div-title{
+                font-size: 18px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.6;
+                letter-spacing: -0.45px;
+            }
+            .div-subtitle{
+                font-size: 11px;
+                font-weight: 300;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.82;
+                letter-spacing: -0.31px;
+            }
+        }
+       
+    }
+}
+
+.search-content-result{
+ 
+    .m-bottom-8{
+        margin-bottom: 8px;
+    }
+    .p-l-8{
+        padding-left: 8px;
+    }
+    .p-l-16{
+        padding-left: 16px;
+    }
+    .div-icon{
+
+        .img-plane{
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .div-text-result{
+        width: 100%;
+        //padding-left: 8px;
+
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 21px;
+        letter-spacing: -0.4px;
+
+    }
+
+    .text-code{
+        color: #828282;
+    }
+
+    .text-bold{
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .div-split-panel{
+        margin: 12px 0;
+        border-bottom: solid 0.5px #f2f2f2;
+    }
+}
+
+::ng-deep{
+    .airport-searchbar .searchbar-input.sc-ion-searchbar-ios {
+        padding-left: unset;
+        padding-right: unset;
+        -webkit-padding-start: 22px;
+        padding-inline-start: 22px;
+        -webkit-padding-end: 22px;
+        padding-inline-end: 22px;
+       
+    }
+
+    .searchbar-input.sc-ion-searchbar-ios {
+        padding-inline-start: 12px;
+        padding-inline-end: 0;
+        text-align: left;
+        background-color: #fff;
+        padding-inline-start: 10px !important;
+    }
+}

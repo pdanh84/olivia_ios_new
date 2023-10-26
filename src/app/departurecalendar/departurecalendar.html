@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+      <div class="div-title" >
+        <div class="div-img-close" (click)="close()">
+          <img class="img-close-departure" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div >
+          <label style="padding-left: 20px;" class="text-title;">Lịch khởi hành</label>
+        </div>
+      </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-16 departure-calendar-content">
+  <ion-row>
+    <ion-col class="text-left text-normal"><label>Nhấp vào ngày bạn muốn đi để đặt ngay</label></ion-col>
+  </ion-row>
+  <hr>
+  <div class="calendar-header" *ngIf="currentMonth">
+    <ion-row class="calendar-month">
+      <ion-col size="1" class="no-padding-left" (click)="goToLastMonth()">
+        <img class="img-header" src="./assets/back.svg" >
+      </ion-col>
+      <ion-col size="5" style="text-align: center;">Tháng {{currentMonth}}, {{currentYear}}</ion-col>
+      <ion-col size="1" class="no-padding-right" style="text-align: right" (click)="goToNextMonth()">
+        <img class="img-header" src="./assets/next.svg" >
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="!currentMonth">
+    <ion-skeleton-text animated style="width: 100%;height: 30px;border-radius: 4px"></ion-skeleton-text>
+  </div>
+
+  <div class="calendar-body" *ngIf="daysInThisMonth && daysInThisMonth.length >0">
+    <ion-grid style="padding:0">
+      <ion-row class="calendar-weekday">
+        <ion-col>T2</ion-col>
+        <ion-col>T3</ion-col>
+        <ion-col>T4</ion-col>
+        <ion-col>T5</ion-col>
+        <ion-col>T6</ion-col>
+        <ion-col class="col-weekend">T7</ion-col>
+        <ion-col class="col-weekend">CN</ion-col>
+      </ion-row>
+      <ion-row class="calendar-date">
+        <ion-col size="1" *ngFor="let lastDay of daysInLastMonth" class="last-month">
+        </ion-col>
+        <ion-col class="current-month" size="1" *ngFor="let day of daysInThisMonth"
+          [ngClass]="currentDay == day.dateDisplay ? 'div-current-date': ''">
+          <div *ngIf="!day.BOD">
+            <label (click)="changeDateCombo(day)" class="currentDate" *ngIf="day.price && currentDate === day.day;"
+              [ngClass]="day.price >0 ? 'cls-orange' : 'cls-green' ">{{day.dateDisplay}}</label>
+            <label (click)="changeDateCombo(day)" class="currentDate no-price"
+              *ngIf="!day.price && currentDate === day.day;">{{day.dateDisplay}}</label>
+            <label (click)="changeDateCombo(day)" *ngIf="day.price && currentDate !== day.day;"
+              [ngClass]="day.price >0 ? 'cls-orange' : 'cls-green' ">{{day.dateDisplay}}</label>
+            <label (click)="changeDateCombo(day)" *ngIf="!day.price && currentDate !== day.day;"
+              class=" no-price">{{day.dateDisplay}}</label>
+          </div>
+          <div *ngIf="day.BOD">
+            <label class="strikethrough">{{day.dateDisplay}}</label>
+            <!-- <div style="font-size: 11px">Hết phòng</div> -->
+          </div>
+        </ion-col>
+        <ion-col size="1" *ngFor="let nextDay of daysInNextMonth">
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+  <div *ngIf="!(daysInThisMonth && daysInThisMonth.length >0)">
+    <ion-skeleton-text animated style="width: 100%;height: 289px;border-radius: 4px"></ion-skeleton-text>
+  </div>
+
+  <div class="p-top-0">
+    <ion-row>
+      <ion-col class="text-left good-price"><label>
+        Ngày có màu xanh lá: không phụ thu
+        </label></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="text-left not-good-price"><label>Ngày có màu cam: có phụ thu ngày cao điểm</label></ion-col>
+    </ion-row>
+  </div>
+</ion-content>

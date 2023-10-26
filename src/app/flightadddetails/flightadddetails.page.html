@@ -1,0 +1,518 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title" *ngIf="activeStep == 1 else step2title">Thông tin liên lạc</div>
+            <ng-template #step2title>
+                <div class="div-title">Thông tin hành khách</div>
+            </ng-template>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content #scrollArea>
+    <div class="content-flightadddetails">
+        <div *ngIf="activeStep == 1 else stepUserInfo">
+            <div class="div-login m-bottom-16" *ngIf="!loginuser" (click)="goToLogin()">
+                Đã có tài khoản? <span class="text-login">Đăng nhập ngay</span>
+            </div>
+
+            <div class="div-user-info">
+                    <div  [ngClass]=" ( (hasinput && !hoten) || hoteninvalid || subnameinvalid)? 'm-bottom-12 cls-error': 'm-bottom-12' ">
+                        <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                            <ion-label class="sub-label m-bottom-6 f-13" position="floating">Họ tên</ion-label>
+                            <ion-input [(ngModel)]="hoten" type="text" (ionInput)="inputFocus(null, $event)" (ionBlur)="inputLostFocus(null,$event)" (ionFocus)="inputOnFocus(null, 9)"></ion-input>
+                        </ion-item>
+                    </div>
+                    
+                    <div [ngClass]="((hasinput && !sodienthoai) || sodienthoaiinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' ">
+                        <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                            <ion-label class="sub-label m-bottom-6 f-13" position="floating">Số điện thoại</ion-label>
+                            <ion-input [(ngModel)]="sodienthoai" maxlength=11 type="tel" required  (ionBlur)="checkInputUserInfo(2)" (ionFocus)="inputOnFocus(null, 10)" ></ion-input>
+                        </ion-item>
+                    </div>
+    
+                    
+                    
+                    <div class="div-showerror m-bottom-12">
+                        <div class="d-flex cls-error" *ngIf="hasinput && !hoten">
+                            <div class="div-text-error">
+                                Vui lòng nhập họ tên.
+                            </div>
+                        </div>
+                        <div class="d-flex cls-error m-top-8" *ngIf="hoten && hoteninvalid">
+                            <div class="div-text-error">
+                                Họ tên không hợp lệ. Vui lòng kiểm tra lại!
+                            </div>
+                        </div>
+
+                        <div class="d-flex cls-error m-top-8" *ngIf="hoten && subnameinvalid">
+                            <div class="div-icon-error width-40">
+                                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+                            </div>
+                            <div class="div-text-error">
+                              Không nằm trong danh sách họ phổ biến. Vui lòng kiểm tra lại!
+                            </div>
+                          </div>
+
+                        <div class="d-flex cls-error m-top-8" *ngIf="hasinput && !sodienthoai">
+                            <div class="div-text-error">
+                                Vui lòng nhập số điện thoại.
+                            </div>
+                        </div>
+                        <div class="d-flex cls-error m-top-8" *ngIf="sodienthoai && sodienthoaiinvalid">
+                            <div class="div-text-error">
+                                Số điện thoại không hợp lệ. Vui lòng kiểm tra lại!
+                            </div>
+                        </div>
+
+                        <div class="d-flex cls-error m-top-8" *ngIf="hasinput && !email && contactOption=='mail'">
+                            <div class="div-text-error">
+                                Vui lòng nhập email.
+                            </div>
+                        </div>
+
+                        <div class="d-flex cls-error m-top-8" *ngIf="email && emailinvalid && contactOption=='mail'">
+                            <div class="div-text-error">
+                                Định dạng địa chỉ email không hợp lệ. Vui lòng kiểm tra lại!
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="div-option-contact">
+                <div class="text-normal m-bottom-10">Chọn kênh liên lạc và nhận vé</div>
+                <div class="div-option">
+                    <ion-radio-group name="rdgContactOption" class="list-option" [(ngModel)]="contactOption" (ionChange)="contactOptionClick($event)">
+                        <div class="div-item-radio">
+                            <ion-radio style="--color-checked:#26bed6" mode="md" value="zalo"></ion-radio>
+                            <ion-label class="text-label">Zalo</ion-label>
+                            
+                            <ion-radio style="margin-left:30px;--color-checked:#26bed6" mode="md" value="mail"></ion-radio>
+                            <ion-label class="text-label">Email</ion-label>
+                        </div>
+                        
+                    </ion-radio-group>
+                </div>
+                <div [ngClass]="((hasinput && !email) || emailinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' " *ngIf="contactOption=='mail'">
+                    <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                        <ion-label class="sub-label m-bottom-6 f-13" position="stacked">Nhập email</ion-label>
+                        <ion-input [(ngModel)]="email" type="email" (ionBlur)="checkInputUserInfo(3)"
+                            (ionFocus)="inputOnFocus(null, 11)"></ion-input>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div class="div-vat">
+                <div class="div-vat d-flex div-checkin-online-1">
+                    <div class="div-text-checkin-online">Xuất hóa đơn</div>
+                    <div class="cls-toggle"><ion-toggle (ionChange)="(0)" [(ngModel)]="ischeck"></ion-toggle></div>
+                </div>
+                    <div *ngIf="ischeck">
+                        <div class="m-bottom-12">
+                          <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                            <ion-label class="sub-label m-bottom-6 f-13" position="floating">Tên công ty</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="companyname" type="text" required></ion-input>
+                          </ion-item>
+                        </div>
+                        <div class="m-bottom-12">
+                          <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                            <ion-label class="sub-label m-bottom-6 f-13" position="floating">Địa chỉ</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="address" type="text" required></ion-input>
+                          </ion-item>
+                        </div>
+                        <div class="m-bottom-12">
+                          <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                            <ion-label class="sub-label m-bottom-6 f-13" position="floating">Mã số thuế</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="tax" type="text" required></ion-input>
+                          </ion-item>
+                        </div>
+                        <div style="margin-left: 5px" *ngIf="contactOption=='mail'">
+                            <ion-checkbox (ionChange)="showNameMail($event)" style="width: 20px; height: 20px" [value]="ishideNameMail"  color="secondary"></ion-checkbox>
+                            <ion-label class="label-input" style="margin: 0px 10px;">Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
+                          </div>
+                          <div *ngIf="!ishideNameMail || contactOption=='zalo'">
+                            <ion-col size="12">
+                              <ion-item style="--padding-start: 0px">
+                                <ion-label class="sub-label m-bottom-6 f-13" position="floating">Họ tên</ion-label>
+                                <ion-input class="cls-input-custom" [(ngModel)]="hotenhddt" type="text" required></ion-input>
+                              </ion-item>
+                            </ion-col>
+                            <ion-col size="12">
+                              <ion-item style="--padding-start: 0px">
+                                <ion-label class="sub-label m-bottom-6 f-13" position="floating">Email nhận HĐ</ion-label>
+                                <ion-input class="cls-input-custom"  [(ngModel)]="emailhddt" type="text" required></ion-input>
+                              </ion-item>
+                            </ion-col>
+                          </div>
+                    </div>
+            </div>  
+            <div class="div-line" *ngIf="contactOption=='mail'"></div>  
+            <div class="div-vat d-flex div-checkin-online-1">
+                <div class="div-text-checkin-online">Yêu cầu check-in online</div>
+                <div class="cls-toggle"><ion-toggle [disabled]="!allowCheckinOnline"  (ionChange)="togglecheckinonline($event)"></ion-toggle></div>
+            </div>
+            <div *ngIf="textCheckinOnline" class="text-note">
+                 {{textCheckinOnline}}
+            </div>
+        </div>
+        <ng-template #stepUserInfo>
+            <div class="div-img-step">
+                <img class="img-step" src="./assets/ic_flight/step_2.svg">
+            </div>
+            <div class="div-title m-bottom-12">Thông tin hành khách</div>
+            <div *ngIf="adults && adults.length >0">
+                <div *ngFor="let itemAdult of adults; let idxa = index">
+                    <div  class="div-sub-title d-flex">
+                            <div class="div-width-300">Người lớn {{itemAdult.id}}</div>
+                            <div class="div-width-100 text-right" *ngIf="itemAdult.genderdisplay && itemAdult.name" (click)= "editPaxInfo(itemAdult, 1)">Xóa</div>
+                    </div>
+                    
+                    <div class="m-top-4 d-flex v-align-center" *ngIf="idxa==0" (click)="copyInfoContact(itemAdult)">
+                        <div class="text-normal">Sao chép từ thông tin liên hệ</div>
+                        <div class="m-left-4"><img class="img-next" src="./assets/ic_flight/next_tealish.svg"></div>
+                    </div>
+                    <div class="m-top-12">
+                        <div class="sub-label">Danh xưng</div>
+                        <div [ngClass]="(itemAdult.errorGender || itemAdult.errorInfo) ? 'div-width-50 cls-error' : 'div-width-50'"
+                            (click)="selectAdultGender(itemAdult)" (blur)="checkInput(itemAdult, 1, true)">
+                            <div class='text-gender' *ngIf="itemAdult.genderdisplay">{{itemAdult.genderdisplay}}</div>
+                            <div
+                                [ngClass]="(itemAdult.errorGender || itemAdult.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
+                                <img *ngIf="!(itemAdult.errorGender || itemAdult.errorInfo)"
+                                    src="./assets/imgs/ic_down_b.svg">
+                                <img *ngIf="(itemAdult.errorGender || itemAdult.errorInfo)"
+                                    src="./assets/ic_flight/ic_down_orange.svg">
+                            </div>
+                        </div>
+
+                        <div class="p-top-16">
+                            <ion-label class="cls-error">Họ và tên đầy đủ như trên CCCD</ion-label>
+                        </div>
+                        <div [ngClass]="(itemAdult.errorName || itemAdult.errorSubName || itemAdult.errorInfo) ? 'div-right cls-error' : 'div-right'">
+                            <ion-input class="cls-input-name" type="text" (ionChange)=textchangehoten(itemAdult)
+                                [(ngModel)]="itemAdult.name" (ionInput)="inputFocus(itemAdult, $event, 2)"
+                                (ionBlur)="inputLostFocus(itemAdult, true)" (ionFocus)="inputOnFocus(itemAdult, 2)"
+                                required></ion-input>
+                        </div>
+                    </div>
+
+                    <div *ngIf="_flightService.itemFlightCache.priceCathay>0 && !isExtenal" class="d-flex m-top-16 ">
+                                <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'div-left cls-error ' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
+                                    <ion-label [ngClass]="!itemAdult.dateofbirth ? 'sub-label m-bottom-6' : 'sub-label m-bottom-6 top-dob-24'" >Sinh ngày</ion-label>
+                                         <ion-input
+                                         class="cls-input-date"
+                                        [value]="itemAdult.birdayDisplay"
+                                        type="bday"
+                                        id="dateb_{{idxa}}"
+                                        ></ion-input>
+                                </div>
+                    </div>
+
+                    <div *ngIf="isExtenal && showLotusPoint">
+                        <div class="m-top-24 d-flex">
+                          
+                            <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
+                                <ion-label [ngClass]="!itemAdult.dateofbirth ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
+                                    <ion-input
+                                    [value]="itemAdult.birdayDisplay"
+                                    type="bday"
+                                    id="datee_{{idxa}}"
+                                    class="cls-ion-datetime"
+                                    ></ion-input>
+                            </div>
+
+                            <div [ngClass]="(itemAdult.errorCountry || (!itemAdult.errorCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom cls-error m-left-8' : 'div-width-100 p-relative border-bottom m-left-8'" >
+                                <div class="sub-label label-country">
+                                    <div [ngClass]=" !itemAdult.countryName ? 'p-absolute cls-country-transition' :'p-absolute cls-country-transition'">
+                                        Quốc tịch
+                                    </div>
+                                    <ion-searchbar class="cls-input-country-custom cls-country" [(ngModel)]="itemAdult.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemAdult)" (ionBlur)="checkInput(itemAdult, 4, true)"  (ionFocus)="inputOnFocus(itemAdult, 4)"></ion-searchbar>
+                                </div>
+                                <div [ngClass]="(itemAdult.errorCountry || itemAdult.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' " (click)="getCountry('dropdownicon', itemAdult)">
+                                    <img *ngIf="!itemAdult.errorCountry" src="./assets/imgs/ic_down_b.svg">
+                                    <img *ngIf="itemAdult.errorCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                                </div>
+                                <div *ngIf="itemAdult.showSelectCountry" class="cls-selection-country">
+                                    <ion-item class="item-country" *ngFor="let itemcountry of listcountry" (click)="selectCountry(itemAdult, itemcountry)">{{ itemcountry.name }}</ion-item>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div [ngClass]="(itemAdult.errorPassport || (!itemAdult.passport && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-top-36 cls-error' : 'p-relative div-width-100 m-top-36'">
+                            <ion-label [ngClass]="!itemAdult.passport ? 'sub-label label-passport' : 'sub-label label-passport cls-passport-transition'" >Số hộ chiếu</ion-label>
+                            <ion-input class="cls-input-custom m-top-28" type="text" [(ngModel)]="itemAdult.passport" (ionBlur)="checkInput(itemAdult, 5, true)" (ionFocus)="inputOnFocus(itemAdult, 5)" required></ion-input>
+                            
+                        </div>
+
+                        <div class='d-flex p-relative m-top-24 h-45'>
+                        
+                            <div [ngClass]="(itemAdult.errorPassportCountry || (!itemAdult.passportCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
+                                <div class="sub-label label-country">
+                                    <div [ngClass]=" !itemAdult.passportCountryName ? 'p-absolute cls-country-transition' :'p-absolute cls-country-transition'">
+                                        Quốc gia cấp
+                                    </div>
+                                    <ion-searchbar class="cls-input-passportcountry-custom cls-passportcountry" [(ngModel)]="itemAdult.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemAdult)" (ionBlur)="checkInput(itemAdult, 6, true)"  (ionFocus)="inputOnFocus(itemAdult, 6)"></ion-searchbar>
+                                </div>
+                                <div [ngClass]="(itemAdult.errorPassportCountry || itemAdult.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' "   (click)="getPassportCountry('dropdownicon', itemAdult)">
+                                    <img *ngIf="!itemAdult.errorPassportCountry" src="./assets/imgs/ic_down_b.svg">
+                                    <img *ngIf="itemAdult.errorPassportCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                                </div>
+
+                                <div *ngIf="itemAdult.showSelectPassportCountry" class="cls-selection-country">
+                                    <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemAdult, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
+                                </div>
+                            </div>
+                            <div [ngClass]="(itemAdult.errorPassportExpireDate || (!itemAdult.passportExpireDate && itemAdult.errorInfo))? 'div-width-100 m-left-8 cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemAdult, false)">
+                                <ion-label [ngClass]="!itemAdult.passportExpireDate ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6'" position="stacked">Ngày hết hạn</ion-label>
+                                   <ion-input
+                                    [value]="itemAdult.passportExpireDateDisplay"
+                                    type="bday"
+                                    id="datebirth_{{idxa}}"
+                                    class="cls-ion-datetime cls-ppe"
+                                    ></ion-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div *ngIf="showLotusPoint && !itemAdult.airlineMemberCode" class="text-lotus-point" (click)="openLotusPointSave(itemAdult)">Nhập thẻ bông sen vàng <img class="img-vector" src="./assets/imgs/vector.svg" /></div>
+                    <div *ngIf="showLotusPoint && itemAdult.airlineMemberCode" class="text-lotus-code" (click)="openLotusPointSave(itemAdult)">Thẻ bông sen vàng: {{ itemAdult.airlineMemberCode }}</div> -->
+                    <!-- <div class="d-flex m-top-16 m-bottom-8" (click)="expandAirlineMember(itemAdult,idxa)">
+                        <div class="text-airlinemember">Nhập thẻ thành viên hãng bay</div>
+                        <div class="icon-expand" *ngIf="!itemAdult.expanddivairlinemember" >
+                            <img class="img-seemoreroom" src="./assets/ic_flight/next_tealish.svg">
+                          </div>
+                          <div class="icon-expand" *ngIf="itemAdult.expanddivairlinemember">
+                            <img class="img-seemoreroom" src="./assets/ic_flight/expand_tealish.svg">
+                            </div>
+                    </div> -->
+                    <div class="d-flex m-top-16 m-bottom-8 v-align-center" >
+                        <div class="div-checkbox"><ion-checkbox style="--border-width: 1px;--border-color: #cccccc;height: 22px;width: 22px;" mode="md" (click)="expandAirlineMember(itemAdult,idxa)"></ion-checkbox></div>
+                        <div class="text-airlinemember">Nhập thẻ thành viên hãng bay</div>
+                    </div>
+                    <div class="div-expand-airlinemember div-expand-airlinemember-{{idxa}} div-collapse">
+                        <div class="text-note-airlinemember">Tên của chủ tài khoản khách hàng thân thiết phải giống tên của hành khách</div>
+                        <div *ngIf="departFlight" class=" m-top-8">
+                            <div class="div-airline-logo d-flex">
+                                <div class="img-logo">
+                                    <img class="logo-vj" *ngIf="departFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                    <img class="img-logo" *ngIf="departFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                    <img class="logo-vna" *ngIf="departFlight.airlineCode == 'VietnamAirlines' && !departFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                                    <img class="img-logo" *ngIf="departFlight.operatedBy && departFlight.urlLogo &&!isApiDirect " [src]="departFlight.urlLogo">
+                                    <img class="img-logo" *ngIf="departFlight.operatedBy && departFlight.operatedByLogo &&isApiDirect " [src]="departFlight.operatedByLogo">
+                                    <img class="img-logo" *ngIf="departFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                </div>
+                                <div class="text-airline">{{departFlight.airline}}</div>
+                            </div>
+                            <div class="div-input-airlinemember m-top-4">
+                                <ion-input class="cls-input-membercode" type="text" [(ngModel)]="itemAdult.departAirlineMemberCode" placeholder="Nhập số hành khách thân thiết"></ion-input>
+                            </div>
+                        </div>
+                        <div *ngIf="returnFlight && departFlight.airlineCode != returnFlight.airlineCode " class=" m-top-8">
+                            <div class="div-airline-logo d-flex">
+                                <div class="img-logo">
+                                    <img class="logo-vj" *ngIf="returnFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                    <img class="img-logo" *ngIf="returnFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                    <img class="logo-vna" *ngIf="returnFlight.airlineCode == 'VietnamAirlines' && !returnFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                                    <img class="img-logo" *ngIf="returnFlight.operatedBy && returnFlight.urlLogo &&!isApiDirect " [src]="returnFlight.urlLogo">
+                                    <img class="img-logo" *ngIf="returnFlight.operatedBy && returnFlight.operatedByLogo &&isApiDirect " [src]="returnFlight.operatedByLogo">
+                                    <img class="img-logo" *ngIf="returnFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                </div>
+                                <div class="text-airline">{{returnFlight.airline}}</div>
+                            </div>
+                            <div class="div-input-airlinemember m-top-4">
+                                <ion-input class="cls-input-membercode" type="text" [(ngModel)]="itemAdult.returnAirlineMemberCode" placeholder="Nhập số hành khách thân thiết"></ion-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-split"></div>
+                </div>
+            </div>
+           
+    
+            <div *ngIf="childs && childs.length >0">
+                <div *ngFor="let itemChild of childs; let idxc = index">
+                    <div class="d-flex">
+                        <div class="div-width-300">
+                                <div class="div-sub-title " *ngIf="!itemChild.isInfant else divinfant">Trẻ em {{itemChild.id}} <span class="sub-label f-12">(Từ 2 - Dưới 12 tuổi)</span></div>
+                                <ng-template #divinfant>
+                                    <div class="div-sub-title m-bottom-6">Em bé {{itemChild.iddisplay}} <span class="sub-label f-12">(Dưới 2 tuổi)</span></div>
+                                </ng-template>
+                        </div>
+                        <div class="div-width-100 text-right" *ngIf="itemChild.genderdisplay && itemChild.name && itemChild.dateofbirth" (click)= "editPaxInfo(itemChild, 2)">Xóa</div>
+                    </div>
+                  
+                    <!-- <div class=" d-flex ">
+                        <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-left cls-error' : 'div-left '" (click)="selectGender(itemChild)" (blur)="checkInput(itemChild, 1, false)">
+                            <div [ngClass]="!itemChild.genderdisplay ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+                                <ion-label class="sub-label">Danh xưng</ion-label>
+                            </div>
+                            <div class="text-gender" *ngIf="itemChild.genderdisplay" >{{itemChild.genderdisplay}}</div>
+                            <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
+                                <img *ngIf="!(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_b.svg">
+                                <img *ngIf="(itemChild.errorGender || itemChild.errorInfo)" src="./assets/ic_flight/ic_down_orange.svg">
+                            </div>
+                        </div>
+                        <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
+                            <ion-label [ngClass]="!itemChild.name ? 'sub-label m-top-10 label-absolute'  : 'sub-label m-top-10 label-absolute cls-gender-transition'" >Họ và tên đầy đủ</ion-label>
+                            <ion-input class="cls-input-custom" type="text" (ionChange)=textchangehoten(itemChild) [(ngModel)]="itemChild.name" (ionInput)="inputFocus(itemChild, $event)" (ionBlur)="inputLostFocus(itemChild, false)"  (ionFocus)="inputOnFocus(itemChild, 2)" required></ion-input>
+                        
+                        
+                    </div>
+                    </div>
+
+                    <div class="p-top-6">
+                        <ion-label class="cls-error">Điền đầy đủ Họ tên như trên giấy tờ tùy thân dùng để thực hiện chuyến bay</ion-label>
+                    </div> -->
+                    <div class="m-top-12">
+                        <div class="sub-label">Danh xưng</div>
+                        <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo) ? 'div-width-50 cls-error' : 'div-width-50'"
+                            (click)="selectGender(itemChild)" (blur)="checkInput(itemChild, 1, false)">
+                            <div class='text-gender' *ngIf="itemChild.genderdisplay">{{itemChild.genderdisplay}}</div>
+                            <div
+                                [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
+                                <img *ngIf="!(itemChild.errorGender || itemChild.errorInfo)"
+                                    src="./assets/imgs/ic_down_b.svg">
+                                <img *ngIf="(itemChild.errorGender || itemChild.errorInfo)"
+                                    src="./assets/ic_flight/ic_down_orange.svg">
+                            </div>
+                        </div>
+
+                        <div class="p-top-16">
+                            <ion-label class="cls-error">Họ và tên đầy đủ</ion-label>
+                        </div>
+                        <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
+                            <ion-input class="cls-input-name" type="text" (ionChange)=textchangehoten(itemChild)
+                                [(ngModel)]="itemChild.name" (ionInput)="inputFocus(itemChild, $event)"
+                                (ionBlur)="inputLostFocus(itemChild, false)" (ionFocus)="inputOnFocus(itemChild, 2)"
+                                required></ion-input>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!(isExtenal && showLotusPoint)" class=" d-flex m-top-16 ">
+                        <div [ngClass]="(itemChild.errorDateofbirth || (itemChild.errorInfo && !itemChild.dateofbirth) )? 'div-left cls-error' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
+                                <ion-label class="sub-label m-bottom-6" position="floating">Sinh ngày</ion-label>
+                                <ion-input
+                                class="cls-input-date"
+                                [(ngModel)]="itemChild.birdayDisplay"
+                                type="bday"
+                                id="datea_{{idxc}}"
+                                ></ion-input>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isExtenal && showLotusPoint">
+                        <div class="m-top-24 d-flex">
+                          
+                            <div [ngClass]="(itemChild.errorDateofbirth || (!itemChild.dateofbirth && itemChild.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
+                                <ion-label [ngClass]="!itemChild.dateofbirth ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
+                                    <ion-input
+                                    [value]="itemChild.birdayDisplay"
+                                    type="bday"
+                                    id="datee_{{idxc}}"
+                                    class="cls-ion-datetime"
+                                    ></ion-input>
+                            </div>
+
+                            <div [ngClass]="(itemChild.errorCountry || (!itemChild.errorCountry && itemChild.errorInfo)) ? 'div-width-100 p-relative border-bottom cls-error m-left-8' : 'div-width-100 p-relative border-bottom m-left-8'" >
+                                <div class="sub-label label-country">
+                                    <div [ngClass]=" !itemChild.countryName ? 'p-absolute cls-country-transition' :'p-absolute cls-country-transition'">
+                                        Quốc tịch
+                                    </div>
+                                    <ion-searchbar class="cls-input-country-custom cls-country" [(ngModel)]="itemChild.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemChild)" (ionBlur)="checkInput(itemChild, 4, true)"  (ionFocus)="inputOnFocus(itemChild, 4)"></ion-searchbar>
+                                </div>
+                                <div [ngClass]="(itemChild.errorCountry || itemChild.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' " (click)="getCountry('dropdownicon', itemChild)">
+                                    <img *ngIf="!itemChild.errorCountry" src="./assets/imgs/ic_down_b.svg">
+                                    <img *ngIf="itemChild.errorCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                                </div>
+                                <div *ngIf="itemChild.showSelectCountry" class="cls-selection-country">
+                                    <ion-item class="item-country" *ngFor="let itemcountry of listcountry" (click)="selectCountry(itemChild, itemcountry)">{{ itemcountry.name }}</ion-item>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div [ngClass]="(itemChild.errorPassport || (!itemChild.passport && itemChild.errorInfo)) ? 'p-relative div-width-100 m-top-36 cls-error' : 'p-relative div-width-100 m-top-36'">
+                            <ion-label [ngClass]="!itemChild.passport ? 'sub-label label-passport' : 'sub-label label-passport cls-passport-transition'" >Số hộ chiếu</ion-label>
+                            <ion-input class="cls-input-custom m-top-28" type="text" [(ngModel)]="itemChild.passport" (ionBlur)="checkInput(itemChild, 5, true)" (ionFocus)="inputOnFocus(itemChild, 5)" required></ion-input>
+                            
+                        </div>
+
+                        <div class='d-flex p-relative m-top-24 h-45'>
+                        
+                            <div [ngClass]="(itemChild.errorPassportCountry || (!itemChild.passportCountry && itemChild.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
+                                <div class="sub-label label-country">
+                                    <div [ngClass]=" !itemChild.passportCountryName ? 'p-absolute cls-country-transition' :'p-absolute cls-country-transition'">
+                                        Quốc gia cấp
+                                    </div>
+                                    <ion-searchbar class="cls-input-passportcountry-custom cls-passportcountry" [(ngModel)]="itemChild.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemChild)" (ionBlur)="checkInput(itemChild, 6, true)"  (ionFocus)="inputOnFocus(itemChild, 6)"></ion-searchbar>
+                                </div>
+                                <div [ngClass]="(itemChild.errorPassportCountry || itemChild.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' "   (click)="getPassportCountry('dropdownicon', itemChild)">
+                                    <img *ngIf="!itemChild.errorPassportCountry" src="./assets/imgs/ic_down_b.svg">
+                                    <img *ngIf="itemChild.errorPassportCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                                </div>
+
+                                <div *ngIf="itemChild.showSelectPassportCountry" class="cls-selection-country">
+                                    <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemChild, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
+                                </div>
+                            </div>
+                            <div [ngClass]="(itemChild.errorPassportExpireDate || (!itemChild.passportExpireDate && itemChild.errorInfo))? 'div-width-100 m-left-8 cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemChild, false)">
+                                <ion-label [ngClass]="!itemChild.passportExpireDate ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6'" position="stacked">Ngày hết hạn</ion-label>
+                                   <ion-input
+                                    [value]="itemChild.passportExpireDateDisplay"
+                                    type="bday"
+                                    id="datebirth_{{idxc}}"
+                                    class="cls-ion-datetime cls-ppe"
+                                    ></ion-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-split"></div>
+                </div>
+            </div>
+        </ng-template>
+        
+        
+    </div>
+</ion-content>
+
+<ion-footer>
+    <div class='div-close-paxhint' *ngIf="inputtext && listpaxhint && listpaxhint.length >0" (click)="hidePaxHint()"><img src='./assets/ic_close_b.svg'></div>
+    <div class="div-footer d-flex-footer">
+            <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
+                  
+                    <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
+                        <div class="icon-pax">
+                                <img src="./assets/ic_flight/icon-pax.svg">
+                        </div>
+                        <div class="text-pax-hint">
+                            {{itempax.name}}
+                        </div>
+                    </div>
+                    
+            </div>
+
+        <div class="d-flex div-width-100">
+            <div class="div-total" (click)="showPriceDetail()">
+                <div class="d-flex-footer text-sub-total">
+                  {{ adult }} người lớn, {{ child }} trẻ em
+                </div>
+                <div class="text-total" >{{totalPriceDisplay}}đ
+                  <sup>
+                    <img src="./assets/ic_green/ic_info.svg">
+                  </sup>
+                 </div>
+              </div>
+              <div class="div-button">
+                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+              </div>
+        </div>
+       
+    </div>
+  </ion-footer>

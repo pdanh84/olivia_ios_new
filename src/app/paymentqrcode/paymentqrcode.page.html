@@ -1,0 +1,85 @@
+
+<ion-header class="paymentqrcode-header">
+    <ion-toolbar >
+        <ion-row>
+          <ion-col class="align-center">
+            <div class="div-text-header"><label class="text-title">Thông tin chuyển khoản</label></div>
+            <div class="div-quick-back" (click)="showQuickBack()">
+              ...
+            </div>
+          </ion-col>
+        </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="paymentqrcode-content p-all-16 ">
+        <div  style="text-align: center">
+            <img  src="./assets/ic_flight/step_4.svg">
+        </div>
+                
+        <div class="div-qrcode m-top-24">
+            <img class="img-qrcode" src="{{qrcodeurl}}" >
+        </div>
+        <div class="div-btn-download m-top-16 d-flex" (click)="downloadqrcode()">
+            <div class="btn-download">
+                <img class="img-download" src="./assets/imgs/download.svg">
+            </div>
+            <div class="text-download">Lưu mã để thanh toán</div>
+        </div>
+
+        <div class="div-payment-info m-top-24">
+            <div class="text-payment-info">{{bankName}}</div>
+
+            <div class="text-sub-payment-info m-top-12">Số tài khoản:</div>
+            <div class="d-flex m-top-2" *ngIf="accountNumber" (click)="copyClipboard(1)">
+                <div class="text-payment-info">{{accountNumber}}</div>
+                <div class="m-l-6 btn-copy"><img class="img-copy" src="./assets/imgs/copy.svg"></div>
+            </div>
+
+            <div class="text-sub-payment-info m-top-12">Người thụ hưởng:</div>
+            <div class="d-flex m-top-2" *ngIf="accountNumber" (click)="copyClipboard(2)">
+                <div class="text-payment-info">Công ty cổ phần IVIVU.COM</div>
+                <div class="m-l-6 btn-copy"><img class="img-copy" src="./assets/imgs/copy.svg"></div>
+            </div>
+
+            <div class="text-sub-payment-info m-top-12">Số tiền:</div>
+            <div class="d-flex m-top-2" *ngIf="totalPrice" (click)="copyClipboard(4)">
+                <div class="text-payment-info">{{gf.convertNumberToString(totalPrice) }} VND</div>
+                <div class="m-l-6 btn-copy"><img class="img-copy" src="./assets/imgs/copy.svg"></div>
+            </div>
+
+            <div class="text-sub-payment-info m-top-12" *ngIf="periodPaymentDisplay">Hạn thanh toán:</div>
+            <div class="d-flex m-top-2" *ngIf="periodPaymentDisplay" >
+                <div class="text-payment-info">Trước {{periodPaymentDisplay}}</div>
+            </div>
+
+
+            <div class="text-sub-payment-info m-top-12">Nội dung:</div>
+            <div class="d-flex m-top-2" *ngIf="bookingCode" (click)="copyClipboard(3)">
+                <div class="text-payment-info">{{bookingCode}}</div>
+                <div class="m-l-6 btn-copy"><img class="img-copy" src="./assets/imgs/copy.svg"></div>
+            </div>
+            
+        </div>
+        <div class="text d-flex  m-top-16" *ngIf="activityService.qrcodepaymentfrom == 1 else otherpayment">
+            <div >Xác nhận đặt vé sẽ được gửi đến <span *ngIf="contactOption=='zalo' "> Zalo</span><span *ngIf="contactOption=='mail'"> Email</span> của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được mã vé qua Email/Zalo, vui lòng liên hệ </div>
+                <div class="div-align-center m-right-4 " ><img class="img-zalo" src="./assets/ic_flight/logo_zalo.webp"> <a class="text-tealish text-zalo" href="https://zalo.me/3888313238733373810">iVIVU Tickets </a></div>
+                <div> để hỗ trợ xử lý.</div>
+          </div>
+          <ng-template #otherpayment>
+            <div class="div-text-note m-top-16">
+                Thông tin thanh toán cũng được gửi đến email {{_email}}. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư Spam hoặc Junk Folder.
+            </div>
+            <div class="div-text-note m-top-8 m-bottom-24">
+                Xác nhận đặt vé sẽ được gửi đến email của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được email Xác nhận sau 30 phút, vui lòng gửi chứng từ thanh toán (Ủy nhiệm chi, Lệnh thanh toán) về mail support@ivivu.com để hỗ trợ xử lý.
+            </div>
+          </ng-template>
+    </div>
+  
+  </ion-content>
+  <ion-footer>
+  <div class="div-button-payment-qrcode">
+    <button (click)="gotohomepage()" ion-button round outline class="button button1">Về trang chủ</button>
+    <button (click)="gotomytrip()" ion-button round outline class="button button2 m-top-0">Xem chuyến đi</button>
+  </div>
+  </ion-footer>

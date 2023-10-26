@@ -1,0 +1,338 @@
+<ion-content #scrollArea class="hotel-city-item-detail-content" *ngIf="itemdetail">
+  <div *ngIf="ischeck==true">
+    <div class="card-background-page h-198">
+      <swiper-container (slidechange)="onSlideChange()" [options]="slideOpts" #mySlider class="h-198">
+        <swiper-slide *ngFor="let slide of slideData" style="height: 198px">
+          <div id="grad1" class="grad1">
+          </div>
+          <img [src]="slide.LinkImage" alt="image"/>
+          <div *ngIf="slide.CaptionImg" class="div-img-caption-grad"></div>
+          <div *ngIf="slide.CaptionImg" class="div-img-caption">{{slide.CaptionImg}}</div>
+        </swiper-slide>
+      </swiper-container>
+
+      <div class="div-go-back" (click)="goback()">
+        <img class="img-back" src="./assets/imgs/ios-arrow-round-back-white.svg">
+      </div>
+      <div class="img-heart" *ngIf="!itemlike" (click)="likeItem()">
+        <img class="dt-img-heart" src="./assets/imgs/heart-empty.svg">
+      </div>
+      <div class="img-heart" *ngIf="itemlike" (click)="unlikeItem()">
+        <ion-icon class="p-top-10" name="heart" color="danger"></ion-icon>
+      </div>
+      <div class="img-share" (click)="share()"><img class="dt-img-share" src="./assets/imgs/ic_share.svg"></div>
+      <div class="badgescss">
+        <span>{{coutslide}}/{{itemdetail.lengthslide}}</span>
+      </div>
+
+    </div>
+    <div class="hoteldetail-point">
+      <div>
+        <h2 class="text-name" text-wrap>{{itemdetail.Name}}
+        </h2>
+
+      </div>
+      <div style="padding-top: 6px"><img *ngIf="itemdetail.RatingStar" src="{{itemdetail.RatingStar}}"></div>
+      <div class="hotel-detail-note">
+        <div class="cls-row-review">
+          <div class="p-0 p-relative">
+            <ion-badge ion-badge-border-radius>{{gf.convertNumberFormat(itemdetail.AvgPoint)}}</ion-badge>
+            <p *ngIf="itemdetail.AvgPoint>9 && itemdetail.AvgPoint<=10 && itemdetail.NumOfReview >0" class="cls-reviewpoint label-badge">Tuyệt vời
+            </p>
+            <p *ngIf="itemdetail.AvgPoint>8 && itemdetail.AvgPoint<=9 && itemdetail.NumOfReview >0" class="cls-reviewpoint label-badge">Rất tốt
+            </p>
+            <p *ngIf="itemdetail.AvgPoint>7 && itemdetail.AvgPoint<=8 && itemdetail.NumOfReview >0" class="cls-reviewpoint label-badge">Khá tốt
+            </p>
+            <p *ngIf="itemdetail.AvgPoint>5 && itemdetail.AvgPoint<=7 && itemdetail.NumOfReview >0" class="cls-reviewpoint label-badge">Tạm được
+            </p>
+            <p *ngIf="itemdetail.AvgPoint<=5 && itemdetail.NumOfReview >0" class="cls-reviewpoint label-badge">Không tốt
+            </p>
+            <div item-end class="btn-seemore" (click)="btnseemore()">
+              <button ion-button icon-only clear
+                class="btn-review">
+                {{itemdetail.NumOfReview}} Đánh giá
+                <img src="./assets/imgs/ic_arrow_grey.svg" class='ico-arrow'/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-border-cin"></div>
+  </div>
+  
+  <div *ngIf="itemdetail.linkGoogleMap" #map id="map" class="div-map">
+    <iframe width="100%" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+      [src]="itemdetail.linkGoogleMap">
+    </iframe>
+  </div>
+  <div class="p-16">
+    <div class="div-address">
+      <img src="./assets/ic_facility/Group.svg">
+      <label class="text-address">
+        {{itemdetail.Address}}
+      </label>
+    </div>
+
+
+    <div *ngIf="!loadcomplete" class="div-pending-load-data"
+      style="height: 760px">
+      <div *ngFor="let i of itemsSk" class="ion-padding-16">
+        <div class="div-sk-detail">
+          <ion-row class="row-item-hoteldetail-sk">
+            <ion-col size="4" class="col-img-hoteldetail-sk">
+              <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px;margin:0">
+              </ion-skeleton-text>
+            </ion-col>
+            <ion-col size="8" class="col-description-hoteldetail-sk" style="line-height: 16px;padding-top: 0">
+              <ion-skeleton-text animated style="width: 50%;margin: 0;height: 16px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:16px;height: 16px;">
+              </ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 75%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%;margin: 0;margin-top:16px;height: 16px;">
+              </ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row-item-description-sk">
+            <ion-skeleton-text animated style="width: 104px;margin: 0;margin-top:16px;height: 16px;">
+            </ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 83%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 67%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+          </ion-row>
+          <ion-row>
+            <ion-col size="8.5" style="padding: 0"></ion-col>
+            <ion-col size="3.5" style="padding: 0">
+              <ion-skeleton-text animated style="margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6.3" style="padding: 0"></ion-col>
+            <ion-col size="5.7" style="padding: 0">
+              <ion-skeleton-text animated style="margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row-item-button-sk">
+            <ion-skeleton-text animated style="width: 100%;margin: 0;height: 48px;border-radius: 6px;margin-top:16px">
+            </ion-skeleton-text>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-facility">
+      <div class="text-fac-title">Tiện ích {{itemdetail.Name}}</div>
+      <div class="div-list-fc">
+        <div *ngFor="let fac of itemdetail.HotelFacilities; let idx = index" [ngClass]="idx < 4 ? 'show-fac d-list-item cls-visible' : 'hide-fac d-list-item cls-hidden' ">
+            {{fac.Name}}
+        </div>
+
+        <div class="cls-seemorefac div-show-fac" (click)="seeAllFacility(1)"
+          *ngIf="itemdetail.HotelFacilities && itemdetail.HotelFacilities.length >4 && !showAllFac">
+          Xem tất cả <img class="img-seemoreroom"
+            src="./assets/imgs/ic_down_blue.svg">
+        </div>
+        <div class="cls-hiddenfac div-hide-fac" (click)="seeAllFacility(2)"
+          *ngIf="itemdetail.HotelFacilities && itemdetail.HotelFacilities.length >4 && showAllFac">
+          Ẩn bớt <img class="img-seemoreroom"
+            src="./assets/imgs/ic_up_blue.svg">
+        </div>
+      </div>
+    </div>
+
+    <div class="div-info">
+      <div class="text-fac-title">Thông tin {{itemdetail.Name}}</div>
+      <div class="text-des" [innerHTML]="itemdetail.FullDescription">
+      </div>
+    </div>
+
+    <div class="div-policy">
+      <div class="text-fac-title">Chính sách {{itemdetail.Name}}</div>
+      <div class="text-cin-cout">Thời gian nhận phòng</div>
+      <div class="text-time">14:00</div>
+      <div class="div-split"></div>
+      <div class="text-cin-cout">Thời gian trả phòng</div>
+      <div class="text-time">12:00</div>
+      
+      <div *ngFor="let po of itemdetail.HotelPolicies">
+        <div class="div-split"></div>
+        <div class="text-cin-cout">{{po.Key}}</div>
+        <div class="text-des" [innerHTML]="po.PolicyDes"></div>
+      </div>
+      
+    </div>
+
+    <div class="div-review">
+
+    </div>
+
+    <div class="div-hotel-review" *ngIf="itemdetail.NumOfReview>0">
+      <div class="text-fac-title">
+        Đánh giá của khách hàng online về {{itemdetail.Name}}
+      </div>
+      <div class="div-review lh-normal" >
+        <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{itemdetail.AvgPoint}}/10</ion-badge>
+        <div class="cls-ml6 v-align-center">
+          <div class="text-point" *ngIf="itemdetail.AvgPoint>9 && itemdetail.AvgPoint<=10 && itemdetail.NumOfReview >0">Tuyệt vời</div>
+          <div class="text-point" *ngIf="itemdetail.AvgPoint>8 && itemdetail.AvgPoint<=9 && itemdetail.NumOfReview >0">Rất tốt</div>
+          <div class="text-point" *ngIf="itemdetail.AvgPoint>7 && itemdetail.AvgPoint<=8 && itemdetail.NumOfReview >0">Khá tốt</div>
+          <div class="text-point" *ngIf="itemdetail.AvgPoint>5 && itemdetail.AvgPoint<=7 && itemdetail.NumOfReview >0">Tạm được</div>
+          <div class="text-point" *ngIf="itemdetail.AvgPoint<=5 && itemdetail.NumOfReview >0">Không tốt</div>
+          <div class="num-review">
+            | {{itemdetail.NumOfReview}} đánh giá
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="itemdetail.HotelImages.length>0" class="innerreview1" style="overflow-x: auto">
+        <div *ngFor="let review of itemdetail.HotelImages;let i = index" style="position: relative;">
+          <img class="img2" *ngIf="review && review.LinkImage" src="{{review.LinkImage}}" />
+          <div *ngIf="i==3" class="cls-divback"></div>
+          <div *ngIf="i==3" (click)="seemoreimgrv()" class="text-seemore">
+            Xem thêm {{countimgrv}} hình
+          </div>
+
+        </div>
+      </div>
+      <div class="div-recent-review" *ngIf="itemdetail.HotelReviews && itemdetail.HotelReviews.length >0">
+        <label class="text-recent-review">
+          Đánh giá gần đây
+        </label>
+      </div>
+      <div  *ngFor="let msg of itemdetail.HotelReviews; let idx = index" [ngClass]=" idx < 3 ? 'div-show-review div-hotelreview cls-visible' : 'div-hide-review div-hotelreview cls-hidden'">
+        <div class="pos-relative">
+          <div class="div-split"></div>
+          <div class="div-review-owner">
+            <div><ion-icon name="person" class="ico-person"></ion-icon></div>
+             <div class="m-top-1">{{msg.CustomerName}}</div>
+          </div>
+          <div class="div-review">
+            <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{msg.ReviewPoint}}</ion-badge>
+            <div *ngIf="msg.ReviewPoint>9 && msg.ReviewPoint<=10 && itemdetail.NumOfReview >0" class="cls-text-review">Tuyệt vời</div>
+            <div *ngIf="msg.ReviewPoint>8 && msg.ReviewPoint<=9 && itemdetail.NumOfReview >0" class="cls-text-review">Rất tốt</div>
+            <div *ngIf="msg.ReviewPoint>7 && msg.ReviewPoint<=8 && itemdetail.NumOfReview >0" class="cls-text-review">Khá tốt</div>
+            <div *ngIf="msg.ReviewPoint>5 && msg.ReviewPoint<=7 && itemdetail.NumOfReview >0" class="cls-text-review">Tạm được</div>
+            <div *ngIf="msg.ReviewPoint<=5 && itemdetail.NumOfReview >0" class="cls-text-review">Không tốt</div>
+
+            <label class="text-date-reviews" text-wrap *ngIf="msg.DateStayedDisplay">
+             {{msg.DateStayedDisplay}}
+            </label>
+          </div>
+          
+          <div class="cls-textreview-feature">+
+            <label text-wrap>
+              {{msg.BestFeature}}
+            </label>
+          </div>
+          <div *ngIf="msg.ReviewImages.length>0" class="innerreview" style="overflow-x: auto">
+            <div *ngFor="let review of msg.ReviewImages;let i = index" style="position: relative;">
+              <img  class="img1"
+                src={{review.ImageUrl}} />
+            </div>
+          </div>
+        
+        </div>
+
+      </div>
+
+    </div>
+    <div *ngIf="itemdetail.NumOfReview>3" class="div-seedetail">
+      <button ion-button clear class="text-seedetails btn-seemoreview" (click)="btnseemore()">{{itemdetail.NumOfReview}} đánh giá</button>
+    </div>
+    
+    
+  </div>
+</ion-content>
+<ion-content *ngIf="ischeck==false">
+  <div>
+    <!-- <img src="./assets/placeholder/group_hoteldetail.svg"> -->
+    <div class="div-sk-image">
+      <ion-skeleton-text animated style="width:100%;height:197px"></ion-skeleton-text>
+    </div>
+    <div class="ion-padding-16">
+      <div class="div-sk-text-title">
+        <ion-skeleton-text animated style="width:100%;margin: 0;height: 16px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width:75%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width:50%;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+      </div>
+      <div class="div-sk-detail" *ngFor="let i of itemsSk">
+        <ion-row class="row-item-hoteldetail-sk">
+          <ion-col size="4" class="col-img-hoteldetail-sk">
+            <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px;margin:0"></ion-skeleton-text>
+          </ion-col>
+          <ion-col size="8" class="col-description-hoteldetail-sk" style="line-height: 16px;padding-top: 0">
+            <ion-skeleton-text animated style="width: 50%;margin: 0;height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 75%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="row-item-description-sk">
+          <ion-skeleton-text animated style="width: 104px;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 83%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 67%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8.5" style="padding: 0"></ion-col>
+          <ion-col size="3.5" style="padding: 0">
+            <ion-skeleton-text animated style="margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6.3" style="padding: 0"></ion-col>
+          <ion-col size="5.7" style="padding: 0">
+            <ion-skeleton-text animated style="margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="row-item-button-sk">
+          <ion-skeleton-text animated style="width: 100%;margin: 0;height: 48px;border-radius: 6px;margin-top:16px">
+          </ion-skeleton-text>
+        </ion-row>
+      </div>
+    </div>
+
+  </div>
+  <div class="div-sk-detail" *ngFor="let i of itemsSk">
+    <ion-row class="row-item-hoteldetail-sk">
+      <ion-col size="4" class="col-img-hoteldetail-sk">
+        <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px;margin:0"></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="8" class="col-description-hoteldetail-sk" style="line-height: 16px;padding-top: 0">
+        <ion-skeleton-text animated style="width: 50%;margin: 0;height: 16px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 75%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 50%;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-item-description-sk">
+      <ion-skeleton-text animated style="width: 104px;margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 83%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 67%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%;margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8.5" style="padding: 0"></ion-col>
+      <ion-col size="3.5" style="padding: 0">
+        <ion-skeleton-text animated style="margin: 0;margin-top:16px;height: 16px;"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6.3" style="padding: 0"></ion-col>
+      <ion-col size="5.7" style="padding: 0">
+        <ion-skeleton-text animated style="margin: 0;margin-top:8px;height: 16px;"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-item-button-sk">
+      <ion-skeleton-text animated style="width: 100%;margin: 0;height: 48px;border-radius: 6px;margin-top:16px">
+      </ion-skeleton-text>
+    </ion-row>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="done()" ion-button round outline class="button button2">Thêm khách sạn</button>
+  </div>
+</ion-footer>

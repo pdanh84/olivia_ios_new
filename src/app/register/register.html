@@ -1,0 +1,51 @@
+<ion-header class="login-header">
+  <ion-toolbar>
+    <div class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+          <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+        <div class="div-header-title">
+          <div  class="div-title">Đăng ký</div>
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+  
+  <ion-content>
+  <div class="div-content-register">
+   
+    <ion-grid class="cls-grid">
+    
+          <form padding="true" [formGroup]="regData">
+            <ion-item style="--padding-start: 0px;border-bottom: solid 0.5px #e9eaec;" class="m-top-8">
+              <ion-label  class="text-label" position="stacked">Tên đầy đủ</ion-label>
+              <ion-input #user class="text-color" clearInput type="text" formControlName="name">
+              </ion-input>
+            </ion-item>
+            <ion-item style="--padding-start: 0px;border-bottom: solid 0.5px #e9eaec;" class="m-top-8">
+              <ion-label  class="text-label" position="stacked">Email/ Số di động</ion-label>
+              <ion-input #user class="text-color" clearInput type="text" formControlName="emailorphone">
+              </ion-input>
+            </ion-item>
+            <ion-item style="--padding-start: 0px;border-bottom: solid 0.5px #e9eaec;">
+              <ion-label class="text-label" position="stacked">Mật khẩu</ion-label>
+              <ion-input class="text-color" formControlName="password" [type]="passwordType" clearOnEdit="false">
+              </ion-input>
+              <ion-icon slot="end" [name]="passwordIcon" class="passwordIcon"
+                (click)='hideShowPassword()'></ion-icon>
+            </ion-item>
+            <div class="m-top-16">
+              <ion-label class="text-label-14" text-wrap>Bằng việc nhấn nút Đăng ký, Quý khách đã đồng ý với các 
+                <a style="color: #26bed6" href="https://www.ivivu.com/dieu-kien-dieu-khoan"
+                  target="_blank">điều kiện và điều khoản </a>của iVIVU.com</ion-label>
+              </div>
+          </form>
+          <div class="div-button-register">
+              <button ion-button round outline (click)="register()" [ngClass]="regData.valid ? 'button text-button' : 'button text-button cls-invalid'">Đăng ký</button >
+          </div>
+      
+    </ion-grid>
+  </div>
+</ion-content>

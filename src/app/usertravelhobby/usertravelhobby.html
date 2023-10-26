@@ -1,0 +1,86 @@
+<ion-header>
+        <ion-toolbar style="min-height: 0px;text-align: center">
+            <ion-row>
+            <ion-col style="text-align: center;height: 48px;">
+                <div style="align-self: center" >
+                <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+                    <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+                  </div>
+                <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Sở thích du lịch</label></div>
+                </div>
+            </ion-col>
+            </ion-row>
+        </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="ion-padding-16">
+            <div class="cls-content">
+                <!-- hạng sao -->
+                <div class="div-star">
+                        <ion-label class="text-title1" style="padding-bottom:5px">
+                         {{strLocal}}
+                        </ion-label>
+                        <ion-row>
+                          <ion-col (click)="star1()" col-2.5 style="padding-left: 0">
+                            <img *ngIf="star_1" src="./assets/star/1_star.svg">
+                            <img *ngIf="star_1active" src="./assets/star/1_star_active.svg">
+                          </ion-col>
+                          <ion-col (click)="star2()" col-2.5>
+                            <img *ngIf="star_2" src="./assets/star/2_star.svg">
+                            <img *ngIf="star_2active" src="./assets/star/2_star_active.svg">
+                          </ion-col>
+                          <ion-col (click)="star3()" col-2.5>
+                            <img *ngIf="star_3" src="./assets/star/3_star.svg">
+                            <img *ngIf="star_3active" src="./assets/star/3_star_active.svg">
+                          </ion-col>
+                          <ion-col (click)="star4()" col-2.5>
+                            <img *ngIf="star_4" src="./assets/star/4_star.svg">
+                            <img *ngIf="star_4active" src="./assets/star/4_star_active.svg">
+                          </ion-col>
+                          <ion-col (click)="star5()" col-2.5>
+                            <img *ngIf="star_5" src="./assets/star/5_star.svg">
+                            <img *ngIf="star_5active" src="./assets/star/5_star_active.svg">
+                          </ion-col>
+                        </ion-row>
+                </div>
+                <!-- Thương hiệu yêu thích -->
+                <div class="div-trademark cls-padding-top">
+                        <div class="cls-order-trademark" *ngIf="dataTrademark && dataTrademark.length >0">
+                                <ion-label class="text-title1">
+                                        {{strTrademark}}
+                                  </ion-label>
+                                  <div class="item-trademark p-top">
+                                      <div *ngFor="let item of dataTrademark; let i = index" name="item.name" id="{{item.id}}" class="cls-col-border trademark-item-{{item.id}}" (click)="localClick($event,'trademark')" >{{ item.name }}</div>
+                                  </div>
+                            </div>
+                </div>
+
+                <!-- Phong cách yêu thích -->
+                <div class="cls-order-style cls-padding-top" *ngIf="dataStyle && dataStyle.length >0">
+                        <ion-label class="text-title1">
+                          {{strStyle}}
+                          </ion-label>
+                          <div class="item-style p-top">
+                              <div *ngFor="let itemStyle of dataStyle; let i = index" name="item.name" id="{{itemStyle.id}}" class="cls-col-border style-item-{{itemStyle.id}}" (click)="localClick($event,'style')" >{{ itemStyle.name }}</div>
+                          </div>
+                    </div>
+                  <!-- Loại hình lưu trú ưa thích -->
+                    <div class="cls-order-style cls-padding-top" *ngIf="dataHotelType && dataHotelType.length >0">
+                        <ion-label class="text-title1">
+                          {{strHotelType}}
+                          </ion-label>
+                          <div class="item-hotel-tyle p-top">
+                              <div *ngFor="let itemHotelTyle of dataHotelType; let i = index" name="item.name" id="{{itemHotelTyle.id}}" class="cls-col-border hoteltype-item-{{itemHotelTyle.id}}" (click)="localClick($event,'hoteltype')" >{{ itemHotelTyle.name }}</div>
+                          </div>
+                    </div>
+                  <!-- Tiện ích cần có -->
+                    <div class="cls-order-facility cls-padding-top" *ngIf="dataFacility && dataFacility.length >0">
+                        <ion-label class="text-title1">
+                          {{strFacility}}
+                          </ion-label>
+                          <div class="item-facility p-top">
+                              <div *ngFor="let itemfacility of dataFacility; let j = index" name="item.name" id="{{itemfacility.id}}" class="cls-col-border facility-item-{{itemfacility.id}}" (click)="localClick($event,'facility')" >{{ itemfacility.name }}</div>
+                          </div>
+                    </div>
+            </div>
+        </ion-content>

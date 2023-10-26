@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { SearchHotelFilterPage } from './search-hotel-filter';
+
+@NgModule({
+  declarations: [
+    SearchHotelFilterPage,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild( [{
+      path: '',
+      component: SearchHotelFilterPage
+    }]),
+  ],
+})
+export class SearchHotelFilterPageModule {}

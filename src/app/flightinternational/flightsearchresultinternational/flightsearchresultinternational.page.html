@@ -1,0 +1,805 @@
+
+<ion-header class="flightsearchresult-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title" *ngIf="step==2 else returntitle" (click)="showChangeInfo()">
+          <div class="div-title">{{ title }}</div>
+          <div class="div-subtitle"><span class="cls-text-tealish">{{dayDisplay}}</span> {{ subtitle }} <span class="arrow-down"><img class="img-down" src="./assets/ic_flight/icon_down_orange.svg"></span></div>
+        </div>
+        <ng-template #returntitle>
+          <div class="div-header-title" (click)="showChangeInfo()">
+            <div class="div-title">{{ titlereturn }}</div>
+            <div class="div-subtitle"><span class="cls-text-tealish">{{dayReturnDisplay}}</span> {{ subtitlereturn }} <span class="arrow-down"><img class="img-down" src="./assets/ic_flight/icon_down_orange.svg"></span></div>
+          </div>
+        </ng-template>
+        
+        <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+
+<ion-content [scrollEvents]="true" #scrollArea (ionScroll)="scrollSearchFlight($event)">
+  <ion-progress-bar style="color: #003c71;height: 2px;" *ngIf="!loadpricedone" [value]="progressbarloading" [buffer]="progressbarbuffer"></ion-progress-bar>
+   <div class="flightsearchresult-content p-all-16">
+      <div *ngIf="!loadpricedone else hasprice" class="div-load-price">
+        <div class="text-loading">Đang tìm chuyến bay tốt nhất</div>
+       
+            <div [ngClass]="idx == loadsk.length-1 ? 'div-wrap-item-flight':'div-wrap-item-flight m-b-8'"  *ngFor="let itemsk of loadsk; let idx = index" >
+                <div class="div-item-flight">
+                  <div class="d-flex a-baseline">
+                    <ion-skeleton-text animated style="width: 100%;height: 22px;margin-bottom: 24px;border-radius: 16px;"></ion-skeleton-text>
+                  </div>
+
+                  <div class="d-flex div-departure">
+                        <div class="d-flex-column div-first width-30">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 24px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+
+                        <div class="d-flex-column div-second width-40" style="justify-content: center; margin: 0 8px;">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 80%;height: 4px;margin-bottom: 4px;border-radius: 4px;margin-left: 10%;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+                    
+                        <div class="d-flex-column div-third width-30">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 24px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="div-item-flight m-top-8">
+                  <div class="d-flex a-baseline">
+                    <ion-skeleton-text animated style="width: 100%;height: 22px;margin-bottom: 24px;border-radius: 16px;"></ion-skeleton-text>
+                  </div>
+
+                  <div class="d-flex div-departure">
+                        <div class="d-flex-column div-first width-30">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 24px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+
+                        <div class="d-flex-column div-second width-40" style="justify-content: center; margin: 0 8px;">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 80%;height: 4px;margin-bottom: 4px;border-radius: 4px;margin-left: 10%;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+                    
+                        <div class="d-flex-column div-third width-30">
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 24px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                          <ion-skeleton-text animated style="width: 100%;height: 16px;margin-bottom: 4px;border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="div-total m-top-8 d-flex" style="justify-content: flex-end;margin-bottom: 16px">
+                  <div class=" v-align-center" style="display: flex;flex-direction: column;justify-content: center;">
+                    <ion-skeleton-text animated style="width: 150px;height: 29px;border-radius: 6px;"></ion-skeleton-text>
+                  </div>
+                  
+                  <ion-skeleton-text animated style="width: 124px;height: 40px;margin-left: 8px;border-radius: 6px;"></ion-skeleton-text>
+                </div>
+            </div>
+        
+      </div>
+      <ng-template #hasprice>
+        <div *ngIf="(!emptyFilterResult && (listDepart && listDepart.length > 0))else emptyResult">
+          <div class="d-flex">
+              <div class="div-icon-check">
+                <img class="icon-check" src="./assets/ic_flight_international/icon_check.svg" >
+              </div>
+              <div class="text-green">
+                Giá đã bao gồm thuế và phí
+              </div>
+          </div>
+          
+              <div class="text-title-content m-top-8" *ngIf="(bestpricedepart && bestpricedepart.length >0 && (count >=1 || stoprequest) )">Lựa chọn tốt nhất</div>
+              <div *ngIf="(bestpricedepart && bestpricedepart.length >0 && (count >=1 || stoprequest) )">
+                <div *ngFor="let item of bestpricedepart; let idx = index" [ngClass]="!item.isHidenTwoWay ? 'div-wrap-item-flight' : '' ">
+                  <div class="div-box-shadow" *ngIf="item && !item.isHidenTwoWay && item.departFlights && item.departFlights.length >0">
+
+                    <!-- list chọn -->
+                    <div [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom cls-clippath-bottom' : 'div-item-flight') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-hidden cls-expand-div cls-clippath-top' : 'div-item-flight div-hidden cls-expand-div no-border-bottom cls-clippath-bottom') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                      <div *ngIf="!itemDepart.isHiden ">
+                        <div [ngClass]="idxd ==0 ? 'd-flex m-top-8' : (idxd ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                        <div class="d-flex "  (click)="showFlightInfo(itemDepart, item, idxd)">
+                          <div class="text-depart">Đi:</div>
+                          <div class="d-flex">
+                            <div class="div-logo">
+                              <img class="icon-logo" [src]="itemDepart.urlLogo" *ngIf="!itemDepart.operatedByLogo">
+                              <img class="icon-logo" [src]="itemDepart.operatedByLogo" *ngIf="itemDepart.operatedByLogo">
+                            </div>
+                            <div>
+                              <div class="d-flex d-flex-wrap">
+                                <div class="div-airline-info" *ngIf="itemDepart">
+                                  <div class="text-airline" >{{itemDepart.airline}} </div>
+                                </div>
+                                <div class="div-airline-info" *ngIf="itemDepart">
+                                  <div class="text-flightNumber"> | {{itemDepart.flightNumber}}</div>
+                                </div>
+                                <div class="d-flex">
+                                  <div class="div-airline-info m-r-0" *ngIf="itemDepart">
+                                   <div class="text-ticketClass">{{itemDepart.ticketClass}}</div>
+                                 </div>
+ 
+                                
+                               </div>
+                              </div>
+                              <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div>
+                              
+                            </div>
+                          </div>
+
+                        </div>
+                         
+                      </div>
+
+                        <div class="d-flex m-top-24 div-departure">
+                              <div class="d-flex-column div-first width-30">
+                                  <div class="text-airport">{{itemDepart.shortFromAirportName}}</div>
+                                  <div class="text-time">{{itemDepart.timeDepartShort}}</div>
+                                  <div class="text-date">{{itemDepart.departTimeDisplay}}</div>
+                              </div>
+
+                              <div class="d-flex-column div-second width-40">
+                                <div class="text-timeflight">{{itemDepart.flightTimeDisplay}}</div>
+                                <div class="div-linetime"></div>
+                                <div class="text-stops has-stops d-flex" *ngIf="itemDepart.stops && itemDepart.stops >0" (click)="showDepartureDetail(itemDepart)">
+                                  <div>{{itemDepart.stops}} chặng dừng</div>
+                                  <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                </div>
+                                <div class="text-stops" *ngIf="!itemDepart.stops">Bay thẳng</div>
+                              </div>
+                            <div class="div-icon-plain">
+                              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                            </div>
+
+                            <div class="d-flex-column div-third width-30">
+                              <div class="text-airport">{{itemDepart.shortToAirportName}}</div>
+                              <div class="text-time">{{itemDepart.timeLandingShort}}</div>
+                              <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+
+                    <div [ngClass]="item.expanddivflight ? 'div-show-more sm-depart d-flex ' : 'div-show-more sm-depart d-flex' " *ngIf="item.departFlights.length >1 && !item.hideDivExpandDepart" (click)="expandDiv(item, idx, 1)">
+                      <div class="text-showmore">Các lựa chọn khác</div>
+                      <div class="div-icon-chevron">
+                        <img class="icon-chevron" *ngIf="!item.expanddivflight" src="./assets/ic_flight_international/chevrons-close.svg" >
+                        <img class="icon-chevron" *ngIf="item.expanddivflight" src="./assets/ic_flight_international/chevrons-down.svg" >
+                      </div>
+                      
+                    </div>
+
+                    <!-- list ẩn -->
+                      <div id="itemf_{{idxd > 0 ? idx : -1}}" [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                        <div *ngIf="!itemDepart.isHiden ">
+                            <div [ngClass]="idxd ==0 ? 'd-flex' : (idxd ==1 ? 'd-flex m-top-18' : 'd-flex m-top-8')">
+                            <div class="d-flex div-maxwidth-flightinfo" (click)="showFlightInfo(itemDepart, item, idxd)">
+                            
+                              <div class="d-flex">
+                                <div class="div-logo">
+                                  <img class="icon-logo" [src]="itemDepart.urlLogo" *ngIf="!itemDepart.operatedByLogo">
+                                  <img class="icon-logo" [src]="itemDepart.operatedByLogo" *ngIf="itemDepart.operatedByLogo">
+                                </div>
+                                <div>
+                                  <div class="d-flex d-flex-wrap">
+                                    <div class="div-airline-info" *ngIf="itemDepart">
+                                      <div class="text-airline" >{{itemDepart.airline}} </div>
+                                    </div>
+                                    <div class="div-airline-info" *ngIf="itemDepart">
+                                      <div class="text-flightNumber"> | {{itemDepart.flightNumber}}</div>
+                                    </div>
+                                    <div class="d-flex">
+                                      <div class="div-airline-info  m-r-0" *ngIf="itemDepart">
+                                       <div class="text-ticketClass">{{itemDepart.ticketClass}}</div>
+                                     </div>
+     
+                                    
+                                   </div>
+                                  </div>
+                                  <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                              
+
+                              <div class="div-toggle" *ngIf="idxd != 0">
+                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck" color="secondary"></ion-toggle>
+                              </div>
+                          </div>
+
+                          <!-- <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div> -->
+
+                          <div class="d-flex m-top-24 div-departure">
+                                <div class="d-flex-column div-first width-30">
+                                    <div class="text-airport">{{itemDepart.shortFromAirportName}}</div>
+                                    <div class="text-time">{{itemDepart.timeDepartShort}}</div>
+                                    <div class="text-date">{{itemDepart.departTimeDisplay}}</div>
+                                </div>
+
+                                <div class="d-flex-column div-second width-40">
+                                  <div class="text-timeflight">{{itemDepart.flightTimeDisplay}}</div>
+                                  <div class="div-linetime"></div>
+                                  <div class="text-stops has-stops d-flex" *ngIf="itemDepart.stops && itemDepart.stops >0" (click)="showDepartureDetail(itemDepart)">
+                                    <div>{{itemDepart.stops}} chặng dừng</div>
+                                    <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                  </div>
+                                  <div class="text-stops" *ngIf="!itemDepart.stops">Bay thẳng</div>
+                              </div>
+                              <div class="div-icon-plain">
+                                <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                              </div>
+
+                              <div class="d-flex-column div-third width-30">
+                                <div class="text-airport">{{itemDepart.shortToAirportName}}</div>
+                                <div class="text-time">{{itemDepart.timeLandingShort}}</div>
+                                <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.departFlights.length >2 && idxd >0 && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
+                        </div>
+                        
+                        
+                      </div>
+
+                    
+                  </div>
+                  
+
+                  <div class="m-top-8 div-box-shadow" *ngIf="item && !item.isHidenTwoWay && item.returnFlights && item.returnFlights.length >0">
+
+                    <!-- list chọn -->
+                    <div [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom cls-clippath-bottom' : 'div-item-flight') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-hidden cls-expand-div cls-clippath-top' : 'div-item-flight div-hidden cls-expand-div no-border-bottom cls-clippath-bottom') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                      <div *ngIf="!itemReturn.isHiden ">
+                          <div [ngClass]="idxr ==0 ? 'd-flex m-top-8' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                          <div class="d-flex " (click)="showFlightInfo(itemReturn, item, idxr)">
+                            <div class="text-depart">Về:</div>
+                            <div class="d-flex">
+                              <div class="div-logo">
+                                <img class="icon-logo" [src]="itemReturn.urlLogo" *ngIf="!itemReturn.operatedByLogo">
+                                <img class="icon-logo" [src]="itemReturn.operatedByLogo" *ngIf="itemReturn.operatedByLogo">
+                              </div>
+                              <div>
+                                <div class="d-flex d-flex-wrap">
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-airline" >{{itemReturn.airline}} </div>
+                                  </div>
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-flightNumber"> | {{itemReturn.flightNumber}}</div>
+                                  </div>
+                                  <div class="d-flex">
+                                    <div class="div-airline-info m-r-0" *ngIf="itemReturn">
+                                     <div class="text-ticketClass">{{itemReturn.ticketClass}}</div>
+                                   </div>
+   
+                                   
+                                 </div>
+                                </div>
+                                <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div> -->
+
+                        <div class="d-flex m-top-24 div-departure">
+                              <div class="d-flex-column div-first width-30">
+                                  <div class="text-airport">{{itemReturn.shortFromAirportName}}</div>
+                                  <div class="text-time">{{itemReturn.timeDepartShort}}</div>
+                                  <div class="text-date">{{itemReturn.departTimeDisplay}}</div>
+                              </div>
+
+                              <div class="d-flex-column div-second width-40">
+                                <div class="text-timeflight">{{itemReturn.flightTimeDisplay}}</div>
+                                <div class="div-linetime"></div>
+                                <div class="text-stops has-stops d-flex" *ngIf="itemReturn.stops && itemReturn.stops >0"  (click)="showDepartureDetail(itemReturn)">
+                                  <div>{{itemReturn.stops}} chặng dừng</div>
+                                  <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                </div>
+                                <div class="text-stops" *ngIf="!itemReturn.stops">Bay thẳng</div>
+                            </div>
+                            <div class="div-icon-plain">
+                              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                            </div>
+
+                            <div class="d-flex-column div-third width-30">
+                              <div class="text-airport">{{itemReturn.shortToAirportName}}</div>
+                              <div class="text-time">{{itemReturn.timeLandingShort}}</div>
+                              <div class="text-date">{{itemReturn.landingTimeDisplay}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+
+                    </div>
+
+                    <div [ngClass]="item.expanddivflightreturn ? 'div-show-more sm-depart d-flex ' : 'div-show-more sm-depart d-flex' " *ngIf="item.returnFlights.length >1 && !item.hideDivExpandReturn" (click)="expandDiv(item, idx, 3)">
+                      <div class="text-showmore">Các lựa chọn khác</div>
+                      <div class="div-icon-chevron">
+                        <img class="icon-chevron" *ngIf="!item.expanddivflightreturn" src="./assets/ic_flight_international/chevrons-close.svg" >
+                        <img class="icon-chevron" *ngIf="item.expanddivflightreturn" src="./assets/ic_flight_international/chevrons-down.svg" >
+                      </div>
+                      
+                    </div>
+
+                    <!-- list ẩn -->
+                    <div id="itemfr_{{idx}}" [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                      <div *ngIf="!itemReturn.isHiden ">
+                          <div [ngClass]="idxr ==0 ? 'd-flex' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                          <div class="d-flex div-maxwidth-flightinfo" (click)="showFlightInfo(itemReturn, item, idxr)">
+                            
+                            <div class="d-flex">
+                              <div class="div-logo">
+                                <img class="icon-logo" [src]="itemReturn.urlLogo" *ngIf="!itemReturn.operatedByLogo">
+                                <img class="icon-logo" [src]="itemReturn.operatedByLogo" *ngIf="itemReturn.operatedByLogo">
+                              </div>
+                              <div>
+                                <div class="d-flex d-flex-wrap">
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-airline" >{{itemReturn.airline}} </div>
+                                  </div>
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-flightNumber"> | {{itemReturn.flightNumber}}</div>
+                                  </div>
+                                  <div class="d-flex">
+                                    <div class="div-airline-info m-r-0" *ngIf="itemReturn">
+                                     <div class="text-ticketClass">{{itemReturn.ticketClass}}</div>
+                                   </div>
+   
+                                 
+                                 </div>
+                                </div>
+                                <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                          
+                            <div class="div-toggle">
+                              <ion-toggle (click)="changeFlight(item, itemReturn, 3, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck" color="secondary"></ion-toggle>
+                            </div>
+                        </div>
+                        <!-- <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div> -->
+
+                        <div class="d-flex m-top-24 div-departure">
+                              <div class="d-flex-column div-first width-30">
+                                  <div class="text-airport">{{itemReturn.shortFromAirportName}}</div>
+                                  <div class="text-time">{{itemReturn.timeDepartShort}}</div>
+                                  <div class="text-date">{{itemReturn.departTimeDisplay}}</div>
+                              </div>
+
+                              <div class="d-flex-column div-second width-40">
+                                <div class="text-timeflight">{{itemReturn.flightTimeDisplay}}</div>
+                                <div class="div-linetime"></div>
+                                <div class="text-stops has-stops d-flex" *ngIf="itemReturn.stops && itemReturn.stops >0" (click)="showDepartureDetail(itemReturn)">
+                                  <div>{{itemReturn.stops}} chặng dừng</div>
+                                  <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                </div>
+                                <div class="text-stops" *ngIf="!itemReturn.stops">Bay thẳng</div>
+                            </div>
+                            <div class="div-icon-plain">
+                              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                            </div>
+
+                            <div class="d-flex-column div-third width-30">
+                              <div class="text-airport">{{itemReturn.shortToAirportName}}</div>
+                              <div class="text-time">{{itemReturn.timeLandingShort}}</div>
+                              <div class="text-date">{{itemReturn.landingTimeDisplay}}</div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="item.returnFlights.length >2 && idxr >0 && idxr != item.returnFlights.length-1 && item.expanddivflightreturn" class="div-split-item-expand"></div>
+                      </div>
+                      
+                    </div>
+                      
+                    
+                  </div>
+
+                  
+
+                  <div class="div-total m-top-8" *ngIf="item && !item.isHidenTwoWay">
+                    <div class="v-align-center"><span class="text-total">{{ gf.convertNumberToString(item.fare.price) }}<span class="total-sub">đ</span></span></div>
+                    <div class="btn-select v-align-center" (click)="confirm(item)">Chọn</div>
+                  </div>
+
+                  <div class="div-note m-top-16" *ngIf="item && !item.isHidenTwoWay && item.fare && item.fare.airlineNotes && item.fare.airlineNotes.length >0">
+                      <div *ngFor="let itemNote of item.fare.airlineNotes[0].note.split('\n')">
+                        <div class="div-item-note" *ngIf="itemNote">
+                          {{itemNote}}
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="text-title-content m-top-24" *ngIf="otherpricedepart && otherpricedepart.length >0">Các lựa chọn khác</div>
+                <div *ngFor="let item of otherpricedepart; let idx = index" [ngClass]="!item.isHidenTwoWay ? 'div-wrap-item-flight' : '' ">
+                  <div class="div-box-shadow" *ngIf="item && !item.isHidenTwoWay && item.departFlights && item.departFlights.length >0">
+                      
+                       <!-- list chọn -->
+                    <div [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom cls-clippath-bottom' : 'div-item-flight') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-hidden cls-expand-div cls-clippath-top' : 'div-item-flight div-hidden cls-expand-div no-border-bottom cls-clippath-bottom') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                      <div *ngIf="!itemDepart.isHiden ">
+                          <div [ngClass]="idxd ==0 ? 'd-flex m-top-8' : (idxd ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                          <div class="d-flex " (click)="showFlightInfo(itemDepart, item, idxd)">
+                            <div class="text-depart">Đi:</div>
+                            <div class="d-flex">
+                              <div class="div-logo ">
+                                <img class="icon-logo" [src]="itemDepart.urlLogo" *ngIf="!itemDepart.operatedByLogo">
+                                <img class="icon-logo" [src]="itemDepart.operatedByLogo" *ngIf="itemDepart.operatedByLogo">
+                              </div>
+                              <div>
+                                <div class="d-flex d-flex-wrap">
+                                  <div class="div-airline-info" *ngIf="itemDepart">
+                                    <div class="text-airline" >{{itemDepart.airline}} </div>
+                                  </div>
+                                  <div class="div-airline-info" *ngIf="itemDepart">
+                                    <div class="text-flightNumber"> | {{itemDepart.flightNumber}}</div>
+                                  </div>
+                                  <div class="d-flex">
+                                    <div class="div-airline-info m-r-0" *ngIf="itemDepart">
+                                     <div class="text-ticketClass">{{itemDepart.ticketClass}}</div>
+                                   </div>
+   
+                                 
+                                 </div>
+                                </div>
+                                <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div>
+                                
+                              </div>
+                            </div>
+
+                          </div>
+                          
+                        </div>
+
+                        
+
+                          <div class="d-flex m-top-24 div-departure">
+                                <div class="d-flex-column div-first width-30">
+                                    <div class="text-airport">{{itemDepart.shortFromAirportName}}</div>
+                                    <div class="text-time">{{itemDepart.timeDepartShort}}</div>
+                                    <div class="text-date">{{itemDepart.departTimeDisplay}}</div>
+                                </div>
+
+                                <div class="d-flex-column div-second width-40">
+                                  <div class="text-timeflight">{{itemDepart.flightTimeDisplay}}</div>
+                                  <div class="div-linetime"></div>
+                                  <div class="text-stops has-stops d-flex" *ngIf="itemDepart.stops && itemDepart.stops >0"  (click)="showDepartureDetail(itemDepart)">
+                                    <div>{{itemDepart.stops}} chặng dừng</div>
+                                    <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                  </div>
+                                  <div class="text-stops" *ngIf="!itemDepart.stops">Bay thẳng</div>
+                                </div>
+                              <div class="div-icon-plain">
+                                <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                              </div>
+
+                              <div class="d-flex-column div-third width-30">
+                                <div class="text-airport">{{itemDepart.shortToAirportName}}</div>
+                                <div class="text-time">{{itemDepart.timeLandingShort}}</div>
+                                <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                    </div>
+
+                    <div [ngClass]="item.expanddivflight ? 'div-show-more sm-depart d-flex ' : 'div-show-more sm-depart d-flex' " *ngIf="item.departFlights.length >1 && !item.hideDivExpandDepart" (click)="expandDiv(item, idx, 2)">
+                      <div class="text-showmore">Các lựa chọn khác</div>
+                      <div class="div-icon-chevron">
+                        <img class="icon-chevron" *ngIf="!item.expanddivflight" src="./assets/ic_flight_international/chevrons-close.svg" >
+                        <img class="icon-chevron" *ngIf="item.expanddivflight" src="./assets/ic_flight_international/chevrons-down.svg" >
+                      </div>
+                      
+                    </div>
+
+                    <!-- list ẩn -->
+                      <div id="itemfo_{{idxd > 0 ? idx : -1}}" [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                        <div *ngIf="!itemDepart.isHiden ">
+                            <div [ngClass]="idxd ==0 ? 'd-flex' : (idxd ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                            <div class="d-flex  div-maxwidth-flightinfo" (click)="showFlightInfo(itemDepart, item, idxd)">
+                              <div class="d-flex">
+                                <div class="div-logo ">
+                                  <img class="icon-logo" [src]="itemDepart.urlLogo" *ngIf="!itemDepart.operatedByLogo">
+                                  <img class="icon-logo" [src]="itemDepart.operatedByLogo" *ngIf="itemDepart.operatedByLogo">
+                                </div>
+                                <div>
+                                  <div class="d-flex d-flex-wrap">
+                                    <div class="div-airline-info" *ngIf="itemDepart">
+                                      <div class="text-airline" >{{itemDepart.airline}} </div>
+                                    </div>
+                                    <div class="div-airline-info" *ngIf="itemDepart">
+                                      <div class="text-flightNumber"> | {{itemDepart.flightNumber}}</div>
+                                    </div>
+                                    <div class="d-flex">
+                                      <div class="div-airline-info m-r-0" *ngIf="itemDepart">
+                                       <div class="text-ticketClass">{{itemDepart.ticketClass}}</div>
+                                     </div>
+     
+                                   
+                                   </div>
+                                  </div>
+                                  <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                              
+
+                              <div class="div-toggle">
+                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck" color="secondary"></ion-toggle>
+                              </div>
+                          </div>
+
+                          <!-- <div class="div-operatedby" *ngIf="itemDepart.operatedBy">{{itemDepart.operatedBy}}</div> -->
+
+                          <div class="d-flex m-top-24 div-departure">
+                                <div class="d-flex-column div-first width-30">
+                                    <div class="text-airport">{{itemDepart.shortFromAirportName}}</div>
+                                    <div class="text-time">{{itemDepart.timeDepartShort}}</div>
+                                    <div class="text-date">{{itemDepart.departTimeDisplay}}</div>
+                                </div>
+
+                                <div class="d-flex-column div-second width-40">
+                                  <div class="text-timeflight">{{itemDepart.flightTimeDisplay}}</div>
+                                  <div class="div-linetime"></div>
+                                  <div class="text-stops has-stops d-flex" *ngIf="itemDepart.stops && itemDepart.stops >0" (click)="showDepartureDetail(itemDepart)">
+                                    <div>{{itemDepart.stops}} chặng dừng</div>
+                                    <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                  </div>
+                                  <div class="text-stops" *ngIf="!itemDepart.stops">Bay thẳng</div>
+                              </div>
+                              <div class="div-icon-plain">
+                                <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                              </div>
+
+                              <div class="d-flex-column div-third width-30">
+                                <div class="text-airport">{{itemDepart.shortToAirportName}}</div>
+                                <div class="text-time">{{itemDepart.timeLandingShort}}</div>
+                                <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
+                            </div>
+                          </div>
+                          <div *ngIf="item.departFlights.length >2 && idxd >0 && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
+                        </div>
+                        
+                        
+                      </div>
+
+                  </div>
+                  
+
+                  <div class="div-box-shadow m-top-8" *ngIf="item && !item.isHidenTwoWay && item.returnFlights && item.returnFlights.length >0">
+                
+                   
+                    <!-- list chọn -->
+                    <div [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom cls-clippath-bottom' : 'div-item-flight') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-hidden cls-expand-div cls-clippath-top' : 'div-item-flight div-hidden cls-expand-div no-border-bottom cls-clippath-bottom') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                      
+                      <div *ngIf="!itemReturn.isHiden ">
+                        <div [ngClass]="idxr ==0 ? 'd-flex m-top-8' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                          <div class="text-depart">Về:</div>
+                          <div class="d-flex " (click)="showFlightInfo(itemReturn,item, idxr)">
+                            <div class="d-flex">
+                              <div class="div-logo ">
+                                <img class="icon-logo" [src]="itemReturn.urlLogo" *ngIf="!itemReturn.operatedByLogo">
+                                <img class="icon-logo" [src]="itemReturn.operatedByLogo" *ngIf="itemReturn.operatedByLogo">
+                              </div>
+                              <div>
+                                <div class="d-flex d-flex-wrap">
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-airline" >{{itemReturn.airline}} </div>
+                                  </div>
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-flightNumber"> | {{itemReturn.flightNumber}}</div>
+                                  </div>
+                                  <div class="d-flex">
+                                    <div class="div-airline-info m-r-0" *ngIf="itemReturn">
+                                     <div class="text-ticketClass">{{itemReturn.ticketClass}}</div>
+                                   </div>
+   
+                                  
+                                 </div>
+                                </div>
+                                <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div> -->
+
+                        <div class="d-flex m-top-24 div-departure">
+                              <div class="d-flex-column div-first width-30">
+                                  <div class="text-airport">{{itemReturn.shortFromAirportName}}</div>
+                                  <div class="text-time">{{itemReturn.timeDepartShort}}</div>
+                                  <div class="text-date">{{itemReturn.departTimeDisplay}}</div>
+                              </div>
+
+                              <div class="d-flex-column div-second width-40">
+                                <div class="text-timeflight">{{itemReturn.flightTimeDisplay}}</div>
+                                <div class="div-linetime"></div>
+                                <div class="text-stops has-stops d-flex" *ngIf="itemReturn.stops && itemReturn.stops >0"  (click)="showDepartureDetail(itemReturn)">
+                                  <div>{{itemReturn.stops}} chặng dừng</div>
+                                  <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                </div>
+                                <div class="text-stops" *ngIf="!itemReturn.stops">Bay thẳng</div>
+                            </div>
+                            <div class="div-icon-plain">
+                              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                            </div>
+
+                            <div class="d-flex-column div-third width-30">
+                              <div class="text-airport">{{itemReturn.shortToAirportName}}</div>
+                              <div class="text-time">{{itemReturn.timeLandingShort}}</div>
+                              <div class="text-date">{{itemReturn.landingTimeDisplay}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+
+                    </div>
+
+                    <div [ngClass]="item.expanddivflightreturn ? 'div-show-more sm-depart d-flex ' : 'div-show-more sm-depart d-flex' " *ngIf="item.returnFlights.length >1 && !item.hideDivExpandReturn" (click)="expandDiv(item, idx, 4)">
+                      <div class="text-showmore">Các lựa chọn khác</div>
+                      <div class="div-icon-chevron">
+                        <img class="icon-chevron" *ngIf="!item.expanddivflightreturn" src="./assets/ic_flight_international/chevrons-close.svg" >
+                        <img class="icon-chevron" *ngIf="item.expanddivflightreturn" src="./assets/ic_flight_international/chevrons-down.svg" >
+                      </div>
+                      
+                    </div>
+
+                    <!-- list ẩn -->
+                    <div id="itemfor_{{idx}}" [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                     
+                      <div *ngIf="!itemReturn.isHiden ">
+                          <div [ngClass]="idxr ==0 ? 'd-flex' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
+                          <div class="d-flex  div-maxwidth-flightinfo" (click)="showFlightInfo(itemReturn, item, idxr)">
+                            <div class="d-flex">
+                              <div class="div-logo ">
+                                <img class="icon-logo" [src]="itemReturn.urlLogo" *ngIf="!itemReturn.operatedByLogo">
+                                <img class="icon-logo" [src]="itemReturn.operatedByLogo" *ngIf="itemReturn.operatedByLogo">
+                              </div>
+                              <div>
+                                <div class="d-flex d-flex-wrap">
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-airline" >{{itemReturn.airline}} </div>
+                                  </div>
+                                  <div class="div-airline-info" *ngIf="itemReturn">
+                                    <div class="text-flightNumber"> | {{itemReturn.flightNumber}}</div>
+                                  </div>
+                                  <div class="d-flex">
+                                    <div class="div-airline-info m-r-0" *ngIf="itemReturn">
+                                     <div class="text-ticketClass">{{itemReturn.ticketClass}}</div>
+                                   </div>
+   
+                                   
+                                 </div>
+                                </div>
+                                <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                          
+                            <div class="div-toggle">
+                              <ion-toggle (click)="changeFlight(item, itemReturn, 4, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck" color="secondary"></ion-toggle>
+                            </div>
+                        </div>
+
+                        <!-- <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div> -->
+
+                        <div class="d-flex m-top-24 div-departure">
+                              <div class="d-flex-column div-first width-30">
+                                  <div class="text-airport">{{itemReturn.shortFromAirportName}}</div>
+                                  <div class="text-time">{{itemReturn.timeDepartShort}}</div>
+                                  <div class="text-date">{{itemReturn.departTimeDisplay}}</div>
+                              </div>
+
+                              <div class="d-flex-column div-second width-40">
+                                <div class="text-timeflight">{{itemReturn.flightTimeDisplay}}</div>
+                                <div class="div-linetime"></div>
+                                <div class="text-stops has-stops d-flex" *ngIf="itemReturn.stops && itemReturn.stops >0" (click)="showDepartureDetail(itemReturn)">
+                                  <div>{{itemReturn.stops}} chặng dừng</div>
+                                  <div class="div-icon-stops"><img class="icon-info" src="./assets/ic_flight_international/plus_circle.svg" ></div>
+                                </div>
+                                <div class="text-stops" *ngIf="!itemReturn.stops">Bay thẳng</div>
+                            </div>
+                            <div class="div-icon-plain">
+                              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+                            </div>
+
+                            <div class="d-flex-column div-third width-30">
+                              <div class="text-airport">{{itemReturn.shortToAirportName}}</div>
+                              <div class="text-time">{{itemReturn.timeLandingShort}}</div>
+                              <div class="text-date">{{itemReturn.landingTimeDisplay}}</div>
+                          </div>
+                        </div>
+
+                        <div *ngIf="item.returnFlights.length >2 && idxr >0 && item.expanddivflightreturn" class="div-split-item-expand"></div>
+                      </div>
+                      
+                      
+                    </div>
+                      
+                  </div>
+
+                  <div class="div-total m-top-8" *ngIf="item && !item.isHidenTwoWay">
+                    <div class=" v-align-center"><span class="text-total">{{ gf.convertNumberToString(item.fare.price) }}<span class="total-sub">đ</span></span></div>
+                    <div class="btn-select v-align-center" (click)="confirm(item)">Chọn</div>
+                  </div>
+
+                  <div class="div-note m-top-16" *ngIf="item && !item.isHidenTwoWay && item.fare && item.fare.airlineNotes && item.fare.airlineNotes.length >0">
+                      <div *ngFor="let itemNote of item.fare.airlineNotes[0].note.split('\n')">
+                        <div class="div-item-note" *ngIf="itemNote">
+                          {{itemNote}}
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+         
+        <ng-template #emptyResult>
+          <div class="bg-white">
+            <div class="m-top-104 text-center">
+              <img src="./assets/ic_flight_international/images_noflight.svg">
+            </div>
+            <div class="m-top-24 text-center text-normal">
+              Không có chuyến bay theo điều kiện tìm kiếm của quý khách.
+            </div>
+            <div class="m-top-6 m-bottom-12 text-center text-normal">
+              Vui lòng thay đổi thông tin tìm kiếm.
+            </div>
+            <div class="div-button-refilter text-center" (click)="openFilterFlight()" *ngIf="enableFlightFilter">Đặt lại bộ lọc</div>
+            <div class="div-button-refilter text-center" (click)="showChangeInfo()" *ngIf="!enableFlightFilter">Tìm kiếm lại</div>
+          </div>
+          
+        </ng-template>      
+         
+          
+      </ng-template>
+   </div>
+</ion-content>
+<ion-footer>
+  <ion-row [ngClass]="(!emptyFilterResult && (listDepart && listDepart.length > 0)) ? 'div-footer-filtersort' : ' div-footer-filtersort cls-deactive'">
+    <ion-col style="align-self: center;" (click)="openSortFlight()">
+        <div class="p-left-24">
+            <img src="./assets/imgs/ic_sort.svg">
+            <ion-label class="text-sort-and-filter">Sắp xếp</ion-label>
+            <img src="./assets/ic_flight/icon_action_check_circle_tealish.svg" *ngIf="sortairline" class="chk-order">
+            
+        </div>
+        <div class="div-split"></div>
+    </ion-col>
+    <ion-col (click)="openFilterFlight()">
+            <div class="flightdeparture-button-filter">
+                <img class="img-filter" src="./assets/imgs/ic_filter.svg">
+                <ion-badge class="cls-badge-filter" *ngIf="enableFlightFilter"><span *ngIf="enableFlightFilter && countFilterResult">{{countFilterResult}}</span></ion-badge>
+                <!-- <ng-template #badgestep3>
+                  <ion-badge *ngIf="step==3 && enableFlightFilterReturn" class="cls-badge-filter"><span class="cls-hidden-filter">{{enableFlightFilterReturn}}</span></ion-badge>
+                </ng-template>
+                 -->
+                <ion-label class="text-sort-and-filter label-filter" >Lọc</ion-label>
+            </div>
+            <div class="div-split"></div>
+    </ion-col>
+</ion-row>
+</ion-footer>

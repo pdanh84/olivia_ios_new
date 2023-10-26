@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-row>
+    <ion-col style="text-align: center;height: 48px;">
+      <div style="align-self: center" >
+        <div style="position: absolute;height: 48px;width: 48px;"  (click)="goback()" >
+            <!-- <ion-icon (click)="goback()" color="dark-tint" style="font-size: 2em;" name="arrow-back" class="card-title"></ion-icon> -->
+            <img style="height: 48px; padding: 8px;margin-top: 0px;margin-left:-8px" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        
+        <div style="padding-top: 11px;font-size: 20px;font-weight: bold;"><label class="text-title">Xóa tài khoản</label></div>
+      </div>
+    </ion-col>
+  </ion-row>
+  </ion-header>
+
+<ion-content>
+  <div class="p-all-16">
+    <div class="text-DK-1" style="font-weight: bold;">
+      Những điều quan trọng bạn nên biết
+    </div>
+    <div class="text-DK-1"> 
+      Vui lòng xác nhận những điều này trước khi xóa tài khoản
+    </div>
+    <div class="div-DK  m-top-10">
+      <div class="width-5">
+        <ion-checkbox mode='md' [ngClass]="ischeckDK1?'checkbox-DK-active':'checkbox-DK'" [checked]="ischeckDK1" (ionChange)="checkDk1()"></ion-checkbox>
+      </div>
+     
+      <div  class="text-DK">
+        Yêu cầu xóa tài khoản của bạn có thể không được chấp nhận nếu bạn đang có đặt chỗ đang hoạt động hoặc còn các trường hợp hoàn lại tiền đang hoạt động, hoặc các khoản phí chưa được thanh toán.
+      </div>
+    </div>
+    <div class="div-DK m-top-10">
+      <div class="width-5">
+        <ion-checkbox mode='md' [ngClass]="ischeckDK2?'checkbox-DK-active':'checkbox-DK'"  [checked]="ischeckDK2" (ionChange)="checkDk2()"></ion-checkbox>
+      </div>    <div class="text-DK">
+        Bạn sẽ không nhận được bất kỳ thông báo nào từ các kênh truyền thông tiếp thị của chúng tôi nữa.
+      </div>
+    </div>
+    <div class="div-DK m-top-10">
+      <div class="width-5">
+        <ion-checkbox mode='md' [ngClass]="ischeckDK3?'checkbox-DK-active':'checkbox-DK'"  [checked]="ischeckDK3" (ionChange)="checkDk3()"></ion-checkbox>
+      </div>    <div class="text-DK">
+        Bạn không thể đăng ký hoặc đăng nhập bằng tài khoản vừa yêu cầu xóa.
+      </div>
+    </div>
+    <div class="div-DK m-top-10">
+      <div class="width-5">
+        <ion-checkbox mode='md' [ngClass]="ischeckDK4?'checkbox-DK-active':'checkbox-DK'"  [checked]="ischeckDK4" (ionChange)="checkDk4()"></ion-checkbox>
+      </div>    <div class="text-DK">
+        Nếu tài khoản của bạn đã bị xóa và bạn muốn yêu cầu hoàn lại tiền cho đặt phòng đang diễn ra hoặc có bất kỳ câu hỏi nào liên quan đến các đặt phòng trước đây, Vui lòng liên hệ CSKH của chúng tôi bằng tổng đài qua tổng đài 1900 1870   
+      </div>
+    </div>
+    <div class="div-DK m-top-10">
+      <div class="width-5">
+        <ion-checkbox [disabled]="!(ischeckDK1 && ischeckDK2 && ischeckDK3 && ischeckDK4)" mode='md' class="checkbox-DK-active"  [checked]="ischeckDK5" (ionChange)="checkDk5()"></ion-checkbox>
+      </div>
+      <div class="text-DK">
+        Tôi đồng ý và xác nhận xóa tài khoản trên iVIVU.com
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>
+<ion-footer >
+  <div style="background-color: #ffffff; text-align: center">
+    <button [disabled]="!(ischeckDK1 && ischeckDK2 && ischeckDK3 && ischeckDK4 && ischeckDK5)" (click)="next()" ion-button round outline  [ngClass]="ischeckDK1 && ischeckDK2 && ischeckDK3 && ischeckDK4 && ischeckDK5 ?'button2':'btn-disabled'" class="button button2">Xóa tài khoản ngay bây giờ</button>
+  </div>
+</ion-footer>

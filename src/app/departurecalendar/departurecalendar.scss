@@ -1,0 +1,185 @@
+
+  .text-title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .div-title{
+    text-align: center;
+    align-self: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .div-img-close{
+    position: absolute;
+    top: 11px;
+    left: 10px;
+
+    .img-close-departure {
+      width: 32px;
+      height: 36px;
+    }
+  }
+ 
+    [col-1] {
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 8.33333%;
+        -ms-flex: 0 0 8.33333%;
+        flex: 0 0 14.285714285714286%;
+        width: 14.285714285714286%;
+        max-width: 14.285714285714286%;
+      }
+      .col {
+        background: transparent;
+        border: none;
+        text-align: center;
+        padding: 0.6em 0;
+        margin: 0;
+        font-weight: bold;
+        font-size: 18px;
+        height: 50px;
+      }
+      .last-month, .next-month,.current-month {
+        color: #bdbdbd;
+        background: transparent;
+        border: none;
+        text-align: center;
+        padding: 0.6em 0;
+        margin: 0;
+        font-weight: bold;
+        font-size: 16px;
+        height: 50px;
+        letter-spacing: -0.14px;
+      }
+      .currentDate, .otherDate {
+        padding: 5px;
+      }
+      .currentDate {
+        font-weight: bold;
+        background-color: red;
+        color: white;
+        border-radius: 30px;
+      }
+      .calendar-header {
+        background-color: #fff;
+        color: #333333;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .event-bullet {
+        margin: 2px auto;
+        height: 5px;
+        width: 5px;
+        background-color: green;
+        border-radius: 30px;
+      }
+      .selected-date {
+        width: 20px;
+        height: 2px;
+        background-color: blue;
+      }
+      .unselected-date {
+        border: none;
+      }
+      .calendar-body {
+        .grid {
+          padding: 0;
+        }
+        .col:last-child {
+          border-right: none;
+        }
+        .calendar-weekday, .calendar-date {
+          text-align: center;
+          margin: 0;
+        }
+        .calendar-weekday {
+          font-weight: bold;
+          background-color: #fff;
+          color: #828282;
+          font-size: 16px;
+          letter-spacing: 1.2px;
+          margin-bottom: 16px;
+          margin-top: 10px;
+        }
+      }
+      .cls-orange{
+          color: #f79321;
+          font-weight:bold;
+      }
+      .cls-green{
+          color: #219653;
+          font-weight:bold;
+      }
+      // .col-weekend{
+      //     color: red;
+      //     opacity: 0.8;
+      // }
+      .no-price{
+        font-weight:bold;
+        color: #D4D3D2;
+        font-weight: bold;
+        background: transparent;
+      }
+      .text-left{
+          text-align: left;
+          padding-top: 12px;
+          font-weight: normal;
+          font-size: 16px;
+          padding: 0;
+          line-height: 17px;
+          letter-spacing: -0.4px;
+      }
+      .good-price{
+          color: #9fc43a;
+      }
+      .not-good-price{
+        color: #ec971f;
+      }
+      .text-normal{
+        color: #828282;
+        white-space: normal;
+      }
+      .p-bottom-16{
+        padding-bottom: 16px;
+      }
+      .icon-close{
+        font-size: 32px;
+      }
+     .div-current-date{
+        border: solid 1px #fff;
+     }
+     .list-md {
+      margin: 0 !important;
+    }
+    .item-md [item-end] {
+      margin: 0px 8px 0px 0;
+    }
+    :host{
+      --ion-grid-columns:7;
+    }
+    .div-days {
+      width: 36px;
+      margin: 0 10px;
+    }
+    
+    .p-16 {
+      --padding-start: 16px;
+      --padding-bottom: 16px;
+      --padding-end: 16px;
+      --padding-top: 16px;
+    }
+    .p-top-0 {
+      padding-top: 0 !important;
+    }
+    .no-padding-left {
+      padding-left: 0;
+    }
+    .no-padding-right {
+      padding-right: 0;
+    }
+
+    .departure-calendar-content {
+      .strikethrough:before{
+        left: -12px !important;
+      }
+    }

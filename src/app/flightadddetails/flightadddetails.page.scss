@@ -1,0 +1,706 @@
+.d-flex{
+    display: flex;
+}
+.div-header-title{
+    padding-top: 11px !important;
+}
+
+.content-flightadddetails{
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 300;
+
+    .p-relative{
+        position: relative;
+    }
+    .div-img-step{
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .div-title{
+        line-height: 22px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .div-sub-title{
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 17px;
+    }
+
+    .div-left{
+        width: 50%;
+        margin-right: 16px;
+        border-bottom: solid 1px #cdcdcd;
+        position: relative;
+    }
+    .div-width-50 {
+        width: 50%;
+        border-bottom: solid 0.2px #cdcdcd;
+        position: relative;
+        height: 24px;
+    }
+    .sub-label{
+        font-size: 14px;
+        font-weight: 300;
+        color: #828282;
+        //line-height: 12px;
+    }
+    .f-12{
+        font-size: 12px !important;
+    }
+    .label-absolute{
+        position: absolute;
+        top: 17px;
+    }
+
+    .label-country{
+        position: absolute;
+        top: 14px;
+
+        z-index: 2;
+        width: 90%;
+    }
+    .m-left-8{
+        margin-left: 8px;
+    } 
+    .bottom-6{
+        bottom: 6px !important;
+    }
+    .bottom-4{
+        bottom: 4px !important;
+    }
+    .h-45{
+        height: 45px;
+    }
+    .top-27{
+        top: 27px !important;
+    }
+    .border-bottom{
+        border-bottom: solid 0.2px #cdcdcd;
+    }
+    .label-passport {
+        position: absolute;
+        top: 4px;
+    }
+    .label-passportcountry{
+        
+        position: absolute;
+        top: 24px;
+    }
+    .label-passportdate{
+        position: absolute;
+        top: 18px;
+    }
+    .cls-passport-transition{
+        top: -15px;
+        transition: top 0.1s ease-out;
+    }
+    .cls-country{
+        top: 9px;
+        //z-index: -1;
+    }
+    .cls-country-transition{
+        top: -11px;
+        //transition: top 0.1s ease-out;
+    }
+
+    .cls-datetofbirth{
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        padding-bottom: 0;
+        padding-top: 3px;
+        height: 29px;
+    }
+    .cls-expiredate{
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        padding-bottom: 0;
+        padding-top: 3px;
+        height: 29px;
+    }
+    .top-dob-24{
+        top: -24px !important;
+    }
+    .m-top-16{
+        margin-top: 16px !important;
+    }
+    .cls-gender-transition{
+        top: 0px;
+        transition: top 0.1s ease-out;
+    }
+
+    .cls-selection-country{
+        position: absolute;
+        height: 180px;
+        width: 100%;
+        overflow-y: scroll;
+        background: #fff;
+        z-index: 99;
+        margin-top: 42px;
+
+        .item-country{
+            font-size: 12px;
+            height: 36px;
+            border-bottom: none !important;
+        }
+    }
+    
+    .cls-input-country-custom{
+        padding: 0;
+        border-bottom: none;
+        position: absolute;
+        margin-top: -14px;
+        background: transparent;
+        z-index: -1;
+        width: 90%;
+
+        .searchbar-input.sc-ion-searchbar-ios{
+            background: transparent;
+            padding-inline-start: 0;
+        }
+    }
+    
+    .cls-input-passportcountry-custom {
+        padding: 0;
+        border-bottom: none;
+        position: absolute;
+        margin-top: -14px;
+        background: transparent;
+        z-index: -1;
+        width: 90%;
+
+        .searchbar-input.sc-ion-searchbar-ios{
+            background: transparent;
+            padding-inline-start: 0;
+        }
+    }
+    .cls-country {
+        margin-top: -21px !important;
+    }
+    .cls-passportcountry {
+        margin-top: -28px !important;
+    }
+    .p-absolute{
+        position: absolute;
+    }
+    .w-100{
+        width: 100% !important;
+    }
+
+    .w-200{
+        width: 200% !important;
+    }
+    .label-dob{
+        position: absolute;
+        top: -4px;
+    }
+
+    .div-right{
+        width: 100%;
+        position: relative;
+        border-bottom: solid 0.2px #cdcdcd;
+    }
+
+    .div-split{
+        height: 8px;
+        background-color: #f2f2f2;
+        margin: 16px -16px;
+    }
+
+    .div-login{
+        padding: 10px 16px;
+        background: rgba(242, 242, 242, 0.5);
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        margin: 0 -16px;
+        margin-top: -16px;
+        margin-bottom: 16px;
+
+
+        .text-login{
+            color: #26bed6;
+        }
+    }
+
+    .text-gender{
+        font-size: 18px;
+        //font-weight: 500 !important;
+        letter-spacing: -0.34px;
+        margin-top: 4px;
+    }
+    .text-bold{
+        font-weight: 600 !important;
+    }
+    .div-icon-down{
+        position: absolute;
+        right: 0;
+        bottom: 3px;
+    }
+
+    .text-sub{
+        font-size: 12px;
+        text-align: left;
+        color: #828282;
+    }
+
+    .m-top-28 {
+        margin-top: 28px !important;
+    }
+    .p-top-26 {
+        padding-top: 26px !important;
+    }
+}
+.cls-input-custom{
+    margin-top: 21px;
+    border-bottom: solid 0.5px  rgb(205, 205, 205);
+}
+.h-48{
+    height: 48px;
+}
+.no-border{
+    border-bottom: none !important;
+}
+.div-border-bottom{
+    border-bottom: solid 0.5px #cdcdcd;
+}
+.f-13{
+    font-size: 13px !important;
+}
+.div-vat{
+    margin-top: 20px;
+}
+.m-top-10{
+    margin-top: 6px;
+}
+.div-width-100{
+    width: 100%;
+}
+.div-width-300{
+    width: 300%;
+}
+.text-right{
+    text-align: right;
+    color: #26bed6;
+    font-weight: 300;
+}
+.img-vector{
+    position: absolute;
+    margin-left: 8px;
+    margin-top: 6px;
+}
+.text-lotus-point{
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: -0.34px;
+    color: #26bed6;
+    margin-top: 8px;
+    margin-bottom: -8px;
+}
+.text-lotus-code{
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: -0.34px;
+    color: #828282;
+    margin-top: 8px;
+    margin-bottom: -8px;
+}
+.div-footer{
+    background-color: #ffffff; 
+    text-align: center;
+    height: 60px;
+
+    .div-total{
+        width: 210px;
+        margin-left: 16px;
+
+        .text-sub-total{
+            font-size: 12px;
+            font-weight: 300;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            display: flex;
+        }
+
+        .text-total{
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.69px;
+            color: #26bed6;
+            text-align: left;
+        }
+    }
+
+    .div-button{
+        width: 50%;
+        margin-right: 16px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: auto;
+    }
+    
+    .button
+    {
+        background: #F79221;
+        color: #ffffff;
+        border-color: #F79221;
+        font-size: 22px;
+        height: 40px !important;
+        margin: 10px 0;
+        font-size: 17px !important;
+        width: 100%;
+        border-radius: 4px !important;
+    } 
+}
+
+.d-flex-footer{
+    width: 100%;
+    height: auto;
+
+    .div-pax-hint{
+        padding: 16px 16px 0 16px;
+        width: 100%;
+        height: 128px;
+        overflow: scroll;
+
+        border-bottom: solid 2px #f2f2f2;
+       // margin: 16px -16px;
+        .icon-pax{
+            margin-right: 12px;
+        }
+
+        .text-pax-hint{
+            font-size: 14px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            color: #222222;
+        }
+    }
+}
+
+::ng-deep{
+    .cls-input-custom .native-input.sc-ion-input-ios{
+        padding: 0;
+        line-height: 28px;
+        font-size: 16px;
+    }
+    .cls-input-name .native-input.sc-ion-input-ios{
+        padding: 0;
+        line-height: 28px;
+        font-size: 18px;
+    }
+    .text-bold .sc-ion-action-sheet-md{
+        font-weight: 600 !important;
+    }
+
+    .action-sheets-flightselectgender .action-sheet-title.sc-ion-action-sheet-md{
+        font-weight: bold;
+        color: #000;
+    }
+    .sc-ion-action-sheet-md-h.action-sheets-flightselectgender{
+        margin-bottom: env(safe-area-inset-bottom);
+    }
+
+    //style android
+    .cls-input-custom .native-input.sc-ion-input-md{
+        padding-bottom: 4px;
+        padding: 0;
+        line-height: 24px;
+        font-size: 18px;
+    }
+
+    .cls-input-country-custom .searchbar-input.sc-ion-searchbar-md {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        box-shadow: none;
+        background: transparent;
+        padding-bottom: 0;
+        padding-top: 20px;
+        font-size: 16px;
+        font-weight: 300 !important;
+    }
+    .cls-input-passportcountry-custom .searchbar-input.sc-ion-searchbar-md {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        box-shadow: none;
+        background: transparent;
+        padding-bottom: 0;
+        padding-top: 30px;
+        font-size: 16px;
+        font-weight: 300 !important;
+    }
+
+    .alert-message.sc-ion-alert-md{
+        text-align: left;
+    }
+    
+    .cls-error .cls-input-custom .native-input.sc-ion-input-md{
+        color:  #f79321 !important;
+    }
+    .label-stacked.sc-ion-label-md-h {
+        transform: translateY(50%) scale(1) !important;
+    }
+    
+  
+}
+.cls-ion-datetime{
+    --padding-start: 0;
+    --padding-top: 8px;
+}
+.cls-ppe {
+    --padding-top: 3px !important;
+}
+
+.cls-error{
+    color: #f79321;
+    font-size: 14px;
+
+    // ion-label, .sub-label, .text-gender {
+    //     color: #f79321 !important;
+    // }
+
+    ion-input{
+        color: #f79321 !important;
+    }
+
+    ion-datetime{
+        color: #f79321 !important;
+    }
+
+    ion-searchbar{
+        color: #f79321 !important;
+    }
+    ion-item {
+        --border-color: #f79321 !important;
+    }
+
+    .cls-input-custom{
+        border-bottom: 0.5px solid #f79321;
+    }
+
+    .cls-datetofbirth,.cls-expiredate , .border-bottom{
+        border-bottom: 0.5px solid #f79321 !important;
+    }
+}
+.cls-iondatetime{
+    padding-left: 0;
+}
+.border-bottom.cls-error{
+    border-bottom: 0.5px solid #f79321 !important;
+}
+.div-left.cls-error{
+    border-bottom: 0.5px solid #f79321 !important;
+}
+.div-width-50.cls-error{
+    border-bottom: 0.5px solid #f79321 !important;
+}
+.cls-error .cls-input-name {
+    border-bottom: none !important;
+}
+.div-right.cls-error{
+    border-bottom: 0.5px solid #f79321 !important;
+}
+.cls-input-name,.cls-input-date {
+    margin-top: 4px;
+    font-size: 18px;
+    --padding-start: 0;
+    --padding-top: 0;
+    --padding-bottom: 4px;
+}
+.div-showerror{
+    .div-icon-error{
+        position: absolute;
+    }
+    .div-text-error{
+        padding-top: 2px;
+    }
+}
+.m-left-8{
+    margin-left: 8px;
+} 
+.m-left-28{
+    margin-left: 28px;
+} 
+
+.m-top-10{
+    margin-top: 6px;
+}
+.div-width-100{
+    width: 100%;
+}
+.div-width-300{
+    width: 300%;
+}
+.text-right{
+    text-align: right;
+    color: #26bed6;
+    font-weight: 300;
+}
+.cls-error{
+    color: #f79321;
+    //font-weight: bold;
+  }
+
+  .div-close-paxhint{
+    right: -6px;
+    position: absolute;
+    z-index: 14;
+    top: -0;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .p-top-6{
+    padding-top: 6px;
+}
+.div-line{
+    height: 1px;
+    background-color: #e9eaec;
+    margin: 12px 0;
+}
+.div-checkin-online-1 {
+    align-items: center;
+    .div-text-checkin-online{
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        color: #3f3b3b;
+    }
+    .cls-toggle{
+        position: absolute;
+        right: 16px;
+    }
+}
+.text-note{
+    font-size:14px;
+    color:#828282;
+    font-style: italic;
+    letter-spacing: -0.34px;
+    margin-top: 10px;
+  }
+  .div-expand-airlinemember.div-expand{
+    display: block;
+    animation: showNav 500ms ease-in-out both;
+  }
+  .div-collapse {
+    transition: opacity 1s ease-out;
+    display: none;
+    opacity: 0; 
+    height: 258px;
+    overflow: hidden;
+    padding: 0;
+    animation: hideNav 500ms ease-in-out both;
+  }
+
+  @keyframes showNav {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  @keyframes hideNav {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
+  .m-top-4{
+    margin-top: 4px;
+}
+.text-airlinemember {
+    font-size: 16px;
+    color: #3f3b3b;
+}
+.icon-expand {
+    margin-left: 4px;
+}
+.text-normal {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    color: #828282;
+}
+.div-expand-airlinemember {
+    border-radius: 4px;
+    background-color: #f5f6f7;
+    padding: 8px 16px 12px;
+}
+.cls-input-membercode {
+    --background: #fff;
+    border-radius: 4px;
+    --padding-start: 8px;
+    border: solid 0.5px #828282;
+    font-size: 14px;
+}
+.div-airline-logo {
+    height: 22px;
+    display: flex;
+    align-items: center;
+    .img-logo {
+        max-width: 28px;
+        margin-right: 4px;
+    }
+}
+
+  .div-option-contact {
+    .div-item-radio{
+        display: flex;
+        align-items: center;
+    }
+    .text-normal {
+        font-size: 16px;
+        line-height: 1.4;
+        text-align: left;
+        color: #3f3b3b;
+    }
+    .text-label {
+        font-size: 14px;
+        line-height: 1.4;
+        text-align: left;
+        color: #3f3b3b;
+        margin-top: 2px;
+        margin-left: 4px;
+    }
+    .m-bottom-6 {
+        margin-bottom: 6px;
+    }
+    .m-bottom-10 {
+        margin-bottom: 10px;
+    }
+}
+
+.p-top-16{
+    padding-top: 16px;
+}
+.div-checkbox {
+    margin-right: 6px;
+}
+.v-align-center {
+    align-items: center;
+}
+.m-left-4 {
+    margin-left: 4px;
+}
+.text-note-airlinemember {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    color: #828282;
+}

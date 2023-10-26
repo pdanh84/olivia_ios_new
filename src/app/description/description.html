@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+        <ion-row>
+          <ion-col style="text-align: center">
+            <div style="align-self: center" >
+              <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+                <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+              </div>
+              
+              <div><label class="text-title">Thông tin</label></div>
+              <div><label style="font-size: 11px;color: #828282">{{Name}}</label></div>
+            </div>
+          </ion-col>
+        </ion-row>
+        </ion-toolbar>
+  </ion-header>
+  <ion-content>
+       <div class="div-description-content">
+          <label  [innerHTML]="FullDescription" text-wrap>
+            </label>
+       </div>
+  </ion-content>

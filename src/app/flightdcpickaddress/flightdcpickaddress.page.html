@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thêm đưa đón</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="_flightService.itemFlightCache.isAirportFirst">
+    <div class="div-title div-flex margin-top-10">
+      <div class="text-title div-width-80">
+        Đón tiễn tại {{_flightService.itemFlightCache.departCity}}
+      </div>
+      <div class="div-width-20 text-right">
+        <ion-toggle mode="ios"  [(ngModel)]="isblocktextDepart" (ionChange)="toggleChangeDepart($event)" name="kiwi" color="success"></ion-toggle>
+      </div>
+      
+    </div>
+    <ion-row  class="row-search">
+      <ion-col (click)="searchDepart()" size="1" class="align-self">
+        <div>
+          <img *ngIf="isblocktextDepart" src="./assets/ic_flight/icfilght_location.svg">
+          <img *ngIf="!isblocktextDepart" src="./assets/ic_flight/location_block.svg">
+        </div>
+      </ion-col>
+      <ion-col  (click)="searchDepart()" size="11" class="align-self">
+        <div class="div-title-place">
+          <label class="text-place" [ngClass]="!isblocktextDepart?'text-block':''">
+            {{inputFrom}} 
+           </label>
+        </div>
+       
+      </ion-col>
+    </ion-row>
+  </div>
+  <!-- return -->
+  <div *ngIf="_flightService.itemFlightCache.isAirportSecond">
+    <div class="div-title div-flex margin-top-26">
+      <div class="text-title div-width-80">
+        Đón tiễn tại {{_flightService.itemFlightCache.returnCity}}
+      </div>
+      <div class="div-width-20 text-right">
+        <ion-toggle mode="ios"  [(ngModel)]="isblocktextReturn" (ionChange)="toggleChangeReturn($event)" name="kiwi" color="success"></ion-toggle>
+      </div>
+    </div>
+    
+    <!-- <ion-item class="ion-item margin-top-26">
+      <label slot="start" class="text-title">Đón tiễn tại {{_flightService.itemFlightCache.returnCity}}</label>
+      <ion-toggle mode="ios" slot="end" [(ngModel)]="isblocktextReturn" (ionChange)="toggleChangeReturn($event)" name="kiwi" color="success"></ion-toggle>
+    </ion-item> -->
+    <ion-row  class="row-search">
+      <ion-col (click)="searchReturn()" size="1" class="align-self">
+        <div>
+          <img *ngIf="isblocktextReturn" src="./assets/ic_flight/icfilght_location.svg">
+          <img *ngIf="!isblocktextReturn"  src="./assets/ic_flight/location_block.svg">
+        </div>
+      </ion-col>
+      <ion-col (click)="searchReturn()" size="11" class="align-self">
+        <div class="div-title-place">
+          <label class="text-place" [ngClass]="!isblocktextReturn?'text-block':''">
+            {{inputTo}} 
+          </label>
+          </div>
+       
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()"  ion-button round outline class="button button2">Tìm đưa đón</button>
+  </div>
+</ion-footer>

@@ -1,0 +1,54 @@
+.d-flex {
+    display: flex;
+}
+
+.user-link-profile-content{
+    padding: 16px;
+
+    .div-width-200 {
+        width: 200%;
+    }
+
+    .div-width-100 {
+        width: 100%;
+    }
+
+    .div-text {
+        padding-left: 16px;
+        color: #4267B2;
+        font-size: 16px;
+    }
+    .logo-fb {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+    }
+    .v-align-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .div-button{
+        text-align: right;
+        
+        .btn-link {
+            color: #ffffff;
+            background: #003c71;
+            border-radius: 4px;
+            text-align: center;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        .btn-unlink {
+            color: #003c71;
+            background: #ffffff;
+            border: solid 1px #003c71;
+
+            border-radius: 4px;
+            text-align: center;
+            padding: 6px;
+            font-size: 14px;
+        }
+    }
+}

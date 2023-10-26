@@ -1,0 +1,27 @@
+::ng-deep{
+    .action-sheet-cancel.sc-ion-action-sheet-md{
+        background-color: #ff9500;
+        color: #ffffff;
+        width: 91%;
+        font-size: 18px;
+        margin: 8px 16px;
+        text-align: center;
+        border-radius: 4px;
+        .action-sheet-button-inner.sc-ion-action-sheet-md{
+            justify-content: center;
+        }
+    }
+    .action-sheet-group::-webkit-scrollbar {
+        width: 1em;
+        display: block !important;
+    }
+    
+    .action-sheet-group::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    
+    .action-sheet-group::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }
+}

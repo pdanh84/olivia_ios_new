@@ -1,0 +1,83 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+<div  style="text-align: center">
+  <img  src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div class="mt12">
+    <!-- <ion-label class="text" text-wrap>
+      Mã thanh toán Payoo: {{BillingCode}}, số tiền: <span class="totalPrice">{{total}} VND</span>  vui lòng thanh toán trước <span class="textpayment">{{PeriodPaymentDate}}</span>
+    </ion-label> -->
+    <div>
+      <ion-label class="text-payment-info" text-wrap>
+        Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU
+      </ion-label>
+    </div>
+   <div>
+    <ion-label class="text-payment-info" text-wrap>
+      Vé máy bay đã được giữ đến {{text}}
+    </ion-label>
+   </div>
+   <div>
+    <ion-label class="text-payment-info" text-wrap>
+      Vui lòng thanh toán đặt chỗ {{bookingCode}} theo thông tin bên dưới
+    </ion-label>
+  </div>
+  </div>
+    <div class="d-flex-later">
+      <div class="d-img">
+        <img src={{urlimgbank}}>
+      </div>
+      <div>
+        <ion-label class="cls-text">
+         {{bankName}}
+        </ion-label>
+        <div class="mt6">
+          <ion-label (click)="openWebpage()" class="cls-textopen">
+            Mở website/ứng dụng {{textbank}}
+          </ion-label>
+        </div>
+      </div>
+    </div>
+    <div class="div-text-payment">
+      <p class="text-payment-info" text-wrap>
+        Số TK: <b>{{accountNumber}}</b><a class='text-copy' (click)='copyClipboard(1)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" >
+        Người thụ hưởng: Công ty Cổ Phần IVIVU.COM<a class='text-copy' (click)='copyClipboard(2)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" text-wrap>
+        Nội dung chuyển tiền: <b class="text-booking">{{bookingCode}}</b><a class='text-copy' (click)='copyClipboard(3)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" text-wrap>
+        Tổng tiền: <b class="text-bold">{{total}} VND</b><a class='text-copy' (click)='copyClipboard(4)'>Sao chép</a>
+      </p>
+      <p *ngIf="text" class="text-payment-info" text-wrap>
+        Hạn thanh toán: <b class="text-bold">Trước {{text}}</b>
+      </p>
+    </div>
+    <div class="div-split-panel"></div>
+    <div> <p class="text-payment-info" text-wrap>
+      Xác nhận đặt vé sẽ được gửi đến <span *ngIf="contactOption=='zalo'">zalo</span><span *ngIf="contactOption=='mail'">email</span> của Quý khách <span *ngIf="contactOption=='mail'" class="text-bold">{{_email}}</span> sau khi iVIVU.com nhận được tiền thanh toán. <span *ngIf="contactOption=='zalo'">Nếu Quý khách không nhận được mã xác nhận qua zalo, vui lòng gửi chứng từ thanh toán (Uỷ nhiệm chi, Lệnh thanh toán) về <a class="cls-textopen" href="https://zalo.me/3888313238733373810"></a></span><span *ngIf="contactOption=='mail'">Nếu Quý khách không nhận được email Xác nhận sau 30 phút, vui lòng gửi chứng từ thanh toán (Uỷ nhiệm chi, Lệnh thanh toán) về email <span class="text-bold">support@ivivu.com</span> để được hỗ trợ xử lý.</span>
+    </p>
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="addToCalendar()" ion-button round outline class="button button2">Thêm thông tin chuyến bay vào lịch</button>
+    <button (click)="next()" ion-button round outline class="button button2 m-top-0">Hoàn thành</button>
+  </div>
+</ion-footer>

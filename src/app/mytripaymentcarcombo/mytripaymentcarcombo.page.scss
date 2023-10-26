@@ -1,0 +1,271 @@
+
+    .text-name
+    {
+      font-weight: bold;
+      font-size: 14px;
+      .text-green
+      {
+        color: #26bed6
+      }
+    }
+    .text-date
+    {
+        margin-top: 0px;
+        font-weight: bold;
+        font-size: 14px
+    }
+    .image-card{
+      display: initial !important;
+    }
+    .total-price{
+      color: #26bed6;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .button2
+    {
+        border-color: #F79221;
+        background-color: #F79221;
+        color: #ffffff;
+        width: 90%;
+        height: 48px;
+
+    }
+    .item-md ion-thumbnail ion-img, .item-md ion-thumbnail img {
+      width: 104px;
+      height: 104px;
+    }
+    .item.item-md .checkbox-md {
+      position: static;
+      display: block;
+      margin: 9px 9px 9px 4px;
+    }
+    .text-room-price-ota{
+      color:#828282;
+      font-size: 14px;
+      text-align: right;
+      text-decoration: line-through;
+      margin: 20px;
+      margin-top: -20px;
+  }
+  .toolbar-title-md {
+    text-align: center;
+    margin-right: 70px;
+  }  
+  .div-wrapimg {
+    position: relative;
+    height:87px;
+    width: 104px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+hr
+{
+  background-color: #ccc;
+}
+.cls-hr
+{
+  margin-left: -16px;
+  margin-right: -16px;
+  height: 6px;
+  background-color: #f2f2f2 !important;
+}
+@media (min-width:287px) and (max-width: 359px) {
+  .col-description-roompayment{
+    max-width: 188px;
+    left: 12px;
+  }
+
+}
+.text-infocar
+{
+    font-weight: 300;
+    color: #4f4f4f;
+    font-size: 12px
+}
+.combo-departure-time{
+    font-size: 14px;
+      font-weight: 300;
+      padding-top: 4px;
+  }
+  .combo-flight-price-label-down{
+    font-size: 14px;
+    color: #003c71;
+  }
+  .flight-price{
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .div-split-panel{
+    height: 7px;
+    background: #f2f2f2;
+    margin-top: 12px;
+    margin-left: -16px;
+    margin-right: -16px;
+}
+.text-location
+{
+    font-size: 16px;
+    font-weight: bold
+}
+.combo-departure-time{
+    font-size: 14px;
+      font-weight: 600;
+      padding-top: 4px;
+  }
+  .combo-flight-price-label-down{
+    font-size: 14px;
+    color: #003c71;
+  }
+  .flight-price{
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .combo-flight-price-label-up{
+    font-size: 14px;
+    color: #ec971f;
+  }
+  .div-title{
+    margin-top: 15px;
+    .combo-title{
+        font-size: 16px;
+        font-weight: 600;
+        color: #003c71;
+    }
+    .combo-sub-title{
+        font-size: 18px;
+        font-weight: bold;
+        color: #f59233;
+    }
+    .combo-title{
+      font-size: 18px;
+      font-weight: bold;
+  }
+}
+.cls-list
+{
+  margin-left: -15px;
+}
+.cls-rowheight
+{
+  height: 60px;
+}
+.cls-divpayment
+{
+  margin-top: -15px;
+  margin-left: -5px
+}
+.text-p
+{
+  font-size: 14px;
+  color: #4f4f4f;
+  letter-spacing: -0.4px;
+  white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.div-info
+{
+  margin-left: 3px;
+  margin-top: -10px;
+}
+.cls-rowheight1
+{
+  margin-left: -5px;
+  height: 81px;
+  margin-bottom: 30px;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.img-payoo
+{
+  width: 40px;
+  vertical-align: middle;
+}
+.imgcard
+{
+  width: 40px;
+  height: 12.8px;
+}
+.imgcard
+{
+  width: 40px;
+  height: 12.8px;
+}
+.text-infobank
+    {
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: -0.46px;
+        color: #000000;
+    }
+    .ml8
+    {
+      margin-left: 8px;
+    }
+    .ion-item
+{
+  --padding-start: 0px;
+  --inner-border-width: 0 0 0px 0;
+  --min-height: 0px;
+  margin-left: 32px;
+}
+.label-input{
+  font-size: 13px;
+  font-weight: 300;
+  color: #000000;
+  margin-left: 5px;
+}
+.ion-checkbox{
+  width: 16px;
+  height: 16px;
+  margin: -2px;
+}
+.ion-item1
+{
+  --inner-border-width: 0 0 0px 0;
+}
+.div-DK{
+  display: flex;
+  background-color: #F2F2F5;
+  padding: 8px;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-bottom: 20px;
+}
+.checkbox-DK{
+  margin-left: 10px;
+  width: 28px;
+  height: 18px;
+  margin-top: 2px;
+}
+.text-DK{
+  font-size: 14px;
+  line-height: 1.2;
+  color: #717484;
+  margin-left: 3px;
+}
+.btn-disabled{
+  background: #bdbdbd;
+  color: #ffffff;
+  width: 90%;
+  height: 48px;
+}
+.text-link-DK{
+  color: #2f80ed
+}
+.img-homecredit {
+  width: 56px;
+          vertical-align: middle;
+          top: 5px;
+          padding: 6px;
+          margin-left: 8px;
+}
+
+    
+

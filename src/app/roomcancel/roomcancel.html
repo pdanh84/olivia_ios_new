@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col style="text-align: center;height: 48px;">
+                <div style="align-self: center">
+                    <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+                        <!-- <ion-icon (click)="goback()" color="dark-tint" style="font-size: 2em;" name="arrow-back" class="card-title"></ion-icon> -->
+                        <img style="height: 48px; padding: 8px;margin-top: -7px;margin-left:-14px"
+                            src="./assets/imgs/ios-arrow-round-back.svg">
+                    </div>
+
+                    <div style="padding-top: 9px;font-size: 18px;font-weight: bold;"><label class="text-title">Chính
+                            sách hủy/ thay đổi phòng</label></div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="!showFromMytrip else isShowFromMytrip">
+        <div *ngIf="roomcancelhbed==1">
+            <div class="room-cancel-content">
+                <div class="room-cancel-name">{{ roomInfo.RoomName}}</div>
+                <div class="room-cancel-fee">
+                    <ion-row class="penal-detail"
+                        *ngIf='roomInfo && roomInfo.Penaltys[0] && roomInfo.Penaltys[0].PenaltyShortDateStr && roomInfo.Penaltys[0].Penalty_Type != 2'>
+                        <label class="penalty-text link-penalty">Hủy miễn phí trước ngày
+                            {{roomInfo.Penaltys[0].PenaltyShortDateStr}}</label>
+                    </ion-row>
+                    <ion-row>
+                        <div class="penalty-active arrow">
+                            <label *ngFor="let pen of roomInfo.Penaltys; let k = index"
+                                class="penalty-active-description" [innerHTML]="pen.PenaltyDescription"></label>
+                        </div>
+                    </ion-row>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="roomcancelhbed==0">
+            <div class="room-cancel-content">
+                <!-- <div class="room-cancel-title">Bạn muốn hủy toàn bộ đặt phòng</div> -->
+                <div class="room-cancel-name">{{ roomInfo.RoomName}}</div>
+                <div class="room-cancel-fee">
+                    <ion-row class="penal-detail">
+                        <label class="penalty-text link-penalty" style="color: #e52822">{{textcancel}}</label>
+                    </ion-row>
+                </div>
+            </div>
+        </div>
+        <!-- <div *ngIf="!roomcancelhbed">
+                    <div class="room-cancel-content">
+                            <div class="room-cancel-name">{{ roomInfo.RoomName}}</div>
+                            <div class="room-cancel-fee">
+                                    <ion-row class="penal-detail" *ngIf='roomInfo && roomInfo.Penaltys[0] && roomInfo.Penaltys[0].PenaltyShortDateStr && roomInfo.Penaltys[0].Penalty_Type != 2'>
+                                        <label class="penalty-text link-penalty">Hủy miễn phí trước ngày {{roomInfo.Penaltys[0].PenaltyShortDateStr}}</label>
+                                    </ion-row>
+                                    <ion-row>
+                                        <div class="penalty-active arrow">
+                                            <label *ngFor="let pen of roomInfo.Penaltys; let k = index" class="penalty-active-description" [innerHTML]="pen.PenaltyDescription"></label>
+                                        </div>
+                                    </ion-row>
+                            </div>
+                        </div>
+                </div> -->
+    </div>
+
+    <ng-template #isShowFromMytrip>
+        <div class="room-cancel-content">
+            <div class="room-cancel-name">{{ roomInfo.RoomName}}</div>
+            <div class="room-cancel-fee">
+                <div class="penal-detail">
+                    <label class="penalty-text link-penalty">{{textcancel}}</label>
+                </div>
+                <div class="p-top-8">
+                    <label class="penalty-text link-penalty">*Phí quản trị 20.000 VND được áp dụng cho mỗi trường hợp
+                        thay đổi hoặc hủy phòng cộng với phí phạt theo chính sách thay đổi hoặc hủy đặt phòng của Khách
+                        sạn & chi phí phát sinh khác (nếu có).</label>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ion-content>
+<!-- <ion-footer>
+        
+        <div style="background-color: #ffffff; text-align: center">
+          <button (click)="cancel()" ion-button round outline class="btn-cancel">Hủy đặt phòng</button>
+        </div>
+    </ion-footer> -->

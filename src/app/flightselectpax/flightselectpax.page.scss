@@ -1,0 +1,196 @@
+.div-close{
+    position: absolute;
+    left: 10px;
+    top:0;
+    width: 36px;
+    margin-left: 0 !important;
+
+    .header-img-close{
+        margin-top: 0 !important;
+    }
+}
+    .button
+    {
+        background: #F79221;
+        color: #ffffff;
+        border-color: #F79221;
+        width: 90%;
+        font-size: 22px;
+        height: 48px;
+        margin:10px 0;
+    } 
+    .btn-close{
+        position: absolute;
+        top: 10px;
+        width: 36px;
+        height: 36px;
+        background-color: #fff;
+        font-size: 2em;
+        color: #828282;
+        padding: 0;
+        margin-left: 0 !important;
+    }
+    .t-center{
+        align-self: center;
+        text-align: center;
+    }
+    .border-bottom {
+        border-bottom: solid 0.5px #bdbdbd;
+    }
+    .d-flex{
+        display: flex;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        
+
+        .text-left-pax{
+            min-width: 73%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .ic-plus{
+            width: 26px;
+        }
+        .ic-minus{
+            width: 66px;
+        }
+        .number-room{
+            font-size: 24px;
+            letter-spacing: -0.69px;
+            color: #26bed6;
+            font-weight: 600;
+        }
+        .text-room{
+            font-size: 20px;
+            letter-spacing: -0.69px;
+            color: #3f3b3b;
+            font-weight: 600;
+        }
+        
+    }
+    .no-border-bottom{
+        border-bottom:none;
+    }
+    .p-top-20{
+        padding-top: 20px;
+    }
+    .text-child-age{
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+    }
+    .div-age{
+        position: relative;
+
+        .p-right-8{
+            padding-right: 8px;
+        }
+        .div-text-age{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .text-child{
+            font-size: 16px;
+            font-weight: 300;
+            color: #222222;
+        }
+        .selected-age{
+            font-size: 18px;
+            color: #26bed6;
+            letter-spacing: -0.51px;
+            font-weight: 600;
+        }
+    }
+    .div-footer{
+        background-color: #ffffff; 
+        text-align: center;
+        max-height: 68px;
+    }
+    .text-sub{
+        font-size: 13px;
+        font-weight: 300;
+        color: #828282;
+        margin-top: 4px;
+    }
+    .m-width-26 {
+        min-width: 26px;
+    }
+    ///style ios
+    ::ng-deep{
+        @media (min-width: 375px) and (max-width: 384px) {
+            .text-left-pax{
+                min-width: 73%;
+            }
+    
+          }
+          @media (min-width: 414px) and (max-width: 420px) {
+            .text-left-pax{
+                min-width: 75.8%;
+            }
+    
+          }
+        //style cho ios
+        .action-sheets-select-age .action-sheet-container.sc-ion-action-sheet-ios{
+            padding: 0;
+        }
+        .action-sheets-select-age .action-sheet-group.sc-ion-action-sheet-ios:last-child{
+            margin: 0;
+            border-radius: 0;
+            overflow: auto;
+        }
+        .action-sheets-select-age .action-sheet-title.sc-ion-action-sheet-ios{
+            font-size: 14px;
+            font-weight: 300;
+            text-align: center;
+            color: #222222;
+        }
+        .action-sheets-select-age .action-sheet-button-inner.sc-ion-action-sheet-ios{
+            justify-content: center;
+        }
+        .action-sheets-select-age .action-sheet-button.sc-ion-action-sheet-ios{
+            font-size: 17px;
+            color: #bdbdbd;
+            height: 48px;
+        }
+        .action-sheets-select-age .no-border-bottom.action-sheet-button.sc-ion-action-sheet-ios{
+            border-bottom: none;
+            background-position: no;
+        }
+        .action-sheets-select-age {
+            .picker-wrapper.sc-ion-picker-ios{
+                height: 332px;
+                margin-bottom: calc(env(safe-area-inset-bottom) + 0px);
+                position: fixed;
+            }
+            .picker-toolbar-button.sc-ion-picker-ios{
+                text-align: center;
+            }
+            .picker-button.ion-activatable.picker-header.sc-ion-picker-ios{
+                font-weight: 300;
+                color: #222222;
+                font-size: 14px;
+            }
+
+            .button-done{
+                color: #ffffff !important;
+                font-size: 17px !important;
+                background: #ec971f;
+                border-radius: 4px;
+                height: 48px !important;
+                width: 92%;
+                margin: 8px 16px;
+              }
+        }
+        
+    }
+
+    .action-sheets-select-age{
+        .img-filter{
+          width: 30px;
+          height: 30px;
+          margin-right: 11px;
+        }
+         
+      }

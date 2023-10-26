@@ -1,0 +1,145 @@
+.header-discount {
+    
+  .toolbar-infobkg{
+    height: 48px;
+    text-align: center
+  }
+  .title-infobkg{
+    font-weight: bold;
+    padding: 0;
+    padding-top: 10px;
+  }
+  .img-close{
+    max-width: 150%;
+  }
+  .cls-button{
+    position: absolute;
+    .btn-close{
+      background: #ffffff;
+      left: -6px !important;
+      top: -22px;
+
+      .header-img-close{
+        max-width: 36px;
+      }
+    }
+  }
+  ion-header .div-close {
+    height: 36px !important;
+  }
+}
+.header-discount:after {
+  background-image: none !important;
+}
+.no-shadow {
+    box-shadow: none !important;
+  }
+  .d-flex {
+    display: flex;
+  }
+.btnnone
+{
+    color: #ffffff;
+    width: 84px;
+    border: 1px solid #26bed6;
+    background-color: #26bed6;
+    font-size: 14px !important;
+    margin: 0;
+    height: 45px !important;
+    margin-top: 9px;
+    padding: 0;
+}
+.btnnonesuccess
+{
+    width: 100%;
+    background-color: white;
+    font-size: 14px !important;
+    margin: 0;
+    height: 30px !important;
+    border: solid 1px #447a00;
+    color: #447a00;
+}
+.cls-m16
+{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.ion-item
+{
+  --inner-border-width: 0 0 0px 0;
+  --padding-start: 0px
+}
+.cls-input
+{
+    border:1px solid #bdbdbd ;
+    border-radius: 6px; 
+}
+
+.text-input
+{
+    font-size: 14px;
+    color: #828282;
+    --padding-start: 0;
+}
+.cls-col
+{
+  align-self: flex-end;
+}
+.text-right
+{
+    text-align: right;
+}
+.div-split-panel {
+    margin: 16px -16px;
+    height: 7px;
+    background-color: #f2f2f2 !important;
+  }
+  .title-voucher {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+    color: #3f3b3b;
+    margin-bottom: 12px;
+  }
+
+
+.div-search {
+    width: 100%;
+    //padding: 9px 96px 9px 8px;
+    border-radius: 6px;
+    border: solid 1px #ecf0f5;
+    background-color: #fff;
+    margin-right: 8px;
+    margin-top: 9px;
+    padding-left: 9px;
+  
+    .div-inputcode {
+      margin-left: 4px;
+    }
+  
+    .div-img-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  
+    }
+  }
+  .div-voucher-footer {
+    .button2 {
+      background: #f79321;
+      color: #fff;
+      border-color: #f79321;
+      border: solid 1px #f79321;
+      width: 92%;
+      font-size: 17px !important;
+      font-weight: bold !important;
+      margin: 8px 16px!important;
+      padding: 0;
+      margin-right: 16px !important;
+    }
+  }
+  .cls-deactive {
+    opacity: 0.6;
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+  }

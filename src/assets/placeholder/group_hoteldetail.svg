@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="1018" fill="none" viewBox="0 0 360 1018">
+    <path fill="#F2F2F2" d="M0 0h360v222H0zM16 236h328v16H16zM16 260h216v16H16zM16 292h104v16H16zM128 338h104v16H128zM128 370h216v16H128zM128 394h160v16H128zM128 426h104v16H128zM16 458h104v16H16zM240 562h104v16H240zM184 586h160v16H184zM16 482h271v16H16zM16 506h215v16H16zM16 530h328v16H16z"/>
+    <rect width="104" height="104" x="16" y="338" fill="#F2F2F2" rx="6"/>
+    <rect width="328" height="45" x="16" y="618" fill="#F2F2F2" rx="22.5"/>
+    <path fill="#F2F2F2" d="M128 693h104v16H128zM128 725h216v16H128zM128 749h160v16H128zM128 781h104v16H128zM16 813h104v16H16zM240 917h104v16H240zM184 941h160v16H184zM16 837h271v16H16zM16 861h215v16H16zM16 885h328v16H16z"/>
+    <rect width="104" height="104" x="16" y="693" fill="#F2F2F2" rx="6"/>
+    <rect width="328" height="45" x="16" y="973" fill="#F2F2F2" rx="22.5"/>
+</svg>

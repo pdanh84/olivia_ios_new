@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary" class="p-absolute" (click)="goback()">
+      <img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-buttons>
+    <ion-title class="text-title">
+      Chi tiết giá đã chọn
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="p-all-16 div-ticket-servicedetail-content">
+      <div class="div-service-name">
+          {{itemTicketService.name}}
+      </div>
+      <div *ngIf="itemTicketService.description" [innerHTML]="itemTicketService.description" class="text-normal m-top-16"></div>
+      
+      <div class="headline-title m-top-16" *ngIf="itemTicketService.programContent">Thông tin sản phẩm</div>
+      <div [innerHTML]="itemTicketService.programContent" class="text-normal m-top-16"></div>
+
+      <div *ngIf="itemTicketService.generalTerms" class="div-split-panel"></div>
+      <div class="headline-title" *ngIf="itemTicketService.generalTerms">Điều khoản chung</div>
+      <div [innerHTML]="itemTicketService.generalTerms" class="text-normal m-top-16"></div>
+
+      <div *ngIf="itemTicketService.userManual" class="div-split-panel"></div>
+      <div class="headline-title" *ngIf="itemTicketService.userManual">Hướng dẫn sử dụng</div>
+      <div [innerHTML]="itemTicketService.userManual" class="text-normal m-top-16"></div>
+  </div>
+</ion-content>

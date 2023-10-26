@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-row>
+    <ion-col size="2" class="header-text header-icon" (click)="goback()">
+        <img style="height: 48px; padding: 6px; padding-top: 10px" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-col>
+    <ion-col size="8" class="header-text">
+        <ion-title class="text-title">
+            Voucher của tôi
+        </ion-title>
+    </ion-col>
+  </ion-row>
+</ion-header>
+    
+    <ion-content>
+        <div class="myvoucher-content p-all-16">
+           <div *ngIf="loadvoucherdone else loadingvoucher">
+            <div *ngIf="((vouchers && vouchers.length >0) || (vouchersClaimed && vouchersClaimed.length >0)) else emptyVoucher">
+                <div *ngFor="let itemVoucher of vouchers; let idx=index" class="div-item-voucher" (click)="showVoucherDetail(itemVoucher)">
+                    <div class="d-flex">
+                        <div class="div-header-spice"></div>
+                        <div class="div-content-item d-flex ">
+                            <div class="div-icon">
+                                <img [src]="itemVoucher.avatar"/>
+                            </div>
+                            <div class="div-content ">
+                                <div class="div-code">{{itemVoucher.code}}</div>
+                                <div class="div-title ">{{itemVoucher.rewardsItem.title}}</div>
+                                <div class="div-valid-date">{{itemVoucher.validdateDisplay}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="vouchersClaimed && vouchersClaimed.length >0">
+                  <div class="text-claimed">Đã sử dụng</div>
+                  <div *ngFor="let itemVoucher of vouchersClaimed; let idx=index" class="div-item-voucher">
+                    <div class="d-flex">
+                        <div class="div-header-spice cls-claimed"></div>
+                        <div class="div-content-item d-flex">
+                          <div class="div-icon-claimed"></div>
+                            <div class="div-icon opt-3">
+                                <img [src]="itemVoucher.avatar"/>
+                            </div>
+                            <div class="div-content opt-5">
+                                <div class="div-code">{{itemVoucher.code}}</div>
+                                <div class="div-title">{{itemVoucher.rewardsItem.title}}</div>
+                                <div class="div-valid-date">{{itemVoucher.validdateDisplay}}</div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <ng-template #emptyVoucher>
+                <div class="inbox-content-empty">
+                    <div class="img-inbox-empty">
+                        <img class="img-empty" src="./assets/empty/empty_reviews.svg">
+                    </div>
+                    <div class="text-trip-empty">
+                      <label>Hiện tại bạn chưa có mã voucher mới</label>
+                    </div>
+                </div>
+            </ng-template>
+           </div>
+           <ng-template #loadingvoucher>
+            <div *ngFor="let item of loadsdk; let idx=index" class="div-item-voucher" >
+              <div class="d-flex  h-78">
+                  <ion-skeleton-text animated style="width:6px;border-radius: 6px 0 0 6px; height: 78px;margin: 0;"></ion-skeleton-text>
+                  <div class="div-content-item d-flex p-10 width-100">
+                      <div class="div-icon">
+                        <ion-skeleton-text animated style="width:42px;border-radius: 6px; height: 42px;"></ion-skeleton-text>
+                      </div>
+                      <div class="div-content width-100">
+                          <div class="div-title width-100"><ion-skeleton-text animated style="width:80%;height: 20px;"></ion-skeleton-text></div>
+                          <div class="div-valid-date width-100"><ion-skeleton-text animated style="width:60%;height: 20px;"></ion-skeleton-text></div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+           </ng-template>
+                
+               
+            
+        </div>
+    </ion-content>

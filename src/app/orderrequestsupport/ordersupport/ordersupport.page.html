@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Yêu cầu hỗ trợ</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div class="p-all-16">
+    <div class="text-1 margin-top-27">
+      Đội ngũ chăm sóc khách hàng IVIVU
+    </div>
+    <div class="text-2 margin-top-8">
+      Chúng tôi sẽ phản hồi quý khách trong vòng 60 phút trong thời gian làm việc (7:30-21:00)
+    </div>
+    <div class="text-request margin-top-23">
+      Yêu cầu
+    </div>
+    <div class="margin-top-6 div-request">
+      <ion-item class="ion-item" >
+        <ion-label style="display:none">Chọn yêu cầu</ion-label>
+        <ion-select (ionChange)="getValue($event)" cancelText="Hủy" okText="Ok" class="text-request" placeholder="- Chọn thông tin cần thay đổi -">
+          <!-- <ion-select-option value="none" disabled>- Chọn thông tin cần thay đổi -</ion-select-option> -->
+          <ion-select-option *ngIf="!isFlyBooking" value="Thay đổi đơn hàng">Thay đổi đơn hàng</ion-select-option>
+          <ion-select-option *ngIf="!isFlyBooking" value="Hủy đơn hàng">Hủy đơn hàng</ion-select-option>
+          <ion-select-option *ngIf="!isFlyBooking" value="Đặt thêm dịch vụ">Đặt thêm dịch vụ</ion-select-option>
+          <ion-select-option *ngIf="!isFlyBooking && stt==1" value="Sử dụng giá trị bảo lưu">Sử dụng giá trị bảo lưu</ion-select-option>
+          <ion-select-option *ngIf="!isFlyBooking" value="Khác">Khác</ion-select-option>
+
+          <ion-select-option *ngIf="isFlyBooking" value="Hoàn/Hủy chuyến bay">Hoàn/Hủy chuyến bay</ion-select-option>
+          <ion-select-option *ngIf="isFlyBooking" value="Thay đổi thông tin">Thay đổi thông tin</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="text-request margin-top-19">
+      Nội dung hỗ trợ
+    </div>
+    <div class="margin-top-9 div-note">
+      <ion-textarea [(ngModel)]="note" class="text-request"></ion-textarea>
+    </div>
+</div>
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Gửi yêu cầu<span class="margin-left-5"><img class="img" src="./assets/imgs/ic_next.svg"></span></button>
+  </div>
+</ion-footer>

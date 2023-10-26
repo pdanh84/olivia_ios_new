@@ -1,0 +1,83 @@
+.d-flex {
+    display: flex;
+}
+.div-width-40 {
+    width: 40%;
+}
+.div-width-60 {
+    width: 60%;
+}
+.m-bottom-19{
+    margin-bottom: 19px;
+}
+.m-top-16 {
+    margin-top: 16px;
+}
+.t-right {
+    text-align: right;
+    text-decoration: underline;
+    color: #003c71;
+}
+.div-confirmpayment-content{
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+    color: #333;
+
+    .text-label{
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: left;
+        color: #828282;
+    }
+
+    .cls-ivivu{
+        color: #26bed6;
+    }
+
+    .div-split-panel {
+        height: 8px;
+        margin: 23px -16px 25px -16px;
+        background-color: #f9fbfc;
+    }
+
+    .text-bold{
+        font-weight: 600;
+    }
+    .p-16{
+        padding: 16px 0;
+    }
+}
+
+
+
+.div-confirmpayment-footer{
+    display: flex;
+    margin: 0 16px;
+
+    .button-cancel {
+        border-radius: 4px;
+        background: #fff;
+        color: #f79321;
+        border: solid 1px #f59233;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 12px 0 11px;
+        margin-right: 8px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .button-confirm {
+        border-radius: 4px;
+        background-color: #f59233;
+        color: #fff;
+        border: solid 1px #f59233;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 12px 0 11px;
+        text-align: center;
+        width: 100%;
+    }
+}

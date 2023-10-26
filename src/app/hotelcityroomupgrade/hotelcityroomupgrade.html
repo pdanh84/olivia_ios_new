@@ -1,0 +1,166 @@
+<ion-header class="div-hotecityroomupgrade-header">
+        <ion-row class="row-header">
+            <ion-buttons start style="position: absolute;top: 11px;">
+                <button class="btn-back" (click)="goback()">
+                  <img class="img-header-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+                </button>
+              </ion-buttons>
+          <ion-title class="header-title">Đổi phòng</ion-title>
+      </ion-row>
+  </ion-header>
+<ion-content >
+    <div class="div-hotecityroomupgrade-content">
+        <div  *ngFor="let objectRoom of roomdetailarr; let idx =index">
+            <img [src]="objectRoom.imgurl" class="img-hotel-detail" style="width: 100%;">
+            <div [ngClass]="objectRoom.selected ? 'hotel-room-detail-content bg-select' : 'hotel-room-detail-content bg-white'">
+                <h2 class="room-class-name">{{objectRoom.ClassName}} | {{objectRoom.TotalRoom}} phòng</h2>
+                <!-- Số khách -->
+                    <div class="room-class-icon">
+                        <img class="icon-detail-fix" src="./assets/iocnsearch/ic_people.svg">
+                    </div>
+                    <div class="room-class-info">
+                        <span *ngIf="objectRoom.Rooms[0].MaxAdults != objectRoom.Rooms[0].IncludeAdults" class="text-room-class-description">Tối đa
+                            {{objectRoom.Rooms[0].MaxAdults}}
+                            người lớn |
+                            {{objectRoom.Rooms[0].IncludeAdults}}
+                            người lớn &
+                            {{objectRoom.Rooms[0].MaxChils}}
+                            trẻ em</span>
+                        <span *ngIf="objectRoom.Rooms[0].MaxAdults == objectRoom.Rooms[0].IncludeAdults" class="text-room-class-description">Tối đa
+                            {{objectRoom.Rooms[0].MaxAdults}}
+                            người lớn &
+                            {{objectRoom.Rooms[0].MaxPax - objectRoom.Rooms[0].MaxAdults}}
+                            trẻ em</span>
+                    </div>
+                <!-- Hướng -->
+                <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Direction" class="p-top-12">
+                    <div class="no-padding room-class-icon">
+                        <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_view.svg">
+                    </div>
+                    <div class="room-class-info">
+                        Hướng
+                        {{objectRoom.Rooms[0].RoomInfomations.Direction}}
+                    </div>
+                </div>
+               
+                <!-- <p class="h-line"></p> -->
+        
+                <div>
+                   
+                    <!-- Diện tích -->
+                    <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Acreage" class="p-top-12 ">
+                        <div class="room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_area.svg">
+                        </div>
+                        <div class="room-class-info">
+                            {{objectRoom.Rooms[0].RoomInfomations.Acreage}}m2
+                        </div>
+                    </div>
+                    <!-- Không hút thuốc -->
+                        <div *ngIf="!objectRoom.Rooms[0].RoomInfomations.AllowSmoke" class="p-top-12"> <div class=" room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_nonsmoking.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Phòng không hút thuốc
+                        </div>
+                    </div>
+                    <!-- Ban công -->
+                    <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Balcony" class="p-top-12">
+                        <div class=" room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_balcone.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Ban công
+                        </div>
+                    </div>
+                     <!-- Giường -->
+                     <div class="p-top-12">
+                        <div class="room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_bed.svg">
+                        </div>
+                        <div class="room-class-info">
+                            <span *ngIf="objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile">{{objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile.join(' | ')}}</span>
+                            <span *ngIf="!objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile && objectRoom.Rooms[0].BedTypes.length >0">{{objectRoom.Rooms[0].BedTypes[0].description}}</span>
+                        </div>
+                    </div>
+            
+                    <!-- Bồn tắm & vòi sen-->
+                    <div *ngIf="objectRoom.Rooms[0].RoomInfomations.BathTub && objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-12">
+                        <div class=" room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_shower.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Bồn tắm & vòi hoa sen
+                        </div>
+                    </div>
+                   
+                    <!-- Bồn tắm -->
+                    <div *ngIf="objectRoom.Rooms[0].RoomInfomations.BathTub && !objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-12">
+                        <div class=" room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_bathtub.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Bồn tắm
+                        </div>
+                    </div>
+                    <!-- Vòi sen -->
+                    <div *ngIf="!objectRoom.Rooms[0].RoomInfomations.BathTub && objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-12">
+                        <div class=" room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_shower.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Vòi hoa sen
+                        </div>
+                    </div>
+                    <!-- Bể bơi -->
+                    <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Pools" class="p-top-12">
+                        <div class="no-padding room-class-icon">
+                            <img class="icon-detail-fix" src="./assets/ic_facility/ic_pool.svg">
+                        </div>
+                        <div class="room-class-info">
+                            Bể bơi
+                        </div>
+                    </div>
+                    <div class="div-split"></div>
+                     <!-- Ăn sáng -->
+                     <div *ngFor="let mealtype of objectRoom.MealTypeRates; let j = index" >
+                         <div *ngIf="j==0" class="div-mealtype ">
+                            <div class="no-padding room-class-icon" *ngIf="mealtype.Name">
+                                <img class="icon-detail-fix" src="./assets/ic_facility/ic_meal.svg">
+                            </div>
+                            <div class="room-class-info d-flex">
+                                <div class="div-mealtypename">
+                                    <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length==0" class="text-hotel-description f-bold">{{mealtype.Name}}</ion-label>
+                                    <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length!=0 && mealtype.Notes[0].length == mealtype.Name.length" class="text-hotel-description f-bold">{{mealtype.Notes.join(', ')}}</ion-label>
+                                    <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length!=0 && mealtype.Notes[0].length != mealtype.Name.length" class="text-hotel-description f-bold">{{mealtype.Name}},
+                                        {{mealtype.Notes.join(', ')}}
+                                    </ion-label>
+                                </div>
+                                <div class="div-pricediff" *ngIf="mealtype.PriceDiffUpgradeDisplay">
+                                   {{mealtype.PriceDiffUpgradeDisplay}} VND
+                                </div>
+                                
+                            </div>
+
+                            <ion-row *ngIf="objectRoom.selected">
+                                <button (click)="changeRoom(objectRoom)" class="button btn-book-selected" ion-button outline round>Đang chọn phòng này</button>
+                            </ion-row>
+                            <ion-row *ngIf="!objectRoom.selected">
+                                <button (click)="changeRoom(objectRoom)" class="button btn-book-outline" ion-button outline round>Đổi sang phòng này</button>
+                            </ion-row>
+                            <div class="div-border-bottom"></div>
+                         </div>
+                        
+    
+                        
+                    </div>
+    
+                </div>
+            </div>
+           
+        </div>
+    </div>
+       
+
+</ion-content>
+

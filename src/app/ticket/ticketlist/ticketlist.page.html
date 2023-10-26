@@ -1,0 +1,174 @@
+<ion-header class="cls-header-tourlist">
+  <ion-toolbar>
+    <ion-buttons slot="secondary" style="position: absolute;" (click)="goback()">
+      <img class="img-back" style="height: 48px; padding: 8px;margin-left: -3px"
+        src="./assets/imgs/ios-arrow-round-back.svg">
+    </ion-buttons>
+
+    <ion-title class="text-title">
+      {{name}}
+    </ion-title>
+
+    <!-- <ion-buttons slot="secondary" style="position: absolute;right: 0;" (click)="openSortTour()">
+        <img class="img-sort" src="./assets/ic_tour/ic_sort_tour.svg" >
+      </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="loaddatadone else loadskeleton">
+    
+    <div class="innerdeals1 slide2-scroll div-scroll ion-padding-16"
+      *ngIf="(ticketService.slideData && ticketService.slideData.length >0) else emptydata">
+      <div *ngIf="ticketService.input" class="div-filter">
+        <div  class="item-region d-flex">
+            <span>{{ticketService.input.name}}</span> <div class="div-img-close" (click)="deleteFilter(2,null)"><img src="./assets/ic_ticket/clear.svg"/></div>
+        </div>
+       </div>
+      <div *ngIf="arrRegion && arrRegion.length > 0" class="div-filter">
+        <div *ngFor="let item of arrRegion" class="item-region d-flex">
+            <span>{{item.name}}</span> <div class="div-img-close" (click)="deleteFilter(0,item)"><img src="./assets/ic_ticket/clear.svg"/></div>
+        </div>
+       </div>
+       <div  *ngIf="arrTopic && arrTopic.length > 0" class="div-filter">
+        <div class="item-region d-flex" *ngFor="let item of arrTopic">
+            <span>{{item.name}}</span> <div class="div-img-close" (click)="deleteFilter(1,item)"><img src="./assets/ic_ticket/clear.svg"/></div>
+        </div>
+       </div>
+      <div class="cls-deal" *ngFor="let slide of ticketService.slideData">
+        <img class="slide2 img" [src]="slide.avatarLink" (click)="itemclickht(slide)">
+        <div class="float-promo" *ngIf="slide.promotionTitle">
+          <p class="float-promo-description">{{slide.promotionTitle}}</p>
+        </div>
+        <div class="div-info">
+          <h2 class="hotel-name m-top-8" (click)="itemclickht(slide)">
+            {{slide.expeName}}
+          </h2>
+          <div class="d-flex m-top-8" *ngIf="slide.avgPoint">
+            <div class="div-badge">
+              <div class="text-point">{{slide.avgPoint}}</div>
+              <div class="text-point-des" *ngIf="slide.avgPoint >9 && slide.avgPoint <=10">Xuất sắc</div>
+              <div class="text-point-des" *ngIf="slide.avgPoint>8 && slide.avgPoint <=9">Rất tốt</div>
+              <div class="text-point-des" *ngIf="slide.avgPoint>7 && slide.avgPoint <=8">Khá tốt</div>
+              <div class="text-point-des" *ngIf="slide.avgPoint>6 && slide.avgPoint <=7">Tạm được</div>
+              <div class="text-point-des" *ngIf="slide.avgPoint>5 && slide.avgPoint <=6">Không tốt</div>
+              <!-- <div  *ngIf="slide.TotalReview"> | <span class="text-comment">{{slide.numOfReview}} đánh giá</span></div> -->
+              <div *ngIf="slide.numOfReview"> | <span class="text-comment">{{slide.numOfReview}} đánh giá</span></div>
+            </div>
+          </div>
+
+          <div class="div-notes m-top-16">
+            <div *ngFor="let item of slide.expeDesc.split('\n')" class="d-flex m-bottom-8 m-right-16">
+              <div class="div-icon-note"><img class="img-check" src="./assets/ic_ticket/check.svg"></div>
+              <div class="div-des-note">{{ item }}</div>
+            </div>
+          </div>
+          <div *ngIf="slide.numberOfBooking > 0" class="text-num-booking">
+            <div class="text-topsale">{{ slide.numberOfBooking }} khách đặt trong 24 giờ qua</div>
+          </div>
+          <div class="cls-row-viewtopsale">
+
+            <div>
+              <div class="cls-price-strike" *ngIf="slide.publicPrice && slide.publicPrice > slide.publicPriceRounded">{{
+                gf.convertNumberToString(slide.publicPrice) }}đ</div>
+              <!-- <div  class="cls-price-strike" *ngIf="slide.PriceAdult && slide.priceDefault && slide.PriceAdult > slide.priceDefault && slide.priceDefault == slide.AdultSalePrice">{{ gf.convertNumberToString(slide.PriceAdult) }}đ</div> -->
+              <!-- <div  class="cls-price-strike" *ngIf="slide.PriceAdult && slide.priceDefault && slide.priceDefault < slide.AdultSalePrice">{{ gf.convertNumberToString(slide.AdultSalePrice) }}đ</div> -->
+              <div class="text-price" *ngIf="slide.publicPriceRounded else noprice"><span class="text-giatu">Giá từ
+                </span>{{ gf.convertNumberToString(slide.publicPriceRounded) }}đ</div>
+              <ng-template #noprice>
+                <div class="text-noprice ">Hết chỗ</div>
+              </ng-template>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <ng-template #emptydata>
+      
+      <div class="div-empty" style="text-align: center">
+        <div *ngIf="ticketService.input" class="div-filter">
+          <div  class="item-region d-flex">
+            <span>{{ticketService.input.name}}</span>  <div class="div-img-close" (click)="deleteFilter(2,null)"><img src="./assets/ic_ticket/clear.svg"/></div>
+          </div>
+         </div>
+        <div *ngIf="arrRegion && arrRegion.length > 0" class="div-filter">
+          <div *ngFor="let item of arrRegion" class="item-region d-flex">
+              <span>{{item.name}}</span> <div class="div-img-close" (click)="deleteFilter(0,item)"><img src="./assets/ic_ticket/clear.svg"/></div>
+          </div>
+         </div>
+         <div  *ngIf="arrTopic && arrTopic.length > 0" class="div-filter">
+          <div class="item-region d-flex" *ngFor="let item of arrTopic">
+              <span>{{item.name}}</span> <div class="div-img-close" (click)="deleteFilter(1,item)"><img src="./assets/ic_ticket/clear.svg"/></div>
+          </div>
+         </div>
+        <img style="margin-top: 80px" src="./assets/ic_ticket/illustrate.svg">
+        <div class="text-empty m-top-8">Không tìm thấy kết quả phù hợp ưu tiên của bạn.</div>
+        <div class="d-flex">
+          <div class="div-width-100">
+            <button ion-button round (click)="reFilter()" class="button btn-change-search" clear>Đặt lại bộ lọc</button>
+          </div>
+          <!-- <div class="div-width-100 m-left-8" *ngIf="enableFilterTopdeal">
+                    <button ion-button round (click)="clearFilter()" class="button btn-clear-search" clear>Xóa lọc</button>
+                  </div> -->
+        </div>
+      </div>
+
+    </ng-template>
+    <div padding="" *ngIf="!isConnected" style="text-align: center;margin-top: 10px">
+      <img src="./assets/imgs/empty.svg">
+      <div *ngIf="!isConnected">
+        <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>
+      </div>
+    </div>
+  </div>
+  <ng-template #loadskeleton>
+    <div style="margin-top:30px">
+      <ion-list lines="none" *ngFor="let item of arrslk">
+        <div>
+          <ion-item style="--inner-padding-end: 16px">
+            <ion-skeleton-text animated style="width: 100%;margin: 0;border-radius: 5px;
+              width: 100% !important;
+              height: 180px !important;
+              object-fit: cover"></ion-skeleton-text>
+          </ion-item>
+          <ion-row>
+            <ion-col style="padding:0">
+              <ion-skeleton-text animated style="width: 75%;margin: 16px 16px 0 16px;height: 16px;"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col style="padding:0">
+              <ion-skeleton-text animated
+                style="width: 91%;margin: 0;margin: 16px 16px 0 16px;height: 16px"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-list>
+    </div>
+  </ng-template>
+
+</ion-content>
+<ion-footer>
+  <ion-row class="div-footer-filtersort">
+    <ion-col style="align-self: center" (click)="openSort()">
+      <div class="p-left-24">
+        <img src="./assets/imgs/ic_sort.svg">
+        <ion-label class="text-sort-and-filter">Sắp xếp</ion-label>
+        <img src="./assets/ic_flight/icon_action_check_circle_tealish.svg" class="chk-order">
+
+      </div>
+      <div class="div-split"></div>
+    </ion-col>
+    <ion-col (click)="openFilter()">
+      <div class="flightdeparture-button-filter">
+        <img class="img-filter" src="./assets/imgs/ic_filter.svg">
+        <!-- <ion-badge *ngIf="ticketService.countFilter > 0" class="cls-badge-filter"><span class="cls-hidden-filter">{{ticketService.countFilter}}</span></ion-badge> -->
+        <ion-label class="text-sort-and-filter label-filter">Lọc</ion-label>
+      </div>
+      <div class="div-split"></div>
+    </ion-col>
+  </ion-row>
+</ion-footer>

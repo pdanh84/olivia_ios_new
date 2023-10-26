@@ -1,0 +1,42 @@
+<ion-header>
+        <ion-row>
+            <ion-col col-1 class="header-arrow" (click)="goback()" >
+                <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+            </ion-col>
+            <ion-col class="header-title"><label>Ưu đãi cho bạn</label>
+            </ion-col>
+        </ion-row>
+    </ion-header>
+    
+    <ion-content >
+        <div class="userreward-content">
+            <ion-row *ngIf="userInfoData">
+                    <ion-col col-2>
+                        <div class="div-wrapimg"><img class="img-user-avatar" src="{{userInfoData.avatar}}"></div>
+                    </ion-col>
+                    <ion-col col-10 class="weather-img">
+                        <div class="user-name">{{userInfoData.fullname}}</div>
+                        <div class="user-point">{{userInfoData.point}} point →</div>
+                    </ion-col>
+            </ion-row>
+            <ion-row class="row-item-reward" >
+                <div *ngFor="let item of userRewardData; let idx = index" class="div-item-reward">
+                    <div [ngClass]="idx%2? 'col-right' : 'col-left'">
+                        <div class="div-wrapimg-reward"><img class="item-reward-img" src="{{item.avatar}}"></div>
+                        <div class="reward-title">{{item.title}}</div>
+                        <div class="reward-pp">
+                            <ion-row>
+                                <ion-col col-7 class="item-reward-price">Trị giá {{item.price| number:"1.0"}}đ</ion-col>
+                                <ion-col col-5 class="item-reward-point">{{item.unitPoint| number:"1.0"}} điểm</ion-col>
+                            </ion-row>
+                        </div>
+                        <div class="div-span-item-reward"></div>
+                        <!-- <div class="div-button-reward"><button ion-button round outline class="button btn-reward" [ngClass]="reward.isHover ? 'hover' : ''" #reward (mouseover)="reward.isHover = true" (mouseout)="reward.isHover = false">Đổi quà</button></div> -->
+                        <div class="div-button-reward"><button ion-button round outline class="button btn-reward" (click)="exchangeGift(item)" >Đổi quà</button></div>
+                    </div>
+                    <div class="div-span-{{idx}}"><hr></div>
+                </div>
+                
+            </ion-row>
+        </div>
+    </ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div class="div-goback" (click)="next()">
+          <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+        <div style="align-self: center">
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán không
+              thành công</label></div>
+        </div>
+        <div class="div-quick-back" (click)="showQuickBack()">
+          ...
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/ic_ticket/payment_fail.svg">
+  </div>
+  <div style="margin-top: 16px">
+    <div>
+      <div class="text">
+        Thanh toán không thành công.
+      </div>
+      <div class="text">
+        Vui lòng liên hệ <span>
+          <img class="div-zalo" src="./assets/ic_ticket/logo-zalo.png">
+          <span (click)="openZalo()" class="text text-tealish text-bold m-left-23">iVIVU Tickets</span>
+        </span> để được hỗ trợ và giải quyết. Xin cảm ơn sự thông cảm và hỗ trợ của Quý khách
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="next()" ion-button round outline class="button button2">Quay về trang chủ</button>
+  </div>
+</ion-footer>

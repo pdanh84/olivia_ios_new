@@ -1,0 +1,381 @@
+
+    .p-l-8{
+        padding-left: 8px;
+    }
+    .p-left-8{
+        padding-left: 8px;
+    }
+    .p-left-4{
+        padding-left: 4px;
+    }
+    .d-flex{
+        display: flex;
+        .div-star{
+            padding-left: 8px;
+            display: table-cell;
+            align-self: center;
+        }
+    }
+
+    .m-l-4{
+        margin-left: 4px;
+    }
+    .max-width-180{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 180px;
+    }
+    .m-top-2{
+        margin-top: 2px;
+    }
+    .m-top-4{
+        margin-top: 4px;
+    }
+    .m-l-12{
+        padding-left: 12px;
+    }
+    .f-bold{
+        font-weight: bold;
+    }
+
+    .view-row{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .auto-width{
+       width: auto !important;
+    }
+    .max-width-200{
+        width: 200px;
+    }
+    .div-content-hotel-city-item{
+        width: 284px;
+        min-height: 329px;
+        margin-top: 19px;
+        padding: 19px 0 8px;
+        border-radius: 4px;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        background-color: #feeec7;
+
+        .div-icon{
+            padding-left: 9px;
+        }
+
+        .div-hotel-item-info{
+            margin-top: 49px;
+        }
+        .div-row-title{
+            height: 21px;
+            font-size: 18px;
+            text-align: left;
+            color: #003c71;
+        }
+
+        .v-align-center{
+            align-items: center;
+        }
+
+        .text-sub{
+            font-size: 12px;
+            color: #828282;
+            line-height: 20px;
+            letter-spacing: -0.24px;
+            margin-bottom: 8px;
+        }
+            .div-img-hotel{
+                min-width: 59px;
+                width: 66px;
+                height: 76px;
+                position: relative;
+            }
+            .img-item {
+                height: 76px !important;
+                width: 59px !important;
+                object-fit: cover;
+                position: absolute;
+            }
+            img-loader > img {
+                height: 76px;
+                width: 59px;
+                object-fit: cover;
+                position: absolute;
+            }
+            .no-img-background{
+                background: #bdbdbd;
+            }
+
+            .div-content-right{
+                margin-left: 12px;
+
+                .text-nonewrap{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 200px;
+                }
+            }
+            .float-promo-hotel{
+                position: absolute;
+                top: 70px;
+                left: 10px;
+                background-color: #9fc43a;
+                color: #fff;
+                font-size: 14px;
+                max-width: 95%;
+                height: 22px;
+                padding: 3px 8px;
+                z-index: 11;
+                letter-spacing: -0.4px;
+              }
+            .float-promo-hotel:after {
+                content: " ";
+                position: absolute;
+                left: 0px;
+                top: 22px;
+                border-top: 6px solid #5b721b;
+                border-left: 6px solid transparent;
+                border-bottom: none;
+              }
+            .text-catname{
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                margin: 8px 0;
+            }
+    
+            .div-point{
+                position: relative;
+                padding-bottom: 8px;
+                .d-flex{
+                    display: flex;
+    
+                    .text-recommend{
+                        padding-left: 8px;
+                        font-size: 12px;
+                        color: #333333;
+                        line-height: 20px;
+                        letter-spacing: -0.24px;
+                    }
+                }
+                .div-badge{
+                    width: 32px;
+                    height: 17px;
+                    border-radius: 6px;
+                    background-color: #a0c245;
+                    color: #fff;
+                    text-align: center;
+                    padding-top: 1px;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+    
+                .div-text-point{
+                    padding-left: 8px;
+                }
+    
+                .text-point{
+                    font-size: 12px;
+                    color: #333333;
+                    line-height: 20px;
+                    letter-spacing: -0.24px;
+                }
+                .p-bottom-12{
+                    padding-bottom: 12px;
+                }
+    
+                .div-chef{
+                    display: flex;
+    
+                    .chef-avatar{
+                        .img-chef{
+                            width: 48px;
+                            height: 48px;
+                            object-fit: fill;
+                            border-radius: 48px;
+                        }
+                    }
+                    .chef-desc{
+                        display: flex;
+                        flex-direction: column;
+                        padding-left: 8px;
+                        justify-content: center;
+    
+                        .chef-name{
+                            font-size: 12px;
+                            line-height: 20px;
+                            letter-spacing: -0.24px;
+                        }
+                        .chef-office{
+                            font-size: 12px;
+                            color: #828282;
+                            line-height: 21px;
+                            letter-spacing: -0.34px;
+                            font-weight: 300;
+                        }
+                        .text-restanrant-name{
+                            font-size: 12px;
+                            color: #828282;
+                            line-height: 14px;
+                            letter-spacing: -0.24px;
+                            font-weight: 600;
+                        }
+                    }
+                    
+                }
+    
+               
+            }
+
+            .div-price{
+                //position: absolute;
+                display: flex;
+                width: 100%;
+
+                .hot-deal{
+                    width: 100%;
+                    font-size: 12px;
+                    letter-spacing: -0.24px;
+                    line-height: 20px;
+                    color: #e52822;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
+                .text-price{
+                    display: flex;
+                    flex-direction: column;
+
+                    width: 100%;
+                    text-align: right;
+                    font-size: 27px;
+                    letter-spacing: -0.27px;
+                    color: #26bed6;
+                    font-weight: 600;
+                    padding-right: 8px;
+
+                    .s-text{
+                        font-size: 12px;
+                        letter-spacing: -0.36px;
+                        color: #26bed6;
+                    }
+                    .text-sub-price{
+                        font-size: 13px;
+                        line-height: 18px;
+                        color: #4f4f4f;
+                        text-align: right;
+                        margin-bottom: -6px;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+
+            .cls-badge{
+                color: #ffffff;
+                border-radius: 12px;
+                background-color: #9fc43a;
+                font-size: 14px;
+                text-align: center;
+                line-height: 10px;
+                letter-spacing: -0.4px;
+                padding-top: 5px;
+                min-width: 28px;
+              }
+              .text-reviews{
+                font-size: 12px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.4;
+                letter-spacing: normal;
+                text-align: left;
+                color: #333333;
+              }
+
+              .div-hotel-address{
+                font-size: 12px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.4;
+                letter-spacing: -0.34px;
+                text-align: left;
+                color: #828282;
+
+                .img-location{
+                    width: 13px;
+                    height: 13px;
+                    margin-left: -2px;
+                }
+              }
+
+              .div-hotel-room{
+                flex-grow: 0;
+                margin: 7px 0 4px;
+                padding: 9px 15px;
+                background-color: #fff7e3;
+
+                 .div-pax{
+                    margin: 0 0 3px;
+                    font-family: Helvetica;
+                    font-size: 13px;
+                    line-height: 1.45;
+                    text-align: left;
+                    color: #333333;
+
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 298px;
+                    white-space: nowrap;
+                 }
+
+                 .link-change-room{
+                    text-decoration: underline;
+                    font-size: 13px;
+                    line-height: 1.45;
+                    color: #f79321;
+                    z-index: 8;
+                    padding: 10px 0;
+                 }
+              }
+
+              .div-price{
+
+                .div-price-show{
+                    width: 100%;
+                    .price-original{
+                        height: 21px;
+                        font-size: 14px;
+                        line-height: 1.45;
+                        text-align: left;
+                        color: #e32b2c;
+                        text-decoration: line-through;
+                    }
+
+                    .price-total{
+                        font-size: 24px;
+                        font-weight: bold;
+                        line-height: 1.45;
+                        text-align: left;
+                        color: var(--ion-color-primary);
+                        margin-top: -6px;
+                    }
+
+                    .subfix{
+                        font-size: 12px;
+                        line-height: 1.45;
+                        color: var(--ion-color-primary);
+                    }
+                }
+                .div-button{
+                    padding-right: 13px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                }
+              }
+    }
+    
+  

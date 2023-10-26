@@ -1,0 +1,38 @@
+<div class="page-hotel-deal" *ngIf="slideData1.length >0">
+  <div class="title-padding">
+    <ion-label class="text-title2">
+      Ưu đãi tốt nhất hôm nay
+    </ion-label>
+    <div class="show-more">
+        <ion-label (click)="seemoredeal()" class="cls-main-color">
+            Xem thêm <img src="./assets/imgs/vector.svg">
+          </ion-label>
+      </div>
+  </div>
+  <div class="sub-title">
+    <ion-label class="text-subtitle">
+      Nhanh tay đặt ngay. Để mai sẽ lỡ
+    </ion-label>
+  </div>
+  <div class="innerdeals1 slide2-scroll" padding (scroll)="onScroll($event)">
+    <div (click)="itemclickht(slide)" class="cls-deal" *ngFor="let slide of slideData1">
+      <img class="slide2 img" [src]="slide.imageUrl">
+      <div class="float-promo">
+        <p class="float-promo-description">{{slide.description}} | {{slide.priceshow}} triệu/khách</p>
+      </div>
+      <div class="float-info">
+        <h2 class="hotel-name">
+          {{slide.name}}
+        </h2>
+        <p class="m-0">
+          <img *ngIf="slide.rating!=0" src={{slide.rating}}>
+        </p>
+      </div>
+      <div class="grad1"></div>
+
+    </div>
+    <div *ngIf="showloadmore" class="div-loadmore">
+      <ion-spinner name="bubbles" class="spinner-bubbles hydrated"></ion-spinner>
+    </div>
+  </div>
+</div>

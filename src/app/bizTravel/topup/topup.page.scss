@@ -1,0 +1,123 @@
+.d-flex {
+    display: flex;
+}
+.m-top-4{
+    margin-top: 4px;
+}
+.m-top-16 {
+    margin-top: 16px;
+}
+.m-top-8{
+    margin-top: 8px;
+}
+.m-left-24{
+    margin-left: 24px;
+}
+.m-right-6{
+    margin-right: 6px;
+}
+.v-align-center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.div-width-200 {
+    width: 200%;
+}
+.div-width-100 {
+    width: 100%;
+}
+.text-right {
+    text-align: right;
+}
+.f-end{
+    justify-content: flex-end;
+}
+.icon-arrow {
+    width: 16px;
+    opacity: 0.7;
+}
+.div-topup-content{
+    padding: 16px;
+
+    font-size: 14px;
+    line-height: 1.3;
+    text-align: left;
+    letter-spacing: -0.28px;
+    color: #333333;
+
+    .lh-13{
+        line-height: 1.3;
+    }
+    .f-13{
+        font-size: 13px;
+    }
+    .text-sub {
+        line-height: 1.4;
+        color: #828282;
+    }
+
+    .text-bold {
+        font-weight: 600;
+    }
+
+    .div-split-panel {
+        height: 6px;
+        margin: 8px -16px 7px;
+        background-color: #f2f2f2;
+    }
+
+    .div-icon {
+        width: 22%;
+        margin-right: 8px;
+    }
+
+    .div-text {
+        width: 70%;
+        white-space: normal;
+    }
+    .div-btn-expand{
+        margin-left: 5px;
+        width: 18px;
+    }
+
+    .m-top-18{
+        margin-top: 18px;
+    }
+    .m-top-9{
+        margin-top: 9px;
+    }
+
+    .div-expand-info {
+        background: #f9fbfc;
+        margin: 9px -16px -8px -16px;
+        padding: 9px 16px;
+
+        .text-label {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.5;
+            text-align: left;
+            color: #868998;
+        }
+        
+        .text-blue {
+            color: #003c71;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+    }
+    .text-title{
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #333;
+    }
+
+    .div-copy{
+        padding-left: 10px;
+    }
+}

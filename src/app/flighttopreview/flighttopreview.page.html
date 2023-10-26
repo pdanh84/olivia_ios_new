@@ -1,0 +1,41 @@
+<div class="flighttopreview-section">
+      <div class="title-padding">
+        <ion-label class="text-title2">
+          Đánh giá của khách hàng sử dụng dịch vụ đặt vé iVIVU 
+        </ion-label>
+      </div>
+
+      <div class="div-reviews d-flex">
+        <div class="div-badge" *ngIf="avgPoint">
+          <div class="text-point">{{avgPoint}}/10</div>
+        </div>
+        
+        <div class="text-point-des" *ngIf="avgPoint>9 && avgPoint <=10">Xuất sắc</div>
+        <div class="text-point-des" *ngIf="avgPoint>8 && avgPoint <=9">Rất tốt</div>
+        <div class="text-point-des" *ngIf="avgPoint>7 && avgPoint <=8">Khá tốt</div>
+        <div class="text-point-des" *ngIf="avgPoint>6 && avgPoint <=7">Tạm được</div>
+        <div class="text-point-des" *ngIf="avgPoint>5 && avgPoint <=6">Không tốt</div>
+        <div  *ngIf="numOfReview"> | <span class="text-comment">{{numOfReview}} đánh giá</span></div>
+      </div>
+
+      <div class="div-content-review m-top-24" (scroll)="onScrollReviews($event)">
+        <div class="div-wrap-review-group" *ngFor="let slidegroup of listflighttopreviewgroup">
+          <div *ngFor="let slide of slidegroup.listflighttopreview" class="div-wrap-review-item"  (click)="showReviewList(slide)">
+            <div class="d-flex">
+              <div class="div-avatar">
+                <img class="slide2 img" src="./assets/ic_flight/user_pic.jpg" />
+              </div>
+              <div class="v-align-center">
+                <div class="div-name">{{slide.customerName}}</div>
+                <div class="div-date">{{slide.reviewDateDisplay}}</div>
+              </div>
+            </div>
+            <div class="m-top-14 div-text" *ngIf="slide.bestFeature">{{slide.bestFeature}}</div>
+            <!-- <div class="div-see-review"  *ngIf="slide.replyMessage">Xem phản hồi</div> -->
+          </div>
+        </div>
+      </div>
+      <div class="div-see-more m-top-16" (click)="showReviewList('')">
+        Hiển thị {{numOfReview}} đánh giá
+      </div>
+</div>

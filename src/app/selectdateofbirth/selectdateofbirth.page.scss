@@ -1,0 +1,38 @@
+.d-flex{
+  display: flex;
+}
+.cls-iondatetime{
+  max-width: none;
+}
+.div-selectbirthdate-footer{
+  background-color: #ffffff; 
+  text-align: center; 
+  display: flex;
+  .div-button-flex{
+      display: flex;
+      width: 100%;
+    }
+    .button-ok
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 100%;
+        font-size: 16px !important;
+        letter-spacing: -0.6px;
+        padding: 0;
+        margin: 16px 8px;
+    } 
+    .button-cancel
+    {
+        background: #ffffff;
+        color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 90%;
+        font-size: 16px !important;
+        letter-spacing: -0.4px;
+        margin: 16px 8px;
+    } 
+
+    
+}

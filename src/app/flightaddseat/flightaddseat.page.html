@@ -1,0 +1,391 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Chọn chỗ ngồi</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-segment [(ngModel)]="tabseat" class="div-segment"  mode="md">
+          <ion-segment-button (click)="SelectTab(1)" mode="md" style="text-transform: inherit;" value="1" >
+            Chiều đi
+            </ion-segment-button>
+            <ion-segment-button (click)="SelectTab(2)" mode="md" style="text-transform: inherit;" value="2" *ngIf="roundtrip">
+            Chiều về
+            </ion-segment-button>
+          </ion-segment>
+      </ion-row>
+  </ion-header>
+
+  <ion-content>
+    <div class="content-flightaddseat" >
+
+        <swiper-container #slideTab (slidechange)="slidetabchange()" [options]="slideOpts">
+            <!-- Chiều đi -->
+            <swiper-slide style="display: block;" *ngIf="(listSeatNormal && listSeatNormal.length>0) else departSeatFixed">
+                <div>
+                    <div class="d-flex m-top-4">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-green"></div>
+                            <div class="div-text">Ghế thường</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-tealish"></div>
+                            <div class="div-text ">Ghế phía trước</div>
+                        </div>
+                    </div>
+            
+                    <div class="d-flex m-top-16">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-blue"></div>
+                            <div class="div-text">Ghế gần lối thoát hiểm</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-red"></div>
+                            <div class="div-text">Ghế đặc biệt</div>
+                        </div>
+                    </div>
+            
+                    <div class="d-flex m-top-16">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-gray"></div>
+                            <div class="div-text">Ghế đã được chọn</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-orange"></div>
+                            <div class="div-text">Ghế đang chọn</div>
+                        </div>
+                    </div>
+        
+                    <div class="text-title">
+                        BUỒNG LÁI
+                    </div>
+                    
+                </div>
+                
+                    <div class="text-exit">Lối ra</div>
+                    <div *ngIf="!departnewmodel">
+                        <div class="div-seat m-top-21" >
+        
+                            <div class="d-flex justify-content-between lh-25">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeft; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                                <div class="div-number-center"></div>
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRight; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="div-ahead">
+            
+                                <div class="d-flex justify-content-between" *ngFor="let itemnormal of listSeatNormal; let idx =index">
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemnormal.itemsLeft; let idx1 =index"  (click)="choiceSeat(itemseat,1)">
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1">
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+    
+                                    <div class="div-number-center" *ngIf="itemnormal.itemsLeft.length>0 && itemnormal.itemsLeft.length>0">{{itemnormal.row}}</div>
+    
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemnormal.itemsRight; let idx1 =index" (click)="choiceSeat(itemseat,1)">
+                                        
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1">
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+                
+
+                    
+                    <div *ngIf="departnewmodel">
+                        <div class="div-seat m-top-21" >
+                            <div class="d-flex justify-content-between lh-25">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name  m-left-14':'div-seat-name'" *ngFor="let item of listSeatName; let idx1 =index">
+                                    <div class="div-seat-icon text-seat" *ngIf="item != '-1'">
+                                        {{item}}
+                                    </div>
+                                    <div class="div-seat-icon text-seat seat-disabled" *ngIf="item == '-1'"></div>
+                                </div>
+                              
+                            </div>
+    
+                            <div class="div-ahead">
+            
+                                <div class="d-flex justify-content-between" *ngFor="let itemnormal of listSeatNormal; let idx =index">
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemnormal.itemsNormal; let idx1 =index"  (click)="choiceSeat(itemseat,1)">
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon new-seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1 && idx !=  3 && idx != 7">
+                                            <div class="seat-icon div-number-center" *ngIf="itemseat.type == -1 && (idx1 ==  3 || idx1 == 7)">{{itemnormal.row}}</div>
+
+                                            <img class="seat-icon new-seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -2 && idx !=  3 && idx != 7">
+                                            <div class="seat-icon div-number-center" *ngIf="itemseat.type == -2 && (idx1 ==  3 || idx1 == 7)">{{itemnormal.row}}</div>
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                       
+                                    </div>
+                                    
+    
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+        
+
+            </swiper-slide>
+            <ng-template #departSeatFixed>
+                <swiper-slide style="display: block;">
+                    <div class="div-empty text-center">
+                        <img class="img-empty-seat" src="./assets/ic_flight/flight_empty_seat.svg">
+                    </div>
+                    <div class="div-text-empty m-top-24  text-center">Chuyến bay chưa hỗ trợ chọn ghế</div>
+                </swiper-slide>
+            </ng-template>
+
+            <!-- Chiều về -->
+            <swiper-slide style="display: block;" *ngIf="(listReturnSeatNormal && listReturnSeatNormal.length>0 && roundtrip) else returnSeatFixed">
+                <div>
+                    <div class="d-flex m-top-4">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-green"></div>
+                            <div class="div-text">Ghế thường</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-tealish"></div>
+                            <div class="div-text ">Ghế phía trước</div>
+                        </div>
+                    </div>
+            
+                    <div class="d-flex m-top-16">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-blue"></div>
+                            <div class="div-text">Ghế gần lối thoát hiểm</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-red"></div>
+                            <div class="div-text">Ghế đặc biệt</div>
+                        </div>
+                    </div>
+            
+                    <div class="d-flex m-top-16">
+                        <div class="div-width-120 d-flex">
+                            <div class="div-rectangle cls-gray"></div>
+                            <div class="div-text">Ghế đã được chọn</div>
+                        </div>
+                        <div class="div-width-100 d-flex m-left-14">
+                            <div class="div-rectangle cls-orange"></div>
+                            <div class="div-text">Ghế đang chọn</div>
+                        </div>
+                    </div>
+        
+                    <div class="text-title">
+                        BUỒNG LÁI
+                    </div>
+                    
+                </div>
+                
+        
+                <div>
+                    <div class="text-exit">Lối ra</div>
+                    
+                    <div *ngIf="!returnnewmodel">
+                        <div class="div-seat m-top-21">
+        
+                            <div class="d-flex justify-content-between lh-25">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeft; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                                <div class="div-number-center"></div>
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRight; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="div-ahead">
+                               
+                                <div class="d-flex justify-content-between" *ngFor="let itemReturnnormal of listReturnSeatNormal; let idx =index">
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemReturnnormal.itemsLeft; let idx1 =index"  (click)="choiceSeat(itemseat,2)">
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1">
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+    
+                                    <div class="div-number-center" *ngIf="itemReturnnormal.itemsLeft.length>0 && itemReturnnormal.itemsLeft.length>0">{{itemReturnnormal.row}}</div>
+    
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemReturnnormal.itemsRight; let idx1 =index" (click)="choiceSeat(itemseat,2)">
+                                        
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1">
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="returnnewmodel">
+                        <div class="div-seat m-top-21" >
+                            <div class="d-flex justify-content-between lh-25">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name  m-left-14':'div-seat-name'" *ngFor="let item of listReturnSeatName; let idx1 =index">
+                                    <div class="div-seat-icon text-seat" *ngIf="item != '-1'">
+                                        {{item}}
+                                    </div>
+                                    <div class="div-seat-icon text-seat seat-disabled" *ngIf="item == '-1'"></div>
+                                </div>
+                              
+                            </div>
+    
+                            <div class="div-ahead">
+            
+                                <div class="d-flex justify-content-between" *ngFor="let itemReturnnormal of listReturnSeatNormal; let idx =index">
+                                    <div [ngClass]="idx1 >0 ? 'div-seat-item m-left-14':'div-seat-item'" *ngFor="let itemseat of itemReturnnormal.itemsNormal; let idx1 =index"  (click)="choiceSeat(itemseat,2)">
+                                        <div class="div-seat-icon" *ngIf="!itemseat.booked else seatbooked">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_blue.svg" *ngIf=" itemseat.type == 2" >
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_green.svg" *ngIf=" itemseat.type == 1">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_navi.svg" *ngIf=" itemseat.type == 3">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_red.svg" *ngIf=" itemseat.type == 4">
+                                            <img class="seat-icon" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == 5 || itemseat.type == 6">
+                                            <img class="seat-icon new-seat-disabled" src="./assets/ic_flight/icon_seat_gray.svg" *ngIf=" itemseat.type == -1 && idx !=  3 && idx != 7">
+                                            <div class="seat-icon div-number-center" *ngIf="itemseat.type == -1 && (idx1 ==  3 || idx1 == 7)">{{itemReturnnormal.row}}</div>
+                                        </div>
+                                        <ng-template #seatbooked>
+                                            <div class="div-seat-icon">
+                                                <img class="seat-icon" src="./assets/ic_flight/icon_seat_orange.svg">
+                                            </div>
+                                        </ng-template>
+                                       
+                                    </div>
+                                    
+    
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </swiper-slide>
+            <ng-template #returnSeatFixed>
+                <swiper-slide style="display: block;" *ngIf="roundtrip">
+                    <div class="div-empty text-center">
+                        <img class="img-empty-seat" src="./assets/ic_flight/flight_empty_seat.svg">
+                    </div>
+                    <div class="div-text-empty m-top-24  text-center">Chuyến bay chưa hỗ trợ chọn ghế</div>
+                </swiper-slide>
+            </ng-template>
+        </swiper-container>
+        
+    </div>
+  </ion-content>
+
+  <ion-footer>
+    <div class="div-footer d-flex-footer">
+        <div *ngIf="(tabseat == 1 && (listSeatNormal && listSeatNormal.length>0))" class="d-flex-footer div-width-100">
+            <div class="div-total" >
+                <div class="d-flex-footer text-sub-total">
+                  {{ listdepartseatselected }}
+                </div>
+                <div class="text-total"  *ngIf="listdepartseatselected else havenotchoiceyet">{{totalpricedisplay}} 
+                </div>
+                <ng-template #havenotchoiceyet>
+                    <div class="text-havenotchoice-seat">
+                        Chưa chọn ghế
+                    </div>
+                </ng-template>
+                
+              </div>
+              <div class="div-button">
+                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+              </div>
+        </div>
+        <div *ngIf="(tabseat == 2 && (listReturnSeatNormal && listReturnSeatNormal.length>0))" class="d-flex-footer div-width-100">
+            <div class="div-total">
+                <div class="d-flex-footer text-sub-total">
+                  {{ listreturnseatselected }}
+                </div>
+                <div class="text-total" *ngIf="listreturnseatselected else havenotchoicereturn">{{totalreturnpricedisplay}} 
+              </div>
+              <ng-template #havenotchoicereturn>
+                <div class="text-havenotchoice-seat">
+                    Chưa chọn ghế
+                </div>
+                </ng-template>
+              </div>
+              <div class="div-button">
+                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+              </div>
+        </div>
+    </div>
+  </ion-footer>

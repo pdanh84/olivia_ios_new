@@ -1,0 +1,34 @@
+<ion-header>
+        <!-- <ion-toolbar class="title-header">
+                <ion-row>
+                  <ion-col size="2" class="header-icon" (click)="goback()">
+                      <ion-icon color="dark-tint" style="font-size: 2em" name="arrow-back" class="card-title">
+                      </ion-icon>
+                  </ion-col>
+                  <ion-col size="10">
+                      <ion-title style="padding-left: 28%;padding-top: 6px;font-size: 20px;">Ăn gì - Chơi gì</ion-title>
+                  </ion-col>
+              </ion-row>
+        </ion-toolbar> -->
+        <ion-toolbar style="min-height: 0px;text-align: center">
+                <ion-row>
+                <ion-col style="text-align: center;height: 48px;">
+                    <div style="align-self: center" >
+                    <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+                        <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+                      </div>
+                    <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Ăn gì - Chơi gì</label></div>
+                    </div>
+                </ion-col>
+                </ion-row>
+            </ion-toolbar>
+    </ion-header>
+    
+    <ion-content >
+        <div class="hotel-exps-notes-content">
+            <div *ngFor="let note of listExpsNotes">
+                <div class="note-title" >Dưới đây là những món ăn và địa điểm bạn nhất định phải thử nếu có dịp ghé qua {{ provinceName }}</div>
+                <div class="note-description" [innerHTML]="note.description"></div>
+            </div>
+        </div>
+    </ion-content>

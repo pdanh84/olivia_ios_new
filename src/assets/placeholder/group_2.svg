@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="552" height="945" fill="none" viewBox="0 0 552 945">
+    <rect width="272" height="168" y="31" fill="#F2F2F2" rx="6"/>
+    <rect width="160" height="98" y="342" fill="#F2F2F2" rx="6"/>
+    <rect width="160" height="98" x="168" y="342" fill="#F2F2F2" rx="6"/>
+    <rect width="272" height="168" x="280" y="31" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M0 0h104v16H0zM0 310h160v16H0zM0 207h104v16H0zM0 231h239v16H0zM0 255h160v16H0zM0 448h104v16H0zM0 472h48v16H0zM168 448h104v16H168zM168 472h48v16h-48z"/>
+    <rect width="160" height="98" y="543" fill="#F2F2F2" rx="6"/>
+    <rect width="160" height="98" x="168" y="543" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M0 511h160v16H0zM0 649h104v16H0zM168 649h104v16H168zM280 207h104v16H280zM280 231h239v16H280zM280 255h160v16H280z"/>
+    <rect width="272" height="168" y="729" fill="#F2F2F2" rx="6"/>
+    <rect width="272" height="168" x="280" y="729" fill="#F2F2F2" rx="6"/>
+    <path fill="#F2F2F2" d="M0 698h104v16H0zM0 905h272v16H0zM0 929h104v16H0zM280 905h104v16H280zM280 929h239v16H280z"/>
+</svg>

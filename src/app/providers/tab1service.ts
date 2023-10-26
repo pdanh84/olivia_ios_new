@@ -1,0 +1,97 @@
+
+import {Injectable, EventEmitter} from '@angular/core';
+
+@Injectable({
+    providedIn: 'root' // <- ADD THIS
+})
+@Injectable()
+export class tab1service {
+    public pet: string = "khachsan";
+    public slideData1 = [];
+    public slideMood;
+    public slideData = [];
+    public slideData2 = [];
+    public sl; 
+    public slregion; 
+    public slmood;
+    public regions = [];
+    public regionshtml = [];
+    public regionscheck = [];
+    public regionsend = [];
+    public recom = [];
+    public arrregion;
+    public arrtemp;
+    public recoms = [];
+    public arrtempdeal = [];
+    public email; 
+    public jti; 
+    public ischeck = false; 
+    public ischeckks = true; 
+    public ischeckvmb;
+    public showCalCin = false;
+    public showCalCout = false;
+    public datecin: Date;
+    public datecout: Date;
+    public cindisplay; 
+    public coutdisplay;
+    public cin; 
+    public gbitem;
+    public cout; 
+    public ischecklist = false; 
+    public isenabled = true; 
+    public co; 
+    public gbmsg; 
+    public json; 
+    public index; 
+    public ischeckclose = false;
+    public cinthu; 
+    public coutthu; 
+    public blog = []; 
+    public items; 
+    public adult = 2; 
+    public child = 0; 
+    public roomnumber = 1; 
+    public chuoi; 
+    public ischecksearch = false; 
+    public recent; 
+    public input; 
+    public ischeckdelete;
+    public tabBarElement: any;
+    public page = 1;
+    public pagesize = 5;
+    public totalItem = 200;
+    public _infiniteScroll: any;
+    public showloadmore = true;
+    public showloadmoreblog = true;
+    public isConnected: boolean;
+    public myCalendar: any;
+    public pageBlog = 1;
+    public pageSizeBlog = 5;
+    public totalItemBlog = 200;
+    public blogDisplay = [];
+    public intervalID;
+    public myloader;
+    public regionsinter = [];
+    public regionintersend = [];
+    public canLoadBlog: boolean = true; 
+    public blogtrips = [];
+    public memberid; 
+    public versionNumber; 
+    public username; 
+    public arrbloglike:any; 
+    public listBlogtemp; 
+    public listBlog = [];
+    public regionnamesuggest = "";
+    public canLoadBlogTrip: boolean = true;
+    public pageBlogTrip: number = 1;
+    public showloadmoreblogtrip: boolean = true;
+    public intervalTrip;
+    public deviceToken: any;
+    public eventRefresh: any;
+    public appversion: string; 
+    public listlunar = [];
+    public cofdate = 0;
+    public cotdate = 0;
+    //public _daysConfig: DayConfig[] = [];
+    public isrefresh = "false";
+}

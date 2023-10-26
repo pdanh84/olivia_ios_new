@@ -1,0 +1,113 @@
+.div-ticketsearch-header {
+
+    .img-back{
+        position: absolute;
+        top: 3%;
+        color: #ffffff;
+        margin-top: 6px;
+    }
+    .img-close{
+        position: absolute;
+        top: 3%;
+        color: #ffffff;
+        margin-top: 6px;
+        right: 20px;
+    }
+
+    .new-background{
+        --background: #26bed6;
+
+        .img-back{
+            position: absolute;
+            top: 3%;
+            color: #ffffff;
+            margin-top: 6px;
+        }
+
+        .div-search{
+            border: solid 0.5px #bdbdbd;
+            border-radius: 6px;
+            height: 48px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333333;
+            background: #ffffff;
+            margin: 4px 20px 4px 49px;
+        }
+
+        .cls-input-search{
+            margin-top: 5px;
+           margin-left: 13px;
+           text-align: left;
+        }
+        .cls-input-search-text{
+            margin-top: 5px;
+           margin-left: 13px;
+           text-align: left;
+           width: 85%;
+        }
+    }
+}
+
+.div-ticketsearch-content {
+    .d-flex {
+        display: flex;
+    }
+    .div-title {
+        font-size: 14px;
+        text-align: left;
+        color: #828282;
+    }
+    .div-item-history, .div-item-region {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        
+    }
+    .item-region {
+        padding: 4px 16px 14px;
+        background-color: #ecf0f5;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        padding: 12px 16px;
+        border-radius: 120px;
+        background-color: #ecf0f5;
+
+        font-size: 18px;
+        text-align: left;
+        color: #3f3b3b;
+    }
+
+    .div-item-region-hot {
+        .div-img {
+            margin-right: 8px;
+            width: 20%;
+            height: 45px;
+
+            .img-hot {
+                height: 45px;
+                object-fit: cover;
+                border-radius: 6px;
+            }
+        }
+
+        .div-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 80%;
+            font-size: 16px;
+            line-height: 1.4;
+            text-align: left;
+            color: #3f3b3b;
+        }
+    }
+    
+    
+    
+}
+.img-search{
+    width: 16px;
+    height: 16px;
+}

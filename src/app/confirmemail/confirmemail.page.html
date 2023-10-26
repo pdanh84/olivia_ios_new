@@ -1,0 +1,36 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Xác nhận email</div>
+          </div>
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  
+  <ion-content class="confirmemail-content">
+    <div class="p-16">
+        <div class="text-confirm m-top-8">Vui lòng nhập email để tích điểm và nhận các ưu đãi hấp dẫn từ iVIVU</div>
+        <div>
+            <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0;color: #828282; font-weight: 300;font-size: 14px;letter-spacing: -0.4px;">
+                <ion-label class="sub-label m-bottom-6 f-13" position="floating">Email</ion-label>
+                <ion-input class="cls-input-confirmemail" [(ngModel)]="email" type="email"></ion-input>
+            </ion-item>
+        </div>
+    </div>
+  </ion-content>
+  <ion-footer>
+    <ion-row>
+      <ion-col style="padding:0">
+        <div class="div-confirmemail-footer">
+            <button (click)="confirm()" ion-button round outline class="button button-confirm">Xác nhận</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  
+  </ion-footer>

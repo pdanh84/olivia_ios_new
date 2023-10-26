@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <div class="text-center">
+    <img class="img-step" src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div style="margin-top: 15px" *ngIf="status=='AL'">
+    <div class="div-padding-bottom">
+      <ion-label style="font-weight: bold">
+        Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com
+      </ion-label>
+    </div>
+    <div class="div-padding-bottom">
+      <ion-label>
+        Mã Combo của quý khách là
+        <span style="font-weight: bold">{{code}}</span>
+      </ion-label>
+    </div>
+    <div class="div-padding-bottom">
+      <ion-label text-wrap>
+        Mời quý khách thanh toán số tiền
+        <span style="font-weight: bold">{{priceshow}} VND</span> trước
+        <span style="font-weight: bold">{{text}}</span> để hoàn tất việc đặt Combo.
+      </ion-label>
+    </div>
+    <div class="div-padding-bottom">
+      <ion-label text-wrap>
+        Nếu cần sự hỗ trợ vui lòng liên hệ tổng đài 1900 1870 hoặc email tc@ivivu.com để được trợ giúp.
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Hồ Chí Minh: 1900 1870
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Hà Nội: 1900 2045
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Cần Thơ: 1900 2087
+      </ion-label>
+    </div>
+  </div>
+
+  <div style="margin-top: 15px" *ngIf="status=='RQ'">
+    <div>
+      <ion-label style="font-weight: bold" text-wrap>
+        Cảm ơn Quý khách sử dụng dịch vụ iVIVU.com
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Mã Combo của quý khách là
+        <span style="font-weight: bold">{{code}}</span>
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Nhân viên iVIVU.COM sẽ liên lạc với Quý Khách trong thời gian sớm nhất.
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Nếu cần sự hỗ trợ vui lòng liên hệ qua email tc@ivivu.com hoặc tổng đài sau:
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Hồ Chí Minh: 1900 1870
+      </ion-label>
+    </div>
+    <div>
+
+      <ion-label text-wrap>
+        Hà Nội: 1900 2045
+      </ion-label>
+    </div>
+    <div>
+      <ion-label text-wrap>
+        Cần Thơ: 1900 2087
+      </ion-label>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button *ngIf="status=='AL'" (click)="addToCalendar()" ion-button round outline class="button button2">Thêm chuyến đi vào
+      lịch</button>
+    <button (click)="next()" ion-button round outline class="button button2 m-top-0">Hoàn thành</button>
+  </div>
+</ion-footer>

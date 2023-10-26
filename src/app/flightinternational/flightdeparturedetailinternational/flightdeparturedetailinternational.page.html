@@ -1,0 +1,91 @@
+<ion-header class="flightpage-header">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Thông tin chuyến bay</div>
+          </div>
+  
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+    
+  </ion-header>
+  
+  <ion-content class="flight-detail-content">
+    <div class="p-16" *ngIf="itemFlight" >
+        <div *ngFor="let itemdeparture of itemFlight.details; let idx = index">
+
+          <div class="m-bottom-16">
+            <div class="d-flex ">
+              <div class="d-flex">
+                <div class="div-logo m-right-2">
+                  <img class="icon-logo" [src]="itemdeparture.logoUrl" *ngIf="!itemdeparture.operatedByLogo">
+                  <img class="icon-logo" [src]="itemdeparture.operatedByLogo" *ngIf="itemdeparture.operatedByLogo">
+                </div>
+                <div>
+                    <div  class="d-flex  a-baseline">
+                      <div class="div-airline-info" *ngIf="itemdeparture">
+                        <div class="text-airline">{{itemdeparture.airline}} </div>
+                      </div>
+                      <div class="div-relative">
+                        <div class="p-absolute f-36 m-lr-6">·</div>
+                      </div>
+                      
+                      <div class="div-airline-info" *ngIf="itemdeparture">
+                        <div class="text-flightNumber">{{itemdeparture.flightNumber}}</div>
+                      </div>
+          
+                      <div class="div-relative" *ngIf="itemdeparture.aircraftStr">
+                        <div class="p-absolute f-36 m-lr-6">·</div>
+                      </div>
+                      <div class="div-airline-info" *ngIf="itemdeparture.aircraftStr">
+                        <div class="text-flightNumber">{{itemdeparture.aircraftStr}}</div>
+                      </div>
+                    </div>
+                    <div class="div-operatedby" *ngIf="itemdeparture.operatedBy">{{itemdeparture.operatedBy}}</div>
+                    <div class="div-airline-info" *ngIf="itemdeparture.ticketClass">
+                      <div class="text-ticketClass">{{itemdeparture.ticketClass}}</div>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+          
+
+          <div class="d-flex div-departure" >
+            <div class="d-flex-column div-first width-30">
+              <div class="text-place">{{itemdeparture.shortFromPlaceName}}</div>
+                <div class="text-airport">{{itemdeparture.shortFromAirportName}}</div>
+                <div class="text-time">{{itemdeparture.timeDepartShort}}</div>
+                <div class="text-date">{{itemdeparture.departTimeDisplay}}</div>
+            </div>
+
+            <div class="d-flex-column div-second width-40">
+              <div class="text-timeflight">{{itemdeparture.flightTimeDisplay}}</div>
+              <div class="div-linetime"></div>
+            </div>
+            <div class="div-icon-plain">
+              <img class="icon-plain" src="./assets/ic_flight_international/airplane.svg" >
+            </div>
+
+            <div class="d-flex-column div-third width-30">
+              <div class="text-place">{{itemdeparture.shortToPlaceName}}</div>
+              <div class="text-airport">{{itemdeparture.shortToAirportName}}</div>
+              <div class="text-time">{{itemdeparture.timeLandingShort}}</div>
+              <div class="text-date">{{itemdeparture.landingTimeDisplay}}</div>
+            </div>
+          </div>
+          <div class="div-stops-info" *ngIf="itemdeparture.layover && idx != itemFlight.details.length -1">
+            Quá cảnh {{itemdeparture.to }} - {{ itemdeparture.toAirport }}  |  Thời gian: <span class="text-bold">{{ itemdeparture.flightLayoverDisplay}}</span><span *ngIf="itemdeparture.layoverNight">  |  <span class="text-red">Lưu ý: Quá cảnh qua đêm</span></span>
+          </div>
+        </div>
+    </div>
+  </ion-content>

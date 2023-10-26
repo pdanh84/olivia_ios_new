@@ -1,0 +1,213 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center; height: 56px">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center">
+            <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+              <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+                src="./assets/imgs/ios-arrow-round-back.svg">
+            </div>
+  
+            <div class="div-text-room"><label class="text-title">{{nameRoom}}</label>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+<ion-content *ngFor="let objectRoom of roomdetailarr" #container>
+    <!-- <img-loader *ngIf="slideData.length==0" [spinner]="true" useImg [src]="imgurl" class="img-hotel-detail" style="width: 100%;"></img-loader> -->
+    <div class="div-relative">
+        <swiper-container (slidechange)="onSlideChange()" *ngIf="ischeck" #mySlider class="cls-slide-room-detail-image">
+            <swiper-slide (click)="imgDetail()" *ngFor="let slide of slideData" >
+            
+            <!-- <img [src]="slide.Url" style="min-height: 195px;height: auto; width: 100%" [defaultImage]="defaultImage" [lazyLoad]="slide.Url" /> -->
+               <img [src]="slide.Url" style="min-height: 195px;height: auto; width: 100%"  class="preview"  />
+              <div *ngIf="slide.Caption" class="div-img-caption-grad"></div>
+              <div *ngIf="slide.Caption" class="div-img-caption">{{slide.Caption}}</div>
+            </swiper-slide>
+          </swiper-container>
+        
+            <div *ngIf="!ischeck" class="div-sk-image" >
+                <ion-skeleton-text  animated style="width:100%;height:197px"></ion-skeleton-text>
+            </div>
+
+            <div *ngIf="slideData.length>1" class="div-navigation-back">
+                <img (click)="backslide()" class="img-navigation-back" src="./assets/imgs/ic_navigation_back.svg" >
+             </div>
+             <div *ngIf="slideData.length>1" class="div-navigation-forward">
+                <img (click)="nextslide()" class="img-navigation-forward" src="./assets/imgs/ic_navigation_forward.svg" >
+             </div>
+    </div>
+   
+    
+    
+     
+    <div class="hotel-room-detail-content">
+        <!-- <h2 class="room-class-name">{{objectRoom.ClassName}}</h2> -->
+        <!-- Số khách -->
+            <div class="room-class-icon">
+                <img class="icon-detail-fix" src="./assets/iocnsearch/ic_people.svg">
+            </div>
+            <div class="room-class-info">
+                <span *ngIf="objectRoom.Rooms[0].MaxAdults != objectRoom.Rooms[0].IncludeAdults && objectRoom.Rooms[0].MaxAdults >0" class="text-room-class-description">Tối đa
+                    {{objectRoom.Rooms[0].MaxAdults}}
+                    người lớn |
+                    {{objectRoom.Rooms[0].IncludeAdults}}
+                    người lớn &
+                    {{objectRoom.Rooms[0].MaxChils}}
+                    trẻ em</span>
+                <span *ngIf="objectRoom.Rooms[0].MaxAdults == objectRoom.Rooms[0].IncludeAdults && objectRoom.Rooms[0].MaxAdults >0" class="text-room-class-description">Tối đa
+                    {{objectRoom.Rooms[0].MaxAdults}}
+                    người lớn &
+                    {{objectRoom.Rooms[0].MaxPax - objectRoom.Rooms[0].MaxAdults}}
+                    trẻ em</span>
+                    <span *ngIf="objectRoom.Rooms[0].MaxAdults == 0" class="text-room-class-description">Tối đa
+                        {{objectRoom.Rooms[0].MaxPax}} khách</span>
+            </div>
+
+        <div *ngIf="objectRoom.Rooms[0] && (objectRoom.Rooms[0].RoomInfomations.SubRoomHotels || objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile || (objectRoom.Rooms[0].BedTypes && objectRoom.Rooms[0].BedTypes.length >0))" class="p-top-8">
+            <div class="room-class-icon">
+                <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_bed.svg">
+            </div>
+            <div class="room-class-info">
+                <div *ngIf="objectRoom.Rooms[0] && objectRoom.Rooms[0].RoomInfomations.SubRoomHotels && objectRoom.Rooms[0].RoomInfomations.SubRoomHotels.length>0">{{objectRoom.Rooms[0].RoomInfomations.SubRoomHotels[0].Quantity}} phòng ngủ </div>
+                <div *ngIf="objectRoom.Rooms[0] && objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile">{{objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile.join(' | ')}}</div>
+                <div *ngIf="objectRoom.Rooms[0] && !objectRoom.Rooms[0].RoomInfomations.BedSummaryDisplaysMobile && objectRoom.Rooms[0].BedTypes && objectRoom.Rooms[0].BedTypes.length >0">{{objectRoom.Rooms[0].BedTypes[0].description}}</div>
+            </div>
+        </div>
+
+        <p class="h-line"></p>
+
+        <div>
+            <div class="text-title-name">
+                Tiện ích phòng
+            </div>
+            <!-- Hướng -->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Direction">
+                <div class="no-padding room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_view.svg">
+                </div>
+                <div class="room-class-info">
+                    Hướng
+                    {{objectRoom.Rooms[0].RoomInfomations.Direction}}
+                </div>
+            </div>
+            <!-- Diện tích -->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Acreage" class="p-top-8 ">
+                <div class="room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_area.svg">
+                </div>
+                <div class="room-class-info">
+                    {{objectRoom.Rooms[0].RoomInfomations.Acreage}}m2
+                </div>
+            </div>
+            <!-- Không hút thuốc -->
+                <div *ngIf="!objectRoom.Rooms[0].RoomInfomations.AllowSmoke" class="p-top-8"> <div class=" room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_nonsmoking.svg">
+                </div>
+                <div class="room-class-info">
+                    Phòng không hút thuốc
+                </div>
+            </div>
+            <!-- Ban công -->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Balcony" class="p-top-8">
+                <div class=" room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_balcone.svg">
+                </div>
+                <div class="room-class-info">
+                    Ban công
+                </div>
+            </div>
+            <!-- Bồn tắm & vòi sen-->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.BathTub && objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-8">
+                <div class=" room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_shower.svg">
+                </div>
+                <div class="room-class-info">
+                    Bồn tắm & vòi hoa sen
+                </div>
+            </div>
+            <!-- Bồn tắm -->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.BathTub && !objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-8">
+                <div class=" room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_bathtub.svg">
+                </div>
+                <div class="room-class-info">
+                    Bồn tắm
+                </div>
+            </div>
+            <!-- Vòi sen -->
+            <div *ngIf="!objectRoom.Rooms[0].RoomInfomations.BathTub && objectRoom.Rooms[0].RoomInfomations.Shower" class="p-top-8">
+                <div class=" room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_shower.svg">
+                </div>
+                <div class="room-class-info">
+                    Vòi hoa sen
+                </div>
+            </div>
+            <!-- Bể bơi -->
+            <div *ngIf="objectRoom.Rooms[0].RoomInfomations.Pools" class="p-top-8">
+                <div class="no-padding room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_facility/ic_pool.svg">
+                </div>
+                <div class="room-class-info">
+                    Bể bơi
+                </div>
+            </div>
+               <!-- cửa sổ -->
+               <div *ngIf="objectRoom.Rooms[0].RoomInfomations.WindowOpen" class="p-top-8">
+                <div class="no-padding room-class-icon">
+                    <img class="icon-detail-fix" src="./assets/ic_hoteldetail/ic_view.svg">
+                </div>
+                <div class="room-class-info">
+                    Phòng cửa sổ mở
+                </div>
+            </div>
+                 <!-- P không hút thuốc -->
+                 <div *ngIf="objectRoom.Rooms[0].RoomInfomations.AllowSmoke" class="p-top-8">
+                    <div class="no-padding room-class-icon">
+                        <img class="icon-detail-fix" src="./assets/ic_facility/ic_nonsmoking.svg">
+                    </div>
+                    <div class="room-class-info">
+                        Phòng không hút thuốc
+                    </div>
+                </div>
+          
+                       <!--Facilitys-->
+                       <div  *ngFor="let Fac of objectRoom.Rooms[0].RoomInfomations.Facilitys" class="p-top-8">
+                        <div class="no-padding room-class-icon">
+                          
+                            <img *ngIf="Fac.Name.indexOf('Wifi') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_wifi.svg">
+                            <img *ngIf="Fac.Name.indexOf('Đưa đón') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_bus_green.svg">
+                        </div>
+                        <div class="room-class-info">
+                           {{Fac.Name}}
+                        </div>
+                    </div>
+                    <div  *ngFor="let item of objectRoom.Rooms[0].RoomInfomations.RoomClassFacility" class="p-top-8">
+                        <div class="no-padding room-class-icon">
+                          
+                            <img  class="icon-detail-fix" src="./assets/ic_flight/icon_info_gray.svg">
+                      
+                        </div>
+                        <div class="room-class-info">
+                           {{item}}
+                        </div>
+                    </div>
+          
+        </div>
+        <p *ngIf="RoomDescription" class="h-line"></p>
+        <div *ngIf="RoomDescription">
+            <div class="text-title-name">
+                Mô tả phòng
+            </div>
+            <div class="text-room-description-custom" [innerHTML]="RoomDescription">
+            </div> 
+        </div>
+    </div>
+    
+</ion-content>
+<!-- <ion-footer style="text-align: center; background: #ffffff">
+        <button ion-button round outline class="button btn-cancel" (click)="goback()">Đóng</button>
+</ion-footer> -->

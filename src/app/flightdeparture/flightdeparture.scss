@@ -1,0 +1,194 @@
+
+    .text-title{
+        font-size: 18px;
+        font-weight: bold
+    }
+    .combo-img{
+        height: 40px;
+        width: 40px;
+    }
+
+    .div-flight-type {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.67;
+      letter-spacing: -0.34px;
+      color: #494b55;
+      margin-top: 3px;
+      max-width: 104px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: -8px;
+    }
+    
+    .div-flight-label{
+        font-size: 14px;
+        color: #4f4f4f;
+        margin-left: -8px;
+      }
+      .div-airline-label{
+        font-size: 14px;
+        color: #4f4f4f;
+        margin-left: -8px;
+        font-weight: normal;
+      }
+      .combo-departure-time{
+        font-size: 14px;
+          font-weight: bold;
+          padding-top: 4px;
+      }
+      
+      .combo-flight-price-label-down{
+        font-size: 14px;
+        color: #003c71;
+      }
+      
+      .combo-flight-price-label-up{
+        font-size: 14px;
+        color: #ec971f;
+      }
+      .flight-price{
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .div-split{
+        position: absolute;
+        height: 20px;
+        border-right: solid 1px #ccc;
+        top: 20px;
+        padding-left: 76%;
+      }
+      .text-operatedBy{
+        font-size: 10px;
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+        position: relative;
+        margin-top: 4px;
+        margin-left: -8px;
+    }
+      @media (min-width:287px) and (max-width: 359px) {
+        .div-flight-label{
+            font-size: 14px;
+            color: #4f4f4f;
+            margin-left: 0px;
+          }
+          .div-airline-label{
+            font-size: 14px;
+            color: #4f4f4f;
+            margin-left: 0px;
+            font-weight: normal;
+          }
+          .text-operatedBy{
+            font-size: 10px;
+            font-weight: 300;
+            line-height: 1.67;
+            letter-spacing: -0.34px;
+            color: #828282;
+            position: relative;
+            margin-top: 4px;
+            margin-left: 0px;
+        }
+        .combo-flight-price-label-up {
+            font-size: 13px;
+            color: #ec971f;
+        }
+        .combo-flight-price-label-down{
+            font-size: 13px;
+            color: #003c71;
+          }
+      }
+
+      ::ng-deep {
+          .select-icon{
+            display: none;
+          }
+          .select-icon-inner {
+            border-top: transparent!important;
+          }
+          ion-row:last-child{
+            border-bottom: none !important;
+          }
+
+          
+          .sc-ion-alert-ios-h {
+            --background: var(--ion-overlay-background-color,#fff);
+            font-size: 14px;
+            align-items: flex-end;
+        }
+        
+        .alert-head.sc-ion-alert-ios{
+            display: none;
+        }
+        .alert-wrapper.sc-ion-alert-ios{
+            width: 100%;
+            min-width: 100%;
+            border-radius: 0;
+        }
+        .alert-button-inner.sc-ion-alert-ios {
+            justify-content: center;
+        }
+        .alert-button.sc-ion-alert-ios{
+            height: 48px;
+            border-radius: 6px;
+            font-size: 22px;
+            border-color: #f79221;
+            color: #ffffff;
+            background: #f79221;
+            width: 90%;
+            text-align: center;
+            margin: 16px;
+            text-transform: uppercase;
+        }
+        .alert-button-group.sc-ion-alert-ios button:first-child{
+            display: none;
+        }
+        .alert-checkbox-group.sc-ion-alert-ios{
+            border: none;
+        }
+        
+        .action-sheet-container.sc-ion-action-sheet-ios{
+            padding: 0;
+        }
+        .action-sheet-group.sc-ion-action-sheet-ios:first-child {
+            margin: 0;
+        }
+        .action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-ios {
+            display: none;
+        }
+        .action-sheet-group.sc-ion-action-sheet-ios {
+            border-radius: 0px;
+            overflow: hidden;
+        }
+        .action-sheet-button-inner.sc-ion-action-sheet-ios {
+            width: 100%;
+            height: 100%;
+            color: black;
+            font-size: 14px;
+            justify-content: left;
+        }
+        .action-sheet-button.sc-ion-action-sheet-ios {
+            padding: 0;
+            border-bottom: solid 1px #ccc;
+            margin-left: 16px;
+            margin-right: 16px !important;
+            width: 92%;
+        }
+        .action-sheet-selected.sc-ion-action-sheet-ios{
+            background-image: url('../../assets/imgs/ic_check.svg');
+            background-repeat: no-repeat;
+            background-position: right;
+            width: 92%;
+        }
+
+        ion-modal{ 
+            transform:none !important; 
+            -webkit-transform:none !important; 
+        }
+        .sc-ion-alert-ios-h.sc-ion-alert-ios-s.cls-reivewapp {
+          align-items: center !important;
+        }
+      }
+       

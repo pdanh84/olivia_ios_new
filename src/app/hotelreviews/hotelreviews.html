@@ -1,0 +1,163 @@
+<!--
+  Generated template for the HotelreviewsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center" >
+          <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div><label class="text-title">Đánh giá của khách hàng</label></div>
+          <div><label style="font-size: 11px;color: #828282">{{Name}}</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="hotel-review-page">
+    <div *ngIf="loaddatadone else loadsk">
+        <div class="div-avg-reviews">
+          <div class="div-review lh-normal"  *ngIf="AvgPoint>9 && AvgPoint<=10 && numHotelReviews >0">
+            <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{gf.convertNumberFormat(AvgPoint)}}</ion-badge>
+            <div class="cls-ml6">
+                <div  class="text-point">Tuyệt vời</div>
+                <div class="num-review">
+                    {{gf.convertNumberToString(numHotelReviews)}} đánh giá
+                </div>
+            </div>
+          </div>
+          <div class="div-review lh-normal"  *ngIf="AvgPoint>8 && AvgPoint<=9 && numHotelReviews >0">
+            <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{gf.convertNumberFormat(AvgPoint)}}</ion-badge>
+            <div class="cls-ml6">
+                <div  class="text-point">Rất tốt</div>
+                <div class="num-review">
+                    {{gf.convertNumberToString(numHotelReviews)}} đánh giá
+                </div>
+            </div>
+          </div>
+         
+          
+          <div class="div-review lh-normal"  *ngIf="AvgPoint>7 && AvgPoint<=8 && numHotelReviews >0">
+            <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{gf.convertNumberFormat(AvgPoint)}}</ion-badge>
+            <div class="cls-ml6">
+                <div  class="text-point">Khá tốt</div>
+                <div class="num-review">
+                    {{gf.convertNumberToString(numHotelReviews)}} đánh giá
+                </div>
+            </div>
+          </div>
+          <div class="div-review lh-normal"  *ngIf="AvgPoint>5 && AvgPoint<=7 && numHotelReviews >0">
+            <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{gf.convertNumberFormat(AvgPoint)}}</ion-badge>
+            <div class="cls-ml6">
+                <div  class="text-point">Tạm được</div>
+                <div class="num-review">
+                    {{gf.convertNumberToString(numHotelReviews)}} đánh giá
+                </div>
+            </div>
+          </div>
+          <div class="div-review lh-normal"  *ngIf="AvgPoint<=5 && numHotelReviews >0">
+            <ion-badge class="cls-ionbadge" ion-badge-border-radius>{{gf.convertNumberFormat(AvgPoint)}}</ion-badge>
+            <div class="cls-ml">
+                <div  class="text-point">Không tốt</div>
+                <div class="num-review">
+                    {{gf.convertNumberToString(numHotelReviews)}} đánh giá
+                </div>
+            </div>
+          </div>
+          <div  *ngIf="arrimgreview && arrimgreview.length>0" class="innerreview1" style="overflow-x: auto">
+            <div *ngFor="let review of arrimgreview;let i = index" style="position: relative;">
+          
+              <img class="img2" *ngIf="review && review.imageUrl"
+                src={{review.imageUrl}} />
+                <div *ngIf="i>1"  class="cls-divback"></div>
+                  <div *ngIf="i>1" (click)="seemoreimgrv()" class="text-seemore">
+                    Xem thêm {{countimgrv}} hình
+                  </div>
+                  
+            </div>
+          </div>
+        </div>
+        <div class="mt25"  *ngFor="let msg of arrHotelReviews; let idx = index">
+          <div *ngIf="msg.ReviewPoint>9 && msg.ReviewPoint<=10 && numHotelReviews >0" class="pos-relative">
+            <div class="div-review">
+              <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{gf.convertNumberFormat(msg.ReviewPoint)}}</ion-badge>
+              <div class="cls-ml8">Tuyệt vời
+              </div>
+            </div>
+            <div *ngIf="msg.ReviewPoint>8 && msg.ReviewPoint<=9 && numHotelReviews >0">
+              <div class="div-review">
+                <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{gf.convertNumberFormat(msg.ReviewPoint)}}</ion-badge>
+                <div class="cls-ml8">Rất tốt
+                </div>
+              </div>
+            </div>
+            <div *ngIf="msg.ReviewPoint>7 && msg.ReviewPoint<=8 && numHotelReviews >0">
+              <div class="div-review">
+                <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{gf.convertNumberFormat(msg.ReviewPoint)}}</ion-badge>
+                <div class="cls-ml8">Khá tốt
+                </div>
+              </div>
+            </div>
+            <div *ngIf="msg.ReviewPoint>5 && msg.ReviewPoint<=7 && numHotelReviews >0">
+              <div class="div-review">
+                <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{gf.convertNumberFormat(msg.ReviewPoint)}}</ion-badge>
+                <div class="cls-ml8">Tạm được
+                </div>
+              </div>
+            </div>
+            <div *ngIf="msg.ReviewPoint<=5 && numHotelReviews >0">
+              <div class="div-review">
+                <ion-badge class="cls-ionbadgerw" ion-badge-border-radius>{{gf.convertNumberFormat(msg.ReviewPoint)}}</ion-badge>
+                <div class="cls-ml8">Không tốt
+                </div>
+              </div>
+            </div>
+              <div class="cls-textreview">
+                <label  text-wrap>
+                  {{msg.BestFeature}}
+                </label>
+              </div>
+              <div *ngIf="msg.ReviewImages && msg.ReviewImages.length>0" class="innerreview" style="overflow-x: auto">
+            <div *ngFor="let review of msg.ReviewImages;let i = index" style="position: relative;">
+              <img (click)="imgreview(msg.ReviewImages,i,msg.CustomerName,msg.DateStayed)" class="img1"
+                src={{review.ImageUrl}} />
+            </div>
+         
+          </div>
+          <div class="date-review">
+            <!-- <div><label class="text-date-reviews" text-wrap>{{msg.DateStayed}}</label></div>
+            <div><label class="text-date-reviews" text-wrap>{{msg.CustomerName}}</label></div> -->
+              <label class="text-date-reviews" text-wrap>
+                {{msg.CustomerName}} • {{msg.DateStayed}}
+              </label>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+        <ng-template #loadsk>
+          <div class="div-avg-reviews">
+            <div *ngFor="let item of reviewsk">
+              <div  *ngIf="AvgPoint>9 && AvgPoint<=10 && numHotelReviews >0">
+                <div style="display: flex">
+                    <ion-skeleton-text  animated style="width:20%;margin: 16px 0;height: 40px;border-radius: 10px;" ion-badge-border-radius></ion-skeleton-text>
+                    <div style="width: 100%;margin-top: 12px;margin-left: 8px;">
+                      <ion-skeleton-text animated style="width:20%;height: 16px;" ></ion-skeleton-text>
+                      <ion-skeleton-text animated style="width:20%;height: 16px;margin-top: 8px" ></ion-skeleton-text>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                  <ion-skeleton-text animated style="width:100%;height: 104px;border-radius: 4px;"></ion-skeleton-text>
+                  <ion-skeleton-text animated style="width:100%;height: 104px;margin-left: 8px; border-radius: 4px;"></ion-skeleton-text>
+                  <ion-skeleton-text animated style="width:100%;height: 104px;margin-left: 8px; border-radius: 4px;"></ion-skeleton-text>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+</ion-content>

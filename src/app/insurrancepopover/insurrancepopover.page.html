@@ -1,0 +1,45 @@
+<ion-content class="insurrance-popover">
+  <div class="div-insurance" *ngIf="arrinsurrance && arrinsurrance.length >0">
+    <div class="row-label-insurance">
+        <img class="logo-insurance" src="./assets/logo/logo_1.svg">
+      <label class="cls-label-info p-lt-4">Thông tin bảo hiểm</label>
+    </div>
+     <div *ngFor="let item of arrinsurrance; let idx = index">
+       <div [ngClass]="idx ==0 ? 'div-item-insurance p-top-8' : 'div-item-insurance'">
+         <label class="item-text">{{ item.customer_name }}:</label>
+         <label class="item-text cls-insuranceno">{{item.insurance_code}}</label>
+         <label class="item-text cls-require-text" *ngIf="!item.claimed else hadclaimed" (click)="showInsurranceHistoryPopover($event, item, 0)">Yêu cầu bảo hiểm</label>
+         <ng-template #hadclaimed><img class="img-hadclaimed" src="./assets/imgs/icon_action_done.svg"><label>Đã yêu cầu</label></ng-template>
+       </div>
+     </div>
+
+     <div class="div-chil-insurrance" *ngIf="arrchildinsurrance && arrchildinsurrance.length >0">
+        <label class="cls-label-text">Trẻ em đi kèm</label>
+        <div *ngFor="let itemchild of arrchildinsurrance; let idx = index">
+            <div [ngClass]="idx ==0 ? 'div-item-insurance p-top-8' : 'div-item-insurance'">
+              <label class="item-text">{{ itemchild.customer_name }}:</label>
+              <label class="item-text cls-insuranceno">{{itemchild.insurance_code}}</label>
+              <label class="item-text cls-require-text" *ngIf="!itemchild.claimed else hadclaimed" (click)="showInsurranceHistoryPopover($event, itemchild, 1)">Yêu cầu bảo hiểm</label>
+              <ng-template #hadclaimed><img class="img-hadclaimed" src="./assets/imgs/icon_action_done.svg"><label>Đã yêu cầu</label></ng-template>
+            </div>
+          </div>
+     </div>
+
+     <div class="insurrance-contact">
+       <div class="insurrance-contact-name"><label class="item-text">Bảo hiểm tai nạn: </label></div>
+        
+        <div class="insurrance-contact-phone support-text s-text"
+            (click)="makeCallSupport(84838298520)"><img class="img-support" src="./assets/imgs/ic_call.svg">  +84838298520
+        </div>
+
+        <div class="insurrance-contact p-top-10" (click)="showInsurranceInfo()">
+          <div class="insurrance-contact-name"><label class="item-text">Bảo hiểm du lịch và chuyến bay</label></div>
+           
+           <div class="insurrance-contact-arrow s-text">
+             <img src="./assets/imgs/ic_arrow_grey.svg" class='icon-arrow-right'/>
+           </div>
+        </div>
+     </div>
+
+   </div>
+</ion-content>

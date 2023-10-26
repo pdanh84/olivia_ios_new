@@ -1,0 +1,104 @@
+<div class="background">
+    <img class="img-background" src="./assets/ic_tour/tour.jpg">
+    <div class="div-wrap-background"></div>
+    <div class="text-center">
+      <img class="img-logo" src="./assets/logo/logo.svg" />
+    </div>
+    <div class="p-all-16">
+      <div class="text-home-hotel">
+        <label class="label-home-hotel">
+          Du lịch theo phong cách riêng
+        </label>
+      </div>
+      <div class="div-wrap-search-input"></div>
+        <ion-row class="row-search-home" (click)="change()">
+          <div class="div-width">
+            <div class="img-input">
+              <img
+                class="img-padding img-location"
+                src="./assets/iocnsearch/ic_location.svg"
+              />
+            </div>
+  
+            <div class="div-input-right text-input-search">
+              <div *ngIf="!itemSearch" class="text-placeholder text-middle">
+                Bạn muốn đi đâu?
+              </div>
+              <div *ngIf="itemSearch && !itemSearch.IndexType else tourname" class="text-middle">
+                {{ itemSearch.RegionName }}
+              </div>
+              <ng-template #tourname>
+                <div *ngIf="itemSearch && itemSearch.Name" [ngClass]="itemSearch.Name.length > 60 ? 'text-search text-middle' : 'text-middle' ">
+                  {{ itemSearch.Name }}
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </ion-row>
+        
+        <div>
+          <ion-row class="row-pickup-calendar"
+            (click)="openPickupCalendar()"
+          >
+          <div class="div-width">
+            <div class="div-cin">
+                <div class="img-cin-cout"><img class="img-padding img-checkin" src="./assets/iocnsearch/ic_checkin.svg"/></div>
+  
+                <div class="div-input-right text-input-cin">
+                  <div *ngIf="tourService.cindisplay else loaddingcin">
+                    <div class="text-cin">
+                      <label class="text-cin-input">{{ tourService.cindisplay }}</label>
+                    </div>
+                    <div class="font-thu" *ngIf="cofdate==0">
+                      <label class="text-color text-cinthu">{{ tourService.cinthu }}</label>
+                    </div>
+                    <div class="font-thu" *ngIf="cofdate==1" >
+                      <label class="text-color text-cinthu text-red" >{{tourService.cinthu}}</label>
+                    </div>
+                  </div>
+                  <ng-template #loaddingcin>
+                    <div class="div-loadingcin">
+                      <ion-skeleton-text
+                        animated
+                        style="width:100px;margin: 0;height: 32px"
+                      ></ion-skeleton-text>
+                    </div>
+                  </ng-template>
+                </div>
+                
+            </div>
+          </div>
+          </ion-row>
+  
+          <ion-row (click)="opendeparture()" class="row-pickup-calendar" >
+            <div class="div-width">
+                <div class="div-img-airplane"><img class=" img-airple" src="./assets/ic_tour/ic_airplane.svg"/></div>
+  
+                <div class="div-input-right">
+                    <div class="font-thu">
+                        <label class="text-color text-cinthu">Khởi hành từ</label>
+                    </div>
+                    <div class="text-pax">
+                        <label class="text-cin-input" *ngIf="!itemSearchDepature">Hồ Chí Minh</label>
+                        <label class="text-cin-input" *ngIf="itemSearchDepature">{{itemSearchDepature.Name}}</label>
+                      </div>
+                     
+                </div>
+            </div>
+          </ion-row>
+          <ion-row>
+            <button
+              ion-button
+              round
+              (click)="search()"
+              class="button btn-search"
+              clear
+            >
+              Tìm kiếm
+            </button>
+          </ion-row>
+      </div>
+      
+      
+    </div>
+  </div>

@@ -1,0 +1,126 @@
+<ion-header class="flightcomboupgraderoom-header">
+  <ion-row>
+    <ion-col class="header-col">
+      <div class="a-center">
+        <div class="div-close"(click)="close()">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        
+        <div class="div-header-title"><label class="text-title">Nâng cấp phòng</label></div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="flightcomboupgraderoom-content">
+  <div class="hotel-detail-content" >
+    <div class="hotel-detail-room-class">
+      <div>
+          <div class="card-background-detailpage">
+          <ion-item-group *ngFor="let hotelroom of hotelRoomClasses; let itemindex = index" [myScrollVanish]="scrollArea">
+            <div [ngClass]="itemindex ==0 ? 'item-room-first-child' : 'item-room-first-child p-top-8'">
+                  <div class="div-wrapimg">
+                      <img class="img-room" *ngIf="hotelroom.Rooms[0].Images.indexOf('noimage') != -1 || hotelroom.Rooms[0].Images.indexOf('http') != -1"  src="{{hotelroom.Rooms[0].Images}}"  >
+                      <img class="img-room" *ngIf="hotelroom.Rooms[0].Images.indexOf('noimage') == -1 && hotelroom.Rooms[0].Images.indexOf('http') == -1"  src="https:{{hotelroom.Rooms[0].Images}}">
+                  </div>
+
+                <div class="item-room-description-hoteldetail">
+                  <div class="text-left" [ngClass]="hotelroom.ClassName.length > 27 ? 'lh-12' : '' ">
+                    <h2 class="room-class-name">{{hotelroom.ClassName}}</h2>
+                    <div class="div-pax">
+                      <div  class="no-padding room-class-icon">
+                        <img class="icon-detail-fix" src="./assets/iocnsearch/ic_people.svg">
+                      </div>
+                      <div class="div-pax-info p-left-4">
+                        <span *ngIf="hotelroom.Rooms[0].MaxAdults != hotelroom.Rooms[0].IncludeAdults && hotelroom.Rooms[0].MaxChils >0" class="text-room-class-description">{{hotelroom.Rooms[0].MaxAdults}} người lớn | {{hotelroom.Rooms[0].IncludeAdults}} người lớn & {{hotelroom.Rooms[0].MaxChils}} trẻ em</span>
+                        <span *ngIf="hotelroom.Rooms[0].MaxAdults == hotelroom.Rooms[0].IncludeAdults && hotelroom.Rooms[0].MaxPax >= hotelroom.Rooms[0].MaxAdults && hotelroom.Rooms[0].MaxChils >0" class="text-room-class-description">{{hotelroom.Rooms[0].MaxAdults}} người lớn & {{hotelroom.Rooms[0].MaxPax - hotelroom.Rooms[0].MaxAdults}} trẻ em</span>
+                        <span *ngIf="hotelroom.Rooms[0].MaxAdults == hotelroom.Rooms[0].IncludeAdults && (hotelroom.Rooms[0].MaxPax < hotelroom.Rooms[0].MaxAdults || hotelroom.Rooms[0].MaxChils ==0)" class="text-room-class-description">Phòng tối đa {{hotelroom.Rooms[0].MaxPax}} khách</span>
+                      </div>
+                    </div>
+                   
+                  </div>
+              </div>
+            </div>
+            <!-- Vùng hiển thị room detail -->
+            <div class="mealtype-item group-{{0}} p-top-8" *ngFor="let mealtype of hotelroom.MealTypeRates;let indexMeal=index">
+              <div *ngIf="mealtype.IsFlashSale == true && (mealtype.Supplier == 'Internal' || mealtype.Supplier == 'VINPEARL' || mealtype.Supplier == 'B2B'|| mealtype.Supplier == 'SMD' || mealtype.Supplier == 'SERI') && mealtype.PromotionNote != ''" class="div-mealtype">
+                  <!-- <div *ngIf="currentRoomSelect.PriceAvgPlusOTA != mealtype.PriceAvgPlusOTA" [ngClass]=" j == 0 ? ' cls-fix-visible' : 'cls-fix-visible ' "> -->
+                    <div class="cls-fix-visible">
+                      <ion-row style="width:100%;align-items: center;padding-top: 4px">
+                          <img class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_food_green.svg">
+                          <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length==0" class="text-hotel-description cls-green">{{mealtype.Name}}</ion-label>
+                          <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length!=0 && mealtype.Notes[0].length == mealtype.Name.length" class="text-hotel-description cls-green">{{mealtype.Notes.join(', ')}}</ion-label>
+                          <ion-label *ngIf="mealtype.Name != null && mealtype.Notes.length!=0 && mealtype.Notes[0].length != mealtype.Name.length" class="text-hotel-description cls-green">{{mealtype.Name}},
+                              {{mealtype.Notes.join(', ')}}
+                          </ion-label>
+                      </ion-row>
+                    <ion-row *ngFor="let fac of hotelroom.Rooms[0].RoomInfomations.Facilitys" style="width:100%;align-items: center;">
+                      <ion-row
+                          *ngIf="mealtype.PromotionInclusions.length == 0" style="width:100%;padding-top: 4px">
+                          <!-- <ion-icon class="icon-detail-check-green-fix" name="checkmark-circle-outline"></ion-icon> -->
+                          <img *ngIf="fac.Name.indexOf('Đưa đón') == -1 && fac.Name.indexOf('Wifi') == -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_check_green.svg">
+                          <img *ngIf="fac.Name.indexOf('Wifi') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_wifi.svg">
+                          <img *ngIf="fac.Name.indexOf('Đưa đón') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_bus_green.svg">
+                          <ion-label class="text-hotel-description cls-green">{{ fac.Name }}</ion-label>
+                      </ion-row>
+                  </ion-row>
+                  <!-- Promotion include -->
+                  <ion-row *ngFor="let promo of mealtype.PromotionInclusions" style="width:100%;align-items: center">
+                    <ion-row
+                        *ngIf="hotelroom.Rooms[0].RoomInfomations.Facilitys.length != 0 && hotelroom.Rooms[0].RoomInfomations.Facilitys != 0" style="width:100%;padding-top: 4px">
+                        <!-- <ion-icon class="icon-detail-check-green-fix" name="checkmark-circle-outline"></ion-icon> -->
+                        <img *ngIf="promo.indexOf('Đưa đón') == -1 && promo.indexOf('Wifi') == -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_check_green.svg">
+                        <img *ngIf="promo.indexOf('Wifi') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_wifi.svg">
+                        <img *ngIf="promo.indexOf('Đưa đón') != -1" class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_bus_green.svg">
+                        <ion-label class="text-hotel-description cls-green">{{promo}}</ion-label>
+                    </ion-row>
+                </ion-row>
+                <ion-row style="width:100%;align-items: center;padding-top: 4px">
+                  <img class="icon-detail-green-fix" src="./assets/ic_hoteldetail/ic_fee_green.svg">
+                  <ion-label class="text-hotel-description cls-green" *ngIf="mealtype.Supplier != 'AGD'">Đã bao gồm thuế phí</ion-label>
+                  <ion-label class="text-hotel-description cls-green" *ngIf="mealtype.Supplier == 'AGD'">Hóa đơn VAT sẽ được khách sạn cung cấp tại thời điểm trả phòng</ion-label>
+              </ion-row>
+              <ion-row *ngIf='mealtype.Penaltys[0] && !mealtype.Penaltys[0].IsPenaltyFree && hotelroom.Rooms[0].Penaltys[0]' class="penal-detail">
+                  <img *ngIf="mealtype.Penaltys[0].PenaltyDescription.length <=70" class="icon-detail-check-green-fix" src="./assets/ic_hoteldetail/uc_nonrefund_green.svg">
+                  <img *ngIf="mealtype.Penaltys[0].PenaltyDescription.length > 70" class="icon-detail-check-green-fix" src="./assets/ic_hoteldetail/ic_info.svg">
+                  <span *ngIf="mealtype.Penaltys[0].PenaltyDescription.length <=70" [innerHTML]="mealtype.Penaltys[0].PenaltyDescription.replace('p>','ion-label>')" class="penalty-text"></span>
+                  <div (click)="penaltySelected(indexMeal+1)" style="margin-top: -4px;">
+                      <button *ngIf="!mealtype.Penaltys[0].IsPenaltyFree && mealtype.Penaltys[0].PenaltyDescription.length > 70" class="penalty-text link-penalty">Hủy phòng có tính phí</button>
+                  </div>
+
+                  <div *ngIf="penaltyItemSelected==indexMeal+1" [class.active]="penaltyItemSelected==indexMeal+1" class="penalty-active arrow">
+                      <ion-label *ngFor="let pen of mealtype.Penaltys; let k = index" [innerHTML]="pen.PenaltyDescription.replace('p>','ion-label>')" [ngClass]="mealtype.Penaltys.length > 1 && k==mealtype.Penaltys.length-1 ? 'none-p-top' : ''" class="penalty-active-description"></ion-label>
+                  </div>
+              </ion-row>
+              <ion-row *ngIf='mealtype.Penaltys[0] && mealtype.Penaltys[0].IsPenaltyFree && hotelroom.Rooms[0].Penaltys[0]' class="penal-detail" style="width:100%">
+                  <img class="icon-detail-check-green-fix" src="./assets/ic_hoteldetail/ic_info.svg">
+                  <div (click)="penaltySelected(indexMeal+1)" style="margin-top: -4px;">
+                      <button class="penalty-text link-penalty">Hủy miễn phí trước ngày
+                          {{mealtype.Penaltys[0].PenaltyShortDateStr}}</button>
+                  </div>
+                  <div *ngIf="penaltyItemSelected==indexMeal+1" [class.active]="penaltyItemSelected==indexMeal+1" class="penalty-active arrow">
+                      <ion-label *ngFor="let pen of mealtype.Penaltys; let k = index" [innerHTML]="pen.PenaltyDescription.replace('p>','ion-label>')" [ngClass]="mealtype.Penaltys.length > 1 && k==mealtype.Penaltys.length-1 ? 'none-p-top' : ''" class="penalty-active-description"></ion-label>
+                  </div>
+              </ion-row>
+              <ion-row class="p-top-12">
+                <ion-col class='text-room-price-no-bottom'>
+                      <ion-label style="margin:0px;line-height: 24px;" >{{mealtype.PriceAvgPlusTAStr}}đ<span class="text-normal">/phòng</span></ion-label>
+                </ion-col>
+
+            </ion-row>
+                    <ion-row >
+                      <button *ngIf="!mealtype.elementmeal else roomSelect" (click)="upgradeRoom(hotelroom, mealtype,indexMeal)" class="button btn-book-outline" ion-button outline round style="margin: 11px 0px 0px 0px;">Nâng cấp</button>
+                      <ng-template #roomSelect><button class="button btn-book-selected" ion-button outline round style="margin: 11px 0px 0px 0px;">Đang chọn</button></ng-template>
+                  </ion-row>
+                  <div class="div-border-bottom"></div>
+                  </div>
+              </div>
+          </div>
+                <div *ngIf="itemindex < hotelRoomClasses.length -1" class="div-split"></div>
+              </ion-item-group>
+            </div>
+            
+      </div>
+    </div>
+    </div>
+</ion-content>

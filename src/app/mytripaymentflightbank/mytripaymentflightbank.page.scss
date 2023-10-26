@@ -1,0 +1,121 @@
+
+    .toolbar-title-md {
+        text-align: center;
+        margin-right: 70px;
+    } 
+    .button2
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 90%;
+    } 
+    .img.active
+    {
+        border: 3px solid #23BFD8;
+    }
+    .img
+    {
+        border: 1px solid #CCCCCC;
+        height: 100%;
+        width: 100%;
+        object-fit: scale-down;
+    }
+    .grid {
+        padding: 0px
+    }
+    .ion-item
+    {
+      --padding-start: 0px;
+      --inner-border-width: 0 0 0px 0;
+      width: 108%;
+    }
+    .text-option
+    {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #4f4f4f;
+    }
+    .chkbox
+    {
+        margin-left: 18px;
+    }
+    .div-border
+    {
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+        border: solid 0.5px #26bed6;
+        display: flex;
+        height: 74px;
+        border-radius: 4px;
+        margin-top: 8px;
+    }
+    .img1
+    {
+        width: 77px;
+        height: 17.1px;
+        object-fit: cover;
+        margin-left: 12px;
+    }
+    .div-flex
+    {
+        display: flex;
+    }
+    .ml18
+    {
+        margin-left: 18px;
+        width: 18px; 
+        height: 18px;
+        --border-radius: 24px;
+        --border-width: 0.5px;
+    }
+    .ml12
+    {
+        margin-left: 12px;
+    }
+    .div-2
+    {
+        display: grid;
+        margin-top: 16px;
+        margin-left: 13px;
+        margin-bottom: 16px;
+    }
+    .mt29
+    {
+        margin-top: 29px;
+    }
+    .mt16
+    {
+        margin-top: 16px;
+    }
+    .text-infobank
+    {
+        font-size: 16px;
+        font-weight: 300;
+        letter-spacing: -0.46px;
+        color: #000000;
+    }
+    .mt28
+    {
+        margin-top: 28px;
+    }
+    .mt24
+    {
+        margin-top: 24px;
+    }
+    .label-input{
+        font-size: 13px;
+        font-weight: 300;
+        color: #000000;
+        margin-left: 5px;
+      }
+      .ion-checkbox{
+        width: 16px;
+        height: 16px;
+        margin: -2px;
+      }
+    
+
+
+

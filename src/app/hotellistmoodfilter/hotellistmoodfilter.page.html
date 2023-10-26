@@ -1,0 +1,66 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-header-title">
+          <div class="div-title">Bộ lọc</div>
+        </div>
+
+        <div class="div-close" (click)="close()">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="topdeal-filter-content">
+  <div class="p-16">
+      <!-- <div class="div-price">
+        <div class="text-title m-bottom-8">Giá</div>
+        <div class="div-fitler-price d-flex">
+          <div class="div-left text-price">{{minpricedisplay}}</div>
+          <div class="div-right text-price">{{maxpricedisplay}}</div>
+        </div>
+        <div>
+          <ion-range class="flight-filter-range" step=50000 (ionChange)="changeprice()"  min="100000" max="15000000" dualKnobs="true" [(ngModel)]="structure"></ion-range>
+        </div>
+      </div> -->
+      
+
+      <div class="div-depart-time" *ngIf="listRegion && listRegion.length >0">
+        <div class="text-title">Vùng</div>
+
+        <div class="d-grid m-bottom-8" *ngFor="let item of listRegion" >
+          <div class="div-item-left" [ngClass]="item.stt?'region-check':'region-uncheck'" (click)="itemRegionClick(item)" id="{{item.regionId}}">
+            <div class="item-text">{{ item.regionName }}</div>
+          </div>
+        <!-- 
+          <template #itemRegionDisabled>
+            <div class="div-item-left item-disabled">
+              <div class="item-text-disabled">{{ item.regionName }}</div>
+            </div>
+          </template> -->
+        </div>
+  
+      </div>
+      
+
+      
+
+   
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col style="padding:0">
+      <div class="div-flightfilter-footer">
+        <div class="div-button-flex">
+          <button  (click)="clearFilter()" ion-button round outline class="button button-clear">Xóa lọc</button>
+          <button (click)="filter()" ion-button round outline class="button button-filter">Xem</button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-footer>

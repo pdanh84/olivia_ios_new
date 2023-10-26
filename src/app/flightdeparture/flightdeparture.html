@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+        <ion-row>
+          <ion-col style="text-align: center;">
+            <div style="align-self: center" >
+              <div><label class="text-title">{{isdepart ? 'Đi từ' : 'Về từ'}} {{fromplace}}</label></div>
+              <div><label style="font-size: 11px;color: #828282">{{daytitle}}</label></div>
+
+              <div style="position: absolute;height: 60px;width: 54px;right: 2px;text-align: right;top: -2px;">
+                    <ion-icon style="height: 32px;width: 48px;padding: 12px;" name="close"  (click)="goback()"></ion-icon>
+                </div> 
+            </div>
+          </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+    <div class="flight-departure-content" *ngIf="listflight && listflight.length >0">
+        <ion-row *ngFor="let f of listflightdisplay; let idx = index" style="border-bottom: solid 1px #ccc;padding: 10px 0;" (click)="changeFlightInfo(f)">
+            <ion-col style="align-self: center;padding:0" size="2">
+                <div class="combo-img">
+                    <img *ngIf="f.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img *ngIf="f.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img *ngIf="f.airlineCode == 'VietnamAirlines'" src="./assets/ic_airticket/ic_vietnamairlines_b.png">
+                    <img *ngIf="f.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                </div>
+            </ion-col>
+            <ion-col style="padding:0;font-size: 14px;font-weight: bold;align-self: center;" size="5">
+                    <ion-row >
+                        <ion-col style="padding:0">
+                            <div><span class="div-airline-label">{{ f.airline}}</span></div>
+                            <div><span class="div-flight-label">{{ f.flighttime}}</span></div>
+                            <div><span class="div-flight-type">{{ f.ticketType}}</span></div>
+                            <div *ngIf="f.operatedBy"><span class="text-operatedBy">{{ f.operatedBy}}</span></div>
+                        </ion-col>
+                    </ion-row>
+            </ion-col>
+            <ion-col style="padding:0;align-self: center;text-align: right;" size="5">
+                <div class="combo-flight-price">
+                    <div *ngIf="f.pricestrdown">
+                        <span class="combo-flight-price-label-down">Giảm <span class="flight-price">{{ f.pricestrdown }}</span></span>
+                    </div>
+                    <div *ngIf="f.pricestrdown">
+                        <span style="font-size:12px;color:#4f4f4f;font-weight: normal"> /người lớn</span>
+                    </div>
+                   <div *ngIf="f.pricestrup" >
+                        <span class="combo-flight-price-label-up">Phụ thu <span class="flight-price">{{ f.pricestrup }}</span></span>
+                    </div> 
+                    <div *ngIf="f.pricestrup" >
+                        <span style="font-size:12px;color:#4f4f4f;font-weight: normal"> /người lớn</span>
+                    </div> 
+                </div>
+            </ion-col>
+            
+        </ion-row>
+        <!-- <ion-list>
+            <ion-item>
+                <ion-select style="color: #26bed6" interface="action-sheet" multiple="true" cancelText="" okText="Xác nhận">
+                    <ion-select-option (ionSelect)="selectclick($event)" value="VNA"><img class="img-airline" src="./assets/ic_airticket/ic_vietnamairlines_b.png">VietnamAirlines</ion-select-option>
+                    <ion-select-option (ionSelect)="selectclick($event)" value="VJ"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">VietJet</ion-select-option>
+                    <ion-select-option (ionSelect)="selectclick($event)" value="JS"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">JetStar</ion-select-option>
+                    <ion-select-option (ionSelect)="selectclick($event)" value="BA">Bambo Airline</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list> -->
+        
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-row class="div-footer-filtersort">
+        <ion-col style="align-self: center;left:40px;">
+            <div>
+                <img src="./assets/imgs/ic_sort.svg">
+                <ion-label style="top: 20px;position: absolute;">Sắp xếp</ion-label>
+                <ion-select id="myselectmodal" style="color: #26bed6;top: 10px;position: absolute;right: 0;right: 40px;width: 100%;height: 48px;" interface="action-sheet" class="flightdeparture-select-order" mode="ios" selectedText=" " (ionChange)="sortAirline($event)" >
+                    <ion-select-option value="priceup">Giá thấp nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeDepartEarly">Cất cánh sớm nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeDepartLately">Cất cánh muộn nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeLandingEarly">Hạ cánh sớm nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeLandingLately">Hạ cánh muộn nhất</ion-select-option>
+                </ion-select>
+            </div>
+            <div class="div-split"></div>
+        </ion-col>
+        <ion-col (click)="openFilterFlight()">
+                <div class="flightdeparture-button-filter">
+                    <img src="./assets/imgs/ic_filter.svg">
+                    <ion-label style="top: 20px;position: absolute;">Lọc theo hãng</ion-label>
+                    <!-- <ion-select style="color: #26bed6;top: 10px;position: absolute;right: 0;right: 16px;width: 90%;height: 48px;" multiple="true" cancelText="" okText="Xác nhận" title="Lọc theo hãng" class="flightdeparture-select-filter"  mode="ios" selectedText=" " (ionChange)="filterAirline($event)" >
+                                <ion-select-option  value="VietnamAirlines"><img class="img-airline" src="./assets/ic_airticket/ic_vietnamairlines_b.png">VietnamAirlines</ion-select-option>
+                                <ion-select-option value="VietJetAir"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">VietJet</ion-select-option>
+                                <ion-select-option value="JetStar"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">JetStar</ion-select-option>
+                                <ion-select-option value="BambooAirways"><img class="img-airline" src="./assets/ic_airticket/ic_bamboo_b.png">BambooAirways</ion-select-option>
+                    </ion-select> -->
+                </div>
+        </ion-col>
+    </ion-row>
+</ion-footer>

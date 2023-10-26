@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+        <ion-row>
+        <ion-col style="text-align: center;height: 48px;">
+            <div style="align-self: center" >
+            <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+                <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+              </div>
+            <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hồ sơ của tôi</label></div>
+            </div>
+        </ion-col>
+        </ion-row>
+    </ion-toolbar>
+    </ion-header>
+    
+    <ion-content >
+        <div class="userprofile-content" *ngIf="userInfoData">
+            <ion-row>
+                <ion-col class="text-center">
+                    <div class="div-wrapimg" (click)="changeAvatar()">
+                        <ion-card>
+                                <img *ngIf="userInfoData.avatar && !croppedImagepath" class="img-user-avatar" src="{{userInfoData.avatar}}">
+                                <img *ngIf="croppedImagepath" class="img-user-avatar" [src]="croppedImagepath">
+                        </ion-card>
+                        <input type="file" accept="image/*" id="selectAvatar" style="visibility:hidden;">
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row  (click)="changeAvatar()">
+                <ion-col class="text-center">
+                    <div class="text-color">Khách hàng thân thiết</div>
+                </ion-col>
+            </ion-row>
+            <form *ngIf='userProfileData' [formGroup]="userProfileData" style="margin-top: 24px" (submit)="saveChange()">
+                    <ion-item style="background-color: initial;--padding-start:0">
+                        <ion-label style="color:#828282;font-size:14px" position="floating">Tên đầy đủ</ion-label>
+                        <ion-input  clearInput type="text" formControlName="name" (ionChange)="nameChange($event)"></ion-input>
+                    </ion-item>
+                    <ion-item style="background-color: initial;--padding-start:0">
+                        <ion-label  style="color:#828282;font-size:14px"  position="floating">Số điện thoại</ion-label>
+                        <ion-input id="ipPhone" clearInput type="text" formControlName="phone" (ionChange)="phoneChange($event)"></ion-input>
+                    </ion-item>
+                    <div *ngIf="changephone" >
+                        <button ion-button round outline class="button btn-sendOTP"  (click)="sendOTP()">Gửi mã OTP</button>
+                    </div>
+                    <ion-item style="background-color: initial;--padding-start:0">
+                      <ion-label  style="font-size:14px"  position="floating">Email</ion-label>
+                      <ion-input  clearInput type="text" formControlName="email"></ion-input>
+                    </ion-item>
+
+                    <ion-item *ngIf="haspassword" class="lbl-changepass" style="background-color: initial;--padding-start:0">
+                        <ion-label  style="color:#828282;font-size:14px"  position="floating">Mật khẩu</ion-label>
+                        <label style="right: 0;bottom: -6px;color:#26bed6;font-size:14px;font-weight:bold;position:absolute;padding:16px 0;z-index: 14;" position="stacked" (click)="changepassword()">Đổi mật khẩu</label>
+                        <ion-input readonly class="ippassword" clearInput type="password" value="********" style="z-index: 13;width: 200px;justify-content: left;align-self: flex-start;"></ion-input>
+                    </ion-item>
+                    <div style="padding:16px 0" *ngIf="!changepass && changename"><button ion-button round outline class="button btn-save-phone" >Lưu thay đổi</button></div>
+            </form>
+            <!-- <div class="margin-top-30">
+            <div style="color:#828282;font-size:14px">
+                Công ty
+            </div>
+            <div class="text-company">
+                CT TNHH MTV Forever Young
+            </div>
+            </div> -->
+        </div>
+    </ion-content>

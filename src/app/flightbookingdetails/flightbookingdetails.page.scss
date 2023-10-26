@@ -1,0 +1,341 @@
+
+
+.flight-booking-detail-content{
+    .p-16{
+        padding: 16px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    .m-bottom-10{
+        margin-bottom: 10px;
+    }
+
+    .div-split{
+        border-bottom: solid 0.5px rgba(205,205,205, 0.5) !important;
+        margin: 16px 0;
+    }
+    .div-split-1{
+        border-bottom: solid 0.5px rgba(205,205,205, 0.5);
+        margin: 16px 0;
+    }
+    .div-width-400{
+        width: 400%;
+    }
+    .div-width-100{
+        width: 100%;
+    }
+    .div-width-150{
+        width: 150%;
+    }
+    .text-name{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #222222;
+    }
+
+    .text-phone{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #000000;
+    }
+
+    .pax-title{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #828282;
+        margin-bottom: 8px;
+    }
+
+    .pax-gender{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #333333;
+        width: 50px;
+    }
+
+    .pax-name{
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .cls-error{
+        color: #e52822 !important;
+        font-weight: bold !important;
+
+        .pax-dob{
+            color: #e52822 !important;
+            font-weight: bold !important;
+        }
+    }
+    .div-flight-inout{
+        padding: 0px 18px;
+        width: 32px;
+        height: 32px;
+        position: relative;
+  
+        .img-flight-inout{
+          width: 32px;
+          height: 32px;
+          position: absolute;
+          left: 0;
+          top: -2px;
+        }
+      }
+      .div-width-600{
+        width: 600%;
+      }
+      .div-width-60{
+        width: 60%;
+      }
+      .text-right{
+        text-align: right;
+      }
+      .text-flight-datetime{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #000000;
+      }
+
+      .text-flight-title{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.51px;
+        color: #000000;
+      }
+      .v-align-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    //   .div-split{
+    //     margin: 16px 0;
+    //     border-bottom: solid 0.5px #bdbdbd;
+    //   }
+      .img-oneway{
+        width: 12px !important;
+        margin-left: 12px;
+      }
+
+    .text-cin{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #4f4f4f;
+        margin-bottom: 12px;
+    }
+
+    .div-logo{
+        margin-right: 8px;
+        .img-logo{
+            height: 18px;
+        }
+    }
+    .div-icon-flight{
+        margin-left: 32px;
+        margin-right: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        
+    }
+
+    .img-flight{
+        width: 14px;
+        margin-left: 15%;
+        position: absolute;
+        margin-top: 4px;
+    }
+
+    .div-icon{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 4px;
+        margin-top: -2px;
+    }
+
+    .text-airlinecode{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.28px;
+        color: #333333;
+    }
+
+    .div-airlineclass{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+    }
+
+    .text-time{
+        font-size: 16px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        color: #333333;
+    }
+
+    .text-code{
+        font-size: 12px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.67;
+        letter-spacing: -0.34px;
+        color: #828282;
+    }
+
+    .div-flight-condition{
+        margin: 0 -16px;
+        padding: 10px 16px;
+        background: #f2f2f2;
+    }
+
+    .img-info{
+        width: 14px;
+        height: 14px;
+    }
+
+    .div-text-refund{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #828282;
+    }
+
+    .div-text-changeflight{
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #9fc43a;
+    }
+
+    .div-flight-condition{
+        margin-top: 16px;
+    }
+    .not-allow{
+        color: #828282 !important;
+    }
+    .pax-dob{
+        color: #828282;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: -0.4px;
+    }
+    .div-flight-dichung{
+        margin: 0 -16px;
+        padding: 8px 16px;
+        height: 33px;
+        background: #f4f5f6;
+    }
+    .div-DC{
+        margin-top: 14px;
+    }
+    .text-DC{
+        font-size: 14px;
+        color: #6d6e71;
+        line-height: 1.93;
+        margin-left: 3px;;
+    }
+    .text-time-DC{
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.93;
+        color: #00c1de;
+        margin-left: 2px;;
+    }
+    .text-DC-Chang{
+        font-size: 14px;
+        font-weight: 600;
+
+        line-height: 1.93;
+        
+        color: #003c71;
+    }
+    .text-place{
+        font-size: 14px;
+        line-height: 1.93;    
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .img-DC{
+        width: 16px;
+    }
+    .m-left-4{
+        margin-left: 4px;
+    }
+
+    .div-hotelcity{
+        .m-l-4{
+          margin-left: 4px;
+        }
+
+        .div-hotel-name{
+          padding-top: 16px;
+          padding-bottom: 12px;
+          font-size: 16px;
+          font-weight: 600;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: #003c71;
+        }
+        .img-height-12{
+          height:12px
+        }
+          .div-wrapimg {
+          position: absolute;
+          height:78px;
+          width: 104px;
+          overflow: hidden;
+          }
+        
+          .text-left{
+            font-size: 13px;
+         }
+         .row-height-listtrip{
+          height: 28px;
+         }
+         .col-address{
+          padding: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+         }
+      }
+}
+.img-info-cathay{
+    margin-left: 2px;
+    position: absolute;
+    right: 16px;
+}
+.text-cathay{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 15px;
+}

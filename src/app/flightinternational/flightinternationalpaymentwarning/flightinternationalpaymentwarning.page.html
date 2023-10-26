@@ -1,0 +1,40 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+            
+          <div class="div-header-title">
+            <div class="div-title">Hoàn thành</div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="flight-payment-warning-content">
+        
+            <div class="text-center">
+                <div class="m-top-8">
+                    <img  src="./assets/ic_flight/step_4.svg">
+                </div>
+
+                <img class="img-payment-warning" src="./assets/ic_flight/payment_warning.svg" >
+
+                
+            </div>
+            <div class="text-title">Giao dịch không thành công</div>
+
+                <div class="text-warning">Quý khách thanh toán số tiền {{ totalpricedisplay }}đ thành công.</div>
+                <div class="text-warning">Tuy nhiên đã hết thời hạn giao dịch, vé đã hết hạn giữ.</div>
+                <div class="text-warning">Chúng tôi sẽ liên lạc lại trong vòng 30 phút (trong thời gian hành chính) qua số điện thoại <span class="text-bold"> {{ phone }} </span> để hoàn tiển hoặc hỗ trợ đặt vé khác.</div>
+                <div class="text-warning">Mong Quý khách thông cảm vì sự bất tiện này.</div>
+
+                <div class="div-button">
+                    <button (click)="gohome()" ion-button round outline class="button btnhome">Quay về trang chủ</button>
+                </div>
+      </div>
+  </ion-content>

@@ -1,0 +1,205 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title">
+          <div class="div-title">Thanh toán</div>
+        </div>
+
+        <div class="div-quick-back" (click)="showQuickBack()">
+          ...
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="div-tourpaymentselect-content">
+  <div class="p-all-16 ">
+    <div class="div-img-step m-bottom-16">
+      <img class="img-step" src="./assets/ic_tour/tour_step2.png">
+    </div>
+    <div class="cls-divpayment">
+    
+    <div class="text-tourname" *ngIf="tourService.itemDetail">{{tourService.itemDetail.Name}}</div>
+    <div class="text-tourname" *ngIf="tourService.BookingTourMytrip && tourService.BookingTourMytrip.hotel_name">{{tourService.BookingTourMytrip.hotel_name}}</div>
+    <div class="m-top-6 text-pax">{{tourService.departureCalendarStr}}</div>
+    <div class="div-split"></div>
+
+    <div *ngIf="tourService.BookingTourMytrip else bkgnormal">
+      <div class="div-voucher-apply d-flex" *ngIf="tourService.BookingTourMytrip.promotionDiscountAmount">
+        <div class="width-200 text-normal">
+          Ưu đãi
+        </div>
+        <div class="width-100 text-normal text-right p-r-5">{{gf.convertNumberToString(tourService.BookingTourMytrip.promotionDiscountAmount)}}đ</div>
+      </div>
+    </div>
+    <ng-template #bkgnormal>
+      <div class="div-voucher-apply d-flex" *ngIf="tourService.promocode">
+        <div class="width-200">
+          <span class="text-normal">Ưu đãi (</span>
+          <span class="text-code" *ngIf="tourService.promocode">{{tourService.promocode}}</span>
+          <span class="text-normal">)</span> 
+        </div>
+        <div class="width-100 text-normal text-right p-r-5" *ngIf="tourService.promocode">{{gf.convertNumberToString(tourService.discountpromo)}}đ</div>
+      </div>
+      <div *ngIf="tourService.usePointPrice" class="div-voucher-apply d-flex">
+        <div class="width-200 text-normal">
+          iVIVU Point
+        </div>
+        <div class="width-100 text-normal text-right p-r-5" *ngIf="tourService.usePointPrice">{{gf.convertNumberToString(tourService.usePointPrice)}}đ</div>
+      </div>
+    </ng-template>
+    
+
+    <div class="d-flex ">
+      <div class="div-width-100 div-flex-left">
+          <div class="text-pax" *ngIf="tourService.adult && !adult">{{tourService.adult}} người lớn</div>
+          <div class="text-pax m-top-4 h-16" *ngIf="!adult"><span *ngIf="tourService.child">{{tourService.child}} trẻ em</span></div>
+
+          <div class="text-pax" *ngIf="adult">{{adult}} người lớn</div>
+          <div class="text-pax m-top-4 h-16" ><span *ngIf="child">{{child}} trẻ em</span></div>
+      </div>
+      <div class="div-width-100 text-right m-bottom-16">
+        <div *ngIf="tourService.discountPrice" class="text-price-strike text-right">{{gf.convertNumberToString(tourService.totalPriceBeforeDiscount)}}<span class="text-price-strike-sub ">đ</span></div>
+        <div class="text-total-price">{{tourService.totalPriceStr}}<span class="text-price-sub">đ</span>
+        </div>
+        <div class="text-sub">Giá đã bao gồm thuế & phí.</div>
+        
+      </div>
+    </div>
+
+  </div>
+      <div class="div-split-panel"></div>
+      <ion-list class="cls-list">
+        <div (click)="tourpaymentbank()" class="cls-minheight" *ngIf="!tourService.BookingTourMytrip">
+          <div class="d-flex m-top-12">
+            <div class="text-list">
+              Chuyển khoản ngân hàng
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg" ></div>
+          </div>
+         
+          <div class="text-service-fee" *ngIf="dataSF">Miễn phí tiện ích</div>
+        </div>
+      
+        <div *ngIf="bizTravelService.isCompany" (click)="paymentbiztravel()" class="cls-minheight h-54 border-bottom">
+          <div class="d-flex m-top-12">
+            <div  class="text-list">
+              <div>Tài khoản công ty</div>
+              <div class="text-warning-creadit" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - tourService.totalPrice)<=0">Số dư Credit không đủ để thực hiện thanh toán</div>
+            </div>
+            <div class="div-icon" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - tourService.totalPrice) >0"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+        </div>
+
+         <div (click)="tourpaymentatm()" class="cls-minheight border-bottom">
+          <div class="d-flex m-top-12">
+            <div  class="text-list ">
+              Thẻ ATM nội địa /Internet Banking
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+            
+          <div class="text-service-fee" *ngIf="dataSF && dataSF.atmSF">+{{gf.convertNumberToString(dataSF.atmSF.serviceFee)}}đ phí tiện ích</div>
+        </div>
+
+        <div [ngClass]="(arrbankrmb.length>0&&ischeckvisa) ? 'cls-minheight no-border-bottom ' : 'cls-minheight no-border-bottom '  " (click)="tourpaymentvisa()">
+          <div class="d-flex m-top-12">
+            <div  class="text-list " >
+              Thẻ tín dụng <img class="img-visa" src="./assets/imgs/ic_visa.png">
+            </div>
+            <div class="div-icon">
+              <img class="img-arrow" src="./assets/ic_flight/arr_next.svg" *ngIf="!ischeckvisa && !blockPayCard">
+              <img slot="end"  *ngIf="ischeckvisa" src="./assets/imgs/ic_down.svg">
+            </div>
+          </div>
+          <div class="text-service-fee" *ngIf="dataSF && dataSF.vsSF">+{{gf.convertNumberToString(dataSF.vsSF.serviceFee)}}đ phí tiện ích</div>
+        </div>
+        <ion-radio-group *ngIf="arrbankrmb.length>0&&ischeckvisa">
+          <div *ngFor="let item of arrbankrmb" >
+            <div class="d-flex cls-arrbank">
+              <ion-radio mode="md" [checked]="item.checked" (click)="chooseacc(item)"></ion-radio>
+              <div  class="text-list text-infobank div-width-45 ml8">
+                {{item.name_Bank}}
+              </div>
+              <div class="text-infobank div-width-50 text-right"><span style="vertical-align: middle;"> •••• •••• ••••</span>
+                {{item.vpc_CardNum}}
+              </div>
+            </div>
+          </div>
+          <div class="d-flex m-left-16 m-top-16">
+            <ion-radio mode="md" (click)="nochooseacc()"></ion-radio>
+            <div  class="text-list text-infobank ml8">
+              Chọn tài khoản khác
+            </div>
+            </div>
+        </ion-radio-group>
+        <div class="div-remembercard">
+          <ion-checkbox [disabled]="isdisable" (ionChange)="rememberCard()"  class="ion-checkbox" [checked]="isremember" color="secondary"></ion-checkbox>
+          <ion-label class="label-input" >Lưu và bảo mật thẻ để đặt dịch vụ nhanh hơn lần sau</ion-label>
+        </div>
+        <div class="div-split-item"></div>
+
+        <div  (click)="tourbuynowpaylater()" class="cls-minheight-new border-bottom" >
+          <div class="d-flex m-top-12">
+            <div class="text-list ">
+              Mua trước trả sau <img class="img-homecredit" src="./assets/ic_ticket/logo-home-credit.jpg">
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+          <div  class="text-bnpl-discount" >Giảm thêm 300.000đ</div>
+        </div>
+
+        <div  (click)="tourpaymentmomo()" class="cls-minheight border-bottom" >
+          <div class="d-flex m-top-12">
+            <div class="text-list ">
+              Thanh toán qua  <img class="img-momo" src="https://res.ivivu.com/payment/img/momo/logo.png">
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+          <div class="text-service-fee" *ngIf="dataSF && dataSF.momosSF">+{{gf.convertNumberToString(dataSF.momosSF.serviceFee)}}đ phí tiện ích</div>
+        </div>
+        
+        <div (click)="tourpaymentpayooqr()" class="cls-minheight border-bottom">
+          <div class="d-flex m-top-12">
+            <div class="text-list ">
+              Thanh toán bằng mã QR <img class="img-payoo" src="https://res.ivivu.com/payment/img/payoo/payoo-logo.png">
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+          <div class="text-service-fee" *ngIf="dataSF && dataSF.payoo_qrSF">+{{gf.convertNumberToString(dataSF.payoo_qrSF.serviceFee)}}đ phí tiện ích</div>
+        </div>
+        
+        <div  (click)="tourpaymentpayoostore()" class="cls-minheight border-bottom">
+          <div class="d-flex m-top-12">
+            <div class="text-list ">
+              Trực tiếp tại cửa hàng tiện lợi <img class="img-payoo" src="https://res.ivivu.com/payment/img/payoo/payoo-logo.png">
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+          <div class="text-service-fee" *ngIf="dataSF && dataSF.payoo_storesSF">+{{gf.convertNumberToString(dataSF.payoo_storesSF.serviceFee)}}đ phí tiện ích</div>
+        </div>
+        
+        <div (click)="tourpaymentatoffice()" class="cls-minheight border-bottom" >
+          <div class="d-flex m-top-12">
+            <div class="text-list">
+              Trực tiếp tại văn phòng
+            </div>
+            <div class="div-icon"><img class="img-arrow" src="./assets/ic_flight/arr_next.svg"></div>
+          </div>
+         
+          <div class="text-service-fee" *ngIf="dataSF">Miễn phí tiện ích</div>
+        </div>
+
+      </ion-list>
+    </div>
+</ion-content>
+<ion-footer *ngIf="isbtn && !blockPayCard">
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Thanh toán và hoàn thành</button>
+  </div>
+</ion-footer>

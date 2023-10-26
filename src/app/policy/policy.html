@@ -1,0 +1,80 @@
+<!--
+  Generated template for the PolicyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!-- <ion-navbar>
+    <div>
+      <label class="text-title">
+        Chính sách
+      </label>
+    </div>
+    <div>
+      <label style="font-size: 11px">
+        {{Name}}
+      </label>
+    </div>
+  </ion-navbar> -->
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+            <!-- <div style="position: absolute;height: 48px;width: 48px;top:8px" (click)="goback()">
+                <ion-icon color="dark-tint" style="font-size: 2em;" name="arrow-back" class="card-title"></ion-icon>
+            </div> -->
+            <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+              <ion-icon color="dark-tint" style="font-size: 20px; margin-top: 10px;" name="arrow-back" class="card-title">
+              </ion-icon>
+            </div>
+            
+            <div><label class="text-title">Chính sách</label></div>
+            <div><label style="font-size: 11px;color: #828282">{{Name}}</label></div>
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="div-policy-content" style="margin: 5px 16px">
+    <div>
+      <label style="font-size: 14px;font-weight: 500">
+        Thời gian nhận phòng
+      </label>
+
+    </div>
+    <div>
+      <label>
+        {{cin}}
+      </label>
+
+    </div>
+    <div>
+      <label style="font-size: 14px;font-weight: 500">
+        Thời gian trả phòng
+      </label>
+
+    </div>
+    <div>
+      <label>
+        {{cout}}
+      </label>
+    </div>
+
+  </div>
+  <div>
+    <ion-list no-lines *ngFor="let msg of HotelPolicies">
+      <ion-item>
+        <label style="font-weight: 500;font-size: 14px;">
+          {{msg.Key}}
+        </label>
+      </ion-item>
+      <ion-item style="margin-top: -12px;">
+        <label [innerHTML]="msg.PolicyDes" text-wrap>
+        </label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,209 @@
+  .p-16 {
+      padding: 16px;
+  }
+  .inputtext{
+        height: 48px;
+        color: #757575;
+        width: 100%;
+        display: block;
+        padding: 12px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #8f8f8f;
+        border-radius: 5px;
+    }
+    div.solid {border-style: solid;
+        border-color: #bdbdbd;
+        border-width: 1px;
+        height: 44px;
+        border-radius: 5px;
+    }
+    .button5
+    {
+        background: #26bed6;
+        color: #ffffff;
+        border-color: #26bed6;
+        width: 100%;
+        font-size: 12px;
+        height: 48px;
+    }
+    .list-header-md {
+        padding-left: 0px;
+        margin-bottom: 0px;
+        min-height: 0px;
+        border-top: 0px solid #dedede;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #000000;
+    }
+    .item-md {
+        padding-left: 0px;
+    }
+    ion-icon {
+        display: inline-block;
+        font-size: 2em;
+        margin-right:5px
+    }
+    .searchbar-md {
+        background: inherit;
+        padding: 0px;
+    }
+    .searchbar-md .searchbar-input {
+        padding: 6px 55px;
+        border-radius: 5px;
+        background-position: left 8px center;
+        height: auto;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 3rem;
+        color: #141414;
+        background-color: #fff;
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+    .list-md {
+        margin: 0;
+    }
+    // .item-md p {
+    //     margin: 0 0 2px;
+    //     overflow: inherit;
+    //     font-size: 1.4rem;
+    //     line-height: 48px;
+    //     text-overflow: inherit;
+    //     color: #666;
+    //     min-height: 48px;
+    // }
+    .cls-row-width{
+        width: 100%;
+        display: flex;
+    }
+    .title-item-search{
+        padding: 16px 0px;
+        font-weight: bold;
+        font-size: 14px;
+    }        
+    .label-item-search{
+        padding: 8px 0px;
+        font-weight: 600;
+        font-size: 16px;
+        color: #3f3b3b;
+    }
+    label {
+        padding: 18px 0px;
+    }
+    input:focus {
+        border: 1px solid #003C71;
+        color: #757575  ;
+    }
+
+    
+    .cls-input-search{
+        margin-top: 5px;
+        text-align: left;
+        width: 90%;
+        margin-left: 8px;
+        font-size: 16px;
+    }
+    .div-search{
+        border: solid 0.5px #bdbdbd;
+        border-radius: 6px;
+        height: 48px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333333;
+        background: #ffffff;
+        margin: 4px 20px 4px 49px;
+    }
+    .new-background{
+        --background: #26bed6;
+    }
+    .img-back{
+        position: absolute;
+        top: 3%;
+        color: #ffffff;
+        margin-top: 6px;
+    }
+    .img-close{
+        position: absolute;
+        top: 3%;
+        color: #ffffff;
+        margin-top: 6px;
+        right: 20px;
+    }
+    .div-popular{
+        background-color: #f2f2f2;
+        margin: -16px;
+        height: 41px;
+    }
+    .text-popular{
+        padding: 13px 0px 11px 16px;
+        position: absolute;
+    }
+    .text-region{
+        font-weight: 600;
+        color: #333;
+
+    }
+    .text-region-1{
+        color: #828282;
+        font-size: 12px;
+    }
+    .div-split{
+        height: 1px;
+        background-color: #f2f2f2;
+    }
+    .cls-row{
+       //margin-left: -5px;
+       margin: 12px 0px 11px -5px;
+    }
+
+    .text-title {
+        font-size: 16px;
+        font-weight: 500;
+        text-align: left;
+        color: #3f3b3b;
+        margin: 0 -16px;
+        padding: 12px 16px;
+        background: #f2f2f2;
+    }
+    .m-top--16 {
+        margin-top: -16px !important;
+    }
+    .m-top-24 {
+        margin-top: 24px !important;
+    }
+    .img-region {
+        width: 12px;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .text-right {
+        text-align: right;
+    }
+
+    .p-16-0 {
+        padding: 16px 0;
+    }
+    .cls-primary {
+        color: #26bed6;
+    }
+    .div-left {
+        width: 90%;
+    }
+    .div-right {
+        width: 16%;
+    }
+    @media (min-width:300px) and (max-width: 350px) {
+        .div-left {
+            width: 85%;
+        }
+        .div-right {
+            width: 18%;
+        }
+    }
+    .m-top-8{
+        margin-top: 8px !important;
+    }

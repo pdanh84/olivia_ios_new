@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="border-bottom" >
+      <ion-row>
+          <ion-col class="cls-col">
+            <div class="align-center">
+              <div class="div-goback" (click)="goback()">
+                <img class="img-goback" src="./assets/imgs/ic_arrow_w.svg">
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="11">
+            <div class="text-left">
+              <ion-label class="text-review">
+                {{cusnamereview}}
+              </ion-label>
+            </div>
+            <div class="text-left">
+              <ion-label class="text-review">
+                {{datereview}}
+              </ion-label>
+            </div>
+            <div *ngIf="!openFromTopReviewList">
+              <div *ngIf="!cusnamereview && !datereview && !tourName" class="div-hotel-name">{{hotelName}}</div>
+              <div *ngIf="!cusnamereview && !datereview && tourName" class="div-tour-name">{{tourName}}</div>
+            </div>
+            <div *ngIf="openFromTopReviewList">
+              <div *ngIf="reviewName" class="div-tour-name">{{reviewName}}</div>
+            </div>
+          </ion-col>
+        </ion-row>
+  </div>
+  <div class="center">
+    <swiper-container (ionSlideTransitionStart)="ionSlideTransitionStart()" (slidechange)="onSlideChange()" #mySlider>
+      <swiper-slide *ngFor="let slide of arrimgreview">
+        <img class="img-slide" [src]="slide.ImageUrl" />
+        <img class="img-slide" [src]="slide.imageUrl" />
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  
+  <div class="div-loading" *ngIf="!ischeckslide">
+    <ion-skeleton-text animated class="cls-skl"></ion-skeleton-text>
+  </div>
+
+  <div *ngIf="captionImg" class="div-captionImg">{{captionImg}}</div>
+  <div *ngIf="!captionImg" class="div-captionImg"></div>
+  <div *ngIf="ischeckslide"  class="slide div-align-center">
+    <img class="p-0-16" (click)="backslide()"  src="./assets/imgs/back.svg">
+      <ion-label class="lbl-slide">
+        {{countslide+1}}/{{lengthslide}}
+      </ion-label> 
+    <img class="p-0-16" (click)="nextslide()" src="./assets/imgs/next.svg">
+  </div>
+</ion-content>

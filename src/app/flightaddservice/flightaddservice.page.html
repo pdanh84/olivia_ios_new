@@ -1,0 +1,516 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Dịch vụ cộng thêm</div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content class="flight-add-service-content">
+    <div class="p-16">
+        <div class="div-item-flight">
+            <div *ngIf="departFlight" class="div-wrap-item-flight">
+                <div class="d-flex div-space-between">
+                    <div class="d-flex">
+                        <div class="div-direction">Chiều đi</div>
+                        <div class="div-city">{{departdisplay}} → {{returndisplay}}</div>
+                    </div>
+                    
+                    <div class="div-show-detail"  (click)="showFlightDetail(departFlight, true)">Chi tiết</div>
+                </div>
+                
+                <div class="d-flex">
+                    <div class="div-text-normal div-width-150">{{departDateDisplay}}</div>
+                    <div class="div-departure-time div-width-100 d-flex">
+                        <div class="div-align-center">{{departtime_depart}}</div>
+                        <div class="div-align-center"><img class="div-width-icon" src="./assets/ic_flight/arrow_icon.webp"></div>
+                        <div class="div-align-center">{{landingtime_depart}}</div>
+                    </div>
+                </div>
+
+                <div class="d-flex-end div-space-between m-top-4">
+                    <div class="d-flex-end">
+                        <div class="div-logo">
+                            <img class="logo-vj" *ngIf="departFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img *ngIf="departFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="logo-vna" *ngIf="departFlight.airlineCode == 'VietnamAirlines' && !departFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="departFlight.operatedBy && departFlight.urlLogo &&!isApiDirect " [src]="departFlight.urlLogo">
+                            <img class="img-logo" *ngIf="departFlight.operatedBy && departFlight.operatedByLogo &&isApiDirect " [src]="departFlight.operatedByLogo">
+                            <img *ngIf="departFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        <div class="div-airline-name">
+                            <div class="text-airline">{{departFlight.airline}}</div>
+                            <!-- <div class="text-sub-airline">
+                                <div *ngIf="!departFlight.stops else overstop">{{ departFlight.ticketType }} - Bay thẳng</div>
+                                <ng-template #overstop>Chặng dừng</ng-template>
+                            </div>
+        
+                            <div *ngIf="departFlight.operatedBy" class="text-operatedBy">{{departFlight.operatedBy}}</div> -->
+                        </div>
+                    </div>
+                    
+                    <div class="div-text-sub">
+                        {{departlocationdisplay}}
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="returnFlight" class="div-wrap-item-flight m-top-12">
+                <div class="d-flex div-space-between">
+                    <div class="d-flex">
+                        <div class="div-direction">Chiều về</div>
+                        <div class="div-city">{{returndisplay}} → {{departdisplay}}</div>
+                    </div>
+                    
+                    <div class="div-show-detail" (click)="showFlightDetail(returnFlight, false)">Chi tiết</div>
+                </div>
+                
+                <div class="d-flex">
+                    <div class="div-text-normal div-width-150">{{returnDateDisplay}}</div>
+                    <div class="div-departure-time div-width-100 d-flex">
+                        <div class="div-align-center">{{departtime_return}}</div>
+                        <div class="div-align-center"><img class="div-width-icon" src="./assets/ic_flight/arrow_icon.webp"></div>
+                        <div class="div-align-center">{{landingtime_return}}</div>
+                    </div>
+                </div>
+
+                <div class="d-flex-end  div-space-between m-top-4">
+                    <div class="d-flex-end">
+                        <div class="div-logo">
+                            <img class="logo-vj" *ngIf="returnFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img *ngIf="returnFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="logo-vna" *ngIf="returnFlight.airlineCode == 'VietnamAirlines' && !returnFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="returnFlight.operatedBy && returnFlight.urlLogo &&!isApiDirect " [src]="returnFlight.urlLogo">
+                            <img class="img-logo" *ngIf="returnFlight.operatedBy && returnFlight.operatedByLogo &&isApiDirect " [src]="returnFlight.operatedByLogo">
+                            <img *ngIf="returnFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        <div class="div-airline-name">
+                            <div class="text-airline">{{returnFlight.airline}}</div>
+                            <!-- <div class="text-sub-airline">
+                                <div *ngIf="!returnFlight.stops else overstop">{{ returnFlight.ticketType }} - Bay thẳng</div>
+                                <ng-template #overstop>Chặng dừng</ng-template>
+                            </div>
+        
+                            <div *ngIf="returnFlight.operatedBy" class="text-operatedBy">{{returnFlight.operatedBy}}</div> -->
+                        </div>
+                    </div>
+                   
+                    <div class="div-text-sub">
+                        {{returnlocationdisplay}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Chọn hành lý -->
+        <div class="div-item-service div-luggage m-top-16" *ngIf="(departLuggage && departLuggage.length >0) || (returnLuggage && returnLuggage.length >0) || (departConditionInfo && departConditionInfo.baggageHanded ) || (returnConditionInfo && returnConditionInfo.baggageHanded ) ">
+
+            <div class="d-flex m-bottom-6">
+                <div class="div-icon p-right-12">
+                    <img class="img-icon" src="./assets/ic_flight/ic_luggage.svg">
+                </div>
+                <div class="div-title">Thông tin hành lý</div>
+            </div>
+            <div class="div-desc" *ngIf="(departConditionInfo && departConditionInfo.baggageHanded ) || (returnConditionInfo && returnConditionInfo.baggageHanded )">
+                <div class="div-sub-title m-bottom-6">Xách tay</div>
+               
+                <div *ngIf="!isApiDirect && ((departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length <10) || (returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length <10))" class="d-flex">
+                   
+                    <div class="text-desc m-bottom-6 p-right-4" *ngIf="(departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length <10)">Chiều đi: <span class="text-bold">{{ departConditionInfo.baggageHanded }}/1 khách.</span></div>
+                   
+
+                    <div *ngIf="(returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length <10)">
+                        <div class="text-desc">Chiều về: <span class="text-bold">{{ returnConditionInfo.baggageHanded }}/1 khách.</span></div>
+                    </div>
+                   
+                </div>
+
+                <div *ngIf="isApiDirect && ((departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length >0) || (returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length >0))" class="d-flex">
+                   
+                    <div class="text-desc m-bottom-6 p-right-4" *ngIf="(departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length >0)">Chiều đi: <span class="text-bold">{{ departConditionInfo.baggageHanded }}/1 khách.</span></div>
+
+                    <div *ngIf="(returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length >0)">
+                        <div class="text-desc">Chiều về: <span class="text-bold">{{ returnConditionInfo.baggageHanded }}/1 khách.</span></div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div *ngIf="(departLuggage && departLuggage.length >0) || (returnLuggage && returnLuggage.length >0) ">
+                <div class="div-sub-title m-top-16 m-bottom-6 d-flex">
+                    <div class="div-width-100">Ký gửi</div>
+                    <div class="div-width-100 text-change" *ngIf="!showbuttonluggage" (click)="buyLuggage()">Thay đổi</div>
+                </div>
+
+                 <!-- case apidirect có HLKG -->
+                 <div class="m-top-8" *ngIf="isApiDirect">
+                    <div class="d-flex">
+                        <div *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 && !hasdepartluggage) "  class="div-width-100">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">{{ departConditionInfo.luggageSigned }}<span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') == -1"> kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0) && !hasdepartluggage && showbuttonluggage"  class="div-width-100">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+                        </div>
+
+                        <div *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0 && roundtrip && !hasreturnluggage) " class="div-width-100">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }}<span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') == -1"> kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0) && !hasreturnluggage && showbuttonluggage && roundtrip" class="div-width-100">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="div-desc" *ngIf="(showbuttonluggage &&  !( (departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) || (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4))) else departluggageinclude">
+                    Mua ngay, tiết kiệm đến 40% so với mua tại quầy
+                </div>
+                <div class="d-flex">
+                    <ng-template #departluggageinclude >
+                       
+                        <div class="d-flex">
+                            <div *ngIf="!isApiDirect &&(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && !hasdepartluggage) "  class="div-width-100">
+                                <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">{{ departConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</span></div>
+                            </div>
+                            <div *ngIf="!isApiDirect &&!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) && !hasdepartluggage && showbuttonluggage"  class="div-width-100">
+                                <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+                            </div>
+
+                            <div [ngClass]="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) ?  'div-width-100 ' : 'div-width-100'" *ngIf="!showbuttonluggage && (departLuggage && departLuggage.length >0) && hasdepartluggage">
+                                <div class="text-desc m-bottom-6">Chiều đi</div>
+                                <div class="div-desc" *ngIf="!isApiDirect &&(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && hasdepartluggage)">{{ departConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</div>
+                                <div class="div-desc" *ngIf="isApiDirect && (departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 && hasdepartluggage)"><span class="text-bold">{{ departConditionInfo.luggageSigned }} 
+                                    <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') == -1">kg</span>/1 khách.</span></div>
+                                    <div *ngFor="let itemlug of departLuggage">
+                                        <div *ngIf="itemlug.weight >0" class="div-desc">
+                                            1 x <span class="text-bold">{{itemlug.weight}} kg <span class="text-desc" *ngIf="itemlug.title.indexOf('Oversize') != -1"> (HLQK)</span></span>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div *ngIf="!isApiDirect &&(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && roundtrip && !hasreturnluggage) " class="div-width-100">
+                                <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }} kg/1 khách.</span></div>
+                            </div>
+                            <div *ngIf="!isApiDirect &&!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) && !hasreturnluggage && showbuttonluggage && roundtrip" class="div-width-100">
+                                <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+                            </div>
+
+                            <div [ngClass]="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4)? 'div-width-100 ' : 'div-width-100'" *ngIf="!showbuttonluggage && (returnLuggage && returnLuggage.length >0) && hasreturnluggage && roundtrip">
+                                <div class="text-desc m-bottom-6">Chiều về</div>
+                                <div class="div-desc" *ngIf="!isApiDirect &&(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && hasreturnluggage)"><span class="text-bold">{{ returnConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</span></div>
+                                <div class="div-desc" *ngIf="isApiDirect && (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0 && hasreturnluggage)"><span class="text-bold">{{ returnConditionInfo.luggageSigned }}<span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') == -1"> kg</span>/1 khách.</span></div>
+                                <div *ngFor="let itemlug of returnLuggage">
+                                    <div *ngIf="itemlug.weight >0" class="div-desc">
+                                        1 x <span class="text-bold">{{itemlug.weight}} kg <span class="text-desc" *ngIf="itemlug.title.indexOf('Oversize') != -1"> (HLQK)</span></span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="div-right m-top-16" (click)="buyLuggage()" *ngIf="showbuttonluggage">
+                    <div class="div-button">
+                        Thêm hành lý <img class="p-left-10" src="../../assets/ic_flight/vector_orange.svg">
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!isApiDirect &&((departConditionInfo &&departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 ) || (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) )&& !(departLuggage && departLuggage.length >0) && !(returnLuggage && returnLuggage.length >0)">
+                <div class="div-sub-title m-top-16 m-bottom-6">
+                    <div class="div-width-100">Ký gửi</div>
+                </div>
+                 <div class="d-flex m-top-6">
+                        <div *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) ">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">{{ departConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) && !hasdepartluggage">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+                        </div>
+
+                        <div *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && roundtrip) ">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) && !hasreturnluggage && roundtrip">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+                        </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="isApiDirect && ((departConditionInfo &&departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 ) || (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0) )&& !(departLuggage && departLuggage.length >0) && !(returnLuggage && returnLuggage.length >0)">
+                <div class="div-sub-title m-top-16 m-bottom-6">
+                    <div class="div-width-100">Ký gửi</div>
+                </div>
+                <!-- case apidirect có HLKG -->
+                <div class="m-top-8">
+                    <div class="d-flex">
+                        <div *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 && !hasdepartluggage) "  class="div-width-100">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">{{ departConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') == -1">kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0) && !hasdepartluggage && showbuttonluggage"  class="div-width-100">
+                            <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+                        </div>
+
+                        <div *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0 && roundtrip && !hasreturnluggage) " class="div-width-100">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') == -1">kg</span>/1 khách.</span></div>
+                        </div>
+                        <div *ngIf="!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0) && !hasreturnluggage && showbuttonluggage && roundtrip" class="div-width-100">
+                            <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Chọn chỗ ngồi -->
+        <div class="div-item-service div-seat m-top-16" *ngIf="allowchoiceseat">
+            <div class="d-flex m-bottom-6">
+                <div class="div-icon p-right-12">
+                    <img class="img-icon img-seat" src="./assets/ic_flight/ic_seat.svg">
+                </div>
+                <div class="div-title div-width-100">Chọn chỗ ngồi</div>
+                <div class="div-width-100 text-change" *ngIf="listdepartseatselected || listreturnseatselected" (click)="buySeat()">Thay đổi</div>
+            </div>
+
+            <div class="div-desc" *ngIf="(!listdepartseatselected && !listreturnseatselected) && allowchoiceseat">
+                Chọn trước chỗ đẹp cho chuyến đi thoải mái
+            </div>
+
+            <div class="div-right m-top-16" (click)="buySeat()" *ngIf="((!listdepartseatselected && !listreturnseatselected) && allowchoiceseat) else hadchosedseat">
+                <div class="div-button">
+                    Chọn chỗ ngồi<img class="p-left-10" src="../../assets/ic_flight/vector_orange.svg">
+                </div>
+            </div>
+            <ng-template #hadchosedseat>
+                <div class="d-flex m-top-6">
+                    <div class="div-width-100">
+                        <div class="text-desc m-bottom-6">Chiều đi</div>
+                        <div class="text-bold" *ngIf="hasdepartseat && listdepartseatselected">
+                            {{listdepartseatselected}}
+                        </div>
+                        <div class="text-bold" *ngIf="hasdepartseat && !listdepartseatselected">
+                            Chưa chọn
+                        </div>
+                        <div class="text-bold" *ngIf="!hasdepartseat">
+                            Không cho chọn ghế
+                        </div>
+                    </div>
+                    <div class="div-width-100">
+                        <div class="text-desc m-bottom-6">Chiều về</div>
+                        <div class="text-bold"  *ngIf="hasreturnseat && listreturnseatselected">
+                            {{listreturnseatselected}}
+                        </div>
+                        <div class="text-bold" *ngIf="hasreturnseat && !listreturnseatselected">
+                            Chưa chọn
+                        </div>
+                        <div class="text-bold" *ngIf="!hasreturnseat && roundtrip">
+                            Không cho chọn ghế
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="(loadHotelCityDone || (_flightService.itemFlightCache.itemsFlightCityHotel && _flightService.itemFlightCache.itemsFlightCityHotel.length >0)) else loadinghotelcity">
+            <div class="div-hotel-city" *ngIf="_flightService.itemFlightCache.itemsFlightCityHotel && _flightService.itemFlightCache.itemsFlightCityHotel.length >0">
+                <div class="div-wrap-slide">
+                    <div [ngClass]="_flightService.itemFlightCache.itemsFlightCityHotel.length == 1 ? 'div-slide-item auto-width' : 'div-slide-item' " *ngFor="let item of _flightService.itemFlightCache.itemsFlightCityHotel; let idx = index">
+                          <app-hotelcityitem [item]="item" [index]="idx" [itemlen]="_flightService.itemFlightCache.itemsFlightCityHotel.length"></app-hotelcityitem>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #loadinghotelcity>
+            <div class="div-item-service m-top-16">
+                <div class=" d-flex">
+                    <ion-skeleton-text animated class="text-menu" style="height: 16px; margin: 0 8px;"></ion-skeleton-text>
+                </div>
+                <div class="text-quantity m-8">
+                        <div class="d-flex ">
+                            <div><ion-skeleton-text class="div-100" animated  style="height: 76px; width: 59px"></ion-skeleton-text></div>
+                            <div class="div-width-100 m-left-12">
+                                <ion-skeleton-text class="div-hotelname" animated  style="height: 16px;width: 100%;margin-top: 8px"></ion-skeleton-text>
+                                <ion-skeleton-text class="div-point" animated  style="height: 16px;width: 50%;margin-top: 8px"></ion-skeleton-text>
+                                <ion-skeleton-text class="div-address" animated  style="height: 16px;width: 75%;margin-top: 8px"></ion-skeleton-text>
+                            </div>
+                        </div>
+                        <ion-skeleton-text class="text-room-name" animated  style="height: 32px;width: 100%;margin-top: 16px"></ion-skeleton-text>
+                        <ion-skeleton-text class="text-price" animated  style="height: 32px;width: 100%;margin-top: 16px"></ion-skeleton-text>
+                </div>
+            </div>
+        </ng-template>
+        <!-- thêm đưa đón -->
+        <div *ngIf="_flightService.itemFlightCache.isAirportFirst || _flightService.itemFlightCache.isAirportSecond" class="div-item-service div-seat m-top-16" >
+            <div class="d-flex m-bottom-6">
+                <div class="div-icon p-right-12">
+                    <img class="img-icon img-seat" src="./assets/ic_flight/car.svg">
+                </div>
+                <div class="div-title div-width-100">Thêm đưa đón</div>
+                <div class="div-width-100 text-change" *ngIf="listDiChung" (click)="addDichung(1)">Thay đổi</div>
+            </div>
+
+            <div *ngIf="!listDiChung" class="div-desc">
+                Đặt trước đưa đón cho chuyến đi thêm nhẹ nhàng
+            </div>
+          
+            <div class="div-right m-top-16" *ngIf="!listDiChung else haddichung" (click)="addDichung(0)" >
+                <div class="div-button">
+                    Thêm đưa đón<img class="p-left-10" src="../../assets/ic_flight/vector_orange.svg">
+                </div>
+            </div>
+            <ng-template #haddichung>
+                <div class="d-flex m-top-6">
+                    <div *ngIf="_flightService.itemFlightCache.departCity && listDiChung.PhaseGo" class="div-width-100">
+                        <div class="text-desc m-bottom-6">Tại {{_flightService.itemFlightCache.departCity}}</div>
+                        <div>
+                            <span class="text-place">
+                                Đi: <span class="text-place bold">
+                                    {{listDiChung.PhaseGo.pickUpTime.text}} → {{listDiChung.PhaseGo.dropOffTime.text}}
+                                </span>
+                            </span>
+                        </div>
+
+                        <div *ngIf="listDiChung.PhaseGo_RoundTrip">
+                            <span class="text-place">
+                                Về: <span class="text-place bold">
+                                    {{listDiChung.PhaseGo_RoundTrip.pickUpTime.text}} → {{listDiChung.PhaseGo_RoundTrip.dropOffTime.text}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="_flightService.itemFlightCache.returnCity && listDiChung.PhaseReturn"  class="div-width-100">
+                        <div  class="text-desc m-bottom-6">Tại {{_flightService.itemFlightCache.returnCity}}</div>
+                        <div *ngIf="listDiChung.PhaseReturn">
+                            <span class="text-place">
+                                Đi: <span class="text-place bold">
+                                   {{listDiChung.PhaseReturn.pickUpTime.text}} → {{listDiChung.PhaseReturn.dropOffTime.text}}
+                                </span>
+                            </span>
+                        </div>
+
+                        <div *ngIf="listDiChung.PhaseReturn_RoundTrip">
+                            <span class="text-place">
+                                Về: <span class="text-place bold">
+                                    {{listDiChung.PhaseReturn_RoundTrip.pickUpTime.text}} → {{listDiChung.PhaseReturn_RoundTrip.dropOffTime.text}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <!-- thêm bao hiem -->
+        <div>
+            <div *ngIf="_flightService.itemFlightCache.dataBooking.fromPlace.internal!=0 && _flightService.itemFlightCache.dataBooking.toPlace.internal!=0 && priceCathay && checkAddCathayTime() && !isExtenal && !departFlight.stops && (!returnFlight || (!returnFlight.stops && returnFlight)) && !isApiDirect" class="div-item-service div-cathay m-top-16">
+                <div class="d-flex m-bottom-6"> 
+                    <div class="div-icon 2">
+                        <img class="img-icon img-seat" src="./assets/logo/logo_1.svg">
+                    </div>
+                    <div (click)="showinfoCathay()" class="div-title">Bảo hiểm trễ chuyến</div>
+                    
+                    <div class="text-seen" (click)="noteCathay()"><img src="./assets/ic_flight/info.svg"></div>
+                  </div>
+                <div  class="div-desc ">
+                    Quyền lợi trễ chuyến bay từ 350.000vnđ/lần.
+                </div>
+              
+                <div class="d-flex">
+                    <span class="price-total">{{gf.numberToCurrency(priceCathay, '.')}} <span class="price-vnd m-top-3">VND</span></span>
+                    <div>
+                        <ion-toggle (ionChange)="toggleCathay($event)" class="ion-toggle" mode='ios' [(ngModel)]="_flightService.itemFlightCache.isCathay"></ion-toggle>
+                    </div>
+                
+                </div>
+
+                <div *ngIf="isCathay">
+                    <div class="d-flex m-top-12">
+                        <div class="div-width-100 text-label-name">Họ tên khách</div>
+                        <div class="div-width-100 text-label-name">Sinh ngày</div>
+                     </div>
+                     <div class="d-flex m-top-16" *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
+                        <div class="div-width-100 text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
+                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemAdult, true)">
+                                    <ion-input [value]="itemAdult.birdayDisplay"
+                                    type="bday"
+                                    id="datee_{{idxa}}"
+                                    class="cls-ion-datetime"
+                                    ></ion-input>
+                        </div>
+                     </div>
+
+                     <div class="d-flex m-top-16" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
+                        <div class="div-width-100 text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, false)">
+                            <ion-input [value]="itemChild.birdayDisplay"
+                                    type="bday"
+                                    id="datee_{{idxc}}"
+                                    class="cls-ion-datetime"
+                                    ></ion-input>
+                        </div>
+                     </div>
+                </div>
+                
+             
+            </div>
+        </div>
+        
+        <div class="div-split" *ngIf="(departLuggage && departLuggage.length >0) || (returnLuggage && returnLuggage.length >0) || ((!listdepartseatselected && !listreturnseatselected) && allowchoiceseat) || (departConditionInfo && departConditionInfo.baggageHanded ) || (returnConditionInfo && returnConditionInfo.baggageHanded )"></div>
+
+      
+             <div  class="div-promotion-active">
+                <div class="div-flex align-center" (click)="showdiscount()" *ngIf="!strPromoCode">
+                    <div class="div-icon"><img class="icon-point" src="./assets/ic_voucher/ticket_tealish.svg"/></div>
+                    <div class="div-text-center">
+                      <div class="width-100 opt-80">Nhập mã giảm giá <span class="text-sub">(iVIVU Voucher, MGift..)</span></div>
+                    </div>
+                    <div class="div-button width-10"><img src="./assets/ic_ordersupport/next.svg"></div>
+                  </div>
+                  <div class="div-voucher-apply" *ngIf="strPromoCode" (click)="showdiscount()">
+                    <div class="width-200">
+                      <span class="text-normal">Ưu đãi (</span>
+                      <span class="text-code" *ngIf="strPromoCode">{{strPromoCode}}</span>
+                      <span class="text-normal">)</span> 
+                    </div>
+                    <div class="width-100 text-normal text-right p-r-5" *ngIf="strPromoCode">{{gf.convertNumberToString(totaldiscountpromo)}}đ</div>
+                  </div>
+                  <ion-row> 
+                    <ion-label *ngIf="ischeckerror==1&& msg" style="color: rgb(229, 40, 34);font-size: 12px">{{msg}}</ion-label>
+                    <ion-label *ngIf="ischeckerror==0&& msg" style="color:#828282;font-size: 12px">{{msg}}</ion-label>
+                  </ion-row>
+                  <app-voucherslide></app-voucherslide>
+             </div>
+      
+       
+    </div>
+  </ion-content>
+
+  <ion-footer>
+    <div class="div-footer d-flex-footer">
+        <div class="d-flex-footer div-width-100">
+            <div class="div-total" (click)="showPriceDetail()">
+                <div class="d-flex-footer text-sub-total">
+                  {{ adult }} người lớn, {{ child }} trẻ em
+                </div>
+                <div class="text-total" >{{totalPriceDisplay}}đ
+                  <sup>
+                    <img src="./assets/ic_green/ic_info.svg">
+                  </sup>
+                 </div>
+              </div>
+              <div class="div-button">
+                <button (click)="confirm()" ion-button round outline class="button button-done">Đặt chuyến bay</button>
+              </div>
+        </div>
+    </div>
+  </ion-footer>

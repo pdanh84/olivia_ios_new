@@ -1,0 +1,109 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title">
+          <div class="div-title">Thanh toán</div>
+        </div>
+
+        <div class="div-quick-back" (click)="showQuickBack()">
+          ...
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <div class="p-all-16">
+    <div class="div-img-step m-bottom-16">
+      <img class="img-step" src="./assets/ic_ordersupport/step_3.svg">
+    </div>
+    <div class="cls-divpayment">
+      
+      <div class="d-flex ">
+        <div class="div-width-100 div-flex-left">
+            <div class="text-pax">Thêm hành lý ký gửi</div>
+            <div class="text-pax f-12 m-top-4">{{departtitle}} <span *ngIf="returntitle">| {{returntitle}}</span></div>
+        </div>
+        <div class="div-width-100 text-right m-bottom-16">
+          <div class="text-total-price">{{totalpricedisplay}}
+          </div>
+          <div class="text-sub">Giá đã bao gồm thuế & phí.</div>
+          
+        </div>
+      </div>
+  
+    </div>
+        <div class="div-split-panel"></div>
+        <ion-list class="cls-list">
+         
+          <ion-item *ngIf="bizTravelService.isCompany" (click)="paymentbiztravel()" class="'cls-minheight">
+            <label  class="text-list m-bottom-8">
+              Tài khoản công ty
+            </label>
+            <div class="text-warning-creadit" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - _flightService.itemFlightCache.totalPrice)<=0">Số dư Credit không đủ để thực hiện thanh toán</div>
+            <!-- <ion-icon slot="end" name="ios-arrow-round-forward" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - _flightService.itemFlightCache.totalPrice) >0" class='m-right-20'></ion-icon> -->
+            <img src="./assets/imgs/ic_arrow_grey.svg" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - _flightService.itemFlightCache.totalPrice) >0" class='m-right-20'/>
+          </ion-item>
+          
+          <ion-item (click)="flightpaymentatm()" class="cls-minheight">
+              <label  class="text-list">
+                Thẻ ATM nội địa /Internet Banking
+              </label>
+              <img src="./assets/imgs/ic_arrow_grey.svg"  class='m-right-20'>
+          </ion-item>
+          <ion-item [ngClass]="(arrbankrmb.length>0&&ischeckvisa) ? 'cls-minheight no-border-bottom ion-item1' : 'cls-minheight no-border-bottom ion-item1'  " (click)="flightpaymentvisa()">
+            <label  class="text-list" >
+              Thẻ tín dụng <img class="img-visa" src="./assets/imgs/ic_visa.png">
+            </label>
+            <!-- <ion-icon slot="end"   name="ios-arrow-round-forward" class='m-right-20'></ion-icon> -->
+            <img slot="end"  style="margin-right: -17px;" src="./assets/imgs/ic_down.svg">
+          </ion-item>
+          <ion-radio-group *ngIf="arrbankrmb.length>0&&ischeckvisa">
+            <ion-item *ngFor="let item of arrbankrmb" [ngClass]="blockPayCard ? 'ion-item' : 'ion-item'">
+              <ion-radio mode="md" [checked]="item.checked" (click)="chooseacc(item)"></ion-radio>
+              <img class="imgcard ml8" src={{item.imgbank}}>
+              <ion-label  class="text-list text-infobank ml8">
+                {{item.name_Bank}}
+              </ion-label>
+              <ion-label class="text-infobank "><span style="vertical-align: middle;"> •••• •••• ••••</span>
+                {{item.vpc_CardNum}}</ion-label>
+            </ion-item>
+            <ion-item [ngClass]="blockPayCard ? 'ion-item' : 'ion-item'">
+              <ion-radio mode="md" (click)="nochooseacc()"></ion-radio>
+              <ion-label  class="text-list text-infobank ml8">
+                Chọn tài khoản khác
+              </ion-label>
+              </ion-item>
+          </ion-radio-group>
+          <div  style="margin-left: 15px;margin-bottom: 10px;">
+            <ion-checkbox [disabled]="isdisable" (click)="rememberCard()" checked="isremember" class="ion-checkbox"  color="secondary"></ion-checkbox>
+            <ion-label class="label-input" >Lưu và bảo mật thẻ để đặt dịch vụ nhanh hơn lần sau</ion-label>
+          </div>
+          <div class="div-split-item"></div>
+          <ion-item  (click)="flightpaymentmomo()" class="cls-minheight">
+            <label class="text-list">
+              Thanh toán qua  <img class="img-momo" src="https://res.ivivu.com/payment/img/momo/logo.png">
+            </label>
+            <img src="./assets/imgs/ic_arrow_grey.svg"  class='m-right-20'>
+          </ion-item>
+          <ion-item (click)="flightpaymentpayooqr()" class="cls-minheight">
+            <label class="text-list">
+              Thanh toán bằng mã QR <img class="img-payoo" src="https://res.ivivu.com/payment/img/payoo/payoo-logo.png">
+            </label>
+            <img src="./assets/imgs/ic_arrow_grey.svg"  class='m-right-20'>
+          </ion-item>
+        
+        </ion-list>
+  </div>
+  
+</ion-content>
+<ion-footer *ngIf="isbtn">
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Thanh toán và hoàn thành</button>
+  </div>
+</ion-footer>

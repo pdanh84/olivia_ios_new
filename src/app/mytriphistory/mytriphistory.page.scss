@@ -1,0 +1,563 @@
+@import '../order/order.page.scss';
+.d-flex{
+    display: flex;
+}
+.header-ios ion-toolbar:last-child{
+    --border-width: 0;
+    --padding-bottom: 0;
+    --padding-start: 0;
+    --padding-left: 0;
+    --padding-right: 0;
+}
+.div-header-title {
+    padding-top: 9px !important;
+    .div-title{
+      margin-top: 4px;
+    }
+}
+
+.sp-title{
+  color: #828282;
+}
+.col-header{
+    margin-top: 0;
+}
+.m-16{
+    margin: 16px 8px;
+}
+
+.div-history-trip{
+    padding: 0;
+}
+
+.card-background-page-history-trips {
+    padding: calc( env(safe-area-inset-bottom) + 84px) 0px;
+    .p-top-23{
+        padding-top:23px;
+    }
+    .p-top-40{
+        padding-top: 40px;
+    }
+    .text-left{
+        font-size: 13px;
+        height: 135px;
+    }
+    .label-reviews{
+        color:#26bed6;
+        font-weight: bold;
+        padding: 5px 8px;
+        padding-top: 0;
+        font-size: 14px;
+
+    }
+    
+    .item-room{
+        position: relative;
+        //min-height: 124px;
+        // margin: 0 5px;
+        // margin-top: 16px;
+        padding: 16px 16px 0px 16px;
+    }
+    .div-wrapimg {
+        position: absolute;
+        width: 104px;
+        overflow: hidden;
+        border-radius: 5px;
+        height: 120px;
+        .img-width-history{
+            width: 110px;
+        }
+        img {
+            object-fit: cover !important;
+            min-height: 104px !important;
+            height: 120px;
+        }
+    }
+    img {
+        left: 0;
+        bottom: 0;
+        object-fit: contain;
+        //max-width: 300px;
+        //max-height: 200px;
+    }
+    .col-historytrip-text-description{
+        padding-left: 112px;
+
+        .col-img-historytrip{
+            padding: 5px 0;
+        }
+    }
+    .header-title{
+        padding: 12px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        padding-right: 15%;
+    }
+    .header-arrow{
+        margin: 3px 11px;
+    }
+    .label-badge{
+        color: #000000;
+        font-size: 12px;
+        font-weight:400;
+        margin-left: 3px;
+        //background-color: #26bed6;
+    }
+    .badgescss {
+        position: absolute;
+        color: #ffffff;
+        z-index: 10;
+        margin-left: 84%;
+        margin-top: -10%;
+        background: rgba(0, 0, 0, 0.5);
+        border: 0.5px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+        font-weight: 100;
+        display: block;
+    }
+    .badge-md {
+        border-radius: 9px;
+        color: #fff;
+        background-color: #26bed6;
+    }
+    .room-class-name {
+        font-size: 16px;
+        color: #003c71;
+        line-height: 18px;
+    }
+    .bkg-id{
+        padding-left: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--ion-color-tertiary);
+    }
+    .row-bkg-id{
+        align-items: center;
+
+        margin: 0px -11px;
+        padding: 5px 11px 5px 2px;
+        border-bottom: solid 7px #f5f6f7;
+        background-color: #fff;
+    }
+    .text-bookingid
+    {
+        font-size: 14px;
+        color: #000000;
+        font-weight: 100;
+    }
+    h2{
+        margin: 0;
+    }
+    .cls-avg-point{
+        margin: 8px 0px;
+    }
+    .support-text{
+        text-align: right;
+    }
+    .img-callcenter{
+        width: 12px;
+        height: 12px;
+    }
+
+    .support{
+        .text-staff-offline{
+            opacity: 0.4;
+            letter-spacing: -0.4px;
+        }
+        .text-staff-online{
+            color: #26bed6;
+            letter-spacing: -0.4px;
+        }
+
+        .img-support{
+            padding-left: 8px;
+        }
+        .img-call{
+            right: -2px;
+            top: 1px;
+        }
+    }
+    .div-split{
+        border-bottom: solid 1px #dedede;
+        opacity: 0.5;
+        margin: 11px 5px 11px 5px;
+    }
+
+    .cls-col-popover-history{
+        height: 24px;
+    
+        .mustClaim{
+            color: #e52822;
+        }
+      }
+
+      .popover-history{
+        float: right;
+        font-size: 44px;
+        color: #000;
+        opacity: 0.54;
+        letter-spacing: -4.84px;
+        line-height: 18px;
+        position: absolute;
+        right: 0;
+        top: -11px;
+        padding-right: 5px;
+      }
+
+    .img-trip-empty{
+        height: 320px;
+        text-align: center;
+    }
+    .img-empty{
+        padding-top: 20%;
+    }
+    .text-trip-empty{
+        text-align: center;
+        color: #bdbdbd;
+    }
+    .button-trip-empty{
+        text-align: center;
+    }
+    .btn-trip-empty{
+        border-color: #f79221;
+        color: #ffffff;
+        background: #f79221;
+        width: 90%;
+        height: 48px;
+
+        text-transform: none;
+        font-size: 17px;
+        font-weight: normal;
+        margin-top:16px;
+    }
+    .btn-seemore {
+        text-align: center;
+        color: #26bed6;
+        text-transform: none;
+        font-size: 16px;
+        background: no-repeat;
+        letter-spacing: -0.4px;
+    }
+    
+
+//bkgoff
+.item-bkgoff{
+    padding: 16px;
+}
+//bkg off
+.div-bkgoff-listitem{
+
+    .p-l-8{
+        padding-left: 8px;
+    }
+
+    .p-l-4{
+        padding-left: 4px;
+    }
+
+    .p-top-3{
+        padding-top: 3px;
+    }
+    .p-top-8{
+        padding-top: 8px;
+    }
+
+    .bkgoff-cincout{
+        margin: 0 !important;
+    }
+
+    .bkgoff-title{
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: -0.48px;
+        text-align: left;
+        color: #333333;
+    }
+
+    .bkgoff-info{
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #828282;
+    }
+
+    .bkgoff-roomname{
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        text-align: left;
+        color: #333333;
+    }
+    
+}
+}
+
+.trip-empty{
+    padding: 13px 16px 16px 16px;
+    height: 100%;
+    
+    .img-trip-empty{
+        height: 320px;
+        text-align: center;
+    }
+    .img-empty{
+        padding-top: 20%;
+    }
+    .text-trip-empty{
+        text-align: center;
+        color: #bdbdbd;
+    }
+    .button-trip-empty{
+        text-align: center;
+    }
+    .btn-trip-empty{
+        border-color: #f79221;
+        color: #ffffff;
+        background: #f79221;
+        width: 90%;
+        height: 48px;
+
+        text-transform: none;
+        font-size: 17px;
+        font-weight: normal;
+        margin-top:16px;
+    }
+}
+
+@media (min-width:300px) and (max-width: 375px) {
+    .btn-next{
+        font-size: 14px;
+        height: 48px;
+        letter-spacing: -0.5px;
+    }
+    .col-text-right{
+        font-size: 13px;
+    }
+    
+  }
+
+  .foodmyorder-content{
+      margin-bottom: 60px !important;
+
+    .text-bkgcode{
+        font-size: 12px !important;
+        line-height: 1.67;
+        letter-spacing: -0.34px !important;
+        text-align: left;
+        color: #828282 !important;
+        padding-left: 0 !important;
+        font-weight: 500 !important;
+    }
+
+    .d-flex{
+        display: flex;
+        margin: 0 !important;
+    }
+    .div-line {
+        border-bottom: solid 1px #f2f2f2;
+        position: relative;
+        top: 0;
+        border-right: 0;
+        height: 1px;
+        padding-left: 0;
+    }
+
+    .div-image-food{
+        width: 56px;
+        height: 42px;
+
+        .img-food-avatar{
+            object-fit: cover;
+            width: 56px;
+            height: 42px;
+            border-radius: 2px;
+        }
+    }
+
+    .div-food-name{
+        padding-left: 8px;
+
+        .text-food-name{
+            font-family: SFProText;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: -0.48px;
+            text-align: left;
+            color: #333333;
+        }
+
+        .text-food-week{
+            font-family: SFProText;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: -0.4px;
+            text-align: left;
+            color: #333333;
+        }
+    }
+}
+
+.p-left-4{
+    padding-left: 4px;
+}
+
+.label-text-paymented{
+    padding: 2px 5px;
+    background-color: var(--ion-color-payment);
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
+}
+.label-text-waitpayment{
+    background-color: var(--ion-color-waitpayment);
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
+}
+.label-text-roomconfirm{
+    padding: 2px 5px;
+    background-color: var(--ion-color-warning);
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
+}
+
+.label-text-request{
+    padding: 2px 6px;
+    background-color: #26bed6;
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
+}
+
+.label-text-done{
+    padding: 2px 6px;
+    background-color: #26bed6;
+    border-radius: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
+}
+
+.text-review{
+    margin-bottom: 22px;
+}
+
+.div-item-flight {
+    position: relative;
+}
+
+.col-mytrip-text-description{
+    padding-left: 112px;
+}
+
+
+.p-bottom-0{
+    padding-bottom: 0 !important;
+}
+.p-l-4{
+    padding-left: 4px;
+}
+.item-list-shadow {
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 20%);
+}
+
+.item-booking-tour {
+
+    .div-wrapimg {
+        height: 80px !important;
+        width: 100px !important;
+    }
+
+    .div-wrapimg.img-list{
+        height: 80px !important;
+    }
+
+    .tour-name {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.48px;
+        color: var(--ion-color-tertiary);
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        /* autoprefixer: ignore next */ -webkit-box-orient: vertical;
+    }
+    .div-line-tour {
+        margin: 16px 0 8px 0;
+        background-color: #dde0e4;
+        height: 1px;
+    }
+    .col-mytrip-text-description {
+        height: 80px !important;
+    } 
+    .col-img-tour {
+        padding: 0;
+        text-align: right;
+    }
+    .img-arrow-tour {
+        text-align: right;
+    }
+}
+
+.padding-9-16{
+    padding: 9px 16px;
+}
+.div-line-new{
+    height: 8px;
+    background-color: #f5f6f7;
+}
+.padding-8-16{
+    padding: 8px 16px;
+}
+.margin-0-16{
+    margin: 0px 16px;
+}
+.text-code-fly{
+    font-size: 14px;
+    font-weight: 500;
+    color: #868998;
+}
+.text-time-fly{
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.48px;
+    color: #26bed6;
+}
+.mt-30{
+    margin-top: 30px;
+}
+.first-content-his{
+    padding-left: 0px !important;
+}
+.div-order-content-his{
+    height: auto;
+    background-color: #f2f2f2;
+    padding: 16px 8px;
+}
+.div-name-hotel{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical !important;
+}
+.m-left-8{
+    margin-left: 8px;
+}

@@ -1,0 +1,94 @@
+.flight-info-content{
+    .p-16{
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+    .m-bottom-24 {
+        margin-bottom: 24px;
+    }
+    .d-flex {
+        display: flex;
+        line-height: 23px;
+    }
+    .d-flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .a-baseline {
+        font-size: 14px;
+        text-align: left;
+        
+    }
+    .div-airline {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        position: relative;
+    }
+    .m-right-2 {
+        margin-right: 2px;
+    }
+    .div-relative {
+        width: 16px;
+        position: relative;
+    }
+    .p-absolute {
+        position: absolute;
+        top: -18px;
+    }
+    .f-36 {
+        font-size: 36px;
+    }
+    .m-lr-6 {
+        margin: 0 4px;
+    }
+    .text-airline {
+        color: #3f3b3b;
+    }
+    .text-flightNumber {
+        color: #3f3b3b;
+    }
+    .div-logo {
+        margin-right: 4px;
+        max-width: 55px;
+        .icon-logo {
+            max-width: 55px;
+            height: 30px;
+            object-fit: scale-down;
+            margin-bottom: -2px;
+        }
+    }
+    .div-operatedby {
+        color: #828282;
+        font-size: 14px;
+        margin-top: 4px;
+
+    }
+    .div-icon {
+        display: flex;
+        width: 16px;
+        margin-right: 6px;
+
+        .icon-info {
+            height: 23px;
+            max-width: 16px;
+        }
+    }
+    .text-normal {
+        font-size: 14px;
+        text-align: left;
+        color: #3f3b3b;
+    }
+    .text-title {
+        margin: 20px 0 12px 0;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        color: #3f3b3b;
+    }
+}
+
+ion-header {
+    box-shadow: 1px 0px 2px 0px #828282 !important;
+}

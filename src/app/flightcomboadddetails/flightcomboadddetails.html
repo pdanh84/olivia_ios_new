@@ -1,0 +1,369 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -7px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div  *ngIf="activeStep == 1" style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label>Thông tin hành khách</label></div>
+          <div  *ngIf="activeStep != 1" style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label>Thông tin liên hệ</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <div class="div-img-step">
+    <img class="img-step" src="./assets/ic_flight/step_2.svg">
+  </div>
+  <div *ngIf="activeStep == 1 else stepUserInfo" class="f-16">
+    <div *ngFor="let m of arradult;let i=index">
+      <div class="d-flex m-top-16'">
+        <div class="text-adult">
+          {{m.text}}
+        </div>
+      </div>
+
+      <div class="d-flex">
+        <div [ngClass]="(m.errorGender || m.errorInfo)? 'div-left cls-error' : 'div-left'" (click)="selectAdultGender(m)" (blur)="checkInput(m, 1, true)">
+          <div [ngClass]="!m.genderdisplay ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+            <ion-label class="sub-label">Danh xưng</ion-label>
+          </div>
+          <div class="text-gender" *ngIf="m.genderdisplay">{{m.genderdisplay}}</div>
+          <div [ngClass]="(m.errorGender || m.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
+            <img *ngIf="!(m.errorGender || m.errorInfo)" src="./assets/imgs/ic_down_b.svg">
+            <img *ngIf="(m.errorGender || m.errorInfo)" src="./assets/imgs/ic_down_red.svg">
+        </div>
+        </div>
+        <div [ngClass]="(m.errorName || m.errorSubName || m.errorInfo) ? 'div-right cls-error' : 'div-right'">
+          <ion-label
+            [ngClass]="!m.hoten ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+            Họ và tên đầy đủ</ion-label>
+          <ion-input class="cls-input-custom" type="text"  [(ngModel)]="m.hoten" required (ionBlur)="inputLostFocus(m, true)" (ionInput)="inputFocus(m, $event)" (ionFocus)="inputOnFocus(m, 2)">
+          </ion-input>
+
+          <div class="text-right" *ngIf="m.genderdisplay && m.hoten" (click)= "editPaxInfo(m, 1)">Xóa</div>
+        </div>
+      </div>
+      <div class="p-top-6">
+        <ion-label class="text-sub-name">Điền đầy đủ Họ tên như trên giấy tờ tùy thân dùng để thực hiện chuyến bay</ion-label>
+    </div>
+      <div *ngIf="showLotusPoint && !m.airlineMemberCode" class="text-lotus-point" (click)="openLotusPointSave(m)">Nhập thẻ bông sen vàng <img class="img-vector" src="./assets/imgs/vector.svg" /></div>
+      <div *ngIf="showLotusPoint && m.airlineMemberCode" class="text-lotus-code" (click)="openLotusPointSave(m)">Thẻ bông sen vàng: {{ m.airlineMemberCode }}</div>
+
+      <!-- show error -->
+      <div class="div-showerror m-top-16" >
+        <div class="d-flex cls-error" *ngIf="m.textErrorInfo">
+          <div class="div-icon-error">
+              <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+          </div>
+          <div class="div-text-error m-left-28">
+              {{ m.textErrorInfo }}
+          </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="m.errorTextGender">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                {{ m.errorTextGender }}
+            </div>
+        </div>
+        
+        <div class="d-flex cls-error m-top-8" *ngIf="m.errorTextName">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                {{ m.errorTextName }}
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="m.hoten && !m.errorTextName && m.errorTextSubName">
+          <div class="div-icon-error width-40">
+              <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+          </div>
+          <div class="div-text-error m-left-28">
+              {{ m.errorTextSubName }}
+          </div>
+      </div>
+
+      </div>
+      <div class="div-split"></div>
+    </div>
+    <!-- trẻ em -->
+    <div *ngIf="arrchild && arrchild.length >0">
+      <div *ngFor="let itemChild of arrchild; let idxc = index">
+        <div class="d-flex">
+          <div class="div-width-300">
+            <div class="div-sub-title ">{{itemChild.text}} {{itemChild.iddisplay}}</div>
+          </div>
+        
+        </div>
+
+        <div class="d-flex">
+          <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-left cls-error' : 'div-left '" (click)="selectGender(itemChild)"  (blur)="checkInput(itemChild, 1, false)">
+            <div [ngClass]="!itemChild.genderdisplay ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+              <ion-label class="sub-label">Danh xưng</ion-label>
+            </div>
+            <div class="text-gender" *ngIf="itemChild.genderdisplay">{{itemChild.genderdisplay}}</div>
+              <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo )? 'div-icon-down cls-error' : 'div-icon-down'">
+                <img *ngIf="!(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_b.svg">
+                <img *ngIf="(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_red.svg">
+              </div>
+          </div>
+          <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
+            <ion-label
+              [ngClass]="!itemChild.hoten ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+              Họ và tên đầy đủ</ion-label>
+            <ion-input class="cls-input-custom" [(ngModel)]="itemChild.hoten"
+              type="text" (ionBlur)="inputLostFocus(itemChild, false)" (ionInput)="inputFocus(itemChild, $event)" (ionFocus)="inputOnFocus(itemChild, 2)" required></ion-input>
+
+              <div class="text-right" *ngIf="itemChild.genderdisplay && itemChild.hoten" (click)= "editPaxInfo(itemChild, 2)">Xóa</div>
+          </div>
+        </div>
+
+        <div class="p-top-6">
+          <ion-label class="text-sub-name">Điền đầy đủ Họ tên như trên giấy tờ tùy thân dùng để thực hiện chuyến bay</ion-label>
+      </div>
+
+        <div class="d-flex m-top-8">
+          <div class="div-left no-border"></div>
+          <div [ngClass]="((itemChild.errorTextBirthday || itemChild.errorBirthday1) || (itemChild.errorInfo && !itemChild.BirthDay)) ? 'div-right cls-error' : 'div-right border-bottom'" (click)="selectDateOfBirth(itemChild, true)">
+            <ion-label class="sub-label m-bottom-6" position="stacked">Sinh ngày</ion-label>
+            <ion-input
+              [value]="itemChild.birdayDisplay"
+              type="bday"
+              id="date_{{idxc}}"
+            ></ion-input>
+              <div [ngClass]="(itemChild.BirthDay || itemChild.errorInfo )? 'div-icon-down cls-error' : 'div-icon-down'">
+                  <img *ngIf="!(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_b.svg">
+                  <img *ngIf="(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_red.svg">
+              </div>
+
+          </div>
+        </div>
+        <!-- show error -->
+      <div class="div-showerror m-top-16" >
+        <div class="d-flex cls-error" *ngIf="itemChild.textErrorInfo">
+          <div class="div-icon-error">
+              <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+          </div>
+          <div class="div-text-error m-left-28">
+              {{ itemChild.textErrorInfo }}
+          </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="itemChild.errorTextGender">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                {{ itemChild.errorTextGender }}
+            </div>
+        </div>
+        
+        <div class="d-flex cls-error m-top-8" *ngIf="itemChild.errorTextName">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                {{ itemChild.errorTextName }}
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="itemChild.errorTextBirthday">
+            <div [ngClass]="itemChild.errorBirthday1 ?  'div-icon-error width-40 ' : 'div-icon-error' ">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                {{ itemChild.errorTextBirthday }}
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="itemChild.hoten && !itemChild.errorTextName && itemChild.errorTextSubName">
+          <div class="div-icon-error width-40">
+              <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+          </div>
+          <div class="div-text-error m-left-28">
+              {{ itemChild.errorTextSubName }}
+          </div>
+      </div>
+
+      </div>
+        <div class="div-split"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template #stepUserInfo>
+
+    <div class="div-user-info f-16">
+      <div [ngClass]=" ( (hasinput && !hoten) || hoteninvalid)? 'm-bottom-12 cls-error': 'm-bottom-12' ">
+        <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+          <ion-label class="sub-label m-bottom-6 f-13" position="stacked">Họ tên</ion-label>
+          <ion-input [(ngModel)]="hoten" type="text" (ionBlur)="checkInputUserInfo(1)" (ionInput)="inputFocus(null, $event)" (ionBlur)="inputLostFocus(null, null)" (ionFocus)="inputOnFocus(null, 9)"></ion-input>
+        </ion-item>
+      </div>
+
+      <div [ngClass]=" ( (hasinput && !phone) || sodienthoaiinvalid)? 'm-bottom-12 cls-error': 'm-bottom-12' ">
+        <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+          <ion-label class="sub-label m-bottom-6 f-13" position="stacked">Số điện thoại</ion-label>
+          <ion-input [(ngModel)]="phone" maxlength=11 type="tel" required (ionBlur)="checkInputUserInfo(2)" (ionFocus)="inputOnFocus(null, 10)"></ion-input>
+        </ion-item>
+      </div>
+
+      <div [ngClass]=" ( (hasinput && !_email) || emailinvalid)? 'm-bottom-12 cls-error': 'm-bottom-12' ">
+        <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+          <ion-label class="sub-label m-bottom-6 f-13" position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="_email" type="email" (ionBlur)="checkInputUserInfo(3)" (ionFocus)="inputOnFocus(null, 11)"></ion-input>
+        </ion-item>
+      </div>
+
+      <ion-row style="margin-top: 20px">
+        <ion-checkbox [(ngModel)]="ischeck" color="secondary"></ion-checkbox>
+        <ion-label class="label-input" style="margin: 1px 10px">Xuất hóa đơn điện tử</ion-label>
+    </ion-row>
+
+      <div *ngIf="ischeck">
+        <ion-row style="margin-left: -5px">
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px">
+              <ion-label class="label-input-order" position="stacked">Tên công ty</ion-label>
+              <ion-input class="label-input" [(ngModel)]="companyname" type="text" required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px">
+              <ion-label class="label-input-order" position="stacked">Địa chỉ</ion-label>
+              <ion-input class="label-input" [(ngModel)]="address" type="text" required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px">
+              <ion-label class="label-input-order" position="stacked">Mã số thuế</ion-label>
+              <ion-input class="label-input" [(ngModel)]="tax" type="text" required></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <div style="margin-left: 5px;margin-top: 10px">
+          <ion-checkbox (ionChange)="showNameMail($event)" [value]="ishideNameMail" class="ion-checkbox" color="secondary"></ion-checkbox>
+          <ion-label class="label-input" >Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
+        </div>
+        <div *ngIf="!ishideNameMail">
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px">
+              <ion-label class="cls-label" position="stacked">Họ tên</ion-label>
+              <ion-input class="label-input" [(ngModel)]="hotenhddt" type="text" required></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12">
+            <ion-item style="--padding-start: 0px">
+              <ion-label class="cls-label" position="stacked">Email nhận HĐ</ion-label>
+              <ion-input class="label-input" [(ngModel)]="emailhddt" type="text" required></ion-input>
+            </ion-item>
+          </ion-col>
+        </div>
+      </div>
+      <div class="div-showerror m-bottom-12">
+        <div class="d-flex cls-error " *ngIf="hasinput && !hoten">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Vui lòng nhập họ tên.
+            </div>
+        </div>
+        <div class="d-flex cls-error m-top-8" *ngIf="hoten && hoteninvalid">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Họ tên không hợp lệ. Vui lòng kiểm tra lại!
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="hoten && subnameinvalid">
+          <div class="div-icon-error width-40">
+              <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+          </div>
+          <div class="div-text-error m-left-28">
+            Không nằm trong danh sách họ phổ biến. Vui lòng kiểm tra lại!
+          </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="hasinput && !phone">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Vui lòng nhập số điện thoại.
+            </div>
+        </div>
+        <div class="d-flex cls-error m-top-8" *ngIf="phone && sodienthoaiinvalid">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Số điện thoại không hợp lệ. Vui lòng kiểm tra lại!
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="hasinput && !_email">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Vui lòng nhập email.
+            </div>
+        </div>
+
+        <div class="d-flex cls-error m-top-8" *ngIf="_email && emailinvalid">
+            <div class="div-icon-error">
+                <img class="img-error" src="./assets/ic_flight/icon_warning.svg" >
+            </div>
+            <div class="div-text-error m-left-28">
+                Định dạng địa chỉ email không hợp lệ. Vui lòng kiểm tra lại!
+            </div>
+        </div>
+    </div>
+
+    </div>
+  </ng-template>
+</ion-content>
+<ion-footer>
+  <div class='div-close-paxhint' *ngIf="inputtext && listpaxhint && listpaxhint.length >0" (click)="hidePaxHint()"><img src='./assets/ic_close_b.svg'></div>
+  <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
+                  
+    <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
+        <div class="icon-pax">
+                <img src="./assets/ic_flight/icon-pax.svg">
+        </div>
+        <div class="text-pax-hint">
+            {{itempax.fullName}}
+        </div>
+    </div>
+    
+  </div>
+
+  <div class="div-footer d-flex-footer">
+    <div class="d-flex-footer div-width-100">
+      <div (click)="showComboDetail()" class="div-total" *ngIf="PriceAvgPlusTAStr">
+        <div  class="d-flex-footer text-sub-total">
+          {{ adult }} người lớn, {{ child }} trẻ em
+        </div>
+        <div class="text-total">{{PriceAvgPlusTAStr}}đ
+          <sup><img  class="img-paymentbreakdown" src="../../assets/ic_hoteldetail/ic_info.svg" /></sup>
+        </div>
+      </div>
+      <div class="div-button">
+        <button *ngIf="activeStep==1" (click)="next()" ion-button round outline class="button button-done">Thông tin
+          liên hệ <span><img class="img-arrow" src="./assets/imgs/ic_next.svg"></span> </button>
+        <button *ngIf="activeStep==2" (click)="next()" ion-button round outline class="button button-done">Thanh
+          toán<span><img class="img-arrow" src="./assets/imgs/ic_next.svg"></span> </button>
+      </div>
+    </div>
+  </div>
+</ion-footer>

@@ -1,0 +1,358 @@
+.div-hotecityroomupgrade-header{
+    .row-header{
+        height: 48px;
+        text-align: center;
+    }
+
+    .btn-back{
+        background: #ffffff;
+
+        .img-header-back{
+            width: 28px;
+            height: 28px;
+        }
+    }
+    
+
+    .header-title{
+        font-size: 18px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #333333;
+        padding-top: 0;
+    }
+}
+.div-hotecityroomupgrade-content{
+    background: #ecf0f5;
+    padding: 18px 14px 16px 12px;
+
+    .d-flex{
+        display: flex;
+    }
+    .div-go-back{
+        z-index: 100;
+        position: absolute;
+          top: 5%;
+          left: 10px;
+          color: #ffffff;
+          width: 48px;
+          height: 48px;
+          //margin-top: calc(env(safe-area-inset-top) - 14px);
+    }
+    .img-back{
+        height: 48px;
+        padding: 8px;
+        margin-left: -8px;
+        margin-top: env(safe-area-inset-top);
+        z-index: 11;
+        position: absolute;
+        }
+        .div-img-background{
+            background-color: #000;
+            opacity: 0.3;
+            position: absolute;
+            border-radius: 24px;
+        }
+        .div-goback-background{
+            margin-left: -8px;
+            height: 28px;
+            width: 28px;
+            top: 10px;
+            left: 10px;
+        }
+    .bg-select{
+        //background: #feeec7;
+        border: solid 1px #26bed6;
+    }
+    .bg-white{
+        background: #ffffff;
+    }
+
+    .hotel-room-detail-content{
+        padding: 0 25px 0 22px;
+        font-size: 14px;
+        margin-bottom: 20px;
+
+    .room-class-name{
+        margin-top: -4px;
+        padding-top: 27px;
+        color: var(--ion-color-primary);
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.26;
+        letter-spacing: -0.46px;
+    
+    }
+    .icon-detail-fix{
+        width: 16px;
+        //opacity: 0.6;
+    }
+
+    
+    .p-top-12{
+        padding-top: 12px;
+    }
+    .f-bold{
+        font-weight: bold;
+    }
+    .div-split{
+        height: 0.5px;
+        margin: 14.5px 0 10px;
+        opacity: 0.5;
+        background-color: #bdbdbd;
+    }
+    .label-md {
+        margin: 0;
+    }
+    .row-title{
+        padding: 10px 0px;
+    }
+    .room-class-icon{
+        text-align: right;
+        position: absolute;
+        padding-top: 1px;
+    }
+    .room-class-info{
+        padding-left: 24px;
+        padding-top: 2px;
+        margin-right: -12px;
+    }
+    .p-left-28{
+        padding-left: 28px;
+    }
+   
+    .div-bedroom-display ion-row:last-child span{
+        display: none;
+    }
+    .text-or{
+        padding-top: 8px;
+    }
+    // .text-hotel-description{
+    //     overflow: auto;
+    //     text-overflow: inherit;
+    //     white-space: normal;
+    // }
+    .h-line{
+        border-bottom: solid 0.5px #bdbdbd;
+        margin: 8px 0;
+    }
+    ///style mealtype
+    .mealtype-item .div-mealtype:last-child .div-border-bottom{
+        border-bottom: none;
+    }
+    .mealtype-item div:first-child .div-border-bottom{
+        border-bottom: none;
+    }
+    .div-mealtype{
+        text-align: left;
+        padding-bottom:16px;
+    }
+    .div-mealtype .cls-visible{
+        display: block;
+        animation: showNav 500ms ease-in-out both;
+    }
+    .cls-firstmealtype-border{
+        border: solid 2px #26ced6;
+        padding-top:8px;
+    }
+    .p-left-8{
+        padding-left: 8px;
+        //padding-top:16px;
+    }
+    .icon-detail-green-fix{
+        width:12px;
+        height:12px;
+        color:#219653;
+    }
+    .icon-detail-check-green-fix{
+        font-size: 15px;
+        width:12px;
+        height:12px;
+        color:#219653;
+    }
+    .cls-green{
+        color:#219653;
+        font-size: 12px;
+        font-weight: normal;
+        //opacity: 0.85;
+    }
+    .text-room-description{
+        color:#828282;
+        padding: 16px 8px 0px 0px;
+        text-align: right;
+        font-size: 12px;
+        letter-spacing: -0.34px;
+    }
+    .text-room-description-p-top-32{
+        color:#828282;
+        padding: 32px 8px 0px 0px;
+        text-align: right;
+        font-size: 12px;
+        letter-spacing: -0.34px;
+    }
+    .text-room-price{
+        color:#26bed6;
+        padding: 0px 0px 12px 0px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: right;
+        margin: 0px;
+        letter-spacing: -0.69px;
+    }
+    .text-room-price-no-bottom{
+        color:#26bed6;
+        padding: 0px 0px 0px 0px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: right;
+        margin: 0px;
+        letter-spacing: -0.69px;
+    }
+    .text-hotel-description{
+        white-space: inherit;
+        text-align: left;
+        width: 90%;
+    }
+    .penal-detail{
+        align-items: center;padding-top: 4px
+    }
+    .penal-detail:last-child{
+        padding-bottom: 12px;
+    }
+    .arrow::before {
+        content: '';
+        position: absolute;
+        left: calc(42% - 10px);
+        background: #275A87;
+        width: 14px;
+        height: 8px;
+        -moz-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        margin-top: -10px;
+      }
+      .penalty-text{
+        font-size:12px;
+        font-weight:normal;
+        //opacity:0.85;
+        padding-left: 10px; 
+        height: 14px;
+      }
+      .link-penalty{
+        padding-left: 10px;
+        text-decoration: none;
+        background-color: #ffffff;
+        cursor: pointer;
+        text-decoration: underline;
+        color: #40A6F2;
+      }
+      .penalty-active-description.none-p-top{
+          padding-top:0;
+      }
+
+      .penalty-active-description{
+        font-size:14px;
+        font-weight:normal;
+        padding: 16px;
+        white-space: normal;
+    }
+    .penalty-active{
+        margin-top: 8px;
+        padding: 8px;
+        color: #ffffff;
+        background: #275A87;
+    }
+    .vcolor-info{
+        color: #26bed6;
+    }
+    .text-promotion-note{
+        padding:4px 0px 4px 0px;
+        font-size: 14px;
+        color:#E52822;
+        text-align: right;
+    }
+    .icon-text-promotion{
+        width: 14px;
+        padding-right: 4px;
+    }
+    .div-promotion-note{
+        width: 100%;
+        border: none !important;
+    }
+    .text-room-price-ota{
+        color:#828282;
+        padding: 0px;
+        font-size: 14px;
+        text-align: right;
+        text-decoration: line-through;
+        margin: 0px;
+    }
+    .text-register{
+        color:#26bed6;
+        padding: 16px 8px 12px 0px;
+        text-align: right
+    }
+    .icon-text-register{
+        padding: 2px 6px 0px 0px;
+        vertical-align: sub;
+    }
+    .btn-book-outline{
+        background-color: #ffffff;
+        color: #f59233;
+        border: solid 1px #f59233;
+        width: 100%;
+        height: 48px;
+        text-transform: none;
+        font-size: 14px !important;
+        font-weight: bold;
+        margin: 0;
+        margin-top: 16px;
+    }
+    .btn-book-selected{
+        border:solid 1px #f59233;
+        background: #f59233;
+        color: #ffffff;
+        width: 100%;
+        height: 48px;
+        text-transform: none;
+        font-size: 14px !important;
+        font-weight: bold;
+        margin: 0;
+        margin-top: 16px;
+    }
+
+    .cls-firstmealtype-border{
+        border: solid 2px #26ced6;
+        margin: 0 -16px;
+        padding: 8px 16px 16px 16px;
+    }
+    .div-mealtypename{
+        width: 100%;
+        padding-top: 2px;
+    }
+    .div-pricediff{
+        width: 100%;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.4;
+        text-align: right;
+        color: var(--ion-color-primary);
+    }
+}
+
+    .btn-cancel{
+        width: 90%;
+        border:none;
+        color: #f59233;
+        background-color: #ffffff;
+        border-color: #f59233;
+        height: 48px;
+    }
+
+}
+    

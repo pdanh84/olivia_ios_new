@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+        <ion-row>
+          <ion-col style="text-align: center;">
+            <div style="align-self: center" >
+              <div>
+                    <label class="text-title">{{titlepage}}</label>
+              </div>
+              <div><label style="font-size: 11px;color: #828282">{{daytitle}}</label></div>
+              <div style="position: absolute;height: 60px;width: 54px;right: 2px;text-align: right;top: -2px;">
+                    <ion-icon style="height: 32px;width: 48px;padding: 12px;" name="close"  (click)="goback()"></ion-icon>
+                </div> 
+            </div>
+          </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="cardeparture-page ion-padding-16">
+    <div class="car-departure-content">
+        <ion-list class="cls-list" >
+            <ion-row *ngFor="let f of listcardisplay; let idx = index"  style="border-bottom: solid 1px #ccc;height: 65px;" (click)="changeCarInfo(f)">
+                <ion-col style="padding:0;font-size: 14px;font-weight: bold;align-self: center;" size="4">
+                    <ion-row >
+                        <ion-col style="padding:0">
+                            <div><span class="div-flight-label">{{ f.cartime}}</span></div>
+                        </ion-col>
+                    </ion-row>
+            </ion-col>
+            <ion-col style="padding:0;align-self: center;text-align: right;" size="8">
+                <div><p class="div-airline-label">{{ f.companyname}}</p>
+                    <p class="div-airline-type">({{f.vehicle_type}})</p>
+                </div>
+                <div class="combo-flight-price">
+                    <div *ngIf="f.checkdiscountdepart&&f.priceshow!=0">
+                        <span class="combo-flight-price-label-down">Giảm <span class="flight-price">{{ f.priceshow }}đ</span><span style="font-size:12px;color:#4f4f4f;font-weight: normal">/người lớn</span></span>
+                    </div>
+                   <div *ngIf="!f.checkdiscountdepart&&f.priceshow!=0" >
+                        <span class="combo-flight-price-label-up">Phụ thu <span class="flight-price">{{ f.priceshow }}đ</span><span style="font-size:12px;color:#4f4f4f;font-weight: normal">/người lớn</span></span>
+                    </div> 
+                </div>
+            </ion-col>
+        </ion-row>
+        <hr>
+        </ion-list>
+        <div class="cls-seemoreroomdetail" *ngIf="ischeckseemore" (click)="seemore()">
+            Xem thêm {{count}} lựa chọn <img class="img-seemoreroom"
+              src="./assets/imgs/ic_down.svg">
+          </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-row class="div-footer-filtersort">
+        <ion-col size="5.5" style="align-self: center">
+            <div style="margin-left: 15px;">
+                <img src="./assets/imgs/ic_sort.svg">
+                <ion-label style="top: 20px;position: absolute;">Sắp xếp</ion-label>
+                <ion-select id="myselectmodal" style="color: #26bed6;top: 10px;position: absolute;right: 0;right: 40px;width: 100%;height: 48px" interface="action-sheet" mode="ios" selectedText=" " (ionChange)="sortAirline($event)" >
+                    <ion-select-option value="priceup">Phụ thu thấp nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeDepartEarly">Giờ đi sớm nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeDepartLately">Giờ đi muộn nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeLandingEarly">Giờ đến sớm nhất</ion-select-option>
+                    <ion-select-option value="sortByTimeLandingLately">Giờ đến muộn nhất</ion-select-option>
+                </ion-select>
+            </div>
+        </ion-col>
+        <ion-col size="1">
+            <div class="div-split"></div>
+        </ion-col>
+        <ion-col size="5.5">
+                <div class="flightdeparture-button-filter">
+                    <img style="margin-left: -6px;position: absolute;" src="./assets/imgs/ic_filter.svg">
+                    <ion-label style="top: 20px;position: absolute;margin-left: 40px;">Lọc theo hãng</ion-label>
+                    <ion-select style="height:48px" class="selectclass" multiple="true" cancelText="" okText="Xác nhận" title="Lọc theo hãng"   mode="ios" selectedText=" " (ionChange)="filterAirline($event)" >
+                                <ion-select-option *ngFor="let item of listcarname" value={{item.id}}><img class="img-airline" src="./assets/ic_airticket/ic_vietnamairlines_b.png">{{item.name}}</ion-select-option>
+                    </ion-select>
+                </div>
+        </ion-col>
+    </ion-row>
+</ion-footer>

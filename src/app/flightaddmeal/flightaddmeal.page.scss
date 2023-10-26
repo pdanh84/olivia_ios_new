@@ -1,0 +1,86 @@
+.d-flex{
+    display: flex;
+}
+.div-header-title{
+    padding-top: 12px !important;
+}
+.col-header{
+    height: 44px !important;
+    padding: 5px 0;
+}
+.div-width-100{
+    width: 100%;
+}
+
+.content-flightaddmeal{
+    padding: 16px;
+
+    .div-left
+    {
+        width: 104px;
+        height: 104px;
+        margin-right: 8px;
+
+        .img-left{
+            width: 104px;
+            height: 104px;
+            object-fit: cover;
+            max-width: 104px;
+            border-radius: 4px;
+        }
+    }
+
+    .div-right
+    {
+        position: relative;
+        text-align: left;
+
+        .meal-title{
+            font-size: 14px;
+            font-weight: 100;
+            color: #000000;
+            line-height: 17px;
+        }
+
+        .meal-desc{
+            font-size: 12px;
+            font-weight: 300;
+            color: #828282;
+        }
+
+        .div-price{
+            position: absolute;
+            bottom: 0;
+
+            .div-item{
+                width: 24px;
+                height: 24px;
+        
+                .seat-icon{
+                    width: 24px;
+                    height: 24px;
+                }
+        
+                
+            }
+
+            .div-item-center{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 14px;
+                font-weight: 100;
+                color: #000000;
+                width: 41px;
+                text-align: center;
+                height: 24px;
+            }
+        }
+    }
+
+    .div-split{
+        border-bottom: solid 0.3px #828282;
+        opacity: 0.3;
+        margin: 16px 0;
+    }
+}

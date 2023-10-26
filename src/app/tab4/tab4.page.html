@@ -1,0 +1,240 @@
+<!--
+  Generated template for the InboxPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="fix-header">
+  <ion-row class="row-header">
+    <label class="title-header">Thông báo <span
+        *ngIf="valueGlobal.countNotifi>0">({{valueGlobal.countNotifi}})</span></label>
+        <div class="btn-checkall" (click)="checkAll()">
+          <img class="img-checkall" src="./assets/ic_notice/checkall.svg" >
+        </div>
+  </ion-row>
+</ion-header>
+
+<ion-content >
+  <div class="div-notify-content">
+ 
+  <div class="div-scroll margin-left-16 div-flex" *ngIf="items && items.length > 0 && loaddatadone">
+
+    <div class="div-33">
+      <button ion-button round outline
+        [ngClass]="isAll ? 'btn-typeMessenger-action margin-left-0': 'btn-typeMessenger margin-left-0'"
+        (click)="funcAll()">Tất cả</button>
+    </div>
+
+
+    <div class="div-33">
+      <button ion-button round outline [ngClass]="isProduct ? 'btn-typeMessenger-action': 'btn-typeMessenger'"
+        (click)="funcProduct()">Ưu đãi</button>
+    </div>
+    <div class="div-33">
+      <button ion-button round outline [ngClass]="isOrder ? 'btn-typeMessenger-action': 'btn-typeMessenger'"
+        (click)="funcOrder()">Đơn hàng</button>
+    </div>
+
+    <!-- <button 
+      ion-button round outline [ngClass]="isOther ? 'btn-typeMessenger-action': 'btn-typeMessenger'" (click)="funcOther()">Khác</button> -->
+
+  </div>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="none" refreshingSpinner="circles" refreshingText=""></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!loginuser">
+    <div  class="trip-empty-no-login">
+      <div class="img-trip-empty-1">
+        <img  src="./assets/iconaccount/login_img.svg">
+   
+      <div class="text-notrip m-top-8">
+        <div>Quý khách chưa đăng nhập.</div>
+        <div>Vui lòng đăng nhập hoặc đăng ký để xem chi tiết các thông báo đơn hàng và khuyến mãi hấp dẫn từ iVIVU.com gửi đến!</div>
+      </div>
+    </div>
+      <div >
+        
+        <div class="d-flex-no-login m-t-16">
+          <div (click)="goToLogin()" class="div-width-50">
+              <button ion-button round outline class="btn-login">Đăng nhập</button>
+            </div>
+            <div (click)="goToRegister()" class="div-width-50 margin-left-6">
+              <button ion-button round outline class="btn-register">Đăng ký</button>
+            </div>
+      </div>
+      </div>
+    </div>
+   
+  </div> 
+ <div *ngIf="loginuser">
+
+  <div class="inbox-content" *ngIf="!loaddatadone">
+    <ion-row *ngFor="let item of itemskeleton">
+      <ion-row class="cls-border-bottom" style="width:100%">
+        <ion-item style="--padding-start:0;--background: transparent;--border-style:none;--padding-end:0;width:100%">
+          <ion-row style="width:100%">
+            <ion-col size="1.2" style="padding: 0">
+              <div>
+                <ion-skeleton-text animated
+                  style="width:100%;margin-top: 6px;height: 24px;width:24px;border-radius:24px"></ion-skeleton-text>
+              </div>
+            </ion-col>
+            <ion-col size="10.8" style="padding: 0">
+              <div><ion-skeleton-text animated style="width:100%;margin-top: 8px;height: 16px;"></ion-skeleton-text>
+              </div>
+              <div><ion-skeleton-text animated style="width:100%;margin-top: 8px;height: 16px;"></ion-skeleton-text>
+              </div>
+              <div><ion-skeleton-text animated style="width:25%;margin-top: 8px;height: 16px;"></ion-skeleton-text>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-row>
+    </ion-row>
+  </div>
+  <div *ngIf="!textnotifyType || textnotifyType=='product'">
+    <div class="inbox-content" *ngIf="items && items.length > 0 && loaddatadone">
+  
+     <div *ngIf="textnotifyType">
+      <div class="mess-card" *ngFor="let item of items" class="mess-card">
+        <div *ngIf="item.notifyType==textnotifyType" class="div-detail" (click)="updateStatusMessage(item)">
+          <div class="div-flex">
+            <img *ngIf="item.notifyType == 'product'" class="noti-img" src="./assets/imgs/noti_fire.svg" />
+            <img *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert'" class="noti-img"
+              src="./assets/imgs/noti_clipboard.svg" />
+            <div *ngIf="item.notifyType == 'product'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text' ">
+              Sản phẩm
+            </div>
+            <div *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text' ">
+              Đơn hàng
+            </div>
+            <div class="d-flex">
+              <div *ngIf="item.status == 0 && !item.hascheckall" class="cls-dot">
+
+              </div>
+              <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-time text-bold' : 'noti-text-time' ">{{item.date}}</div>
+            </div>
+          </div>
+          <div class="cls-border">
+
+          </div>
+          <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-title text-bold' : 'noti-text-title'">
+            {{item.title}}
+          </div>
+          <div class="noti-text-content">
+            {{item.message}}
+          </div>
+        </div>
+      </div>
+     </div>
+    
+    
+    <div *ngIf="!textnotifyType">
+      <div class="mess-card" *ngFor="let item of items" class="mess-card">
+        <div class="div-detail" (click)="updateStatusMessage(item)">
+          <div class="div-flex">
+            <img *ngIf="item.notifyType == 'product'" class="noti-img" src="./assets/imgs/noti_fire.svg" />
+            <img *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert' || item.notifyType == 'fly'" class="noti-img"
+              src="./assets/imgs/noti_clipboard.svg" />
+            <div *ngIf="item.notifyType == 'product'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text'">
+              Sản phẩm
+            </div>
+            <div *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert'  || item.notifyType == 'fly'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text'">
+              Đơn hàng
+            </div>
+
+            <div class="d-flex">
+              <div *ngIf="item.status == 0 && !item.hascheckall" class="cls-dot">
+
+              </div>
+              <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-time text-bold' : 'noti-text-time'">{{item.date}}</div>
+            </div>
+          </div>
+          <div class="cls-border">
+
+          </div>
+          <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-title text-bold' : 'noti-text-title'">
+            {{item.title}}
+          </div>
+          <div class="noti-text-content">
+            {{item.message}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <div *ngIf="textnotifyType=='booking'">
+    <div  *ngIf="itembookings && itembookings.length > 0 && loaddatadone">
+   
+      <div class="inbox-content-empty" *ngIf="countNoti == 0">
+        <div class="img-inbox-empty">
+          <img class="img-empty" src="./assets/empty/island.svg">
+        </div>
+        <div class="text-trip-empty">
+          <label>Quý khách chưa có tin nhắn mới</label>
+        </div>
+      </div>
+      <div class="mess-card" *ngFor="let item of itembookings" class="mess-card">
+        <div  class="div-detail" (click)="updateStatusMessage(item)">
+          <div class="div-flex">
+            <img *ngIf="item.notifyType == 'product'" class="noti-img" src="./assets/imgs/noti_fire.svg" />
+            <img *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert' || item.notifyType == 'fly'" class="noti-img"
+              src="./assets/imgs/noti_clipboard.svg" />
+            <div *ngIf="item.notifyType == 'product'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text' ">
+              Sản phẩm
+            </div>
+            <div *ngIf="item.notifyType == 'booking' || item.notifyType == 'alert' || item.notifyType == 'fly'"
+              [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text text-bold' : 'noti-text' ">
+              Đơn hàng
+            </div>
+            <div class="d-flex">
+              <div *ngIf="item.status == 0 && !item.hascheckall" class="cls-dot">
+
+              </div>
+              <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-time text-bold' : 'noti-text-time' ">{{item.date}}</div>
+            </div>
+          </div>
+          <div class="cls-border">
+
+          </div>
+          <div [ngClass]="item.status == 0 && !item.hascheckall ? 'noti-text-title text-bold' : 'noti-text-title'">
+            {{item.title}}
+          </div>
+          <div class="noti-text-content">
+            {{item.message}}
+          </div>
+        </div>
+      </div>
+   
+  </div>
+ 
+    <div class="inbox-content-empty" *ngIf="itembookings && itembookings.length == 0 ">
+      <div class="img-inbox-empty">
+        <img class="img-empty" src="./assets/empty/island.svg">
+      </div>
+      <div class="text-trip-empty">
+        <label>Quý khách chưa có tin nhắn mới</label>
+      </div>
+   
+  </div>
+  </div>
+ 
+</div>
+ 
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" >
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+   
+</div>
+</ion-content>
+

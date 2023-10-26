@@ -1,0 +1,89 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Thêm bữa ăn</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-segment [(ngModel)]="tabmeal" class="div-segment"  mode="md">
+          <ion-segment-button (click)="SelectTab(1)" mode="md" style="text-transform: inherit;" value="1">
+            Chiều đi
+            </ion-segment-button>
+            <ion-segment-button (click)="SelectTab(2)" mode="md" style="text-transform: inherit;" value="2">
+            Chiều về
+            </ion-segment-button>
+          </ion-segment>
+      </ion-row>
+  </ion-header>
+
+    <ion-content>
+        <div class="content-flightaddmeal" >
+            <swiper-container #slideTab (slidechange)="slidetabchange()" [options]="slideOpts" (ionSlideDoubleTap)=slideDoubleClick()>
+                <!-- Chiều đi -->
+                <swiper-slide style="display: block;">
+                    <div *ngFor="let item of listMeal">
+                        <div class="d-flex">
+                            <div class="div-left">
+                                <img class="img-left" [src]="item.imagePath">
+                            </div>
+                            <div class="div-right">
+                                <div class="meal-title">{{item.name}}</div>
+                                <div class="meal-desc">{{item.description}}</div>
+                                <div class="div-price d-flex">
+                                    <div class="div-quantity d-flex">
+                                        <div class="div-item" (click)="minusQuantity(item)">
+                                            <img *ngIf="item.quantity >0" src="./assets/ic_facility/ic_minus.svg">
+                                            <img *ngIf="item.quantity ==0" src="./assets/ic_facility/ic_minus_in.svg">
+                                        </div>
+                                        <div class="div-item-center meal-title" >{{item.quantity}}</div>
+                                        <div class="div-item" (click)="plusQuantity(item)">
+                                            <img src="./assets/ic_facility/ic_plus.svg">
+                                        </div>
+                                    </div>
+                                    <div class="text-price"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-split"></div>
+                    </div>
+                </swiper-slide>
+
+                <!-- Chiều về -->
+                <swiper-slide style="display: block;">
+                    <div *ngFor="let item of listMeal">
+                        <div class="d-flex">
+                            <div class="div-left">
+                                <img class="img-left" [src]="item.imagePath">
+                            </div>
+                            <div class="div-right">
+                                <div class="meal-title">{{item.name}}</div>
+                                <div class="meal-desc">{{item.description}}</div>
+                                <div class="div-price d-flex">
+                                    <div class="div-quantity d-flex">
+                                        <div class="div-item" (click)="minusQuantity(item)">
+                                            <img *ngIf="item.quantity >0" src="./assets/ic_facility/ic_minus.svg">
+                                            <img *ngIf="item.quantity ==0" src="./assets/ic_facility/ic_minus_in.svg">
+                                        </div>
+                                        <div class="div-item-center meal-title">{{item.quantity}}</div>
+                                        <div class="div-item" (click)="plusQuantity(item)">
+                                            <img src="./assets/ic_facility/ic_plus.svg">
+                                        </div>
+                                    </div>
+                                    <div class="text-price"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-split"></div>
+                    </div>
+                </swiper-slide>
+            </swiper-container>
+        </div>
+    </ion-content>

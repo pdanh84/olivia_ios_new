@@ -1,0 +1,222 @@
+.installment-payment-header
+{
+    .text-center{
+        text-align: center;
+    }
+    .align-self-center{
+        align-self: center;
+    }
+    .div-goback{
+        position: absolute;height: 48px;width: 48px;top: 0px;
+
+        .img-goback{
+            height: 48px; 
+            padding: 8px;
+            margin-top: -2px;
+            margin-left:-14px
+        }
+    }
+    .title-header{
+        padding-top: 6px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.installment-payment-content{
+    padding: 16px;
+
+    .p-top-16{
+        padding-top: 16px;
+    }
+    .p-top-32{
+        padding-top: 32px;
+    }
+    .p-top-6{
+        padding-top: 6px;
+    }
+    .p-top-10{
+        padding-top: 10px;
+    }
+    .m-left-8{
+        margin-left: 8px;
+    }
+    .text-title{
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: -0.4px;
+    }
+    .selected{
+        opacity: 1 !important;
+    }
+    .period-selected{
+        color: #ffffff !important;
+        background: #26bed6 !important;
+        border: none !important;
+    }
+    .booking-info{
+        padding-top: 16px;
+        
+        .hotel-name{
+            font-size: 16px;
+            color: #003c71;
+            font-weight: 600;
+        }
+
+        .booking-info-detail{
+            display: flex;
+
+            .div-img-left{
+                height: 104px;
+                width: 104px;
+                min-width: 104px;
+
+                .img-left{
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 4px;
+                }
+            }
+
+            .div-content-right{
+                font-size: 14px;
+                letter-spacing: -0.4px;
+                padding-left: 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .p-left-6{
+                    padding-left: 6px;
+                }
+            }
+        }
+    }
+    .div-price{
+        text-align: right;
+        font-size: 18px;
+        color: #26bed6;
+        font-weight: 600;
+    }
+    
+    .div-bank{
+        display: flex;
+        flex-wrap: wrap;
+        .item-bank{
+            width: 76px;
+            height: 40px;
+            border-radius: 4px;
+            border: solid 0.5px #bdbdbd;
+            background-color: #ffffff;
+            opacity: 0.7;
+            margin-top: 8px;
+        }
+        .img-bank{
+            height: 40px;
+            padding: 0px 4px;
+            object-fit: contain;
+        }
+    }
+
+    .div-card{
+        display: flex;
+        flex-wrap: wrap;
+        .item-card{
+            width: 76px;
+            height: 40px;
+            border-radius: 4px;
+            border: solid 0.5px #bdbdbd;
+            background-color: #ffffff;
+            opacity: 0.7;
+        }
+        .img-card{
+            height: 40px;
+            padding: 0px 4px;
+            object-fit: contain;
+        }
+    }
+
+    .div-option{
+        display: flex;
+        overflow: scroll;
+        .item-option{
+            min-width: 76px;
+            height: 40px;
+            border-radius: 4px;
+            border: solid 0.5px #bdbdbd;
+            background-color: #ffffff;
+            opacity: 0.7;
+            display: flex;
+
+            .div-month{
+                margin: auto;
+            }
+        }
+    }
+    .row-flex{
+        display: flex;
+        
+        .col-flex{
+            width: 100%;
+            padding: 12px 0px;
+            text-align: center;
+            .price-permonth{
+                color: #26bed6;
+                font-weight: 600;
+                font-size: 18px;
+            }
+            .text-sub{
+                font-size: 14px;
+                font-weight: 200;
+            }
+            .price-text{
+                font-weight: 600;
+                font-size: 18px;
+            }
+        }
+    }
+    
+    .border-right{
+        border-right: solid 0.5px #f4f4f4;
+    }
+    .border-top{
+        border-top: solid 0.5px #f4f4f4;
+    }
+}
+
+.button2
+{
+    background: #ff9500;
+    color: #ffffff;
+    border-color: #ff9500;
+    width: 90%;
+    font-size: 17px !important;
+    letter-spacing: -0.4px;
+} 
+.btn-disabled{
+    background: #bdbdbd !important;
+    border: solid 1px #bdbdbd !important;
+    color: #ffffff !important;
+    width: 90%;
+    font-size: 17px !important;
+    letter-spacing: -0.4px;
+}
+.div-text-note{
+    padding-top: 32px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.p-right-6{
+    padding-right: 6px;
+}
+
+.p-top-16{
+    padding-top: 16px;
+}
+.ion-checkbox{
+    width: 16px;
+    height: 16px;
+}

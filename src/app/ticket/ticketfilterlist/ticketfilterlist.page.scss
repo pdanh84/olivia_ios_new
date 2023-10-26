@@ -1,0 +1,567 @@
+.cls-header-tourlist {
+
+    .img-sort{
+      height: 48px; padding: 12px;right: -3px;
+    }
+  
+    .img-back{
+      height: 48px;
+      padding: 8px;
+      margin-left: -3px;
+    }
+  }
+      .text-title{
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0;
+        text-align: center;
+        margin: 0 48px;
+        width: 78%;
+    }
+    .header-text{
+      text-align: center;
+      align-self: center;
+      text-align: left;
+    }
+    .cls-deal .img {
+      width: 100%;
+      border: 0;
+      height: auto;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    p{
+        line-height: 1.5;
+        text-align: justify;
+    }
+    .p-5{
+      padding: 5px 0;
+    }
+    .d-flex{
+      display: flex;
+    }
+    .div-width-100{
+      width: 100%;
+    }
+    .text-hr {
+      font-size: 12px;
+      text-align: center;
+      color: #38383d;
+      font-weight: 500 !important;
+    }
+    ::ng-deep{
+       
+        .img-item
+        {
+            margin-bottom: 10px;
+  
+        }
+        .divcss{
+            line-height: 1.5;
+            text-align: justify;
+        }
+  
+        .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-ios{
+          border-bottom: solid 0.5px #bdbdbd;
+        }
+        .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-md{
+          border-bottom: solid 0.5px #bdbdbd;
+        }
+        @media (min-height:812px) and (max-height: 1024px) {
+          .action-sheets-tourlist-sort .alert-button-group.sc-ion-alert-ios, .action-sheets-flightsearchresult-fitler .alert-button-group.sc-ion-alert-ios{
+            margin-bottom: 30px;
+          }
+        }
+  
+        //style ios
+      .action-sheets-tourlist-sort .action-sheet-container.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-container.sc-ion-action-sheet-ios{
+        padding: 0;
+    }
+  
+    .action-sheets-tourlist-sort .action-sheet-group.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-group.sc-ion-action-sheet-ios{
+        margin: 0;
+        border-radius: 0;
+    }
+  
+    .action-sheets-tourlist-sort .action-sheet-button.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-button.sc-ion-action-sheet-ios{
+        padding: 0;
+        border-bottom: solid 0.5px #f2f2f2;
+        margin-left: 16px;
+        margin-right: 16px !important;
+        width: 92%;
+    }
+    .action-sheets-tourlist-sort .sc-ion-action-sheet-ios.selected, .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-ios.selected {
+        background-image: url('../../../assets/imgs/ic_check.svg');
+        background-repeat: no-repeat;
+        background-position: right;
+        width: 92%;
+    }
+    .action-sheets-tourlist-sort .sc-ion-action-sheet-md.selected, .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-md.selected {
+      background-image: url('../../../assets/imgs/ic_check.svg');
+      background-repeat: no-repeat;
+      background-position: right;
+      width: 100%;
+  }
+  
+    .action-sheets-tourlist-sort .action-sheet-title.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-title.sc-ion-action-sheet-ios{
+      font-size: 18px;
+      color: #000000;
+      line-height: 27px;
+      letter-spacing: -0.51px;
+      font-weight: 600;
+      text-align: left;
+    padding-left: 16px;
+  }
+   
+    .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-ios{
+        border-bottom: solid 0.5px #f2f2f2;
+    }
+  
+    .action-sheets-tourlist-sort .action-sheet-button-inner.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-button-inner.sc-ion-action-sheet-ios {
+        width: 100%;
+        height: 100%;
+        color: black;
+        font-size: 14px;
+        justify-content: left;
+    }
+    .action-sheets-tourlist-sort .action-sheet-button.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-button.sc-ion-action-sheet-ios {
+        padding: 0;
+        border-bottom: solid 0.5px #f2f2f2;
+        margin-left: 16px;
+        margin-right: 16px !important;
+        width: 92%;
+        height: 56px;
+    }
+    .action-sheets-tourlist-sort .action-sheet-selected.sc-ion-action-sheet-ios, .action-sheets-flightsearchresult-fitler .action-sheet-selected.sc-ion-action-sheet-ios{
+        background-image: url('../../../assets/imgs/ic_check.svg');
+        background-repeat: no-repeat;
+        background-position: right;
+        width: 92%;
+    }
+    .action-sheets-tourlist-sort .action-sheet-wrapper.sc-ion-action-sheet-ios {
+      margin-bottom: 0;
+    }
+  
+    }
+    .img-blog
+    { 
+        border-radius: 5px;
+        width: 100% !important;
+        height: 180px !important;
+        object-fit: cover;
+    }
+    .float-info{
+        position: absolute;
+        bottom: 10px;
+        left: 16px;
+        z-index: 11;
+    }
+    //style topdeal
+    .slide2
+    {
+      min-width: 272px;
+      height: 206px;
+  
+    }
+    .slide2 .img{
+        border-radius: 6px;
+    }
+    .hotel-name{
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #003c71;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      /* autoprefixer: ignore next */ -webkit-box-orient: vertical;
+    }
+  
+    .cls-deal{
+        padding-left: 0px !important;
+        position: relative;
+        margin-bottom: 28px;
+        overflow: unset;
+      }
+      
+      .cls-deal:first-child .grad1 {
+        position: absolute; 
+        width: 100%;
+        height: 86px; // For browsers that do not support gradients /
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)); // Standard syntax (must be last) /
+        z-index: 10;
+        bottom:4px;
+        left: 0px;
+        opacity: 0.25;
+        border-radius: 6px;
+      }
+      
+      .cls-deal:first-child .float-infoicon{
+        position: absolute;
+        left: 0px;
+        z-index: 11;
+        width: 48px;
+        height: 48px;
+        padding: 0px 8px 8px 8px;
+      }
+      .cls-deal:first-child .float-infoiconheart{
+        position: absolute;
+        bottom: 59px;
+        left: 48px;
+        z-index: 11;
+        width: 48px;
+        height: 48px;
+        padding: 0px 8px 8px 8px;
+      }
+  
+      .float-infoiconheart{
+        position: absolute;
+        bottom: 59px;
+        left: 56px;
+        z-index: 11;
+        width: 48px;
+        height: 48px;
+        padding: 0px 8px 8px 8px;
+      }
+  
+      .cls-deal .float-promo{
+        position: absolute;
+        top: 19px;
+        left: -4px;
+        background-color: #e52822;
+        color: #fff;
+        font-size:12px;
+        max-width: 95%;
+        height: 22px;
+        padding: 2px 8px 0px 12px;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space: nowrap;
+      }
+      .float-promo-description{
+        margin: 0;
+        width: 100%;
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+  
+      .cls-deal .float-promo:after {
+        content: " ";
+        position: absolute;
+        left: 0px;
+        top: 22px;
+        border-top: 4px solid #851f1c;
+        border-left: 4px solid transparent;
+        border-bottom: none;
+      }
+  
+      .cls-deal .float-info{
+        position: absolute;
+        bottom: 10px;
+        left: 8px;
+        
+      }
+      .div-topsale{
+        height: 20px;
+        border-radius: 4px;
+        background-color: #e52822;
+        padding: 3px 4px 5px 4px;
+  
+        font-size: 10px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.69px;
+        color: #fff;
+  
+        width: 100px;
+        text-align: center;
+        margin-right: 6px;
+      }
+      //style topsale24h
+      .text-topsale{
+        font-size: 14px;
+        color: #e52822;
+        width: 205px;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        flex-direction: row;
+        background-color: #feeeed;
+        height: 25px;
+        padding-right: 7px;
+      }
+      .btn-topsale{
+        color: #ffffff;
+        background-color: #e52822;
+        border-radius: 4px;
+        font-weight: bold;
+        letter-spacing: -0.29px;
+        font-size: 11px;
+        padding: 4px 10px;
+        height: 23px;
+    }
+    .cls-row-review{
+        padding: 12px 0px 10px 0px;
+    }
+    .cls-reviewpoint{
+        padding-left: 40px;
+        top: 2px;
+        font-size: 14px;
+        width: 150px;
+        max-width: 150px;
+        position: absolute;
+    }
+    .div-like{
+      position: absolute;height: 48px;width: 48px;align-self: center;right: -15px;top: -8px;
+    }
+    .div-share{
+      position: absolute;height: 48px;width: 48px;align-self: center;right: 30px;top: -8px;
+    }
+  
+  // .cls-badge-filter {
+  //     width: 12px;
+  //     height: 12px;
+  //     color: #26bed6;
+  //     padding-top: 2px;
+  //     font-size: 10px;
+  
+  //     top: 16px !important;
+  //     left: 68% !important;
+  // }
+  
+  .text-empty{
+    text-align: center;
+    color: #828282;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.34px;
+  }
+  
+  .div-button-empty{
+    margin: 16px;
+  }
+  
+  
+  .m-left-8{
+    margin-left: 8px;
+  }
+  
+  .btn-change-search{
+    border-radius: 4px !important;
+    border: solid 1px #f59233;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    line-height: 1.5;
+    color: #f59233;
+    width: 100%;
+    background: #fff;
+  }
+  .btn-clear-search{
+    border-radius: 4px !important;
+    border: solid 1px #f59233;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #fff;
+    background: #f59233;
+    width: 100%;
+  }
+  .div-badge {
+    display: flex;
+    align-items: center;
+  
+    .text-point {
+      margin-top: 8px 4px 0 0;
+      padding: 2px 8px 0 8px;
+      border-radius: 6px;
+      background-color: #9fc43a;
+      color: #fff;
+      height: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 4px;
+      text-align: center;
+    }
+    .text-point-des {
+      font-size: 14px;
+      letter-spacing: -0.4px;
+      text-align: left;
+      color: #3f3b3b;
+      margin-right: 4px;
+    }
+    .text-comment {
+      font-size: 14px;
+      letter-spacing: -0.4px;
+      text-align: left;
+      color: #3f3b3b;
+      color: #26bed6;
+    }
+  }
+  .div-flex-end {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .width-70 {
+    width: 70%;
+  }
+  .width-65 {
+    width: 65%;
+  }
+  .text-price {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: right;
+    color: var(--ion-color-primary);
+  }
+  .text-noprice {
+    font-size: 22px;
+    font-weight: 500;
+    text-align: right;
+    color: #828282;
+  }
+  .cls-price-strike {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: right;
+    color: #828282;
+    text-decoration: line-through;
+  }
+  
+  
+  .div-notes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+  
+    .div-icon-note {
+      width: 16px;
+      margin-right: 2px;
+    }
+    .div-des-note {
+      width: 100%;
+      font-size: 14px;
+      text-align: left;
+      color: #3f3b3b;
+    }
+    .img-check {
+      width: 16px;
+    }
+  }
+  .m-right-16 {
+    margin-right: 16px;
+  }
+  .tourlist-footer {
+    width: 100%;
+  
+    .div-left {
+      width: 35%;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .div-center {
+      width: 30%;
+      align-items: center;
+      justify-content: center;
+    }
+    .div-right {
+      width: 35%;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  
+    .text-sort-and-filter {
+      font-size: 14px;
+      //text-align: center;
+      color: #3f3b3b;
+    }
+  
+  
+  }
+  .div-scroll{
+    background-color: #f2f2f2;
+    overflow-x: auto;overflow-y: hidden
+  }
+  .div-info{
+    padding: 8px;
+    background-color: #fff;
+    margin-top: -3px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  .text-giatu{
+    font-size: 14px;
+    color: #717484;
+  }
+  .div-footer-filtersort{
+    background: #fff;
+    .img-filter{
+      position: absolute;
+      top: 0px;
+      padding-left: 40px;
+    }
+    .label-filter{
+      top: 17px !important;
+      left: 44%;
+      z-index: 9;
+    }
+    .text-sort-and-filter{
+        top: 22px;
+        position: absolute;
+        font-size: 14px;
+        font-weight: 100;
+        letter-spacing: -0.4px;
+    }
+  
+    .div-split{
+        position: absolute;
+        height: 20px;
+        border-right: solid 1px #ccc;
+        top: 20px;
+        padding-left: 99%;
+    }
+  
+    .flightdeparture-button-filter{
+        position: relative;
+  
+        
+    }
+    // .cls-badge-filter{
+    //     top: 8px !important;
+    //     left: 40% !important;
+    // }
+  
+    .cls-badge-filter {
+      width: 16px;
+      height: 16px;
+      padding-top: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #fff;
+      top: 17px;
+      left: 60%;
+    }
+    .chk-order{
+        position: absolute;
+        left: 136px;
+        top: 22px;
+    }
+    .p-left-24{
+        padding-left: 24px;
+    }
+   
+  }
+  .text-num-booking{
+    justify-content: flex-end;
+    display: flex;
+  }
+  
+  

@@ -1,0 +1,67 @@
+<ion-content>
+    <!-- <div class="text-bhcd">
+      <ion-label>
+          Ẩn chuyến đi
+      </ion-label>
+    </div> -->
+    <div class="text-bhtn" *ngIf="!hasClaimDepart else hadClaimedDepart" (click)="presentPopover($event, 1)">
+        <ion-label>
+          Trễ chuyến {{departFlightNumber}}| {{departCodeDisplay}}
+        </ion-label>
+    </div>
+    <ng-template #hadClaimedDepart>
+      <div class="text-bhtn had-claimed">
+        <ion-label>
+          Trễ chuyến {{departFlightNumber}}| {{departCodeDisplay}}
+        </ion-label>
+      </div>
+    </ng-template>
+
+    <div class="text-bhtn" *ngIf="!hasClaimReturn else hadClaimedReturn" (click)="presentPopover($event, 2)">
+        <ion-label>
+          Trễ chuyến {{returnFlightNumber}}| {{arrivalCodeDisplay}}
+        </ion-label>
+    </div>
+    <ng-template #hadClaimedReturn>
+      <div class="text-bhtn had-claimed">
+        <ion-label>
+          Trễ chuyến {{returnFlightNumber}}| {{arrivalCodeDisplay}}
+        </ion-label>
+      </div>
+    </ng-template>
+
+    <div class="text-bhtn" *ngIf="!hasClaimDepart else hadClaimedDepart" (click)="presentPopover($event, 3)">
+      <ion-label>
+        Hủy chuyến {{departFlightNumber}}| {{departCodeDisplay}}
+      </ion-label>
+    </div>
+    <ng-template #hadClaimedDepart>
+      <div class="text-bhtn had-claimed">
+        <ion-label>
+          Hủy chuyến {{departFlightNumber}}| {{departCodeDisplay}}
+        </ion-label>
+      </div>
+    </ng-template>
+
+  <div class="text-bhtn" *ngIf="!hasClaimReturn else hadClaimedReturn"  (click)="presentPopover($event, 4)">
+      <ion-label>
+        Hủy chuyến {{returnFlightNumber}}| {{arrivalCodeDisplay}}
+      </ion-label>
+  </div>
+  <ng-template #hadClaimedReturn>
+    <div class="text-bhtn had-claimed">
+      <ion-label>
+        Hủy chuyến {{returnFlightNumber}}| {{arrivalCodeDisplay}}
+      </ion-label>
+    </div>
+  </ng-template>
+
+    <div class="text-bhtn" (click)="makeCallSupport(084838298520)">
+      <div>
+        <ion-label>
+          Lấy bảo hiểm tai nạn:
+        </ion-label>
+      </div>
+      <div class="p-top-8"><img class="img-support" src="./assets/imgs/ic_call.svg"><span style="color: #26bed6; font-weight: bold;">+84838298520</span></div>
+    </div>
+  </ion-content>

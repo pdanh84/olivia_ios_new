@@ -1,0 +1,59 @@
+<div class="background">
+    <img class="img-background" src="./assets/ic_ticket/Banner_sale_ticket.jpg">
+    <div class="div-wrap-background"></div>
+    <div class="p-all-16">
+      <div class="text-center">
+        <img class="img-logo" src="./assets/logo/logo.svg" />
+      </div>
+
+      <div class="div-wrap-search-input">
+        <div class="text-head-title">Khám phá các địa điểm vui chơi giải trí</div>
+
+        <div class="row-search-home" (click)="change()">
+          <div class="div-width">
+            <div class="img-input">
+              <img
+                class="img-padding img-location"
+                src="./assets/iocnsearch/ic_location.svg"
+              />
+            </div>
+  
+            <div class="div-input-right text-input-search">
+             
+              <div *ngIf="!itemSearch" class="text-placeholder text-middle">
+                Bạn muốn đi đâu, chơi gì?
+              </div>
+              <div *ngIf="itemSearch && itemSearch.expName" class="text-placeholder text-middle">
+                {{itemSearch.expName}}
+              </div>
+              <div *ngIf="itemSearch && itemSearch.name" class="text-middle">
+                {{ itemSearch.name }}
+              </div>
+              <!-- <ng-template #tourname>
+                <div *ngIf="itemSearch && itemSearch.Name" [ngClass]="itemSearch.Name.length > 60 ? 'text-search text-middle' : 'text-middle' ">
+                  {{ itemSearch.Name }}
+                </div>
+              </ng-template> -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="div-button-search">
+          <button
+            ion-button
+            round
+            (click)="search()"
+            class="button btn-search"
+            clear
+          >
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+        
+        
+        
+      
+      
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+<div  style="text-align: center">
+  <img  src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/empty/imgdone.svg">
+</div>
+<div style="margin-top: 5px">
+  <div *ngIf='stt==1 else paylater'>
+    <div>
+      <ion-label class="text-tealish f-18">
+        Xác nhận thanh toán thành công
+      </ion-label>
+    </div>
+
+    <div class="p-top-12">  
+      <div class="text ">
+        Đơn hàng <span class="text-bold text-tealish">{{bookingCode}}</span> của Quý khách đang được xử lý và sẽ được iVIVU gửi mã vé qua <span *ngIf="contactOption=='zalo'"> Zalo</span><span *ngIf="contactOption=='mail'"> email <span class="text-tealish">{{_email}}</span></span>
+        <span class="text-bold"> trong vòng 24 giờ</span> tiếp theo. Cám ơn quý khách đã sử dụng dịch vụ của iVIVU.com.
+      </div>
+    </div>
+    <div class="p-top-12 text d-flex">
+      <div>Nếu cần hỗ trợ, Quý khách vui lòng liên hệ </div><div class="div-align-center m-right-4 " ><img class="img-zalo" src="./assets/ic_flight/logo_zalo.webp"> <a class="text-tealish text-zalo" href="https://zalo.me/3888313238733373810">iVIVU Tickets </a></div> <div>để được trợ giúp.</div>
+    </div>
+  </div>
+
+  <ng-template #paylater>
+    <div class="text d-flex">
+      <div>Xác nhận đặt vé sẽ được gửi đến <span *ngIf="contactOption=='zalo'"> Zalo</span><span *ngIf="contactOption=='mail'"> Email</span> của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được mã vé qua Email/Zalo, vui lòng liên hệ </div>
+      <div class="div-align-center m-right-4 " ><img class="img-zalo" src="./assets/ic_flight/logo_zalo.webp"> <a class="text-tealish text-zalo" href="https://zalo.me/3888313238733373810">iVIVU Tickets </a></div>
+      <div> để hỗ trợ xử lý.</div>
+    </div>
+  </ng-template>
+
+  
+</div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="addToCalendar()" ion-button round outline class="button button2">Thêm thông tin chuyến bay vào lịch</button>
+    <button (click)="next()" ion-button round outline class="button button2 m-top-0">Quay về trang chủ</button>
+  </div>
+</ion-footer>

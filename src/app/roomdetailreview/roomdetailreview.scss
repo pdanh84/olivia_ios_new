@@ -1,0 +1,330 @@
+
+    .text-name
+    {
+      font-weight: bold;
+      font-size: 18px;
+      .text-green
+      {
+        color: #26bed6
+      }
+    }
+    .text-date
+    {
+        margin-top: 0px;
+        font-weight: bold;
+        font-size: 14px
+    }
+    .image-card{
+      display: initial !important;
+      margin-right: 4px;
+    }
+    .total-price{
+      color: #26bed6;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .button2
+    {
+        border-color: #F79221;
+        background-color: #F79221;
+        color: #ffffff;
+        width: 90%;
+        height: 48px;
+
+    }
+    .item-md ion-thumbnail ion-img, .item-md ion-thumbnail img {
+      width: 104px;
+      height: 104px;
+    }
+    .item.item-md .checkbox-md {
+      position: static;
+      display: block;
+      margin: 9px 9px 9px 4px;
+    }
+    .text-room-price-ota{
+      color:#828282;
+      font-size: 14px;
+      text-align: right;
+      text-decoration: line-through;
+      margin: 20px;
+      margin-top: -20px;
+  }
+  .toolbar-title-md {
+    text-align: center;
+    margin-right: 70px;
+  }  
+  .div-wrapimg {
+    position: relative;
+    height:110px;
+    width: 104px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+hr
+{
+  background-color: #ccc;
+}
+.btnnone
+{
+    color: #F79221;
+    width: 100%;
+    border: 1px solid;
+    background-color: white;
+    font-size: 14px !important;
+    margin: 0;
+    height: 30px !important;
+}
+.btnnonesuccess
+{
+    width: 100%;
+    background-color: white;
+    font-size: 14px !important;
+    margin: 0;
+    height: 30px !important;
+    border: solid 1px #447a00;
+    color: #447a00;
+}
+@media (min-width:287px) and (max-width: 359px) {
+  .col-description-roomdetailreview{
+    max-width: 188px;
+    left: 12px;
+  }
+}
+.click
+{
+  color: #447a00
+}
+.none
+{
+  color: black
+}
+.error
+{
+  color:rgb(229, 40, 34);
+}
+
+.text-detail{
+  color: #000000;font-size: 14px;letter-spacing: -0.4px;margin: 8px 0
+}
+.text-point
+{
+  font-size: 14px;
+  color: #000000;
+}
+.num-point
+{
+  font-size: 12px;
+  color: #828282;
+}
+.text-điscount
+{
+  font-size: 14px;
+}
+.cls-col
+{
+  align-self: center;
+}
+.ion-item
+{
+  --inner-border-width: 0 0 0px 0;
+}
+.cls-mt10
+{
+  margin-top: -10px;
+}
+.cls-hr
+{
+  margin-left: -16px;
+  margin-right: -16px;
+  height: 7px;
+  background-color: #f2f2f2 !important;
+}
+.cls-ml5
+{
+  margin-left: 5px;
+}
+
+.div-voucher{
+  .div-flex{
+    display: flex;
+
+    .div-first{
+        width: 160px;
+
+        .div-checkpoint{
+          display: flex;
+
+          
+        }
+        .check-point{
+          margin-top: 10px;
+          width: 12px;
+          height: 12px;
+        }
+        .cls-ml8
+        {
+          margin-left: 8px;
+        }
+        .div-disabled{
+          opacity: 0.5;
+        }
+    }
+
+    .div-col-split{
+      width: 1px;
+      border-left: solid 0.5px #bdbdbd;
+      margin: 8px 0;
+    }
+    .text-promotion{
+      font-size: 14px;
+      color: #828282;
+    }
+    .text-point{
+      color: #000000;
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .num-point {
+      font-size: 12px;
+      color: #828282;
+      font-weight: 300;
+    }
+
+    .div-promotion{
+      margin-left: 8px;
+      align-self: center;
+    }
+  }
+  .align-center {
+    align-items: center;
+  }
+}
+.div-title{
+  margin-top: 10px;
+  .combo-title{
+      font-size: 18px;
+      font-weight: bold;
+      color: #000000;
+  }
+}
+.depart-title{
+  font-size: 14px;
+  color: #222222;
+  padding: 8px 0;
+  font-weight: 300;
+}
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.depart-title{
+  font-size: 14px;
+  color: #000;
+  padding: 8px 0;
+  font-weight: 300;
+}
+
+.text-note{
+  font-size:12px;
+  color:#828282;
+  font-style: italic;
+  letter-spacing: -0.34px;
+  line-height: 1.5;
+}
+.text-title-note{
+  font-size:16px;
+  font-weight: 600;
+  letter-spacing: -0.34px;
+  line-height: 1.5;
+}
+
+.m-bottom-8{
+  margin-bottom: 8px;
+}
+.margin-right-5{
+  margin-right: 5px;
+}
+.line-blue{
+  color: #26bed6;
+  right: 16px;
+  position: absolute;
+  margin-top: 3px;
+}
+.text-name-room{
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
+.div-text-center{
+  margin-right: 5px;
+  padding-left: 5px;
+  width: 85%;
+  display: flex;
+  font-size: 14px;
+  text-align: left;
+  color: #3f3b3b;
+
+  .text-sub {
+    color: #868998;
+  }
+
+  .text-point {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    color: #868998;
+  }
+ 
+}
+
+
+.div-voucher-apply {
+  display: flex;
+  margin: 14px 0 6px 0;
+
+  .width-100 {
+    width: 100%;
+  }
+  .width-200 {
+    width: 200%;
+  }
+  .text-normal {
+    font-size: 14px;
+    color: #3f3b3b;
+  }
+  .text-code {
+    font-size: 14px;
+    color: #f79321;
+  }
+
+  .text-normal {
+    font-size: 14px;
+    color: #3f3b3b;
+  }
+
+  .text-strike {
+    text-decoration: line-through;
+     text-align: right;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+.text-normal {
+  font-size: 14px;
+  color: #3f3b3b;
+}
+.div-TaxFee{
+  background-color: wheat;
+  padding: 8px;
+}

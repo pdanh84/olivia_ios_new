@@ -1,0 +1,23 @@
+<ion-content>
+    <ion-datetime *ngIf="item.isChangeBOD else changeExpireDate" [firstDayOfWeek]="1" presentation="date" preferWheel="true" [(ngModel)]="item.dateofbirth"
+    [ngClass]="item.dateofbirth ? 'cls-iondatetime' : 'cls-iondatetime text-birth-cathay' "
+    [min]="item.mindob" [max]="item.maxbod" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY"
+    >
+    </ion-datetime>
+    <ng-template #changeExpireDate>
+        <ion-datetime [firstDayOfWeek]="1" presentation="date" preferWheel="true" [(ngModel)]="item.passportExpireDate"
+        [min]="item.mindob" [max]="item.maxepdate" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY" class="cls-iondatetime"
+        >
+        </ion-datetime>
+    </ng-template>
+</ion-content>
+<ion-footer>
+    <div class="d-flex div-selectbirthdate-footer">
+        <div class="div-button-flex">
+            <button (click)="cancel()" ion-button round outline class="button button-cancel">Thoát</button>
+        </div>
+        <div class="div-button-flex">
+            <button (click)="ok()" ion-button round outline class="button button-ok">Hoàn thành</button>
+        </div>
+    </div>
+</ion-footer>

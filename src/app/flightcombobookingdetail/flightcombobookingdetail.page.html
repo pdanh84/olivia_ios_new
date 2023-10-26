@@ -1,0 +1,131 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-header-title">
+          <div class="div-title">{{bookingCode}}</div>
+        </div>
+
+        <div class="div-close" (click)="close()">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content class="flight-booking-detail-content">
+  <div class="p-16">
+    <div class="text-name">{{listfly.HotelBooking.CName}}</div>
+
+    <div class="text-phone">{{listfly.HotelBooking.CPhone}} · {{listfly.HotelBooking.CEmail}}</div>
+
+    <div class="div-split"></div>
+
+    <div class="div-pax">
+      <div class="pax-title">Danh sách khách hàng</div>
+
+      <div *ngFor="let item of arradults">
+        <div class="d-flex m-bottom-10">
+          <div class="pax-gender">{{item.genderdisplay}}</div>
+          <div class="pax-name cls-error">{{item.hoten}}</div>
+        </div>
+      </div>
+
+      <div *ngFor="let itemchild of arrchilds">
+        <div class="d-flex m-bottom-10">
+          <div class="pax-gender">{{itemchild.genderdisplay}}</div>
+          <div class="pax-name cls-error">{{itemchild.hoten}} <span> · </span> <span class="pax-dob">{{itemchild.BirthDay}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="cls-hr"></div>
+    <div class="div-hotel-name mt-10">
+      <div class="div-hotel-name-1">
+        <ion-label class="text-hotel-name" text-wrap>{{Name}}
+          <div class="img-rating">
+            <img *ngIf="Rating!=0" src={{Rating}}>
+          </div>
+        </ion-label>
+
+      </div>
+      <div class="p-top-12">
+        <label class="text-p" text-wrap>
+          <img src="./assets/ic_hoteldetail/ic_bed.svg"> {{nameroom}} | {{roomnumber}} phòng
+        </label>
+        <div class="p-top-12">
+          <p class="text-p" text-wrap>
+            <img src="./assets/ic_facility/ic_food_b.svg"> {{breakfast}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="div-split"></div>
+
+    <!-- thông tin chuyến bay -->
+    <div class="m-top-16 m-bottom-16">
+      <div class="d-flex">
+        <label class="div-flight-label">
+          {{objectFlight.de_departdatestr}}
+        </label>
+        <label class="div-flight-label text-charge">
+          Bay thẳng
+        </label>
+      </div>
+      <div class="div-flight-time d-flex">
+        <div class="div-time d-flex">
+          <div class="depart-time">{{objectFlight.de_departtime}}</div>
+          <img class="flight-img-arrow" src="./assets/imgs/ic_arrow_right.svg">
+          <div class="landing-time">{{objectFlight.re_departtime}}</div>
+        </div>
+
+      </div>
+      <div class="div-flight-label letter-spacing">
+        {{objectFlight.departlocationdisplay}}
+      </div>
+  
+      <div [ngClass]="idx==0 ? 'div-logo d-flex' : 'div-none' "  *ngFor="let com of objectFlight.listDeparture; let idx = index" >
+        <img class="img-logo" *ngIf="idx==0 && com.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+        <img class="img-logo" *ngIf="idx==0 && com.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+        <img class="img-logo logo-vna" *ngIf="idx==0 && com.airlineCode == 'VietnamAirlines' && !com.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+        <img class="img-logo logo-vna" *ngIf="idx==0 && com.operatedBy && com.urlLogo" [src]="com.urlLogo">
+        <img class="img-logo" *ngIf="idx==0 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+        <div class="div-flight-name margin-left-5" *ngIf="idx==0">{{com.airlineCode}}</div> 
+        <span *ngIf="idx==0" class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==0">{{com.ticketClass}}</div>
+      </div>
+      <div *ngIf="objectFlight.operatedBydep" class="text-operatedBy">{{objectFlight.operatedBydep}}</div>
+      <div class="div-split"></div>
+      <div class="d-flex">
+        <label class="div-flight-label">
+          {{objectFlight.ar_departdatestr}}
+        </label>
+        <label class="div-flight-label text-charge">
+          Bay thẳng
+        </label>
+      </div>
+      <div class="div-flight-time d-flex">
+        <div class="div-time d-flex">
+          <div class="depart-time">{{objectFlight.ar_departtime}}</div>
+          <img class="flight-img-arrow" src="./assets/imgs/ic_arrow_right.svg">
+          <div class="landing-time">{{objectFlight.ar_returntime}}</div>
+        </div>
+      
+  
+      </div>
+      <div class="div-flight-label letter-spacing">
+        {{objectFlight.returnlocationdisplay}}
+      </div>
+  
+      <div [ngClass]="idx==1 ? 'div-logo d-flex' : 'div-none' "   *ngFor="let com of objectFlight.listDeparture; let idx = index" >
+        <img class="img-logo" *ngIf="idx==1 && com.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+        <img class="img-logo" *ngIf="idx==1 && com.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+        <img class="img-logo logo-vna" *ngIf="idx==1 && com.airlineCode == 'VietnamAirlines' && !com.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+        <img class="img-logo logo-vna" *ngIf="idx==1 && com.operatedBy && com.urlLogo" [src]="com.urlLogo">
+        <img class="img-logo" *ngIf="idx==1 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+        <div class="div-flight-name margin-left-5" *ngIf="idx==1">{{com.airlineCode}}</div> <span class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==1">{{com.ticketClass}}</div>
+      </div>
+      <div *ngIf="objectFlight.operatedByret" class="text-operatedBy">{{objectFlight.operatedByret}}</div>
+    </div>
+  </div>
+</ion-content>

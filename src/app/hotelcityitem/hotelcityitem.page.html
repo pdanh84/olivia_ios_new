@@ -1,0 +1,73 @@
+          <div [ngClass]="index == itemlen-1  ? 'div-content-hotel-city-item auto-width' : 'div-content-hotel-city-item' " >
+              <div class="div-row-title view-row"  (click)="itemHotelCityClick(item)">
+                  <div class="div-icon"><img src="../../assets/ic_flight/hotel.svg"/></div>
+                  <div class="div-title-text p-left-4">Ưu đãi giới hạn đặc biệt</div>
+              </div>
+
+              <div class="float-promo-hotel"  (click)="itemHotelCityClick(item)">
+                <div>Giá phòng đã áp dụng mã KM đặt kèm VMB</div>
+              </div>
+
+              <div class="div-hotel-item-info"  (click)="itemHotelCityClick(item)"> 
+                  <div class="view-row m-l-12">
+                    <div class="div-img-hotel">
+                      <img class="img-item" [src]="item.Avatar" backgroundSize="cover" spinner="true" />
+                    </div>
+                    <div [ngClass]="index == itemlen-1 ? 'div-content-right v-align-center' : 'div-content-right v-align-center max-width-200'">
+                        <div class="div-hotel-name">
+                          <p class="text-nonewrap">{{item.HotelName}}</p>
+                          <span class="m-l-4 max-width-180">
+                            <img *ngIf="item.RatingStar" src="{{item.RatingStar}}"/>
+                         </span> 
+                        </div>
+                        <div class="div-hotel-point v-align-center m-top-2">
+                            <div *ngIf="item.Point>0" class="view-row v-align-center">
+                                <div class="m-top-5">
+                                  <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(item.Point)}}</ion-badge>
+                                </div>
+                                <div *ngIf="item.ReviewCount" class="text-reviews m-l-4">{{item.ReviewCount}} đánh giá</div>
+                              </div>
+                             
+                        </div>
+      
+                        <div class="div-hotel-address view-row">
+                            <img class="img-location" src="../../assets/imgs/location.svg" />
+                            <div class="m-l-4">{{item.Address}}</div>
+                        </div>
+                    </div>
+                  </div>
+                 
+                </div>
+
+                <div class="div-hotel-room">
+                  <div *ngIf="item.hotelDetail && item.hotelDetail.RoomClasses  && item.hotelDetail.RoomClasses.length >0">
+                      <div *ngFor="let itemRoomClass of item.hotelDetail.RoomClasses; let idx = index">
+                          <div *ngIf="itemRoomClass.selected">
+                            <div class="div-pax">{{item.hotelDetail.SummaryFilter}} , {{itemRoomClass.TotalRoom}} phòng</div>
+                            <div class="div-room-name">
+                              <span class="f-bold">{{itemRoomClass.ClassName}} · <a class="link-change-room" (click)="changeRoom(item)">Đổi phòng</a> </span>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+                 
+              </div>
+
+              <div class="div-price  m-l-12 m-top-4">
+                  <div class="view-row">
+                      <div class="div-price-show">
+                          <div class="price-original" >
+                            <span *ngIf="item.priceOriginalDisplay && item.priceOriginal > item.priceTotal">{{item.priceOriginalDisplay}} VND</span>
+                            
+                          </div>
+                          <div class="price-total" *ngIf="item.pricePromo">{{item.pricePromo}} <span class="subfix">VND</span></div>
+                      </div>
+                      <div class="div-button">
+                          <ion-toggle style='--handle-height: 24px' class='button-add-hotel' mode='ios' [(ngModel)]="item.checkaddhotel" checked itemid="{{item.HotelId}}" (ionChange)="addHotelCityPrice($event)"></ion-toggle>
+                      </div>
+                  </div>
+              </div>
+          </div>
+         
+          
+     

@@ -1,0 +1,144 @@
+
+    <ion-content class="flight-booking-detail-content">
+        <div class="p-16">
+          
+            <div class="text-name">Kiểm tra thông tin trước khi giữ vé</div>
+            <div class="div-pax">
+                
+
+                <div *ngFor="let item of bookingFlight.adults">
+                    <div class="d-flex m-bottom-10">
+                        <div class="pax-gender">{{item.genderdisplay}}</div>
+                        <div class="pax-name cls-error">{{item.name}}</div>
+                    </div>
+                </div>
+
+                <div *ngFor="let itemchild of bookingFlight.childs">
+                    <div class="d-flex m-bottom-10">
+                        <div class="pax-gender">{{itemchild.genderdisplay}}</div>
+                        <div class="pax-name cls-error">{{itemchild.name}} <span class="pax-dob">({{itemchild.dateofbirthdisplay}})</span></div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="div-split"></div>
+
+            <!-- Chiều đi -->
+            <div class="div-depart">
+                <div class="m-top-10 text-cin">
+                    {{checkInDisplay}}
+                </div>
+    
+                <div class="m-top-12 d-flex">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-logo">
+                            <img class="img-logo logo-vj" *ngIf="bookingFlight.departFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="img-logo logo-vna" *ngIf="bookingFlight.departFlight.airlineCode == 'VietnamAirlines' && !bookingFlight.departFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <!-- <img class="img-logo" *ngIf="bookingFlight.departFlight.airlineCode == 'VietnamAirlines' && bookingFlight.departFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.operatedBy && bookingFlight.departFlight.urlLogo" [src]="bookingFlight.departFlight.urlLogo">
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        
+                        <div class="text-airlinecode">{{ bookingFlight.departFlight.airlineCode }}</div>
+                    </div>
+                    <div class="div-width-100">
+                        <div class="div-airlineclass">{{ bookingFlight.departFlight.ticketClass }}</div>
+                    </div>    
+                </div>
+    
+                <div class="d-flex m-top-16 text-time">
+                    <div class="div-width-400 d-flex">
+                        <div class="d-flex div-width-100">
+                            <div class="div-width-100  cls-error">
+                                {{ bookingFlight.departFlight.departTimeDisplay }}
+                                <img class="img-flight" src="./assets/ic_flight/icon_flight_right.svg">
+                            </div>
+                            
+                            <div class="div-width-100 ">{{ bookingFlight.departFlight.landingTimeDisplay }}</div>
+                        </div>
+                    </div>
+                    <div class="div-width-100">{{ bookingFlight.departFlight.flightTimeDisplay }}p</div>
+                </div>
+    
+                <div class="d-flex text-code">
+                    <div class="div-width-400 d-flex ">
+                        <div class="div-width-100 d-flex text-bold">
+                            <div class="div-width-100 ">{{ bookingFlight.departCity }} ({{ bookingFlight.departCode }})</div>
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.returnCity }} ({{ bookingFlight.returnCode }})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-width-100" *ngIf="(bookingFlight.departFlight.stops == 0) else divtransit">Bay thẳng</div>
+                    <ng-template #divtransit>
+                        <div class="div-width-100" >Chặng dừng</div>
+                    </ng-template>
+                </div>
+            </div>
+
+            <!-- Chiều về -->
+            <div class="div-depart m-top-32" *ngIf="bookingFlight.returnFlight">
+                <div class="m-top-10 text-cin">
+                    {{checkOutDisplay}}
+                </div>
+    
+                <div class="m-top-12 d-flex">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-logo">
+                            <img class="img-logo logo-vj" *ngIf="bookingFlight.returnFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="img-logo logo-vna" *ngIf="bookingFlight.returnFlight.airlineCode == 'VietnamAirlines' && !bookingFlight.returnFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.operatedBy && bookingFlight.returnFlight.urlLogo" [src]="bookingFlight.returnFlight.urlLogo">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        
+                        <div class="text-airlinecode">{{ bookingFlight.returnFlight.airlineCode }}</div>
+                    </div>
+                    <div class="div-width-100">
+                        <div class="div-airlineclass">{{ bookingFlight.returnFlight.ticketClass }}</div>
+                    </div>    
+                </div>
+    
+            
+                <div class="d-flex m-top-16 text-time">
+                    <div class="div-width-400 d-flex">
+                        <div class="d-flex div-width-100">
+                            <div class="div-width-100  cls-error">
+                                {{ bookingFlight.returnFlight.departTimeDisplay }}
+                                <img class="img-flight" src="./assets/ic_flight/icon_flight_right.svg">
+                            </div>
+                            
+                            <div class="div-width-100 ">{{ bookingFlight.returnFlight.landingTimeDisplay }}</div>
+                        </div>
+                    </div>
+                    <div class="div-width-100">{{ bookingFlight.returnFlight.flightTimeDisplay }}p</div>
+                </div>
+    
+                <div class="d-flex text-code">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-width-100 d-flex text-bold">
+                            <div class="div-width-100 ">{{ bookingFlight.returnCity }} ({{ bookingFlight.returnCode }})</div>
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.departCity }} ({{ bookingFlight.departCode }})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-width-100" *ngIf="(bookingFlight.returnFlight.stops == 0) else divtransit">Bay thẳng</div>
+                    <ng-template #divtransit>
+                        <div class="div-width-100" >Chặng dừng</div>
+                    </ng-template>
+                </div>
+    
+            </div>
+
+        </div>
+    </ion-content>
+    <ion-footer class="ion-padding-16">
+        <div class="text-confirm">Thông tin đặt chỗ đã chính xác?</div>
+        <div class="div-button-payment-done">
+            <button (click)="gotopayment()" ion-button round outline class="button button1">Đúng, tiến hành thanh toán</button>
+            <button (click)="edit()" ion-button round outline class="button button2 m-top-8">Chỉnh sửa lại</button>
+        </div>
+    </ion-footer>

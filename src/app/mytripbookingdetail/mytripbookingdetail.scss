@@ -1,0 +1,211 @@
+
+    .card-background-page {
+        width: 100%;
+        height: 197px;
+        overflow: hidden;
+    }
+
+    .card-background-page {
+       swiper-slide{
+        position: relative;
+        text-align: center;
+        min-height: 206px;
+        }
+        .card-title {
+          position: absolute;
+          top: 3%;
+          left: 10px;
+          color: #ffffff;
+          z-index: 10;
+
+        }
+    }
+    .div-go-back{
+        z-index: 100;
+        position: absolute;
+        top: env(safe-area-inset-top);
+          left: 10px;
+          color: #ffffff;
+          width: 48px;
+          height: 48px;
+    }
+    // .badgescss {
+    //     position: absolute;
+    //     color: #ffffff;
+    //     z-index: 10;
+    //     margin-left: 84%;
+    //     margin-top: -10%;
+    //     background: rgba(0, 0, 0, 0.5);
+    //     border: 0.5px solid rgba(255, 255, 255, 0.5);
+    //     box-sizing: border-box;
+    //     font-weight: 100;
+    //     display: block;
+    // }
+    .badgescss {
+        position: absolute;
+        color: #ffffff;
+        z-index: 10;
+        margin-left: 84%;
+        bottom: 16%;
+        background: rgba(0, 0, 0, 0.5);
+        border: 0.5px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+        font-weight: 100;
+        display: block;
+        padding: 4px 8px;
+        font-size: 14px;
+        border-radius: 10px;
+        }
+        .img-back{
+            height: 28px;
+            padding: 0px;
+            margin-top: 24px;
+            margin-left: 6px;
+            background: rgba(104, 104, 104, 0.75);
+            border-radius: 36px;
+        }
+        .swiper-slide{
+            display: block;
+        }
+    .div-mealtype{
+        text-align: left;
+        padding: 4px 0px 4px 5px;
+        line-height: 22px;
+    }
+    .icon-detail-green-fix{
+        width:14px;
+        height:16px;
+        color:#219653;
+        position: absolute;
+    }
+    .icon-detail-check-green-fix{
+        font-size: 15px;
+        width:14px;
+        height:14px;
+        color:#219653;
+    }
+    .cls-green{
+        color:#219653;
+        font-size: 14px;
+        font-weight: normal;
+        opacity: 0.85;
+        padding-left: 24px;
+        line-height: 16px;
+    }
+    .text-hotel-title{
+        font-weight: bold;
+        padding: 8px 0px 2px 0px;
+    }
+    .text-hotel-description{
+        white-space: inherit;
+        text-align: left;
+    }
+    .penal-detail:last-child{
+        padding-bottom: 12px;
+        padding-top: 4px;
+    }
+    .penalty-text{
+        font-size:14px;
+        font-weight:normal;
+        opacity:0.85;
+        padding-left: 8px; 
+      }
+      .link-penalty{
+        padding-left: 14px;
+        text-decoration: none;
+        background-color: #ffffff;
+        cursor: pointer;
+        text-decoration: underline;
+        color: #40A6F2;
+      }
+      .penalty-active{
+            padding: 8px 8px 8px 20px;
+            color: #ffffff;
+            background-color: #275A87;
+            margin-top: 8px;
+            font-size:14px;
+            font-weight:normal;
+        } 
+        .penalty-active-description{
+            font-size:14px;
+            font-weight:normal;
+            padding: 16px;
+            background-color: #275A87;
+        }
+        .icon-arrow-right{
+            text-align: right;
+            font-size: 24px;
+            padding: 0;
+        }
+        .cls-title{
+            font-size: 16px;
+        }
+        span.penalty-text > p{
+            margin: -2px 0px 0px 5px;
+        }
+    ////phần style lấy từ room-detail
+    .hotel-room-detail-content{
+        padding: 0px 16px 0px 11px;
+        font-size: 14px;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 30px);
+        
+    }
+    .room-class-name{
+        padding-top: 16px;
+        padding-left: 5px;
+    }
+    .icon-detail-fix{
+        width: 18px;
+        opacity: 0.6;
+    }
+    
+    .p-top-8{
+        padding-top: 8px;
+    }
+    .label-md {
+        margin: 0;
+    }
+    .row-title{
+        padding: 10px 0px;
+    }
+    .room-class-icon{
+        opacity: 0.6;
+        text-align: right;
+    }
+    .p-left-28{
+        padding-left: 28px;
+    }
+    .btn-cancel{
+        width: 90%;
+        border:none;
+        color: #ffffff;
+        background-color: #F79221;
+        border-color: #F79221;
+        height: 48px;
+    }
+    .div-bedroom-display ion-row:last-child span{
+        display: none;
+    }
+    .text-or{
+        padding-top: 8px;
+    }
+    .text-hotel-description{
+        overflow: auto;
+        text-overflow: inherit;
+        white-space: normal;
+    }
+    ///////////////////////
+//Style skeleton
+.row-item-hoteldetail-sk{
+    padding-top:32px;
+}
+.col-img-hoteldetail-sk{
+    padding: 0;
+}
+.p-top-4{
+    padding-top: 4px;
+}
+.img-go{
+    width: 12px;
+    height: 12px;
+}

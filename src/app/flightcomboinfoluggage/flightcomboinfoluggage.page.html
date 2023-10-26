@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-W: bold;"><label>Thông tin hành lý</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-16">
+  <div class="div-desc"
+    *ngIf="(departConditionInfo && departConditionInfo.baggageHanded ) || (returnConditionInfo && returnConditionInfo.baggageHanded )">
+
+    <div class="div-sub-title m-bottom-6 div-width-50">Xách tay</div>
+    <div
+      *ngIf="(departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length <10) || (returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length <10)"
+      class="d-flex">
+
+      <div class="div-width-50"
+        *ngIf="(departConditionInfo && departConditionInfo.baggageHanded && departConditionInfo.baggageHanded.length <10)">
+        Chiều đi: <span class="text-bold">{{ departConditionInfo.baggageHanded }}/1 khách</span></div>
+      <div class="div-width-50" *ngIf="!(departConditionInfo && departConditionInfo.baggageHanded)">
+        Chiều đi: <span class="text-bold">Không có</span></div>
+      <div class="div-width-50"
+        *ngIf="(returnConditionInfo && returnConditionInfo.baggageHanded && returnConditionInfo.baggageHanded.length <10)">
+        <div class="text-desc">Chiều về: <span class="text-bold">{{ returnConditionInfo.baggageHanded }}/1 khách</span>
+        </div>
+      </div>
+      <div class="div-width-50" *ngIf="!(returnConditionInfo && returnConditionInfo.baggageHanded)">
+        <div class="text-desc">Chiều về: <span class="text-bold">Không có</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="(departLuggage && departLuggage.length >0) || (returnLuggage && returnLuggage.length >0) ">
+    <div class="div-sub-title m-top-16 m-bottom-6 d-flex">
+      <div class="div-width-100">Ký gửi</div>
+    </div>
+
+    <div class="d-flex">
+      <div class="d-flex div-width-100">
+        <div
+          *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && !hasdepartluggage)"
+          class="div-width-50">
+          <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span
+              class="text-bold">{{ departConditionInfo.luggageSigned }} kg</span>/1 khách.</div>
+        </div>
+        <div
+          *ngIf="!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) && !hasdepartluggage"
+          class="div-width-50">
+          <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+        </div>
+
+        <div
+          [ngClass]="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) ?  'div-width-50 ' : 'div-width-50'"
+          *ngIf=" (departLuggage && departLuggage.length >0) && hasdepartluggage">
+          <div class="text-desc m-bottom-6">Chiều đi</div>
+          <div class="div-desc"
+            *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && hasdepartluggage)">
+            <span class="text-bold">{{ departConditionInfo.luggageSigned }} kg</span>/1 khách.</div>
+          <div *ngFor="let itemlug of departLuggage">
+            <div *ngIf="itemlug.quantity >0" class="div-des div-width-50">
+              {{ itemlug.quantity}} x <span class="text-bold">{{itemlug.Weight}} kg</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4  && !hasreturnluggage)"
+          class="div-width-50">
+          <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }}
+              kg</span>/1 khách.</div>
+        </div>
+        <div
+          *ngIf="!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) && !hasreturnluggage"
+          class="div-width-50">
+          <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+        </div>
+
+        <div
+          [ngClass]="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4)? 'div-width-50 ' : 'div-width-50'"
+          *ngIf=" (returnLuggage && returnLuggage.length >0) && hasreturnluggage ">
+          <div class="text-desc m-bottom-6">Chiều về</div>
+          <div class="div-desc"
+            *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && hasreturnluggage)">
+            <span class="text-bold">{{ returnConditionInfo.luggageSigned }} kg</span>/1 khách.</div>
+          <div *ngFor="let itemlug of returnLuggage">
+            <div *ngIf="itemlug.quantity >0" class="div-desc">
+              {{ itemlug.quantity}} x <span class="text-bold">{{itemlug.Weight}} kg</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="((departConditionInfo &&departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 ) || (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) )&& !(departLuggage && departLuggage.length >0) && !(returnLuggage && returnLuggage.length >0)">
+    <div class="div-sub-title m-top-16 m-bottom-6">
+      <div class="div-width-100">Ký gửi</div>
+    </div>
+    <div class="d-flex m-top-6 div-width-100">
+      <div class="div-width-50"
+        *ngIf="(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4)">
+        <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span
+            class="text-bold">{{ departConditionInfo.luggageSigned }} kg</span>/1 khách.</div>
+      </div>
+      <div class="div-width-50"
+        *ngIf="!(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4) && !hasdepartluggage">
+        <div class="text-desc m-bottom-6 p-right-4">Chiều đi: <span class="text-bold">Không có.</span></div>
+      </div>
+
+      <div class="div-width-50"
+        *ngIf="(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 )">
+        <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">{{ returnConditionInfo.luggageSigned }}
+            kg</span>/1 khách.</div>
+      </div>
+      <div class="div-width-50"
+        *ngIf="!(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4) && !hasreturnluggage ">
+        <div class="text-desc m-bottom-6">Chiều về: <span class="text-bold">Không có.</span></div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="ischeckinfant" class="m-top-16">
+    <label class="text-note">*Vui lòng không chọn mua thêm hành lý ký gửi cho trẻ em dưới 2 tuổi</label>
+  </div>
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Mua thêm hành lý<span><img class="img"
+          src="./assets/imgs/ic_next.svg"></span></button>
+  </div>
+</ion-footer>

@@ -1,0 +1,237 @@
+
+    .checkbox-md-secondary .checkbox-checked {
+        border-color: #26bed6;
+        background-color: #26bed6;
+    }
+    .button2
+    {
+        background: #fff;
+        color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 90%;
+        font-size: 17px !important;
+        margin: 8px 16px !important;
+        padding: 0;
+    }
+  
+    .div-button-payment-done{
+        background-color: #ffffff; 
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+
+        .m-top-0{
+            margin-top: 0 !important;
+        }
+    }
+    .button1
+    {
+        color: #ff9500;
+        border-color: #ff9500;
+        width: 100%;
+        font-size: 12px;
+    }
+    .div-btn
+    {
+        background-color: #ffffff; text-align: center;margin-top: 20px
+    }
+    .button4
+    {
+        background: #ffffff;
+        color: #26bed6;
+        border-color: #26bed6;
+        margin-top: -5px; 
+    }
+    .image-card1{
+        display: initial !important;
+        width: 4%
+    }
+   
+    .toolbar-title-md {
+        text-align: center;
+        margin-right: 70px;
+      }  
+    .logocss
+    {
+        background-image: url('../../../assets/imgs/icon.png')
+    }
+    .div-paymentmytrip{
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 28px;
+        letter-spacing: -0.4px;
+
+        .div-split-color{
+            height: 7px;
+            background-color: #f2f2f2;
+            margin: 8px -16px;
+        }
+        .text-title{
+            font-size: 14px;
+            letter-spacing: -0.4px;
+            font-weight: 600;
+        }
+        .div-text-payment{
+            font-size: 14px;
+            line-height: 28px;
+            letter-spacing: -0.4px;
+            font-weight: 300;
+            padding-top: 4px;
+        }
+        .div-text-paymentlink{
+            font-size: 14px;
+            line-height: 28px;
+            letter-spacing: -0.4px;
+            font-weight: 300;
+            text-decoration: underline;
+        }
+
+        .text-payment-info{
+            white-space: normal !important;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: -0.4px;
+            line-height: 28px;
+            margin: 0;
+        }
+        .text-info{
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: -0.4px;
+            margin: 0;
+            margin-bottom: 16px;
+        }
+        .text-link{
+            text-decoration: underline;
+            margin-bottom: 23px;
+        }
+        .text-copy{
+            padding-left: 4px;
+        }
+    }
+    
+//////////////
+::ng-deep {
+    .totalPrice
+{
+    color: #26BED6;
+    font-weight: bold;
+}
+    .cls-alert-showmore {
+    align-items: center !important;
+    
+    .sc-ion-alert-ios-h {
+        --background: var(--ion-overlay-background-color,var(--ion-color-step-150,#f9f9f9)) !important;
+        --max-width: 270px !important;
+    
+        font-size: 14px !important;
+        --min-width: 250px !important;
+        --width: auto !important;
+        --min-height: auto !important;
+        --height: auto !important;
+        --max-height: 90% !important;
+        -webkit-font-smoothing: antialiased !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        display: flex !important;
+        position: fixed !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-family: var(--ion-font-family,inherit) !important;
+        touch-action: none !important;
+        user-select: none !important;
+    }
+
+    .alert-head.sc-ion-alert-ios{
+    padding-top: 12px !important;
+    padding-bottom: 7px !important;
+    text-align: center !important;
+    display: block !important;
+    }
+    .alert-wrapper.sc-ion-alert-ios{
+    border-radius: 13px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: var(--width) !important;
+    min-width: var(--min-width) !important;
+    max-width: var(--max-width) !important;
+    height: var(--height) !important;
+    min-height: var(--min-height) !important;
+    max-height: var(--max-height) !important;
+    background: var(--background) !important;
+    }
+    .alert-button-inner.sc-ion-alert-ios {
+    flex-flow: row nowrap !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    }
+    .alert-button.sc-ion-alert-ios{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 50% !important;
+    height: 44px !important;
+    border-top: .55px solid rgba(var(--ion-text-color-rgb,0,0,0),.2) !important;
+    background-color: transparent !important;
+    color: var(--ion-color-primary,#3880ff) !important;
+    font-size: 15px !important;
+    overflow: hidden !important;
+    width: auto;
+    }
+    .alert-button-group.sc-ion-alert-ios button:first-child{
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    }
+    .alert-button.sc-ion-alert-ios {
+        border-color: none;
+        background: none;
+        text-transform: none;
+        font-size: 15px !important;
+    }
+
+    .alert-button.sc-ion-alert-md{
+        text-transform: none;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+}
+.alert-button-group.sc-ion-alert-md{
+    flex-wrap: nowrap;
+}
+.alert-button-inner.sc-ion-alert-md {
+    justify-content: center;
+}
+.alert-button.sc-ion-alert-md {
+    padding-right: 0;
+    width: 100%;
+    text-transform: none;
+}
+}
+.img-trip-empty
+{
+    text-align: center;
+    margin-top: 42px;
+    margin-bottom: 25px;
+}
+.text{
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    line-height: 2;
+}
+.textpayment{
+    color:#003C71; 
+    font-weight:bold
+}
+

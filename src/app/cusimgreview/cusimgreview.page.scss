@@ -1,0 +1,72 @@
+
+.cusimgreview-header{
+
+    .header-col{
+        text-align: center;
+        height: 56px;
+    }
+    .a-center{
+        align-self: center;
+        //margin-top: env(safe-area-inset-top);
+    }
+    .div-back{
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        left: 6px;
+        top: 12px;
+    }
+    .div-header-title{
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 10px;
+    }
+    .text-hotelname{
+        font-size: 11px;
+        font-weight: 300;
+    }
+}
+
+.cusimgreview-content{
+    .p-16{
+        padding: 16px;
+    }
+    .p-top-16{
+        padding-top: 16px;
+    }
+    .img-item{
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    .div-item{
+        position: relative;
+
+        .div-img-cover{
+            height: 48px;
+            width: 100%;
+            position: absolute;
+            margin-right: 16px;
+            background-image: linear-gradient(to top, #000000, rgba(0, 0, 0, 0));
+            opacity: 0.3;
+            bottom: 3px;
+        }
+        .div-text-over{
+            width: 100%;
+            position: absolute;
+            margin-right: 16px;
+            bottom: 16px;
+            height: 20px;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            //font-weight: 100;
+            letter-spacing: -0.4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+            padding: 0 16px;
+        }
+    }
+}

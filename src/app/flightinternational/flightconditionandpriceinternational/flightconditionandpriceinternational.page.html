@@ -1,0 +1,55 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Điều kiện giá vé</div>
+          </div>
+  
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  
+  <ion-content class="flight-info-content">
+    <div class="p-16">
+        
+          <div *ngIf="departCondition" class="div-flight-info">
+              <div class="text-title m-bottom-8">
+                Chiều đi
+              </div>
+              <div class="text-normal m-bottom-8" *ngIf="departCondition.baggageHanded"><span class="text-bold">Hành lý xách tay: </span><span>{{departCondition.baggageHanded}}</span></div>
+              <div class="text-normal m-bottom-8" *ngIf="departCondition.luggageSigned"><span class="text-bold">Hành lý ký gửi: </span><span>{{departCondition.luggageSigned}}</span></div>
+              <div class="text-normal m-bottom-8" *ngIf="changeDepartTime"><span class="text-bold">Thay đổi vé: </span><span>{{changeDepartTime}}</span></div>
+              <div class="text-normal m-bottom-8" *ngIf="ticketDepartRefund"><span class="text-bold">Hủy vé: </span><span>{{ticketDepartRefund}}</span></div>
+          </div>
+
+          <div *ngIf="returnCondition" class="div-flight-info m-top-24">
+            <div class="text-title m-bottom-8">
+              Chiều về
+            </div>
+            <div class="text-normal m-bottom-8" *ngIf="returnCondition.baggageHanded"><span class="text-bold">Hành lý xách tay: </span><span>{{returnCondition.baggageHanded}}</span></div>
+            <div class="text-normal m-bottom-8" *ngIf="returnCondition.luggageSigned"><span class="text-bold">Hành lý ký gửi: </span><span>{{returnCondition.luggageSigned}}</span></div>
+            <div class="text-normal m-bottom-8" *ngIf="changeReturnTime"><span class="text-bold">Thay đổi vé: </span><span>{{changeReturnTime}}</span></div>
+            <div class="text-normal m-bottom-8" *ngIf="ticketReturnRefund"><span class="text-bold">Hủy vé: </span><span>{{ticketReturnRefund}}</span></div>
+              
+          </div>
+
+          <div class="d-flex m-top-24 m-bottom-8">
+            <div class="text-title p-lr-4">*</div> <div class="text-title"> Lưu ý:</div>
+          </div>
+          <div class="text-normal">
+            - Toàn bộ hành trình và điều kiện vé sẽ không còn hiệu lực trong trường hợp quý khách <span class="text-alert">không thanh toán đúng thời gian và quy định của chúng tôi.</span>
+          </div>
+          <div class="text-normal m-top-12">
+            - Qúy khách vui lòng kiểm tra tất cả hành trình và thông tin cần thiết được gửi trong email để đảm bảo chuyến đi được như ý.
+          </div>
+          <div class="text-normal m-top-12">
+            - Mọi chi phí thay đổi theo quy định của Hãng Hàng Không và phí dịch vụ sẽ không được hoàn trả trong mọi trường hợp.
+          </div>
+      
+    </div>
+  </ion-content>

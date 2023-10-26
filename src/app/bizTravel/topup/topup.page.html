@@ -1,0 +1,82 @@
+<ion-header class="biztravel-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Nạp tiền</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content>
+    <div class="div-topup-content">
+        <div class="text-bold">Quý khách vui lòng chọn ngân hàng chuyển khoản</div>
+        <div class="text-sub m-top-4 lh-13">Sau khi nhận được Email xác nhận, số dư khả dụng của bạn sẽ được hệ thống cập nhật tự động.</div>
+
+        <div class="div-split-panel m-top-16">
+        </div>
+        <div *ngFor="let itemBank of listBanks; let idx =index">
+            <div class="div-row-bank d-flex" (click)="expandClick(itemBank)">
+                <div class="div-icon v-align-center"><img src={{itemBank.imgBank}}></div>
+                <div class="div-text w-220">
+                    <div><ion-label>{{itemBank.bankName}} <span class="text-bold">({{itemBank.bankNameShort}})</span></ion-label></div>
+                    <div class="m-top-4"><ion-label class="text-sub f-13">{{itemBank.bankBranch}}</ion-label></div>
+                </div>
+                <div class="div-btn-expand v-align-center" *ngIf="!itemBank.expanded else expanddivvcb">
+                    <img src="./assets/ic_biztravel/expand.svg">
+                </div>
+                <ng-template #expanddivvcb>
+                    <div class="div-btn-expand v-align-center">
+                        <img src="./assets/ic_biztravel/expand_down.svg">
+                    </div>
+                </ng-template>
+            </div>
+            <div class="div-expand-info" *ngIf="itemBank.expanded">
+                <div class="text-label m-top-9">
+                    Số tài khoản
+                </div>
+                <div class="text-blue d-flex ">
+                    <div class="v-align-center">{{itemBank.accountNumber}}</div>
+                    <div class="div-copy v-align-center"  (click)="copyClipboard(itemBank,1)"><img src="./assets/ic_biztravel/copy.svg"></div>
+                </div>
+
+                <div class="text-label m-top-9">
+                    Tên đơn vị thụ hưởng
+                </div>
+                <div class="text-blue  d-flex">
+                    <div class=" v-align-center">Công ty Cổ Phần IVIVU.COM</div>
+                    <div class="div-copy v-align-center" (click)="copyClipboard(itemBank, 2)"><img src="./assets/ic_biztravel/copy.svg"></div>
+                </div>
+
+                <div class="text-label m-top-9">
+                    Nội dung chuyển khoản
+                </div>
+                <div class="text-blue  d-flex">
+                    <div class=" v-align-center">TOPUP <{{bizTravelService.bizAccount.phone}}></div>
+                    <div class="div-copy v-align-center" (click)="copyClipboard(itemBank, 3)"><img src="./assets/ic_biztravel/copy.svg"></div>
+                </div>
+            </div>
+        <div class="div-split-panel">
+        </div>
+        </div>
+        <div class="m-top-16" *ngIf="bizTravelService.bizAccount.supporter && bizTravelService.bizAccount.supporter.name">
+            <div class="text-title">Liên hệ hỗ trợ</div>
+            <div class="d-flex m-top-8">
+                <div class="d-flex div-width-200">
+                    <div class="cls-icon m-right-6">
+                        <img class="img-support"  src="./assets/imgs/ic_callcenter.svg">
+                    </div>
+                    <div class="text-label">{{bizTravelService.bizAccount.supporter.name}}</div>
+                </div>
+                <div class="d-flex div-width-100 f-end">
+                    <div (click)="callsupport()"><img class="img-call"  src="./assets/ic_biztravel/call.svg"></div>
+                    <div class="m-left-24" (click)="emailsupport()"><img class="img-mail"  src="./assets/ic_biztravel/mail.svg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

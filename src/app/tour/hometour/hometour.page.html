@@ -1,0 +1,26 @@
+  <div class="cls-tab-visible">
+    <app-hometoursearch [itemSearch]="itemSearch"></app-hometoursearch>
+    <div *ngIf="totalSale>0" class="div-topSale">
+      <img class="img-fire" src="./assets/imgs/ic_fire_homeflight.svg" />
+      <div class="text-topSale">
+        {{totalSale}} khách đã đặt tour trong 24h qua
+      </div>
+    
+    </div>
+    <app-hometouritemslide [type]="1"></app-hometouritemslide>
+  </div>
+  
+  <div class="div-myorder cls-tab-disabled">
+    <!-- <app-order *ngIf="!isBizAccount else bookings"></app-order>
+    <ng-template #bookings>
+        <app-booking></app-booking>
+    </ng-template> -->
+  </div>
+  <div class="div-notify cls-tab-disabled">
+    <!-- <app-foodnotify></app-foodnotify> -->
+  </div>
+  <div class="div-account cls-tab-disabled">
+    <!-- <app-foodaccount></app-foodaccount> -->
+  </div>
+
+

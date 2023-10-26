@@ -1,0 +1,166 @@
+
+    .button
+    {
+        background: #F79221;
+        color: #ffffff;
+        border-color: #F79221;
+        width: 90%;
+        font-size: 20px;
+        height: 48px;
+        margin-left: 16px;
+    } 
+    .btn-close{
+        position: absolute;
+        left: 0px;
+        top: 4px;
+        width: 48px;
+        height: 48px;
+        background-color: #fff;
+        font-size: 2em;
+        color: #828282;
+        padding: 6px;
+        z-index: 1;
+        
+    }
+
+    .content-occupancy{
+        .t-center{
+            align-self: center;
+            text-align: center;
+        }
+        .border-bottom {
+            border-bottom: solid 0.5px #bdbdbd;
+        }
+
+    .action-sheets-select-age{
+        .img-filter{
+          width: 30px;
+          height: 30px;
+          margin-right: 11px;
+        }
+         
+      }
+
+      .p-top-20{
+        padding-top: 20px;
+    }
+    .text-child-age{
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.4px;
+    }
+    .div-age{
+        position: relative;
+
+        .p-right-8{
+            padding-right: 8px;
+        }
+        .div-text-age{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .text-child{
+            font-size: 16px;
+            font-weight: 300;
+            color: #000;
+        }
+        .selected-age{
+            font-size: 18px;
+            color: #26bed6;
+            letter-spacing: -0.51px;
+            font-weight: 600;
+        }
+    }
+
+    .d-flex{
+        display: flex;
+        padding-top: 16px;
+        padding-bottom: 16px;
+
+        .text-left{
+            min-width: 73%;
+            display: flex;
+            align-items: center;
+        }
+        .ic-plus{
+            width: 26px;
+        }
+        .ic-minus{
+            width: 66px;
+        }
+        .number-room{
+            font-size: 24px;
+            letter-spacing: -0.69px;
+            color: #26bed6;
+            font-weight: 600;
+        }
+        .text-room{
+            font-size: 20px;
+            letter-spacing: -0.69px;
+            color: #3f3b3b;
+            font-weight: 600;
+        }
+        .m-width-26 {
+            min-width: 26px;
+          }
+        
+    }
+    .no-border-bottom{
+        border-bottom:none;
+    }
+      
+    }
+    ::ng-deep{
+        .action-sheets-select-age .action-sheet-container.sc-ion-action-sheet-md{
+            padding: 0;
+        }
+        .action-sheets-select-age .action-sheet-group.sc-ion-action-sheet-md:last-child{
+            margin: 0;
+            border-radius: 0;
+            overflow: auto;
+        }
+        .action-sheets-select-age .action-sheet-title.sc-ion-action-sheet-md{
+            font-size: 14px;
+            font-weight: 300;
+            text-align: center;
+            color: #000;
+        }
+        .action-sheets-select-age .action-sheet-button-inner.sc-ion-action-sheet-md{
+            justify-content: center;
+        }
+        .action-sheets-select-age .action-sheet-button.sc-ion-action-sheet-md{
+            font-size: 17px;
+            color: #bdbdbd;
+            height: 48px;
+        }
+        .action-sheets-select-age .no-border-bottom.action-sheet-button.sc-ion-action-sheet-md{
+            border-bottom: none;
+            background-position: no;
+        }
+        .action-sheets-select-age {
+            .picker-wrapper.sc-ion-picker-md{
+                height: 298px;
+                //margin-bottom: calc(env(safe-area-inset-bottom) + 24px);
+            }
+            .picker-toolbar.sc-ion-picker-md{
+                text-align: center;
+            }
+            .picker-button.ion-activatable.picker-header.sc-ion-picker-md{
+                font-weight: 300;
+                color: #000;
+                font-size: 14px;
+                text-transform: none;
+            }
+
+            .button-done{
+                color: #ffffff !important;
+                font-size: 17px !important;
+                background: #ec971f;
+                border-radius: 4px;
+                height: 48px !important;
+                width: 92%;
+                margin: 8px 16px;
+              }
+        }
+      }

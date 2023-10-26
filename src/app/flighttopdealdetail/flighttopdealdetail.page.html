@@ -1,0 +1,35 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+            <div class="div-goback" (click)="goback()">
+                <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+            </div>
+
+            <div class="div-header-title">
+                <div class="div-title">{{item.promoTitle}}</div>
+            </div>
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  
+  <ion-content class="flighttopdealdetailpage-content">
+    <div class="p-16 " >
+        <div class="text-content p-top-8" [innerHTML]="item.content"></div>
+        </div>
+        
+  </ion-content>
+
+  <ion-footer>
+    <ion-row>
+        <ion-col style="padding:0">
+          <div class="div-flighttopdealdetail-footer">
+            <div class="div-button-flex">
+              <button  (click)="book()" ion-button round outline class="button button-book">Đặt vé</button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+  </ion-footer>

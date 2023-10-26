@@ -1,0 +1,87 @@
+<ion-header class="biztravel-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Chi tiết thanh toán</div>
+          </div>
+          <div class="div-button-refresh" (click)="refresh()"><img class="img-refresh" src="./assets/imgs/refresh.svg" ></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="div-paymentdetail-content">
+        <div >
+            <div class="div-transaction-history d-flex">
+              <div class="div-button-item m-r-12 btn-active btn-all" (click)="filterItem(0)">Tất cả</div>
+              <div class="div-button-item m-r-12 btn-in"  (click)="filterItem(1)">Tiền vào</div>
+              <div class="div-button-item btn-out"  (click)="filterItem(2)">Tiền ra</div>
+            </div>
+            <div class="div-transaction-history-list" *ngIf="(bizTravelService.actionHistory && bizTravelService.actionHistory.length >0) else emptyTrans">
+              <div *ngFor="let itemTransaction of bizTravelService.actionHistory; let idx = index">
+                  <div [ngClass]="idx % 2 == 0 ? 'div-item-transaction m-t-12' : 'div-item-transaction cls-even m-t-12' " *ngIf="typeSearch == 0 || ((typeSearch == 1 && itemTransaction.actionType == 1) || (typeSearch ==2 && itemTransaction.actionType == 2))">
+                    <div class="d-flex ">
+                      <div class="cls-text div-width-100">{{ itemTransaction.BookingDateDisplay }}</div>
+                      <div class="cls-text cls-bold div-width-100 text-right"><span *ngIf="itemTransaction.actionType == 1">+</span>{{ gf.numberToCurrency(itemTransaction.value, '.') }}</div>
+                    </div>
+      
+                    <div class="d-flex ">
+                      <div class="div-width-100">
+                        <div class="cls-text-sub m-top-3">{{ itemTransaction.BookingHourDisplay }}</div>
+                        <div class="cls-text f-12 m-top-1">{{ itemTransaction.note }}</div>
+                      </div>
+                      <div class="cls-text-sub div-width-100 text-right">{{ itemTransaction.referenceId}}</div>
+                    </div>
+                  </div>
+              </div>
+              <div *ngIf="emptyCredit && typeSearch == 1" class="div-empty-tran">
+                <div class="img-trip-empty">
+                  <img class="img-empty" src="./assets/empty/imgdone.svg">
+                </div>
+                <div class="cls-text-sub">Quý khách chưa thực hiện giao dịch nào</div>
+                <div class="cls-text">Bắt đầu sử dụng dịch vụ iVIVU ngay hôm nay</div>
+              </div>
+              <div *ngIf="emptyDedit && typeSearch == 2" class="div-empty-tran">
+                <div class="img-trip-empty">
+                  <img class="img-empty" src="./assets/empty/imgdone.svg">
+                </div>
+                <div class="cls-text-sub">Quý khách chưa thực hiện giao dịch nào</div>
+                <div class="cls-text">Bắt đầu sử dụng dịch vụ iVIVU ngay hôm nay</div>
+              </div>
+              <ion-infinite-scroll (ionInfinite)="loadMorePage($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Đang xử lý...">
+                </ion-infinite-scroll-content>
+              </ion-infinite-scroll>
+            </div>
+            <ng-template #emptyTrans>
+                <div class="div-empty-tran" *ngIf="loadDataDone">
+                    <div class="img-trip-empty">
+                        <img class="img-empty" src="./assets/empty/imgdone.svg">
+                    </div>
+                    <div class="cls-text-sub">Quý khách chưa thực hiện giao dịch nào</div>
+                    <div class="cls-text">Bắt đầu sử dụng dịch vụ iVIVU ngay hôm nay</div>
+                </div>
+                <div class="div-loading-content" *ngIf="!loadDataDone">
+                  <ion-row *ngFor="let item of itemskeleton">
+                      <ion-row class="cls-border-bottom" style="width:100%">
+                              <ion-item style="--padding-start:0;--background: transparent;--border-style:none;--padding-end:0;width:100%">
+                                <ion-row style="width:100%">
+                                      <ion-col size="12" style="padding: 0">
+                                        <div><ion-skeleton-text animated style="width:100%;margin-top: 8px;height: 16px;"></ion-skeleton-text></div>
+                                        <div><ion-skeleton-text animated style="width:100%;margin-top: 8px;height: 16px;"></ion-skeleton-text></div>
+                                        <div><ion-skeleton-text animated style="width:25%;margin-top: 8px;height: 16px;"></ion-skeleton-text></div>
+                                    </ion-col>
+                                </ion-row>
+                              </ion-item>
+                    </ion-row>
+                  </ion-row>
+                </div>
+              </ng-template>
+          </div>
+      </div>
+  </ion-content>

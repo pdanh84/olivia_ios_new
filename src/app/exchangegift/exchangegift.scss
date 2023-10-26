@@ -1,0 +1,73 @@
+
+    .exchangegift-content{
+        padding: 0;
+        width: 100%;
+    }
+    .div-icon-close{
+        float: right;
+        opacity: 0.6;
+        font-size: 24px;
+    }
+    .no-padding{
+        padding: 0;
+    }
+    .radio-checked {
+        border-color: #26bed6 !important;
+    }
+    .radio-inner {
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: #26bed6 !important;
+    }
+    .radio-icon{
+        top:3px !important;
+    }
+    .item-title{
+        font-size: 16px;
+        font-weight: 500;
+        color: #003c71;
+    }
+    .list-location{
+        width: 100%;
+    }
+    .office-brand{
+        padding-top: 16px;
+    }
+    .title-band{
+        padding: 8px 0px 0px 0px;
+    }
+    .office-title{
+        font-weight: 500;
+        font-style: italic;
+    }
+    .time-office{
+        padding-left: 16px;
+    }
+
+    .btn-cancel, .btn-exchange{
+        border-color: #f79221;
+        color: #ffffff ;
+        background: #f79221;
+        width: 98%;
+        height: 44px;
+        text-transform: none;
+        font-size: 17px;
+        font-weight: normal;
+    }
+    .exchange-input{
+        border: solid 1px #cdcdcd;
+        border-radius: 5px;
+    }
+    .input-label{
+        align-self: center;
+        color: #848484;
+    }
+    .validate-error{
+        border: solid 1px red;
+    }
+    
+    

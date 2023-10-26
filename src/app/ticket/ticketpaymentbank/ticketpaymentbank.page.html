@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Chuyển khoản ngân hàng</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div class="p-all-16">
+  <div class="div-img-step m-bottom-16">
+    <img class="img-step" src="./assets/ic_tour/tour_step2.png">
+  </div>
+
+  <ion-grid class="grid-row-1">
+    <ion-row>
+      <ion-col (click)="vcb()" size="3">
+        <img *ngIf="ischeckvcbactive" src="./assets/ic_bank/iv_vcb_active.png">
+        <img *ngIf="ischeckvcb" src="./assets/ic_bank/iv_vcb.png">
+      </ion-col>
+      <ion-col (click)="acb()" size="3">
+        <img *ngIf="ischeckacbactive" src="./assets/ic_bank/ic_acb_active.png">
+        <img *ngIf="ischeckacb" src="./assets/ic_bank/ic_acb.png">
+      </ion-col>
+      <ion-col (click)="vietin()" size="3">
+        <img *ngIf="ischeckvietinactive" src="./assets/ic_bank/ic_vietin_active.png">
+        <img *ngIf="ischeckvietin" src="./assets/ic_bank/ic_vietin.png">
+      </ion-col>
+      <ion-col (click)="techcom()" size="3">
+        <img *ngIf="ischecktechcomactive" src="./assets/ic_bank/ic_techcom_active.png">
+        <img *ngIf="ischecktechcom" src="./assets/ic_bank/ic_techcom.png">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-grid class="grid-row-2">
+    <ion-row>
+      <ion-col (click)="donga()" size="3">
+        <img *ngIf="ischeckdongaactive" src="./assets/ic_bank/ic_donga_active.png">
+        <img *ngIf="ischeckdonga" src="./assets/ic_bank/ic_donga.png">
+      </ion-col>
+      <ion-col (click)="agri()" size="3">
+        <img *ngIf="ischeckagriactive" src="./assets/ic_bank/ic_agri_active.png">
+        <img *ngIf="ischeckagri" src="./assets/ic_bank/ic_agri.png">
+      </ion-col>
+      <ion-col (click)="bidv()" size="3">
+        <img *ngIf="ischeckbidvactive" src="./assets/ic_bank/ic_bidv_active.png">
+        <img *ngIf="ischeckbidv" src="./assets/ic_bank/ic_bidv.png">
+      </ion-col>
+      <ion-col (click)="sacom()" size="3">
+        <img *ngIf="ischecksacomactive" src="./assets/ic_bank/ic_sacom_active.png">
+        <img *ngIf="ischecksacom" src="./assets/ic_bank/ic_sacom.png">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+
+  <ion-grid class="grid-row-2">
+    <ion-row>
+      <ion-col (click)="hd()" size="3">
+        <img *ngIf="ischeckhdactive" src="./assets/ic_bank/ic_hd_active.svg">
+        <img *ngIf="ischeckhd" src="./assets/ic_bank/ic_hd.svg">
+      </ion-col>
+      <ion-col (click)="scb()" size="3">
+        <img *ngIf="ischeckscbactive" src="./assets/ic_bank/ic_scb_active.svg">
+        <img *ngIf="ischeckscb" src="./assets/ic_bank/ic_scb.svg">
+      </ion-col>
+      <ion-col (click)="ocb()" size="3">
+        <img *ngIf="ischeckocbactive" class="imgbank" src="./assets/ic_bank/ocbactive.png">
+        <img *ngIf="ischeckocb" class="imgbank" style="opacity: 0.5;" src="./assets/ic_bank/ocb.png">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="div-text-note-paymentbank m-top-24" >
+    Bằng việc nhấn nút Thanh toán, Quý khách đã đồng ý với các <span class="text-underline">điều kiện và điều khoản</span> về đặt phòng trên website iVIVU.com
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Xác nhận & Chuyển khoản<span><img class="img" src="./assets/imgs/ic_next.svg"></span></button>
+  </div>
+</ion-footer>

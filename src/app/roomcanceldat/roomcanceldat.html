@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-row>
+        <ion-col col-1 class="header-arrow">
+            <ion-icon (click)="goback()" style="font-size: 2.7em" name="ios-arrow-round-back-outline" class="card-title">
+            </ion-icon>
+        </ion-col>
+        <ion-col class="header-title"><label>Chính sách hủy phòng</label>
+        </ion-col>
+    </ion-row>
+</ion-header>
+<ion-content>
+    <div class="room-cancel-content">
+        <div class="room-cancel-title">Bạn muốn hủy toàn bộ đặt phòng</div>
+        <div class="room-cancel-name">{{ roomInfo.RoomName}}</div>
+        <div class="room-cancel-fee">
+                <!-- <ion-row>
+                    <ion-col col-8 class="room-cancel-fee-title"><div class="room-cancel-fee-title">Phí hủy phòng</div></ion-col>
+                    <ion-col col-4 class="room-cancel-fee-price"><div class="room-cancel-fee-price">{{ totalPrice}} đ</div></ion-col>
+                </ion-row> -->
+                <ion-row class="penal-detail" *ngIf='roomInfo.Penaltys[0].IsPenaltyFree==true'>
+                    <label class="penalty-text link-penalty">Hủy miễn phí trước ngày {{roomInfo.Penaltys[0].PenaltyShortDateStr}}</label>
+                </ion-row>
+                <ion-row *ngIf='roomInfo.Penaltys[0].IsPenaltyFree==false'>
+                    <div class="penalty-active arrow">
+                        <label *ngFor="let pen of roomInfo.Penaltys; let k = index" class="penalty-active-description" [innerHTML]="pen.PenaltyDescription"></label>
+                    </div>
+                </ion-row>
+        </div>
+    </div>
+</ion-content>
+<!-- <ion-footer>
+    
+    <div style="background-color: #ffffff; text-align: center">
+      <button (click)="cancel()" ion-button round outline class="btn-cancel">Hủy đặt phòng</button>
+    </div>
+</ion-footer> -->

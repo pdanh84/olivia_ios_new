@@ -1,0 +1,92 @@
+<ion-content>
+    <div class="div-icon-close" (click)="dismiss()">
+        <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </div>
+    <div class="hotel-request-combo-content">
+        <h2 class="request-combo-title">Yêu cầu báo giá</h2>
+        <ion-row style="width: 100%;">
+            <ion-col size="5" class="text-label">Ngày khởi hành</ion-col>
+            <ion-col size="7" class="text-label">Số lượng</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="5" *ngIf="isFlashSaleCombo">
+                <div class="text-cin">{{cindisplay}}
+                    <div class="img-cin"><img src="./assets/iocnsearch/ic_checkin.svg"></div>
+                </div>
+            </ion-col>
+            <ion-col size="5" *ngIf="!isFlashSaleCombo" (click)="openPickupCalendar()">
+                <div class="text-cin">{{cindisplay}}
+                    <div class="img-cin"><img src="./assets/iocnsearch/ic_checkin.svg"></div>
+                </div>
+            </ion-col>
+            <ion-col (click)="openmnu()">
+                <div class="text-pax">{{adult}} người lớn, {{child}} trẻ em</div>
+            </ion-col>
+        </ion-row>
+        <div class="hotel-request-departure">
+            <ion-row>
+                <ion-col class="text-label">Khởi hành từ</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-list>
+                    <ion-radio-group style="margin-left: -5px;" name="rdgroup" class="list-departure">
+                        <div class="ml5" *ngFor="let item of arrPlace">
+                            <ion-radio class="rd-departure" (click)="radioCheck(item)"
+                                checked={{item.checked}}></ion-radio>
+                            <label (click)="radioCheck(item)">{{item.departureName}}</label>
+                        </div>
+                       
+                    </ion-radio-group>
+
+                </ion-list>
+            </ion-row>
+        </div>
+        <div class="hotel-request-name">
+            <ion-row>
+                <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                    <ion-label position="floating" class="text-label">Họ tên*</ion-label>
+                    <ion-input [(ngModel)]="customerName" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)" (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
+                </ion-item>
+            </ion-row>
+        </div>
+        <div class="hotel-request-phone">
+            <ion-row>
+                <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                    <ion-label position="floating" class="text-label">Số điện thoại</ion-label>
+                    <ion-input id="cusMobile" [(ngModel)]="mobile" maxlength=10 type="tel" required></ion-input>
+                </ion-item>
+            </ion-row>
+        </div>
+        <div class="hotel-request-email">
+            <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                <ion-label position="floating" class="text-label">Email*</ion-label>
+                <ion-input id="cusEmail" [(ngModel)]="usermail" type="text" required></ion-input>
+            </ion-item>
+        </div>
+        <div style="margin-top: 20px">
+            <label style="font-size:14px;color:#828282;font-style: italic">*Nhân viên tư vấn của chúng tôi sẽ liên hệ
+                đến quý khách trong vòng 60 phút.</label>
+        </div>
+
+    </div>
+
+
+</ion-content>
+<ion-footer style="text-align: center">
+    <div class='div-close-paxhint' *ngIf="inputtext && listpaxhint && listpaxhint.length >0" (click)="hidePaxHint()"><img src='./assets/ic_close_b.svg'></div>
+  <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
+                  
+    <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
+        <div class="icon-pax">
+                <img src="./assets/ic_flight/icon-pax.svg">
+        </div>
+        <div class="text-pax-hint">
+            {{itempax.fullName}}
+        </div>
+    </div>
+    
+  </div>
+  
+    <button ion-button round outline class="button btn-cancel" (click)="sendRequest()"
+        [ngClass]="(!customerName || customerName=='') ? 'btn-disable' : ''">Gửi yêu cầu</button>
+</ion-footer>

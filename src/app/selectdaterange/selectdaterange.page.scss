@@ -1,0 +1,527 @@
+.d-flex{
+  display: flex;
+}
+ion-header {
+  background-color: var(--ion-color-primary) !important;
+}
+.m-top-1 {
+  margin-top: 1px;
+}
+.border-bottom {
+  border-bottom: solid 1px #fff;
+}
+.selectdaterange-header,.selectdaterange-footer{
+  .col-header{
+      text-align: center;
+      height: 48px;
+      margin-top: 0;
+      padding: 0;
+      background: var(--ion-color-primary);
+      color: #ffffff;
+
+      .div-goback{
+          height: 48px;
+          width: 48px;
+          z-index: 2;
+
+          .header-img-back{
+              width: 36px;
+              margin-top: 6px;
+          }
+      }
+
+      .div-header-title{
+          width: 100%;
+          z-index: 0;
+          position: absolute;
+          .div-title{
+              font-size: 18px;
+              font-weight: 600;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.6;
+              letter-spacing: -0.45px;
+              margin-top: 11px;
+          }
+          .div-subtitle{
+              font-size: 11px;
+              font-weight: 300;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.82;
+              letter-spacing: -0.31px;
+          }
+      }
+     
+      .arrow-down{
+          padding-left: 6px;
+
+          .img-down{
+              position: absolute;
+              top: 26px;
+          }
+      }
+
+      .div-quick-back{
+          font-size: 32px;
+          position: absolute;
+          right: 2px;
+          color: #bdbdbd;
+          letter-spacing: -3.5px;
+          top: 0px;
+          padding: 0 16px;
+      }
+  }
+  .col-cincout{
+      padding: 0;
+      background: var(--ion-color-primary);
+      color: #ffffff;
+
+      .cls-space-evenly{
+        display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+      }
+      
+      .div-cin, .div-cout{
+          text-align: center;
+      }
+      .title-cincout{
+          font-size: 12px;
+          font-weight: 300;
+          text-align: left;
+      }
+      
+
+      .text-daycincout{
+          font-size: 36px;
+          text-align: right;
+          padding-right: 4px;
+      }
+
+      .div-flex-right{
+          width: 100%;
+          text-align: left;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+      }
+      .text-dayofweekcincout{
+          font-size: 12px;
+      }
+
+      .text-monthcincout{
+          font-size: 12px;
+          font-weight: 300;
+      }
+  }
+
+  .col-dayofweek{
+      background: var(--ion-color-primary);
+      color: #ffffff;
+      padding: 0;
+
+      .div-itemdayofweek{
+          width: 100%;
+          padding: 8px 0;
+          font-size: 85%;
+          -webkit-box-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+          text-align: center;
+      }
+
+      .m-16 {
+        padding: 16px 0 !important;
+      }
+  }
+  .fix-height-15{
+      height: 15px;
+  }
+ 
+  ////////style flight
+  .div-close{
+      position: absolute;
+      width: 48px;
+      height: 28px;
+      left: 0px;
+      top: 0;
+    }
+    .bg-f2{
+      //background: #f2f2f2;
+      padding: 6px 16px;
+      padding-top: 0;
+  
+    }
+    .div-lowest-price{
+      background: #f2f2f2;
+      padding: 0px 16px;
+      height: 40px;
+      width: 100%;
+    }
+    .div-show-lunar{
+      background: #f2f2f2;
+      padding: 0px 16px;
+      height: 40px;
+      width: 100%;
+    }
+    .p-16{
+      padding: 0 16px;
+      padding-bottom: 8px;
+    }
+    .p-l-8 {
+      padding-left: 8px;
+    }
+    .p-l-4{
+      padding-left: 4px;
+    }
+    
+    .text-right{
+      text-align: right;
+      padding-right: 22px;
+    }
+    .toggle-right{
+      text-align: right;
+      padding-top: 4px;
+    }
+    .border-left{
+      border-left: solid 1px #ffffff;
+    }
+
+    .img-down{
+      position: absolute;
+      margin-left: 8px;
+      margin-top: 4px;
+    }
+
+    .text-header-normal{
+      font-size: 12px;
+      font-weight: 300;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.67;
+      letter-spacing: -0.34px;
+      color: #ffffff;
+    }
+
+    .text-tealish{
+      font-size: 12px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.75;
+      letter-spacing: -0.12px;
+      color: #ffffff;
+    }
+
+    .text-date-normal{
+      font-size: 12px;
+      font-weight: 100;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.67;
+      letter-spacing: -0.34px;
+      color: #ffffff;
+    }
+
+    .text-flight-datetime{
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.4px;
+      color: #ffffff;
+      margin-top: 4px;
+    }
+
+    .text-lowest-price{
+      font-size: 12px;
+      font-weight: 300;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.67;
+      letter-spacing: -0.34px;
+      color: #222222;
+      padding-top: 10px;
+      text-align: left;
+    }
+
+    .price-calendar-text{
+      font-size: 12px;
+      font-weight: 300;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.67;
+      letter-spacing: -0.69px;
+      color: #ffffff !important;
+      position: absolute;
+      bottom: -22px !important;
+      margin-left: 3px;
+    }
+
+
+}
+
+
+.min-price{
+color: #a0c245 !important;
+}
+.min-price-international {
+  color: #f58220 !important;
+}
+
+.price-calendar-disabled{
+display: none;
+}
+.price-calendar-visible{
+display: block;
+}
+
+small{
+font-size: 9px !important;  
+bottom: -13px !important;
+}
+
+.calendar-visible{
+display: flex;
+}
+.calendar-disabled{
+display: none;
+}
+
+.m-l-5{
+margin-left: 5px !important;
+}
+
+.div-show-calendar-cincout{
+background-color: #26bed6;
+justify-content: space-around;
+}
+
+.text-date-normal{
+font-size: 13px;
+color: #ffffff;
+}
+
+.text-flight-datetime{
+font-size: 14px;
+font-weight: 600;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: -0.4px;
+color: #ffffff;
+margin-top: 4px;
+}
+
+.calendar-visible{
+display: flex;
+}
+.calendar-disabled{
+display: none;
+}
+
+.m-l-5{
+margin-left: 5px !important;
+}
+
+.f-36 {
+font-size: 36px;
+font-weight: 500;
+color: #ffffff;
+padding-right: 3px;
+}
+
+.v-align-end {
+display: flex;
+flex-direction: column;
+justify-content: end;
+height: 40px;
+}
+.align-top{
+position: absolute;
+bottom: 57px;
+}
+.p-top-3 {
+padding-top: 3px;
+}
+
+.div-month-text-small{
+margin-left: 10px;
+margin-top: 30px;
+display: flex;
+flex-direction: column;
+overflow: scroll;
+color: #828282;
+
+.div-border-small {
+  padding: 6px 12px;
+  padding-top: 4px;
+  border: solid 0.5px #cccccc;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+small{
+  visibility: visible;
+  bottom: 0 !important;
+  margin: 0 !important;
+  white-space: nowrap;
+}
+.cls-text-red {
+  color: #e52822;
+}
+
+
+}
+::ng-deep{
+.cls-text-red {
+  color: #e52822 !important;
+}
+.cls-text-red::before, .is-end-date.cls-text-red::after {
+      width: 32px;
+      height: 32px;
+      border: solid 0.5px #e52822;
+      color: #e52822;
+      border-radius: 32px;
+      -moz-border-radius: 32px;
+      -webkit-border-radius: 32px;
+      content: "";
+      display: inline-block;
+      position: absolute;
+      z-index: 1;
+      left: 9px;
+      padding-top: -10px;
+      margin-top: -6px;
+}
+.cls-text-red::before {
+  animation: showNav 500ms ease-in-out both;
+}
+.is-start-date.cls-text-red::before {
+  z-index: -1 !important;
+}
+.is-end-date.cls-text-red::after {
+  z-index: -1 !important;
+}
+.cls-tour-custom .is-start-date::before, .is-end-date::after{
+  opacity: 1 !important;
+}
+.cls-tour-custom .is-start-date::after {
+  margin-top: -25px !important;
+  margin-left: -6px !important;
+
+}
+
+.is-end-date.cls-text-red::before {
+  width: 50% !important;
+  height: 32px;
+  background-color: var(--ion-color-primary) !important;
+  opacity: 0.75 !important;
+  content: "" !important;
+  display: inline-block !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  left: 0 !important;
+  padding-top: -10px !important;
+  margin-top: -6px !important;
+
+  border: none !important;
+      border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      -webkit-border-radius: 0 !important;
+}
+  .day-item.cls-tour-hasdeparture::after{
+    content: "";
+    margin-top: -25px;
+    width: 44px !important;
+    height: 50px !important;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px !important;
+    border: solid 1px #cccccc;;
+    margin-left: -1px;
+    margin-top: -28px !important;
+  }
+  .day-item.cls-tour-hasdeparture.div-boder-KM::after{
+    border: solid 1px #9fc43a;
+    color: #9fc43a;
+  }
+  .day-item.cls-tour-hasdeparture.div-boder-red::after{
+    border: solid 1px #e52822;
+  }
+  .day-item.cls-tour-hasdeparture {
+    // color: #9fc43a !important;
+    font-weight: 600 !important;
+  }
+ 
+}
+
+.cls-tour-custom .is-end-date.cls-text-red::before {
+  width: 0% !important;
+}
+
+.selectdaterange-footer{
+  background-color: #ffffff; text-align: center;
+  width: 100%;
+    .button-filter
+    {
+        background: #ff9500;
+        color: #ffffff;
+        border-color: #ff9500;
+        width: 100%;
+        font-size: 16px !important;
+        letter-spacing: -0.6px;
+        padding: 0;
+        margin: 16px 8px;
+    } 
+
+    .text-tour-price-green {
+      font-size: 16px;
+      color: #9fc43a;
+      padding: 16px 0 0;
+      text-align: left;
+      margin-left: 16px;
+    }
+    .text-tour-price-red {
+      font-size: 16px;
+      color: #e52822;
+      padding: 16px 0 0;
+      text-align: left;
+      margin-left: 16px;
+    }
+    .text-tour-price {
+      font-size: 16px;
+      color: #3f3b3b;
+      padding: 16px 0 0;
+      text-align: left;
+      margin-left: 16px;
+    }
+    .h-150 {
+      height: 150px;
+      border-top: solid 1px #f2f2f2;
+      margin-top: 10px;
+    }
+    .h-116 {
+      height: 116px;
+    }
+
+    .div-lunar-calendar {
+      background: #f2f2f2;
+      padding: 8px 16px 0;
+    }
+    .p-top-3 {
+      padding-top: 3px;
+    }
+    .m-right-8 {
+      margin-right: 8px;
+    }
+    
+    .p-bottom-14 {
+      padding-bottom: 14px;
+    }
+}
+

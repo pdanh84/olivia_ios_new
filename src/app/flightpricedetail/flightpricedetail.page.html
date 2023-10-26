@@ -1,0 +1,210 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-header-title">
+          <div class="div-title">Chi tiết vé</div>
+        </div>
+
+        <div class="div-close" (click)="close()">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="flight-price-detail-content">
+      <div class="p-16">
+        <!-- Chiều đi -->
+          <div class="div-depart m-bottom-24" *ngIf="departFlight">
+              <div class="d-flex m-bottom-16">
+                  <div class="div-logo">
+                      <img class="limg-logo logo-vj" *ngIf="departFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                      <img class="img-logo" *ngIf="departFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                      <img class="logo-vna" *ngIf="departFlight.airlineCode == 'VietnamAirlines' && !departFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                      <!-- <img *ngIf="departFlight.airlineCode == 'VietnamAirlines' && departFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                      <img class="logo-vna" *ngIf="departFlight.operatedBy && departFlight.urlLogo" [src]="departFlight.urlLogo">
+                      <img class="img-logo" *ngIf="departFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+                  <div class="div-airline-name">
+                      <div class="text-airline">{{departInfoDisplay}}</div>
+                  </div>
+              </div>
+              <div class="d-flex m-bottom-8">
+                  <div class="div-width-100">Người lớn</div>
+                  <div class="div-width-100 text-right">{{ adult }} x {{adultPriceDepartDisplay}}</div>
+              </div>
+              <div class="d-flex m-bottom-8" *ngIf="child >0">
+                <div class="div-width-100">Trẻ em</div>
+                <div class="div-width-100 text-right">{{ child }} x {{childPriceDepartDisplay}}</div>
+              </div>
+              <div class="d-flex m-bottom-8" *ngIf="infant >0">
+                <div class="div-width-100">Em bé</div>
+                <div class="div-width-100 text-right">{{ infant }} x {{infantPriceDepartDisplay}}</div>
+              </div>
+
+              <div class="div-service-plus" *ngIf="listdepartseatselected || departluggageprice || departPriceDC">
+                  <div class="sp-title m-bottom-4">Dịch vụ cộng thêm</div>
+
+                  <div class="d-flex m-bottom-4" *ngIf="departluggageprice">
+                    <div class="div-width-100">
+                      <!-- <div >Hành lý ký gửi</div> -->
+                      <div *ngFor="let itemlug of departLuggage" class=" d-flex m-bottom-4">
+                        <div *ngIf="itemlug.amount >0" class="div-width-100 text-service-plus">
+                        Ký gửi <span class="text-bold">{{itemlug.weight}} kg</span>
+                        </div>
+                        <div *ngIf="itemlug.amount >0" class="div-width-100 text-right">1 x {{itemlug.amountDisplay}}</div>
+                      </div>
+
+                      
+                    </div>
+                  </div>
+
+                  <div *ngIf="listdepartseatselected">
+                    <div *ngFor="let itemseat of departSeatChoice" class="d-flex m-bottom-4">
+                      <div class="div-width-100 text-service-plus">Chọn ghế {{itemseat.name}}</div>
+                      <!-- <div class="div-width-100 text-right"> {{totaldepartpriceseat}}</div> -->
+                      <div class="div-width-100 text-right"> 
+                              <div *ngIf="itemseat.booked">1 x {{ itemseat.amountDisplay }}</div>
+                      </div>
+                  </div>
+                    
+                  </div>
+                  <!-- thêm đưa đón -->
+                  <div *ngIf="departPriceDC">
+                    <div  class="d-flex m-bottom-4">
+                      <div class="div-width-100 text-service-plus">Đưa đón tại sân bay</div>
+                      <div class="div-width-100 text-right"> 
+                        <div>{{gf.numberToCurrency(departPriceDC, '.')}}</div>
+                      </div>
+                  </div>
+                    
+                  </div>
+                  
+              </div>
+          </div>
+
+          <div *ngIf="itemHotelCity" class="div-hotel-city">
+            <div class="div-cincout">{{checkInDisplay}} <span><img class="img-flight-inout img-oneway" src="./assets/imgs/ic_arrow.svg"></span> {{checkOutDisplay}}</div>
+            <div class="div-hotelname">{{itemHotelCity.HotelName}}</div>
+            <div class="d-flex">
+                <div class="div-text-pax div-width-400">{{textPax}}</div>
+                <div class="text-right div-width-100">{{itemHotelCity.RoomPriceStr}}</div>
+            </div>
+            
+          </div>
+
+          <!-- Chiều về -->
+          <div class="div-return" *ngIf="returnFlight">
+            <div class="d-flex m-bottom-16">
+                <div class="div-logo">
+                    <img class="img-logo logo-vj" *ngIf="returnFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="returnFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="logo-vna" *ngIf="returnFlight.airlineCode == 'VietnamAirlines' && !returnFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <!-- <img *ngIf="returnFlight.airlineCode == 'VietnamAirlines' && returnFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                    <img class="img-logo logo-vna" *ngIf="returnFlight.operatedBy && returnFlight.urlLogo" [src]="returnFlight.urlLogo">
+                    <img class="img-logo" *ngIf="returnFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                </div>
+                <div class="div-airline-name">
+                    <div class="text-airline">{{returnInfoDisplay}}</div>
+                </div>
+              </div>
+              <div class="d-flex m-bottom-8">
+                  <div class="div-width-100">Người lớn</div>
+                  <div class="div-width-100 text-right">{{ adult }} x {{adultPriceReturnDisplay}}</div>
+              </div>
+              <div class="d-flex m-bottom-8" *ngIf="child >0">
+                <div class="div-width-100">Trẻ em</div>
+                <div class="div-width-100 text-right">{{ child }} x {{childPriceReturnDisplay}}</div>
+              </div>
+              <div class="d-flex m-bottom-8" *ngIf="infant >0">
+                <div class="div-width-100">Em bé</div>
+                <div class="div-width-100 text-right">{{ infant }} x {{infantPriceReturnDisplay}}</div>
+              </div>
+
+              <div class="div-service-plus" *ngIf="listreturnseatselected || returnluggageprice || returnPriceDC">
+                  <div class="sp-title m-bottom-4">Dịch vụ cộng thêm</div>
+
+                  <div class="d-flex m-bottom-4" *ngIf="returnluggageprice">
+                    <div class="div-width-100">
+                      <div *ngFor="let itemlug of returnLuggage" class=" d-flex m-bottom-4">
+                        <div *ngIf="itemlug.amount >0" class="div-width-100">
+                          Ký gửi <span class="text-bold">{{itemlug.weight}} kg</span>
+                        </div>
+                        <div *ngIf="itemlug.amount >0" class="div-width-100 text-right">1 x {{itemlug.amountDisplay}}</div>
+                      </div>
+
+                      
+                    </div>
+                   
+                    <!-- <div class="div-width-100 text-right">{{returnluggageprice}}</div> -->
+                  </div>
+
+
+                  <div *ngIf="listreturnseatselected">
+                    <div *ngFor="let itemseat of returnSeatChoice" class="d-flex m-bottom-4">
+                        <div class="div-width-100">Chọn ghế {{ itemseat.name }}</div>
+                        <!-- <div class="div-width-100 text-right">{{totalreturnpriceseat}}</div> -->
+                        <div class="div-width-100 text-right"> 
+                              <div *ngIf="itemseat.booked">1 x {{ itemseat.amountDisplay }}</div>
+                        </div>
+                    </div>
+                  </div>  <!-- thêm đưa đón -->
+                  <div *ngIf="returnPriceDC">
+                    <div  class="d-flex m-bottom-4">
+                      <div class="div-width-100 text-service-plus">Đưa đón tại sân bay</div>
+                      <div class="div-width-100 text-right"> 
+                              <div>{{gf.numberToCurrency(returnPriceDC, '.')}}</div>
+                      </div>
+                  </div>
+                    
+                  </div>
+              </div>
+          </div>
+
+          <div class="div-split"></div>
+
+          <!-- <div *ngIf="promotionCode && discount>0" class="d-flex">
+            <div class="div-width-30 v-align-center">
+              <div class="text-pax">
+                Giá giảm 
+              </div>
+              
+            </div>
+            <div class="div-width-100 text-right">
+              <div class="text-pax">
+                -{{gf.numberToCurrency(discount, '.')}}đ VND ({{promotionCode}})
+              </div>
+            </div>
+        </div> -->
+        <div *ngIf="priceCathay>0" class="d-flex">
+          <div class="div-width-100 v-align-center">
+            <div class="text-pax">
+              Bảo hiểm trễ chuyến 
+            </div>
+            
+          </div>
+          <div class="div-width-100 text-right">
+            <div class="text-pax">
+              {{gf.numberToCurrency(priceCathay, '.')}} VND
+            </div>
+          </div>
+      </div>
+      <div class="div-voucher-apply" *ngIf="promotionCode">
+        <div class="width-250 div-overflow"><span class="text-normal">Ưu đãi (</span><span class="text-code">{{promotionCode}}</span><span class="text-normal">)</span> </div>
+        <div class="width-100 text-normal text-right text-pax">-{{gf.convertNumberToString(discount)}}đ</div>
+      </div>
+          <div class="d-flex">
+              <div class="div-width-100 v-align-center">
+                  <div class="text-pax m-top-5 text-bold f-16">Tổng cộng</div>
+                  <!-- <div class="text-pax" *ngIf="child >0">{{ child }} trẻ em</div>
+                  <div class="text-pax" *ngIf="infant >0">{{ infant }} em bé</div> -->
+              </div>
+              <div class="div-width-100 text-right">
+                <div class="text-total-price">{{totalpricedisplay}}đ</div>
+              </div>
+          </div>
+          <div class="text-sub text-right">Giá đã bao gồm thuế & phí.</div>
+      </div>
+</ion-content>

@@ -1,0 +1,165 @@
+<ion-header class="flightpage-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-header-title">
+          <div class="div-title">Lọc</div>
+        </div>
+        <div class="div-close" (click)="close()">
+          <img class="header-img-close m-top-5" src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <div class="padding-all">
+    <div>
+      <div class="text-title">
+        Từ khóa
+      </div>
+      <div class="div-search m-top-5">
+        <ion-input #ipSearchHotel [(ngModel)]="ticketService.inputText" (click)="gotoSearch()"
+          [ngClass]="ticketService.inputText ? 'cls-input-search-text' : 'cls-input-search'"
+          placeholder="Tìm kiếm theo tên"></ion-input>
+      </div>
+      <div class="img-search">
+        <img src="./assets/ic_ticket/search.svg">
+      </div>
+    </div>
+    <div class="div-line m-top-12 m-bottom-16"></div>
+
+    <div *ngIf="arrFilter && !ticketService.inputText">
+      <div class="text-title">Địa điểm</div>
+      <div>
+
+      </div>
+      <div *ngFor="let item of arrFilter.regions" class="m-top-13">
+        <div *ngIf="item.childs.length > 0">
+          <div class="d-flex">
+            <ion-checkbox [indeterminate]=item.indeterminate class="cls-checkbox custom-checkbox" mode='md' [checked]=item.checked (ionChange)="checkEvent($event,item,0)"></ion-checkbox>
+            <div class="m-left-4 text-normal">{{item.name}} <span *ngIf="item.quantity>0">({{item.quantity}})</span></div>
+            <img class="img-updown" (click)="showmore(item)" *ngIf="!item.show" src="./assets/ic_ticket/icon_navigation_expand_more.svg"/>
+            <img class="img-updown" (click)="showmore(item)" *ngIf="item.show" src="./assets/ic_ticket/collapse.svg"/>
+          </div>
+          <div *ngIf="item.show" class="m-top-11 m-left-39">
+            <div *ngFor="let itemC of item.childs"  class="d-flex m-top-16">
+              <ion-checkbox class="cls-checkbox" mode='md' [checked]=itemC.checked (ionChange)="checkEvent($event,itemC,1)"></ion-checkbox>
+              <div class="m-left-4 text-normal">{{itemC.name}} <span *ngIf="itemC.quantity>0">({{itemC.quantity}})</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="div-line m-top-21 m-bottom-16"></div>
+      <div class="text-title">Loại dịch vụ</div>
+      <div *ngFor="let item of arrFilter.types" class="m-top-13">
+        <div class="d-flex">
+          <ion-checkbox class="cls-checkbox" mode='md' [checked]=item.checked (ionChange)="checkEvent($event,item,1)"></ion-checkbox>
+          <div class="m-left-4 text-normal">{{item.name}} <span *ngIf="item.quantity>0">({{item.quantity}})</span></div>
+
+        </div>
+      </div>
+       -->
+
+      <div class="div-line m-top-21 m-bottom-16"></div>
+      <div class="text-title">Chủ đề</div>
+      <div *ngFor="let item of arrFilter.topics" class="m-top-13">
+        <div class="d-flex">
+          <ion-checkbox class="cls-checkbox" mode='md'   [checked]=item.checked (ionChange)="checkEvent($event,item,1)"></ion-checkbox>
+          <div class="m-left-4 text-normal">{{item.name}} <span *ngIf="item.quantity>0">({{item.quantity}})</span></div>
+          <!-- <img class="img-updown" src="./assets/ic_ticket/icon_navigation_expand_more.svg"/>
+          <img class="img-updown" src="./assets/ic_ticket/collapse.svg"/> -->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="ticketService.inputText">
+      <div>
+        <div (click)="itemclick(item,0)" *ngFor="let item of itemRegion">
+          <ion-row >
+            <ion-col text-left style="padding:16px 0px">
+             
+              <ion-label  class="label-item-search">
+                <img class="img-location" src="./assets/ic_facility/Group.svg"> {{ item.name }}
+              </ion-label>
+  
+  
+            </ion-col>
+            <!-- <ion-col *ngIf="item.TotalTour && !item.IndexType" text-right style="padding:16px 0px">
+              <ion-label style="color: #26bed6">
+                {{item.TotalTour}} Tours
+              </ion-label>
+            </ion-col> -->
+          </ion-row>
+        </div>
+        <div (click)="itemclick(item,1)" *ngFor="let item of itemTicket">
+          <ion-row>
+            <ion-col text-left style="padding:16px 0px">
+              <ion-label  class="label-item-search">
+                <img class="img-location" src="./assets/ic_facility/ic_ticket_search.svg"> 
+                {{ item.name }}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+<!-- 
+    <div *ngIf="ticketService.searchType == 2 || ticketService.searchType == 3 || ticketService.inputText">
+      <div class="text-title">Địa điểm</div>
+      <div *ngFor="let item of ticketService.regionModels" class="m-top-13">
+        <div *ngIf="item.childs.length > 0">
+          <div class="d-flex">
+            <ion-checkbox class="cls-checkbox" mode='md' [checked]=item.checked (ionChange)="checkEvent($event,item,0)"></ion-checkbox>
+            <div class="m-left-4 text-normal">{{item.name}}</div>
+            <img class="img-updown" (click)="showmore(item)" *ngIf="!item.show" src="./assets/ic_ticket/icon_navigation_expand_more.svg"/>
+            <img class="img-updown" (click)="showmore(item)" *ngIf="item.show" src="./assets/ic_ticket/collapse.svg"/>
+          </div>
+          <div *ngIf="item.show" class="m-top-11 m-left-39">
+            <div *ngFor="let itemC of item.childs"  class="d-flex m-top-16">
+              <ion-checkbox class="cls-checkbox" mode='md' [checked]=itemC.checked (ionChange)="checkEvent($event,itemC,1)"></ion-checkbox>
+              <div class="m-left-4 text-normal">{{itemC.name}} <span *ngIf="itemC.quantity>0">({{itemC.quantity}})</span></div>
+            </div>
+          </div>
+        </div>
+   
+        
+      </div>
+
+      <div class="div-line m-top-21 m-bottom-16"></div>
+      <div class="text-title">Loại dịch vụ</div>
+      <div *ngFor="let item of ticketService.typeModels" class="m-top-13">
+        <div class="d-flex">
+          <ion-checkbox class="cls-checkbox" mode='md' [checked]=item.checked (ionChange)="checkEvent($event,item,1)"></ion-checkbox>
+          <div class="m-left-4 text-normal">{{item.name}} <span *ngIf="item.quantity>0">({{item.quantity}})</span></div>
+        </div>
+      </div>
+      
+
+      <div class="div-line m-top-21 m-bottom-16"></div>
+      <div class="text-title">Chủ đề</div>
+      <div *ngFor="let item of ticketService.topicModels" class="m-top-13">
+        <div class="d-flex">
+          <ion-checkbox class="cls-checkbox" mode='md' [checked]=item.checked (ionChange)="checkEvent($event,item,1)"></ion-checkbox>
+          <div class="m-left-4 text-normal">{{item.name}}</div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col style="padding:0">
+      <div class="div-flightfilter-footer">
+        <div class="div-button-flex">
+          <button  (click)="clearFilter()" ion-button round outline class="button button-clear">Xóa lọc</button>
+          <button (click)="filter()" ion-button round outline class="button button-filter" >Lọc</button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-footer>

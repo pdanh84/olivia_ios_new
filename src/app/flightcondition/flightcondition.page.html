@@ -1,0 +1,65 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="div-header-title">
+            <div class="div-title">Điều kiện vé</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content>
+      <div class="flight-condition-content">
+          <div *ngIf="departTicketCondition" >
+              <div class="text-title m-bottom-4">
+                  {{ departtitle }}
+              </div>
+              <div class="text-condition">
+                <div class="div-text-note m-bottom-8">Hoàn/hủy vé: {{ departTicketCondition.ticketRefund}}</div>
+                <div class="div-text-note m-bottom-8">Đổi tên hành khách: {{ departTicketCondition.changeInfoPax}}</div>
+                <div class="div-text-note m-bottom-8">Đổi ngày bay/giờ bay: {{ departTicketCondition.changeDepartTime}}</div>
+                <div class="div-text-note m-bottom-8">Đổi chặng bay: {{ departTicketCondition.changeSegment}}</div>
+                <div class="div-text-note m-bottom-8">Chọn chỗ trước: {{ departTicketCondition.seat}}</div>
+                <div class="div-text-note m-bottom-8">Nâng hạng vé: {{ departTicketCondition.upgradeTicket}}</div>
+              </div>
+          </div>
+
+          <div *ngIf="returnTicketCondition" class="m-top-16">
+            <div class="text-title m-bottom-4">
+                {{ returntitle }}
+            </div>
+            <div class="text-condition">
+                <div class="div-text-note m-bottom-8">Hoàn/hủy vé: {{ returnTicketCondition.ticketRefund}}</div>
+                <div class="div-text-note m-bottom-8">Đổi tên hành khách: {{ returnTicketCondition.changeInfoPax}}</div>
+                <div class="div-text-note m-bottom-8">Đổi ngày bay/giờ bay: {{ returnTicketCondition.changeDepartTime}}</div>
+                <div class="div-text-note m-bottom-8">Đổi chặng bay: {{ returnTicketCondition.changeSegment}}</div>
+                <div class="div-text-note m-bottom-8">Chọn chỗ trước: {{ returnTicketCondition.seat}}</div>
+                <div class="div-text-note m-bottom-8">Nâng hạng vé: {{ returnTicketCondition.upgradeTicket}}</div>
+            </div>
+        </div>
+        <div class="div-border-bottom" *ngIf="departTicketCondition || returnTicketCondition"></div>
+        <div class="div-text-note text-bold m-bottom-8">Lưu ý:</div>
+        <div class="div-text-note m-bottom-8">
+          - Toàn bộ hành trình và điều kiện vé sẽ không còn hiệu lực trong trường hợp quý khách <span class="text-bold">không thanh toán đúng thời gian và quy định của chúng tôi.</span>
+        </div>
+        <div class="div-text-note m-bottom-8">
+          - Qúy khách vui lòng kiểm tra tất cả hành trình và thông tin cần thiết được gửi trong email để đảm bảo chuyến đi được như ý.
+        </div>
+        <div class="div-text-note ">
+          - Mọi chi phí thay đổi theo quy định của Hãng Hàng Không và phí dịch vụ sẽ không được hoàn trả trong mọi trường hợp.
+        </div>
+        
+      </div>
+  </ion-content>
+  <ion-footer>
+    <div class="div-footer d-flex-footer">
+      <div class="div-button">
+        <button (click)="confirm()" ion-button round outline class="button button-done">Đặt chuyến bay</button>
+      </div>
+    </div>
+  </ion-footer>

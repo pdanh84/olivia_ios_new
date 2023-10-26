@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <div class="text-center">
+    <img class="img-step" src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/empty/imgdone.svg">
+  </div>
+  <div style="margin-top: 15px" *ngIf="ischeckshow=='0'">
+    <div>
+      <p class="text">
+        Cảm ơn Quý khách sử dụng dịch vụ iVIVU.com
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Thanh toán số tiền {{total}}đ thành công cho đơn hàng <span>{{code}}</span>
+        <p>
+    </div>
+
+    <div>
+      <p class="text" text-wrap>
+        Thông tin đơn hàng sẽ được gửi đến email <span class="color-line-blue">{{email}}</span> trong vòng vài phút. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư <span>Spam</span> hoặc <span>Junk Folder</span>
+        <p>
+    </div>
+
+  </div>
+  <div style="margin-top: 15px" *ngIf="ischeckshow=='1'">
+    <div>
+      <p class="text" style="font-weight: bold">
+        Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com
+        <p>
+    </div>
+    <div>
+      <p class="text">
+        Mã Combo của quý khách là
+        <span style="font-weight: bold">{{code}}</span>
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Nhân viên iVIVU.COM sẽ liên lạc với Quý Khách trong thời gian sớm nhất.
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Nếu cần sự hỗ trợ vui lòng liên hệ qua email tc@ivivu.com hoặc tổng đài sau:
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Hồ Chí Minh: 1900 1870
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Hà Nội: 1900 2045
+        <p>
+    </div>
+    <div>
+      <p class="text" text-wrap>
+        Cần Thơ: 1900 2087
+        <p>
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="addToCalendar()" ion-button round outline class="button button2">Thêm chuyến đi vào lịch</button>
+    <button *ngIf="ischeckshow=='1'" (click)="next(0)" ion-button round outline class="button button2 m-top-0">Hoàn thành</button>
+    <button *ngIf="ischeckshow=='0'" (click)="next(1)" ion-button round outline class="button button2 m-top-0">Hoàn thành</button>
+  </div>
+</ion-footer>

@@ -1,0 +1,396 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thêm đưa
+              đón</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-16">
+  <ion-item *ngIf="_flightService.itemFlightCache.isAirportFirst" class="ion-item margin-top-10">
+    <label slot="start" class="text-title">Đón tiễn tại {{_flightService.itemFlightCache.departCity}}</label>
+    <ion-toggle mode="ios" class="margin-right-16" slot="end" [(ngModel)]="isblocktextDepart" (ionChange)="toggleChangeDepart($event)" 
+      color="success"></ion-toggle>
+  </ion-item>
+
+  <div *ngIf="!loaddonedepart && isblocktextDepart" class="div-load-price">
+   
+        <div [ngClass]="idx == loadsk.length-1 ? 'div-item-flight-other':'div-item-flight-other m-b-8'"  *ngFor="let itemsk of loadsk; let idx = index" style="height: 80px;margin-top: 20px;">
+          <ion-skeleton-text animated style="height: 22px;margin-bottom: 10px"></ion-skeleton-text>
+          <div class="div-first d-flex">
+            <div >
+              <ion-skeleton-text animated style="height: 22px"></ion-skeleton-text>
+                <div class="d-flex">
+                  <ion-skeleton-text animated style="width: 150px;height: 16px"></ion-skeleton-text>
+                </div>
+              </div>
+          </div>
+
+          <div class="div-second d-flex p-top-8" style="margin-top: -5px">
+            <div class="div-button">
+              <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <div *ngIf="loaddonedepart" class="div-item-service">
+    <div *ngIf="isblocktextDepart&&!departTotalPrice&&textDepart" class="div-flex padding-10" >
+      <div (click)="showmsg(textDepart)" class="div-title-place">
+        <label class="margin-label">
+          {{textDepart}}
+        </label>
+      </div>   
+      <div (click)="edit('From')">
+        <img class="img-edit" src="./assets/ic_flight/edit.svg">
+       </div>
+    </div>
+    <div *ngIf="isblocktextDepart&&departTotalPrice" class="padding-10">
+      <div class="div-flex">
+        <div class="div-title-place">
+          <label class="margin-label">
+            {{textDepart}}
+          </label>
+        </div>
+       <div (click)="edit('From')">
+        <img class="img-edit" src="./assets/ic_flight/edit.svg">
+       </div>
+      </div>
+
+      <div *ngIf="Vehicle_Go" class="div-info-car">
+        <div class="margin-left-10 align-center text-info">
+          Chiều đi
+        </div>
+        <div class="text-label-right align-center text-info">
+          Xe {{Vehicle_Go}}
+        </div>
+      </div>
+
+      <ion-row *ngIf="PhaseGo">
+        <ion-col size="8">
+          <ion-row>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{PhaseGo.pickUpTime.text}}
+                </div>
+                <div (click)="showmsg(textDepart)" class="text-info-place">
+                  {{textDepart}}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="2">
+              <img src="./assets/ic_flight/ic_car.svg">
+            </ion-col>
+            <ion-col size="5">
+              <div *ngIf="PhaseGo">
+                <div class="text-info-time">
+                  {{PhaseGo.dropOffTime.text}}
+                </div>
+                <div (click)="showmsg(_flightService.itemFlightCache.departAirport)" class="text-info-place">
+                  {{_flightService.itemFlightCache.departAirport}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="4" class="align-center">
+          <div class="text-price">
+            {{gf.numberToCurrency(departPriceGo, '.')}}đ
+          </div>
+
+        </ion-col>
+      </ion-row>
+
+      <div *ngIf="Vehicle_Return" class="div-info-car">
+        <div class="margin-left-10 align-center text-info">
+          Chiều về
+        </div>
+        <div class="text-label-right align-center text-info">
+          Xe {{Vehicle_Return}}
+        </div>
+      </div>
+
+      <ion-row *ngIf="PhaseReturn">
+        <ion-col size="8">
+          <ion-row>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{PhaseReturn.pickUpTime.text}}
+                </div>
+                <div (click)="showmsg(_flightService.itemFlightCache.departAirport)" class="text-info-place">
+                  {{_flightService.itemFlightCache.departAirport}}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="2">
+              <img src="./assets/ic_flight/ic_car.svg">
+            </ion-col>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{PhaseReturn.dropOffTime.text}}
+                </div>
+                <div (click)="showmsg(textDepart)" class="text-info-place">
+                  {{textDepart}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="4" class="align-center">
+          <div class="text-price">
+            {{gf.numberToCurrency(departPriceTo, '.')}}đ
+          </div>
+
+        </ion-col>
+      </ion-row>
+      <hr class="cls-hr">
+
+      <ion-row>
+        <ion-col size="5" class="align-center">
+          <label>
+            Tổng cộng
+          </label>
+        </ion-col>
+        <ion-col size="7">
+          <div style="text-align: right;">
+            <label class="text-price-total">
+              + {{gf.numberToCurrency(departTotalPrice, '.')}}đ
+            </label>
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </div>
+    
+  </div>
+  <div *ngIf="loaddonedepart && isblocktextDepart&&!departTotalPrice && textDepart">
+    <span class="font-gif">Không có chuyến xe...</span>
+</div>
+<ion-row *ngIf="loaddonedepart && isblocktextDepart&&!departTotalPrice && !textDepart"  class="row-search">
+  <ion-col (click)="edit('From')" size="1" class="align-self">
+    <div>
+      <img *ngIf="isblocktextDepart" src="./assets/ic_flight/icfilght_location.svg">
+    </div>
+  </ion-col>
+  <ion-col  (click)="edit('From')" size="11" class="align-self">
+    <div class="div-title-place">
+      <label class="text-place">
+        Nhập sân bay, địa điểm hoặc tên khách sạn
+       </label>
+    </div>
+   
+  </ion-col>
+</ion-row>
+  <!-- return -->
+  <ion-item *ngIf="_flightService.itemFlightCache.isAirportSecond" class="ion-item">
+    <label slot="start" class="text-title">Đón tiễn tại {{_flightService.itemFlightCache.returnCity}}</label>
+    <ion-toggle mode="ios" class="margin-right-16" slot="end" [(ngModel)]="isblocktextReturn" (ionChange)="toggleChangeReturn($event)" name="kiwi"
+      color="success"></ion-toggle>
+  </ion-item>
+  <div *ngIf="!loaddonereturn && isblocktextReturn" class="div-load-price">
+   
+    <div [ngClass]="idx == loadsk.length-1 ? 'div-item-flight-other':'div-item-flight-other m-b-8'"  *ngFor="let itemsk of loadsk; let idx = index" style="height: 80px;margin-top: 20px;">
+      <ion-skeleton-text animated style="height: 22px;margin-bottom: 10px"></ion-skeleton-text>
+      <div class="div-first d-flex">
+        <div >
+          <ion-skeleton-text animated style="height: 22px"></ion-skeleton-text>
+            <div class="d-flex">
+              <ion-skeleton-text animated style="width: 150px;height: 16px"></ion-skeleton-text>
+            </div>
+          </div>
+      </div>
+
+      <div class="div-second d-flex p-top-8" style="margin-top: -5px">
+        <div class="div-button">
+          <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+</div>
+  <div *ngIf="loaddonereturn" class="div-item-service">
+    <div *ngIf="isblocktextReturn&&!returnTotalPrice&&textReturn" class="div-flex padding-10" >
+      <div (click)="showmsg(textReturn)" class="div-title-place">
+        <label class="margin-label">
+          {{textReturn}}
+        </label>
+      </div>   
+      <div (click)="edit('To')">
+        <img class="img-edit" src="./assets/ic_flight/edit.svg">
+       </div>
+    </div>
+    <div *ngIf="isblocktextReturn&&returnTotalPrice" class="padding-10">
+      <div  class="div-flex" >
+        <div (click)="showmsg(textReturn)" class="div-title-place">
+          <label class="margin-label">
+            {{textReturn}}
+          </label>
+        </div>   
+        <div (click)="edit('To')">
+          <img class="img-edit" src="./assets/ic_flight/edit.svg">
+         </div>
+      </div>
+
+      <div *ngIf="returnVehicle_Go" class="div-info-car">
+        <div class="margin-left-10 align-center text-info">
+          Chiều đi
+        </div>
+        <div class="text-label-right align-center text-info">
+          Xe {{returnVehicle_Go}}
+        </div>
+      </div>
+
+      <ion-row *ngIf="returnPhaseGo">
+        <ion-col size="8">
+          <ion-row>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{returnPhaseGo.pickUpTime.text}}
+                </div>
+                <div (click)="showmsg(_flightService.itemFlightCache.returnAirport)" class="text-info-place">
+                  {{_flightService.itemFlightCache.returnAirport}}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="2">
+              <img src="./assets/ic_flight/ic_car.svg">
+            </ion-col>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{returnPhaseGo.dropOffTime.text}}
+                </div>
+                <div (click)="showmsg(textReturn)" class="text-info-place">
+                  {{textReturn}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col *ngIf="returnTotalPrice" size="4" class="align-center">
+          <div class="text-price">
+            {{gf.numberToCurrency(returnPriceGo, '.')}}đ
+          </div>
+
+        </ion-col>
+      </ion-row>
+
+      <div *ngIf="returnVehicle_Return" class="div-info-car">
+        <div class="margin-left-10 align-center text-info">
+          Chiều về
+        </div>
+        <div class="text-label-right align-center text-info">
+          Xe {{returnVehicle_Return}}
+        </div>
+      </div>
+
+      <ion-row *ngIf="returnPhaseReturn">
+        <ion-col size="8">
+          <ion-row>
+            <ion-col size="5">
+              <div>
+                <div class="text-info-time">
+                  {{returnPhaseReturn.pickUpTime.text}}
+                </div>
+                <div (click)="showmsg(textReturn)" class="text-info-place">
+                  {{textReturn}}
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="2">
+              <img src="./assets/ic_flight/ic_car.svg">
+            </ion-col>
+            <ion-col size="5">
+              <div *ngIf="returnPhaseReturn">
+                <div class="text-info-time">
+                  {{returnPhaseReturn.dropOffTime.text}}
+                </div>
+                <div (click)="showmsg(_flightService.itemFlightCache.returnAirport)" class="text-info-place">
+                  {{_flightService.itemFlightCache.returnAirport}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="4" class="align-center">
+          <div class="text-price">
+            {{gf.numberToCurrency(returnPriceTo, '.')}}đ
+          </div>
+
+        </ion-col>
+      </ion-row>
+      <hr class="cls-hr">
+
+      <ion-row>
+        <ion-col size="5" class="align-center">
+          <label>
+            Tổng cộng
+          </label>
+        </ion-col>
+        <ion-col size="7">
+          <div style="text-align: right;">
+            <label class="text-price-total">
+              + {{gf.numberToCurrency(returnTotalPrice, '.')}}đ
+            </label>
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </div>
+    
+  </div>
+  <div  *ngIf="loaddonereturn && isblocktextReturn&&!returnTotalPrice && textReturn">
+      <span class="font-gif">Không có chuyến xe...</span>
+  </div>
+  <ion-row *ngIf="loaddonereturn && isblocktextReturn&&!returnTotalPrice && !textReturn"  class="row-search">
+    <ion-col (click)="edit('To')" size="1" class="align-self">
+      <div>
+        <img *ngIf="isblocktextReturn" src="./assets/ic_flight/icfilght_location.svg">
+      </div>
+    </ion-col>
+    <ion-col  (click)="edit('To')" size="11" class="align-self">
+      <div class="div-title-place">
+        <label class="text-place">
+          Nhập sân bay, địa điểm hoặc tên khách sạn
+         </label>
+      </div>
+     
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <div *ngIf="TotalPrice" class="div-footer d-flex-footer">
+    <div class="d-flex-footer div-width-100">
+      <div  class="div-total">
+        <div class="d-flex-footer text-sub-total">
+          Tổng {{CountTrip}} chuyến
+        </div>
+        <div class="text-total">
+          {{gf.numberToCurrency(TotalPrice, '.')}}đ
+        </div>
+      </div>
+      <div class="div-button">
+        <button (click)="confirm()" ion-button round outline class="button button-done">Thêm đưa đón</button>
+      </div>
+    </div>
+  </div>
+</ion-footer>

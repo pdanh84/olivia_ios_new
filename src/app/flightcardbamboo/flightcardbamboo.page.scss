@@ -1,0 +1,51 @@
+.confirmemail-content{
+    .p-16{
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+    
+    .d-flex{
+        display: flex;
+    }
+
+    .text-confirm{
+        font-size: 14px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #000000;
+    }
+}
+
+.div-title{
+    font-size: 18px;
+}
+
+.div-confirmemail-footer{
+    background-color: #ffffff; text-align: center; display: flex;
+    
+      .button-confirm
+      {
+          background: #ff9500;
+          color: #ffffff;
+          border-color: #ff9500;
+          width: 100%;
+          font-size: 17px !important;
+          letter-spacing: -0.6px;
+          margin: 8px 16px;
+      } 
+  }
+
+  ::ng-deep{
+    .cls-input-confirmemail .native-input.sc-ion-input-ios{
+        font-size: 14px;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: -0.4px;
+        color: #828282;
+    }
+}

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-row>
+    <ion-col size="2" class="header-text header-icon" (click)="close()">
+        <img style="height: 48px; padding: 6px; padding-top: 10px" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-col>
+    <ion-col size="8" class="header-text">
+        <ion-title class="text-title">
+            Chi tiết Voucher
+        </ion-title>
+    </ion-col>
+  </ion-row>
+</ion-header>
+    
+    <ion-content>
+        <div class="voucher-detail-content p-all-16">
+           <div class="div-item" *ngIf="_voucherService && _voucherService.itemVoucher">
+             <div class="div-button" *ngIf="_voucherService.itemVoucher.code">{{_voucherService.itemVoucher.code}}</div>
+             <div class="div-title"><span *ngIf="_voucherService.itemVoucher.codehint">{{_voucherService.itemVoucher.codehint}} | </span>{{_voucherService.itemVoucher.rewardsItem.title}}</div>
+             <div class="div-valid-date">Hạn sử dụng: {{_voucherService.itemVoucher.validdateDisplay}}</div>
+           </div>
+
+           <div class="text-content m-top-24" [innerHTML]="_voucherService.itemVoucher.rewardsItem.description"></div>
+        </div>
+    </ion-content>

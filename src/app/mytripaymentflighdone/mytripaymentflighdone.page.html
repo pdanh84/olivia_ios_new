@@ -1,0 +1,48 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+<div  style="text-align: center">
+  <img  src="./assets/ic_flight/step_4.svg">
+  </div>
+  <div class="img-trip-empty">
+    <img class="img-empty" src="./assets/empty/imgdone.svg">
+</div>
+<div style="margin-top: 5px">
+  <div>
+    <ion-label class="text">
+      Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com
+    </ion-label>
+  </div>
+  <div >
+    <div class="p-top-12">  
+      <ion-label class="text">
+        Thanh toán số tiền <span style="font-weight: bold">{{totalpricedisplay}}đ</span> thành công cho đơn hàng <span class="text-bold">{{bookingCode}}</span>
+      </ion-label>
+    </div>
+    <div class="p-top-12">
+      <ion-label class="text" text-wrap>
+        Thông tin đơn hàng sẽ được gửi đến email <span class="text-tealish">{{_email}}</span> trong vòng vài phút. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư <span class="text-bold">Spam</span> hoặc <span class="text-bold">Junk Folder</span>
+      </ion-label>
+    </div>
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+<div class="div-button-payment-done">
+  <button (click)="addToCalendar()" ion-button round outline class="button button2">Thêm thông tin chuyến bay vào lịch</button>
+  <button (click)="next()" ion-button round outline class="button button2 m-top-0">Quay về trang chủ</button>
+</div>
+</ion-footer>

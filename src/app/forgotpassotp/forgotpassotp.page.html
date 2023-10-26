@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;align-self: center;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -5px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Mã xác minh</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="content-confirm">
+  <div style="text-align: center">
+    <label style="font-size: 14px">
+      Vui lòng nhập mã xác minh được gửi đến email/số
+    </label>
+  </div>
+  <div style="text-align: center">
+    <label style="font-size: 16px;color: #333333">
+      {{phone}}
+    </label>
+  </div>
+  <ion-row class="row-otp">
+    <ion-col size="2" class="no-padding">
+      <ion-label class="label-otp">IVV-</ion-label>
+    </ion-col>
+    <ion-col size="1.5" (ionChange)="change1()" class="no-padding">
+      <ion-input [(ngModel)]="num1" #ipOTP1 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+    <ion-col size="1.5" (ionChange)="change2()" class="no-padding">
+      <ion-input [(ngModel)]="num2" #ipOTP2 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+    <ion-col size="1.5" (ionChange)="change3()" class="no-padding">
+      <ion-input [(ngModel)]="num3" #ipOTP3 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+    <ion-col size="1.5" (ionChange)="change4()" class="no-padding">
+      <ion-input [(ngModel)]="num4" #ipOTP4 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+    <ion-col size="1.5" (ionChange)="change5()" class="no-padding">
+      <ion-input [(ngModel)]="num5" #ipOTP5 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+    <ion-col size="1.5" class="no-padding">
+      <ion-input #ipOTP6 maxlength=1 [(ngModel)]="num6" type=tel class="input-otp" autofocus></ion-input>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-row>
+    <ion-col style="padding-top: 12px;text-align: center" class="no-padding">
+      <ion-label class="label-sent-otp">Mã OTP đã gửi về SĐT của Quý Khách, hiệu lực trong vòng 3 phút.</ion-label>
+    </ion-col>
+  </ion-row> -->
+  <ion-row *ngIf="strwarning" style="margin-top: 10px;margin-right: 30px">
+    <ion-col class="no-padding"><ion-label class="label-warning">{{strwarning}}</ion-label></ion-col>
+</ion-row>
+  <div style="margin-top: 25px"><button (click)="confirm()" ion-button round outline class="button btn-save-phone">Xác nhận</button></div>
+  <ion-row style="margin-top: 10px;">
+    <ion-col style="text-align: center" >
+      <ion-label style="color: #828282;font-size: 14px">Chưa nhận được tin nhắn? <span (click)="sendOTP()"
+          style="color: #26bed6;font-size: 14px">Gửi lại mã xác minh</span></ion-label>
+    </ion-col>
+  </ion-row>
+</ion-content>

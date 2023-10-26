@@ -1,0 +1,77 @@
+<ion-header class="order-header">
+    <ion-toolbar>
+      <ion-row>
+        <ion-col class="text-center">
+          <div >
+            <div class="div-icon" (click)="goback()">
+              <img class="icon-back" src="./assets/imgs/ios-arrow-round-back.svg">
+            </div>
+  
+            <div class="div-title">Đổi chuyến bay</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="cls-bg-gray">
+    <div class="p-all-16 div-orderrequestchangeflight-content">
+        <div class="m-top-8">
+            <div [ngClass]=" itemdepart.allowChangeFlight ? 'div-wrap-item-flight' : 'div-wrap-item-flight cls-deactive'" *ngIf="itemdepart && itemdepart.airlineName.toLowerCase().indexOf('cathay') == -1" (click)="clickChangeFlight(1)">
+                <div class="d-flex">
+                    <div class="text-tealish div-width-100">Chiều đi</div>
+                    <div class="icon-right div-width-100">
+                        <img src="./assets/ic_ordersupport/next.svg">
+                    </div>
+                </div>
+                <div class="div-place-name">{{itemdepart.flightFrom}} ({{itemdepart.departCode}})<img class="img-arrow" src="./assets/ic_ordersupport/oneway.svg">{{itemdepart.flightTo}} ({{itemdepart.arrivalCode}})</div>
+                <div class="d-flex div-flight-info m-top-4">
+                    <div class="div-logo">
+                        <img class="img-logo-new" *ngIf="itemdepart.airlineName.indexOf('VIETJET') != -1 "
+                                      src="./assets/ic_airticket/vj.png">
+                                    <img class="img-logo-new logo_vna"
+                                      *ngIf="(itemdepart.airlineName.indexOf('Vietnam Airlines') != -1  || itemdepart.airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && !trip.operatedBy "
+                                      src="./assets/ic_airticket/vna.png">
+                                    <img class="img-logo-new logo_vna"
+                                      *ngIf="(itemdepart.airlineName.indexOf('Vietnam Airlines') != -1  || itemdepart.airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && trip.operatedBy"
+                                      src="./assets/ic_airticket/vna.png">
+                                    <img class="img-logo-new" *ngIf="itemdepart.airlineName.indexOf('JETSTAR') != -1"
+                                      src="./assets/ic_airticket/ic_jetstar_b.png">
+                                    <img class="img-logo-new" *ngIf="itemdepart.airlineName.indexOf('BAMBOO') != -1 "
+                                      src="./assets/ic_airticket/bb.png">
+                    </div>
+                    <div class="text-flight-info">{{itemdepart.flightNumner}} <span *ngIf="itemdepart.departureTime">| {{itemdepart.departureTime}}</span> <span *ngIf="itemdepart.departureTime">| {{trip.checkInDisplayCity}}</span></div>
+                </div>
+            </div>
+
+            <div [ngClass]=" itemreturn.allowChangeFlight ? 'div-wrap-item-flight m-top-16' : 'div-wrap-item-flight m-top-16 cls-deactive'" *ngIf="itemreturn && itemreturn.airlineName.toLowerCase().indexOf('cathay') == -1"  (click)="clickChangeFlight(2)">
+                <div class="d-flex">
+                    <div class="text-tealish div-width-100">Chiều về</div>
+                    <div class="icon-right div-width-100">
+                        <img src="./assets/ic_ordersupport/next.svg">
+                    </div>
+                </div>
+                <div class="div-place-name">{{itemreturn.flightFrom}} ({{itemreturn.departCode}})<img class="img-arrow" src="./assets/ic_ordersupport/oneway.svg">{{itemreturn.flightTo}} ({{itemreturn.arrivalCode}})</div>
+                <div class="d-flex div-flight-info m-top-4">
+                    <div class="div-logo">
+                        <img class="img-logo-new" *ngIf="itemreturn.airlineName.indexOf('VIETJET') != -1 "
+                                      src="./assets/ic_airticket/vj.png">
+                                    <img class="img-logo-new logo_vna"
+                                      *ngIf="(itemreturn.airlineName.indexOf('Vietnam Airlines') != -1  || itemreturn.airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && !trip.operatedBy "
+                                      src="./assets/ic_airticket/vna.png">
+                                    <img class="img-logo-new logo_vna"
+                                      *ngIf="(itemreturn.airlineName.indexOf('Vietnam Airlines') != -1  || itemreturn.airlineName.indexOf('VIETNAM AIRLINES') != -1 ) && trip.operatedBy"
+                                      src="./assets/ic_airticket/vna.png">
+                                    <img class="img-logo-new" *ngIf="itemreturn.airlineName.indexOf('JETSTAR') != -1"
+                                      src="./assets/ic_airticket/ic_jetstar_b.png">
+                                    <img class="img-logo-new" *ngIf="itemreturn.airlineName.indexOf('BAMBOO') != -1 "
+                                      src="./assets/ic_airticket/bb.png">
+                    </div>
+                    <div class="text-flight-info">{{itemreturn.flightNumner}} <span *ngIf="itemreturn.departureTime">| {{itemreturn.departureTime}} </span> <span *ngIf="itemreturn.departureTime">| {{trip.checkOutDisplay}}</span></div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+  </ion-content>

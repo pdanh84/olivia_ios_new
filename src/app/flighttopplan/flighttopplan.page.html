@@ -1,0 +1,27 @@
+<div class="flighttopdeal-section">
+    <div class="title-padding">
+        <ion-label class="text-title2">
+          Kế hoạch riêng, giá đặc biệt 
+        </ion-label>
+      </div>
+
+      <div class="sub-title">
+        <ion-label class="text-subtitle">
+          Tiết kiệm chi phí - Theo đuổi ước mơ
+        </ion-label>
+      </div>
+
+      <div class="innerdeals1 slide2-scroll">
+      <div class="cls-deal" *ngFor="let slide of listflighttopplan">
+          <a class="div-link" href="https://zalo.me/3888313238733373810"></a>
+          <img class="slide2 img" [src]="slide.linkImage" />
+          <div class="div-text-over d-flex">
+            <div class="div-title d-flex">
+              <div class="m-right-8 lh-title">{{slide.title}}</div>
+              <div class="div-icon"><img src="./assets/ic_flight/next_mood.svg"></div>
+            </div>
+            <div class="div-subtitle">{{slide.subtitle}}</div>
+          </div>
+    </div>
+</div>
+

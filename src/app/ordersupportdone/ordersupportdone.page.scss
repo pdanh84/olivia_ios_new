@@ -1,0 +1,42 @@
+.text{
+
+    font-size: 16px;
+    font-weight: 700;
+
+    color: #00c1de;
+}
+.text-1{
+
+    font-size: 14px;
+    letter-spacing: -0.4px;
+    line-height: 1.5;
+}
+.button2
+    {
+        background: #fff;
+        color: #ff9500;
+        border-color: #ff9500;
+        border: solid 1px #ff9500;
+        width: 90%;
+        font-size: 16px !important;
+        margin: 8px 16px !important;
+        padding: 0;
+    }
+
+    .div-button-payment-done{
+        background-color: #ffffff; 
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+
+        .m-top-0{
+            margin-top: 0 !important;
+        }
+    }
+    .img-trip-empty
+{
+    text-align: center;
+    margin-top: 42px;
+    margin-bottom: 25px;
+}

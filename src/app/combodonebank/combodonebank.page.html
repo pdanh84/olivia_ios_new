@@ -1,0 +1,61 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <img  src="./assets/step/step_4.svg">
+    <div class="d-flex-later">
+      <div class="d-img">
+        <img src={{urlimgbank}}>
+      </div>
+      <div>
+        <ion-label class="cls-text">
+         {{bankName}}
+        </ion-label>
+        <div class="mt6">
+          <ion-label (click)="openWebpage()" class="cls-textopen">
+            Mở website/ứng dụng {{textbank}}
+          </ion-label>
+        </div>
+      </div>
+    </div>
+    <div class="div-text-payment">
+      <p class="text-payment-info" text-wrap>
+        Số TK: <b>{{accountNumber}}</b><a class='text-copy' (click)='copyClipboard(1)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" >
+        Người thụ hưởng: Công ty Cổ Phần IVIVU.COM<a class='text-copy' (click)='copyClipboard(2)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" text-wrap>
+        Nội dung chuyển tiền: <b class="text-booking">{{code}}</b><a class='text-copy' (click)='copyClipboard(3)'>Sao chép</a>
+      </p>
+      <p class="text-payment-info" text-wrap>
+        Tổng tiền: <b class="text-bold">{{priceshow}} VND</b><a class='text-copy' (click)='copyClipboard(4)'>Sao chép</a>
+      </p>
+      <p *ngIf="status=='AL'" class="text-payment-info" text-wrap>
+        Hạn thanh toán: <b class="text-bold">Trước {{text}}</b>
+      </p>
+    </div>
+    <div class="div-split-panel"></div>
+    <div> <p class="text-payment-info" text-wrap>
+      Thông tin thanh toán cũng được gửi đến email <span class="text-bold">{{_email}}</span>. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư Spam hoặc Junk Folder. 
+    </p>
+     <p class="text-payment-info mt20" text-wrap>
+      Chúng tôi sẽ gửi xác nhận đặt Combo ngay khi nhận được thanh toán của Quý khách
+    </p>
+  </div>
+</ion-content>
+  <ion-footer>
+    <div class="div-button-payment-done">
+      <button *ngIf="status=='AL'" (click)="addToCalendar()" ion-button round outline class="button button2">Thêm chuyến đi vào lịch</button>
+      <button (click)="next()" ion-button round outline class="button button2">Hoàn thành</button>
+    </div>
+  </ion-footer>

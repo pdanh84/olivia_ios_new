@@ -1,0 +1,21 @@
+<ion-header class="div-ticket-ticketinfo-header">
+  <ion-toolbar>
+    <ion-buttons slot="secondary" class="p-absolute" (click)="goback()">
+      <img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-buttons>
+    <ion-title class="text-title">
+      Điều kiện vé
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="div-content" >
+    <div class="div-ticket">
+      {{expeName}}
+    </div>
+    <div class="m-t-12 content">
+      <p [innerHTML]="includePrice"></p>
+    </div>
+  </div>
+</ion-content>

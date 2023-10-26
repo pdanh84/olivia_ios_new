@@ -1,0 +1,161 @@
+<ion-header>
+    <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center">
+            <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="close()">
+              <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+                src="./assets/imgs/ios-arrow-round-back.svg">
+            </div>
+  
+            <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Đánh giá chuyến đi</label>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+<ion-content class="ion-padding-16">
+    <ion-row class="item-room" *ngIf="!trip.isFlyBooking">
+        <!-- Ảnh hotel -->
+        <ion-col size="4" style="padding: 0">
+          <div class="div-wrapimg">
+              <img *ngIf="trip.avatar104" class="img-avatar" src="https:{{trip.avatar104}}">
+              <img *ngIf="!trip.avatar104" class="img-avatar" src="https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-104x104.png">
+          </div>
+        </ion-col>
+        <!-- Nội dung bên phải -->
+        <ion-col size="8" class="col-mytrip-text-description"  style="padding: 0">
+          <div class="text-left">
+            <!-- Tên hotel -->
+              <h2 class="room-class-name">{{trip.hotel_name}}</h2>
+              <!-- Nội dung combo nếu có -->
+              <ion-row *ngIf="trip.combo_name" >
+                  <label>{{trip.combo_name}}</label>
+              </ion-row>
+              <!-- checkin/checkout -->
+              <ion-row >
+                <ion-col size="1" class="col-icon">
+                  <img src="./assets/imgs/ic_date.svg"> 
+                </ion-col>
+                <ion-col class="col-text">
+                  <label>{{cindisplay}} → {{coutdisplay}}</label>
+                </ion-col>
+              </ion-row>
+              <!-- room/pax -->
+              <ion-row>
+                <ion-col size="1"  class="col-icon">
+                    <img src="./assets/ic_facility/ic_people.svg">
+                </ion-col>
+                <ion-col  class="col-text" style="padding-top: 3px">{{trip.room_count}} phòng | {{trip.totalPaxStr}}</ion-col>
+              </ion-row>
+            </div>
+        </ion-col>
+    </ion-row>
+    
+    <div class="d-flex" *ngIf="trip.isFlyBooking">
+    
+      <div class="text-flight-title div-width-600 d-flex">
+          <div>
+              <div>{{ departCity }} ({{ departCode }})</div>
+              <div class="text-flight-datetime">{{ checkInDisplayFullYear }} </div>
+          </div>
+          <div class="div-flight-inout">
+              <img class="img-flight-inout" *ngIf="activityService.objPaymentMytrip && activityService.objPaymentMytrip.trip.bookingsComboData && activityService.objPaymentMytrip.trip.bookingsComboData.length >1" src="./assets/ic_flight/ic_flight_inout.svg">
+              <img class="img-flight-inout img-oneway" *ngIf="activityService.objPaymentMytrip && activityService.objPaymentMytrip.trip.bookingsComboData && activityService.objPaymentMytrip.trip.bookingsComboData.length ==1" src="./assets/imgs/ic_arrow.svg">
+          </div> 
+          <div *ngIf="returnCity&&returnCode">
+              <div>{{ returnCity }}  ({{ returnCode }})</div>
+              <div *ngIf="activityService.objPaymentMytrip && activityService.objPaymentMytrip.trip.bookingsComboData && activityService.objPaymentMytrip.trip.bookingsComboData.length >1" class="text-flight-datetime" >{{ checkOutDisplayFullYear }} </div>
+          </div>
+      </div>
+
+  </div>
+
+    <ion-row class="cls-row-text">
+        <ion-col style="padding: 0"><label class="cls-row-text-title">1. Quý khách có hài lòng với nhân viên tư vấn của iVIVU.com?
+        </label></ion-col>
+    </ion-row>
+    <!-- Sao -->
+    <ion-row>
+        <ion-col size="1.35" class="cls-star" (click)="clickStar1(1)" style="margin-left: 0">
+            <img *ngIf="star1Active ==0 || star1Active<1" src="./assets/imgs/star_fb.svg">
+            <img *ngIf=" star1Active >=1 && star1Active<=5" src="./assets/imgs/star_active_fb.svg">
+        </ion-col>
+        <ion-col size="1.35" class="cls-star" (click)="clickStar1(2)">
+                <img *ngIf="star1Active<2" src="./assets/imgs/star_fb.svg">
+                <img *ngIf=" star1Active >=2 && star1Active<=5" src="./assets/imgs/star_active_fb.svg">
+        </ion-col>
+        <ion-col size="1.35" class="cls-star" (click)="clickStar1(3)">
+                <img *ngIf="star1Active<3" src="./assets/imgs/star_fb.svg">
+                <img *ngIf=" star1Active >=3 && star1Active<=5" src="./assets/imgs/star_active_fb.svg">
+        </ion-col>
+        <ion-col size="1.35" class="cls-star" (click)="clickStar1(4)">
+                <img *ngIf="star1Active<4" src="./assets/imgs/star_fb.svg">
+                <img *ngIf=" star1Active >=4 && star1Active<=5" src="./assets/imgs/star_active_fb.svg">
+        </ion-col>
+        <ion-col size="1.35" class="cls-star" (click)="clickStar1(5)">
+                <img *ngIf="star1Active<5" src="./assets/imgs/star_fb.svg">
+                <img *ngIf=" star1Active ==5" src="./assets/imgs/star_active_fb.svg">
+        </ion-col>
+    </ion-row>
+    <ion-row class="cls-row-text-24">
+            <ion-col style="padding: 0"><label class="cls-row-text-title">2. Quý khách có hài lòng với chất lượng của dịch vụ?
+            </label></ion-col>
+    </ion-row>
+    <!-- Sao -->
+    <ion-row>
+            <ion-col size="1.35" class="cls-star" (click)="clickStar2(1)" style="margin-left: 0">
+                    <img *ngIf="star2Active<1" src="./assets/imgs/star_fb.svg">
+                    <img *ngIf=" star2Active >=1 && star2Active<=5" src="./assets/imgs/star_active_fb.svg">
+            </ion-col>
+            <ion-col size="1.35" class="cls-star" (click)="clickStar2(2)">
+                    <img *ngIf="star2Active<2" src="./assets/imgs/star_fb.svg">
+                    <img *ngIf=" star2Active >=2 && star2Active<=5" src="./assets/imgs/star_active_fb.svg">
+            </ion-col>
+            <ion-col size="1.35" class="cls-star" (click)="clickStar2(3)">
+                    <img *ngIf="star2Active<3" src="./assets/imgs/star_fb.svg">
+                    <img *ngIf=" star2Active >=3 && star2Active<=5" src="./assets/imgs/star_active_fb.svg">
+            </ion-col>
+            <ion-col size="1.35" class="cls-star" (click)="clickStar2(4)">
+                    <img *ngIf="star2Active<4" src="./assets/imgs/star_fb.svg">
+                    <img *ngIf=" star2Active >=4 && star2Active<=5" src="./assets/imgs/star_active_fb.svg">
+            </ion-col>
+            <ion-col size="1.35" class="cls-star" (click)="clickStar2(5)">
+                    <img *ngIf="star2Active<5" src="./assets/imgs/star_fb.svg">
+                    <img *ngIf=" star2Active >=5 && star2Active<=5" src="./assets/imgs/star_active_fb.svg">
+            </ion-col>
+        </ion-row>
+        <!-- Ý kiến -->
+        <ion-row class="cls-row-text-24">
+            <ion-col style="padding: 0">
+                <ion-textarea maxlength=300  [(ngModel)]="Description" placeholder="Ý kiến của quý khách" class="cls-text-feedback"></ion-textarea>
+            </ion-col>
+        </ion-row>
+        <ion-row class="cls-row-text">
+            <ion-col style="padding: 0;"><label class="cls-text-share">Chia sẻ thêm hình ảnh về chuyến đi của Quý khách với mọi người. Nhận ngay 10 điểm tích lũy!
+            </label></ion-col>
+        </ion-row>
+        <!-- button thêm ảnh -->
+        <ion-row  style="padding-top: 12px">
+            <ion-col   style="padding:0">
+                <button (click)="addImage()" class="button btn-addimage" >Thêm ảnh</button>
+                <img  (click)="addImage()" class="img-plus" src="./assets/imgs/ic_plus.svg">
+               <div style="height: 200px;margin-left: -5px;margin-top: 10px;"  >
+                <img *ngFor="let img of imageResponse"  class="img-user-avatar" src={{img.img}}>
+            </div>
+            </ion-col >
+            <!-- <div style="height: 200px;margin-left: -5px;margin-top: 10px;"  >
+                <img *ngFor="let img of imageResponse"  class="img-user-avatar" src={{img}}>
+            </div> -->
+        </ion-row>
+</ion-content>
+<ion-footer>
+    <div style="margin: 4px 16px">
+    <ion-row>
+        <ion-col style="padding: 0">
+                <button ion-button round outline class="button btn-sendfeedback" (click)="sendFeedBack()">Hoàn thành</button>
+        </ion-col>
+    </ion-row>
+</div>
+</ion-footer>

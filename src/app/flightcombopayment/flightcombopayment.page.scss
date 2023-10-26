@@ -1,0 +1,414 @@
+.text-name
+{
+  font-weight: bold;
+  font-size: 14px;
+  .text-green
+  {
+    color: #26bed6
+  }
+}
+.text-date
+{
+    margin-top: 0px;
+    font-weight: bold;
+    font-size: 14px
+}
+.image-card{
+  display: initial !important;
+}
+.total-price{
+  color: #26bed6;
+  font-size: 24px;
+  font-weight: bold;
+}
+.button2
+{
+    border-color: #F79221;
+    background-color: #F79221;
+    color: #ffffff;
+    width: 90%;
+    height: 48px;
+
+}
+.item-md ion-thumbnail ion-img, .item-md ion-thumbnail img {
+  width: 104px;
+  height: 104px;
+}
+.item.item-md .checkbox-md {
+  position: static;
+  display: block;
+  margin: 9px 9px 9px 4px;
+}
+.text-room-price-ota{
+  color:#828282;
+  font-size: 14px;
+  text-align: right;
+  text-decoration: line-through;
+  margin: 20px;
+  margin-top: -20px;
+}
+.toolbar-title-md {
+text-align: center;
+margin-right: 70px;
+}  
+.div-wrapimg {
+position: relative;
+height:87px;
+width: 104px;
+overflow: hidden;
+border-radius: 5px;
+}
+hr
+{
+background-color: #ccc;
+}
+.cls-hr
+{
+margin-left: -16px;
+margin-right: -16px;
+height: 6px;
+background-color: #f2f2f2 !important;
+}
+@media (min-width:287px) and (max-width: 359px) {
+.col-description-roompayment{
+max-width: 188px;
+left: 12px;
+}
+
+}
+.text-infocar
+{
+font-weight: 300;
+color: #4f4f4f;
+font-size: 12px
+}
+.combo-departure-time{
+font-size: 14px;
+  font-weight: 300;
+  padding-top: 4px;
+}
+.combo-flight-price-label-down{
+font-size: 14px;
+color: #003c71;
+}
+.flight-price{
+font-size: 13px;
+font-weight: bold;
+}
+.div-split-panel{
+height: 7px;
+background: #f2f2f2;
+margin-top: 12px;
+margin-left: -16px;
+margin-right: -16px;
+}
+.text-location
+{
+font-size: 16px;
+font-weight: bold
+}
+.combo-flight-price-label-down{
+font-size: 14px;
+color: #003c71;
+}
+.flight-price{
+font-size: 13px;
+font-weight: bold;
+}
+.combo-flight-price-label-up{
+font-size: 14px;
+color: #ec971f;
+}
+.div-title{
+margin-top: 15px;
+.combo-title{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.48px;
+  color: #222222;
+}
+.combo-sub-title{
+    font-size: 18px;
+    font-weight: bold;
+    color: #f59233;
+}
+.hotel-name{
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.28px;
+  color: #222222;
+}
+}
+.cls-list
+{
+margin-left: -15px;
+}
+.cls-rowheight
+{
+height: 60px;
+}
+.cls-divpayment
+{
+margin-top: -15px;
+margin-left: -5px
+}
+.text-p
+{
+font-size: 14px;
+color: #4f4f4f;
+letter-spacing: -0.4px;
+white-space: nowrap !important;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.div-info
+{
+margin-left: 3px;
+margin-top: -10px;
+}
+.cls-rowheight1
+{
+margin-left: -5px;
+height: 81px;
+margin-bottom: 30px;
+}
+.cls-img
+{
+width: 36px;
+height: 36px;
+}
+.cls-label
+{
+align-self: center;
+margin-left: 12px;
+}
+p {
+display: block;
+margin-block-start: 1em;
+margin-block-end: 1em;
+margin-inline-start: 0px;
+margin-inline-end: 0px;
+}
+.d-flex{
+display: flex;
+margin-top: 8px;
+}
+.div-flight-inout{
+width: 32px;
+height: 32px;
+position: relative;
+margin: 0px 10px 0 10px;
+
+.img-flight-inout{
+width: 32px;
+height: 32px;
+position: absolute;
+left: 0;
+top: -5px;
+}
+}
+.text-flight-datetime{
+font-size: 14px;
+font-weight: 300;
+line-height: 1.5;
+letter-spacing: -0.4px;
+color: #000000;
+}
+.mt-5
+{
+margin-top: 5px;
+}
+.mt-11
+{
+margin-top: 11px;
+}
+.text-center
+{
+text-align: center;
+}
+.div-width-60{
+width: 60%;
+}
+.div-icon-down{
+position: absolute;
+right: 16px;
+}
+.text-total-price{
+font-size: 24px;
+font-weight: 600;
+letter-spacing: -0.69px;
+color: #26bed6;
+}
+.text-pax{
+font-size: 14px;
+font-weight: 300;
+color: #222222;
+}
+.text-sub{
+font-size: 12px;
+font-weight: 300;
+letter-spacing: -0.34px;
+color: #828282;
+}
+.mt-16
+{
+margin-top: 16px;
+}
+.text-d{
+font-size: 14px;
+font-weight: 300;
+margin-left: 5px;
+}
+.img-payoo
+{
+  width: 50px;
+  vertical-align: middle;
+}
+.img-momo
+{
+  width: 40px;
+  vertical-align: middle;
+}
+.img-visa
+    {
+      width: 118px;
+      height: 22px;
+      vertical-align: middle;
+    }
+.img-visa
+    {
+      width: 118px;
+      height: 22px;
+      vertical-align: middle;
+    }
+.imgcard
+{
+  width: 40px;
+  height: 12.8px;
+}
+.text-infobank
+    {
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: -0.46px;
+        color: #000000;
+    }
+    .ml8
+    {
+      margin-left: 8px;
+    }
+    .label-input{
+      font-size: 13px;
+      font-weight: 300;
+      color: #000000;
+      margin-left: 5px;
+    }
+    .ion-checkbox{
+      width: 16px;
+      height: 16px;
+      margin: -2px;
+    }
+    .ion-item1
+    {
+      --inner-border-width: 0 0 0px 0;
+    }
+    .ion-item
+    {
+      --padding-start: 0px;
+      --inner-border-width: 0 0 0px 0;
+      --min-height: 0px;
+      margin-left: 32px;
+    }
+    .div-DK{
+      display: flex;
+      background-color: #F2F2F5;
+      padding: 8px;
+      margin-left: -16px;
+      margin-right: -16px;
+      margin-bottom: 20px;
+    }
+    .checkbox-DK{
+      margin-left: 10px;
+      width: 28px;
+      height: 18px;
+      margin-top: 2px;
+    }
+    .text-DK{
+      font-size: 14px;
+      line-height: 1.2;
+      color: #717484;
+      margin-left: 3px;
+    }
+    .btn-disabled{
+      background: #bdbdbd;
+      color: #ffffff;
+      width: 90%;
+      height: 48px;
+    }
+    .text-link-DK{
+      color: #2f80ed
+    }
+    
+    .div-voucher-apply {
+      display: flex;
+      margin: 14px 0 12px 0;
+    
+      .width-100 {
+        width: 100%;
+      }
+      .width-200 {
+        width: 200%;
+      }
+    
+      .text-normal {
+        font-size: 14px;
+        color: #3f3b3b;
+      }
+      .text-code {
+        font-size: 14px;
+        color: #f79321;
+      }
+    
+      .text-normal {
+        font-size: 14px;
+        color: #3f3b3b;
+      }
+    
+      .text-strike {
+        text-decoration: line-through;
+         text-align: right;
+      }
+    }
+  
+  
+  .text-normal {
+    font-size: 14px;
+    color: #3f3b3b;
+  }
+  
+  .text-strike {
+    text-decoration: line-through;
+     text-align: right;
+     margin: 0;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .m-bottom-20 {
+    margin-bottom: 20px;
+  }
+  
+  .p-r-24 {
+    padding-right: 24px;
+  }
+  .img-homecredit {
+    width: 56px;
+            vertical-align: middle;
+            top: 5px;
+            padding: 6px;
+            margin-left: 8px;
+  }

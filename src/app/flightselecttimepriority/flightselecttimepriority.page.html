@@ -1,0 +1,57 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Giờ ưu tiên</div>
+          </div>
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content class="flight-select-timepriority-content">
+    <div class="p-16">
+        <div class="div-time-depart d-flex">
+            <div class="text-title"><label>Giờ đi</label></div>
+            <div class="text-datetime">
+                <ion-datetime style="text-align: center;padding: 5px" displayFormat="HH:mm" [value]="timedepart" cancelText="Thoát" doneText="Chọn" (ionChange)="timeChange(1, $event)"></ion-datetime>
+                <!-- <input [value]="timedepart"/> -->
+                <!-- <ion-item style="width:100%">
+                    <ion-datetime displayFormat="HH:mm" [value]="timedepart"></ion-datetime>
+                </ion-item> -->
+                
+            </div>
+        </div>
+        <div class="text-sub">(Nhấp vào giờ để thay đổi)</div>
+
+        <div class="div-time-return d-flex">
+            <div class="text-title"><label>Giờ về</label></div>
+            <div class="text-datetime">
+                <ion-datetime style="text-align: center;padding: 5px" displayFormat="HH:mm" [value]="timereturn" cancelText="Thoát" doneText="Chọn" (ionChange)="timeChange(2, $event)"></ion-datetime>
+                <!-- <input [value]="timereturn" *ngIf="showReturnTime"/> -->
+                <!-- <ion-item style="width:100%">
+                    <ion-datetime displayFormat="HH:mm" [value]="timereturn"></ion-datetime>
+                </ion-item> -->
+                
+            </div>
+        </div>
+        <div class="text-sub">(Nhấp vào giờ để thay đổi)</div>
+    </div>
+</ion-content>
+
+    <ion-footer>
+      <ion-row>
+        <ion-col style="padding:0">
+          <div class="div-flighttimepriority-footer">
+            <div class="div-button-flex">
+              <button (click)="filter()" ion-button round outline class="button button-filter">Xem <span *ngIf="countFilter >0">{{countFilter}} chuyến bay</span></button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    
+    </ion-footer>

@@ -1,0 +1,95 @@
+<!--
+  Generated template for the SearchHotelFilterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <!-- <ion-list>
+    <ion-item>
+      <ion-label class="text-title">
+        Tìm kiếm
+      </ion-label>
+      <ion-note (click)="close()" item-end>
+        <ion-icon name="close"></ion-icon>
+      </ion-note>
+    </ion-item>
+  </ion-list> -->
+  <ion-toolbar>
+      <ion-row>
+        <ion-col size="1">
+          <div class="div-close">
+            <img class="header-img-close m-top-0" style="max-width: 150%" routerLink="/" routerDirection="root" src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+          
+    </ion-col>
+          <ion-col size="11" style="align-self: center"><ion-title class="text-title">Tìm kiếm</ion-title></ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <ion-label class="text-title1">
+    Giá
+  </ion-label>
+  <ion-row>
+    <ion-col>
+      <label class="text-range">
+        {{minprice}}đ
+      </label>
+    </ion-col>
+    <ion-col text-right>
+      <label class="text-range">
+        {{maxprice}}đ
+      </label>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-range step=50000 (ionChange)="test()" min="100000" max="15000000" dualKnobs="true" [(ngModel)]="structure"
+    color="xanh">
+  </ion-range> -->
+  <ion-range style="--bar-background: #ccc !important;--ion-color-primary: #26bed6;" step=50000 (ionChange)="test()" min="100000" max="15000000" dualKnobs="true" [(ngModel)]="structure"></ion-range>
+  <ion-label class="text-title1">
+    Sao
+  </ion-label>
+  <ion-row>
+    <ion-col (click)="star1()" col-2.5>
+      <img *ngIf="star_1" src="./assets/star/1_star.svg">
+      <img *ngIf="star_1active" src="./assets/star/1_star_active.svg">
+    </ion-col>
+    <ion-col (click)="star2()" col-2.5>
+      <img *ngIf="star_2" src="./assets/star/2_star.svg">
+      <img *ngIf="star_2active" src="./assets/star/2_star_active.svg">
+    </ion-col>
+    <ion-col (click)="star3()" col-2.5>
+      <img *ngIf="star_3" src="./assets/star/3_star.svg">
+      <img *ngIf="star_3active" src="./assets/star/3_star_active.svg">
+    </ion-col>
+    <ion-col (click)="star4()" col-2.5>
+      <img *ngIf="star_4" src="./assets/star/4_star.svg">
+      <img *ngIf="star_4active" src="./assets/star/4_star_active.svg">
+    </ion-col>
+    <ion-col (click)="star5()" col-2.5>
+      <img *ngIf="star_5" src="./assets/star/5_star.svg">
+      <img *ngIf="star_5active" src="./assets/star/5_star_active.svg">
+    </ion-col>
+  </ion-row>
+  <ion-label class="text-title1">
+    Đánh giá
+  </ion-label>
+  <ion-row>
+    <ion-col>
+      <label class="text-range">
+        Điểm đánh giá {{review}} và cao hơn
+      </label>
+    </ion-col>
+  </ion-row>
+  <ion-range style="--bar-background: #26bed6 !important;--knob-background: #26bed6;--bar-background-active:#ccc" class="range-review" step="1" pin="true" (ionChange)="reviewchange()" min="0" max="10" [(ngModel)]="review">
+  </ion-range>
+  <ion-item class="ion-item">
+    <ion-label slot="start" class="text-title1">Còn phòng</ion-label>
+    <ion-toggle style="left: 16px;" [(ngModel)]="ischeckAL"  slot="end" name="blueberry"></ion-toggle>
+  </ion-item>
+</ion-content>
+<ion-footer style="text-align: center">
+  <button ion-button round outline class="button" (click)="Cancel()">Xóa</button>
+  <button ion-button round outline class="button" (click)="Ok()">Chọn</button>
+</ion-footer>

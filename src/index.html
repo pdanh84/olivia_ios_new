@@ -7,19 +7,38 @@
 
   <base href="/" />
 
-  <meta name="color-scheme" content="light dark" />
+  <meta name="color-scheme" content="only light" />
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src https://codepush.appcenter.ms 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+  <!-- <link rel="icon" type="image/png" href="assets/icon/favicon.png" /> -->
 
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="light" />
+
 </head>
 
 <body>
+  <script>
+     var global = global || window;
+      var globalThis = global;
+      var Buffer = Buffer || [];
+      var process = process || {
+        env: { DEBUG: undefined },
+        version: []
+      };
+    window.TransformStream = null;
+    window.WritableStream = null;
+    window.ReadableStream = null;
+    // Enable Google Analytics debug view
+    if (window.location.hostname === 'localhost') {
+      window['ga_debug'] = {trace: true};
+    }
+  </script>
   <app-root></app-root>
 </body>
 

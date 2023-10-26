@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-row>
+    <ion-col style="text-align: center;height: 48px;">
+      <div style="align-self: center">
+        <div style="position: absolute;height: 48px;width: 48px;" (click)="goback()">
+          <!-- <ion-icon (click)="goback()" color="dark-tint" style="font-size: 2em;" name="arrow-back" class="card-title"></ion-icon> -->
+          <img style="height: 48px; padding: 8px;margin-top: 0px;margin-left:-8px"
+            src="./assets/imgs/ios-arrow-round-back.svg">
+        </div>
+
+        <div style="padding-top: 11px;font-size: 20px;font-weight: bold;"><label class="text-title">Yêu cầu bảo
+            hiểm</label></div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+
+  <div class="div-cathay">
+    <div class="div-big">
+      <div class="div-bkg">
+        <span class="text-bkg-title">Mã đơn hàng:</span><span class="text-bkg"> {{booking_id}}</span>
+      </div>
+  
+      <div style="display: flex;">
+        <div style="width:20%">
+          <img class="logo-insurance" src="./assets/logo/logo_1.svg">
+        </div>
+        <div>
+          <div class="text-name">
+            {{customerName}}
+          </div>
+          <div *ngIf="noLoginObj" class="text-code-in">
+            {{noLoginObj.insurObj.adultList[0].insurance_code}}
+          </div>
+        </div>
+  
+      </div>
+      <div class="text-request margin-top-20">
+        Yêu cầu bảo hiểm
+      </div>
+      <div *ngIf="noLoginObj">
+        <div *ngFor="let flight of noLoginObj.insurObj.adultList[0].flightObj; let i=index"  [hidden]="!flight.flightNumner || !flight.departureDate">
+          <!-- i=0 là chiều đi -->
+          <div *ngIf="i==0 && flight.airlineCode">
+            <div  class="text-code-in margin-top-8">
+              {{flight.flightFrom}} -  {{flight.flightTo}}  | {{ replaceDate(flight.departureDate) }}  |  {{ flight.flightNumner }}
+            </div>
+            <div *ngIf="!isClaim(noLoginObj.insurObj.adultList[0].claimedFlights, flight.flightNumner) && checkClaimTime(flight)" class="text-code-in margin-top-9">
+             <span class="text-green" (click)="claimCathay(noLoginObj.insurObj.adultList[0].insurance_code,flight.flightNumner,noLoginObj.insurObj.adultList[0],1)">Trễ chuyến</span>  |  <span (click)="claimCathay(noLoginObj.insurObj.adultList[0].insurance_code,flight.flightNumner,noLoginObj.insurObj.adultList[0],3)" class="text-green">Hủy chuyến</span>
+            </div>
+            <div *ngIf="isClaim(noLoginObj.insurObj.adultList[0].claimedFlights, flight.flightNumner) && checkClaimTime(flight)" class="text-code-in margin-top-9">
+              <span >Đã yêu cầu bảo hiểm</span>
+             </div>
+          </div>
+          <div *ngIf="i!=0 && flight.airlineCode">
+            <div  class="text-code-in margin-top-8">
+              {{flight.flightFrom}} -  {{flight.flightTo}}  | {{ replaceDate(flight.departureDate) }}  |  {{ flight.flightNumner }}
+            </div>
+            <div *ngIf="!isClaim(noLoginObj.insurObj.adultList[0].claimedFlights, flight.flightNumner) && checkClaimTime(flight)" class="text-code-in margin-top-9">
+             <span class="text-green" (click)="claimCathay(noLoginObj.insurObj.adultList[0].insurance_code,flight.flightNumner,noLoginObj.insurObj.adultList[0],2)">Trễ chuyến</span>  |  <span (click)="claimCathay(noLoginObj.insurObj.adultList[0].insurance_code,flight.flightNumner,noLoginObj.insurObj.adultList[0],4)" class="text-green">Hủy chuyến</span>
+            </div>
+            <div *ngIf="isClaim(noLoginObj.insurObj.adultList[0].claimedFlights, flight.flightNumner) && checkClaimTime(flight)" class="text-code-in margin-top-9">
+              <span>Đã yêu cầu bảo hiểm</span>
+             </div>
+            
+          </div>
+           <div *ngIf="!checkClaimTime(flight)  && flight.airlineCode" class="text-hotfare">
+              <span>*Yêu cầu bồi thường được thực hiện vào ngày chuyến bay khởi hành</span>
+             </div>
+        </div>
+      </div>
+     
+     
+  
+      <!-- <div class="text-code-in margin-top-20">
+        Hồ Chí Minh - Hà Nội  |  07/09/2021  |  VN456
+      </div>
+      <div class="text-code-in margin-top-9">
+       <span class="text-green">Trễ chuyến</span>  |  <span class="text-green">Hủy chuyến</span>
+      </div> -->
+    </div>
+    </div>
+    
+
+</ion-content>

@@ -1,0 +1,47 @@
+.text-title{
+    font-size: 18px;
+    font-weight: bold
+}
+.segment-button.activated, .segment-button.segment-activated,.segment-button-checked {
+    border-color: #26bed6 !important;
+    opacity: 1;
+    color: #26bed6 !important;
+    text-transform: none;
+    font-size: 17px;
+}
+.ion-item
+{
+  --padding-start: 0px;
+}
+.combo-departure-time{
+  font-size: 14px;
+  font-weight: 600;
+  padding-top: 4px;
+}
+.text-infocar
+{
+    font-weight: 300;
+    color: #4f4f4f;
+    font-size: 12px
+}
+.div-footer{
+  .button-footer
+  {
+      border-color: #F79221;
+      background-color: #F79221;
+      color: #ffffff;
+      width: 91%;
+      height: 44px;
+      margin: 12px 16px 9px 16px;
+  }
+
+}
+.text-thin-italic{
+  font-size: 12px;
+  color: #828282;
+  font-style: italic;
+  letter-spacing: -0.34px;
+}
+.mt20{
+  margin-top: 20px;
+}

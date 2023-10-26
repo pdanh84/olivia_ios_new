@@ -1,0 +1,111 @@
+<ion-header class="combocarpaymentbrackdown-header">
+  <ion-toolbar class="text-center">
+    <ion-row>
+      <ion-col class="text-center">
+        <div  class="align-self-center" >
+          <div class="div-goback" (click)="goback()" >
+              <img class="img-goback" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div class="title-header"><label class="text-title">Chi tiết combo</label></div>
+        </div>
+      </ion-col>
+    </ion-row>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="combocarpaymentbrackdown-content">
+  <div class="ion-padding-16">
+    <div class="carcombo-hotel">
+      <div class="img-hotel">
+        <img class="img-hotel-avatar" *ngIf="roomObj.Images" [src]="roomObj.Images" />
+        <img class="img-hotel-avatar" *ngIf="!roomObj.Images" src="https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage.png" />
+      </div>
+  
+      <div class="info-hotel">
+        <!-- Tên -->
+        <div class="name-hotel f-bold">
+          <ion-label>{{objectDetail.titlecombo}}</ion-label>
+        </div>
+        <!-- Địa chỉ -->
+        <div class="div-address p-top-13">
+          <!-- img-local -->
+          <div class="div-location">
+            <img class="img-location" src="./assets/iocnsearch/ic_location.svg">
+          </div>
+          <!-- address -->
+          <div class="text-address text-thin">
+            <ion-label>{{objectDetail.Address}}</ion-label>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+    
+    <div class="div-room-name">
+      <div class="text-room-name">{{objectDetail.nameroom}}</div>
+      <div class="text-mealtype-chargefee">{{objectDetail.breakfast}}</div>
+      <div class="text-mealtype-chargefee" *ngIf="mealtypePromotion">{{mealtypePromotion}}</div>
+    </div>
+  
+    <div class="surcharge-fee-detail">
+      <div class="adult-fee">
+        <div class="div-text-fee">
+          <div class="text-fee">1 người lớn</div>
+          <div class="text-fee-price">{{PriceDiffUnitAdult}} đ</div>
+        </div>
+        <div class="div-text-fee" *ngIf='RoomPriceDiffUnit'>
+          <div class="f-12">Phụ thu phòng: + {{RoomPriceDiffUnit}} đ</div>
+        </div>
+
+        <div class="div-text-fee" *ngIf='TicketDifferenceFeeUnit && TicketDifferenceFeeUnit != 0'>
+          <div class="f-12" *ngIf="TicketDifferenceFeeUnit.indexOf('-') == -1">Phụ thu vé xe: + {{TicketDifferenceFeeUnit}} đ</div>
+          <div class="f-12" *ngIf="TicketDifferenceFeeUnit.indexOf('-') != -1">Phụ thu vé xe: {{TicketDifferenceFeeUnit}} đ</div>
+        </div>
+
+        <div class="div-text-fee" *ngIf="surchargedep">
+          <div class="f-12">Phụ thu đón/trả chiều đi: + {{surchargedep}} đ</div>
+        </div>
+
+        <div class="div-text-fee" *ngIf="surchargeret">
+          <div class="f-12">Phụ thu đón/trả chiều về: + {{surchargeret}} đ</div>
+        </div>
+
+        <div class="div-text-fee" *ngIf="diff_feedep">
+          <div class="f-12">Phụ thu chọn chỗ ngồi chiều đi: + {{diff_feedep}} đ</div>
+        </div>
+        
+        <div class="div-text-fee" *ngIf="diff_feeret">
+          <div class="f-12">Phụ thu chọn chỗ ngồi chiều về: + {{diff_feeret}} đ</div>
+        </div>
+        <div class="div-text-fee" *ngIf="extrabedprice">
+          <div class="f-12">{{extrabeddisplay}}: + {{extrabedprice}} đ</div>
+        </div>
+      </div>
+      <div class="child-fee" *ngIf="childrendisplay">
+        <div class="div-text-fee">
+          <div class="text-fee">1 trẻ em</div>
+          <div class="text-fee-price">{{ChildDiffUnit}} đ</div>
+        </div>
+        <div class="div-text-fee" *ngIf="TicketDifferenceFeeUnit">
+          <div class="f-12" *ngIf="TicketDifferenceFeeUnit.indexOf('-') == -1">Phụ thu vé xe: + {{TicketDifferenceFeeUnit}} đ</div>
+          <div class="f-12" *ngIf="TicketDifferenceFeeUnit.indexOf('-') != -1">Phụ thu vé xe: {{TicketDifferenceFeeUnit}} đ</div>
+        </div>
+        <div class="div-text-fee" *ngIf="extrabedchildprice">
+          <div class="f-12">{{extrabedchilddisplay}}: + {{extrabedchildprice}} đ</div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="border-bottom"></div>
+    <div class="div-voucher-apply" *ngIf="bookcombo.promoCode">
+      <div class="width-200" *ngIf="bookcombo.promoCode"><span class="text-normal">Ưu đãi (</span><span class="text-code">{{bookcombo.promoCode}}</span><span class="text-normal">)</span> </div>
+      <div class="width-100 text-normal text-right text-pax" *ngIf="bookcombo.discountpromo">-{{gf.convertNumberToString(bookcombo.discountpromo)}}đ</div>
+    </div>
+    <div class="total-price">
+      <div class="text-pax">{{objectDetail.paxtitle}}</div>
+      <div class="text-price-total">{{objectDetail.PriceAvgPlusTAStr}} đ</div>
+    </div>
+    
+  </div>
+  
+</ion-content>

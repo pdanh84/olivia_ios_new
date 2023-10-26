@@ -1,0 +1,291 @@
+
+.div-header-title{
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.52px;
+  text-align: center;
+  color: #3f3b3b;
+}
+
+.div-button-close{
+  width: 48px;
+  .header-img-close {
+    width: 36px;
+  }
+}
+.col-header {
+  height: 48px !important;
+}
+.d-flex {
+  display: flex;
+}
+.div-title {
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3f3b3b;
+}
+.m-bottom-4 {
+  margin-bottom: 4px;
+}
+.div-text-close{
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: -0.14px;
+  color: #26bed6;
+}
+
+.flight-review-content{
+  background-color: #ffffff;
+  .div-bg {
+    background-color: #ffffff;
+  }
+  .text-title{
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3b3b;
+  }
+  .text-sub {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3b3b;
+  }
+  
+  .m-top-4 {
+    margin-top: 4px;
+  }
+
+  .div-reviews {
+    padding-top: 4px;
+    align-items: center;
+    color: var(--ion-color-primary);
+
+    .div-badge {
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+
+      .text-point {
+        padding: 8px 16px;
+        border-radius: 4px;
+        background-color: #9fc43a;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+      }
+      
+      .text-comment {
+        font-size: 18px;
+        letter-spacing: -0.4px;
+        text-align: left;
+      }
+    }
+
+    .text-point-des {
+      font-size: 18px;
+      letter-spacing: -0.4px;
+      text-align: left;
+      margin-right: 4px;
+      font-weight: 600;
+    }
+  }
+
+  .div-content-review {
+    display: flex;
+    flex-direction: column;
+
+    .div-wrap-review-item {
+
+      border-radius: 6px;
+      background-color: #fff;
+      margin-right: 8px;
+      min-width: 274px;
+
+      .div-avatar {
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+      }
+      .v-align-center{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+      }
+      .div-name {
+        font-size: 16px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        text-align: left;
+        color: #3f3b3b;
+      }
+      .div-date {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        text-align: left;
+        color: #868998;
+      }
+  
+      .div-text {
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        text-align: left;
+        color: #3f3b3b;
+      }
+    }
+    
+  }
+  .div-relative {
+    position: relative;
+    width: 250px;
+    height: 42px;
+  }
+  .div-see-more {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: solid 1px #003c71;
+    background-color: #fff;
+    width: 250px;
+
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.26;
+    letter-spacing: normal;
+    text-align: center;
+    color: #003c71;
+
+    box-shadow: 0px 0px red, -1em -20px 0.9em white;
+  }
+  .text-header {
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3f3b3b;
+  }
+
+  .div-line {
+    border-bottom: solid 0.5px #dedfe3;
+  }
+  .m-top-10 {
+    margin-top: 10px;
+  }
+  .m-bottom-16 {
+    margin-bottom: 16px;
+  }
+  .m-bottom-12 {
+    margin-bottom: 12px;
+  }
+
+  .div-images {
+    margin-top: 12px;
+    display: flex;
+    //overflow-x: scroll;
+
+    .div-item-image {
+      width: 78px;
+      min-width: 78px;
+      height: 78px;
+      margin-right: 4px;
+      position: relative;
+      object-fit: cover;
+      overflow: hidden;
+    }
+
+    .div-wrap-image-over {
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      width: 78px;
+      height: 78px;
+      opacity: 0.5;
+      background-color: #000;
+    }
+    .div-image-over {
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      width: 78px;
+      height: 78px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+      justify-content: center;
+      
+    }
+
+    .div-liner {
+      position: absolute;
+      bottom: 0;
+      z-index: 2;
+      height: 16px;
+      width: 78px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255,255,255, 01) 99%);
+    }
+  }
+
+  .div-text-note {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    text-align: left;
+    color: #828282;
+  }
+
+  .div-reply-mess {
+    margin-left: 40px;
+    margin-top: 16px;
+
+    .div-icon {
+      margin-right: 8px;
+      .img-ivivu {
+        width: 32px;
+        height: 32px;
+      }
+    }
+   
+  }
+}

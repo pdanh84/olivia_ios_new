@@ -1,0 +1,202 @@
+.text-title{
+  font-size: 20px;
+  font-weight: bold;
+}
+   .hotel-review-page{
+      
+      .innerreview{
+        margin-top:3px;
+          margin-left: -8px;
+          div{
+            display:table-cell;
+          }
+        }
+        .img1 {
+          object-fit: cover !important;
+          width: 104px;
+          height: 104px;
+          margin-left: 5px;
+          max-width: initial;
+          border-radius: 4px;
+      }
+      .text-review{
+        font-size: 14px;
+        letter-spacing: -0.4px;
+      }
+      .review-point{
+        color:#26bed6;
+        font-size: 18px; 
+        font-weight: bold;
+        letter-spacing: -0.51px;
+      }
+      .text-customer-name{
+        color: #828282;
+        font-size: 12px;    
+        letter-spacing: -0.34px;
+      }
+      .text-bestfeature{
+        margin:0;
+        font-weight: 300;
+        font-size: 14px;
+        letter-spacing: -0.4px;
+      }
+      .row-padding{
+      margin: 0px 16px;padding: 0;
+      }
+      .p-top-19{
+      padding-top:19px;
+      }
+      .p-top-5{
+      padding-top:5px;
+      }
+      .p-top-10{
+      padding-top:10px;
+      }
+
+      .cls-ionbadge
+      {
+          width: 49px;
+          height: 32px;
+          border-radius: 6px;
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: -0.51px;
+          align-self: center;
+          padding: 6px 0px 6px 0px;
+          background: #A0C246;
+      }
+      .cls-ml16
+      {
+          margin-left: 16px;
+      }
+      .cls-ml6
+      {
+          margin-left: 6px;
+      }
+      .cls-ml8
+      {
+          margin-left: 8px;
+          align-self: center;
+          font-size: 14px;
+          letter-spacing: -0.4px;
+      }
+      .text-titlereview
+      {
+          font-weight: bold;
+          font-size: 18px
+      }
+      .cls-textreview
+      {
+          margin-top: 6px;
+          letter-spacing: -0.4px;
+          font-size: 14px;
+          line-height: 1.5;
+          text-align: justify;
+          font-size: 14px;
+          letter-spacing: -0.4px;
+      }
+      .cls-ionbadgerw
+      {
+        width: auto;
+        padding: 4px 6px;
+          height: 24px;
+          border-radius: 6px;
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: -0.51px;
+          align-self: center;
+          background: #A0C246;
+      }
+      .mt25
+      {
+          margin-top: 25px;
+          padding: 0 16px;
+
+          .pos-relative{
+            position: relative;
+          }
+          .date-review{
+            position: absolute;
+            top: 3px;
+            right: 0;
+            text-align: right;
+          }
+      }
+      .div-cinout
+      {
+          height: 68px;
+          background-color: #f2f2f2;
+          padding: 20px 8px 8px 8px;
+      }
+      .cls-gridcinout
+      {
+          margin-top: -12px;
+          padding: 8px;
+      }
+      .text-seemore {
+          position: absolute;
+          top: 35px;
+          left: 30px;
+          width: 66px;
+          height: 32px;
+          font-family: Helvetica;
+          font-size: 12px;
+          font-weight: bold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.52;
+          letter-spacing: normal;
+          color: #ffffff;
+      }
+      .innerreview1{
+        height: 100%;
+        div{
+          display:table-cell;
+        }
+        margin-top: 16px;
+        margin-left: -8px;
+      }
+      .img2 {
+        object-fit: cover;
+        width: 104px;
+        height: 104px;
+        margin-left: 8px;
+        border-radius: 4px
+      }
+      .div-review{
+        display: flex;
+        margin-top: 11px;
+    }
+    .text-point{
+        color: #26bed6;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .num-review {
+        font-size: 12px;
+        color: #828282;
+        font-weight: 300;
+    }
+    .div-avg-reviews{
+      padding: 16px 16px 0 16px;
+    }
+    .text-date-reviews{
+      font-size: 12px;
+      color: #828282;
+      letter-spacing: -0.4px;
+      font-weight: 200;
+      padding-top: 6px;
+      line-height: 15px;
+    }
+   } 
+   
+.cls-textreview{
+    margin-top: 6px;
+    letter-spacing: -0.4px;
+    font-size: 14px;
+    //font-family: SFCompactDisplay;
+    //font-weight: 200;
+}
+.lh-normal{
+  line-height: inherit !important;
+}

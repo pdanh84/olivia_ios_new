@@ -1,0 +1,210 @@
+.background{
+  
+    height: calc(env(safe-area-inset-top) + 494px);
+    position: relative;
+    z-index: 1;
+  
+    .text-center{
+      text-align: center;
+
+      .img-logo{
+        width: 76px;
+        margin-top: calc(env(safe-area-inset-top) + 22px );
+        z-index: 10;
+        position: relative;
+      }
+    }
+
+    .div-wrap-background{
+      
+      position: absolute;
+      height: calc(env(safe-area-inset-top) + 498px);
+      width: 100%;
+      z-index: -1;
+      
+    }
+    .img-background{
+      width: 100% !important;
+      
+      height: calc(env(safe-area-inset-top) + 498px);
+      object-fit: cover;
+      position: absolute;
+      z-index: -1;
+    }
+    .div-wrap-search-input{
+      position: absolute;
+      margin: -8px;
+      padding: 8px;
+      opacity: 0.4;
+      border-radius: 4px;
+      background-color: #222222;
+      z-index: -1;
+      width: 95.8%;
+      height: 287px;
+      margin-top: -36px;
+    }
+  
+    .div-wrap-search{
+      z-index: 1;
+      position: relative;
+    }
+    .text-home-hotel{
+      margin-top: 120px;
+
+  
+      .label-home-hotel{
+        color: #ffffff;
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+    }
+    .div-img-airplane{
+      padding: 0;
+      position: absolute;
+
+      .img-airplane{
+        width: 48px;
+        height: 48px;
+      }
+    }
+    .text-home-hotel-notice{
+      margin-top: 197px;
+  
+      .label-home-hotel{
+        color: #ffffff;
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+      }
+    }
+    .row-search-home{
+      background: #ffffff;
+      border-radius: 2px;
+      height: 50px;
+      margin-top: 12px;
+    }
+
+    .row-pickup-calendar{
+        background: #ffffff;
+        border-radius: 2px;
+        height:48px;
+        margin-top: 8px;
+    }
+
+    .div-width{
+        width: 100%;
+      }
+      .img-input{
+        height: 48px;
+          padding: 16px 20px 16px 18px;
+          width: 50px;
+          position: absolute;
+      }
+      .img-cin-cout{
+        padding: 14px 20px 14px 17px;
+        position: absolute;
+      }
+      .p-l-0{
+        padding-left: 0 !important;
+      }
+      .img-checkin,  .img-people{
+        width: 16px;
+        height: 16px;
+      }
+      .img-checkout {
+        width: 16px;
+        height: 12px;
+      }
+      .div-input-right{
+        margin-left: 51px;
+        
+      }
+      .m-l-36{
+        margin-left: 36px !important;
+      }
+      .div-cin{
+        position: absolute;
+        width: 46%;
+        height: 48px;
+      }
+      .text-input-search{
+        margin: 0px 0 14px 51px;
+      }
+      .text-input-search-wraptext{
+        margin: 4px 0 14px 51px;
+      }
+      .text-middle{
+        display: table-cell;
+        vertical-align: middle;
+        height: 48px;
+
+      }
+      .text-placeholder {
+        color: #828282;
+        font-size: 16px;
+        line-height: 20px;
+      }
+     
+      .text-cin, .text-pax{
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #333333;
+        letter-spacing: -0.34px;
+        margin-top: 6px;
+      }
+      .text-pax{
+        margin-top: 2px;
+      }
+    
+      .text-color
+        {
+          color: #828282;
+      }
+      .font-thu
+        {
+          margin-top: 2px;
+          font-size: 12px;
+          letter-spacing: -0.34px;
+        }
+        .div-cout{
+          position: absolute;
+          margin-left: 158px;
+          height: 48px;
+        }
+        .div-img-coffee{
+          bottom:40px;
+        }
+        .img-coffee{
+          height: 32px;
+        }
+
+        .text-red {
+            color: #e52822;
+        }
+
+        .btn-search
+        {
+            border-color: #f79221;
+            color: #ffffff;
+            background: #f79221;
+            width: 100%;
+            height: 48px;
+            border-radius: 28px;
+            font-size: 18px;
+            margin: 0;
+            margin-top: 16px;
+        }
+
+        .text-search {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 2;
+          display: -webkit-box;
+          /* autoprefixer: ignore next */ -webkit-box-orient: vertical;
+          height: 38px;
+          margin-top: 7px;
+        }
+  }

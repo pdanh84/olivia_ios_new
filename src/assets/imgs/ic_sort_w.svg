@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" class="" style=""/>
+
+
+<defs>
+<clipPath id="clip0">
+<rect width="16" height="16" fill="white" y="16" x="16" id="svg_1"/>
+</clipPath>
+<filter xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" id="f218" inkscape:label="Tritone" inkscape:menu="Color" inkscape:menu-tooltip="Create a tritone palette with hue selectable by flood" x="0" y="0" height="1" width="1" color-interpolation-filters="sRGB">
+            <feColorMatrix in="SourceGraphic" result="r" type="matrix" values="1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 "/>
+            <feColorMatrix in="SourceGraphic" result="g" type="matrix" values="0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 1 "/>
+            <feColorMatrix in="SourceGraphic" result="b" type="matrix" values="0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 1 "/>
+            <feBlend mode="darken" in="r" in2="g" result="minrg"/>
+            <feBlend mode="darken" in="minrg" in2="b" result="p"/>
+            <feBlend mode="lighten" in="r" in2="g" result="maxrg"/>
+            <feBlend mode="lighten" in="maxrg" in2="b" result="q"/>
+            <feComponentTransfer in="q" result="q2">
+                <feFuncR type="linear" slope="0"/>
+            </feComponentTransfer>
+            <feBlend mode="lighten" in="p" in2="q2" result="pq"/>
+            <feColorMatrix in="pq" result="qminp" type="matrix" values="-1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 0 0 0 1 "/>
+            <feComponentTransfer in="qminp" result="coefsq">
+                <feFuncR type="table" tableValues="1 1 0 0 0 1 1"/>
+                <feFuncG type="table" tableValues="0 1 1 1 0 0 0"/>
+                <feFuncB type="table" tableValues="0 0 0 1 1 1 0"/>
+            </feComponentTransfer>
+            <feFlood flood-color="#cb00fe" result="result1"/>
+            <feComposite in="qminp" in2="result1" result="qminpc" operator="arithmetic" k1="1"/>
+            <feComposite in="p" in2="qminpc" result="color" operator="arithmetic" k2="1" k3="1"/>
+            <feComposite in="color" in2="SourceGraphic" operator="in" k1="1"/>
+        </filter></defs>
+<g class="currentLayer" style=""><title>Layer 1</title><rect width="48" height="48" fill="white" id="svg_2" class="" opacity="0" filter="url(#f218)" stroke="#ffffff" stroke-opacity="1"/><g clip-path="url(#clip0)" id="svg_3" class="" stroke-opacity="1" stroke="#ffffff" opacity="0.97" filter="">
+<path d="M28.3466 31.375V16.3125" stroke="#ffffff" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" id="svg_4" opacity="0.97" filter="" stroke-opacity="1"/>
+<path d="M25.0054 27.7812L28.3465 31.6875L31.6876 27.7812" stroke="#ffffff" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" id="svg_5" opacity="0.97" filter="" stroke-opacity="1"/>
+<path d="M19.6534 16.625V31.6875" stroke="#ffffff" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" id="svg_6" opacity="0.97" filter="" stroke-opacity="1"/>
+<path d="M22.9945 20.2188L19.6534 16.3125L16.3123 20.2188" stroke="#ffffff" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" id="svg_7" opacity="0.97" filter="" stroke-opacity="1"/>
+</g></g></svg>

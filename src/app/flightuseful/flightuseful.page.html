@@ -1,0 +1,54 @@
+<div class="div-useful-content" #divuseful>
+  <div class="div-useful-title" *ngIf="_flightService.typeFlightUsefulShow!=2">
+    <div class="title-padding p-top-30">
+      <ion-label class="text-title2">
+      Thông tin hữu ích khi đi máy bay
+      </ion-label>
+    </div>
+
+  </div>
+      <div class="item-useful">
+        <div class="div-slide-useful">
+          <div class="div-wrap-useful-new m-top-8" *ngFor="let listItemNewUseful of listNewData; let idxhead=index">
+            <div class="div-wrap-itemuseful-new m-top-12">
+              <div *ngFor="let itemuseful of listItemNewUseful.data; let idx = index">
+                <div class="div-background-useful" id="{{itemuseful.id}}" *ngIf="itemuseful">
+                  <div [ngClass]="itemuseful.clicked ? 'd-flex div-title has-clicked div-border-selected' : 'div-title d-flex' "  (click)="itemClick(itemuseful)">
+                    <div class="text-content" *ngIf="itemuseful.title">{{itemuseful.title}}</div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+            </div>
+
+            <!-- <div *ngFor="let itemuseful of listItemNewUseful.data; let idx = index">
+              <div *ngIf="itemuseful && itemuseful.clicked">
+                <div >
+                    <div class="div-useful-show">
+                        <div [innerHTML]="itemuseful.contents"></div>
+                        <div class="div-image">
+                          <img class="img-qa" [src]="itemuseful.imageLink">
+                        </div>
+                    </div>
+                    
+                </div>
+                
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <div *ngIf="itemclick">
+          <div class="div-useful-show">
+            <div [innerHTML]="itemclick.contents"></div>
+            <div class="div-image">
+              <img class="img-qa" [src]="itemclick.imageLink">
+            </div>
+        </div>
+        </div>
+
+      </div>
+
+    
+</div>

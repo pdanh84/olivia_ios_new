@@ -1,0 +1,46 @@
+<ion-header class="cusimgreview-header">
+  <ion-row>
+    <ion-col class="header-col">
+      <div class="a-center">
+        <div class="div-back"(click)="goback()">
+          <img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title">
+          <div><label class="text-title">Ảnh từ khách hàng</label></div>
+          <div><label class="text-hotelname" *ngIf="fromhotel">{{hotelName}}</label></div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="cusimgreview-content">
+  <div *ngIf="loaddatadone else loadskeleton" class="p-16">
+    <div *ngFor="let item of listImages; let idx = index" [ngClass]="idx == 0 ? '' : 'p-top-16'">
+      <div class="div-item">
+        <img class="img-item" src="{{item.imageUrl}}" />
+        <div class="div-img-cover"></div>
+        <div *ngIf="item.description && fromhotel" class="div-text-over">{{item.description}}</div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loadskeleton>
+    <div style="margin-top:30px">
+      <ion-list lines="none" *ngFor="let item of listsk" >
+        <div >
+          <ion-item style="--inner-padding-end: 16px">
+              <ion-skeleton-text animated style="width: 100%;margin: 0;
+              width: 100% !important;
+              height: 192px !important;
+              object-fit: cover" ></ion-skeleton-text>
+          </ion-item>
+        </div>
+      </ion-list>
+    </div>
+  </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

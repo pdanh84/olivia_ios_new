@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div style="align-self: center" >
+            <div style="position: absolute;height: 48px;width: 48px;top: 0px;" (click)="goback()" >
+                <img style="height: 48px; padding: 8px;margin-top: -7px;margin-left:-14px" src="./assets/imgs/ios-arrow-round-back.svg" >
+            </div>
+            <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán</label></div>
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding-16">
+<img src="./assets/step/step_3.svg">
+<div style="margin-top: 20px">
+<b>Văn phòng tại TP. Hồ Chí Minh:</b>
+Lầu 2, Tòa nhà Anh Đăng, 215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, Tp.HCM.
+<br>
+ 
+Thời gian làm việc:
+<br>
+<ul class="dailytime">
+  <li>Thứ 2 - Thứ 7: từ 07h30 đến 21h00</li>
+  <li>Chủ Nhật: từ 07h30 đến 20h00</li>
+  <li>Hotline: <a class="hotline-link" id="DeskHotlineNumber" href="tel:19001870">1900 1870</a></li>
+</ul>
+<br>
+<b>Văn phòng tại Hà Nội:</b>
+P.308, Tầng 3, Tòa nhà The One, số 2 Chương Dương Độ, Q.Chương Dương, Q.Hoàn Kiếm, Hà Nội
+<br>
+
+Thời gian làm việc:
+<br>
+<ul class="dailytime">
+  <li>Thứ 2 - Chủ Nhật: từ 08h00 đến 20h00</li>
+  <li>Hotline: <a class="hotline-link" id="DeskHotlineNumber" href="tel:19002045">1900 2045</a></li>
+</ul>
+<br>
+<b>Văn phòng tại Cần Thơ:</b>
+Tầng 7 - Tòa nhà STS - 11B Đại Lộ Hòa Bình, P. Tân An, Q. Ninh Kiều, TP. Cần Thơ.
+<br>
+
+Thời gian làm việc:
+<ul class="dailytime">
+  <li>Thứ 2 - Chủ Nhật: từ 07h30 đến 21h00</li>
+  <li>Chủ Nhật: từ 07h30 đến 20h00</li>
+  <li>Hotline: <a class="hotline-link" id="DeskHotlineNumber" href="tel:19002087">1900 2087</a></li>
+</ul>
+</div>
+</ion-content>
+<ion-footer>
+<div style="background-color: #ffffff; text-align: center">
+  <button (click)="postapibook()" ion-button round outline class="button button2">Tiếp tục</button>
+</div>
+</ion-footer>

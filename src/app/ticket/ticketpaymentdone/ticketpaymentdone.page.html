@@ -1,0 +1,62 @@
+
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+      <ion-row>
+        <ion-col style="text-align: center">
+          <div class="div-goback" (click)="next()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          <div style="align-self: center" >
+              <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Hoàn thành</label></div>
+          </div>
+          <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<div class="p-all-16">
+  <div  style="text-align: center">
+    <img class="img-step" src="./assets/ic_tour/tour_step3.png">
+    </div>
+    <div class="img-trip-empty">
+      <img class="img-empty" src="./assets/empty/imgdone.svg">
+  </div>
+  <div *ngIf='ticketService.paymentType == 1 else paylater'>
+    <div>
+      <div class="text">
+        Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com. Mã vé<span class="text-bold"> {{experienceName}}</span>  sẽ được gửi đến SMS/Zalo của Quý khách.
+         
+      </div>
+      <div class="text">
+        Để được hỗ trợ xử lý thêm, vui lòng kết nối
+        
+      </div>
+      <div (click)="openZalo()"> 
+         <img class="div-zalo-paylater" src="./assets/ic_ticket/logo-zalo.png">
+         <a class="text-tealish text-bold m-left-23" href="https://zalo.me/3888313238733373810">iVIVU Tickets</a>
+      </div>
+    </div>
+    
+
+  </div>
+  <ng-template #paylater>
+    <div class="text">Xác nhận đặt vé sẽ được gửi đến Zalo của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được mã vé qua SMS/Zalo, vui lòng liên hệ    <span> 
+      <img class="div-zalo-paylater" src="./assets/ic_ticket/logo-zalo.png">
+      <a class="text-tealish text-bold m-left-23" href="https://zalo.me/3888313238733373810">iVIVU Tickets</a>
+    </span> để hỗ trợ xử lý.</div>
+
+  </ng-template>
+  
+  
+</div>
+</ion-content>
+<ion-footer>
+  <div class="div-button-payment-done">
+    <button (click)="goMyTrip()" ion-button round outline class="button button2">Chi tiết vé</button>
+    <button (click)="next()" ion-button round outline class="button button1 m-top-0">Đặt thêm vé khác</button>
+  </div>
+</ion-footer>

@@ -1,0 +1,417 @@
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">{{bookingCode}}</div>
+          </div>
+
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+    <ion-content class="flight-booking-detail-content">
+        <div class="p-16">
+            <div class="text-name">{{bookingFlight.ho}} {{bookingFlight.ten}}</div>
+
+            <div class="text-phone">{{bookingFlight.phone}} · {{bookingFlight.email}}</div>
+
+            <div class="div-split"></div>
+
+            <div class="div-pax">
+                <div class="pax-title">Danh sách khách hàng</div>
+
+                <div *ngFor="let item of bookingFlight.adults">
+                    <div class="d-flex m-bottom-10">
+                        <div class="pax-gender">{{item.genderdisplay}}</div>
+                        <div class="pax-name cls-error text-cathay">{{item.name}} <span *ngIf="item.dateofbirthdisplay && _flightService.itemFlightCache.priceCathay>0" class="pax-dob">({{item.dateofbirthdisplay}})</span></div>
+                        <div><img *ngIf="_flightService.itemFlightCache.priceCathay>0" class="img-info-cathay" src="https://beta-member.ivivu.com/assets/img/dashboard_trips/cathay.png"></div>
+                    </div>
+                </div>
+
+                <div *ngFor="let itemchild of bookingFlight.childs">
+                    <div class="d-flex m-bottom-10">
+                        <div class="pax-gender">{{itemchild.genderdisplay}}</div>
+                        <div class="pax-name cls-error text-cathay">{{itemchild.name}} <span class="pax-dob">({{itemchild.dateofbirthdisplay}})</span></div>
+                        <div><img *ngIf="_flightService.itemFlightCache.priceCathay>0" class="img-info-cathay" src="https://beta-member.ivivu.com/assets/img/dashboard_trips/cathay.png"></div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            <div class="div-split-1"></div>
+
+            <div class="d-flex">
+                <div class="text-flight-title div-width-600 d-flex">
+                    <div>
+                        <div>{{ bookingFlight.departCity }} ({{ bookingFlight.departCode }})</div>
+                       
+                    </div>
+                    <div class="div-flight-inout">
+                        <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout.svg" *ngIf="(bookingFlight && bookingFlight.roundTrip) else oneway">
+                        <ng-template #oneway><img class="img-flight-inout img-oneway" src="./assets/imgs/ic_arrow.svg"></ng-template>
+                    </div> 
+                    <div>
+                        <div>{{ bookingFlight.returnCity }}  ({{ bookingFlight.returnCode }})</div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Chiều đi -->
+            <div class="div-depart">
+                <div class="m-top-10 text-cin">
+                    {{checkInDisplay}}
+                </div>
+    
+                <div class="m-top-12 d-flex">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-logo">
+                            <img class="img-logo logo-vj" *ngIf="bookingFlight.departFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="img-logo logo-vna" *ngIf="bookingFlight.departFlight.airlineCode == 'VietnamAirlines' && !bookingFlight.departFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.operatedBy && bookingFlight.departFlight.urlLogo" [src]="bookingFlight.departFlight.urlLogo">
+                            <img class="img-logo" *ngIf="bookingFlight.departFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        
+                        <div class="text-airlinecode">{{ bookingFlight.departFlight.airlineCode }}</div>
+                    </div>
+                    <div class="div-width-100">
+                        <div class="div-airlineclass">{{ bookingFlight.departFlight.ticketClass }}</div>
+                    </div>    
+                </div>
+    
+                <div class="d-flex m-top-16 text-time">
+                    <div class="div-width-400 d-flex">
+                        <div class="d-flex div-width-100">
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.departFlight.departTimeDisplay }}
+                                <img class="img-flight" src="./assets/ic_flight/icon_flight_right.svg">
+                            </div>
+                            
+                            <div class="div-width-100 ">{{ bookingFlight.departFlight.landingTimeDisplay }}</div>
+                        </div>
+                    </div>
+                    <div class="div-width-100">{{ bookingFlight.departFlight.flightTimeDisplay }}p</div>
+                </div>
+    
+                <div class="d-flex text-code">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-width-100 d-flex">
+                            <div class="div-width-100 ">{{ bookingFlight.departCity }} ({{ bookingFlight.departCode }})</div>
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.returnCity }} ({{ bookingFlight.returnCode }})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-width-100" *ngIf="(bookingFlight.departFlight.stops == 0) else divtransit">Bay thẳng</div>
+                    <ng-template #divtransit>
+                        <div class="div-width-100" >Chặng dừng</div>
+                    </ng-template>
+                </div>
+    
+                <div class="div-flight-condition d-flex">
+                    <div class="div-width-150 d-flex">
+                        <div class="div-icon" *ngIf="((departConditionInfo && (!departConditionInfo.ticketRefund || departConditionInfo.ticketRefund.indexOf('Không') != -1)) || !departConditionInfo ) else departIconRefund">
+                            <img class="img-info" src="./assets/ic_flight/icon_info_gray.svg">
+                        </div>
+                        <ng-template #departIconRefund>
+                            <div class="div-icon">
+                                <img class="img-info" src="./assets/ic_flight/icon_action_check_circle.svg">
+                            </div>
+                        </ng-template>
+    
+                        <div class="div-text-refund" *ngIf="( (departConditionInfo && (!departConditionInfo.ticketRefund || departConditionInfo.ticketRefund.indexOf('Không') != -1)) || !departConditionInfo ) else returnrefund">Không hoàn huỷ</div>
+                        <ng-template #returnrefund>
+                            <div class="div-text-refund" >Hoàn hủy có phí</div>
+                        </ng-template>
+                    </div>
+                    <div class="div-width-150 d-flex">
+                        <div class="div-icon" *ngIf="((departConditionInfo && departConditionInfo.changeDepartTime.indexOf('Không') != -1) || !departConditionInfo ) else departIconChangeDepartTime">
+                           <img src="./assets/ic_flight/icon_info_gray.svg">
+                        </div>
+                        <ng-template #departIconChangeDepartTime>
+                            <div class="div-icon">
+                                <img class="img-info" src="./assets/ic_flight/icon_action_check_circle.svg">
+                            </div>
+                        </ng-template>
+                        <div class="div-text-changeflight not-allow" *ngIf="((departConditionInfo && departConditionInfo.changeDepartTime.indexOf('Không') != -1 ) || !departConditionInfo ) else departChangeDepartTime">Không đổi lịch bay</div>
+                        <ng-template #departChangeDepartTime>
+                            <div class="div-text-changeflight" >Đổi lịch bay có phí</div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chiều về -->
+            <div class="div-depart" *ngIf="bookingFlight.returnFlight">
+                <div class="m-top-10 text-cin">
+                    {{checkOutDisplay}}
+                </div>
+    
+                <div class="m-top-12 d-flex">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-logo">
+                            <img class="img-logo logo-vj" *ngIf="bookingFlight.returnFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="img-logo logo-vna" *ngIf="bookingFlight.returnFlight.airlineCode == 'VietnamAirlines' && !bookingFlight.returnFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.operatedBy && bookingFlight.returnFlight.urlLogo" [src]="bookingFlight.returnFlight.urlLogo">
+                            <img class="img-logo" *ngIf="bookingFlight.returnFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        </div>
+                        
+                        <div class="text-airlinecode">{{ bookingFlight.returnFlight.airlineCode }}</div>
+                    </div>
+                    <div class="div-width-100">
+                        <div class="div-airlineclass">{{ bookingFlight.returnFlight.ticketClass }}</div>
+                    </div>    
+                </div>
+                <div class="d-flex m-top-16 text-time">
+                    <div class="div-width-400 d-flex">
+                        <div class="d-flex div-width-100">
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.returnFlight.departTimeDisplay }}
+                                <img class="img-flight" src="./assets/ic_flight/icon_flight_right.svg">
+                            </div>
+                            <div class="div-width-100 ">{{ bookingFlight.returnFlight.landingTimeDisplay }}</div>
+                        </div>
+                    </div>
+                    <div class="div-width-100">{{ bookingFlight.returnFlight.flightTimeDisplay }}p</div>
+                </div>
+    
+                <div class="d-flex text-code">
+                    <div class="div-width-400 d-flex">
+                        <div class="div-width-100 d-flex">
+                            <div class="div-width-100 ">{{ bookingFlight.returnCity }} ({{ bookingFlight.returnCode }})</div>
+                            <div class="div-width-100 ">
+                                {{ bookingFlight.departCity }} ({{ bookingFlight.departCode }})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-width-100" *ngIf="(bookingFlight.returnFlight.stops == 0) else divtransit">Bay thẳng</div>
+                    <ng-template #divtransit>
+                        <div class="div-width-100" >Chặng dừng</div>
+                    </ng-template>
+                </div>
+    
+                <div class="div-flight-condition d-flex" *ngIf="bookingFlight.returnFlight">
+                    <div class="div-width-150 d-flex">
+                        <div class="div-icon" *ngIf="( (returnConditionInfo && (!returnConditionInfo.ticketRefund || returnConditionInfo.ticketRefund.indexOf('Không') != -1)) || !returnConditionInfo ) else returnIconRefund">
+                            <img class="img-info" src="./assets/ic_flight/icon_info_gray.svg">
+                        </div>
+                        <ng-template #returnIconRefund>
+                            <div class="div-icon">
+                                <img class="img-info" src="./assets/ic_flight/icon_action_check_circle.svg">
+                            </div>
+                        </ng-template>
+                        <div class="div-text-refund" *ngIf="( (returnConditionInfo && (!returnConditionInfo.ticketRefund || returnConditionInfo.ticketRefund.indexOf('Không') != -1)) || !returnConditionInfo ) else returnrefund">Không hoàn huỷ</div>
+                            <ng-template #returnrefund>
+                                <div class="div-text-refund" >Hoàn hủy có phí</div>
+                            </ng-template>
+                        </div>
+                    <div class="div-width-150 d-flex">
+                        <div class="div-icon" *ngIf="( (returnConditionInfo && returnConditionInfo.changeDepartTime.indexOf('Không') != -1) || !returnConditionInfo) else returnIconChangeDepartTime">
+                            <img src="./assets/ic_flight/icon_info_gray.svg">
+                        </div>
+                        <ng-template #returnIconChangeDepartTime>
+                            <div class="div-icon">
+                                <img src="./assets/ic_flight/icon_action_check_circle.svg">
+                            </div>
+                        </ng-template>
+                        <div class="div-text-changeflight not-allow" *ngIf="( (returnConditionInfo && returnConditionInfo.changeDepartTime.indexOf('Không') != -1) || !returnConditionInfo) else returnChangeDepartTime">Không đổi lịch bay</div>
+                        <ng-template #returnChangeDepartTime>
+                            <div class="div-text-changeflight" >Đổi lịch bay có phí</div>
+                        </ng-template> 
+                    </div>
+                </div>
+            </div>
+            <!-- HotelCity -->
+            <div class="div-hotelcity" *ngIf="_flightService.itemFlightCache.objHotelCitySelected">
+                <div class="div-hotel-name">
+                  <span>{{_flightService.itemFlightCache.objHotelCitySelected.HotelName}} 
+                    <span class="m-l-4">
+                       <img *ngIf="_flightService.itemFlightCache.objHotelCitySelected.RatingStar" src="{{_flightService.itemFlightCache.objHotelCitySelected.RatingStar}}"/>
+                    </span> 
+                  </span>
+                </div>
+                <div class="col-mytrip-text-description ">
+                  <div class="text-left">
+                    <!-- Loại phòng -->
+                    <ion-row class="row-height-listtrip" *ngIf="_flightService.itemFlightCache.objHotelCitySelected.RoomName">
+                        <ion-col size="0.75"  class="col-address">
+                            <img src="./assets/ic_hoteldetail/ic_bed.svg">
+                        </ion-col>
+                        <ion-col class="col-address">
+                            <label>{{_flightService.itemFlightCache.objHotelCitySelected.RoomName}} | {{_flightService.itemFlightCache.objHotelCitySelected.TotalRoom}} phòng</label>
+                        </ion-col>
+                    </ion-row>
+                    <!-- meal plan -->
+                  <ion-row class="row-height-listtrip" *ngIf="_flightService.itemFlightCache.objHotelCitySelected.BreakfastIncludeName ">
+                    <ion-col size="0.75" class="col-address">
+                        <img src="./assets/ic_facility/ic_food_b.svg">
+                    </ion-col>
+                    <ion-col  class="col-address">
+                      {{_flightService.itemFlightCache.objHotelCitySelected.BreakfastIncludeName}}
+                    </ion-col>
+                  </ion-row>
+                  
+                </div>
+              </div>
+          </div>
+           <!-- đi chung -->
+           <div>
+            <!-- chieu di -->
+            <div class="div-DC" *ngIf="_flightService.itemFlightCache.departCity && listDiChung.PhaseGo">
+               <div class="div-flight-dichung d-flex">
+                   <div>
+                       <img src="./assets/ic_flight/icfilght_location.svg" />
+                   </div>
+                   <div class="div-text-refund m-left-4">
+                       Xe đưa đón tại {{_flightService.itemFlightCache.departCity}}
+                   </div>
+               </div>
+               <!-- chiều đi của chuyến bay đi -->
+               <div >
+                   <div class="d-flex m-top-16 text-time">
+                       <div class="div-width-400 d-flex">
+                           <div class="d-flex div-width-100">
+                               <div class="div-width-100 d-flex">
+                                   <img  src="./assets/ic_flight/callendar.svg">
+                                   <div class="text-DC">
+                                       {{checkInDisplayDC}}
+                                   </div>
+                                  
+                               </div>
+                               
+                               <div class="div-width-100 d-flex">
+                                   <img class="img-DC" src="./assets/ic_flight/clock.svg"> 
+                                   <div class="text-time-DC">
+                                       {{listDiChung.PhaseGo.pickUpTime.text}}
+                                   </div></div>
+                           </div>
+                       </div>
+                       <div class="div-width-100 text-DC-Chang">Chiều đi</div>
+                   </div>
+           
+                   <div class="div-width-100 d-flex">
+                       <img  src="./assets/ic_flight/car_review.svg">
+                       <div class="text-place">
+                           {{textDepart}}
+                       </div>
+                      
+                   </div>
+               </div>
+               <!-- chiều về của chuyến bay đi -->
+               <div *ngIf="listDiChung.PhaseGo_RoundTrip">
+                   <div class="d-flex m-top-16 text-time">
+                       <div class="div-width-400 d-flex">
+                           <div class="d-flex div-width-100">
+                               <div class="div-width-100 d-flex">
+                                   <img  src="./assets/ic_flight/callendar.svg">
+                                   <div class="text-DC">
+                                       {{checkOutDisplayDC}}
+                                   </div>
+                                  
+                               </div>
+                               
+                               <div class="div-width-100 d-flex">
+                                   <img class="img-DC" src="./assets/ic_flight/clock.svg"> 
+                                   <div class="text-time-DC">
+                                       {{listDiChung.PhaseGo_RoundTrip.pickUpTime.text}}
+                                   </div></div>
+                           </div>
+                       </div>
+                       <div class="div-width-100 text-DC-Chang">Chiều về</div>
+                   </div>
+           
+                   <div class="div-width-100 d-flex">
+                       <img  src="./assets/ic_flight/car_review.svg">
+                       <div class="text-place">
+                           {{_flightService.itemFlightCache.departAirport}}
+                       </div>
+                      
+                   </div>
+               </div>
+              
+             </div>
+           
+             <!-- CHiều về -->
+             <div *ngIf="_flightService.itemFlightCache.returnCity && listDiChung.PhaseReturn" class="div-DC">
+               <div class="div-flight-dichung d-flex">
+                   <div>
+                       <img src="./assets/ic_flight/icfilght_location.svg" />
+                   </div>
+                   <div class="div-text-refund m-left-4">
+                       Xe đưa đón tại {{_flightService.itemFlightCache.returnCity}}
+                   </div>
+               </div>
+               <!-- chiều đi của chuyến bay về -->
+               <div *ngIf="listDiChung.PhaseReturn">
+                   <div  class="d-flex m-top-16 text-time">
+                       <div class="div-width-400 d-flex">
+                           <div class="d-flex div-width-100">
+                               <div class="div-width-100 d-flex">
+                                   <img  src="./assets/ic_flight/callendar.svg">
+                                   <div class="text-DC">
+                                       {{checkInDisplayDC}}
+                                   </div>
+                                  
+                               </div>
+                               
+                               <div class="div-width-100 d-flex">
+                                   <img class="img-DC" src="./assets/ic_flight/clock.svg"> 
+                                   <div class="text-time-DC">
+                                       {{listDiChung.PhaseReturn.pickUpTime.text}}
+                                   </div></div>
+                           </div>
+                       </div>
+                       <div class="div-width-100 text-DC-Chang">Chiều đi</div>
+                   </div>
+           
+                   <div class="div-width-100 d-flex">
+                       <img  src="./assets/ic_flight/car_review.svg">
+                       <div class="text-place">
+                           {{_flightService.itemFlightCache.returnAirport}}
+                          
+                       </div>
+                      
+                   </div>
+               </div>
+               <!-- chiều về của chuyến bay về -->
+               <div *ngIf="listDiChung.PhaseReturn_RoundTrip">
+                   <div class="d-flex m-top-16 text-time">
+                       <div class="div-width-400 d-flex">
+                           <div class="d-flex div-width-100">
+                               <div class="div-width-100 d-flex">
+                                   <img  src="./assets/ic_flight/callendar.svg">
+                                   <div class="text-DC">
+                                       {{checkOutDisplayDC}}
+                                   </div>
+                                  
+                               </div>
+                               
+                               <div class="div-width-100 d-flex">
+                                   <img class="img-DC" src="./assets/ic_flight/clock.svg"> 
+                                   <div class="text-time-DC">
+                                       {{listDiChung.PhaseReturn_RoundTrip.pickUpTime.text}}
+                                   </div></div>
+                           </div>
+                       </div>
+                       <div class="div-width-100 text-DC-Chang">Chiều về</div>
+                   </div>
+           
+                   <div class="div-width-100 d-flex">
+                       <img  src="./assets/ic_flight/car_review.svg">
+                       <div class="text-place">
+                           {{textReturn}}
+                       </div>
+                      
+                   </div>
+               </div>
+              
+             </div>
+           </div>
+        </div>
+    </ion-content>

@@ -1,0 +1,165 @@
+
+
+<ion-header class="flightpage-header flight-changeinfo-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title">
+            <div class="div-title">Tìm chuyến bay mới</div>
+          </div>
+          <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+  <ion-content class="flight-changeinfo-content">
+        <div class="p-16">
+            <div class="padding div-wrap-content">
+
+                <ion-row class="row-flight">
+                    <div class="div-width div-relative">
+                        <div class="img-input"  (click)="searchFlight(1)">
+                            <img class="img-padding img-location" src="./assets/ic_flight/flight_cin.svg"/>
+                        </div>
+                        <div class="div-input-right text-input-flight div-flex-center " *ngIf="departCode else choiceDepartCode"  (click)="searchFlight(1)">
+                            <div class="text-location div-departcode">{{departCity}}<span class="text-code">{{departCode}}</span></div>
+                            <div class="text-location-desc div-departcode">{{departAirport}}</div>
+                        </div>
+                        <ng-template #choiceDepartCode>
+                            <div class="div-input-right text-input-flight div-flex-center" (click)="searchFlight(1)">
+                                <div class="text-code f-14">
+                                    Chọn chiều đi
+                                </div>
+                            </div>
+                        </ng-template>
+                        <div class="div-switch" (click)="switchDepart()" *ngIf="departCode && returnCode">
+                            <img class="img-switch" src="./assets/ic_flight/ic_switch.svg">
+                        </div>
+                    </div>
+                </ion-row>
+
+                <ion-row class="row-flight">
+                    <div class="div-width">
+                        <div class="img-input"  (click)="searchFlight(2)">
+                            <img class="img-padding img-location" src="./assets/ic_flight/flight_cout.svg"/>
+                        </div>
+                        <div class="div-input-right text-input-flight div-flex-center" *ngIf="returnCode else choiceReturnCode"  (click)="searchFlight(2)">
+                            <div class="text-location div-returncode">{{returnCity}}<span class="text-code">{{returnCode}}</span></div>
+                            <div class="text-location-desc div-returncode">{{returnAirport}}</div>
+                        </div>
+                        <ng-template #choiceReturnCode>
+                            <div class="div-input-right text-input-flight div-flex-center"  (click)="searchFlight(2)">
+                                <div class="text-code f-14">
+                                    Chọn chiều về
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </ion-row>
+
+                <div>
+                    <ion-row class="row-cin-cout " >
+                        <div class="div-width d-flex">
+                            <div class="div-cin div-width-100" (click)="openPickupCalendar()">
+                                <div class="img-cin-cout">
+                                    <img class="img-padding img-checkin" src="./assets/iocnsearch/ic_checkin.svg"/>
+                                </div>
+                                <div class="div-input-right text-input-cin div-flex-center">
+                                    <div class="text-cin">
+                                        <label class="text-cin-input">{{ cindisplaymonth }}</label>
+                                    </div>
+                                    <div class="font-thu" *ngIf="!cofdate">
+                                        <label class="text-color text-cinthu">{{ cinthu }}</label>
+                                    </div>
+                                    <div class="font-thu" *ngIf="cofdate">
+                                        <label class="text-color text-cinthu text-red">{{cinthu}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-roundtrip  div-width-100">
+                                <div class=" d-flex t-right"> 
+                                    <div class="j-center h-48 text-roundtrip div-width-100">Khứ hồi?</div>
+                                    <div class="j-center h-48"><ion-toggle (ionChange)="changeRoundTrip($event)" [checked]="flighttype == 'twoway' ? true : false"></ion-toggle></div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </ion-row>
+    
+                    <ion-row (click)="openPickupCalendar()" [ngClass]="flighttype == 'twoway' ? 'row-cin-cout' : 'row-cin-cout div-hidden'">
+                        <div class="div-width">
+                            <div class="div-cin">
+                                <div class="img-cin-cout">
+                                    <img class="img-padding img-checkin" src="./assets/iocnsearch/ic_checkout.svg"/>
+                                </div>
+                                <div class="div-input-right text-input-cin div-flex-center">
+                                    <div class="text-cin">
+                                        <label class="text-cin-input">{{ coutdisplaymonth }}</label>
+                                    </div>
+                                    <div class="font-thu" *ngIf="!cotdate">
+                                        <label *ngIf="!cotdate" class="text-color text-cinthu">{{coutthu}}</label>
+                                    </div>
+                                    <div class="font-thu" *ngIf="cotdate">
+                                        <label *ngIf="cotdate" class="text-color text-cinthu text-red">{{coutthu}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </ion-row>
+    
+                    <ion-row class="row-pax bg-none">
+                        <ion-col class="no-padding cls-bg-white" (click)="choicePax()">
+                            <div class="div-width">
+                                <div class="img-cin-cout">
+                                    <img class="img-padding img-people" src="./assets/iocnsearch/ic_people.svg"/>
+                                </div>
+    
+                                <div class="div-input-right div-flex-center d-flex">
+                                    <div class="text-pax 0">
+                                        <!-- <div class="div-adult">{{ adult }} người lớn<span *ngIf="child>0">, {{ child }}  trẻ em</span><span *ngIf="infant>0">, {{ infant }} em bé</span></div> -->
+                                        <div class="div-adult">{{pax}} Hành khách</div>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col class="no-padding cls-bg-white m-left-8" *ngIf="isInternationalFlight"  (click)="showFilterTicketClass()">
+                            <div class="div-width">
+                                <div class="img-seat">
+                                    <img src="./assets/ic_flight_international/seat.svg"/>
+                                </div>
+    
+                                <div class="div-input-right div-flex-center div-filter-ticketclass">
+                                    <div class="div-text" *ngIf="!_flightService.classSelected">Nhiều hạng vé</div>
+                                    <div class="div-text max-width-100" *ngIf="_flightService.classSelected">{{_flightService.classSelectedName}}</div>
+                                </div>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+    
+                    <!-- <div (click)="showFlightPriority()" class="div-timepriorityconfig" *ngIf="!isInternationalFlight">
+                        <div *ngIf="(!timedepartpriorityconfig && !timereturnpriorityconfig) else haspriorityconfig">
+                            <span>Bạn có giờ bay ưu tiên? <span class="cls-sub-color"> Chọn ngay <img class="img-right" src="./assets/ic_flight/ic_right_tealish.svg"/></span></span>
+                        </div>
+                        
+                        <ng-template #haspriorityconfig>
+                            <span > <span *ngIf="timedepartpriorityconfig">Đi ưu tiên: {{timedepartpriorityconfig}}. </span><span *ngIf="timereturnpriorityconfig"> Về ưu tiên: {{timereturnpriorityconfig}}</span> <span class="cls-sub-color"> Thay đổi <img class="img-right" src="./assets/ic_flight/ic_right_tealish.svg"/></span></span>
+                        </ng-template>
+                    </div> -->
+
+
+                    <ion-row>
+                        <button ion-button round (click)="search()" class="button btn-search" clear>
+                            Tìm kiếm
+                        </button>
+                    </ion-row>
+                </div>
+                
+            </div>
+    </div>
+  </ion-content>

@@ -1,0 +1,165 @@
+.text-title{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0;
+    width: 100%;
+    height: 48px;
+}
+.header-text{
+  text-align: center;
+  align-self: center;
+}
+
+.div-wrapimg {
+    position: relative;
+    height:104px;
+    width: 104px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.img-avatar {
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    max-width: 300px;
+    max-height: 200px;
+}
+.room-class-name {
+    font-size: 18px;
+    color: #003c71;
+    margin: 0 0 16px 0;
+    font-weight: bold;
+}
+.col-icon{
+    padding: 0px 0px 3px 0px;
+    text-align: center;
+}
+.col-text{
+    padding: 0px 0px 0px 5px;
+    font-size: 14px;
+    letter-spacing: -0.4px;
+}
+.cls-row-text{
+    padding-top: 30px;
+}
+.cls-row-text-24{
+    padding-top: 24px;
+}
+.cls-row-text-title{
+    font-size: 14px;
+    letter-spacing: -0.11px;
+    color: #333333;
+}
+.btn-addimage{
+    font-size: 12px !important;
+    color: #003c71;
+    background-color: transparent;
+    border: solid 1px #003c71;
+    width: 70px;
+    height: 70px !important;
+    padding: 0;
+    margin: 0;
+    padding-top: 40px;
+}
+.img-plus{
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    width: 32px;
+}
+.img-close{
+    max-width: 150%;
+    position: absolute;
+    right: 0;
+    top: 6px;
+}
+.cls-text-share{
+    font-size: 14px; 
+    letter-spacing: -0.11px;
+    color: #333333;
+}
+.cls-text-feedback{
+    border: solid 1px #bebebe;
+    border-radius: 4px;    
+    font-size: 14px;
+    color: #828282;
+}
+.cls-star{
+    padding-left:0;
+    margin-left: 5px;
+}
+.btn-sendfeedback{
+    margin:0;
+    padding: 0;
+    background-color: #ff9500;
+    color: #ffffff;
+    width: 100%;
+}
+
+@media (min-width:300px) and (max-width: 340px) {
+    .col-mytrip-text-description,.col-historytrip-text-description,.col-requestrip-text-description{
+      left: 12px;
+    }
+    .btn-next{
+        font-size: 14px;
+        height: 48px;
+        letter-spacing: -0.5px;
+    }
+    .col-text-right{
+        font-size: 13px;
+    }
+    .room-class-name{
+        font-size: 16px;
+    }
+  }
+  .img-user-avatar {
+    object-fit: cover;
+    max-width: initial;
+    height: 50%;
+    width: 100px;
+    margin-left: 5px;
+}
+
+.div-flight-inout{
+    padding: 0px 18px;
+    width: 32px;
+    height: 32px;
+    position: relative;
+
+    .img-flight-inout{
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+  }
+  .img-oneway{
+    width: 12px !important;
+    margin-left: 12px;
+  }
+  .text-flight-datetime{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: -0.4px;
+    color: #000000;
+  }
+  .div-width-600{
+    width: 600%;
+  }
+  .div-width-60{
+    width: 60%;
+  }
+  .text-flight-title{
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.51px;
+    color: #000000;
+  }
+    
+  .d-flex{
+    display: flex;
+}

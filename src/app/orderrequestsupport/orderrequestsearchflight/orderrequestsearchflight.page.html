@@ -1,0 +1,1192 @@
+<ion-header class="flightsearchresult-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title" *ngIf="step==2 else returntitle">
+          <div class="div-title">{{ title }}</div>
+          <div class="div-subtitle"><span>{{dayDisplay}}</span> {{ subtitle }} <span class="arrow-down"><img class="img-down" src="./assets/ic_flight/icon_down_orange.svg"></span></div>
+        </div>
+        <ng-template #returntitle>
+          <div class="div-header-title">
+            <div class="div-title">{{ titlereturn }}</div>
+            <div class="div-subtitle"><span>{{dayReturnDisplay}}</span> {{ subtitlereturn }} <span class="arrow-down"><img class="img-down" src="./assets/ic_flight/icon_down_orange.svg"></span></div>
+          </div>
+        </ng-template>
+<!--         
+        <div class="div-quick-back" (click)="showQuickBack()">
+            ...
+        </div> -->
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content [scrollEvents]="true" #scrollArea>
+  <ion-progress-bar style="color: #003c71;height: 2px;" *ngIf="!loadpricedone" [value]="progressbarloading" [buffer]="progressbarbuffer"></ion-progress-bar>
+  <div class="flightsearchresult-content">
+    
+    <div *ngIf="!loadpricedone else hasprice" class="div-load-price">
+      <ion-skeleton-text animated style="width: 160px;height: 22px;margin-bottom: 10px;border-radius: 16px;"></ion-skeleton-text>
+
+          <div [ngClass]="idx == loadsk.length-1 ? 'div-item-flight-other':'div-item-flight-other m-b-8'"  *ngFor="let itemsk of loadsk; let idx = index" style="height: 80px">
+            <div class="div-first d-flex">
+              <div >
+                <ion-skeleton-text animated style="width: 150px;height: 22px;margin-bottom: 8px;border-radius: 16px;"></ion-skeleton-text>
+                  <div class="d-flex">
+                    <ion-skeleton-text animated style="width: 16px;height: 16px; border-radius: 16px;margin-right: 8px"></ion-skeleton-text>
+
+                    <ion-skeleton-text animated style="width: 150px;height: 16px; border-radius: 16px;"></ion-skeleton-text>
+                  </div>
+                </div>
+            </div>
+
+            <div class="div-second d-flex p-top-8" style="margin-top: 0">
+              <div class="div-button">
+                <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text>
+              </div>
+            </div>
+        </div>
+
+        <ion-skeleton-text animated style="width: 160px;height: 22px;margin-bottom: 10px; margin-top: 24px;border-radius: 16px;"></ion-skeleton-text>
+        <div [ngClass]="idx == loadsk.length-1 ? 'div-item-flight-other':'div-item-flight-other m-b-8'"  *ngFor="let itemsk of loadsk; let idx = index" style="height: 80px">
+          <div class="div-first d-flex">
+            <div >
+              <ion-skeleton-text animated style="width: 150px;height: 22px;margin-bottom: 8px;border-radius: 16px;"></ion-skeleton-text>
+                <div class="d-flex">
+                  <ion-skeleton-text animated style="width: 16px;height: 16px; border-radius: 16px;margin-right: 8px"></ion-skeleton-text>
+
+                  <ion-skeleton-text animated style="width: 150px;height: 16px; border-radius: 16px;"></ion-skeleton-text>
+                </div>
+              </div>
+          </div>
+
+          <div class="div-second d-flex p-top-8" style="margin-top: 0">
+            <div class="div-button">
+              <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text>
+            </div>
+          </div>
+      </div>
+
+    </div>
+    
+    <ng-template #hasprice>
+      <!-- Chuyến đi -->
+      <div *ngIf="step == 2 else returnFlight">
+
+        <div *ngIf="(sortairline && !buttoniVIVUSelected) else nosortdepart">
+
+          <div *ngIf="enableFlightFilter else nodepartFilter">
+         
+            <div class="d-flex" *ngIf="(count >=1 || stoprequest) && (listDepartFilter && listDepartFilter.length >0)">
+              <div *ngIf="!textsort" class="div-title-content p-bottom-8 div-width-150" >Lựa chọn tốt nhất</div>
+              <div *ngIf="textsort" class="div-title-content p-bottom-8 div-width-150" >{{textsort}}</div>
+              <div class="text-refresh m-top-4 div-width-100" (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+            </div>
+  
+            <div [ngClass]="!textsort ? 'div-best-choice' : ''" *ngIf="(listDepartFilter && listDepartFilter.length >0 && (count >=1 || stoprequest) ) else nodepartFilterEmpty">
+              <div [ngClass]="idx == listDepartFilter.length-1 ? 'div-item-flight':'div-item-flight m-b-8'"  *ngFor="let item of listDepartFilter; let idx = index">
+                  <div class="div-first d-flex"  >
+                    <div (click)="select(1,item)">
+                        <div class="d-flex">
+                          <div class="div-time">{{item.departTimeDisplay}}</div>
+                          <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                          <div class="div-time">{{item.landingTimeDisplay}}</div>
+                        </div>
+    
+                        <div class="div-split">
+                            <img src="./assets/ic_flight/icon_flight_line.svg">
+                        </div>
+                        
+                        <div class="d-flex">
+                          <div class="div-departcode">
+                              {{item.from}}
+                          </div>
+                          <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                              Bay thẳng
+                          </div>
+                          <ng-template #transitflight>
+                            <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                          </ng-template>
+  
+                          <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                            {{item.to}}
+                          </div>
+                          <ng-template #multidepart>
+                            <div class="div-departcode">
+                              {{item.details[item.details.length-1].to}}
+                            </div>
+                            
+                          </ng-template>
+                        </div>
+                      </div>
+                    <div class="div-flight-price">
+                      <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                        {{item.promotions[0].promotionNote}}
+                      </div>
+                      <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                      <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 1)">Xem phí đổi</div>
+                      
+                    </div>
+                    
+                  </div>
+        
+                  <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                   
+                    <div class="div-logo"  (click)="select(1,item)">
+                      <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                      <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                      <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                    </div>
+        
+                    <div class="flight-type p-l-8 d-flex"  (click)="select(1,item)">
+                      <div>{{item.ticketType}}</div>
+                    </div>
+
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)) && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways') ">
+                      <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                    </div>
+                      <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+
+                    <div class="p-l-4"  (click)="showFlightDetail(item, 1)">
+                      <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                    </div>
+    
+                    <div [ngClass]=" (item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(1,item)">
+                      <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                        Đổi
+                      </button>
+                    </div>
+                  </div>
+  
+                  <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+                
+              </div>
+            </div>
+            <ng-template #nodepartFilterEmpty> 
+              <div class="div-text-center" *ngIf="(!listDepartFilter || (listDepartFilter && listDepartFilter.length ==0))">
+                <div class="p-top-60 m-bottom-24">
+                  <img src="./assets/ic_flight/icon_notfound.svg" >
+                </div>
+  
+                <div class="text-title-empty">Không có chuyến bay</div>
+                <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+                <div class="div-button-empty d-flex">
+                    <div class="div-width-100">
+                      <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                    </div>
+                    <div class="div-width-100 m-left-8" *ngIf="enableFlightFilter">
+                      <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                    </div>
+                </div>
+            </div>
+            </ng-template>
+              
+          </div>
+
+          <ng-template #nodepartFilter>
+            <div class="d-flex" *ngIf="(count >=1 || stoprequest) && (listDepart && listDepart.length >0)">
+              <div *ngIf="!textsort" class="div-title-content p-bottom-8 div-width-150" >Lựa chọn tốt nhất</div>
+              <div *ngIf="textsort" class="div-title-content p-bottom-8 div-width-150" >{{textsort}}</div>
+              <div class="text-refresh m-top-4 div-width-100" (click)="showWarningFee()">
+                <img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến
+              </div>
+            </div>
+  
+            <div [ngClass]="!textsort ? 'div-best-choice' : ''" *ngIf="(listDepart && listDepart.length >0 && (count >=1 || stoprequest) ) else nodepartEmpty">
+              <div [ngClass]="idx == listDepart.length-1 ? 'div-item-flight':'div-item-flight m-b-8'"  *ngFor="let item of listDepart; let idx = index">
+                  <div class="div-first d-flex" >
+                    <div  (click)="select(1,item)">
+                        <div class="d-flex">
+                          <div class="div-time">{{item.departTimeDisplay}}</div>
+                          <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                          <div class="div-time">{{item.landingTimeDisplay}}</div>
+                        </div>
+    
+                        <div class="div-split">
+                            <img src="./assets/ic_flight/icon_flight_line.svg">
+                        </div>
+                        
+                        <div class="d-flex">
+                          <div class="div-departcode">
+                              {{item.from}}
+                          </div>
+                          <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                              Bay thẳng
+                          </div>
+                          <ng-template #transitflight>
+                            <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                          </ng-template>
+  
+                          <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                            {{item.to}}
+                          </div>
+                          <ng-template #multidepart>
+                            <div class="div-departcode">
+                              {{item.details[item.details.length-1].to}}
+                            </div>
+                            
+                          </ng-template>
+                        </div>
+                      </div>
+                    <div class="div-flight-price">
+                      <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                        {{item.promotions[0].promotionNote}}
+                      </div>
+                      <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                      <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 1)">Xem phí đổi</div>
+                    </div>
+                    
+                  </div>
+        
+                  <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                   
+                    <div class="div-logo"  (click)="select(1,item)">
+                      <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                      <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                      <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                    </div>
+        
+                    <div class="flight-type p-l-8 d-flex"  (click)="select(1,item)">
+                      <div>{{item.ticketType}}</div>
+                    </div>
+
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply) || !item.addon) && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways') ">
+                      <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                    </div>
+                      <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+                      
+                    <div class="p-l-4"  (click)="showFlightDetail(item, 1)">
+                      <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                    </div>
+    
+                    <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(1,item)">
+                      <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                        Đổi
+                      </button>
+                    </div>
+                  </div>
+  
+                  <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+                
+                </div>
+              </div>
+              <ng-template #nodepartEmpty> 
+                <div class="div-text-center" *ngIf="(!listDepart || (listDepart && listDepart.length ==0))">
+                  <div class="p-top-60 m-bottom-24">
+                    <img src="./assets/ic_flight/icon_notfound.svg" >
+                  </div>
+    
+                  <div class="text-title-empty">Không có chuyến bay</div>
+                  <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+                  <div class="div-button-empty d-flex">
+                      <div class="div-width-100">
+                        <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                      </div>
+                      <div class="div-width-100 m-left-8" *ngIf="enableFlightFilter">
+                        <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                      </div>
+                  </div>
+                </div>
+              </ng-template>
+
+          </ng-template>
+          
+        </div>
+
+        <ng-template #nosortdepart>
+          <div class="d-flex" *ngIf="(bestpricedepart && bestpricedepart.length >0 && (count >=1 || stoprequest) )">
+            <div class="div-title-content p-bottom-8 div-width-150" >Lựa chọn tốt nhất</div>
+            <div class="text-refresh m-top-4 div-width-100"  (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+          </div>
+          <div class="div-best-choice" *ngIf="(bestpricedepart && bestpricedepart.length >0 && (count >=1 || stoprequest) )">
+            <div [ngClass]="idx == bestpricedepart.length-1 ? 'div-item-flight': (idx == 0 ? 'div-item-flight m-b-8 bp-firstitem' : 'div-item-flight m-b-8') "  *ngFor="let item of bestpricedepart; let idx = index">
+               <div *ngIf="item">
+                 <div class="div-first d-flex"  >
+                  <div (click)="select(1,item)">
+                      <div class="d-flex">
+                        <div class="div-time">{{item.departTimeDisplay}}</div>
+                        <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                        <div class="div-time">{{item.landingTimeDisplay}}</div>
+                      </div>
+  
+                      <div class="div-split">
+                          <img src="./assets/ic_flight/icon_flight_line.svg">
+                      </div>
+                      
+                      <div class="d-flex">
+                        <div class="div-departcode">
+                            {{item.from}}
+                        </div>
+                        <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                            Bay thẳng
+                        </div>
+                        <ng-template #transitflight>
+                          <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                        </ng-template>
+
+                        <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                          {{item.to}}
+                        </div>
+                        <ng-template #multidepart>
+                          <div class="div-departcode">
+                            {{item.details[item.details.length-1].to}}
+                          </div>
+                          
+                        </ng-template>
+                      </div>
+                    </div>
+                  <div class="div-flight-price">
+                    <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                      {{item.promotions[0].promotionNote}}
+                    </div>
+                    <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                    <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                    <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                    <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 1)">Xem phí đổi</div>
+                  </div>
+                  
+                </div>
+      
+                <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                 
+                  <div class="div-logo"  (click)="select(1,item)">
+                    <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+      
+                  <div class="flight-type p-l-8 d-flex"  (click)="select(1,item)">
+                      <div>{{item.ticketType}}</div>
+                      
+                  </div>
+                  <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)  || !item.addon) && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways') ">
+                    <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                  </div>
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                    </div>
+                    <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                      <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                    </div>
+                    
+
+                  <div class="p-l-4"  (click)="showFlightDetail(item, 1)">
+                    <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                  </div>
+  
+                  <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(1,item)">
+                    <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                      Đổi
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+              </div> 
+              <div *ngIf="!item">
+                <div class='div-item-flight-other' style="height: 80px">
+                  <div class="div-first d-flex">
+                    <!-- <div >
+                      <ion-skeleton-text animated style="width: 150px;height: 22px;margin-bottom: 8px;border-radius: 16px;"></ion-skeleton-text>
+                        <div class="d-flex">
+                          <ion-skeleton-text animated style="width: 16px;height: 16px; border-radius: 16px;margin-right: 8px"></ion-skeleton-text>
+      
+                          <ion-skeleton-text animated style="width: 150px;height: 16px; border-radius: 16px;"></ion-skeleton-text>
+                        </div>
+                      </div> -->
+                  </div>
+      
+                  <div class="div-second d-flex p-top-8" style="margin-top: 0">
+                    <div class="div-button">
+                      <!-- <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="div-text-center" *ngIf="(!bestpricedepart || (bestpricedepart && bestpricedepart.length ==0))">
+            <div class="p-top-60 m-bottom-24">
+              <img src="./assets/ic_flight/icon_notfound.svg" >
+            </div>
+
+            <div class="text-title-empty">Không có chuyến bay</div>
+            <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+            <div class="div-button-empty d-flex">
+                <div class="div-width-100">
+                  <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                </div>
+                <div class="div-width-100 m-left-8" *ngIf="!enableFlightFilter">
+                  <button ion-button round (click)="showChangeDate()" class="button btn-change-date" clear>Đổi ngày</button>
+                </div>
+                <div class="div-width-100 m-left-8" *ngIf="enableFlightFilter">
+                  <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                </div>
+            </div>
+          </div>
+
+          <div class="div-other-choice-title div-title-content p-bottom-8 p-top-32 d-flex" *ngIf="(otherpricedepart && otherpricedepart.length >0)">
+            <div class="">Các lựa chọn khác</div>
+            <!-- <div class="text-other-choice p-l-8">({{ otherpricedepart.length }} lựa chọn khác)</div> -->
+          </div>
+          <div class="div-other-choice" *ngIf="(otherpricedepart && otherpricedepart.length >0)">
+            <div [ngClass]="idx == otherpricedepart.length-1? 'div-item-flight-other':'div-item-flight-other m-b-8'" *ngFor="let itemother of otherpricedepart; let idx = index">
+                <div class="div-first d-flex"  >
+                    <div (click)="select(1,itemother)">
+                      <div class="d-flex">
+                        <div class="div-time">{{itemother.departTimeDisplay}}</div>
+                        <div class="div-flight-time">{{itemother.flightTimeDisplay}}</div>
+                        <div class="div-time">{{itemother.landingTimeDisplay}}</div>
+                      </div>
+
+                      <div class="div-split">
+                          <img src="./assets/ic_flight/icon_flight_line.svg">
+                      </div>
+                      
+                      <div class="d-flex">
+                        <div class="div-departcode">
+                            {{itemother.from}}
+                        </div>
+                        <div class="div-flight-time m-0-16" *ngIf="itemother.stops == 0 else transitflight">
+                            Bay thẳng
+                        </div>
+                        <ng-template #transitflight>
+                          <div class="div-flight-time m-0-16 text-red">{{itemother.stops}} Chặng dừng</div>
+                        </ng-template>
+
+                        <div class="div-departcode" *ngIf="itemother.stops == 0 else multidepart">
+                          {{itemother.to}}
+                        </div>
+                        <ng-template #multidepart>
+                          <div class="div-departcode">
+                            {{itemother.details[itemother.details.length-1].to}}
+                          </div>
+                          
+                        </ng-template>
+                      </div>
+                    </div>
+                  <div class="div-flight-price">
+                    <div class="div-text-promo" *ngIf="itemother.promotions && itemother.promotions.length>0" (click)="showPromo(itemother)">
+                      {{itemother.promotions[0].promotionNote}}
+                    </div>
+                    <div [ngClass]="itemother.discountTitle && !(itemother.promotions && itemother.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="itemother.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{itemother.priceBeforeDiscount}}</span></div>
+                    <div class="div-apply-discount" *ngIf="itemother.discountTitle && !(itemother.promotions && itemother.promotions.length>0)">{{itemother.discountTitle}}</div>
+                    <div [ngClass]="itemother.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="itemother.priceDisplay">+ {{itemother.priceDisplay}}</div>
+                    <div [ngClass]="itemother.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!itemother.priceDisplay" (click)="checkPrice(itemother, 1)">Xem phí đổi</div>
+                  </div>
+                </div>
+      
+                <div [ngClass]="itemother.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+              
+                  <div class="div-logo" (click)="select(1,itemother)">
+                    <img class="img-logo logo-vj" *ngIf="itemother.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="itemother.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="img-logo logo-vna" *ngIf="itemother.airlineCode == 'VietnamAirlines' && !itemother.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <img class="img-logo logo-vna" *ngIf="itemother.operatedBy && itemother.urlLogo" [src]="itemother.urlLogo">
+                    <img class="img-logo" *ngIf="itemother.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+      
+                  <div class="flight-type p-l-8 d-flex" (click)="select(1,itemother)">
+                    <div>{{itemother.ticketType}}</div>
+                    
+                  </div>
+
+                  <div class="icon-detail" *ngIf="itemother && itemother.ticketCondition && (!itemother.ticketCondition.luggageSigned || (itemother.addon && !itemother.addon.powerSupply)  || !itemother.addon) && (itemother.airlineCode == 'VietJetAir' || itemother.airlineCode == 'BambooAirways') ">
+                    <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                  </div>
+                      <div class="icon-detail" *ngIf="itemother && itemother.ticketCondition && itemother.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="itemother && itemother.addon && itemother.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+                      
+
+                  <div class="p-l-4" (click)="showFlightDetail(itemother, 1)">
+                    <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                  </div>
+                  <div [ngClass]="(itemother.operatedBy || itemother.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' " (click)="select(1,itemother)">
+                    <button ion-button round [ngClass]="itemother.allowChange && itemother.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                      Đổi
+                    </button>
+                  </div>
+                  </div>
+                  <div *ngIf="itemother.operatedBy" class="text-operatedBy">{{itemother.operatedBy}}</div>
+              </div>
+            </div>
+
+          
+        </ng-template>
+
+      </div>
+
+      <!-- Chuyến về -->
+    <ng-template #returnFlight>
+      <div *ngIf="listReturnSeri.length == 0 else returnSeri">
+        <div class="div-depart-flight-choice" *ngIf="departFlight">
+          <div class="div-border-choice d-flex">
+            <div class="div-icon-flight v-align-center">
+              <img src="./assets/ic_flight/flight_cin.svg">
+            </div>
+            <div class="div-flight-info">
+                <div class="div-time-and-price">{{departFlight.timeDisplay}}   ·  {{departFlight.priceDisplay}}</div>
+                <div class="div-code">{{departFlight.airlineCode}}   ·  {{departFlight.fromPlaceCode}} - {{departFlight.toPlaceCode}}</div>
+            </div>
+            <div class="div-text-change v-align-center" (click)="goback()">Thay đổi</div>
+          </div>
+         
+        </div>
+        <div *ngIf="(sortairline && !buttoniVIVUSelected) else nosortreturn">
+  
+          <div *ngIf="(enableFlightFilterReturn || (departFlight && departFlight.flightType.indexOf('outBound') != -1) ) else noreturnFilter">
+         
+            <div class="d-flex" *ngIf="(count >=1 || stoprequest) && (listReturnFilter && listReturnFilter.length >0)">
+              <div *ngIf="!textsort" [ngClass]="departFlight ? 'div-title-content p-bottom-8 m-top-54 div-width-150' : 'div-title-content p-bottom-8 div-width-150' " >Lựa chọn tốt nhất</div>
+              <div *ngIf="textsort" [ngClass]="departFlight ? 'div-title-content p-bottom-8 m-top-54 div-width-150' : 'div-title-content p-bottom-8 div-width-150' " >{{textsort}}</div>
+              <div [ngClass]="departFlight ?  'text-refresh m-top-58 div-width-100' : 'text-refresh div-width-100' " (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+            </div>
+  
+            <div [ngClass]="!textsort ? 'div-best-choice' : ''" *ngIf="(listReturnFilter && listReturnFilter.length >0 && (count >=1 || stoprequest) ) else noreturnFilterEmpty">
+              <div [ngClass]="idx == listReturnFilter.length-1 ? 'div-item-flight':'div-item-flight m-b-8'"  *ngFor="let item of listReturnFilter; let idx = index">
+                  <div class="div-first d-flex"  >
+                    <div (click)="select(2,item)">
+                        <div class="d-flex">
+                          <div class="div-time">{{item.departTimeDisplay}}</div>
+                          <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                          <div class="div-time">{{item.landingTimeDisplay}}</div>
+                        </div>
+    
+                        <div class="div-split">
+                            <img src="./assets/ic_flight/icon_flight_line.svg">
+                        </div>
+                        
+                        <div class="d-flex">
+                          <div class="div-departcode">
+                              {{item.from}}
+                          </div>
+                          <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                              Bay thẳng
+                          </div>
+                          <ng-template #transitflight>
+                            <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                          </ng-template>
+  
+                          <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                            {{item.to}}
+                          </div>
+                          <ng-template #multidepart>
+                            <div class="div-departcode">
+                              {{item.details[item.details.length-1].to}}
+                            </div>
+                            
+                          </ng-template>
+                        </div>
+                      </div>
+                    <div class="div-flight-price">
+                      <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                        {{item.promotions[0].promotionNote}}
+                      </div>
+                      <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                      <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 2)">Xem phí đổi</div>
+                    </div>
+                    
+                  </div>
+        
+                  <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                   
+                    <div class="div-logo"  (click)="select(2,item)">
+                      <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                      <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                      <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                    </div>
+        
+                    <div class="flight-type p-l-8 d-flex"  (click)="select(2,item)">
+                      <div>{{item.ticketType}}</div>
+                    </div>
+  
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)  || !item.addon || item.airlineCode == 'VietnamAirlines') && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways' || item.airlineCode == 'VietnamAirlines') ">
+                      <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                    </div>
+                      <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+                      
+                    <div class="p-l-4"  (click)="showFlightDetail(item, 2)">
+                      <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                    </div>
+    
+                    <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(2,item)">
+                      <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                        Đổi
+                      </button>
+                    </div>
+                  </div>
+  
+                  <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+                
+              </div>
+            </div>
+            <ng-template #noreturnFilterEmpty> 
+              <div class="div-text-center" *ngIf="(!listReturnFilter || (listReturnFilter && listReturnFilter.length ==0))">
+                <div class="p-top-60 m-bottom-24">
+                  <img src="./assets/ic_flight/icon_notfound.svg" >
+                </div>
+  
+                <div class="text-title-empty">Không có chuyến bay</div>
+                <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+                <div class="div-button-empty d-flex">
+                    <div class="div-width-100">
+                      <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                    </div>
+                    <div class="div-width-100 m-left-8" *ngIf="enableFlightFilterReturn">
+                      <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                    </div>
+                </div>
+            </div>
+            </ng-template>
+              
+          </div>
+  
+          <ng-template #noreturnFilter>
+            <div class="d-flex" *ngIf="(count >=1 || stoprequest) && (listReturn && listReturn.length >0)">
+              <div *ngIf="!textsort" [ngClass]="departFlight ?'div-title-content p-bottom-8 m-top-54 div-width-150' : 'div-title-content p-bottom-8 div-width-150'" >Lựa chọn tốt nhất</div>
+              <div *ngIf="textsort" [ngClass]="departFlight ?'div-title-content p-bottom-8 m-top-54 div-width-150' : 'div-title-content p-bottom-8 div-width-150'" >{{textsort}}</div>
+              <div [ngClass]="departFlight ?'text-refresh m-top-58 div-width-100' : 'text-refresh div-width-100'" (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+            </div>
+  
+            <div [ngClass]="!textsort ? 'div-best-choice' : ''" *ngIf="(listReturn && listReturn.length >0 && (count >=1 || stoprequest) ) else noreturnEmpty">
+              <div [ngClass]="idx == listReturn.length-1 ? 'div-item-flight':'div-item-flight m-b-8'"  *ngFor="let item of listReturn; let idx = index">
+                  <div class="div-first d-flex"  >
+                    <div (click)="select(2,item)">
+                        <div class="d-flex">
+                          <div class="div-time">{{item.departTimeDisplay}}</div>
+                          <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                          <div class="div-time">{{item.landingTimeDisplay}}</div>
+                        </div>
+    
+                        <div class="div-split">
+                            <img src="./assets/ic_flight/icon_flight_line.svg">
+                        </div>
+                        
+                        <div class="d-flex">
+                          <div class="div-departcode">
+                              {{item.from}}
+                          </div>
+                          <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                              Bay thẳng
+                          </div>
+                          <ng-template #transitflight>
+                            <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                          </ng-template>
+  
+                          <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                            {{item.to}}
+                          </div>
+                          <ng-template #multidepart>
+                            <div class="div-departcode">
+                              {{item.details[item.details.length-1].to}}
+                            </div>
+                            
+                          </ng-template>
+                        </div>
+                      </div>
+                    <div class="div-flight-price">
+                      <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                        {{item.promotions[0].promotionNote}}
+                      </div>
+                      <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                      <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 2)">Xem phí đổi</div>
+                      
+                    </div>
+                    
+                  </div>
+        
+                  <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                   
+                    <div class="div-logo"  (click)="select(2,item)">
+                      <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                      <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                      <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                      <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                    </div>
+        
+                    <div class="flight-type p-l-8 d-flex"  (click)="select(2,item)">
+                      <div>{{item.ticketType}}</div>
+                     
+                    </div>
+  
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)  || !item.addon || item.airlineCode == 'VietnamAirlines') && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways' || item.airlineCode == 'VietnamAirlines') ">
+                      <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                    </div>
+                      <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                          <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+                      
+                    <div class="p-l-4"  (click)="showFlightDetail(item, 2)">
+                      <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                    </div>
+    
+                    <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(2,item)">
+                      <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                        Đổi
+                      </button>
+                    </div>
+                  </div>
+  
+                  <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+                
+                </div>
+              </div>
+              <ng-template #noreturnEmpty> 
+                <div class="div-text-center" *ngIf="(!listReturn || (listReturn && listReturn.length ==0))">
+                  <div class="p-top-60 m-bottom-24">
+                    <img src="./assets/ic_flight/icon_notfound.svg" >
+                  </div>
+    
+                  <div class="text-title-empty">Không có chuyến bay</div>
+                  <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+                  <div class="div-button-empty d-flex">
+                      <div class="div-width-100">
+                        <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                      </div>
+                      <div class="div-width-100 m-left-8" *ngIf="enableFlightFilterReturn">
+                        <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                      </div>
+                  </div>
+                </div>
+              </ng-template>
+  
+          </ng-template>
+          
+        </div>
+  
+        <ng-template #nosortreturn>
+          <div class="d-flex" *ngIf="(bestpricereturn && bestpricereturn.length >0 && (count >=1 || stoprequest) )">
+            <div [ngClass]="departFlight ? 'div-title-content p-bottom-8 m-top-54 div-width-150' : 'div-title-content p-bottom-8 div-width-150'" >Lựa chọn tốt nhất</div>
+            <div [ngClass]="departFlight ? 'text-refresh m-top-58 div-width-100' : 'text-refresh div-width-100'"  (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+          </div>
+          <div class="div-best-choice" *ngIf="(bestpricereturn && bestpricereturn.length >0 && (count >=1 || stoprequest) )">
+            <div [ngClass]="idx == bestpricereturn.length-1 ? 'div-item-flight':(idx == 0 ? 'div-item-flight m-b-8 bp-firstitem' : 'div-item-flight m-b-8')"  *ngFor="let item of bestpricereturn; let idx = index">
+              <div *ngIf="item">
+                <div class="div-first d-flex"  >
+                  <div (click)="select(2,item)">
+                      <div class="d-flex">
+                        <div class="div-time">{{item.departTimeDisplay}}</div>
+                        <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                        <div class="div-time">{{item.landingTimeDisplay}}</div>
+                      </div>
+  
+                      <div class="div-split">
+                          <img src="./assets/ic_flight/icon_flight_line.svg">
+                      </div>
+                      
+                      <div class="d-flex">
+                        <div class="div-departcode">
+                            {{item.from}}
+                        </div>
+                        <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                            Bay thẳng
+                        </div>
+                        <ng-template #transitflight>
+                          <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                        </ng-template>
+  
+                        <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                          {{item.to}}
+                        </div>
+                        <ng-template #multidepart>
+                          <div class="div-departcode">
+                            {{item.details[item.details.length-1].to}}
+                          </div>
+                          
+                        </ng-template>
+                      </div>
+                    </div>
+                  <div class="div-flight-price">
+                    <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                      {{item.promotions[0].promotionNote}}
+                    </div>
+                    <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                    <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                    <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                      <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 2)">Xem phí đổi</div>
+                  </div>
+                  
+                </div>
+      
+                <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                 
+                  <div class="div-logo"  (click)="select(2,item)">
+                    <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+      
+                  <div class="flight-type p-l-8 d-flex"  (click)="select(2,item)">
+                      <div>{{item.ticketType}}</div>
+                  </div>
+  
+                  <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)  || !item.addon || item.airlineCode == 'VietnamAirlines') && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways' || item.airlineCode == 'VietnamAirlines') ">
+                    <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                  </div>
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                    </div>
+                    <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                      <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                    </div>
+  
+                  <div class="p-l-4"  (click)="showFlightDetail(item, 2)">
+                    <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                  </div>
+  
+                  <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(2,item)">
+                    <button ion-button round [ngClass]="item.allowChange && item.hasCheckPrice? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                      Đổi
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+              </div>
+
+                <div *ngIf="!item">
+                  <div class='div-item-flight-other' style="height: 80px">
+                    <div class="div-first d-flex">
+                      <!-- <div >
+                        <ion-skeleton-text animated style="width: 150px;height: 22px;margin-bottom: 8px;border-radius: 16px;"></ion-skeleton-text>
+                          <div class="d-flex">
+                            <ion-skeleton-text animated style="width: 16px;height: 16px; border-radius: 16px;margin-right: 8px"></ion-skeleton-text>
+        
+                            <ion-skeleton-text animated style="width: 150px;height: 16px; border-radius: 16px;"></ion-skeleton-text>
+                          </div>
+                        </div> -->
+                    </div>
+        
+                    <div class="div-second d-flex p-top-8" style="margin-top: 0">
+                      <div class="div-button">
+                        <!-- <ion-skeleton-text animated style="width: 100px;height: 30px;top: -28px"></ion-skeleton-text> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+  
+          <div class="div-text-center" *ngIf="(!bestpricereturn || (bestpricereturn && bestpricereturn.length ==0))">
+            <div class="p-top-60 m-bottom-24">
+              <img src="./assets/ic_flight/icon_notfound.svg" >
+            </div>
+  
+            <div class="text-title-empty">Không có chuyến bay</div>
+            <div class="text-empty m-top-8">Vui lòng chọn ngày khác hoặc đổi lại tìm kiếm</div>
+            <div class="div-button-empty d-flex">
+                <div class="div-width-100">
+                  <button ion-button round (click)="showChangeInfo()" class="button btn-change-search" clear>Đổi tìm kiếm</button>
+                </div>
+                <div class="div-width-100 m-left-8" *ngIf="!enableFlightFilterReturn">
+                  <button ion-button round (click)="showChangeDate()" class="button btn-change-date" clear>Đổi ngày</button>
+                </div>
+                <div class="div-width-100 m-left-8" *ngIf="enableFlightFilterReturn">
+                  <button ion-button round (click)="clearSearchFilter()" class="button btn-change-date" clear>Xóa lọc</button>
+                </div>
+            </div>
+          </div>
+  
+          <div class="div-other-choice-title div-title-content p-bottom-8 p-top-32 d-flex" *ngIf="(otherpricereturn && otherpricereturn.length >0)">
+            <div class="">Các lựa chọn khác</div>
+            <!-- <div class="text-other-choice p-l-8">({{ otherpricereturn.length }} lựa chọn khác)</div> -->
+          </div>
+          <div class="div-other-choice" *ngIf="(otherpricereturn && otherpricereturn.length >0)">
+            <div [ngClass]="idx == otherpricereturn.length-1? 'div-item-flight-other':'div-item-flight-other m-b-8'" *ngFor="let itemother of otherpricereturn; let idx = index">
+                <div class="div-first d-flex"  >
+                    <div (click)="select(2,itemother)">
+                      <div class="d-flex">
+                        <div class="div-time">{{itemother.departTimeDisplay}}</div>
+                        <div class="div-flight-time">{{itemother.flightTimeDisplay}}</div>
+                        <div class="div-time">{{itemother.landingTimeDisplay}}</div>
+                      </div>
+  
+                      <div class="div-split">
+                          <img src="./assets/ic_flight/icon_flight_line.svg">
+                      </div>
+                      
+                      <div class="d-flex">
+                        <div class="div-departcode">
+                            {{itemother.from}}
+                        </div>
+                        <div class="div-flight-time m-0-16" *ngIf="itemother.stops == 0 else transitflight">
+                            Bay thẳng
+                        </div>
+                        <ng-template #transitflight>
+                          <div class="div-flight-time m-0-16 text-red">{{itemother.stops}} Chặng dừng</div>
+                        </ng-template>
+  
+                        <div class="div-departcode" *ngIf="itemother.stops == 0 else multidepart">
+                          {{itemother.to}}
+                        </div>
+                        <ng-template #multidepart>
+                          <div class="div-departcode">
+                            {{itemother.details[itemother.details.length-1].to}}
+                          </div>
+                          
+                        </ng-template>
+                      </div>
+                    </div>
+                  <div class="div-flight-price">
+                    <div class="div-text-promo" *ngIf="itemother.promotions && itemother.promotions.length>0" (click)="showPromo(itemother)">
+                      {{itemother.promotions[0].promotionNote}}
+                    </div>
+                    <div [ngClass]="itemother.discountTitle && !(itemother.promotions && itemother.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="itemother.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{itemother.priceBeforeDiscount}}</span></div>
+                    <div class="div-apply-discount" *ngIf="itemother.discountTitle && !(itemother.promotions && itemother.promotions.length>0)">{{itemother.discountTitle}}</div>
+                    <div [ngClass]="itemother.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="itemother.priceDisplay">+ {{itemother.priceDisplay}}</div>
+                    <div [ngClass]="itemother.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!itemother.priceDisplay" (click)="checkPrice(itemother, 2)">Xem phí đổi</div>
+                  </div>
+                </div>
+      
+                <div [ngClass]="itemother.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+              
+                  <div class="div-logo" (click)="select(2,itemother)">
+                    <img class="img-logo logo-vj" *ngIf="itemother.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="itemother.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="img-logo logo-vna" *ngIf="itemother.airlineCode == 'VietnamAirlines' && !itemother.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <img class="img-logo logo-vna" *ngIf="itemother.operatedBy && itemother.urlLogo" [src]="itemother.urlLogo">
+                    <img class="img-logo" *ngIf="itemother.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+      
+                  <div class="flight-type p-l-8 d-flex" (click)="select(2,itemother)">
+                    <div>{{itemother.ticketType}}</div>
+                   
+                  </div>
+  
+                  <div class="icon-detail" *ngIf="itemother && itemother.ticketCondition && (!itemother.ticketCondition.luggageSigned || (itemother.addon && !itemother.addon.powerSupply)  || !itemother.addon) && (itemother.airlineCode == 'VietJetAir' || itemother.airlineCode == 'BambooAirways') ">
+                    <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                  </div>
+                      <div class="icon-detail" *ngIf="itemother && itemother.ticketCondition && itemother.ticketCondition.luggageSigned">
+                        <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                          <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                          <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                          <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                          <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                          <img class="img-detail m-top-3" *ngIf="itemother.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                      </div>
+                      <div class="icon-detail" *ngIf="itemother && itemother.addon && itemother.addon.powerSupply">
+                        <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                      </div>
+                      
+  
+                  <div class="p-l-4" (click)="showFlightDetail(itemother, 2)">
+                    <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                  </div>
+                  <div [ngClass]="(itemother.operatedBy || itemother.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' " (click)="select(2,itemother)">
+                    <button ion-button round [ngClass]="itemother.allowChange && itemother.hasCheckPrice ? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                      Đổi
+                    </button>
+                  </div>
+                  </div>
+                  <div *ngIf="itemother.operatedBy" class="text-operatedBy">{{itemother.operatedBy}}</div>
+              </div>
+            </div>
+  
+          
+          </ng-template>
+      </div>
+        <ng-template #returnSeri>
+          <div class="d-flex" *ngIf="(listReturnSeri && listReturnSeri.length >0 && (count >=1 || stoprequest) )">
+            <div class="div-title-content p-bottom-8 div-width-150" >Lựa chọn tốt nhất</div>
+            <div class="text-refresh div-width-100"  (click)="showWarningFee()"><img src="./assets/ic_green/ic_info.svg"> Phí đổi chuyến</div>
+          </div>
+          <div class="div-best-choice" *ngIf="(listReturnSeri && listReturnSeri.length >0 && (count >=1 || stoprequest) )">
+            <div [ngClass]="idx == listReturnSeri.length-1 ? 'div-item-flight':(idx == 0 ? 'div-item-flight m-b-8 bp-firstitem' : 'div-item-flight m-b-8')"  *ngFor="let item of listReturnSeri; let idx = index">
+                <div class="div-first d-flex"  >
+                  <div (click)="select(2,item)">
+                      <div class="d-flex">
+                        <div class="div-time">{{item.departTimeDisplay}}</div>
+                        <div class="div-flight-time">{{item.flightTimeDisplay}}</div>
+                        <div class="div-time">{{item.landingTimeDisplay}}</div>
+                      </div>
+  
+                      <div class="div-split">
+                          <img src="./assets/ic_flight/icon_flight_line.svg">
+                      </div>
+                      
+                      <div class="d-flex">
+                        <div class="div-departcode">
+                            {{item.from}}
+                        </div>
+                        <div class="div-flight-time m-0-16" *ngIf="item.stops == 0 else transitflight">
+                            Bay thẳng
+                        </div>
+                        <ng-template #transitflight>
+                          <div class="div-flight-time m-0-16 text-red">{{item.stops}} Chặng dừng</div>
+                        </ng-template>
+  
+                        <div class="div-departcode" *ngIf="item.stops == 0 else multidepart">
+                          {{item.to}}
+                        </div>
+                        <ng-template #multidepart>
+                          <div class="div-departcode">
+                            {{item.details[item.details.length-1].to}}
+                          </div>
+                          
+                        </ng-template>
+                      </div>
+                    </div>
+                  <div class="div-flight-price">
+                    <div class="div-text-promo" *ngIf="item.promotions && item.promotions.length>0" (click)="showPromo(item)">
+                      {{item.promotions[0].promotionNote}}
+                    </div>
+                    <div [ngClass]="item.discountTitle && !(item.promotions && item.promotions.length>0) ? 'flight-before-discount top-0' : 'flight-before-discount'" *ngIf="item.priceBeforeDiscount">Giá trước KM <span class="text-discount">{{item.priceBeforeDiscount}}</span></div>
+                    <div class="div-apply-discount" *ngIf="item.discountTitle && !(item.promotions && item.promotions.length>0)">{{item.discountTitle}}</div>
+                    <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="item.priceDisplay">+ {{item.priceDisplay}}</div>
+                    <div [ngClass]="item.priceBeforeDiscount ? 'flight-price fp-discount' : 'flight-price'" *ngIf="!item.priceDisplay" (click)="checkPrice(item, 2)">Xem phí đổi</div>
+                  </div>
+                  
+                </div>
+      
+                <div [ngClass]="item.operatedBy ? 'div-second d-flex p-top-8 m-top-6' : 'div-second d-flex p-top-8' ">
+                 
+                  <div class="div-logo"  (click)="select(2,item)">
+                    <img class="img-logo logo-vj" *ngIf="item.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                    <img class="img-logo logo-vna" *ngIf="item.airlineCode == 'VietnamAirlines' && !item.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                    <img class="img-logo logo-vna" *ngIf="item.operatedBy && item.urlLogo" [src]="item.urlLogo">
+                    <img class="img-logo" *ngIf="item.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                  </div>
+      
+                  <div class="flight-type p-l-8 d-flex"  (click)="select(2,item)">
+                      <div>{{item.ticketType}}</div>
+                  </div>
+  
+                  <div class="icon-detail" *ngIf="item && item.ticketCondition && (!item.ticketCondition.luggageSigned || (item.addon && !item.addon.powerSupply)  || !item.addon || item.airlineCode == 'VietnamAirlines') && (item.airlineCode == 'VietJetAir' || item.airlineCode == 'BambooAirways' || item.airlineCode == 'VietnamAirlines') ">
+                    <img class="img-detail" src="./assets/ic_flight/ic_lug_add.svg">
+                  </div>
+                    <div class="icon-detail" *ngIf="item && item.ticketCondition && item.ticketCondition.luggageSigned">
+                      <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                        <img class="img-detail m-top-3" *ngIf="item.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                    </div>
+                    <div class="icon-detail" *ngIf="item && item.addon && item.addon.powerSupply">
+                      <img class="img-detail" src="./assets/ic_flight/ic_charge_tealish.svg">
+                    </div>
+  
+                  <div class="p-l-4"  (click)="showFlightDetail(item, 2)">
+                    <img class="img-down ic-down" src="./assets/ic_flight/icon_down.svg">
+                  </div>
+  
+                  <div [ngClass]="(item.operatedBy || item.priceBeforeDiscount) ? 'div-button top-0' : 'div-button' "  (click)="select(2,item)">
+                    <button ion-button round [ngClass]="item.allowChange? 'button btn-select' : 'button btn-select btn-deactive'" clear>
+                      Đổi
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+            </div>
+          </div>
+        </ng-template>
+      
+      </ng-template>
+    </ng-template>
+  </div>
+  
+</ion-content>
+<!-- <ion-footer>
+  <ion-row class="div-footer-filtersort">
+      <ion-col style="align-self: center;" (click)="openSortFlight()">
+          <div class="p-left-24">
+              <img src="./assets/imgs/ic_sort.svg">
+              <ion-label class="text-sort-and-filter">Sắp xếp</ion-label>
+              <img src="./assets/ic_flight/icon_action_check_circle_tealish.svg" *ngIf="sortairline" class="chk-order">
+              
+          </div>
+          <div class="div-split"></div>
+      </ion-col>
+      <ion-col (click)="openFilterFlight()">
+              <div class="flightdeparture-button-filter">
+                  <img class="img-filter" src="./assets/imgs/ic_filter.svg">
+                  <ion-badge class="cls-badge-filter" *ngIf="(step==2 && enableFlightFilter) else badgestep3"><span class="cls-hidden-filter">{{enableFlightFilter}}</span></ion-badge>
+                  <ng-template #badgestep3>
+                    <ion-badge *ngIf="step==3 && enableFlightFilterReturn" class="cls-badge-filter"><span class="cls-hidden-filter">{{enableFlightFilterReturn}}</span></ion-badge>
+                  </ng-template>
+                  
+                  <ion-label class="text-sort-and-filter label-filter" >Lọc</ion-label>
+              </div>
+              <div class="div-split"></div>
+      </ion-col>
+  </ion-row>
+</ion-footer> -->

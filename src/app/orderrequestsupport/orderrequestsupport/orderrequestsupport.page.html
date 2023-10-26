@@ -1,0 +1,56 @@
+<ion-header class="order-header">
+    <ion-toolbar>
+      <ion-row>
+        <ion-col class="text-center">
+          <div >
+            <div class="div-icon" (click)="goback()">
+              <img class="icon-back" src="./assets/imgs/ios-arrow-round-back.svg">
+            </div>
+  
+            <div class="div-title">Hỗ trợ</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <div class="p-all-16 div-orderrequestsupport-content">
+        <div class="label-title m-top-8">Thay đổi dịch vụ</div>
+        <div [ngClass]="allowChangeFlight ? 'row-item d-flex m-top-8' : 'row-item d-flex m-top-8 cls-disabled-luggage' " >
+            <div class="text-normal div-width-200">Tôi muốn đổi chuyến/giờ bay</div>
+            <div class="icon-right div-width-100">
+                <img src="./assets/ic_ordersupport/next.svg">
+            </div>
+        </div>
+
+        <div [ngClass]="allowBuyMoreLuggage ? 'row-item d-flex m-top-12' : 'row-item d-flex m-top-12 cls-disabled-luggage'" (click)="addLuggage()">
+            <div class="text-normal div-width-200">Mua thêm hành lý</div>
+            <div class="icon-right div-width-100">
+                <img src="./assets/ic_ordersupport/next.svg">
+            </div>
+        </div>
+
+        <div class="m-top-24 label-title">Yêu cầu khác</div>
+        <div class="row-item d-flex m-top-8" (click)="changeInfo()">
+          <a id="zalolink" class="link-zalo" href="https://zalo.me/3888313238733373810" target="_blank" *ngIf="!activityService.objPaymentMytrip.isRequestTrip && activityService.objPaymentMytrip.trip.isFlyBooking"></a>
+            <div class="text-normal div-width-200">Gửi yêu cầu hoàn/hủy/thay đổi thông tin</div>
+            <div class="icon-right div-width-100">
+                <img src="./assets/ic_ordersupport/next.svg">
+            </div>
+        </div>
+
+        <div class="m-top-24 label-title">Nhân viên hỗ trợ <span class="sub-text">(7:30-21:00)</span></div>
+        <div *ngFor="let sp of listSupport; let idx = index">
+            <div class="row-item d-flex m-top-8"  (click)="makeCallSupport(sp.phone)" *ngIf="sp.name">
+                <div class="text-normal div-width-200 d-flex">
+                    <div class="ico-support"> <img src="./assets/ic_ordersupport/Group.svg"></div>
+                    <div class="text-normal div-width-200 text-support">{{sp.name}}</div>
+                </div>
+                <div class="icon-right div-width-100">
+                    <img src="./assets/ic_ordersupport/Vector.svg">
+                </div>
+            </div>
+        </div>
+        
+      </div>
+  </ion-content>

@@ -1,0 +1,233 @@
+<!-- <ion-header>
+    <ion-row style="height: 56px;">
+        <ion-title *ngIf="!username" class="title-header">Thêm</ion-title>
+        <ion-title *ngIf="username" class="title-header">Chào {{username}}</ion-title>
+    </ion-row>
+</ion-header> -->
+<ion-content style="background-color: #ffffff">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="none" refreshingSpinner="circles" refreshingText=""></ion-refresher-content>
+    </ion-refresher>
+    <div class="no-margin-bottom" *ngIf="isConnected">
+
+        <div *ngIf="!loginuser">
+            <div class="div-img-no-login">
+                <img src="./assets/iconaccount/login_img.svg"/>
+            </div>
+            <div  class="item-list text-center">Quý khách chưa đăng nhập.</div>
+                <div  class="item-list text-center">
+                    Vui lòng đăng nhập hoặc đăng ký để sử dụng dịch vụ iVIVU</div>
+                <div class="div-flex m-t-16">
+                    <div (click)="goToLogin()" class="div-width-50">
+                        <button ion-button round outline class="btn-login">Đăng nhập</button>
+                      </div>
+                      <div (click)="goToRegister()" class="div-width-50 margin-left-6">
+                        <button ion-button round outline class="btn-register">Đăng ký</button>
+                      </div>
+                </div>
+        </div>
+       
+
+        <div class="div-wrap-avatar d-flex m-top-8" *ngIf="loginuser">
+            <div class="div-wrapimg width-80 m-right-12" (click)="changeAvatar()" >
+                <ion-card class="avatar">
+                    <img *ngIf="avatar && !croppedImagepath" class="img-user-avatar" src="{{avatar}}">
+                    <img *ngIf="croppedImagepath" class="img-user-avatar" [src]="croppedImagepath">
+                </ion-card>
+            </div>
+            <div class="v-align-center">
+                <div class="text-normal" *ngIf="username">Chào quý khách</div>
+                <div class="text-account" *ngIf="username">{{username}}</div>
+            </div>
+        </div>
+        <div class="div-split-panel m-top-16" *ngIf="loginuser"></div>
+        <div *ngIf="loginuser">
+            <div class="div-item" [ngClass]="loginuser ? 'p-top-24' : ''">
+                <div (click)="Point()" class="div-flex align-center">
+                    <div class="div-icon-left">
+                        <img class="icon-left" src="./assets/iconaccount/ivvpoint.svg">
+                    </div>
+                    <div class="div-width-100 d-flex h-22">
+                        <div class="item-list">iVIVUPoint</div>
+                        <div class="text-color div-width-100 text-right f-point">
+                            {{ point }} điểm
+                        </div>
+                    </div>
+                   
+
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="div-item">
+                <div class="div-flex" (click)="showUserProfile()">
+                    <div class="div-icon-left">
+                        <img class="icon-left" src="./assets/iconaccount/user.svg">
+                    </div>
+                    <div class="div-width-100 item-list" >
+                        Hồ sơ của tôi
+                    </div>
+                    
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="div-item">
+                <div (click)="showUserTravelHobby()" class="div-flex">
+                    <div class="div-icon-left">
+                        <img class="icon-left" src="./assets/iconaccount/heart.svg">
+                    </div>
+                    
+                    <div class="div-width-100 item-list" >
+                        Sở thích du lịch
+                    </div>
+
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                </div>
+            </div>
+            <div class="div-item">
+                <div (click)="showUserVoucher()" class="div-flex">
+                    <div class="div-icon-left">
+                        <img class="icon-left" src="./assets/ic_voucher/ticket.svg">
+                    </div>
+                    
+                    <div class="div-width-100 item-list" >
+                        Voucher của tôi
+                    </div>
+                    
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="div-item">
+                <div (click)="linkProfile()" class="div-flex">
+                    <div class="div-icon-left">
+                        <img class="icon-style" src="./assets/iconaccount/link.svg">
+                    </div>
+                    
+                    <div class="div-width-100 item-list" >
+                        Liên kết tài khoản
+                    </div>
+                    
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="div-item" *ngIf="loginuser && bizTravelService.isCompany">
+                <div (click)="showCompanyInfo()" class="div-flex">
+                    <div class="div-icon-left">
+                        <img class="icon-left" src="./assets/ic_biztravel/suit.svg">
+                    </div>
+                    
+                    <div class="div-width-100 item-list" >
+                        Thông tin công ty
+                    </div>
+                    
+                    <div class="div-icon-arrow">
+                        <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+       
+
+        
+            <div class="div-wrap-support" (click)="openZaloPage()">
+                <div [ngClass]="loginuser ? 'div-split-panel m-bottom-16 m-top-4' : 'div-split-panel m-bottom-16 m-top-24' "></div>
+                    <div class="div-support d-flex">
+                        <div class="div-icon-left">
+                            <img class="icon-left" src="./assets/ic_flight/logo_zalo.webp">
+                        </div>
+                        <div class="div-text-sp">Hỗ trợ qua Zalo iVIVU - Kết nối ngay!</div>
+                        <div class="div-icon-arrow">
+                            <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                        </div>
+                    </div>
+                <div class="div-split-panel m-top-16 m-bottom-24"></div>
+            </div>
+
+        <div class="div-item">
+
+            <div class="div-flex">
+                <div class="div-icon-left">
+                    <img class="icon-left" src="./assets/iconaccount/info.svg">
+                </div>
+                <div class="div-width-100 item-list" >
+                    Phiên bản
+                </div>
+                <div class="div-width-100 text-right">
+                    {{ version }}
+                </div>
+            </div>
+        </div>
+        <div class="div-item">
+
+            <div (click)="showCondition()" class="div-flex">
+                <div class="div-icon-left">
+                    <img class="icon-left" src="./assets/iconaccount/info.svg">
+                </div>
+                
+                <div class="div-width-100 item-list" >
+                    Điều khoản và điều kiện
+                </div>
+
+                <div class="div-icon-arrow">
+                    <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                </div>
+            </div>
+        </div>
+        <div class="div-item">
+
+            <div (click)="showPrivacyPolicy()" class="div-flex">
+                <div class="div-icon-left">
+                    <img class="icon-left" src="./assets/iconaccount/shield.svg">
+                </div>
+                
+                <div class="div-width-100 item-list" >
+                    Chính sách quyền riêng tư
+                </div>
+
+                <div class="div-icon-arrow">
+                    <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loginuser" class="div-item">
+
+            <div (click)="deleteAcc()" class="div-flex">
+                <div class="div-icon-left">
+                    <img class="icon-left" src="./assets/imgs/ic_delacc.svg">
+                </div>
+                
+                <div class="div-width-100 item-list" >
+                    Xóa tài khoản liên kết
+                </div>
+
+                <div class="div-icon-arrow">
+                    <img class="icon-arrow" src="./assets/ic_home/next.svg">
+                </div>
+            </div>
+        </div>
+     
+        <div *ngIf="loginuser" class="padding-top-28">
+            <button ion-button round outline class="btn-logout" (click)="goToLogout()">Đăng xuất</button>
+        </div>
+    </div>
+    <!-- div hiển thị không có kết nối -->
+    <div class="no-margin-bottom" *ngIf="!isConnected" style="text-align: center;margin-top: 55px">
+        <img src="./assets/imgs/empty.svg">
+        <div>
+            <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>
+        </div>
+
+    </div>
+</ion-content>

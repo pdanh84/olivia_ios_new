@@ -1,0 +1,58 @@
+<ion-header class="biztravel-header">
+  <ion-row>
+    <ion-col class="col-header">
+      <div class="d-flex">
+        <div class="div-goback" (click)="goback()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+        <div class="div-header-title">
+          <div class="div-title">Thông tin công ty</div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content class="content-background">
+  <div class="div-company-info-content">
+    <div class="div-change-info d-flex">
+        <div class="div-icon">
+          <span><img class="img-info" src="./assets/ic_biztravel/info.svg" > <span class="text-info">Quý khách có nhu cầu muốn thay đổi thông tin, vui lòng liên lạc với đại diện chăm sóc khách hàng của iVIVU</span> </span>
+        </div>
+    </div>
+
+    <div class="cls-label m-t-12">Mã số thuế</div>
+    <div class="cls-text m-t-6">{{ bizTravelService.bizAccount.taxCode }}</div>
+
+    <div class="cls-label m-t-12">Tên công ty</div>
+    <div class="cls-text m-t-6">{{ bizTravelService.bizAccount.legalName }}</div>
+
+    <div class="cls-label m-t-12">Địa chỉ công ty</div>
+    <div class="cls-text m-t-6">{{ bizTravelService.bizAccount.address }}</div>
+
+    <div class="div-split-panel"></div>
+
+    <div class="cls-label m-t-12">Số điện thoại nhập mã OTP</div>
+    <div class="cls-text m-t-6">{{ bizTravelService.bizAccount.phone }}</div>
+
+    <div class="div-split-panel"></div>
+
+    
+    <div class="d-flex m-t-12">
+      <div class="div-balance div-width-100">
+        <div class="cls-label">Số dư khả dụng</div>
+        <div class="cls-text m-t-6 div-total-balance">{{ gf.numberToCurrency(bizTravelService.bizAccount.balanceAvaiable, '.')  }} VND</div>
+      </div>
+      
+    </div>
+
+    
+    
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="div-button d-flex div-width-100">
+    <button (click)="showDetail()" ion-button round outline class="button button-detail">Chi tiết</button>
+    <button (click)="topup()" ion-button round outline class="button button-purchase">Nạp tiền</button>
+  </div>
+</ion-footer>

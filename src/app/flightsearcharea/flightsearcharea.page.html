@@ -1,0 +1,52 @@
+
+<ion-header class="flightpage-header">
+    <ion-row>
+      <ion-col class="col-header" size="1.5">
+        <div class="d-flex">
+          <div class="div-goback" (click)="goback()">
+              <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
+          
+        </div>
+      </ion-col>
+      <ion-col class="col-header" size="9">
+        <div class="div-header-title">
+          <div class="div-title">Nội địa & Quốc tế</div>
+          <!-- <div class="div-title" *ngIf="isdepart">Bay từ</div>
+          <div class="div-title" *ngIf="!isdepart">Bay đến</div> -->
+            <!-- <form action=".">
+              <ion-searchbar searchIcon="false" #ipSearchAiport id="input" class="ip-search-flight" style="padding: 0;padding-bottom: 15px;" autocomplete="on" autocorrect="true" debounce="300" placeholder="Nhập tên sân bay..." (ionChange)="getItems($event)" ></ion-searchbar>
+            </form> -->
+         
+        </div>
+      </ion-col>
+      <ion-col  size="1.5"></ion-col>
+    </ion-row>
+  </ion-header>
+  <ion-content >
+    <!-- <div class="text-normal">Danh sách các sân bay</div> -->
+    
+    <div class="search-content-result">
+
+      <div *ngFor="let itemarea of items; let idxa = index">
+        <div [ngClass]="idxa ==0 ? 'div-label-text m-top--16' : 'div-label-text m-top-8'">{{itemarea.areaName}}</div>
+      
+        <div (click)="itemclick(item)" *ngFor="let item of itemarea.places; let idxr = index">
+         
+            <div [ngClass]="idxr == itemarea.length -1 ? 'div-item-search' : (idxr==0 ? 'div-item-search  m-top-16' : 'div-item-search m-top-12') ">
+              <div class="title-text">
+                {{item.city}} <span class="text-sub">({{item.code}})</span>
+              </div>
+            </div>
+           
+        </div>
+      </div>
+      
+      <div style="margin-top: 20px" *ngIf="!items || (items && items.length ==0)">
+        <label>Không tìm thấy kết quả tìm kiếm.Vui lòng nhập lại!</label>
+      </div>
+    </div>
+    
+  
+  
+  </ion-content>

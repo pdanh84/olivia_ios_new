@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 12 12">
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".479995" d="M7.732 6.652a3.747 3.747 0 0 0-7.492 0h7.492z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M3.997 7.53v.45"/>
+    <path stroke="#000" stroke-dasharray="47.67 47.67" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M3.997 9.053v1.609"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M3.997 11.197v.45M2.063 7.53l-.153.423"/>
+    <path stroke="#000" stroke-dasharray="31.98 31.98" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M1.664 8.63L.807 11"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M.685 11.337l-.153.423M5.932 7.53l.153.423"/>
+    <path stroke="#000" stroke-dasharray="31.98 31.98" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M6.33 8.63L7.189 11"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".479995" d="M7.31 11.337l.153.423"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".479995" d="M3.637 2.94c0-1.485 1.215-2.7 2.7-2.7H9.06c1.485 0 2.7 1.215 2.7 2.7v8.775"/>
+</svg>

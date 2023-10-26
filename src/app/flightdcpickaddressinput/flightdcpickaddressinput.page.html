@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Đưa đón tại {{title}}</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-row class="div-search">
+    <ion-col  size="1" class="align-self">
+      <div >
+        <img src="./assets/ic_flight/icfilght_location.svg">
+      </div>
+    </ion-col>
+    <ion-col size="10" class="align-self">
+      <input id="todescription" type="text" />
+    </ion-col>
+    <ion-col  size="1" class="align-self">
+      <div >
+        <img src="./assets/ic_flight/ic_close_text.svg">
+      </div>
+    </ion-col>
+  </ion-row> -->
+  <div>
+    <!-- <input id="place-text" (ngModelChange)="getInput($event)" [(ngModel)]="input" type="text" autofocus/> -->
+    <ion-searchbar #input searchIcon="true" placeholder=""  (ionChange)="getInput($event)" ></ion-searchbar>
+  </div>
+  <!-- <div (click)="clearText()" class="div-img-close">
+    <img src="./assets/ic_flight/ic_close_text.svg">
+  </div> -->
+  <div *ngIf="listInput.length>0" >
+    <div class="div-result"  *ngFor="let item of listInput" (click)="clickText(item)">
+      <label class="label-text-search">
+        {{item.description}}
+      </label>
+    </div>
+  </div>
+</ion-content>

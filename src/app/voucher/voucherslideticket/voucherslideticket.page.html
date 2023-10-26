@@ -1,0 +1,32 @@
+
+<div class="myvoucher-content p-all-16" *ngIf="_voucherService.hasVoucher">
+           
+    <div *ngFor="let itemVoucher of _voucherService.vouchers; let idx=index" [ngClass]="_voucherService.vouchers && _voucherService.vouchers.length == 1 ? 'div-item-voucher width-100 m-r-0' : 'div-item-voucher'">
+        <div [ngClass]="_voucherService.vouchers && _voucherService.vouchers.length == 1 ? (itemVoucher.isActive ? 'd-flex h-74 width-100 div-bottom-16 div-box-shadow' : 'd-flex h-74 width-100 div-box-shadow div-bottom-16 ' ): (itemVoucher.isActive ? 'd-flex h-74 div-bottom-16 div-box-shadow' : 'd-flex h-74 div-box-shadow div-bottom-16 ')">
+            <div class="div-header-spice"></div>
+            <div [ngClass]="_voucherService.vouchers && _voucherService.vouchers.length == 1 ? (itemVoucher.claimed ? 'div-content-item d-flex width-100 cls-claimed' : 'div-content-item d-flex width-100') : (itemVoucher.claimed ? 'div-content-item d-flex cls-claimed' : 'div-content-item d-flex') " (click)="showVoucherDetail(itemVoucher)">
+                <div class="div-icon">
+                    <img [src]="itemVoucher.avatar"/>
+                </div>
+                <div class="div-content">
+                    <div class="div-code">{{itemVoucher.code}}</div>
+                    <div class="div-title">{{itemVoucher.rewardsItem.title}}</div>
+                    <div class="div-valid-date">HSD: {{itemVoucher.validdateDisplay}} <span class="text-tealish">Chi tiết</span></div>
+                </div>
+            </div>
+            <div [ngClass]="itemVoucher.claimed ? 'div-split-voucher cls-claimed' : 'div-split-voucher' "></div>
+            <div [ngClass]="_voucherService.vouchers && _voucherService.vouchers.length == 1 ? (itemVoucher.claimed ? 'div-apply width-25 cls-claimed' : 'div-apply width-25') : (itemVoucher.claimed ? 'div-apply cls-claimed' : 'div-apply')" (click)="voucherSelect(itemVoucher)">
+              <div *ngIf="!itemVoucher.isActive else notuse" class="div-text-apply cls-deactive"><span *ngIf="!itemVoucher.limitUse">Đã áp dụng</span><span *ngIf="itemVoucher.limitUse">Không áp dụng</span></div>
+              <ng-template #notuse>
+                  <div class="div-text-apply" *ngIf="!itemVoucher.claimed">
+                    <span *ngIf="itemVoucher.rewardsItem.price >0">
+                        <img class="img-check" src="./assets/ic_voucher/radio_button_check.svg"/>
+                    </span>
+                    <span *ngIf="itemVoucher.rewardsItem.price <=0">Xem chi tiết</span>
+                </div>
+                  <div class="div-text-apply " *ngIf="itemVoucher.claimed"><img class="img-check" src="./assets/ic_voucher/radio_button_checked.svg"/></div>
+              </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

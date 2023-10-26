@@ -1,0 +1,173 @@
+.combocarpaymentbrackdown-header{
+    .text-center{
+        text-align: center;
+    }
+    .align-self-center{
+        align-self: center;
+    }
+    .div-goback{
+        position: absolute;height: 48px;width: 48px;top: 0px;
+
+        .img-goback{
+            height: 48px; 
+            padding: 8px;
+            margin-top: -2px;
+            margin-left:-14px
+        }
+    }
+    .title-header{
+        padding-top: 6px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.combocarpaymentbrackdown-content{
+    
+    .carcombo-hotel{
+        position: relative;
+        display: flex;
+        height: auto;
+
+        .img-hotel-avatar{
+            min-width: 104px;
+            width: 104px;
+            height: 104px;
+            object-fit: cover;
+            border-radius: 6px;
+            float: left;
+            //position: absolute;
+        }
+        .info-hotel{
+            position: relative;
+            padding-left: 8px;
+
+            .div-address{
+                padding-top:13px;
+
+                .div-location{
+                    position: absolute;
+                    margin-top: -2px;
+                }
+                .img-location{
+                    height: 12px;
+                }
+                .text-address{
+                    position: relative;
+                    line-height: 16px;
+                    padding-left: 12px;
+                    font-size: 14px;
+                    color: #4f4f4f;
+                }
+            }
+            
+        }
+        .name-hotel{
+            font-size:18px;
+            columns: #000000;
+            font-weight: 600;
+        }
+    }
+    .f-12{
+        font-size: 12px;
+        font-weight: 300;
+    }
+    .border-bottom{
+        border-bottom: solid 0.5px #cdcdcd;
+        margin: 16px 0 8px 0;
+    }
+        .div-room-name{
+            margin: 16px 0;
+            letter-spacing: -0.4px;
+            font-weight: 300;
+
+            .text-mealtype-chargefee{
+                font-size: 12px;
+                font-weight: 300;
+            }
+        }
+
+        .surcharge-fee-detail{
+            font-weight: 300;
+            margin-bottom: 16px;
+
+            .adult-fee{
+                margin-bottom: 16px;
+            }
+
+            .div-text-fee{
+                display: flex;
+                letter-spacing: -0.4px;
+
+                .text-fee{
+                    width: 40%;
+                }
+                .text-fee-price{
+                    width: 60%;
+                    font-weight: 600;
+                    letter-spacing: -0.4px;
+                    text-align: right;
+                }
+                .text-fee-extra{
+                    font-size: 12px;
+                    letter-spacing: -0.34px;
+                }
+            }
+            
+        }
+
+        .total-price{
+            display: flex;
+            font-weight: 300;
+
+            .text-pax{
+                letter-spacing: -0.4px;
+                width: 40%;
+                align-self: center;
+            }
+
+            .text-price-total{
+                text-align: right;
+                font-size: 24px;
+                letter-spacing: -0.69px;
+                font-weight: 600;
+                color: #26bed6;
+                width: 60%;
+            }
+        }
+    
+        .div-voucher-apply {
+            display: flex;
+            margin: 14px 0 12px 0;
+          
+            .width-100 {
+              width: 100%;
+            }
+            .width-200 {
+                width: 200%;
+              }
+          
+            .text-normal {
+              font-size: 14px;
+              color: #3f3b3b;
+            }
+            .text-code {
+              font-size: 14px;
+              color: #f79321;
+            }
+          
+            .text-normal {
+              font-size: 14px;
+              color: #3f3b3b;
+            }
+          
+            .text-strike {
+              text-decoration: line-through;
+               text-align: right;
+            }
+    
+            .text-right {
+                text-align: right;
+            }
+          }
+}

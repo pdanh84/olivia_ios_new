@@ -1,0 +1,240 @@
+.text-title{
+  font-size: 18px;
+  font-weight: bold
+}
+.combo-img{
+  height: 40px;
+  width: 40px;
+}
+
+.div-flight-label{
+  font-size: 14px;
+  color: #4f4f4f;
+}
+.div-airline-label {
+  font-size: 14px;
+  color: #4f4f4f;
+  letter-spacing: 0.67px;
+}
+
+.div-airline-type{
+  font-size: 12px;
+  color: #828282;
+  font-style: italic;
+  letter-spacing: -0.34px;
+}
+.combo-departure-time{
+  font-size: 14px;
+    font-weight: bold;
+    padding-top: 4px;
+}
+
+.combo-flight-price-label-down{
+  font-size: 14px;
+  color: #003c71;
+}
+
+.combo-flight-price-label-up{
+  font-size: 14px;
+  color: #ec971f;
+}
+.flight-price{
+  font-size: 14px;
+  font-weight: bold;
+}
+.div-split{
+  position: absolute;
+  height: 20px;
+  border-right: solid 1px #ccc;
+  top: 20px;
+  padding-left: 76%;
+}
+@media (min-width:287px) and (max-width: 359px) {
+  .div-flight-label{
+      font-size: 14px;
+      color: #4f4f4f;
+      margin-left: 0px;
+    }
+    .div-airline-label{
+      font-size: 14px;
+      color: #4f4f4f;
+      margin-left: 0px;
+      font-weight: normal;
+    }
+
+  .combo-flight-price-label-up {
+      font-size: 13px;
+      color: #ec971f;
+  }
+  .combo-flight-price-label-down{
+      font-size: 13px;
+      color: #003c71;
+    }
+}
+
+
+::ng-deep {
+  
+    .select-icon{
+      display: none;
+    }
+    .select-icon-inner {
+      border-top: transparent!important;
+    }
+    ion-row:last-child{
+      border-bottom: none !important;
+    }
+
+    
+    .sc-ion-alert-ios-h {
+      --background: var(--ion-overlay-background-color,#fff);
+      font-size: 14px;
+      align-items: flex-end !important;
+  }
+  
+  .alert-head.sc-ion-alert-ios{
+      display: none;
+  }
+  .alert-wrapper.sc-ion-alert-ios{
+      width: 100%;
+      min-width: 100%;
+      border-radius: 0;
+  }
+  .request-combo-css .cls-alert-showmore {
+    align-items: center !important;
+}
+
+.request-combo-css .alert-wrapper.sc-ion-alert-ios {
+    border-radius: 13px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: var(--width) !important;
+    min-width: var(--min-width) !important;
+    max-width: var(--max-width) !important;
+    height: var(--height) !important;
+    min-height: var(--min-height) !important;
+    max-height: var(--max-height) !important;
+    background: var(--background) !important;
+    align-self: center !important;
+}
+.request-combo-css .alert-button.sc-ion-alert-ios{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 50% !important;
+    height: 44px !important;
+    border-top: .55px solid rgba(var(--ion-text-color-rgb,0,0,0),.2) !important;
+    background-color: transparent !important;
+    color: var(--ion-color-primary,#3880ff) !important;
+    font-size: 15px !important;
+    overflow: hidden !important;
+    width: auto;
+    border-color: #bdbdbd;
+  }
+  .request-combo-css .alert-button-group.sc-ion-alert-ios button:first-child {
+        display: block !important;
+    }
+    .request-combo-css .alert-message.sc-ion-alert-ios{
+        padding-top: 16px;
+    }
+    @media (max-height: 1024px) and (min-height: 812px){
+        .request-combo-css .alert-button-group.sc-ion-alert-ios {
+          margin-bottom: 0px;
+        }
+      }
+  .alert-button-inner.sc-ion-alert-ios {
+      justify-content: center;
+  }
+  .alert-button.sc-ion-alert-ios{
+      height: 48px ;
+      border-radius: 28px ;
+      font-size: 18px ;
+      border-color: #f79221 ;
+      color: #ffffff ;
+      background: #f79221 ;
+      width: 90%;
+      text-align: center;
+      margin: 16px;
+  }
+  .alert-button-group.sc-ion-alert-ios button:first-child{
+      display: none !important;
+  }
+  .alert-checkbox-group.sc-ion-alert-ios{
+      border: none;
+  }
+  
+  .action-sheet-container.sc-ion-action-sheet-ios{
+      padding: 0;
+  }
+  .action-sheet-group.sc-ion-action-sheet-ios:first-child {
+      margin: 0;
+  }
+  .action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-ios {
+      display: none;
+  }
+  .action-sheet-group.sc-ion-action-sheet-ios {
+      border-radius: 0px;
+      overflow: hidden;
+  }
+  .action-sheet-button-inner.sc-ion-action-sheet-ios {
+      width: 100%;
+      height: 100%;
+      color: black;
+      font-size: 14px;
+      justify-content: left;
+  }
+  .action-sheet-button.sc-ion-action-sheet-ios {
+      padding: 0;
+      border-bottom: solid 1px #ccc;
+      margin-left: 16px;
+      margin-right: 16px !important;
+      width: 92%;
+  }
+  .action-sheet-selected.sc-ion-action-sheet-ios{
+      background-image: url('../../assets/imgs/ic_check.svg');
+      background-repeat: no-repeat;
+      background-position: right;
+      width: 92%;
+  }
+
+  ion-modal{ 
+      transform:none !important; 
+      -webkit-transform:none !important; 
+  }
+  @media (min-height:812px) and (max-height: 1024px) {
+      .alert-button-group.sc-ion-alert-ios{
+        margin-bottom: 30px;
+      }
+    }
+  //ion-select
+  .sc-ion-alert-ios-h.sc-ion-alert-ios-s.cls-reivewapp {
+    align-items: center !important;
+  }
+
+}
+.img-seemoreroom{
+  margin-left: 4px;
+  height: 9px;
+}
+.cls-seemoreroomdetail{
+  text-align: center;
+  font-size: 14px;
+  color:#26bed6;
+  letter-spacing: -0.4px;
+  padding: 0px 16px 19px 16px;
+}
+.car-departure-content
+{
+margin-top: 10px;
+}
+.cls-list
+{
+margin-top: -14px;
+margin-bottom: 14px;
+}
+ 

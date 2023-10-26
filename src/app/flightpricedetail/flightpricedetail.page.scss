@@ -1,0 +1,149 @@
+
+.flight-price-detail-content{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: -0.4px;
+    color: #000000;
+
+    .p-16{
+        padding: 16px;
+    }
+    .m-top-5 {
+        margin-top: 5px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    .v-align-center{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .img-logo{
+        width: 34px;
+    }
+    .div-logo{
+        //min-width: 34px;
+        width: 34px;
+        height: 34px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        .logo-vna {
+            height: 12px !important;
+            //width: 54px;
+        }
+    }
+    .text-service-plus{
+        font-size: 14px;
+        font-weight: 100;
+        letter-spacing: -0.4px;
+    }
+
+    .div-airline-name{
+        padding-left: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .text-airline{
+            line-height: 21px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            letter-spacing: -0.28px;
+        }   
+    }
+    .sp-title{
+        color: #828282;
+    }
+
+    .div-split{
+        height: 0.5px;
+        background-color: #bdbdbd;
+        margin: 16px 0;
+    }
+    .text-pax{
+        color: #222222;
+    }
+    .text-total-price{
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.69px;
+        color: #26bed6;
+    }
+
+    .text-sub{
+        height: 15px;
+        font-size: 12px;
+        font-weight: 100;
+        letter-spacing: -0.34px;
+        color: #828282;
+
+    }
+
+    .div-width-400{
+        width: 400%;
+    }
+    .div-width-100{
+        width: 100%;
+    }
+    
+    .div-hotel-city{
+        margin: 16px 0;
+        padding: 16px 0;
+        border-top: solid 0.5px #cdcdcd;
+        border-bottom: solid 0.5px #cdcdcd;
+
+        font-size: 14px;
+        color: #222222;
+
+        .div-hotelname{
+            padding: 8px 0;
+            font-weight: bold;
+        }
+    }
+
+    .div-voucher-apply {
+        display: flex;
+        margin: 14px 0 12px 0;
+      
+        .width-100 {
+          width: 100%;
+        }
+        .width-200 {
+            width: 200%;
+          }
+      
+        .text-normal {
+          font-size: 14px;
+          color: #3f3b3b;
+        }
+        .text-code {
+          font-size: 14px;
+          color: #f79321;
+        }
+      
+        .text-normal {
+          font-size: 14px;
+          color: #3f3b3b;
+        }
+      
+        .text-strike {
+          text-decoration: line-through;
+           text-align: right;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+      }
+      .text-bold {
+        font-weight: 600;
+      }
+      .f-16 {
+        font-size: 16px !important;
+      }
+}

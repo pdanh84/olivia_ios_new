@@ -1,0 +1,351 @@
+.insurrance-header{
+    .header-toolbar{
+        min-height: 0px;
+        text-align: center
+    }
+    .header-title{
+        padding-top: 6px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .header-col{
+        text-align: center;
+        height: 48px;
+    }
+    .as-center{
+        align-self: center;
+    }
+    .div-goback{
+        position: absolute;
+        height: 48px;
+        width: 48px;
+        top: 8px;
+    }
+    .img-goback{
+        height: 48px; 
+        padding: 8px;
+        margin-top: -7px;
+        margin-left:-14px
+    }
+}
+
+.insurrance-page{
+    .text{
+        font-size: 18px;
+        font-weight: bold
+    }
+    .text-small{
+        font-size: 12px;
+        color: #828282;
+    }
+    .text-normal{
+        font-size: 14px;
+    }
+    .mtop
+    {
+        margin-top: 8px;
+    }
+    .m-top-10{
+        margin-top: 10px;
+    }
+    .p-left-15{
+        padding-left: 15px;
+    }
+    .m-left-2{
+        margin-left: 2px;
+    }
+    .p-8{
+        padding: 8px 0;
+    }
+	.m-top-16{
+        margin-top:16px;
+    }
+    .label-rd{
+        margin-left: 8px;
+        position: absolute;
+    }
+    .rd-selected{
+        color: #26bed6;
+    }
+    .text-time
+    {
+        font-size: 14px;
+        margin-left: 16px;
+    }
+    hr{
+        background-color: #bdbdbd;
+    }
+    .ion-item
+    {
+      --inner-border-width: 0 0 0px 0;
+      --min-height: 0px;
+      --padding-start: 0px;
+    }
+    .text-info
+    {
+        color: #828282;
+        font-size: 12px
+    }
+    .ionchip
+    {
+        border-radius: 4px;
+        width: 130px;
+        height: 34px;
+        margin: 5px 0;
+    }
+    .loadimg
+    {
+        color: #003c71;
+        margin-left: 19px;
+    }
+    .cls-image-response{
+        margin-left: -5px;
+        margin-top: 10px;
+    }
+    
+    .div-datetime{
+        position: relative;
+    }
+    .input-datetime{
+        width: 100%;
+        position: absolute;
+        top: -10px;
+    }
+    .ip-expecteddate{
+        position: absolute;
+        left: 20px;
+        width: 110px;
+        top: 0;
+    }
+    .ip-expectedtime{
+        position: absolute;
+        width: 75px;
+        top: 0;
+        left: 119px;
+    }
+    .ip-realtime{
+        left: 113px !important;
+    }
+    .ip-padding{
+        padding: 10px;
+    }
+    .hr-margin{
+        margin: 6px 0;
+    }
+    .m-top-10{
+        margin-top:10px;
+    }
+    .m-top-15{
+        margin-top:15px;
+    }
+    .fix-width-103{
+        min-width:103px;
+    }
+    .no-padding{
+        padding: 0;
+    }
+    .p-top-16{
+        padding-top:16px;
+    }
+    .p-top-32{
+        padding-top:32px;
+    }
+    /////////////////// style div
+    .div-relative{
+        position: relative;
+    }
+    .div-changeflight-label{
+        position: absolute;
+        left: 32px;
+    }
+    .row-item-child.show{
+        display: block;
+    }
+    .row-item-child.hidden{
+        display: none;
+    }
+    
+    .div-item-selectimage{
+        position: relative;
+    }
+    .div-item-selectimage-label{
+        width: 108px;
+        height: 40px;
+    }
+    .div-item-selectimage-chip{
+        position: absolute;
+        left: 108px;
+        top: -10px;
+    }
+    .cancel-flight{
+        padding-top: 8px;
+    }
+
+    .div-insurrance-info{
+        padding-top: 30px;
+        font-size: 14px;
+
+        .no-padding{
+            padding:0;
+        }
+        .ip-label{
+            font-size: 12px;
+            color: #4f4f4f;
+        }
+        .customer-label{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .customer-info{
+            padding-top: 11px;
+        }
+        
+        
+        .div-customer-info{
+            font-size: 14px;
+            position: relative;
+            padding-top: 11px;
+
+            .customer-info{
+                position: absolute;
+                left: 32px;
+                top: 0;
+                padding-top: 13px;
+            }
+            .img-people{
+                width: 18px;
+            }
+        }
+        
+        .cls-item-select{
+            --padding-start:0;
+            --padding-bottom: 4px;
+            --padding-top: 2px;
+            border-bottom: solid 0.5px #bdbdbd;
+        }
+        .child-label{
+            font-size: 16px;
+            font-weight: bold;
+            padding-top: 20px;
+        }
+        .col-left{
+            padding-left: 0;
+            padding-right: 23px;
+        }
+        .div-dob{
+            padding-top:14px;
+            padding-bottom:2px;
+        }
+    }
+
+    .div-text-payment{
+        padding-top:64px;
+    }
+
+    .div-add-child{
+        float: right;
+        color: #26bed6;
+        font-size: 14px;
+        padding-top: 16px;
+        position: relative;
+
+        .img-add-child{
+            position: absolute;
+            right: 136px;
+            top: 12px;
+        }
+        .text-add-child{
+            right: 0;
+            top: 0;
+        }
+        
+    }
+    .input-boarding-pass{
+        opacity: 0;
+        position: absolute;
+        left: 4px;
+        height: 40px;
+        width: 130px;
+    }
+    .m-top-24{
+        margin-top: 24px;
+    }
+    .text-note{
+        font-size: 14px;
+        color: #4f4f4f
+    }
+
+    .div-upload-image{
+        margin-top: 30px;
+
+        ion-label{
+            font-size: 14px;
+        }
+        .div-img-boarding-only{
+            max-width: initial;
+            height: 80px;
+            width: 80px;
+            margin-left: 126px;
+            position: relative;
+        }
+        .img-close-boardingpass-only{
+            position: absolute;
+            left: 58px;
+            top: 4px;
+        }
+        .img-close-boardingpass-many{
+            position: absolute;
+            margin-left: -24px;
+            margin-top: 4px;
+        }
+        .img-boardingpass-only {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            left: 126px;
+        }
+        .img-boardingpass-many {
+            object-fit: cover;
+            max-width: initial;
+            height: 80px;
+            width: 80px;
+            margin-left: 5px;
+        }
+        
+    }
+    @media (min-width:320px) and (max-width: 360px) {
+        .div-img-boarding-only{
+            margin-left: 108px !important;
+        }
+    }
+
+    
+}
+
+.insurrance-page-footer{
+
+    .div-button-footer{
+        text-align: center;
+        background: #ffffff;
+
+        .button2
+        {
+            border-color: #F79221;
+            background-color: #F79221;
+            color: #ffffff;
+            width: 90%;
+            height: 48px;
+            font-size: 17px !important;
+            border-radius: 4px;
+        
+        }
+    }
+    
+    
+}
+::ng-deep{
+    ion-select.required-field{
+        border-bottom: solid 2px #e52822 !important;
+    }
+}
+

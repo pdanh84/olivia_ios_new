@@ -1,0 +1,246 @@
+ion-header {
+    box-shadow: 1px 0px 2px 0px #828282 !important;
+}
+.flight-detail-content{
+    .p-16{
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+    
+    .d-flex {
+        display: flex;
+        line-height: 23px;
+    }
+    .d-flex-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .a-baseline {
+        align-items: baseline;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .text-depart {
+        font-size: 16px;
+        font-weight: 500;
+        text-align: left;
+        color: #3f3b3b;
+    }
+
+   .m-right-2 {
+    margin-right: 2px;
+   }
+    .div-logo {
+        margin-right: 4px;
+        .icon-logo {
+            max-width: 50px;
+            height: 30px;
+            object-fit: scale-down;
+            margin-bottom: -2px;
+        }
+    }
+    .p-absolute {
+        position: absolute;
+        top: -18px;
+    }
+    .f-36 {
+        font-size: 36px;
+    }
+    .m-lr-6 {
+        margin-right: 4px;
+    }
+    .div-airline-info {
+        font-size: 14px;
+        text-align: left;
+        margin-right: 4px;
+    }
+    .div-relative {
+        width: 16px;
+        position: relative;
+    }
+    .text-place {
+        font-size: 16px;
+        color: #3f3b3b;
+        font-weight: 600;
+        margin-bottom: 2px;
+        text-align: right;
+    }
+    .text-airline {
+        color: #828282;
+    }
+    .div-operatedby {
+        color: #828282;
+        font-size: 14px;
+        margin-top: 4px;
+
+    }
+    .text-flightNumber {
+        color: #3f3b3b;
+    }
+
+    .text-ticketClass {
+        color: var(--ion-color-primary);
+    }
+
+
+    .div-icon-info {
+        margin-left: 4px;
+        position: relative;
+        width: 16px;
+        height: 13px;
+        .icon-info {
+            position: absolute;
+        }
+    }
+
+    .div-departure {
+
+        .text-airport {
+            font-size: 14px;
+            text-align: right;
+            color: #828282;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .text-time {
+            font-size: 22px;
+            text-align: right;
+            color: #3f3b3b;
+        }
+
+        .text-date {
+            font-size: 14px;
+            text-align: right;
+            color: #828282;
+        }
+
+        .div-second {
+            justify-content: center !important;
+
+            .text-timeflight {
+                font-size: 14px;
+                text-align: center;
+                color: #828282;
+            }
+
+            .div-linetime {
+                height: 2px;
+                margin: 6px 2px 6px 9px;
+                background-color: #ccc;
+            }
+
+            .text-stops {
+                margin-top: 12px;
+                font-size: 14px;
+                text-align: center;
+                color: #3f3b3b;
+            }
+            .has-stops {
+                color: #e52822 !important;
+                justify-content: space-evenly;
+                margin-left: 6px;
+            }
+
+            .div-icon-stops {
+                width: 14px;
+                height: 14px;
+                margin-top: 2px;
+            }
+        }
+        .div-third {
+            margin-left: 8px;
+            .text-airport, .text-time, .text-date, .text-place {
+                text-align: left !important;
+            }
+        }
+        .div-icon-plain {
+            min-width: 15px;
+            margin-top: 23px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+    .width-30 {
+        width: 36%;
+    }
+    .width-40 {
+        width: 28%;
+    }
+    .width-100 {
+        width: 100%;
+    }
+
+    .div-stops-info {
+        margin: 16px 0;
+        padding: 10px 12px;
+        border-radius: 4px;
+        background-color: #ecf0f5;
+        font-size: 14px;
+        color: #3f3b3b;
+        text-align: center;
+        line-height: 1.5;
+
+        .text-bold {
+            font-weight: 600;
+        }
+        .text-red {
+            color: #ed1c24;
+        }
+    }
+}
+
+  ::ng-deep{
+    
+    @media (min-width:340px) and (max-width: 360px) {
+        .text-stops {
+            font-size: 13px !important;
+        }
+        .width-30 {
+            min-width: 70px;
+        }
+        .div-maxwidth-flightinfo {
+            max-width: 240px;
+        }
+    }
+
+    @media (min-width:390px) and (max-width: 480px) {
+        .width-30 {
+            width: 30% !important;
+            min-width: 100px;
+        }
+
+        .width-40 {
+            min-width: 110px;
+        } 
+
+    }
+    
+    @media (min-width:411px) and (max-width: 480px) {
+
+        .div-maxwidth-flightinfo {
+            max-width: 308px;
+        }
+    }
+
+    @media (min-width:390px) and (max-width: 411px) {
+
+        .div-maxwidth-flightinfo {
+            max-width: 288px;
+        }
+    }
+
+    @media (min-width:360px) and (max-width: 389px) {
+       
+        .div-maxwidth-flightinfo {
+            max-width: 270px;
+        }
+    }
+
+}

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar style="min-height: 0px;text-align: center">
+    <ion-row>
+      <ion-col style="text-align: center;height: 48px;">
+        <div style="align-self: center">
+          <div style="position: absolute;height: 48px;width: 48px;top: 8px;" (click)="goback()">
+            <img style="height: 48px; padding: 8px;margin-top: -9px;margin-left:-14px"
+              src="./assets/imgs/ios-arrow-round-back.svg">
+          </div>
+
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán</label>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-16">
+  <img src="./assets/step/step_3.svg">
+  <div *ngIf="stt=='0'">
+    <div>
+      <ion-label class="text" text-wrap>
+        Mã thanh toán Payoo: {{BillingCode}}, số tiền: <span class="totalPrice">{{priceshow}} VND</span>  vui lòng thanh toán trước <span class="textpayment">{{PeriodPaymentDate}}</span>
+      </ion-label>
+    </div>
+    <div>
+      <label class="text">Để tìm cửa hàng gần nhất, hãy <a target="_blank" href="https://payoo.vn/mapv2/public/index.php?verify=true">xem tại đây</a></label>
+    </div>
+    <div class="mt15">
+      <img src="./assets/imgpayoo/payoo_store.jpg">
+    </div>
+  </div>
+  <div *ngIf="stt=='1'&&qrimg">
+    <p>
+      Quý khách vui lòng quét mã QR dưới đây để thanh toán 												
+    </p>
+    <div>
+      <img style="width:170px"  src={{qrimg}}>
+    </div>
+    <div class="mt15">
+      <img src="./assets/imgpayoo/help_qrcode.jpg">
+    </div>
+  </div>
+ </ion-content>
+ <ion-footer>
+  <div style="background-color: #ffffff; text-align: center">
+    <button (click)="next()" ion-button round outline class="button button2">Tiếp tục</button>
+  </div>
+</ion-footer>

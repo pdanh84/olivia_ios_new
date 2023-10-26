@@ -1,0 +1,509 @@
+<ion-header class="flightdetail-header">
+    <ion-row>
+      <ion-col class="col-header">
+        <div class="d-flex">
+          <div class="div-header-title" >
+            <div class="div-title">{{ title }}</div>
+            <div class="div-subtitle">{{ subtitle }}</div>
+          </div>
+        </div>
+
+        <div class="div-close" (click)="close()">
+            <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-segment [(ngModel)]="tabflightdetail" class="div-segment"  mode="md">
+          <ion-segment-button (click)="SelectTabFlight(1)" mode="md" style="text-transform: inherit;" value="1" >
+            Chuyến bay
+            </ion-segment-button>
+            <ion-segment-button (click)="SelectTabFlight(2)" mode="md" style="text-transform: inherit;" value="2" >
+            Chi tiết vé
+            </ion-segment-button>
+          </ion-segment>
+      </ion-row>
+  </ion-header>
+
+  <ion-content #scrollFlightDetail>
+      <div class="div-flightdetail-content" *ngIf="itemFlight">
+
+        <swiper-container #slideTabDetail (slidechange)="slidetabchange()" [options]="slideOpts">
+            <swiper-slide style="display: block;">
+                <div class="div-flight-detail">
+                    <!-- không chặng dừng -->
+                    <div *ngIf="itemFlight.stops == 0 else multistops">
+                        <div class="d-flex ">
+                            <div class="text-title div-width-250 p-left-16">{{itemFlight.fromPlace}} → {{itemFlight.toPlace}}</div>
+                            <div class="div-right d-flex div-width-100">
+                                    <div class="div-icon-clock">
+                                        <img class="img-clock" src="./assets/ic_flight/icon_clock.svg">
+                                    </div>
+                                    <div >{{timedisplay}}</div>
+                            </div>
+                      </div>
+                      
+                      <div class="div-detail p-left-8">
+        
+                          <div class="d-flex p-top-16">
+                              <div class="div-time-display">{{departTime}}</div>
+                              <div class="div-icon">
+                              </div>
+                              <div *ngIf="itemFlightTicketCondition else notiketcondition" [ngClass]="itemFlightDetail.aircraftStr ? 'div-line' : 'div-line h-254'">
+                              </div>
+                              <ng-template #notiketcondition>
+                                <div [ngClass]="itemFlightDetail.aircraftStr ? 'div-line h-234' : 'div-line h-210'"></div>
+                              </ng-template>
+                              
+                              <div class="div-city p-left-8">
+                                  {{itemFlight.fromPlace}} <span class="city-code">{{itemFlight.fromPlaceCode}}</span>
+                              </div>
+                          </div>
+        
+                          <div class="div-align-center">
+                              <div class="d-flex">
+                                  <div class="div-month-display" *ngIf="step == 2 else returnFlight">{{itemFlightCache.checkInDisplayMonth}}</div>
+                                  <ng-template #returnFlight><div class="div-month-display" >{{itemFlightCache.checkOutDisplayMonth}}</div></ng-template>
+                                  <div class="div-airport text-detail p-left-22 p-top-4">{{departAirPort}}</div>
+                              </div>
+        
+                              <div class="d-flex m-top-8">
+                                  <div class="div-month-display v-align-center">{{timedisplay}}</div>
+                                  <div class="div-detail-right">
+                                      <div class="d-flex">
+                                            <div class="text-airline">{{ title }}</div>
+                                            <div class="div-logo">
+                                                <img class="img-logo logo-vj" *ngIf="itemFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                                <img class="img-logo" *ngIf="itemFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                                <img class="img-logo logo-vna" *ngIf="itemFlight.airlineCode == 'VietnamAirlines' && !itemFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                                                <!-- <img class="img-logo" *ngIf="itemFlight.airlineCode == 'VietnamAirlines' && itemFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                                                <img class="img-logo" *ngIf="itemFlight.operatedBy && itemFlight.urlLogo" [src]="itemFlight.urlLogo">
+                                                <img class="img-logo" *ngIf="itemFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                            </div>
+                                      </div>
+                                      <div class="text-detail">
+                                          {{itemFlight.flightNumber}} · {{itemFlight.ticketType}}
+                                      </div>
+                                      <div class="text-operatedBy" *ngIf="itemFlight.operatedBy">{{itemFlight.operatedBy}}</div>
+                                      <div class="div-split"></div>
+        
+                                      <div class="d-flex" *ngIf="itemFlightTicketCondition">
+                                            <div class="icon-left">
+                                                <!-- <img class="img-lug" src="./assets/ic_flight/ic_lug_tealish.svg"> -->
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                                                <img class="img-lug" *ngIf="itemFlightTicketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                                                <img class="img-lug" *ngIf="!itemFlightTicketCondition.luggageSigned" src="./assets/ic_flight/icon_action_work.svg">
+                                            </div>
+                                            <div class="content-right p-left-10 text-detail" >
+                                                  <!-- <div class="text-detail">{{itemFlightTicketCondition.baggageHanded}} hành lý xách tay </div> -->
+                                                  <div class="text-detail" *ngIf="(itemFlightTicketCondition && itemFlightTicketCondition.baggageHanded) else noBaggageHanded">{{itemFlightTicketCondition.baggageHanded}} hành lý xách tay </div>
+                                                    <ng-template #noBaggageHanded>
+                                                        <div class="text-detail">Không bao gồm hành lý xách tay</div>
+                                                    </ng-template>
+  
+                                                <div class="text-detail" *ngIf="(itemFlightTicketCondition.luggageSigned && itemFlightTicketCondition.luggageSigned.length <=5) else noluggageSigned">{{itemFlightTicketCondition.luggageSigned}}kg hành lý ký gửi </div>
+                                                <ng-template #noluggageSigned>
+                                                    <div class="text-detail">Không bao gồm hành lý ký gửi</div>
+                                                </ng-template>
+                                                
+                                                
+                                            </div>
+                                            
+                                      </div>
+
+                                      <div class="d-flex" *ngIf="meal">
+                                        <div class="icon-left">
+                                            <img class="img-meal" src="./assets/ic_flight/ic_meal_tealish.svg">
+                                        </div>
+                                        <div class="content-right p-left-10 text-detail" >Suất ăn</div>
+                                      </div>
+
+                                      <div class="d-flex" *ngIf="relax">
+                                        <div class="icon-left">
+                                            <img class="img-relax" src="./assets/ic_flight/ic_relax_tealish.svg">
+                                        </div>
+                                        <div class="content-right p-left-10 text-detail" >Giải trí</div>
+                                      </div>
+
+                                      <div class="d-flex" *ngIf="powerSupply">
+                                        <div class="icon-left">
+                                            <img class="img-charge" src="./assets/ic_flight/ic_charge_tealish.svg">
+                                        </div>
+                                        <div class="content-right p-left-10 text-detail" >Ổ sạc</div>
+                                      </div>
+        
+                                      <div class="d-flex p-top-16" *ngIf="seatMap || seatSpace">
+                                            <div class="icon-left">
+                                                <img class="img-left" src="./assets/ic_flight/icon_action_info.svg">
+                                            </div>
+                                            <div class="content-right p-left-10 text-detail">
+                                                <div class="text-detail">{{itemFlightDetail.aircraftStr}}</div>
+                                                <div class="text-detail" *ngIf="seatMap">Sơ đồ ghế ngồi {{ seatMap }}</div>
+                                                <div class="text-detail" *ngIf="seatSpace">Khoảng cách ghế {{ seatSpace }}</div>
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+        
+                              <div class="d-flex m-top-16">
+                                <div class="div-time-display">{{landingTime}}</div>
+                                <div class="div-line line-bottom"></div>
+                                <div class="div-icon">
+                                </div>
+                                <!-- <div class="div-line"></div> -->
+                                <div class="div-city p-left-8">
+                                    {{itemFlight.toPlace}} <span class="city-code">{{itemFlight.toPlaceCode}}</span>
+                                </div>
+                              </div>
+                          </div>
+        
+                          <div class="d-flex">
+                            <div class="div-month-display" >{{itemFlightDetail.landingTimeDisplayMonth}}</div>
+                                <!-- <div class="div-month-display" *ngIf="(itemFlight.flightDuration < 1440 && step == 2 ) else returnFlight">{{itemFlightCache.checkInDisplayMonth}}</div>
+                                <ng-template #returnFlight><div class="div-month-display" >{{itemFlightCache.checkOutDisplayMonth}}</div></ng-template> -->
+                                <div class="div-airport text-detail p-left-22 p-top-4">{{returnAirPort}}</div>
+                            </div>
+                      </div>
+                    </div>
+                    <ng-template #multistops>
+                        <div *ngFor="let itemstop of itemFlight.details; let idx = index" [ngClass]="idx > 0 ? 'div-wrap-background' : ''">
+                            <div [ngClass]=" idx ==0 ? 'd-flex ' : (idx ==1) ? 'd-flex m-top-28 div-background-gray' : 'd-flex div-background-gray' ">
+                                <div class="text-title div-width-250 p-left-16">{{itemstop.fromPlace}} → {{itemstop.toPlace}}</div>
+                                <div class="div-right d-flex div-width-100">
+                                        <div class="div-icon-clock">
+                                            <img class="img-clock" src="./assets/ic_flight/icon_clock.svg">
+                                        </div>
+                                        <div >{{itemstop.timedisplay}}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="div-detail p-left-8">
+                
+                                <div class="d-flex p-top-16">
+                                    <div class="div-time-display">{{itemstop.departTimeDisplay}}</div>
+                                    <div class="div-icon">
+                                    </div>
+                                    <div *ngIf="itemstop.ticketCondition else notiketcondition" [ngClass]="itemstop.aircraftStr ? 'div-line' : 'div-line h-254'">
+                                    </div>
+                                    <ng-template #notiketcondition>
+                                        <div [ngClass]="itemstop.aircraftStr ? 'div-line h-234' : 'div-line h-210'"></div>
+                                    </ng-template>
+                                    
+                                    <div class="div-city p-left-8">
+                                        {{itemstop.fromPlace}} <span class="city-code">{{itemstop.from}}</span>
+                                    </div>
+                                </div>
+                
+                                <div class="div-align-center">
+                                    <div class="d-flex">
+                                        <div class="div-month-display" *ngIf="step == 2 else returnFlight">{{itemstop.checkInDisplayMonth}}</div>
+                                        <ng-template #returnFlight><div class="div-month-display" >{{itemstop.checkOutDisplayMonth}}</div></ng-template>
+                                        <div class="div-airport text-detail p-left-22 p-top-4">{{itemstop.departAirPort}}</div>
+                                    </div>
+                
+                                    <div class="d-flex m-top-8">
+                                        <div class="div-month-display v-align-center">{{itemstop.timedisplay}}</div>
+                                        <div class="div-detail-right">
+                                            <div class="d-flex">
+                                                    <div class="text-airline">{{ title }}</div>
+                                                    <div class="div-logo">
+                                                        <img class="img-logo logo-vj" *ngIf="itemstop.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                                        <img class="img-logo" *ngIf="itemstop.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                                        <img class="img-logo logo-vna" *ngIf="itemstop.airlineCode == 'VietnamAirlines' && !itemFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                                                        <!-- <img class="img-logo" *ngIf="itemstop.airlineCode == 'VietnamAirlines' && itemFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                                                        <img class="img-logo" *ngIf="itemFlight.operatedBy && itemFlight.urlLogo" [src]="itemFlight.urlLogo">
+                                                        <img class="img-logo" *ngIf="itemstop.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                                    </div>
+                                            </div>
+                                            <div class="text-detail">
+                                                {{itemstop.flightNumber}} · {{itemstop.ticketType}}
+                                            </div>
+                                            <div class="text-operatedBy" *ngIf="itemFlight.operatedBy">{{itemFlight.operatedBy}}</div>
+                                            <div class="div-split"></div>
+                
+                                            <div class="d-flex" *ngIf="itemstop.ticketCondition">
+                                                    <div class="icon-left">
+                                                        <!-- <img class="img-lug" src="./assets/ic_flight/icon_action_work.svg"> -->
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 20" src="./assets/ic_flight/case20.svg">
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 23" src="./assets/ic_flight/case23.svg">
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 30" src="./assets/ic_flight/case30.svg">
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 32" src="./assets/ic_flight/case32.svg">
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 15" src="./assets/ic_flight/case15.svg">
+                                                        <img class="img-lug" *ngIf="itemstop.ticketCondition.luggageSigned == 40" src="./assets/ic_flight/case40.svg">
+                                                        <img class="img-lug" *ngIf="!itemstop.ticketCondition.luggageSigned" src="./assets/ic_flight/icon_action_work.svg">
+                                                    </div>
+                                                    <div class="content-right p-left-10 text-detail" >
+                                                        <!-- <div class="text-detail">{{itemstop.ticketCondition.baggageHanded}} hành lý xách tay </div> -->
+                                                        <div class="text-detail" *ngIf=" (itemstop.ticketCondition && itemstop.ticketCondition.baggageHanded) else noBaggageHanded">{{itemstop.ticketCondition.baggageHanded}} hành lý xách tay </div>
+                                                        <ng-template #noBaggageHanded>
+                                                            <div class="text-detail">Không bao gồm hành lý xách tay</div>
+                                                        </ng-template>
+
+        
+                                                        <div class="text-detail" *ngIf="(itemstop.ticketCondition.luggageSigned && itemstop.ticketCondition.luggageSigned.length <=5) else noluggageSigned">{{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi </div>
+                                                        <ng-template #noluggageSigned>
+                                                            <div class="text-detail">Không bao gồm hành lý ký gửi</div>
+                                                        </ng-template>
+                                                        
+                                                        
+                                                    </div>
+                                            </div>
+
+                                            <div class="d-flex" *ngIf="itemstop.meal">
+                                                <div class="icon-left">
+                                                    <img class="img-meal" src="./assets/ic_flight/ic_meal_tealish.svg">
+                                                </div>
+                                                <div class="content-right p-left-10 text-detail" >Suất ăn</div>
+                                              </div>
+        
+                                              <div class="d-flex" *ngIf="itemstop.relax">
+                                                <div class="icon-left">
+                                                    <img class="img-relax" src="./assets/ic_flight/ic_relax_tealish.svg">
+                                                </div>
+                                                <div class="content-right p-left-10 text-detail" >Giải trí</div>
+                                              </div>
+        
+                                              <div class="d-flex" *ngIf="itemstop.powerSupply">
+                                                <div class="icon-left">
+                                                    <img class="img-charge" src="./assets/ic_flight/ic_charge_tealish.svg">
+                                                </div>
+                                                <div class="content-right p-left-10 text-detail" >Ổ sạc</div>
+                                              </div>
+                
+                                            <div class="d-flex p-top-16" *ngIf="seatMap || seatSpace">
+                                                    <div class="icon-left">
+                                                        <img class="img-left" src="./assets/ic_flight/icon_action_info.svg">
+                                                    </div>
+                                                    <div class="content-right p-left-10 text-detail">
+                                                        <div class="text-detail">{{itemstop.aircraftStr}}</div>
+                                                        <div class="text-detail" *ngIf="seatMap">Sơ đồ ghế ngồi {{ itemstop.seatMap }}</div>
+                                                        <div class="text-detail" *ngIf="seatSpace">Khoảng cách ghế {{ itemstop.seatSpace }}</div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="d-flex m-top-16">
+                                        <div class="div-time-display">{{itemstop.landingTimeDisplay}}</div>
+                                        <div class="div-line line-bottom"></div>
+                                        <div class="div-icon">
+                                        </div>
+                                        <!-- <div class="div-line"></div> -->
+                                        <div class="div-city p-left-8">
+                                            {{itemstop.toPlace}} <span class="city-code">{{itemstop.to}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                                <div class="d-flex">
+                                    <div class="div-month-display" >{{itemstop.landingTimeDisplayMonth}}</div>
+                                        <!-- <div class="div-month-display" *ngIf="(itemFlight.flightDuration < 1440 && step == 2 ) else returnFlight">{{itemstop.checkInDisplayMonth}}</div>
+                                        <ng-template #returnFlight><div class="div-month-display" >{{itemstop.checkOutDisplayMonth}}</div></ng-template> -->
+                                        <div class="div-airport text-detail p-left-22 p-top-4">{{itemstop.returnAirPort}}</div>
+                                    </div>
+                            </div>
+
+                            <div *ngIf="idx != itemFlight.details.length -1" class="div-over-stop">
+                                <div class="div-width-100 d-flex">
+                                    <div class="div-icon">
+                                        <img class="img-info" src="./assets/ic_flight/icon_info_gray.svg">
+                                    </div>
+                                    <div class="div-text-changeflight not-allow m-left-8">Chặng dừng {{itemstop.timeOverStop}} tại {{itemstop.toPlace}} <span class="city-code">{{itemstop.to}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    
+                </div>
+            </swiper-slide>
+            <swiper-slide style="display: block;">
+                <div class="div-ticket-detail" *ngIf='itemFlight'>
+                    <div class="div-text-title p-top-19">Điều kiện</div>
+
+                    <div class="div-flight-info">
+                        <div class="d-flex">
+                            <div class="div-width-300">
+                                <div class="d-flex">
+                                    <div class="text-airline">{{ title }}</div>
+                                    <div class="div-logo p-left-16">
+                                        <img class="img-logo logo-vj" *ngIf="itemFlight.airlineCode == 'VietJetAir'" src="./assets/ic_airticket/ic_vietjet_b.png">
+                                        <img class="img-logo" *ngIf="itemFlight.airlineCode == 'JetStar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                                        <img class="img-logo logo-vna" *ngIf="itemFlight.airlineCode == 'VietnamAirlines' && !itemFlight.operatedBy"src="./assets/ic_airticket/logo_vna.png">
+                                        <!-- <img class="img-logo" *ngIf="itemFlight.airlineCode == 'VietnamAirlines' && itemFlight.operatedBy" src="./assets/ic_airticket/ic_pacific.png"> -->
+                                        <img class="img-logo" *ngIf="itemFlight.operatedBy && itemFlight.urlLogo" [src]="itemFlight.urlLogo">
+                                        <img class="img-logo" *ngIf="itemFlight.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                                    </div>
+                              </div>
+                              <div class="text-name div-width-250 m-top-4">{{itemFlight.fromPlace}} → {{itemFlight.toPlace}}</div>
+                            </div>
+                            <div class="div-width-150 text-name text-right v-align-center">
+                                {{itemFlight.ticketType}}
+                            </div>
+                        </div>
+                        <div class="div-flight-condition d-flex" *ngIf="ticketCondition">
+                            <div class="div-width-100 d-flex">
+                                <div class="div-icon" *ngIf="((ticketCondition && (!ticketCondition.ticketRefund || ticketCondition.ticketRefund.indexOf('Không') != -1)) || !ticketCondition ) else departIconRefund">
+                                    <img class="img-info" src="./assets/ic_flight/icon_info_gray.svg">
+                                </div>
+                                <ng-template #departIconRefund>
+                                    <div class="div-icon">
+                                        <img class="img-info" src="./assets/ic_flight/icon_action_check_circle.svg">
+                                    </div>
+                                </ng-template>
+                                <div class="div-text-refund" *ngIf="( (ticketCondition && (!ticketCondition.ticketRefund || ticketCondition.ticketRefund.indexOf('Không') != -1)) || !ticketCondition ) else returnrefund">Không hoàn huỷ</div>
+                                <ng-template #returnrefund>
+                                    <div class="div-text-refund" >Hoàn hủy có phí</div>
+                                </ng-template>
+                               
+                            </div>
+
+                            <div class="div-width-100 d-flex">
+                                <div class="div-icon" *ngIf="((ticketCondition && ticketCondition.changeDepartTime.indexOf('Không') != -1 ) || !ticketCondition ) else departIconChangeDepartTime">
+                                   <img src="./assets/ic_flight/icon_info_gray.svg">
+                                </div>
+                                <ng-template #departIconChangeDepartTime>
+                                    <div class="div-icon">
+                                        <img class="img-info" src="./assets/ic_flight/icon_action_check_circle.svg">
+                                    </div>
+                                </ng-template>
+                                <div class="div-text-changeflight not-allow" *ngIf="((ticketCondition && ticketCondition.changeDepartTime.indexOf('Không') != -1 ) || !ticketCondition ) else departChangeDepartTime">Không đổi lịch bay</div>
+                                <ng-template #departChangeDepartTime>
+                                    <div class="div-text-changeflight" >Đổi lịch bay có phí</div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="div-text-title p-top-24"  *ngIf="!_flightService.fromOrderRequestChangeFlight">Chi tiết giá</div>
+
+
+                    <div class="div-flight-pricesummary" *ngIf="!_flightService.fromOrderRequestChangeFlight">
+                        <div *ngFor="let itemprice of priceSummaries" class="m-bottom-16">
+                            <div class="d-flex " *ngIf="itemprice.passengerType == 0 && itemprice.code == 'NET'">
+                                <div class="div-width-400 text-name" >Giá vé người lớn</div>
+                                <div class="div-width-200 text-right text-price">{{ itemprice.quantity }} x {{ itemFlight.priceAdultDisplay }}</div>
+                            </div>
+                            
+                            <div class="d-flex" *ngIf="itemprice.passengerType == 1 && itemprice.code == 'NET'">
+                                <div class="div-width-400 text-name m-top-8" >Giá vé trẻ em</div>
+                                <div class="div-width-200 text-right text-price">{{ itemprice.quantity }} x {{ itemFlight.priceChildDisplay }}</div>
+                            </div>
+
+                            <div class="d-flex" *ngIf="itemprice.passengerType == 2 && itemprice.code == 'NET'">
+                                <div class="div-width-400 text-name m-top-8" >Giá vé em bé</div>
+                                <div class="div-width-200 text-right text-price">{{ itemprice.quantity }} x {{ itemFlight.priceInfantDisplay }}</div>
+                            </div>
+
+                          
+                        </div>
+                        <div class="div-split"></div>
+
+                        <div class="d-flex div-total">
+                            <div class="div-width-400 text-name-total" >Tổng cộng</div>
+                            <div class="div-width-100 text-right text-total-price">{{ itemFlight.totalPriceDisplay }}đ</div>
+                        </div>
+                        
+                    </div>
+              </div>
+            </swiper-slide>
+        </swiper-container>
+          
+      </div>
+      <div *ngIf="!loaddatadone" class="div-loading-content">
+        <div>
+            <div class="d-flex div-loading-title m-top-16">
+                <div class="text-title div-width-250 p-left-16">
+                    <ion-skeleton-text animated style="width: 250px;height: 40px; border-radius: 4px;margin: 0"></ion-skeleton-text>
+                </div>
+                <div class="div-right d-flex div-width-100">
+                    <ion-skeleton-text animated style="height: 40px; border-radius: 4px;margin:0; margin-right:16px; text-align: right;"></ion-skeleton-text>
+                </div>
+          </div>
+          
+          <div class="div-detail p-left-16">
+
+              <div class="d-flex p-top-16">
+                  <div class="div-time-display">
+                    <ion-skeleton-text animated style="width: 60px;height: 24px; border-radius: 4px"></ion-skeleton-text>
+                  </div>
+                  <div class="div-icon">
+                  </div>
+                  <div class='div-line'>
+                      
+                  </div>
+                 
+                  
+                  <div class="div-city p-left-8">
+                    <ion-skeleton-text animated style="width: 130px;height: 24px; border-radius: 4px"></ion-skeleton-text>
+                  </div>
+              </div>
+
+              <div class="div-align-center">
+                  <div class="d-flex">
+                    <ion-skeleton-text animated style="width: 60px;height: 21px; border-radius: 4px"></ion-skeleton-text>
+                      <div class="div-airport text-detail p-left-8 p-top-4">
+                        <ion-skeleton-text animated style="width: 210px;height: 21px; border-radius: 4px"></ion-skeleton-text>
+                      </div>
+                  </div>
+
+                  <div class="d-flex m-top-8">
+                      <div class="div-month-display v-align-center">
+                          <ion-skeleton-text animated style="width: 60px;height: 170px; border-radius: 4px;margin: 0;"></ion-skeleton-text>
+                        </div>
+                      <div class="div-detail-right">
+                        <ion-skeleton-text animated style="width: 250px;height: 170px; border-radius: 4px;margin: 0;margin-left: 8px;"></ion-skeleton-text>
+                      </div>
+                  </div>
+
+                  <div class="d-flex m-top-16">
+                    <div class="div-time-display">
+                        <ion-skeleton-text animated style="width: 60px;height: 24px; border-radius: 4px"></ion-skeleton-text>
+                    </div>
+                    <div class="div-line line-bottom"></div>
+                    <div class="div-icon">
+                    </div>
+                    <!-- <div class="div-line"></div> -->
+                    <div class="div-city p-left-8">
+                        <ion-skeleton-text animated style="width: 100px;height: 24px; border-radius: 4px"></ion-skeleton-text>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="d-flex">
+                    <div class="div-month-display">
+                        <ion-skeleton-text animated style="width: 60px;height: 21px; border-radius: 4px"></ion-skeleton-text>
+                    </div>
+                  
+                    <div class="div-airport text-detail p-left-8 p-top-4">
+                        <ion-skeleton-text animated style="width: 170px;height: 21px; border-radius: 4px"></ion-skeleton-text>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+  </ion-content>
+  <ion-footer *ngIf="!_flightService.showFlightDetailFrom">
+    <div class="div-footer d-flex-footer" *ngIf="!_flightService.fromOrderRequestChangeFlight">
+        <div class="d-flex-footer div-width-100">
+            <div class="div-total">
+                <div class="d-flex-footer text-sub-total">
+                  {{ adult }} người lớn, {{ child }} trẻ em
+                </div>
+                <div class="text-total" >{{totalPriceDisplay}}đ
+                  <!-- <sup>
+                    <img src="./assets/ic_green/ic_info.svg">
+                  </sup> -->
+                 </div>
+              </div>
+              <div class="div-button">
+                <button (click)="confirm()" ion-button round outline class="button button-done">Chọn</button>
+              </div>
+        </div>
+    </div>
+  </ion-footer>
