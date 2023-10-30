@@ -1,4 +1,7 @@
 
+.t-0{
+  top: 0;
+}
     .text-title{
         font-size: 18px;
         font-weight: bold
@@ -102,6 +105,18 @@
       }
 
       ::ng-deep {
+        .action-sheet-selected.sc-ion-action-sheet-ios::after {
+          background: none;
+        }
+        @media (min-height:812px) and (max-width: 870px) {
+          .action-sheets-flight-departure .action-sheet-wrapper.sc-ion-action-sheet-ios {
+              margin-bottom: 0;
+          }
+          .action-sheets-flight-departure .action-sheet-group.sc-ion-action-sheet-ios:last-child {
+              padding-bottom: 40px;
+          }
+        }
+
           .select-icon{
             display: none;
           }
@@ -170,11 +185,15 @@
             justify-content: left;
         }
         .action-sheet-button.sc-ion-action-sheet-ios {
-            padding: 0;
-            border-bottom: solid 1px #ccc;
-            margin-left: 16px;
-            margin-right: 16px !important;
-            width: 92%;
+            display: block;
+            position: relative;
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: none;
+            color: var(--button-color);
+            font-family: inherit;
+            overflow: hidden;
         }
         .action-sheet-selected.sc-ion-action-sheet-ios{
             background-image: url('../../assets/imgs/ic_check.svg');
@@ -189,6 +208,19 @@
         }
         .sc-ion-alert-ios-h.sc-ion-alert-ios-s.cls-reivewapp {
           align-items: center !important;
+        }
+      }
+      .div-footer-filtersort{
+        .img-filter{
+          position: absolute;
+          top: 6px;
+          left: -3px;
+        }
+        .label-filter{
+          top: 20px;
+          position: absolute;
+          left: 42px;
+          z-index: 9;
         }
       }
        

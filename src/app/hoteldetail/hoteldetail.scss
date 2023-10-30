@@ -231,7 +231,6 @@
             width: 70%;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 2px;
-            margin-left: 12%;
             padding: 2px 0px 2px 0px;
             background-color: rgba(0, 0, 0, 0.5);
           }
@@ -248,7 +247,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             z-index: 11;
-            margin-left: 12%;
           }
         }
         .badgescss {
@@ -1568,6 +1566,15 @@
 
 ::ng-deep{
 //css lịch âm
+@media (min-height:812px) and (max-width: 870px) {
+    .action-sheets-basic-page .action-sheet-wrapper.sc-ion-action-sheet-ios {
+        margin-bottom: 0;
+    }
+    
+    .action-sheets-basic-page .action-sheet-group.sc-ion-action-sheet-ios:last-child {
+        padding-bottom: 40px;
+    }
+}
  .lunarcalendar
  {
    border: 0.5px solid #e52822 ;

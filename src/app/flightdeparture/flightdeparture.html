@@ -1,18 +1,16 @@
 <ion-header>
-    <ion-toolbar style="min-height: 0px;text-align: center">
-        <ion-row>
-          <ion-col style="text-align: center;">
-            <div style="align-self: center" >
-              <div><label class="text-title">{{isdepart ? 'Đi từ' : 'Về từ'}} {{fromplace}}</label></div>
-              <div><label style="font-size: 11px;color: #828282">{{daytitle}}</label></div>
+    <ion-row>
+        <ion-col style="text-align: center;height: 56px;padding-top: 6px;">
+          <div style="align-self: center" >
+            <div><label class="text-title">{{isdepart ? 'Đi từ' : 'Về từ'}} {{fromplace}}</label></div>
+            <div><label style="font-size: 11px;color: #828282">{{daytitle}}</label></div>
 
-              <div style="position: absolute;height: 60px;width: 54px;right: 2px;text-align: right;top: -2px;">
-                    <ion-icon style="height: 32px;width: 48px;padding: 12px;" name="close"  (click)="goback()"></ion-icon>
-                </div> 
-            </div>
-          </ion-col>
-        </ion-row>
-    </ion-toolbar>
+            <div class="div-close t-0" (click)="goback()">
+                <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+              </div> 
+          </div>
+        </ion-col>
+      </ion-row>
 </ion-header>
 <ion-content class="ion-padding-16">
     <div class="flight-departure-content" *ngIf="listflight && listflight.length >0">
@@ -84,14 +82,9 @@
         </ion-col>
         <ion-col (click)="openFilterFlight()">
                 <div class="flightdeparture-button-filter">
-                    <img src="./assets/imgs/ic_filter.svg">
-                    <ion-label style="top: 20px;position: absolute;">Lọc theo hãng</ion-label>
-                    <!-- <ion-select style="color: #26bed6;top: 10px;position: absolute;right: 0;right: 16px;width: 90%;height: 48px;" multiple="true" cancelText="" okText="Xác nhận" title="Lọc theo hãng" class="flightdeparture-select-filter"  mode="ios" selectedText=" " (ionChange)="filterAirline($event)" >
-                                <ion-select-option  value="VietnamAirlines"><img class="img-airline" src="./assets/ic_airticket/ic_vietnamairlines_b.png">VietnamAirlines</ion-select-option>
-                                <ion-select-option value="VietJetAir"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">VietJet</ion-select-option>
-                                <ion-select-option value="JetStar"><img class="img-airline" src="./assets/ic_airticket/ic_vietjet_b.png">JetStar</ion-select-option>
-                                <ion-select-option value="BambooAirways"><img class="img-airline" src="./assets/ic_airticket/ic_bamboo_b.png">BambooAirways</ion-select-option>
-                    </ion-select> -->
+                    <img class="img-filter" src="./assets/imgs/ic_filter.svg">
+                    <ion-label class="label-filter" >Lọc theo hãng</ion-label>
+                  
                 </div>
         </ion-col>
     </ion-row>
