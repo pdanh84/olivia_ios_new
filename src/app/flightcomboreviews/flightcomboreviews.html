@@ -131,7 +131,7 @@
       </div>
     </div>
   </div>
-  <hr class="cls-hr" style="margin-top: 22PX">
+  <hr class="cls-hr" style="margin-top: 22px" *ngIf="statusRoom=='AL'">
   <ion-row *ngIf="!loadflightpricedone" style="height: 100px">
     <!-- <ion-col style="padding:0 0 0 140px;"> -->
     <!-- <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> -->
@@ -288,8 +288,8 @@
         <ion-label *ngIf="ischeckerror==0" style="color:#828282;font-size: 12px">{{msg}}</ion-label>
       </ion-row>
       
-    <hr class="cls-hr" *ngIf="!_voucherService.hasVoucher">
-    <app-voucherslideflightcombo *ngIf="loadflightpricedone"></app-voucherslideflightcombo>
+    <hr class="cls-hr" *ngIf="!_voucherService.hasVoucher && statusRoom=='AL'">
+    <app-voucherslideflightcombo *ngIf="loadflightpricedone && statusRoom=='AL'"></app-voucherslideflightcombo>
     <div *ngIf="(ischeck||ischeckbtnpromo||strPromoCode)  && loadflightpricedone">
       <ion-row>
         <ion-col size="6" style="padding: 0;">

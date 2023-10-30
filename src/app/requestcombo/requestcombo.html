@@ -1,99 +1,121 @@
-<ion-content>
-    <div class="div-icon-close" (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-    </div>
+
+<ion-content class="request-combo-page">
+    <div class="div-icon-close" (click)="dismiss()"><img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" ></div>
     <div class="hotel-request-combo-content">
         <h2 class="request-combo-title">Yêu cầu đặt combo</h2>
         <ion-row style="width: 100%;">
             <ion-col size="5" class="text-label">Ngày khởi hành</ion-col>
             <ion-col size="7" class="text-label">Số lượng</ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row >
             <ion-col size="5" *ngIf="isFlashSaleCombo">
                 <div class="text-cin">{{cindisplay}}
                     <div class="img-cin"><img src="./assets/iocnsearch/ic_checkin.svg"></div>
                 </div>
             </ion-col>
             <ion-col size="5" *ngIf="!isFlashSaleCombo" (click)="openPickupCalendar()">
-                <div class="text-cin">{{cindisplay}}
-                    <div class="img-cin"><img src="./assets/iocnsearch/ic_checkin.svg"></div>
-                </div>
-            </ion-col>
+                    <div class="text-cin">{{cindisplay}}
+                        <div class="img-cin"><img src="./assets/iocnsearch/ic_checkin.svg"></div>
+                    </div>
+                </ion-col>
             <ion-col (click)="openmnu()">
                 <div class="text-pax">{{adult}} người lớn, {{child}} trẻ em</div>
             </ion-col>
         </ion-row>
         <div class="hotel-request-departure">
-            <ion-row>
-                <ion-col class="text-label">Khởi hành từ</ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-list>
-                    <ion-radio-group style="margin-left: -5px;" name="rdgroup" class="list-departure">
-                        <div class="ml5" *ngFor="let item of arrPlace">
-                            <ion-radio class="rd-departure" (click)="radioCheck(item)"
-                            value={{item.checked}}></ion-radio>
-                            <label (click)="radioCheck(item)">{{item.departureName}}</label>
+                <ion-row>
+                    <ion-col class="text-label">Khởi hành từ</ion-col>
+                </ion-row>
+
+                <div>
+                    <ion-radio-group name="rdgroup" class="list-departure" [(ngModel)]="location">
+                        <div class="radio-container">
+                            <ion-radio mode='md' style="--color-checked:#26bed6" value="SGN" class="rd-departure" (click)="radioCheck(1)" checked="true"></ion-radio>
+                            <label class="rd-text" (click)="radioCheck(1)">Hồ Chí Minh</label>
                         </div>
-                        <!-- <ion-radio value="HN" class="rd-departure"
-                            style="padding-left:30px;width: 48px;--color-checked:#26bed6" (click)="radioCheck(2)">
-                        </ion-radio>
-                        <label class="rd-text" (click)="radioCheck(2)">Hà Nội</label>
-                        <ion-radio *ngIf="hasDepatureFromCanTho" value="VCA" class="rd-departure"
-                            style="padding-left:30px;width: 48px;--color-checked:#26bed6" (click)="radioCheck(3)">
-                        </ion-radio>
-                        <label *ngIf="hasDepatureFromCanTho" class="rd-text" (click)="radioCheck(3)">Cần Thơ</label> -->
+                        <div class="radio-container">
+                            <ion-radio mode='md' value="HN" class="rd-departure" style="padding-left:30px;width: 48px;--color-checked:#26bed6" (click)="radioCheck(2)"></ion-radio>
+                            <label class="rd-text" (click)="radioCheck(2)">Hà Nội</label>
+                        </div>
+                        <div class="radio-container" *ngIf="hasDepatureFromCanTho">
+                            <ion-radio mode='md' value="VCA" class="rd-departure" style="padding-left:30px;width: 48px;--color-checked:#26bed6" (click)="radioCheck(3)"></ion-radio>
+                            <label class="rd-text" (click)="radioCheck(3)">Cần Thơ</label>
+                        </div>
+                        <div class="radio-container">
+                            <ion-radio mode='md' value="KHAC" class="rd-departure" [ngClass]="hasDepatureFromCanTho?'radio-Khac-1':'radio-Khac'"  (click)="radioCheck(4)"></ion-radio>
+                            <label class="rd-text" (click)="radioCheck(4)">Khác</label>
+                        </div>
                     </ion-radio-group>
+                </div>
+                
+            </div>
+            <div class="hotel-request-name" *ngIf="location == 'KHAC'">
+                <ion-row>
+                    <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                        <ion-input [(ngModel)]="textOther" placeholder="Nhập địa điểm khởi hành để iVIVU tư vấn ngay" type="text" (ionInput)="inputFocusOther($event)"  required></ion-input>
+                      </ion-item>
+                </ion-row>
+            </div>
+            <div class="hotel-request-name">
+                <ion-row>
+                    <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                        <ion-label position="stacked" class="text-label">Họ tên*</ion-label>
+                        <ion-input [(ngModel)]="customerName" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)" (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
+                      </ion-item>
+                </ion-row>
+            </div>
+            <div class="hotel-request-phone">
+                <ion-row>
+                    <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                        <ion-label position="stacked" class="text-label">Số điện thoại</ion-label>
+                        <ion-input id="cusMobile" maxlength=10 [(ngModel)]="mobile" type="tel" required></ion-input>
+                    </ion-item>
+                </ion-row>
+            </div>
+            <div class="hotel-request-email m-bottom-24">
+                <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
+                        <ion-label position="stacked" class="text-label">Email*</ion-label>
+                        <ion-input id="cusEmail" [(ngModel)]="usermail" type="text" required></ion-input>
+                    </ion-item>
+            </div>
+            <div (click)="showdiscount()">
 
-                </ion-list>
-            </ion-row>
-        </div>
-        <div class="hotel-request-name">
-            <ion-row>
-                <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                    <ion-label position="floating" class="text-label">Họ tên*</ion-label>
-                    <ion-input [(ngModel)]="customerName" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)" (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
-                </ion-item>
-            </ion-row>
-        </div>
-        <div class="hotel-request-phone">
-            <ion-row>
-                <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                    <ion-label position="floating" class="text-label">Số điện thoại</ion-label>
-                    <ion-input id="cusMobile" [(ngModel)]="mobile" maxlength=10 type="tel" required></ion-input>
-                </ion-item>
-            </ion-row>
-        </div>
-        <div class="hotel-request-email">
-            <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                <ion-label position="floating" class="text-label">Email*</ion-label>
-                <ion-input id="cusEmail" [(ngModel)]="usermail" type="text" required></ion-input>
-            </ion-item>
-        </div>
-        <div style="margin-top: 20px">
-            <label style="font-size:14px;color:#828282;font-style: italic">*Nhân viên tư vấn của chúng tôi sẽ liên hệ
-                đến quý khách trong vòng 60 phút.</label>
-        </div>
+                <div class="div-text-normal">
+                  <div>Quý khách có mã ưu đãi?<span class="text-underline">Nhập mã tại đây</span></div>
+                </div>
+              </div>
+              <div class="div-voucher-apply d-flex"  *ngIf="strPromoCode" (click)="showdiscount()">
+                <div class="m-top-5">
+                  <span class="text-normal">Mã ưu đãi : <span class="text-code" *ngIf="strPromoCode">{{strPromoCode}}</span></span>
 
+                </div>
+                <!-- <div class="width-100 text-normal text-right p-r-5" *ngIf="strPromoCode">{{gf.convertNumberToString(totaldiscountpromo)}}đ</div>   -->
+                </div>
+              <!-- <ion-row> 
+                <ion-label *ngIf="ischeckerror==1" style="color: rgb(229, 40, 34);font-size: 12px">{{msg}}</ion-label>
+                <ion-label *ngIf="ischeckerror==0" style="color:#828282;font-size: 12px">{{msg}}</ion-label>
+              </ion-row> -->
+            <div style="margin-top: 10px">
+                <label style="font-size:14px;color:#828282;font-style: italic">*Nhân viên tư vấn của chúng tôi sẽ liên hệ đến quý khách trong vòng 60 phút.</label>
+            </div>
     </div>
-
-
+    
+    
 </ion-content>
 <ion-footer style="text-align: center">
     <div class='div-close-paxhint' *ngIf="inputtext && listpaxhint && listpaxhint.length >0" (click)="hidePaxHint()"><img src='./assets/ic_close_b.svg'></div>
-  <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
-                  
-    <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
-        <div class="icon-pax">
-                <img src="./assets/ic_flight/icon-pax.svg">
+    <div class="div-pax-hint" *ngIf="inputtext && listpaxhint && listpaxhint.length >0">
+                    
+        <div *ngFor="let itempax of listpaxhint" class="d-flex m-bottom-16" (click)="selectPaxHint(itempax)">
+            <div class="icon-pax">
+                    <img src="./assets/ic_flight/icon-pax.svg">
+            </div>
+            <div class="text-pax-hint">
+                {{itempax.fullName}}
+            </div>
         </div>
-        <div class="text-pax-hint">
-            {{itempax.fullName}}
-        </div>
+        
     </div>
-    
-  </div>
-  
-    <button ion-button round outline class="button btn-cancel" (click)="sendRequest()"
-        [ngClass]="(!customerName || customerName=='') ? 'btn-disable' : ''">Gửi yêu cầu</button>
+
+        <button ion-button round outline class="button btn-cancel" (click)="sendRequest()" [ngClass]="(!customerName || customerName=='') ? 'btn-disable' : ''">Gửi yêu cầu</button>
 </ion-footer>

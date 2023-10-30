@@ -46,7 +46,12 @@ export class HotelreviewsimagePage  {
           this.captionImg = this.arrimgreview[this.searchhotel.indexreviewimg].CaptionImg;
         }
       }
+      else{
+        if ( this.arrimgreview) {
+          this.captionImg = this.arrimgreview[0].CaptionImg;
+        }
        
+      }
       this.lengthslide=this.arrimgreview.length;
       this.ischeckslide=true;
     },900);
@@ -75,6 +80,9 @@ export class HotelreviewsimagePage  {
     //   this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
     // });
     this.countslide = this.slider?.nativeElement.swiper.activeIndex;
+    if(this.arrimgreview[this.countslide] && this.arrimgreview[this.countslide].CaptionImg){
+      this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
+    }
   }
 
   ionSlideTransitionStart() {

@@ -169,6 +169,7 @@ export class FlightComboReviewsPage implements OnInit {
   itemVoucherCombo: any;
   strPromoCode: string;
   totaldiscountpromo: number;
+  adultsdisplay: number;
   constructor(public platform: Platform, public valueGlobal: ValueGlobal, public navCtrl: NavController, private Roomif: RoomInfo, public zone: NgZone,
     public booking: Booking, public storage: Storage, public alertCtrl: AlertController, public value: ValueGlobal, public modalCtrl: ModalController, public gf: GlobalFunction,
     public bookCombo: Bookcombo, public searchhotel: SearchHotel, public loadingCtrl: LoadingController,
@@ -3314,6 +3315,8 @@ export class FlightComboReviewsPage implements OnInit {
             let itemmealtype = data.itemmealtype;
             se.index=data.index;
             se.RoomType=itemroom.RoomType;
+            se.roomnumber=itemmealtype.TotalRoom;
+            se.statusRoom=itemmealtype.Status;
             if(itemmealtype.Name != null && itemmealtype.Notes.length==0){
               se.breakfast = itemmealtype.Name;
             }
@@ -3339,6 +3342,7 @@ export class FlightComboReviewsPage implements OnInit {
             se.bookCombo.isHBEDBooking = itemmealtype.Supplier == 'HBED' && itemmealtype.HotelRoomHBedReservationRequest;
             se.bookCombo.isAGODABooking = itemmealtype.Supplier == 'AGD' && itemmealtype.HotelCheckDetailTokenAgoda;
             se.checkAllowPaylaterBookXML(itemmealtype);
+            //se.bookCombo.roomPenalty = itemmealtype.Penaltys && itemmealtype.Penaltys.length >0 && itemmealtype.Penaltys[0] && !itemmealtype.Penaltys[0].IsPenaltyFree && itemmealtype.Penaltys[0].PenaltyDescription;
           })
         }
   }

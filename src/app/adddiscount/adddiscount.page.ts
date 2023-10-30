@@ -133,8 +133,9 @@ export class AdddiscountPage implements OnInit {
             }
           }
           bookingCode = 'TOUR';
-        } 
-        else if(se._voucherService.openFrom == 'ticketadddetails'){
+        }
+        let body ; 
+        if(se._voucherService.openFrom == 'ticketadddetails'){
           coupondata = {
             "vvc": {
               "experienceId": se.ticketService.itemTicketDetail.experienceId,
@@ -143,35 +144,33 @@ export class AdddiscountPage implements OnInit {
           };
           bookingCode = this.ticketService.itemTicketService.objbooking.bookingCode;
         }else{
-          coupondata = {
-            "hotel": {
-              "hotelId": this.booking.HotelId,
-              "roomName": this.booking.RoomName,
-              "totalRoom": this.Roomif.roomnumber,
-              "totalAdult": this.booking.Adults,
-              "totalChild": this.booking.Child,
-              "jsonObject": "",
-              "checkIn": this.searchHotel.CheckInDate,
-              "checkOut": this.searchHotel.CheckOutDate
-            }
-          };
-          bookingCode = 'HOTEL';
-        };
+  
+          if (se._voucherService.openFrom == 'flightcomboreview') {
+            
+            coupondata = {
+              "hotel": {
+                "hotelId": this.booking.HotelId,
+                "roomName": this.booking.RoomName,
+                "totalRoom": this.Roomif.roomnumber,
+                "totalAdult": this.booking.Adults,
+                "totalChild": this.booking.Child,
+                "jsonObject": "",
+                "checkIn": this.searchHotel.CheckInDate,
+                "checkOut": this.searchHotel.CheckOutDate
+              }
+            };
+            body = { bookingCode: bookingCode,code: code, totalAmount: 0,
+              couponData: coupondata}
+          }else{
+            body = { bookingCode: bookingCode,code: se.promocode, totalAmount: se._voucherService.openFrom == 'touradddetails' ? se._tourService.totalPrice : (!se._voucherService.isFlightPage? se.valueGlobal.PriceAvgPlusTAStr.toString().replace(/\./g, '').replace(/\,/g, '') : (se._flightService.itemFlightCache.totalPrice || se._flightService.itemFlightInternational.fare.price)), comboDetailId: se.bookCombo.ComboId,
+            couponData: coupondata,
+            };
+          }
+        }
         let headers = {
           'cache-control': 'no-cache',
           'content-type': 'application/json',
         };
-        let body ;
-        if(se._voucherService.openFrom == 'ticketadddetails')
-        {
-          body = { bookingCode: bookingCode,code: code, totalAmount: this.ticketService.bookingInfo.booking.totalPriceAfterDiscount,
-          couponData: coupondata,
-          };
-        }else{
-          body = { bookingCode: bookingCode,code: se.promocode, totalAmount: se._voucherService.openFrom == 'touradddetails' ? se._tourService.totalPrice : (!se._voucherService.isFlightPage? se.valueGlobal.PriceAvgPlusTAStr.toString().replace(/\./g, '').replace(/\,/g, '') : (se._flightService.itemFlightCache.totalPrice || se._flightService.itemFlightInternational.fare.price)), comboDetailId: se.bookCombo.ComboId,
-          couponData: coupondata,
-          };
-        }
       
         let strUrl = C.urls.baseUrl.urlMobile + '/api/data/validpromocode';
         se.gf.RequestApi('POST', strUrl, headers, body, 'AdddiscountPage', 'loadUserInfo').then((data) => {
