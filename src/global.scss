@@ -2646,3 +2646,41 @@ swiper-slide img {
   height: auto;
   max-height: 100%;
 }
+.action-sheets-flight-departure{
+    .img-filter{
+      width: 30px;
+      height: 30px;
+      margin-right: 11px;
+    }
+      .btn-filter{
+        color: #ec971f;
+        font-size: 17px;
+        background: #fff;
+        border: #ec971f;
+        height: 70px !important;
+        margin-top: 14px;
+        margin-bottom: 12px;
+        height: 44px;
+      }
+      .btn-filter > span{
+        color: #ec971f !important;
+        border: solid 1px #ec971f;
+        border-radius: 6px;
+        text-align: center;
+        justify-content: center !important;
+        font-weight: bold;
+        font-size: 17px !important;
+      }
+      // .cls-border-bottom > span{
+      //   border-bottom: solid 1px #cccccc;
+      // }
+      .cls-border-bottom{
+        height: 48px;
+      }
+      .cls-border-bottom > span.selected {
+        background-image: url(./assets/imgs/ic_check.svg);
+        background-repeat: no-repeat;
+        background-position: right;
+      }
+      
+  }
