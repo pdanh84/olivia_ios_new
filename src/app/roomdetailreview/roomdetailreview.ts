@@ -444,39 +444,46 @@ export class RoomdetailreviewPage implements OnInit {
         else {
           if (this.ischeckpromo) {
             this.price = this.point.toLocaleString();
-            var tempprice = this.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
-            this.Pricepoint = tempprice - this.point - this.totaldiscountpromo;
+            var tempprice = this.roomtype.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
+            //this.Pricepoint = tempprice - this.point-this.discountpromo;
+            this.Pricepoint = tempprice - this.point-this.totaldiscountpromo;
             if(this.Pricepoint*1 <0){
               this.Pricepoint = 0;
             }
             this.Pricepointshow = this.Pricepoint.toLocaleString();
           } else {
             this.price = this.point.toLocaleString();
-            var tempprice = this.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
+            var tempprice = this.roomtype.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
             this.Pricepoint = tempprice - this.point;
-            if (this.Pricepoint<=0) {
-              this.Pricepointshow=0;
+            if(this.Pricepoint*1 <0){
+              this.Pricepoint = 0;
             }
-            else{
-              this.Pricepointshow = this.Pricepoint.toLocaleString();
+            this.Pricepointshow = this.Pricepoint.toLocaleString();
+            if ( this.Pricepoint <=0) {
+              this.ischeckpoint=true;
+              this.Pricepointshow = 0;
             }
-         
+      
           }
-
+        
         }
 
       } else {
         if (this.ischeckpromo) {
-          var tempprice = this.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
-          this.Pricepointshow = tempprice - this.totaldiscountpromo;
-          if(this.Pricepointshow*1 <0){
+          var tempprice = this.roomtype.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
+          //this.Pricepointshow = tempprice -  this.discountpromo;
+          this.Pricepointshow = tempprice -  this.totaldiscountpromo;
+         
+          if ( this.Pricepointshow*1 <=0) {
             this.Pricepointshow = 0;
           }
           this.Pricepointshow = this.Pricepointshow.toLocaleString();
-          this.PriceAvgPlusTAStr = this.roomtype ? this.roomtype.PriceAvgPlusTAStr : "0";
+          this.PriceAvgPlusTAStr = this.roomtype.PriceAvgPlusTAStr;
         }
-        else {
-          this.PriceAvgPlusTAStr = this.roomtype ? this.roomtype.PriceAvgPlusTAStr : "0";
+        else
+        {
+          this.PriceAvgPlusTAStr = this.roomtype.PriceAvgPlusTAStr;
+          
         }
       }
     })

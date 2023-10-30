@@ -1,200 +1,268 @@
 
-    .request-combo-title{
-        color: #26bed6;
-        padding-left: 5px;
-        font-weight: bold;
-    }
-    .hotel-request-combo-content{
-        padding: 15px;
-    }
-    .text-label{
-        font-size: 12px;
-        color: #818180;
-        font-weight: 400;
-    }
-    .text-cin{
-        border: solid 1px #cdcdcd;
-        border-radius: 5px;
-        padding: 8px 0px 8px 8px;
-        font-size: 14px;
-    }
-    .img-cin{
-        position: absolute;
-        right: 16px;
-        top: 11px;
-    }
-    .text-pax{
-        border: solid 1px #cdcdcd;
-        border-radius: 5px;
-        padding: 8px 0px 8px 8px;
-        font-size: 14px;
-    }
-    .item-md.item-block .item-inner{
-        border:none;
-        padding: 0;
-    }
-    .label-md{
-        font-size: 14px;
-        border: none;
-    }
-    .ion-label{
-        color: #3d3f47;
-    }
-    .list-departure{
-        display: inline-flex;
-        white-space: nowrap;
-    }
-    .rd-departure{
-        padding: 2px;
-        margin-left: 2px;
-        --color-checked: #26bed6;
-        top: 5px;
-    }
-    .rd-departure .radio-icon{
-        width: 12px;
-        height: 12px;
-    }
-    .rd-text{
-        padding-left: 4px;
-    }
-    .radio-md .radio-inner{
-        left: 1px;
-        top: 1px;
-        width: 6px;
-        height: 6px;
-    }
-    .btn-cancel{
-        width: 90%;
-        border:none;
-        color: #ffffff;
-        background-color: #F79221;
-        border-color: #F79221;
-        height: 48px;
-    }
-    .request-input{
-        border: solid 1px #cdcdcd;
-        border-radius: 5px;
-        margin: 5px;
-    }
-    .validate-error{
-        color: red;
-    }
+.request-combo-title{
+    color: #26bed6;
+    padding-left: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+.hotel-request-combo-content{
+    padding: calc(env(safe-area-inset-top) + 15px) 15px 15px 15px;
+}
+.text-label{
+    font-size: 14px;
+    color: #818180;
+    font-weight: 400;
+}
+.text-cin{
+    border: solid 1px #cdcdcd;
+    border-radius: 5px;
+    padding: 8px 16px 8px 0px;
+    font-size: 14px;
+    text-align: right;
+}
+.img-cin{
+    position: absolute;
+    left: 16px;
+    top: 13px;
+}
+.text-pax{
+    border: solid 1px #cdcdcd;
+    border-radius: 5px;
+    padding: 8px 0px 8px 8px;
+    font-size: 14px;
+}
+.item-md.item-block .item-inner{
+    border:none;
+    padding: 0;
+}
+.label-md{
+    font-size: 14px;
+    border: none;
+}
+.ion-label{
+    color: #3d3f47;
+}
+.list-departure{
+    flex-wrap: wrap;
+    display: inline-flex;
+}
+.rd-departure{
+    padding: 2px;
+    margin-left: 2px;
+}
+.rd-departure .radio-icon{
+    width: 12px;
+    height: 12px;
+}
+.rd-text{
+    padding-left: 4px;
+    padding-top: 4px;
+}
+.radio-md .radio-inner{
+    left: 1px;
+    top: 1px;
+    width: 6px;
+    height: 6px;
+}
+.btn-cancel{
+    width: 90%;
+    border:none;
+    color: #ffffff;
+    background-color: #F79221;
+    border-color: #F79221;
+    height: 48px;
+    margin:30px 0;
+}
+.request-input{
+    border: solid 1px #cdcdcd;
+    border-radius: 5px;
+    margin: 5px;
+}
+.validate-error{
+    color: red;
+}
 
-    //support
-    .label-header{
-        font-size: 12px;
-        color: #818180;
-        padding-left: 5px;
+//support
+.label-header{
+    font-size: 12px;
+    color: #818180;
+    padding-left: 5px;
+}
+.item-list{
+    font-size: 14px;
+}
+.icon-list{
+    opacity: 0.7;
+}
+.support{
+    padding-top:20px;
+   
+}
+.support-text{
+    color: #26bed6;
+}
+.support-text-offline{
+    color: #bdbdbd;
+}
+.item-call{
+    font-weight: bold;
+    text-decoration: none;
+    color: #26bed6;
+}
+.div-icon-close{
+    float: left;
+    opacity: 0.6;
+    padding: 0;
+    font-size: 30px;
+    padding-top: calc(env(safe-area-inset-top));
+
+    .header-img-close{
+        width: 36px;
+        margin-top: 30px;
+        margin-right: 16px;
+        margin-left: 8px;
     }
-    .item-list{
+}
+.btn-disable{
+    opacity: 0.5;
+}
+.radio-ios .radio-checked .radio-inner {
+    left: 7px;
+    top: 0px;
+    position: absolute;
+    width: 5px;
+    height: 12px;
+    border-width: 2px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-style: solid;
+    border-color: #488aff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .radio-ios .radio-icon {
+    position: relative;
+    display: block;
+    width: 19px !important;
+    height: 18px !important;
+    border: solid 1px #cdcdcd;
+    width: 16px;
+}
+.text-error{
+    color:red;
+}
+::ng-deep{
+    input,
+    input::placeholder {
         font-size: 14px;
     }
-    .icon-list{
-        opacity: 0.7;
+    .sc-ion-alert-ios-h.sc-ion-alert-ios-s.request-combo-css  {
+        --min-width: 250px !important;
+        --width: auto !important;
+        --min-height: auto !important;
+        --height: auto !important;
+        --max-height: 90% !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        -webkit-font-smoothing: antialiased !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+        position: fixed !important;
+        -ms-flex-align: center !important;
+        align-items: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+        font-family: var(--ion-font-family,inherit) !important;
+        contain: strict !important;
+        -ms-touch-action: none !important;
+        touch-action: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+        z-index: 1000 !important;
     }
-    .support{
-        padding-top:20px;
-       
+    .request-combo-css .cls-alert-showmore {
+        align-items: center !important;
     }
-    .support-text{
-        color: #26bed6;
+    .request-combo-css .alert-wrapper.sc-ion-alert-ios {
+        border-radius: 13px !important;
+        box-shadow: none !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: var(--width) !important;
+        min-width: var(--min-width) !important;
+        max-width: var(--max-width) !important;
+        height: var(--height) !important;
+        min-height: var(--min-height) !important;
+        max-height: var(--max-height) !important;
+        background: var(--background) !important;
     }
-    .support-text-offline{
-        color: #bdbdbd;
-    }
-    .item-call{
-        font-weight: bold;
-        text-decoration: none;
-        color: #26bed6;
-    }
-    .div-icon-close{
-        float: right;
-        opacity: 0.6;
-        padding: 28px 21px 10px 16px;
-        opacity: 0.6;
-        font-size: 30px;
-    }
-    .btn-disable{
-        opacity: 0.5;
-    }
-    .radio-ios .radio-checked .radio-inner {
-        left: 7px;
-        top: 0px;
-        position: absolute;
-        width: 5px;
-        height: 12px;
-        border-width: 2px;
-        border-top-width: 0;
-        border-left-width: 0;
-        border-style: solid;
-        border-color: #488aff;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+    .request-combo-css .alert-button.sc-ion-alert-ios{
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        border-radius: 0 !important;
+        flex: 1 1 auto !important;
+        min-width: 50% !important;
+        height: 44px !important;
+        border-top: .55px solid rgba(var(--ion-text-color-rgb,0,0,0),.2) !important;
+        background-color: transparent !important;
+        color: var(--ion-color-primary,#3880ff) !important;
+        font-size: 15px !important;
+        overflow: hidden !important;
+        width: auto;
       }
-      .radio-ios .radio-icon {
-        position: relative;
-        display: block;
-        width: 19px !important;
-        height: 18px !important;
-        border: solid 1px #cdcdcd;
-        width: 16px;
-    }
-    .text-error{
-        color:red;
-    }
-
-    ::ng-deep{
-        .alert-button.sc-ion-alert-md{
-            width: 100% !important;
+      .request-combo-css .alert-button-group.sc-ion-alert-ios button:first-child {
+            display: block !important;
         }
-    }
-    ion-item{
-        --padding-start: 0px;
-      --inner-border-width: 0 0 0px 0;
-      --min-height: 0px;
-    }
-    .ml5
-    {
-        margin-left: 5px;
-    }
-
-    .div-close-paxhint{
-        right: -6px;
-        position: absolute;
-        z-index: 14;
-        top: -0;
-        width: 48px;
-        height: 48px;
-        padding: 12px;
-        text-align: center;
-      }
-
-      .div-pax-hint{
-        padding: 16px 16px 0 16px;
-        width: 100%;
-        height: 128px;
-        overflow: scroll;
-
-        border-bottom: solid 2px #f2f2f2;
-
-        .d-flex{
-          display: flex;
+        .request-combo-css .alert-message.sc-ion-alert-ios{
+            padding-top: 16px;
         }
-        .m-bottom-16{
-          margin-bottom: 16px;
-        }
-       // margin: 16px -16px;
-        .icon-pax{
-            margin-right: 12px;
-        }
-
-        .text-pax-hint{
-            font-size: 14px;
-            font-weight: 300;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.5;
-            letter-spacing: -0.4px;
-            color: #222222;
-        }
+        @media (max-height: 1024px) and (min-height: 812px){
+            .request-combo-css .alert-button-group.sc-ion-alert-ios {
+              margin-bottom: 0px;
+            }
+          }
+}
+.text-underline{
+    font-size: 16px;
+    color: #2f80ed;
+    text-decoration: underline;
+    margin-left: 3px;
+}
+.div-text-normal{
+    display: flex;
+    font-size: 16px;
+    color: #3f3b3b;
+    .text-point {
+      font-size: 14px;
+      font-weight: 500;
+      text-align: right;
+      color: #868998;
     }
+}
+.m-bottom-24{
+    margin-bottom: 24px;
+}
+.m-top-5{
+    margin-top: 5px;
+}
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Điều chỉnh khoảng cách giữa các radio group containers */
+}
+.radio-Khac{
+    padding-left:30px;
+    width: 48px;
+    --color-checked:#26bed6
+}
+.radio-Khac-1{
+    --color-checked:#26bed6
+}
