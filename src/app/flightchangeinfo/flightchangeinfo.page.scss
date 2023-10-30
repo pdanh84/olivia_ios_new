@@ -455,16 +455,6 @@
         
 }
 
-::ng-deep{
-    .sc-ion-modal-md-h.modal-flight-change-info{
-        --height: calc( env(safe-area-inset-top) + 390px);
-        align-items: flex-start;
-    }
-    .sc-ion-modal-md-h.modal-flight-change-info.twoway{
-      --height: calc( env(safe-area-inset-top) + 446px);
-      align-items: flex-start;
-  }
-}
 
 //////////////// new
 .m-top-16{
@@ -517,11 +507,11 @@
 }
 
 ::ng-deep{
-  .md.modal-default.modal-flight-change-info {
+  .ios.modal-default.modal-flight-change-info {
       --height: calc( env(safe-area-inset-top) + 394px);
       align-items: flex-start;
   }
-  .md.modal-default.modal-flight-change-info.twoway {
+  .ios.modal-default.modal-flight-change-info.twoway {
     --height: calc( env(safe-area-inset-top) + 448px);
     align-items: flex-start;
   }

@@ -1,12 +1,11 @@
-.div-close{
-    position: absolute;
-    left: 10px;
-    top:0;
-    width: 36px;
-    margin-left: 0 !important;
-
-    .header-img-close{
-        margin-top: 0 !important;
+.flightselectpax-header{
+    ion-title {
+        padding-top: 11px;
+    }
+    .div-close{
+        position: absolute;
+        left: 8px;top:0;
+        width: 36px;
     }
 }
     .button

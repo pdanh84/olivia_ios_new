@@ -70,7 +70,7 @@ export class SearchHotelFilterPage implements OnInit{
     gf.googleAnalytion('search-hotel-filter','load','');
   }
 
-  close() {
+  dismiss() {
     this.navCtrl.back();
   }
   test() {

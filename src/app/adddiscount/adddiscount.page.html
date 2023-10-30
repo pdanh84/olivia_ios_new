@@ -14,7 +14,7 @@
             <img class="img-header w-36" src="./assets/ic_voucher/zoom-in.svg" >
           </div>
           <div class="div-inputcode">
-            <ion-input (ionFocus)="click()" style=" font-size: 14px;color: #6d6e71;--padding-start:0" placeholder="Nhập mã ưu đãi..."  (ionInput)="textchange()" [(ngModel)]="promocode" type="text" [ngClass]="ischecktext == 3 ? 'text-input none' : (ischecktext==0 ? 'text-input click' : 'text-input error')"  ></ion-input>
+            <ion-input mode="ios" (ionFocus)="click()" style=" font-size: 14px;color: #6d6e71;--padding-start:0" placeholder="Nhập mã ưu đãi..."  (ionInput)="textchange()" [(ngModel)]="promocode" type="text" [ngClass]="ischecktext == 3 ? 'text-input none' : (ischecktext==0 ? 'text-input click' : 'text-input error')"  ></ion-input>
           </div>
           
           <div></div>

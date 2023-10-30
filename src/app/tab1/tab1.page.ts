@@ -3032,6 +3032,7 @@ export class Tab1Page implements OnInit {
     itemRecent.checkOutDate=moment(checkOutDate).format('DD')+ ' '+ 'tháng' + ' ' +  moment(checkOutDate).format('MM') +', ' +moment(checkOutDate).format('YYYY')
     itemRecent.id=item.id;
     itemRecent.name=item.name;
+    itemRecent.code = item.code;
     itemRecent.isType=0;
     //this.arrHistory.push(item);
     this.gf.setCacheSearch(itemRecent,0);
@@ -3136,6 +3137,7 @@ export class Tab1Page implements OnInit {
         itemRecent.checkOutDate=moment(checkOutDate).format('DD')+ ' '+ 'tháng' + ' ' +  moment(checkOutDate).format('MM') +', ' +moment(checkOutDate).format('YYYY')
         itemRecent.id=item.id;
         itemRecent.name=item.name;
+        itemRecent.code = item.regionCode;
         itemRecent.isType=1;
         this.searchhotel.objRecent = itemRecent;
         this.gf.setCacheSearch(itemRecent,0);

@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="border-bottom" >
+  <div class="border-bottom cls-margin-top-ios" >
       <ion-row>
           <ion-col class="cls-col">
             <div class="align-center">
@@ -32,8 +32,8 @@
   <div class="center">
     <swiper-container (ionSlideTransitionStart)="ionSlideTransitionStart()" (slidechange)="onSlideChange()" #mySlider>
       <swiper-slide *ngFor="let slide of arrimgreview">
-        <img class="img-slide" [src]="slide.ImageUrl" />
-        <img class="img-slide" [src]="slide.imageUrl" />
+        <img *ngIf="slide.ImageUrl" class="img-slide" [src]="slide.ImageUrl" />
+        <img *ngIf="slide.imageUrl" class="img-slide" [src]="slide.imageUrl" />
       </swiper-slide>
     </swiper-container>
   </div>

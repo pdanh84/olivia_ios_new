@@ -5,16 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col size="1.5"  (click)="close()">
-        <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
-      </ion-col>
-        <ion-col size="10.5" style="align-self: center"><ion-title class="text-title">Tìm kiếm</ion-title></ion-col>
-    </ion-row>
-  </ion-toolbar>
+  <ion-row>
+    <ion-col size="1" style="text-align: left;" (click)="dismiss()">
+      <ion-note class="button-header">
+          <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
+      </ion-note>
+</ion-col>
+    <ion-col size="11" style="align-self: center;height: 48px;"><ion-title class="text-title">Tìm kiếm</ion-title></ion-col>
+    
+</ion-row>
 </ion-header>
-<ion-content class="ion-padding-16">
+<ion-content >
+  <div class="p-all-16">
   <ion-row style="margin-top: 4px">
       <ion-col style="padding: 0">
         <label class="text-title1">
@@ -23,7 +25,7 @@
       </ion-col>
   </ion-row>
  
-  <ion-row >
+  <ion-row>
     <ion-col style="padding: 0">
       <label class="text-range">
         {{minprice}}đ
@@ -35,7 +37,7 @@
       </label>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row  style="margin-top:8px">
     <ion-col style="padding: 0">
         <ion-range style="padding: 0; height: 24px;--bar-background: #ccc !important;--ion-color-primary: #26bed6;" step=50000 (ionChange)="test()" min="100000" max="15000000" dualKnobs="true" [(ngModel)]="structure">
       </ion-range>
@@ -82,21 +84,24 @@
       </ion-col>
     </ion-row>
     
-    <ion-row>
+    <ion-row >
       <ion-col style="padding: 0">
         <label class="text-range">
           Điểm đánh giá {{review}} và cao hơn
         </label>
       </ion-col>
     </ion-row>
-    <ion-range style="padding: 0px; height: 24px;--bar-background: #26bed6 !important;--knob-background: #26bed6;--bar-background-active:#ccc" class="range-review" step="1" pin="true" (ionChange)="reviewchange()" min="0" max="10" [(ngModel)]="review">
-    </ion-range>
+    <ion-row  style="margin-top:8px">
+      <ion-col style="padding:0">
+          <ion-range style="padding: 0px; height: 24px;--bar-background: #26bed6 !important;--knob-background: #26bed6;--bar-background-active:#ccc" class="range-review" step="1" (ionChange)="reviewchange()" min="0" max="10" [(ngModel)]="review">
+            </ion-range>
+        </ion-col>
+      </ion-row>
+   
     </div>
- 
+  </div>
 </ion-content>
 <ion-footer style="text-align: center">
-  <ion-toolbar>
-      <button ion-button round outline class="button" [class.click]=" ischeckbtnreset==true " [class.none]=" ischeckbtn==true " (click)="clickCancel()">Xóa</button>
-      <button ion-button round outline class="button" [class.click]=" ischeckbtn==true " [class.none]=" ischeckbtnreset==true " (click)="clickOk()">Chọn</button>
-  </ion-toolbar>
+  <button ion-button round outline class="button btn-padding-footer" [class.click]=" ischeckbtnreset==true " [class.none]=" ischeckbtn==true " (click)="clickCancel()">Xóa</button>
+  <button ion-button round outline class="button btn-padding-footer" [class.click]=" ischeckbtn==true " [class.none]=" ischeckbtnreset==true " (click)="clickOk()">Chọn</button>
 </ion-footer>

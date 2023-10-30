@@ -209,6 +209,7 @@ ion-header ion-toolbar:first-child {
     }
     .header-title{
         padding-top: 11px;font-size: 18px;font-weight: bold;
+        text-align: center;
     }
     .header-img-twoline{
         height: 48px; padding: 8px;margin-top: -8px;margin-left:-8px
@@ -728,7 +729,6 @@ ion-header ion-toolbar:first-child {
       ion-toast.cls-warning-orderfoodempty{
         margin-top: calc(env(safe-area-inset-top) + 60px) !important;
       }
-        
     }
     
 
@@ -1253,17 +1253,54 @@ height: 12px !important;
   background: #fff;
   margin: 0 -16px;
   padding: 0 16px;
-  height: 68px;
+  height: 56px;
   position: sticky;
   //top: calc(env(safe-area-inset-top) + 20px);
-  top: calc(env(safe-area-inset-top) - 4px);
+  top: calc(env(safe-area-inset-top) - 3px);
   transition: top 0.5s ease-out;
   width: 120%;
   z-index: 99;
   padding-top: 8px;
-  box-shadow: 0px 0px 2px 0px #cdcdcd;
+  //box-shadow: 0px 0px 2px 0px #cdcdcd;
 }
 
+@media(min-height:812px) and (max-height:1024px){
+  .div-flight-topdeal{
+    top: calc(env(safe-area-inset-top) - 3px) !important;
+  }
+
+  .div-flightinternational-topdeal{
+    top: calc(env(safe-area-inset-top) - 3px) !important;
+  }
+
+  .cls-topdeal-float{
+    height: 68px !important;
+    top: calc(env(safe-area-inset-top) + 7px) !important;
+  }
+}
+
+@media(min-height:568px) and (max-height:736px){
+  .div-flight-topdeal{
+    top: calc(env(safe-area-inset-top) - 22px) !important;
+    padding-top: 19px !important;
+    height: 68px !important;
+  }
+  .div-flightinternational-topdeal{
+    top: calc(env(safe-area-inset-top) - 22px) !important;
+    padding-top: 19px !important;
+    height: 68px !important;
+  }
+
+  .cls-topdeal-float{
+    top: calc(env(safe-area-inset-top) - 22px) !important;
+    padding-top: 19px !important;
+    height: 68px !important;
+  }
+
+  .float-statusbar-enabled{
+    height: calc(env(safe-area-inset-top)*2 - 22px );
+  }
+}
 .cls-error{
   color: #e52822;
 }

@@ -243,3 +243,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.cls-margin-top-ios {
+  margin-top: calc(env(safe-area-inset-top) + 16px);
+}

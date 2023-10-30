@@ -125,9 +125,7 @@ export class LoginPage implements OnInit{
     var se = this;
     const FACEBOOK_PERMISSIONS = [
       'email',
-      'user_birthday',
-      'user_photos',
-      'user_gender',
+      'public_profile',
     ];
     FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
       se.presentLoadingnotime();
@@ -136,6 +134,7 @@ export class LoginPage implements OnInit{
       let test = response.accessToken;
       se.storage.set('fbaccesstoken',test);
       se.loadUserData(test);
+      //FacebookLogin.getProfile()
       // FacebookLogin.api('me?fields=id,name,email,first_name,gender,picture.width(720).height(720).as(picture_large)', []).then(profile => {
       //   FacebookLogin.getLoginStatus().then(response => {
       //     var test = JSON.stringify(response.authResponse.accessToken);

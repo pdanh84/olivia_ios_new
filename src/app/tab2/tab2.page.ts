@@ -447,9 +447,6 @@ export class Tab2Page implements OnInit {
         if (se.dataList[index].Avatar) {
           if(se.dataList[index].Avatar.indexOf('travelapi') == -1){
             se.dataList[index].Avatar = (se.dataList[index].Avatar.toLocaleString().trim().indexOf("http") != -1) ? se.dataList[index].Avatar : 'https:' + se.dataList[index].Avatar;
-            let urlavatar = se.dataList[index].Avatar.substring(0, se.dataList[index].Avatar.length - 11);
-            let tail = se.dataList[index].Avatar.substring(se.dataList[index].Avatar.length - 4, se.dataList[index].Avatar.length);
-            se.dataList[index].Avatar = urlavatar + "104x123" + tail;
           }
         } else {
           se.dataList[index].Avatar = "https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage.png";

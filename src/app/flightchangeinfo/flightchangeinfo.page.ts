@@ -68,9 +68,9 @@ export class FlightchangeinfoPage implements OnInit {
                   let data = this._flightService.itemFlightCache;
                   
                   if(!data.roundTrip){
-                    $('.md.modal-default.modal-flight-change-info').removeClass('twoway');
+                    $('.ios.modal-default.modal-flight-change-info').removeClass('twoway');
                   }else{
-                    $('.md.modal-default.modal-flight-change-info').addClass('twoway');
+                    $('.ios.modal-default.modal-flight-change-info').addClass('twoway');
                   }
                   this.zone.run(()=>{
                     this.flighttype = data.roundTrip ? 'twoway' : 'oneway';
@@ -326,7 +326,7 @@ export class FlightchangeinfoPage implements OnInit {
           reloadInfoOneway(isoneway){
             if(isoneway){
               this.cout = this.cin;
-              $('.md.modal-default.modal-flight-change-info').removeClass('twoway');
+              $('.ios.modal-default.modal-flight-change-info').removeClass('twoway');
             }else{
               if(!this._flightService.itemFlightCache.isInternationalFlight){
                 let diff = moment(this.cout).diff(this.cin,'days');
@@ -339,7 +339,7 @@ export class FlightchangeinfoPage implements OnInit {
                   this.cout = moment(this.cin).add(2,'days').format("YYYY-MM-DD");
                 }
               }
-              $('.md.modal-default.modal-flight-change-info').addClass('twoway');
+              $('.ios.modal-default.modal-flight-change-info').addClass('twoway');
             }
             
   

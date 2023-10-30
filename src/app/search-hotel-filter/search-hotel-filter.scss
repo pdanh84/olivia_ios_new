@@ -1,99 +1,104 @@
 
-    .text-title1
-    {
-      font-weight: bold;
-      font-size: 18px;
-    }
-    .range-md.range-has-pin {
-         padding-top: 0px; 
-    }
-   
-    .text-range
-    {
-        font-size: 12px;
-        color: #828282
-    }
-    .col {
-         padding: 0px; 
-        position: relative;
-        width: 100%;
-        margin: 0;
-        min-height: 1px;
-        -webkit-flex-basis: 0;
-        -ms-flex-preferred-size: 0;
-        flex-basis: 0;
-        -webkit-box-flex: 1;
-        -webkit-flex-grow: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1;
-        max-width: 100%;
-    }
-    .button
-    {
-      width: 45%;
-      height: 48px;
-      border: 1px solid #F79221;
-      background-color: white;
+.text-title1
+{
+  font-weight: bold;
+  font-size: 18px;
+}
+.range-md.range-has-pin {
+     padding-top: 0px; 
+}
 
-    }
-    .text-title
-    {
-      font-weight: bold;
-      font-size: 18px;
-      text-align: center;
-      margin-left: 36px;
-      padding: 14px 0;
-    }
-    .range-md-xanh .range-bar-active,
-    .range-md-xanh .range-knob,
-    .range-md-xanh .range-pin,
-    .range-md-xanh .range-pin::before {
-        background: #26bed6 !important;
-  }
+.text-range
+{
+    font-size: 12px;
+    color: #828282
+}
+.col {
+     padding: 0px; 
+    position: relative;
+    width: 100%;
+    margin: 0;
+    min-height: 1px;
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+}
+.button
+{
+  width: 45%;
+  height: 48px;
+  border: 1px solid #F79221;
+  background-color: white;
 
-  :host{
-    //--ion-color-primary:#26bed6;
-    // --bar-background-active: #26bed6;
-    // --pin-background: #26bed6;
-    --bar-background-active: #ccc;
-    --bar-background: #26bed6;
-    --ion-color-primary: #26bed6;
-  }
+}
+.text-title
+{
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-left: 36px;
+  padding: 14px 0;
+}
+.range-md-xanh .range-bar-active,
+.range-md-xanh .range-knob,
+.range-md-xanh .range-pin,
+.range-md-xanh .range-pin::before {
+    background: #26bed6 !important;
+}
 
-  label {
-    padding: 18px 0px;
-    min-width: 100px;
-  }
-  ion-label {
-    padding: 18px 22px 18px 0px;
-    min-width: 100px;
-  }
+:host{
+//--ion-color-primary:#26bed6;
+// --bar-background-active: #26bed6;
+// --pin-background: #26bed6;
+--bar-background-active: #ccc;
+--bar-background: #26bed6;
+--ion-color-primary: #26bed6;
+}
 
-  ::ng-deep{
-    .range-knob-handle {
-      padding: 6px;
-      margin-left: -24px;
-      margin-top: -6px;
-    }
-  }
-  .button.click
-  {
-      background: #F79221;
-      border-color: #F79221;
-      color: #ffffff;
-      width: 45%;
-      height: 48px;
+label {
+padding: 18px 0px;
+min-width: 100px;
+}
+ion-label {
+padding: 18px 22px 18px 0px;
+min-width: 100px;
+}
 
-  }
-  .button.none
-  {
-      color: #F79221;
-      width: 45%;
-      height: 48px;
-      border: 1px solid;
-      background-color: white;
+::ng-deep{
+.range-knob-handle {
+  padding: 6px;
+  margin-left: -24px;
+  margin-top: -6px;
+}
+}
+.button.click
+{
+  background: #F79221;
+  border-color: #F79221;
+  color: #ffffff;
+  width: 45%;
+  height: 48px;
+  margin-left: 4px;
+}
+.button.none
+{
+  color: #F79221;
+  width: 45%;
+  height: 48px;
+  border: 1px solid;
+  background-color: white;
+  margin-right:4px;
+}
 
-  }
-  .m-top-10{
-    margin-top: 10px;
-  }
+.btn-padding-footer{
+margin: 10px 0;
+}
+.ion-item{
+--inner-border-width: 0 0 0px 0;
+  --padding-start: 0px;
+}

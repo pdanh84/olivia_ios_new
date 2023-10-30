@@ -1,36 +1,174 @@
-<ion-header  translucent="true" collapse="fade">
+<ion-header>
   <ion-toolbar>
-      <ion-buttons slot="secondary" style="position: absolute;" (click)="goback()">
-        <img style="height: 48px; padding: 8px;margin-left: -3px" src="./assets/imgs/ios-arrow-round-back.svg" >
-      </ion-buttons>
+    <ion-buttons slot="secondary" style="position: absolute;" (click)="goback()">
+      <img style="height: 48px; padding: 8px;margin-left: -2px" src="./assets/imgs/ios-arrow-round-back.svg" >
+    </ion-buttons>
 
-      <ion-title class="text-title" (click)="changeinfo()">
-          {{name}}
-          <div><label class="text-hr">{{cindisplayhr}} - {{coutdisplayhr}} | {{guest}} khách</label></div>
-        </ion-title>
+    <ion-title class="text-title" (click)="changeinfo()">
+        {{name}}
+        <div><label class="text-hr">{{cindisplayhr}} - {{coutdisplayhr}} | {{guest}} khách</label></div>
+      </ion-title>
 
-      <ion-buttons slot="primary" (click)="showFilterAndSort()">
-          <button ion-button icon-only class="btn-header">
-              <img style="margin-left: 8px;" src="./assets/imgs/ic_filter_b.svg" >
-              <ion-badge *ngIf="searchhotel.hasSortHotelList" class="cls-badge-filter">{{searchhotel.hasSortHotelList}}</ion-badge>
-            </button>
-      </ion-buttons>
-    </ion-toolbar>
+    <ion-buttons slot="primary" (click)="showFilterAndSort()">
+        <button ion-button icon-only class="btn-header">
+            <img style="margin-left: 8px;" src="./assets/imgs/ic_filter_b.svg" >
+            <ion-badge *ngIf="searchhotel.hasSortHotelList" class="cls-badge-filter">{{searchhotel.hasSortHotelList}}</ion-badge>
+          </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
-<ion-content overflow-scroll="true" #scrollHotelList>
+<ion-content #scrollHotelList>
   <div class="div-note" *ngIf="ishide==true">*Giá trung bình phòng 1 đêm cho 2 khách</div>
-<ion-list *ngIf="(ishide==true && loadpricedone) else loadingsdk">
-      <div class="card-background-detailpage">
-        <div *ngFor="let msg of json1; let i = index" [id]="msg.currentPage?msg.currentPage:-1">
-          <div *ngIf="!ischeckAL && msg.MinPriceOTAStr && msg.HasCheckPrice && loadpricedone" class="row-item-hotellist">
-            <div class="col-img-hotellist">
-                <img  class="img-radius" [src]="msg.Avatar" style="position:relative" (click)="itemSelected(msg)">
-                <div *ngIf="msg.DealType" class="transbox_0">
-                  <div class="div-text-transbox">{{msg.DealType}}</div>
-                  </div>
+  <div *ngIf="(ishide==true && loadpricedone) else loadingsk" class="cls-background">
+        <div class="card-background-detailpage" *ngIf="json1 && json1.length >0">
+          <div *ngFor="let msg of json1; let i = index" [id]="msg.currentPage?msg.currentPage:-1" class="{{msg.MinPriceOTAStr}}">
+            <div *ngIf="!ischeckAL && msg.MinPriceOTAStr && msg.HasCheckPrice && loadpricedone" class="row-item-hotellist">
+              <div class="col-img-hotellist">
+                  <img  class="img-radius" [src]="msg.Avatar" style="position:relative" (click)="itemSelected(msg)">
+                  <div *ngIf="msg.DealType" class="transbox_0">
+                      
+                      <div class="div-transbox-text">{{msg.DealType}}</div>
+                    </div>
+              </div>
+              <div class="col-description-hotellist">
+                  <div >
+                      <div  >
+                        <h2 class="text-name" (click)="itemSelected(msg)">{{msg.Name}}
+                        </h2>
+                        <div class="d-flex align-center" (click)="itemSelected(msg)">
+                          <div class="m-right-12"><img *ngIf="msg.Rating!=0" src={{msg.Rating}}></div>
+                          <div *ngIf="msg.SubLocation" class="text">
+                            <img style="height:10px" src="./assets/ic_hoteldetail/group.svg">
+                            {{msg.SubLocation}}
+                          </div>
+                        </div>
+                      
+                        <div class="d-flex">
+                          <div *ngIf="msg.AvgPoint>0" class="div-width-100" (click)="itemSelected(msg)">
+                            <div *ngIf="msg.AvgPoint>9 && msg.AvgPoint<=10" class="m-top-5 d-flex">
+                              <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                              <p class="label-badge">Tuyệt vời
+                              </p>
+                            </div>
+                            <div *ngIf="msg.AvgPoint>8 && msg.AvgPoint<=9" class="m-top-5 d-flex">
+                              <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                              <p class="label-badge">Rất tốt
+                              </p>
+                            </div>
+                            <div *ngIf="msg.AvgPoint>7 && msg.AvgPoint<=8" class="m-top-5 d-flex">
+                              <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                              <p class="label-badge">Khá tốt
+                              </p>
+                            </div>
+                            <div *ngIf="msg.AvgPoint>5 && msg.AvgPoint<=7" class="m-top-5 d-flex">
+                              <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                              <p class="label-badge">Tạm được
+                              </p>
+                            </div>
+                            <div *ngIf="msg.AvgPoint<=5" class="m-top-5 d-flex">
+                              <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                              <p class="label-badge">Không tốt
+                              </p>
+                            </div>
+                        </div>
+                          <div *ngIf="msg.AvgPoint <=0" class="div-width-100"></div>
+                          <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
+                            src="./assets/imgs/ic_share_black.svg"></div>
+                            <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
+                              <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
+                            </div>
+                            <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
+                              <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="div-flex-wrap m-top-12" (click)="itemSelected(msg)">
+                      <div *ngFor="let itemstyle of msg.StyleTag; let idx = index" [ngClass]="(msg.StyleTag.length >=2 && ((msg.StyleTag[0].ID == 1 && msg.StyleTag[1].ID == 5) || (msg.StyleTag[0].ID == 5 && msg.StyleTag[1].ID == 1))) ? 'm-width-49' : ''">
+                          <div *ngIf="idx < 2" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
+                      </div>
+                      <div *ngFor="let itemstyle of msg.Facilities; let idx = index">
+                        <div *ngIf="idx < 2 && itemstyle.Name" [ngClass]="itemstyle.Name.length < 15? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
+                      </div>
+                    
+                    </div>
+                  
+                    <div [ngClass]="( (msg.StyleTag && msg.StyleTag.length >0)  || (msg.Facilities && msg.Facilities.length >0)) ? 'last-row m-top-2' :  'last-row m-top-12'" >
+                        <div *ngIf="loginuser || msg.IsShowPrice == 1" (click)="itemSelected(msg)">
+                          <div *ngIf="msg.DealType"   [ngClass]="msg.AvgPoint==0? '' : ''">
+                              <div class="d-flex">
+                               
+                                <div *ngIf=" msg.MinPriceOTAStr" class="p-top-minprice">
+                                  <label >{{msg.RoomNameSubString}}</label> 
+                                </div>
+                               
+                                <div  *ngIf=" msg.HasCheckPrice && msg.MinPriceOTAStr" class="price text-right h-28">
+                                  <label *ngIf=" msg.MinPriceOTAStr && msg.HasCheckPrice" class="label-minprice">{{ msg.MinPriceOTAStr }}<span class="sub-minprice">đ</span></label>
+                                </div>
+                                <div  *ngIf=" msg.HasCheckPrice && !msg.MinPriceOTAStr" class="have-not-dealprice">
+                                  <label *ngIf="msg.HasCheckPrice && !msg.DealPrice" class="label-dealprice">Giá ưu đãi</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="!msg.DealType"  [ngClass]="msg.AvgPoint==0? '' : ''">
+                              <div *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr && msg.MinPriceTAStr && msg.MinPriceOTAStr!=msg.MinPriceTAStr && msg.MinPriceTAStr!=0 && msg.MinPriceOTAStr<msg.MinPriceTAStr && loginuser" class="label-minpriceTA">{{msg.MinPriceTAStr}}<span class="sub-minprice">đ</span></div>
+                              <div class="d-flex">
+                                <div *ngIf="msg.RoomNameSubString" class="text-nameroom" class="p-top-minprice">
+                                  <label >{{msg.RoomNameSubString}}</label>
+                                </div>
+                                <div class="price text-right h-28">
+                                  <div>
+                                      <label *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr" class="label-minprice">{{msg.MinPriceOTAStr}}<span class="sub-minprice">đ</span></label>
+                                      <label *ngIf="msg.HasCheckPrice && !msg.MinPriceOTAStr" class="label-minprice">Hết phòng</label>
+                                      
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                            <div *ngIf="!loginuser && (!msg.IsShowPrice || msg.IsShowPrice == 2)"  [ngClass]="msg.AvgPoint==0? '' : ''" (click)="goToLogin()">
+                                <div *ngIf="msg.DealType">
+                                    <div>
+                                        <div>
+                                            <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
+                                        </div>
+                                      </div>
+                                </div>
+                              <div *ngIf="!msg.DealType">
+                                <div>
+                                    <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      
+                    </div>
+              </div>
+              <!-- <p  class="h-line"></p> -->
             </div>
-            <div class="col-description-hotellist">
-                <div >
+
+            <div *ngIf="ischeckAL && msg.HasCheckPrice && msg.MinPriceOTAStr && loadpricedone" class="row-item-hotellist">
+              <!-- left image region-->
+              <div class="col-img-hotellist">
+                <!-- <ion-thumbnail> -->
+                  <img  class="img-radius" src={{msg.Avatar}} style="position:relative" (click)="itemSelected(msg)">
+                <!-- </ion-thumbnail> -->
+                <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
+                  src="./assets/imgs/ic_share_black.svg"></div>
+                  <div *ngIf="msg.Liked" class="img-heart" (click)="unlikeItem(msg.HotelId)">
+                    <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
+                  </div>
+                  <div *ngIf="!msg.Liked" class="img-heart" (click)="likeItem(msg.HotelId)">
+                    <img src="./assets/imgs/heart-empty.svg" class="cls-img-content" >
+                  </div>
+                  <div *ngIf="msg.DealType" class="transbox_0">
+                    <div class="div-transbox-text">{{msg.DealType}}</div>
+                      
+                    </div>
+              </div>
+              <!-- right content region -->
+              <div class="col-description-hotellist">
+                  <div  >
                     <div  >
                       <h2 class="text-name" (click)="itemSelected(msg)">{{msg.Name}}
                       </h2>
@@ -41,306 +179,179 @@
                           {{msg.SubLocation}}
                         </div>
                       </div>
-                    
-                      <div class="d-flex">
-                        <div *ngIf="msg.AvgPoint>0" class="div-width-100" (click)="itemSelected(msg)">
-                          <div *ngIf="msg.AvgPoint>9 && msg.AvgPoint<=10" class="m-top-5 d-flex">
-                            <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                            <p class="label-badge">Tuyệt vời
-                            </p>
-                          </div>
-                          <div *ngIf="msg.AvgPoint>8 && msg.AvgPoint<=9" class="m-top-5 d-flex">
-                            <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                            <p class="label-badge">Rất tốt
-                            </p>
-                          </div>
-                          <div *ngIf="msg.AvgPoint>7 && msg.AvgPoint<=8" class="m-top-5 d-flex">
-                            <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                            <p class="label-badge">Khá tốt
-                            </p>
-                          </div>
-                          <div *ngIf="msg.AvgPoint>5 && msg.AvgPoint<=7" class="m-top-5 d-flex">
-                            <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                            <p class="label-badge">Tạm được
-                            </p>
-                          </div>
-                          <div *ngIf="msg.AvgPoint<=5" class="m-top-5 d-flex">
-                            <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                            <p class="label-badge">Không tốt
-                            </p>
-                          </div>
+                    <div class="d-flex">
+                      <div *ngIf="msg.AvgPoint>0" class="div-width-100" (click)="itemSelected(msg)">
+                        <div *ngIf="msg.AvgPoint>9 && msg.AvgPoint<=10" class="m-top-5  d-flex">
+                          <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                          <p class="label-badge">Tuyệt vời
+                          </p>
+                        </div>
+                        <div *ngIf="msg.AvgPoint>8 && msg.AvgPoint<=9" class="m-top-5 d-flex">
+                          <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                          <p class="label-badge">Rất tốt
+                          </p>
+                        </div>
+                        <div *ngIf="msg.AvgPoint>7 && msg.AvgPoint<=8" class="m-top-5 d-flex">
+                          <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                          <p class="label-badge">Khá tốt
+                          </p>
+                        </div>
+                        <div *ngIf="msg.AvgPoint>5 && msg.AvgPoint<=7" class="m-top-5 d-flex">
+                          <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                          <p class="label-badge">Tạm được
+                          </p>
+                        </div>
+                        <div *ngIf="msg.AvgPoint<=5" class="m-top-5 d-flex">
+                          <ion-badge class="cls-badge" ion-badge-border-radius>{{msg.AvgPointDisplay}}</ion-badge>
+                          <p class="label-badge">Không tốt
+                          </p>
+                        </div>
+                        
                       </div>
                       <div *ngIf="msg.AvgPoint <=0" class="div-width-100"></div>
                       <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
                         src="./assets/imgs/ic_share_black.svg"></div>
-                        <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
-                          <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
-                        </div>
-                        <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
-                          <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
-                        </div>
+                      <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
+                        <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
                       </div>
+                      <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
+                        <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
+                      </div>
+                    </div>
                       
                   </div>
-                  <div class="div-flex-wrap m-top-12" (click)="itemSelected(msg)">
-                    <div *ngFor="let itemstyle of msg.StyleTag; let idx = index" >
-                        <div *ngIf="idx < 2" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
+                    
+                    <div class="div-flex-wrap m-top-12" (click)="itemSelected(msg)">
+                      <div *ngFor="let itemstyle of msg.StyleTag; let idx = index" [ngClass]="(msg.StyleTag.length >=2 && ((msg.StyleTag[0].ID == 1 && msg.StyleTag[1].ID == 5) || (msg.StyleTag[0].ID == 5 && msg.StyleTag[1].ID == 1))) ? 'm-width-49' : ''">
+                          <div *ngIf="idx < 2" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style ' : 'sp-item-style-1 '">{{itemstyle.Name}}</div>
+                      </div>
+                      <div *ngFor="let itemstyle of msg.Facilities; let idx = index" >
+                        <div *ngIf="idx < 2 && itemstyle.Name" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
                     </div>
-                    <div *ngFor="let itemstyle of msg.Facilities; let idx = index">
-                      <div *ngIf="idx < 2 && itemstyle.Name" [ngClass]="itemstyle.Name.length < 15? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
-                  </div>
-                  </div>
-                  
-                  <div [ngClass]="( (msg.StyleTag && msg.StyleTag.length >0)  || (msg.Facilities && msg.Facilities.length >0)) ? 'last-row m-top-4' :  'last-row m-top-12'">
-                      <div *ngIf="loginuser || msg.IsShowPrice == 1"  (click)="itemSelected(msg)">
-                        <div *ngIf="msg.DealType"   [ngClass]="msg.AvgPoint==0? '' : ''">
-                            <div class="d-flex">
-                              
-                              <div *ngIf=" msg.MinPriceOTAStr" class="p-top-minprice">
-                                <label >{{msg.RoomNameSubString}}</label> 
-                              </div>
-                             
-                              <div  *ngIf=" msg.HasCheckPrice && msg.MinPriceOTAStr" class="price text-right h-28">
-                                <label *ngIf=" msg.MinPriceOTAStr && msg.HasCheckPrice" class="label-minprice">{{ msg.MinPriceOTAStr }}<span class="sub-minprice">đ</span></label>
-                              </div>
-                              <div  *ngIf=" msg.HasCheckPrice && !msg.MinPriceOTAStr" class="have-not-dealprice">
-                                <label *ngIf="msg.HasCheckPrice && !msg.DealPrice" class="label-dealprice">Giá ưu đãi</label>
+                    </div>
+                    <!-- <div class="div-flex-wrap">
+                     
+                      
+                    </div> -->
+                    <div [ngClass]="( (msg.StyleTag && msg.StyleTag.length >0)  || (msg.Facilities && msg.Facilities.length >0)) ? 'last-row m-top-2' :  'last-row m-top-12'">
+                        <div *ngIf="loginuser || msg.IsShowPrice == 1"  (click)="itemSelected(msg)">
+                          <div *ngIf="msg.DealType"   [ngClass]="msg.AvgPoint==0? '' : ''">
+                              <div class="d-flex" >
+                               
+                                <div *ngIf=" msg.MinPriceOTAStr" class="p-top-minprice">
+                                  <label >{{msg.RoomNameSubString}}</label> 
+                                </div>
+
+                                <div  *ngIf=" msg.HasCheckPrice && msg.MinPriceOTAStr" class="price text-right h-28">
+                                  <label *ngIf=" msg.MinPriceOTAStr && msg.HasCheckPrice" class="label-minprice">{{ msg.MinPriceOTAStr }}<span class="sub-minprice">đ</span></label>
+                                </div>
+                                <div  *ngIf=" msg.HasCheckPrice && !msg.MinPriceOTAStr" class="have-not-dealprice">
+                                  <label *ngIf="msg.HasCheckPrice && !msg.DealPrice" class="label-dealprice">Giá ưu đãi</label>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div *ngIf="!msg.DealType"  [ngClass]="msg.AvgPoint==0? '' : ''">
-                            <div *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr && msg.MinPriceTAStr && msg.MinPriceOTAStr!=msg.MinPriceTAStr && msg.MinPriceTAStr!=0 && msg.MinPriceOTAStr<msg.MinPriceTAStr && loginuser" class="label-minpriceTA">{{msg.MinPriceTAStr}}<span class="sub-minprice">đ</span></div>
-                            <div class="d-flex">
-                              <div *ngIf="msg.RoomNameSubString" class="text-nameroom" class="p-top-minprice">
-                                <label >{{msg.RoomNameSubString}}</label>
-                              </div>
-                              <div class="price text-right  h-28">
-                                <div>
-                                    <label *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr" class="label-minprice">{{msg.MinPriceOTAStr}}<span class="sub-minprice">đ</span></label>
-                                    <label *ngIf="msg.HasCheckPrice && !msg.MinPriceOTAStr" class="label-minprice">Hết phòng</label>
-                                    
+                            <div *ngIf="!msg.DealType"  [ngClass]="msg.AvgPoint==0? '' : ''">
+                              <div *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr && msg.MinPriceTAStr && msg.MinPriceOTAStr!=msg.MinPriceTAStr && msg.MinPriceTAStr!=0 && msg.MinPriceOTAStr<msg.MinPriceTAStr && loginuser" class="label-minpriceTA">{{msg.MinPriceTAStr}}<span class="sub-minprice">đ</span></div>
+                              <div class="d-flex">
+                                <div class="text-nameroom" text-left class="p-top-minprice">
+                                  <label >{{msg.RoomNameSubString}}</label>
+                                </div>
+                                <div class="price text-right h-28">
+                                  <div>
+                                      <label *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr" class="label-minprice">{{msg.MinPriceOTAStr}}<span class="sub-minprice">đ</span></label>
+                                      <label *ngIf="msg.HasCheckPrice && !msg.MinPriceOTAStr" class="label-minprice">Hết phòng</label>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                          <div *ngIf="!loginuser && (!msg.IsShowPrice || msg.IsShowPrice == 2)"  [ngClass]="msg.AvgPoint==0? '' : ''" (click)="goToLogin()">
-                              <div *ngIf="msg.DealType">
-                                  <div>
-                                      <div>
-                                          <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
-                                      </div>
-                                    </div>
-                              </div>
-                            <div *ngIf="!msg.DealType">
-                              <div>
-                                  <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
-                              </div>
-                            </div>
-                          </div>
-                    </div>
-                    
-                  </div>
-            </div>
-            <!-- <p  class="h-line"></p> -->
-          </div>
 
-          <div *ngIf="ischeckAL && msg.HasCheckPrice && msg.MinPriceOTAStr && loadpricedone" class="row-item-hotellist">
-            <!-- left image region-->
-            <div class="col-img-hotellist">
-              <!-- <ion-thumbnail> -->
-                <img  class="img-radius" src={{msg.Avatar}} style="position:relative" (click)="itemSelected(msg)">
-              <!-- </ion-thumbnail> -->
-                <div *ngIf="msg.Liked" class="img-heart" (click)="unlikeItem(msg.HotelId)">
-                  <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
-                </div>
-                <div *ngIf="!msg.Liked" class="img-heart" (click)="likeItem(msg.HotelId)">
-                  <img src="./assets/imgs/heart-empty.svg" class="cls-img-content" >
-                </div>
-                <div *ngIf="msg.DealType" class="transbox_0">
-                  <div class="div-text-transbox">{{msg.DealType}}</div>
-                  </div>
-            </div>
-            <!-- right content region -->
-            <div class="col-description-hotellist">
-                <div  >
-                  <div  >
-                    <h2 class="text-name" (click)="itemSelected(msg)">{{msg.Name}}
-                    </h2>
-                    <div class="d-flex align-center" (click)="itemSelected(msg)">
-                      <div class="m-right-12"><img *ngIf="msg.Rating!=0" src={{msg.Rating}}></div>
-                      <div *ngIf="msg.SubLocation" class="text">
-                        <img style="height:10px" src="./assets/ic_hoteldetail/group.svg">
-                        {{msg.SubLocation}}
-                      </div>
-                    </div>
-                  <div class="d-flex">
-                    <div *ngIf="msg.AvgPoint>0" class="div-width-100" (click)="itemSelected(msg)">
-                      <div *ngIf="msg.AvgPoint>9 && msg.AvgPoint<=10" class="m-top-5  d-flex">
-                        <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                        <p class="label-badge">Tuyệt vời
-                        </p>
-                      </div>
-                      <div *ngIf="msg.AvgPoint>8 && msg.AvgPoint<=9" class="m-top-5 d-flex">
-                        <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                        <p class="label-badge">Rất tốt
-                        </p>
-                      </div>
-                      <div *ngIf="msg.AvgPoint>7 && msg.AvgPoint<=8" class="m-top-5 d-flex">
-                        <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                        <p class="label-badge">Khá tốt
-                        </p>
-                      </div>
-                      <div *ngIf="msg.AvgPoint>5 && msg.AvgPoint<=7" class="m-top-5 d-flex">
-                        <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                        <p class="label-badge">Tạm được
-                        </p>
-                      </div>
-                      <div *ngIf="msg.AvgPoint<=5" class="m-top-5 d-flex">
-                        <ion-badge class="cls-badge" ion-badge-border-radius>{{gf.convertNumberFormat(msg.AvgPoint)}}</ion-badge>
-                        <p class="label-badge">Không tốt
-                        </p>
-                      </div>
-                      
-                    </div>
-                    <div *ngIf="msg.AvgPoint <=0" class="div-width-100"></div>
-                    <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
-                      src="./assets/imgs/ic_share_black.svg"></div>
-                    <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
-                      <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
-                    </div>
-                    <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
-                      <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
-                    </div>
-                  </div>
-                    
-                </div>
-                  <div class="div-flex-wrap m-top-12" (click)="itemSelected(msg)">
-                    <div *ngFor="let itemstyle of msg.StyleTag; let idx = index" >
-                        <div *ngIf="idx < 2" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style ' : 'sp-item-style-1 '">{{itemstyle.Name}}</div>
-                    </div>
-                    <div *ngFor="let itemstyle of msg.Facilities; let idx = index" >
-                      <div *ngIf="idx < 2 && itemstyle.Name" [ngClass]="itemstyle.Name.length < 15 ? 'sp-item-style' : 'sp-item-style-1'">{{itemstyle.Name}}</div>
-                  </div>
-                  </div>
-                  
-                  <div [ngClass]="( (msg.StyleTag && msg.StyleTag.length >0)  || (msg.Facilities && msg.Facilities.length >0)) ? 'last-row m-top-4' :  'last-row m-top-12'">
-                      <div *ngIf="loginuser || msg.IsShowPrice == 1"  (click)="itemSelected(msg)">
-                        <div *ngIf="msg.DealType"   [ngClass]="msg.AvgPoint==0? '' : ''">
-                            <div class="d-flex">
-                            
-                              <div *ngIf=" msg.MinPriceOTAStr" class="p-top-minprice">
-                                <label >{{msg.RoomNameSubString}}</label> 
-                              </div>
-                            
-                              <div  *ngIf=" msg.HasCheckPrice && msg.MinPriceOTAStr" class="price text-right h-28">
-                                <label *ngIf=" msg.MinPriceOTAStr && msg.HasCheckPrice" class="label-minprice">{{ msg.MinPriceOTAStr }}<span class="sub-minprice">đ</span></label>
-                              </div>
-                              <div  *ngIf=" msg.HasCheckPrice && !msg.MinPriceOTAStr" class="have-not-dealprice">
-                                <label *ngIf="msg.HasCheckPrice && !msg.DealPrice" class="label-dealprice">Giá ưu đãi</label>
-                              </div>
-                            </div>
-                          </div>
-                          <div *ngIf="!msg.DealType"  [ngClass]="msg.AvgPoint==0? '' : ''">
-                            <div *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr && msg.MinPriceTAStr && msg.MinPriceOTAStr!=msg.MinPriceTAStr && msg.MinPriceTAStr!=0 && msg.MinPriceOTAStr<msg.MinPriceTAStr && loginuser" class="label-minpriceTA">{{msg.MinPriceTAStr}}<span class="sub-minprice">đ</span></div>
-                            <div class="d-flex">
-                              <div class="text-nameroom" text-left class="p-top-minprice">
-                                <label >{{msg.RoomNameSubString}}</label>
-                              </div>
-                              <div class="price text-right  h-28">
+                            <div *ngIf="!loginuser && (!msg.IsShowPrice || msg.IsShowPrice == 2)"  [ngClass]="msg.AvgPoint==0? '' : ''" (click)="goToLogin()">
+                                <div *ngIf="msg.DealType">
+                                    <div>
+                                        <div>
+                                            <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
+                                        </div>
+                                      </div>
+                                </div>
+                              <div *ngIf="!msg.DealType">
                                 <div>
-                                    <label *ngIf="msg.HasCheckPrice && msg.MinPriceOTAStr" class="label-minprice">{{msg.MinPriceOTAStr}}<span class="sub-minprice">đ</span></label>
-                                    <label *ngIf="msg.HasCheckPrice && !msg.MinPriceOTAStr" class="label-minprice">Hết phòng</label>
+                                    <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                          <div *ngIf="!loginuser && (!msg.IsShowPrice || msg.IsShowPrice == 2)"  [ngClass]="msg.AvgPoint==0? '' : ''" (click)="goToLogin()">
-                              <div *ngIf="msg.DealType">
-                                  <div>
-                                      <div>
-                                          <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
-                                      </div>
-                                    </div>
-                              </div>
-                            <div *ngIf="!msg.DealType">
-                              <div>
-                                  <span class="label-price-login t-bold">Giá ưu đãi!</span><span class="label-price-login text-login"> Đăng nhập để xem</span>
-                              </div>
-                            </div>
-                          </div>
+                      </div>
+                      
                     </div>
-                    
-                  </div>
+              </div>
+              <!-- <p  class="h-line"></p> -->
             </div>
-            <!-- <p  class="h-line"></p> -->
-          </div>
-
-          <div *ngIf="ischeckAL && !loadpricedone" style="text-align: center">
-            <ion-item-group  *ngFor="let item of itemsSkeleton">
-                <ion-row class="row-item-hotellist-sk">
-                    <ion-col size="4" class="col-img-hotellist-sk" >
-                        <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px"></ion-skeleton-text>
-                    </ion-col>
-                    <ion-col size="8" class="col-description-hotellist-sk" style="line-height: 18px;padding-top: 0">
-                        <div style="height: 100%">
-                          <h2 class="text-name-sk" >
-                              <ion-skeleton-text animated style="width: 100%;margin: 0"></ion-skeleton-text>
-                          </h2>
-                          <p class="p-sk">
-                              <ion-skeleton-text animated style="width: 50%;margin: 0"></ion-skeleton-text>
-                          </p>
-                          <div class="last-row-sk">
-                              <ion-skeleton-text animated style="width: 100%;margin: 0"></ion-skeleton-text>
-                          </div>
-                        </div>
+            <div *ngIf="ischeckAL && !loadpricedone" style="text-align: center">
+              <ion-item-group  *ngFor="let item of itemsSkeleton">
+                  <ion-row class="row-item-hotellist-sk">
+                      <ion-col size="4" class="col-img-hotellist-sk" >
+                          <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px"></ion-skeleton-text>
                       </ion-col>
-                </ion-row>
-                <p class="h-line-sk"></p>
-            </ion-item-group>
-          </div>
+                      <ion-col size="8" class="col-description-hotellist-sk" style="line-height: 18px;padding-top: 0">
+                          <div style="height: 100%">
+                            <h2 class="text-name-sk" >
+                                <ion-skeleton-text animated style="width: 100%;margin: 0"></ion-skeleton-text>
+                            </h2>
+                            <p class="p-sk">
+                                <ion-skeleton-text animated style="width: 50%;margin: 0"></ion-skeleton-text>
+                            </p>
+                            <div class="last-row-sk">
+                                <ion-skeleton-text animated style="width: 100%;margin: 0"></ion-skeleton-text>
+                            </div>
+                          </div>
+                        </ion-col>
+                  </ion-row>
+                  <p class="h-line-sk"></p>
+              </ion-item-group>
+            </div>
           
+          </div>
         </div>
       </div>
-</ion-list>
 
-<ng-template #loadingsdk>
-  <div style="text-align: center">
-  <ion-item-group  *ngFor="let item of itemsSkeleton">
-    <div class="p-all-16">
-      <ion-skeleton-text animated style="width:100%;height:180px;border-radius:6px"></ion-skeleton-text>
-      <ion-skeleton-text animated style="width: 100%;height: 22px;margin: 0;margin-top:8px"></ion-skeleton-text>
-      <ion-skeleton-text animated style="width: 50%;height: 22px;margin: 0;margin-top:4px"></ion-skeleton-text>
-      <ion-skeleton-text animated style="width: 50%;height: 22px;margin: 0;margin-top:4px"></ion-skeleton-text>
-      <ion-skeleton-text animated style="width: 100%;height: 22px;margin: 0;margin-top:8px"></ion-skeleton-text>
+  <ng-template #loadingsk>
+    <div  style="text-align: center">
+      <ion-item-group  *ngFor="let item of itemsSkeleton">
+        <div class="p-all-16">
+          <ion-skeleton-text animated style="width:100%;height:180px;border-radius:6px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%;height: 22px;margin: 0;margin-top:8px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%;height: 22px;margin: 0;margin-top:4px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%;height: 22px;margin: 0;margin-top:4px"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%;height: 22px;margin: 0;margin-top:8px"></ion-skeleton-text>
+        </div>
+              
+            
+          <p class="h-line-sk"></p>
+      </ion-item-group>
     </div>
-      <p class="h-line-sk"></p>
-  </ion-item-group>
-</div>
-</ng-template>
-
-<div *ngIf="nodata" style="text-align: center;margin-top: 10px">
-  <img src="./assets/imgs/empty.svg">
-  <div style="padding:0 16px; text-align: center">
-    <p class="text-empty" style="text-align: center">Không tìm thấy kết quả tìm kiếm. Vui lòng chọn lại!</p>
+  </ng-template>
+  
+  <div *ngIf="nodata" style="text-align: center;margin-top: 10px">
+    <img src="./assets/imgs/empty.svg">
+    <div style="padding:0 16px; text-align: center">
+      <p class="text-empty" style="text-align: center">Không tìm thấy kết quả tìm kiếm. Vui lòng chọn lại!</p>
+    </div>
+    <div>
+      <ion-row *ngIf="hasfilter==true && hassortfilter==false">
+        <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-left" (click)="filterAgain()">Lọc lại</button></ion-col>
+        <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-right" (click)="clearFilter()">Xóa lọc</button></ion-col>
+      </ion-row>
+      <ion-row *ngIf="hasfilter==false && hassortfilter==false">
+        <button ion-button round outline class="button btn-filter-again-nofilter" (click)="searchAgain()">Tìm kiếm lại</button>
+      </ion-row>
+      <ion-row *ngIf="hassortfilter==true">
+        <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-left" (click)="sortAndFilterAgain()">Lọc lại</button></ion-col>
+        <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-right" (click)="clearSortAndFilter()">Xóa lọc</button></ion-col>
+      </ion-row>
+    </div>
   </div>
-  <div>
-    <ion-row *ngIf="hasfilter==true && hassortfilter==false">
-      <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-left" (click)="filterAgain()">Lọc lại</button></ion-col>
-      <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-right" (click)="clearFilter()">Xóa lọc</button></ion-col>
-    </ion-row>
-    <ion-row *ngIf="hasfilter==false && hassortfilter==false">
-      <button ion-button round outline class="button btn-filter-again-nofilter" (click)="searchAgain()">Tìm kiếm lại</button>
-    </ion-row>
-    <ion-row *ngIf="hassortfilter==true">
-      <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-left" (click)="sortAndFilterAgain()">Lọc lại</button></ion-col>
-      <ion-col col-6><button ion-button round outline class="button btn-clear-filter m-right" (click)="clearSortAndFilter()">Xóa lọc</button></ion-col>
-    </ion-row>
-  </div>
-</div>
-<ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
-  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

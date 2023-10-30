@@ -41,7 +41,7 @@ export class HotelreviewsimagePage  {
     setTimeout(() => {
       this.arrimgreview = this.searchhotel.arrimgreview;
       if(this.searchhotel.indexreviewimg){
-        this.slider?.nativeElement.slideTo(this.searchhotel.indexreviewimg);
+        this.slider?.nativeElement.swiper.slideTo(this.searchhotel.indexreviewimg);
         if(this.arrimgreview[this.searchhotel.indexreviewimg].CaptionImg){
           this.captionImg = this.arrimgreview[this.searchhotel.indexreviewimg].CaptionImg;
         }
@@ -56,7 +56,7 @@ export class HotelreviewsimagePage  {
   {
     if (this.countslide<this.arrimgreview.length-1) {
       this.countslide++;
-      this.slider?.nativeElement.slideTo(this.countslide);
+      this.slider?.nativeElement.swiper.slideTo(this.countslide);
     }
 
   }
@@ -64,7 +64,7 @@ export class HotelreviewsimagePage  {
   {
     if (this.countslide-1>=0) {
       this.countslide--;
-      this.slider?.nativeElement.slideTo(this.countslide);
+      this.slider?.nativeElement.swiper.slideTo(this.countslide);
     }
 
   }
@@ -74,6 +74,7 @@ export class HotelreviewsimagePage  {
     //   this.countslide = index + 1;
     //   this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
     // });
+    this.countslide = this.slider?.nativeElement.swiper.activeIndex;
   }
 
   ionSlideTransitionStart() {

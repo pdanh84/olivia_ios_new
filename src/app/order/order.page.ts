@@ -38,7 +38,9 @@ var document: any;
 export class OrderPage {
   @ViewChild('scrollArea') scrollArea: IonContent;
   @ViewChild(IonContent) content: IonContent;
-  @ViewChild('mySlider') slider:  ElementRef | undefined;;
+  @ViewChild('mySlider') slider:  ElementRef | undefined;buttonCheckin: boolean;
+  buttonBooking: boolean;
+;
   @Input() rootpage: any;
 
   public listMyTrips:any = [];
@@ -162,6 +164,7 @@ export class OrderPage {
   showIncludeContent: string;
   expandPrice: boolean;
   isTTV: boolean;
+  ticketChangeLocation:any='';
   constructor(public platform: Platform, public navCtrl: NavController, public searchhotel: SearchHotel, public popoverController: PopoverController,
     public storage: Storage, public zone: NgZone, public modalCtrl: ModalController, public iab: InAppBrowser,
     public alertCtrl: AlertController, public valueGlobal: ValueGlobal, public gf: GlobalFunction, public loadingCtrl: LoadingController,
@@ -837,6 +840,7 @@ export class OrderPage {
                 // if (element.booking_id=='VC0003453') {
                 //   se.listMyTrips.push(element);
                 // }
+                debugger
                 se.listMyTrips.push(element);
                 se.mytripcount++;
                 if (element.insuranceInfo && element.insuranceInfo.adultList.length > 0) {
@@ -1668,7 +1672,7 @@ export class OrderPage {
                     element.checkOutDisplay = se.gf.getDayOfWeek(dr).daynameshort + ", " + moment(dr).format('DD-MM-YYYY');
                    }
                   
-                  //se.listMyTrips.push(element);
+                  se.listMyTrips.push(element);
                   se.mytripcount++;
                   //se.nextflightcounttext ="(" + se.mytripcount +")";
                 }
@@ -4152,16 +4156,6 @@ export class OrderPage {
       }
     }, 500)
   }
-  // var se = this;
-  // var options = {
-  //   method: 'GET',
-  //   url: 'https://beta-svc3.ivivu.com/api/review',
-  //   qs: { BookingId: trip.booking_id },
-  //   headers:
-  //   { 
-  //     'cache-control': 'no-cache'
-  //   }
-  // };
 
   checkItemHasNotClaim(listItem) {
     var res = false;
@@ -4220,18 +4214,7 @@ export class OrderPage {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserReviews',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   //body: JSON.stringify({file: this.photos})
-        // };
+       
         let urlPath = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserReviews';
         let headers = {
           'accept': 'application/json',
@@ -6537,5 +6520,131 @@ export class OrderPage {
   }
   ticketinfo(){
     this.isTTV=!this.isTTV;
+  }
+  
+  async openSort() {
+    // if(!this.loadpricedone){
+    //   this.gf.showToastWarning('Đang tìm vé máy bay tốt nhất. Xin quý khách vui lòng đợi trong giây lát!');
+    //   return;
+    // }
+    let actionSheet = await this.actionsheetCtrl.create({
+      cssClass: 'action-sheets-tourlist-sort',
+      buttons: [
+        {
+          text: "Ngày khởi hành",
+          cssClass: "btn-Checkin cls-border-bottom",
+          handler: () => {
+            this.buttonCheckin = true
+            this.buttonCheckin ? $(".btn-Checkin > span").addClass('selected') : $(".btn-Checkin > span").removeClass('selected');
+
+            this.buttonBooking = false;
+            if (this.buttonCheckin) {
+              this.sortMytrip();
+            }
+          }
+        },
+        {
+          text: "Ngày đặt booking",
+          cssClass: "btn-Booking cls-border-bottom",
+          handler: () => {
+            this.buttonBooking = true;
+            this.buttonBooking ? $(".btn-Booking > span").addClass('selected') : $(".btn-Booking > span").removeClass('selected');
+
+            this.buttonCheckin = false;
+            if (this.buttonBooking) {
+              this.sortMytripBooking();
+            }
+          }
+        }
+       
+
+      ]
+
+    });
+
+    this.buttonCheckin ? $(".btn-Checkin > span").addClass('selected') : $(".btn-Checkin > span").removeClass('selected');
+    this.buttonBooking ? $(".btn-Booking > span").addClass('selected') : $(".btn-Booking > span").removeClass('selected');
+    actionSheet.present();
+
+  }
+
+  sortMytripBooking() {
+    var se = this;
+    if (this.activeTabTrip == 1) {
+      if (se.listMyTrips && se.listMyTrips.length > 0) {
+        se.zone.run(() => se.listMyTrips.sort(function (a, b) {
+          let direction = -1;
+          if (!a['isRequestTrip'] && !b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+          else if (!a['isRequestTrip'] && b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+          else if (a['isRequestTrip'] && !b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          } else {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+        }));
+      }
+    }else{
+      if (se.listHistoryTrips && se.listHistoryTrips.length > 0) {
+        se.zone.run(() => se.listHistoryTrips.sort(function (a, b) {
+          let direction = -1;
+          if (!a['isRequestTrip'] && !b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+          else if (!a['isRequestTrip'] && b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+          else if (a['isRequestTrip'] && !b['isRequestTrip']) {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          } else {
+            if (moment(a['bookingDate']).diff(moment(b['bookingDate']), 'days') > 0) {
+              return -1 * direction;
+            }
+            else {
+              return 1 * direction;
+            }
+          }
+        }));
+      }
+    }
+   
   }
 }
