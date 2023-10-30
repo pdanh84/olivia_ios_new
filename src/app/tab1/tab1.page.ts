@@ -3245,20 +3245,25 @@ export class Tab1Page implements OnInit {
                 else if(el1 && el1[0] && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) -120){
                   el1[0].classList.remove('cls-topdeal-float');
 
-                  divnotch[0].classList.remove('cls-visible');
-                  divnotch[0].classList.add('cls-disabled');
+                  if(event.detail.scrollTop < 1020 ){
+                    divnotch[0].classList.remove('cls-visible');
+                    divnotch[0].classList.add('cls-disabled');
+                  }
                 }
           }
         }else{
           if(el[0]){
             el[0].classList.remove('cls-topdeal-float');
-            divnotch[0].classList.remove('cls-visible');
-                  divnotch[0].classList.add('cls-disabled');
+           
           }
           if(el1[0]){
             el1[0].classList.remove('cls-topdeal-float');
+           
+          }
+          //console.log(event.detail.scrollTop )
+          if(event.detail.scrollTop < 1020 ){
             divnotch[0].classList.remove('cls-visible');
-                  divnotch[0].classList.add('cls-disabled');
+            divnotch[0].classList.add('cls-disabled');
           }
           
         }
@@ -3272,9 +3277,10 @@ export class Tab1Page implements OnInit {
           }
         }if(el1 && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 100){
           el1[0].classList.remove('cls-topdeal-float');
-          divnotch[0].classList.remove('cls-visible');
-                  divnotch[0].classList.add('cls-disabled');
+          
         }
+
+        
       }
 
       

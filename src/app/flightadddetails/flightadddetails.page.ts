@@ -2291,7 +2291,7 @@ alert.present();
                       "compContactEmail": se.addressorder,
                       "compContactName": se.hotenhddt,
                       "isInvoice": se.Invoice,
-                      "isHoldTicket": true,//tạm thời chưa giữ chỗ
+                      "isHoldTicket": false,//tạm thời chưa giữ chỗ
                       "departFlightId": data.departFlight ? data.departFlight.id : "",
                       "returnFlightId": data.returnFlight ? data.returnFlight.id : "",
                       "memberId": se.jti ? se.jti : "",
