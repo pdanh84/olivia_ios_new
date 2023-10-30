@@ -1286,6 +1286,9 @@ height: 12px !important;
     height: 68px !important;
     top: calc(env(safe-area-inset-top) + 7px) !important;
   }
+  .app-navbar-notch {
+    height: calc(env(safe-area-inset-top) + 7px) !important;
+  }
 }
 
 @media(min-height:568px) and (max-height:736px){

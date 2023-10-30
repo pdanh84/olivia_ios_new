@@ -952,14 +952,7 @@ export class FlightsearchresultPage implements OnInit {
                 },1000)
                 obj.countretry++;
               }
-              else if(!se._flightService.itemFlightCache.roundTrip && result.stop && type=='depart' && result.data && result.data.length == 0){
-                se.loadpricedone = true;
-                      se.zone.run(()=>{
-                        se.progressbarloading = 1;
-                        se.progressbarbuffer = 1;
-                      })
-              }
-  
+             
               else if (!result.stop && !se.stoprequest && type=='return' && se.allowSearchReturn) {
                 obj.source = result.sources;
                 setTimeout(()=>{
@@ -969,6 +962,20 @@ export class FlightsearchresultPage implements OnInit {
                   se.loadFlightCacheDataByAirline(obj, 'return');
                 },1000)
                 obj.countretry++;
+              }
+              else if(!se._flightService.itemFlightCache.roundTrip && result.stop && type=='depart' && result.data && result.data.length == 0){
+                se.loadpricedone = true;
+                      se.zone.run(()=>{
+                        se.progressbarloading = 1;
+                        se.progressbarbuffer = 1;
+                      })
+              }
+              else if(result.stop && result.data && result.data.length == 0){
+                se.loadpricedone = true;
+                se.zone.run(()=>{
+                  se.progressbarloading = 1;
+                  se.progressbarbuffer = 1;
+                })
               }
             }
         })

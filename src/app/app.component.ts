@@ -296,8 +296,6 @@ export class AppComponent implements OnInit{
       // this.storage.remove('listexeperienceregion');
       this.valueGlobal.countNotifi=0;
 
-      //this.handlerBackButton();
-     
     });
     
   }

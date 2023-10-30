@@ -3217,14 +3217,18 @@ export class Tab1Page implements OnInit {
       let eluseful = window.document.getElementsByClassName('div-useful-title');
       let elinter = window.document.getElementsByClassName('div-flightinternational-topdeal');
       let el1 = $('.div-flightinternational-topdeal');
+      let divnotch = window.document.getElementsByClassName('app-navbar-notch');
       if(el && el.length >0){
         if(event.detail.scrollTop >= 1140 ){
           if(elinter && elinter.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999 ) - 250){
               if(el.length >0 && el[0] && !el[0].classList.contains("cls-topdeal-float")){
                 el[0].classList.add('cls-topdeal-float');
+                divnotch[0].classList.remove('cls-disabled');
+                divnotch[0].classList.add('cls-visible');
               }
               if(el1 && el1[0] && el1[0].classList.contains("cls-topdeal-float")){
                 el1[0].classList.remove('cls-topdeal-float');
+               
               }
            
           }else{
@@ -3233,19 +3237,28 @@ export class Tab1Page implements OnInit {
                 
                     if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
                       el1[0].classList.add('cls-topdeal-float');
+                      divnotch[0].classList.remove('cls-disabled');
+                      divnotch[0].classList.add('cls-visible');
                     }
                   
                 }
                 else if(el1 && el1[0] && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) -120){
                   el1[0].classList.remove('cls-topdeal-float');
+
+                  divnotch[0].classList.remove('cls-visible');
+                  divnotch[0].classList.add('cls-disabled');
                 }
           }
         }else{
           if(el[0]){
             el[0].classList.remove('cls-topdeal-float');
+            divnotch[0].classList.remove('cls-visible');
+                  divnotch[0].classList.add('cls-disabled');
           }
           if(el1[0]){
             el1[0].classList.remove('cls-topdeal-float');
+            divnotch[0].classList.remove('cls-visible');
+                  divnotch[0].classList.add('cls-disabled');
           }
           
         }
@@ -3254,9 +3267,13 @@ export class Tab1Page implements OnInit {
         if(el1 && el1.length >0 && event.detail.scrollTop >= ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 120){
           if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
             el1[0].classList.add('cls-topdeal-float');
+            divnotch[0].classList.remove('cls-disabled');
+            divnotch[0].classList.add('cls-visible');
           }
         }if(el1 && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 100){
           el1[0].classList.remove('cls-topdeal-float');
+          divnotch[0].classList.remove('cls-visible');
+                  divnotch[0].classList.add('cls-disabled');
         }
       }
 
