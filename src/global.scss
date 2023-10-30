@@ -1249,6 +1249,15 @@ height: 12px !important;
   height: 12px !important;
 }
 /////////////////////////
+/// 
+.div-flight-topdeal{
+  top: calc(env(safe-area-inset-top) - 3px);
+}
+
+.div-flightinternational-topdeal{
+  top: calc(env(safe-area-inset-top) - 3px);
+}
+
 .cls-topdeal-float{
   background: #fff;
   margin: 0 -16px;

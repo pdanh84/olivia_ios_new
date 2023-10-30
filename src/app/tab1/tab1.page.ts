@@ -3209,40 +3209,37 @@ export class Tab1Page implements OnInit {
       }
     }
 
-    if (se.activeTab == 1) {
+    if(se.activeTab ==1){
+      if(se.flightService.tabFlightIndex != 1){
+        se.hideStatusBar();
+      }
       let el = window.document.getElementsByClassName('div-flight-topdeal');
-      let el1 = window.document.getElementsByClassName('div-flightinternational-topdeal');
-      let elinter = $('.div-flightinternational-topdeal');
       let eluseful = window.document.getElementsByClassName('div-useful-title');
+      let elinter = window.document.getElementsByClassName('div-flightinternational-topdeal');
+      let el1 = $('.div-flightinternational-topdeal');
       if(el && el.length >0){
-        if(event.detail.scrollTop >= 1300 ){
-          if(elinter && elinter.length >0 && event.detail.scrollTop < $('.div-group-name')[0].offsetTop - 100){
-            setTimeout(()=>{
+        if(event.detail.scrollTop >= 1140 ){
+          if(elinter && elinter.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999 ) - 250){
               if(el.length >0 && el[0] && !el[0].classList.contains("cls-topdeal-float")){
                 el[0].classList.add('cls-topdeal-float');
               }
-            },100)
-            
-            // if(el1 && el1.length >0 && el1[0]){
-            //   el1[0].classList.remove('cls-topdeal-float');
-            // }
+              if(el1 && el1[0] && el1[0].classList.contains("cls-topdeal-float")){
+                el1[0].classList.remove('cls-topdeal-float');
+              }
+           
           }else{
             
-              //el[0].classList.remove('cls-topdeal-float');
-              //setTimeout(()=>{
-                if(el1 && el1.length >0 && event.detail.scrollTop >= $('.div-group-name')[0].offsetTop ){
+                if(el1 && el1.length >0 && event.detail.scrollTop >= ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 220 ){
                 
                     if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
                       el1[0].classList.add('cls-topdeal-float');
                     }
                   
                 }
-                else if(el1 && el1[0] && el1.length >0 && event.detail.scrollTop < $('.div-group-name')[0].offsetTop -100){
+                else if(el1 && el1[0] && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) -120){
                   el1[0].classList.remove('cls-topdeal-float');
                 }
-            //},100)
           }
-         
         }else{
           if(el[0]){
             el[0].classList.remove('cls-topdeal-float');
@@ -3254,28 +3251,23 @@ export class Tab1Page implements OnInit {
         }
 
       }else{
-        if(el1 && el1.length >0 && event.detail.scrollTop >= 1200){
+        if(el1 && el1.length >0 && event.detail.scrollTop >= ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 120){
           if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
             el1[0].classList.add('cls-topdeal-float');
           }
-        }if(el1 && el1.length >0 && event.detail.scrollTop < 1200){
+        }if(el1 && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 100){
           el1[0].classList.remove('cls-topdeal-float');
         }
       }
 
-      if(eluseful && eluseful.length >0){
-        let h = 1100 + ($('.div-topdeal-flight')[0] ? $('.div-topdeal-flight')[0].offsetHeight : 0);
-        if(event.detail.scrollTop >= h){
-          if(eluseful.length >0 && !eluseful[0].classList.contains("cls-topdeal-float")){
-            eluseful[0].classList.add('cls-topdeal-float');
-          }
-        }
-        else{
-          eluseful[0].classList.remove('cls-topdeal-float');
-        }
-      }
       
     }
+  }
+  hideStatusBar(){
+    var se = this;
+    let el = document.getElementsByClassName('div-statusbar-float');
+      el[0].classList.remove('float-statusbar-enabled');
+      el[0].classList.add('float-statusbar-disabled');
   }
 
   doRefresh(event) {
