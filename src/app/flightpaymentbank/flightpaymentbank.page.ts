@@ -1,4 +1,4 @@
-import { foodService } from './../providers/foodService';
+
 import { Bookcombo, SearchHotel } from './../providers/book-service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { NavController, LoadingController, Platform, ToastController,ModalController } from '@ionic/angular';

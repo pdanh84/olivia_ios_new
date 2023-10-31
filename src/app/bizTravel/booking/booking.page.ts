@@ -7,8 +7,6 @@ import { Storage } from '@ionic/storage';
 import { C } from './../../providers/constants';
 import { ValueGlobal, SearchHotel } from '../../providers/book-service';
 import { GlobalFunction, ActivityService } from './../../providers/globalfunction';
-import { NetworkProvider } from '../../network-provider.service';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { UserReviewsPage } from '../../userreviews/userreviews';
 import { OverlayEventDetail } from '@ionic/core';
 import { UserFeedBackPage } from '../../userfeedback/userfeedback';
@@ -18,10 +16,13 @@ import { Subscription } from 'rxjs';
 import { flightService } from '../../providers/flightService';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { MytripService } from '../../providers/mytrip-service.service';
-import { foodService } from '../../providers/foodService';
 
 import { BizTravelService } from 'src/app/providers/bizTravelService';
 import { InAppBrowserOptions,InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+
+import { Network } from '@capacitor/network';
+import { NetworkProvider } from './../../network-provider.service';
+
 var document:any;
 @Component({
     selector: 'app-booking',
@@ -122,16 +123,14 @@ var document:any;
     constructor(public platform: Platform, public navCtrl: NavController, public searchhotel: SearchHotel, public popoverController: PopoverController,
         public storage: Storage, public zone: NgZone, public modalCtrl: ModalController, public iab: InAppBrowser,
         public alertCtrl: AlertController, public valueGlobal: ValueGlobal, public gf: GlobalFunction, public loadingCtrl: LoadingController,
-        public network: Network,
-        public networkProvider: NetworkProvider,
         private router: Router,
         private actionsheetCtrl: ActionSheetController,
         public toastCtrl: ToastController,
         public activityService: ActivityService,
         public _flightService: flightService,public clipboard: Clipboard,
         public _mytripservice: MytripService,
-        public _foodService: foodService,
         public bizTravelService: BizTravelService,
+        public networkProvider: NetworkProvider
         ) {
         storage.get('auth_token').then(auth_token => {
           zone.run(()=>{
@@ -158,7 +157,8 @@ var document:any;
         this.ionViewWillEnter();
         this.platform.resume.subscribe(async () => {
           this.ionViewWillEnter();
-          if (this.networkProvider.isOnline()) {
+          const _network = await Network.getStatus();
+          if (_network.connected) {
             this.isConnected = true;
             this.networkProvider.setNetworkStatus(true);
             this.gf.setNetworkStatus(true);
@@ -2091,7 +2091,7 @@ var document:any;
         else if(this._mytripservice.rootPage == "homefood"){
           this._mytripservice.rootPage = "homefood";
           this.valueGlobal.backValue = "";
-          this._foodService.menuFooterClick.emit(1);
+          //this._foodService.menuFooterClick.emit(1);
           this.navCtrl.navigateForward('/homefood');
         }
         else{
@@ -3921,9 +3921,6 @@ var document:any;
           return;
         }
         this.gf.hideStatusBar();
-          this._foodService.itemOrder = order;
-          this._foodService.itemOrderDetail = orderdetail
-          this.navCtrl.navigateForward("/foodmyorderdetail");
       }
     
       gotomenu(tabindex){
@@ -3935,9 +3932,6 @@ var document:any;
           this.valueGlobal.backValue = "homefood";
         }
         this._mytripservice.backfrompage = "order";
-        this._foodService.tabFoodIndex = tabindex;
-        this._foodService.menuFooterClick.emit(1);
-        this._foodService.itemActiveFoodTab.emit(tabindex);
         $(".div-myorder").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
             $(".div-notify").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
             $(".div-account").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
@@ -3967,11 +3961,7 @@ var document:any;
     
         showFoodReview(detail, order){
           //Review tuần
-          if(order.isOver || order.allowReview){
-            this._foodService.itemOrderBookingDetail = detail;
-            this._foodService.itemOrderDetail = order;
-            this.navCtrl.navigateForward('/foodreviewweek');
-          }
+          
         }
 
         showBlog(menu){

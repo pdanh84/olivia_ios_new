@@ -47,7 +47,7 @@ export class MytripHistoryPage implements OnInit {
     private loadingCtrl: LoadingController,
     public _flightService: flightService,
     public valueGlobal: ValueGlobal,public activityService: ActivityService) { 
-    this.networkProvider.getNetworkStatus().subscribe((connected: boolean) => {
+      this.networkProvider.getNetworkStatus().then((connected) => {
       this.isConnected = connected;
       if (!this.isConnected) {
         this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');

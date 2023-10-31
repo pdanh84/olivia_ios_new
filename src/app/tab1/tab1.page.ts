@@ -14,7 +14,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { NetworkProvider } from './../network-provider.service';
 import * as $ from 'jquery';
 import { Storage } from '@ionic/storage';
@@ -28,6 +27,7 @@ import 'litepicker/dist/plugins/mobilefriendly';
 import { MytripService } from '../providers/mytrip-service.service';
 
 import {SplashScreen} from '@capacitor/splash-screen';
+import { Network } from '@capacitor/network';
 //import { Plugins } from '@capacitor/core';
 var document:any;
 /**
@@ -126,7 +126,7 @@ export class Tab1Page implements OnInit {
   constructor(private iab: InAppBrowser, public navCtrl: NavController, public authService: AuthService, public modalCtrl: ModalController, public zone: NgZone,
     public platform: Platform, public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, public gf: GlobalFunction,
     public activeRoute: ActivatedRoute, public router: Router, public loadCtrl: LoadingController, public loadingCtrl: LoadingController,
-    private socialSharing: SocialSharing, public network: Network, public toastCtrl: ToastController, private alertCtrl: AlertController, private storage: Storage,
+    private socialSharing: SocialSharing, public toastCtrl: ToastController, private alertCtrl: AlertController, private storage: Storage,
     public networkProvider: NetworkProvider,
     private actionSheetCtrl: ActionSheetController,
     public activityService: ActivityService,
@@ -142,42 +142,41 @@ export class Tab1Page implements OnInit {
     })
     this.isShowSummerMood = moment(this.summerDateEnd).diff(moment(moment(new Date()).format('YYYY-MM-DD'))) >= 0;
     //this.platform.resume.subscribe(async () => {
-      this.networkProvider.setNetworkStatus(true);
-      this.network.onConnect().subscribe(() => {
-        this.isConnected = true;
-        // We just got a connection but we need to wait briefly
-        // before we determine the connection type. Might need to wait.
-        // prior to doing any api requests as well.
+      if(this.platform.is('mobile')){
+        Network.getStatus().then((status) => {
+          if(status.connected){
+            this.isConnected = true;
+            // We just got a connection but we need to wait briefly
+            // before we determine the connection type. Might need to wait.
+            // prior to doing any api requests as well.
+            this.zone.run(() => {
+              this.loaddata();
+    
+            })
+            this.valueGlobal.notRefreshDetail = false;
+            this.gettopSale();
+          }else{
+            this.isConnected = false;
+            this.gf.setReLoadValue(true);
+            this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
+          }
+        });
+      }else{
         this.zone.run(() => {
           this.loaddata();
 
         })
+        this.valueGlobal.notRefreshDetail = false;
+            this.gettopSale();
+      }
+        
+     
 
-        setTimeout(() => {
-          if (this.network.type !== 'none') {
-            if (this.slideData1.length == 0) {
-              this.loadInfo();
-            }
-          }
-          if (this.myloader) {
-            this.myloader.dismiss();
-          }
-        }, 3000);
-      });
-
-      this.network.onDisconnect().subscribe(() => {
-        this.isConnected = false;
-        this.gf.setReLoadValue(true);
-        this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
-      });
-
-      this.valueGlobal.notRefreshDetail = false;
-      this.gettopSale();
+      
   
       var se = this;
-      //setTimeout(()=>{
         se.platform.resume.subscribe(async()=>{
-          se.networkProvider.getNetworkStatus().subscribe((connected: boolean) => {
+          se.networkProvider.getNetworkStatus().then((connected: boolean) => {
             se.isConnected = connected;
             if (se.isConnected) {
               se.networkProvider.setNetworkStatus(true);
@@ -220,9 +219,6 @@ export class Tab1Page implements OnInit {
             }
           });
         })
-    //})
-
-    
   }
 
   async ionViewDidEnter() {
@@ -300,7 +296,7 @@ export class Tab1Page implements OnInit {
     //console.log('already load tab1');
     se.zone.run(() => {
       se.isConnected = true;
-      se.networkProvider.setNetworkStatus(true);
+      //se.networkProvider.setNetworkStatus(true);
       se.gf.setNetworkStatus(true);
       se.gf.setReLoadValue(false);
       se.page = 1;

@@ -4,7 +4,6 @@ import { GlobalFunction } from '../providers/globalfunction';
 import { Storage } from '@ionic/storage';
 import { ValueGlobal, SearchHotel } from '../providers/book-service';
 import {flightService} from './../providers/flightService';
-import { foodService } from '../providers/foodService';
 import { App } from '@capacitor/app';
 
 @Component({
@@ -24,8 +23,7 @@ export class FlightquickbackPage implements OnInit {
         private actionsheetCtrl: ActionSheetController,
         public valueGlobal: ValueGlobal,
         public searchhotel: SearchHotel,
-        public _flightService: flightService,
-        public _foodService: foodService) { 
+        public _flightService: flightService) { 
           App.getInfo().then((info) => {
             this.zone.run(()=>{
               this.currentVersion = info.version;
@@ -62,7 +60,7 @@ export class FlightquickbackPage implements OnInit {
             }
             else if(pageIndex ==3){
               se.valueGlobal.backValue = "homefood";
-              se._foodService.itemTabFood.emit(1);
+              
             }
             se.clearFlightService();
             se.modalCtrl.dismiss();

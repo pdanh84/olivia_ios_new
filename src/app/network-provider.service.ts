@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ToastController, Platform } from '@ionic/angular';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import {
   Observable,
   fromEvent,
@@ -11,6 +10,7 @@ import {
 import {
   mapTo
 } from 'rxjs/operators';
+import { Network } from '@capacitor/network';
 
 export enum ConnectionStatusEnum {
   Online,
@@ -23,33 +23,25 @@ export enum ConnectionStatusEnum {
 export class NetworkProvider {
 
   private online$: Observable < boolean >;
+  network: any;
 
   constructor(public alertCtrl: ToastController, 
-    public network: Network,
     private platform: Platform) {
-      this.online$ = Observable.create(observer => {
-        observer.next(true);
-      }).pipe(mapTo(true));
-      if (this.platform.is('cordova') || this.platform.is('android') || this.platform.is('ios')) {
-        // on Device
-        this.online$ = merge(
-          this.network.onConnect().pipe(mapTo(true)),
-          this.network.onDisconnect().pipe(mapTo(false)));
-      } else {
-        // on Browser
-        this.online$ = merge( of (navigator.onLine),
-          fromEvent(window, 'online').pipe(mapTo(true)),
-          fromEvent(window, 'offline').pipe(mapTo(false))
-        );
-      }
+      Network.getStatus().then((con)=>{
+        this.network = con;
+      })
      }
 
      public getNetworkType(): string {
+
       return this.network.type;
     }
   
-    public getNetworkStatus(): Observable < boolean > {
-      return this.online$;
+    public async getNetworkStatus(): Promise<boolean> {
+      return new Promise(async (resolve, reject)=>{
+        const _network:any = await Network.getStatus();
+        resolve(_network.connected)
+      })
     }
 
     public setNetworkStatus(value){
@@ -57,10 +49,10 @@ export class NetworkProvider {
     }
 
     isOnline(): boolean {
-      return this.network.type != this.network.Connection.NONE;
+      return this.network.connected == true;
     }
 
     isOffline(): boolean {
-      return this.network.type == this.network.Connection.NONE;
+      return this.network.connected == false;
     }
 }

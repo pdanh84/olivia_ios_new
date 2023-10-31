@@ -64,7 +64,7 @@
       .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-ios{
         border-bottom: solid 0.5px #bdbdbd;
       }
-      .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-md{
+      .cls-border-bottom .action-sheet-button-inner.sc-ion-action-sheet-ios{
         border-bottom: solid 0.5px #bdbdbd;
       }
       @media (min-height:812px) and (max-height: 1024px) {
@@ -96,7 +96,7 @@
       background-position: right;
       width: 92%;
   }
-  .action-sheets-tourlist-sort .sc-ion-action-sheet-md.selected, .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-md.selected {
+  .action-sheets-tourlist-sort .sc-ion-action-sheet-ios.selected, .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-ios.selected {
     background-image: url('../../../assets/imgs/ic_check.svg');
     background-repeat: no-repeat;
     background-position: right;

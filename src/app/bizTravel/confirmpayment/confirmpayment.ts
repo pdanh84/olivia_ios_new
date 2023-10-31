@@ -9,7 +9,6 @@ import { C } from '../../providers/constants';
 import { Storage } from '@ionic/storage';
 import { Bookcombo, RoomInfo, ValueGlobal } from 'src/app/providers/book-service';
 import { MytripService } from 'src/app/providers/mytrip-service.service';
-import { foodService } from 'src/app/providers/foodService';
 
 @Component({
   selector: 'app-confirmpayment',
@@ -43,7 +42,6 @@ export class ConfirmPaymentPage implements OnInit {
     public activityService: ActivityService,
     public Roomif: RoomInfo,
     public _mytripservice: MytripService,
-    public _foodService: foodService,
     public valueGlobal: ValueGlobal) { 
         this.otpData = this.formBuilder.group({
             otp: ['', Validators.compose([Validators.required])],

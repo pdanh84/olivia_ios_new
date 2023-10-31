@@ -20,7 +20,11 @@ const config: CapacitorConfig = {
     SplashScreen: {
       launchShowDuration: 10000,
       launchAutoHide: false
-    }
+    },
+    Badge: {
+      persist: true,
+      autoClear: false,
+    },
   },
 };
 

@@ -9,11 +9,10 @@ import { NavController } from '@ionic/angular';
 import { C } from './../providers/constants';
 import { ActivityService, GlobalFunction } from './../providers/globalfunction';
 import * as $ from 'jquery';
-import { Badge } from '@awesome-cordova-plugins/badge/ngx';
+import { Badge } from '@capawesome/capacitor-badge';
 import {FCM} from '@capacitor-community/fcm';
 import { Storage } from '@ionic/storage';
 import { NetworkProvider } from '../network-provider.service';
-import { foodService } from '../providers/foodService';
 import { flightService } from '../providers/flightService';
 import { AppRoutingPreloaderService } from '../providers/AppRoutingPreloaderService';
 import { MytripService } from '../providers/mytrip-service.service';
@@ -38,13 +37,12 @@ export class TabsPage implements OnInit {
   username: any;
   listStatus: any;
   constructor(public platform: Platform, private router: Router, private activeRoute: ActivatedRoute, private modalCtrl: ModalController,
-    public searchhotel: SearchHotel, private navCtrl: NavController, public gf: GlobalFunction, public booking: Booking, private badge: Badge, private storage: Storage,
+    public searchhotel: SearchHotel, private navCtrl: NavController, public gf: GlobalFunction, public booking: Booking, private storage: Storage,
     private zone: NgZone,
     public valueGlobal: ValueGlobal,
     private networkProvider: NetworkProvider,
     private actionSheetCtrl: ActionSheetController,
     private toastCrl: ToastController,
-    public foodService: foodService,
     public _flightService: flightService,
     public routingService: AppRoutingPreloaderService,
     //private splashScreen: SplashScreen,
@@ -495,9 +493,9 @@ export class TabsPage implements OnInit {
       if (window.document.getElementsByClassName("homefood-footer").length > 0) {
         window.document.getElementsByClassName("homefood-footer")[0]['style'].display = 'block';
       }
-      this.zone.run(() => {
-        this.foodService.countcart = this.foodService.listItemsCart.length;
-      })
+      // this.zone.run(() => {
+      //   this.foodService.countcart = this.foodService.listItemsCart.length;
+      // })
     }
     //////////////
     var el = window.document.getElementsByClassName('tab-button');
@@ -580,7 +578,7 @@ export class TabsPage implements OnInit {
             
                   se.valueGlobal.countNotifi = countNoti;
                   se.countmessage = se.valueGlobal.countNotifi;
-                  se.badge.set(countNoti);
+                  await Badge.set({count: countNoti});
 
                 })
               }
@@ -659,8 +657,6 @@ export class TabsPage implements OnInit {
     this._mytripservice.rootPage = "homehotel";
     $(".div-wraper-home").removeClass("cls-disabled").addClass("cls-visible");
 
-    this.foodService.listimagereview = null;
-    this.foodService.objFoodReview = null;
     this.valueGlobal.backValue = "";
   }
 

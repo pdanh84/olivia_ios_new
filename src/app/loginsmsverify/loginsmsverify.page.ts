@@ -117,7 +117,7 @@ export class LoginsmsverifyPage implements OnInit {
               checkfullname = se.hasWhiteSpace(decoded.fullname);
             }
             //se.storage.remove('deviceToken');
-            if(se.platform.is('cordova') || se.platform.is('android')){
+            //if(se.platform.is('cordova') || se.platform.is('android')){
               FCM.getToken().then(token => {
                 se.deviceToken = token;
                 se.storage.set('deviceToken',token);
@@ -125,7 +125,7 @@ export class LoginsmsverifyPage implements OnInit {
                   se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
                 }
               });
-            }
+            //}
             var info;
             if (checkfullname) {
               var textfullname=decoded.fullname.trim();

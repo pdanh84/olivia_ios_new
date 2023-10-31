@@ -185,27 +185,27 @@
                 font-size: 14px;
             }
         
-            .text-bold .sc-ion-action-sheet-md{
+            .text-bold .sc-ion-action-sheet-ios{
                 font-weight: 600 !important;
             }
         
-            .action-sheets-flightselectgender .action-sheet-title.sc-ion-action-sheet-md{
+            .action-sheets-flightselectgender .action-sheet-title.sc-ion-action-sheet-ios{
                 font-weight: bold;
                 color: #000;
             }
-            .sc-ion-action-sheet-md-h.action-sheets-flightselectgender{
+            .sc-ion-action-sheet-ios-h.action-sheets-flightselectgender{
                 margin-bottom: env(safe-area-inset-bottom);
             }
         
             //style android
-            .cls-input-custom .native-input.sc-ion-input-md{
+            .cls-input-custom .native-input.sc-ion-input-ios{
                 padding: 0;
                 line-height: 24px;
                 font-size: 14px;
                 font-weight: 300;
                 color: #222222;
             }
-            .native-input.sc-ion-input-md {
+            .native-input.sc-ion-input-ios {
                 font-size: 18px;
                 font-weight: 300;
                 padding-bottom: 0;

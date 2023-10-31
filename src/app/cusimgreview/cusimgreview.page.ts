@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { SearchHotel } from '../providers/book-service';
 import { GlobalFunction } from '../providers/globalfunction';
 import { Storage } from '@ionic/storage';
-import { foodService } from '../providers/foodService';
+
 @Component({
   selector: 'app-cusimgreview',
   templateUrl: './cusimgreview.page.html',
@@ -25,25 +25,14 @@ export class CusimgreviewPage implements OnInit {
     public searchhotel: SearchHotel,
     public gf: GlobalFunction,
     private storage: Storage,
-    public _foodservice :foodService,private activatedRoute:ActivatedRoute, public zone: NgZone) { 
+    private activatedRoute:ActivatedRoute, public zone: NgZone) { 
       var se = this;
       this.stt = this.activatedRoute.snapshot.paramMap.get('stt');
       setTimeout(()=>{
         se.loaddatadone = true;
       },600)
       if (this.stt==0) {
-      if(_foodservice.listimagereview && _foodservice.listimagereview.length> 0){
-          se.listImages = _foodservice.listimagereview;
-          for (let index = 0; index < se.listImages.length; index++) {
-            const element = se.listImages[index];
-            if (element.imageUrl.toLocaleString().trim().indexOf("vertical") != -1) {
-              element.imageUrl=element.imageUrl.replace("800x600", "600x800");
-            }
-          }
-          se.fromhotel = false;
-        }
-      }
-      else{
+      
         se.storage.get('hotelimagereviews_'+se.searchhotel.hotelID).then((data) => {
           if(data){
             for (let index = 0; index < 5; index++) {

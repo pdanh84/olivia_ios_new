@@ -123,37 +123,30 @@ export class LoginPage implements OnInit{
 
   loginfb() {
     var se = this;
-    const FACEBOOK_PERMISSIONS = [
-      'email',
-      'public_profile',
-    ];
-    FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
-      se.presentLoadingnotime();
-      se.token = response.accessToken;
-      console.log(response);
-      let test = response.accessToken;
-      se.storage.set('fbaccesstoken',test);
-      se.loadUserData(test);
-      //FacebookLogin.getProfile()
-      // FacebookLogin.api('me?fields=id,name,email,first_name,gender,picture.width(720).height(720).as(picture_large)', []).then(profile => {
-      //   FacebookLogin.getLoginStatus().then(response => {
-      //     var test = JSON.stringify(response.authResponse.accessToken);
-      //     se.storage.set('fbaccesstoken',test);
-      //     se.userData = { accessToken: test, id: profile['id'], email: profile['email'], UserName: profile['first_name'], picture: profile['picture_large']['data']['url'], username: profile['name'], phone: profile['phone'], gender: profile['gender'] }
-      //     if (se.userData.email) {
-      //       se.postDatafb();
-      //     } else {
-      //       se.checknomail();
-      //     }
-      //   });
+   
+    try {
+      const FACEBOOK_PERMISSIONS = [
+        'email',
+        'public_profile',
+      ];
 
-      // });
-    }).catch( (reason: any) =>{
-      //se.loader.dismiss();
-      console.log(reason);
-    });
-    //google analytic
-    se.gf.googleAnalytion('login', 'loginfacebook', '');
+      FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
+
+        se.presentLoadingnotime();
+        alert(response);
+        se.token = response.accessToken;
+        
+        let test = response.accessToken;
+        se.storage.set('fbaccesstoken',test);
+        se.loadUserData(test);
+      })
+      //google analytic
+      se.gf.googleAnalytion('login', 'loginfacebook', '');
+    } catch (error) {
+      alert(error);
+    }
+    
+    
   }
 
   postDatafb() {
@@ -176,108 +169,112 @@ export class LoginPage implements OnInit{
           'cache-control': 'no-cache',
           'content-type': 'application/json'
         };
-        this.gf.RequestApi('POST', urlPath, headers, body, 'Login', 'postDatafb').then((data)=>{
+        try {
+        se.gf.RequestApi('POST', urlPath, headers, body, 'Login', 'postDatafb').then((data)=>{
 
-      if (data.result) {
-        if(se.loader){
-          se.loader.dismiss();
-        }
-        var decoded = jwt_decode<any>(data.auth_token);
-        // console.log(JSON.stringify(decoded))
-        se.refreshTokenTimer= decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10;
-        se.storage.set("email", decoded.email);
-        se.storage.set("auth_token", data.auth_token);
-        se.storage.set("username", decoded.fullname);
-        se.storage.set("phone", decoded.phone);
-        se.storage.set("refreshTokenTimer", decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10);
-        var checkfullname=se.hasWhiteSpace(decoded.fullname);
-        //se.storage.remove('deviceToken');
-        if(se.platform.is('android')){
-          try {
-            FCM.getToken().then(token => {
-              se.deviceToken = token;
-              se.storage.set('deviceToken',token);
-              //PDANH 19/07/2019: Push memberid & devicetoken
-              if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
-              }
-            });
-          } catch (error) {
-            
-          }
-          
-        }
-        var info;
-        if (checkfullname) {
-          var textfullname=decoded.fullname.trim();
-          textfullname=decoded.fullname.split(' ');
-          //info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone}
-          if(textfullname.length >2){
-            let name = '';
-            for(let i = 1; i < textfullname.length; i++){
-              if(i == 1){
-                name += textfullname[i];
-              }else{
-                name +=' ' +textfullname[i];
-              }
+          if (data.result) {
+            if(se.loader){
+              se.loader.dismiss();
             }
-            info = { ho: textfullname[0], ten: name , phone: decoded.phone, gender: decoded.gender}
-          }else if(textfullname.length>1){
-            info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone, gender: decoded.gender}
-          }
-          else if(textfullname.length==1){
-            info = { ho: textfullname[0], ten: "", phone: decoded.phone, gender: decoded.gender}
-          }
-          se.storage.set("infocus", info);
-        } else {
-          info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender}
-          se.storage.set("infocus", info);
-        }
-        // se.storage.set("jti", decoded.jti[0]);
-        if (Array.isArray(decoded.jti)) {
-          se.storage.set("jti", decoded.jti[0]);
-        }
-        else {
-          se.storage.set("jti", decoded.jti);
-        }
-        
-        se.storage.remove('blogtripdefault');
-        se.storage.remove('regionnamesuggest');
-        se.storage.remove('listtopdealdefault');
-        
-        se.valueGlobal.countNotifi = 0;
-        se.gf.setParams(true,'resetBlogTrips');
-        if (!se.checkreview) {
-          se.storage.set("checkreview", 0);
-        }
-        se.storage.set("point", decoded.point);
-        se.searchhotel.rootPage ='login';
-       
-        if(se.valueGlobal.backValue == "flightaccount"){
-          //se._flightService.itemFlightAccountToken.emit(data.auth_token);
-          se._flightService.itemMenuFlightClick.emit(4);
-          //se.goback();
-        }
-        if (se.valueGlobal.logingoback) {
-          if(se.valueGlobal.logingoback == "flightadddetails"|| se.valueGlobal.logingoback == "flightadddetailsinternational"){
-            se.goback();
-            se._flightService.itemFlightLogin.emit(1);
-          }else{
-            se.navCtrl.navigateBack([se.valueGlobal.logingoback]);
-          }
+            var decoded = jwt_decode<any>(data.auth_token);
+            // console.log(JSON.stringify(decoded))
+            se.refreshTokenTimer= decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10;
+            se.storage.set("email", decoded.email);
+            se.storage.set("auth_token", data.auth_token);
+            se.storage.set("username", decoded.fullname);
+            se.storage.set("phone", decoded.phone);
+            se.storage.set("refreshTokenTimer", decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10);
+            var checkfullname=se.hasWhiteSpace(decoded.fullname);
+            //se.storage.remove('deviceToken');
+            //if(se.platform.is('android')){
+              try {
+                FCM.getToken().then(token => {
+                  se.deviceToken = token;
+                  se.storage.set('deviceToken',token);
+                  //PDANH 19/07/2019: Push memberid & devicetoken
+                  if(se.deviceToken){
+                    se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
+                  }
+                });
+              } catch (error) {
+                
+              }
+              
+            //}
+            var info;
+            if (checkfullname) {
+              var textfullname=decoded.fullname.trim();
+              textfullname=decoded.fullname.split(' ');
+              //info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone}
+              if(textfullname.length >2){
+                let name = '';
+                for(let i = 1; i < textfullname.length; i++){
+                  if(i == 1){
+                    name += textfullname[i];
+                  }else{
+                    name +=' ' +textfullname[i];
+                  }
+                }
+                info = { ho: textfullname[0], ten: name , phone: decoded.phone, gender: decoded.gender}
+              }else if(textfullname.length>1){
+                info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone, gender: decoded.gender}
+              }
+              else if(textfullname.length==1){
+                info = { ho: textfullname[0], ten: "", phone: decoded.phone, gender: decoded.gender}
+              }
+              se.storage.set("infocus", info);
+            } else {
+              info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender}
+              se.storage.set("infocus", info);
+            }
+            // se.storage.set("jti", decoded.jti[0]);
+            if (Array.isArray(decoded.jti)) {
+              se.storage.set("jti", decoded.jti[0]);
+            }
+            else {
+              se.storage.set("jti", decoded.jti);
+            }
+            
+            se.storage.remove('blogtripdefault');
+            se.storage.remove('regionnamesuggest');
+            se.storage.remove('listtopdealdefault');
+            
+            se.valueGlobal.countNotifi = 0;
+            se.gf.setParams(true,'resetBlogTrips');
+            if (!se.checkreview) {
+              se.storage.set("checkreview", 0);
+            }
+            se.storage.set("point", decoded.point);
+            se.searchhotel.rootPage ='login';
           
-        }
-        else{
-          se.navCtrl.navigateRoot('/');
-        }
-        
-      }else if(!data.result && data.msg){
-        se.gf.showMessageWarning(data.msg);
-        if(se.loader){
-          se.loader.dismiss();
-        }
+            if(se.valueGlobal.backValue == "flightaccount"){
+              //se._flightService.itemFlightAccountToken.emit(data.auth_token);
+              se._flightService.itemMenuFlightClick.emit(4);
+              //se.goback();
+            }
+            if (se.valueGlobal.logingoback) {
+              if(se.valueGlobal.logingoback == "flightadddetails"|| se.valueGlobal.logingoback == "flightadddetailsinternational"){
+                se.goback();
+                se._flightService.itemFlightLogin.emit(1);
+              }else{
+                se.navCtrl.navigateBack([se.valueGlobal.logingoback]);
+              }
+              
+            }
+            else{
+              se.navCtrl.navigateRoot('/');
+            }
+            
+          }else if(!data.result && data.msg){
+            se.gf.showMessageWarning(data.msg);
+            if(se.loader){
+              se.loader.dismiss();
+            }
+          }
+        });
+      } catch (error) {
+        alert(error);
       }
-    });
   }
 
   countdownRefreshToken() {
@@ -570,7 +567,7 @@ getToken() {
           se.storage.set("username", decoded.fullname);
           se.storage.set("phone", decoded.phone);
           se.storage.remove('deviceToken');
-          if(se.platform.is('android')){
+          //if(se.platform.is('android')){
             try {
               FCM.getToken().then(token => {
                 se.deviceToken = token;
@@ -584,7 +581,7 @@ getToken() {
               
             }
             
-          }
+         // }
           
           se.valueGlobal.countNotifi=0;
           // var checkfullname=se.hasWhiteSpace(decoded.fullname);
@@ -846,16 +843,18 @@ getToken() {
           se.storage.set("checkreview", 0);
         }
         se.storage.set("point", decoded.point);
+        if(this.platform.is('mobile')){
         PushNotifications.addListener('registration',
           async (token: Token) => {
-            //console.log('token: ' + token.value);
-            se.deviceToken = token;
-            se.storage.set('deviceToken',token);
-            if(se.deviceToken){
-              se.gf.pushTokenAndMemberID(response.auth_token, se.deviceToken, se.appversion);
+              //console.log('token: ' + token.value);
+              se.deviceToken = token;
+              se.storage.set('deviceToken',token);
+              if(se.deviceToken){
+                se.gf.pushTokenAndMemberID(response.auth_token, se.deviceToken, se.appversion);
+              }
             }
-          }
-        )
+          )
+        }
        se.searchhotel.rootPage ='login';
       if(se.valueGlobal.backValue == "flightaccount"){
         se.valueGlobal.logingoback = "";

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SearchHotel,Booking, ValueGlobal } from'./providers/book-service';
 import { GlobalFunction } from'./providers/globalfunction';
 import { C } from './providers/constants';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { Network } from '@capacitor/network';
 import {
   ActionPerformed,
   DeliveredNotifications,
@@ -20,7 +20,6 @@ import { Storage } from '@ionic/storage';
 
 import { App } from '@capacitor/app';
 import { CodePush, InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
-import { foodService } from './providers/foodService';
 import { OverlayEventDetail } from '@ionic/core';
 //import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 import { flightService } from './providers/flightService';
@@ -29,6 +28,7 @@ import { tourService } from 'src/app/providers/tourService';
 import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
+import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 
 register();
 @Component({
@@ -62,13 +62,11 @@ export class AppComponent implements OnInit{
     public searchhotel: SearchHotel,
     public gf: GlobalFunction,
     public booking: Booking,
-    public network: Network,
     private storage: Storage,
     public valueGlobal: ValueGlobal,
     //private firebaseDynamicLinks: FirebaseDynamicLinks,
     private toastCrl: ToastController,
     private codePush: CodePush,
-    public foodService: foodService,
     private zone: NgZone,
     private toastCtrl: ToastController,
     //private deeplinks: Deeplinks,
@@ -137,7 +135,7 @@ export class AppComponent implements OnInit{
   }
   initializeApp() {
     
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       this.getToken();
       
       //codepush
@@ -155,35 +153,38 @@ export class AppComponent implements OnInit{
       }
      
       try {
-        PushNotifications.requestPermissions().then(result => {
-          if (result.receive === 'granted') {
-            // Register with Apple / Google to receive push via APNS/FCM
-            PushNotifications.register();
-          } else {
-            // Show some error
-          }
-        });
-
-        PushNotifications.addListener(
-          'pushNotificationReceived',
-          (notification: PushNotificationSchema) => {
-            //alert('Push received: ' + JSON.stringify(notification));
-          },
-        );
-    
-        PushNotifications.addListener(
-          'pushNotificationActionPerformed',
-          (notification: ActionPerformed) => {
-            let datanoti:any = notification;
-           
-              if(datanoti && datanoti.notification && datanoti.notification.data) {
-                let _data:any = datanoti.notification.data;
-                   // we know the user launched the app by clicking on the notification
-                   this.showNotification(_data);
-              }
-
-          },
-        );
+        if(this.platform.is('mobile')){
+          PushNotifications.requestPermissions().then(result => {
+            if (result.receive === 'granted') {
+              // Register with Apple / Google to receive push via APNS/FCM
+              PushNotifications.register();
+            } else {
+              // Show some error
+            }
+          });
+  
+          PushNotifications.addListener(
+            'pushNotificationReceived',
+            (notification: PushNotificationSchema) => {
+              //alert('Push received: ' + JSON.stringify(notification));
+            },
+          );
+      
+          PushNotifications.addListener(
+            'pushNotificationActionPerformed',
+            (notification: ActionPerformed) => {
+              let datanoti:any = notification;
+             
+                if(datanoti && datanoti.notification && datanoti.notification.data) {
+                  let _data:any = datanoti.notification.data;
+                     // we know the user launched the app by clicking on the notification
+                     this.showNotification(_data);
+                }
+  
+            },
+          );
+        }
+        
         
       } catch (error) {
         
@@ -248,24 +249,15 @@ export class AppComponent implements OnInit{
       App.getInfo().then((info)=>{
         this.appversion = info.version;
       })
-      //Start log with UXCam 
-      //UXCam.startWithKey(C.UXCam_Key);
-      this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-        //this.presentAlert(); //some alert msg that netwk has gone 
+  
+      this.connectSubscription = await Network.getStatus();
+      if(this.connectSubscription.connected){
+        this.gf.setNetworkStatus(this.connectSubscription);
+      }else{
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng','Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng','Đóng');
-      });
-  
-      this.connectSubscription = this.network.onConnect().subscribe(() => {
-        if (this.network.type) {
-          this.gf.setNetworkStatus(true);
-        }
-        // setTimeout(() => {
-        //   if (this.network.type) {
-        //     this.gf.setNetworkStatus(true);
-        //   }
-        // }, 3000);
-      });
+      }
+      
       //Dynamiclink
       // this.firebaseDynamicLinks.onDynamicLink().subscribe((res:any)=>{
       //   console.log(res);
@@ -295,7 +287,7 @@ export class AppComponent implements OnInit{
       // this.storage.remove('deviceToken');
       // this.storage.remove('listexeperienceregion');
       this.valueGlobal.countNotifi=0;
-
+      await FirebaseAnalytics.enable();
     });
     
   }
@@ -467,7 +459,6 @@ export class AppComponent implements OnInit{
 
   showCart(){
     this.gf.hideStatusBar();
-    this.foodService.fromPage = 'homefood';
     this.navCtrl.navigateForward('/foodbill');
   }
 

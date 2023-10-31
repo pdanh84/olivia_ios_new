@@ -1,4 +1,4 @@
-import { foodService } from './../../providers/foodService';
+
 import { Bookcombo, foodInfo } from './../../providers/book-service';
 import { Booking, RoomInfo, SearchHotel } from '../../providers/book-service';
 import { Component, NgZone, ViewChild, OnInit } from '@angular/core';

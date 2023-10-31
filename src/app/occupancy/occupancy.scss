@@ -169,7 +169,7 @@
         .action-sheets-select-age {
             .picker-wrapper.sc-ion-picker-ios{
                 height: 332px;
-                margin-bottom: calc(env(safe-area-inset-bottom) );
+                //margin-bottom: calc(env(safe-area-inset-bottom) );
                 position: absolute;
             }
             .picker-toolbar-button.sc-ion-picker-ios{

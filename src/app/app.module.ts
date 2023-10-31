@@ -35,7 +35,6 @@ import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { Keyboard } from '@awesome-cordova-plugins/keyboard/ngx';
 
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 
 import { LaunchReview } from '@awesome-cordova-plugins/launch-review/ngx';
@@ -87,7 +86,6 @@ import { SelectDateRangePageModule } from './selectdaterange/selectdaterange.mod
 import { SelectDateOfBirthPageModule } from './selectdateofbirth/selectdateofbirth.module';
 import { FlightdcpickaddressinputPageModule } from './flightdcpickaddressinput/flightdcpickaddressinput.module';
 
-import { foodService } from './providers/foodService';
 import { flightService } from './providers/flightService';
 import { MytripService } from './providers/mytrip-service.service';
 import { AppRoutingPreloaderService } from './providers/AppRoutingPreloaderService';
@@ -207,7 +205,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     //GooglePlus,
     Camera,
     Keyboard,
-    Network,
     NetworkProvider,
     LaunchReview,
     Badge,
@@ -230,7 +227,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     //Deeplinks,
     Calendar,
     Storage,
-    foodService,
     flightService,
     MytripService,
     Booking,

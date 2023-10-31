@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
 import { flightService } from '../providers/flightService';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { MytripService } from '../providers/mytrip-service.service';
-import { foodService } from '../providers/foodService';
+
 import { tourService } from '../providers/tourService';
 import { File, FileReader } from '@awesome-cordova-plugins/file/ngx';
 import { FileTransferObject, FileTransfer } from '@awesome-cordova-plugins/file-transfer/ngx';
@@ -176,7 +176,6 @@ export class OrderPage {
     public activityService: ActivityService,
     public _flightService: flightService, public clipboard: Clipboard,
     public _mytripservice: MytripService,
-    public _foodService: foodService,
     public _tourService: tourService,
     private transfer: FileTransfer,
     private photoLibrary: PhotoLibrary,
@@ -3475,7 +3474,6 @@ export class OrderPage {
     else if (this._mytripservice.rootPage == "homefood") {
       this._mytripservice.rootPage = "homefood";
       this.valueGlobal.backValue = "";
-      this._foodService.menuFooterClick.emit(1);
       this.navCtrl.navigateForward('/homefood');
     }
     else {
@@ -5790,9 +5788,6 @@ export class OrderPage {
       return;
     }
     this.gf.hideStatusBar();
-    this._foodService.itemOrder = order;
-    this._foodService.itemOrderDetail = orderdetail
-    //this._foodService.myorderActiveTab = this.activeTab;
     this.navCtrl.navigateForward("/foodmyorderdetail");
   }
 
@@ -5805,9 +5800,6 @@ export class OrderPage {
       this.valueGlobal.backValue = "homefood";
     }
     this._mytripservice.backfrompage = "order";
-    this._foodService.tabFoodIndex = tabindex;
-    this._foodService.menuFooterClick.emit(1);
-    this._foodService.itemActiveFoodTab.emit(tabindex);
     $(".div-myorder").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
     $(".div-notify").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
     $(".div-account").removeClass("cls-tab-visible").addClass("cls-tab-disabled");
@@ -5851,8 +5843,6 @@ export class OrderPage {
   showFoodReview(detail, order) {
     //Review tuần
     if (order.isOver || order.allowReview) {
-      this._foodService.itemOrderBookingDetail = detail;
-      this._foodService.itemOrderDetail = order;
       this.navCtrl.navigateForward('/foodreviewweek');
     }
   }

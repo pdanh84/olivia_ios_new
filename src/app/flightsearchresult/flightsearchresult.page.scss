@@ -652,14 +652,14 @@
 
     //style android
 
-    .cls-alert-refreshPrice .alert-button-group.sc-ion-alert-md{
+    .cls-alert-refreshPrice .alert-button-group.sc-ion-alert-ios{
         justify-content: flex-end;
         display: flex;
         -ms-flex-direction: row;
         flex-direction: row;
         width: 100%;
     }
-    .cls-alert-refreshPrice .alert-button.sc-ion-alert-md {
+    .cls-alert-refreshPrice .alert-button.sc-ion-alert-ios {
         padding-right: 0;
         width: 100%;
         text-transform: none;
@@ -689,7 +689,7 @@
         background-position: right;
         width: 92%;
     }
-    .action-sheets-flightsearchresult-sort .sc-ion-action-sheet-md.selected, .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-md.selected {
+    .action-sheets-flightsearchresult-sort .sc-ion-action-sheet-md.selected,ios .action-sheets-flightsearchresult-fitler .sc-ion-action-sheet-ios.selected {
       background-image: url('../../assets/imgs/ic_check.svg');
       background-repeat: no-repeat;
       background-position: right;
@@ -761,7 +761,7 @@
         overflow-y:hidden;
     }
 
-    .action-sheets-flight-promo .action-sheet-title.sc-ion-action-sheet-md{
+    .action-sheets-flight-promo .action-sheet-title.sc-ion-action-sheet-ios{
         font-size: 16px;
         font-weight: bold;
         color: #333333;
@@ -770,14 +770,14 @@
         padding-bottom: 16px;
     }
 
-    .action-sheets-flight-promo .action-sheet-button-inner.sc-ion-action-sheet-md{
+    .action-sheets-flight-promo .action-sheet-button-inner.sc-ion-action-sheet-ios{
         line-height: 1.4;
         letter-spacing: normal;
         color: #333333;
         font-size: 14px;
     }
 
-    .action-sheets-flight-promo .action-sheet-button.ion-activatable.sc-ion-action-sheet-md{
+    .action-sheets-flight-promo .action-sheet-button.ion-activatable.sc-ion-action-sheet-ios{
         padding-bottom: 16px;
         min-height: 120px;
     }

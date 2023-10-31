@@ -22,7 +22,7 @@
             line-height: 1.5;
             text-align: justify;
         }
-        .searchbar-input.sc-ion-searchbar-md {
+        .searchbar-input.sc-ion-searchbar-ios {
             padding: 0;
             box-shadow: none;
             padding-left: 8px !important;
@@ -73,14 +73,14 @@
         margin-top: 18px;
     }
     ::ng-deep{
-        .input-search-blog .searchbar-input.sc-ion-searchbar-md {
+        .input-search-blog .searchbar-input.sc-ion-searchbar-ios {
             -webkit-padding-start: 10px !important;
             padding-inline-start: 10px !important;
             -webkit-padding-end: 0;
             padding-inline-end: 0;
             background: #fff;
         }
-        .input-search-blog .searchbar-input.sc-ion-searchbar-md {
+        .input-search-blog .searchbar-input.sc-ion-searchbar-ios {
             padding: 0;
             box-shadow: none;
             padding-left: 8px !important;
@@ -92,7 +92,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .searchbar-clear-button.sc-ion-searchbar-md{
+        .searchbar-clear-button.sc-ion-searchbar-ios{
             display: none !important;
         }
     }

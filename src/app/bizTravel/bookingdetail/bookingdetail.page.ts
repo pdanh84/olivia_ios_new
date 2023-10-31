@@ -7,7 +7,6 @@ import { NetworkProvider } from '../../network-provider.service';
 import { SearchHotel, ValueGlobal } from '../../providers/book-service';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { flightService } from '../../providers/flightService';
-import { foodService } from '../../providers/foodService';
 import { C } from '../../providers/constants';
 import * as $ from 'jquery';
 import { BizTravelService } from 'src/app/providers/bizTravelService';
@@ -51,7 +50,6 @@ export class BookingDetailPage implements OnInit {
     private clipboard: Clipboard,
     private toastCtrl: ToastController,
     public _flightService: flightService,
-    public _foodService: foodService,
     private routerOutlet: IonRouterOutlet,
     private actionsheetCtrl: ActionSheetController,public alertCtrl: AlertController,public loadingCtrl: LoadingController,
     public bizTravelService: BizTravelService) {
@@ -235,9 +233,7 @@ export class BookingDetailPage implements OnInit {
             $(".homefoodheader").removeClass("cls-tab-disabled").addClass("cls-tab-visible");
             $(".div-wraper-slide").removeClass("cls-disabled").addClass("cls-visible");
             $(".div-home").removeClass("cls-tab-disabled").addClass("cls-tab-visible");
-              this._foodService.tabFoodIndex = 2;
-              this._foodService.menuFooterClick.emit(2);
-              this._foodService.itemActiveFoodTab.emit(2);
+              
         this.navCtrl.navigateBack('/homefood');
       }
       else{
@@ -254,9 +250,7 @@ export class BookingDetailPage implements OnInit {
             $(".homefoodheader").removeClass("cls-tab-disabled").addClass("cls-tab-visible");
             $(".div-wraper-slide").removeClass("cls-disabled").addClass("cls-visible");
             $(".div-home").removeClass("cls-tab-disabled").addClass("cls-tab-visible");
-              this._foodService.tabFoodIndex = 2;
-              this._foodService.menuFooterClick.emit(2);
-              this._foodService.itemActiveFoodTab.emit(2);
+             
         this.navCtrl.navigateBack('/homefood');
         }
         else{
@@ -282,7 +276,6 @@ export class BookingDetailPage implements OnInit {
     else if(this._mytripservice.rootPage == "homefood"){
       this._mytripservice.rootPage = "homefood";
       this.valueGlobal.backValue = "";
-      this._foodService.menuFooterClick.emit(2);
       this.navCtrl.navigateForward('/homefood');
     }
     else{

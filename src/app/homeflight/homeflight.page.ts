@@ -126,7 +126,7 @@ tabInbound: number=1;
           this.platform.resume.subscribe(async () => {
             this.checkNetworkStatus();
           })
-          this.networkProvider.getNetworkStatus().subscribe((connected: boolean) => {
+          this.networkProvider.getNetworkStatus().then((connected) => {
             this.isConnected = connected;
           })
 

@@ -558,7 +558,7 @@
 }
 
 ::ng-deep{
-    .searchbar-clear-icon.sc-ion-searchbar-md {
+    .searchbar-clear-icon.sc-ion-searchbar-ios {
         opacity: 0.7;
     }
     .cls-input-custom .native-input.sc-ion-input-ios{
@@ -571,15 +571,15 @@
         line-height: 28px;
         font-size: 18px;
     }
-    .text-bold .sc-ion-action-sheet-md{
+    .text-bold .sc-ion-action-sheet-ios{
         font-weight: 600 !important;
     }
 
-    .action-sheets-flightselectgender .action-sheet-title.sc-ion-action-sheet-md{
+    .action-sheets-flightselectgender .action-sheet-title.sc-ion-action-sheet-ios{
         font-weight: bold;
         color: #000;
     }
-    // .sc-ion-action-sheet-md-h.action-sheets-flightselectgender{
+    // .sc-ion-action-sheet-ios-h.action-sheets-flightselectgender{
     //     margin-bottom: env(safe-area-inset-bottom);
     // }
 
@@ -611,27 +611,27 @@
     }
 
 
-    .sc-ion-action-sheet-md-h.sc-ion-action-sheet-md-s.md.action-sheets-flightselectgender {
+    .sc-ion-action-sheet-ios-h.sc-ion-action-sheet-ios-s.ios.action-sheets-flightselectgender {
         position: absolute;
       }
 
-    .cls-input-country-custom  .searchbar-input.sc-ion-searchbar-md{
+    .cls-input-country-custom  .searchbar-input.sc-ion-searchbar-ios{
         padding: 0;
         padding-top: 20px;
         box-shadow: none;
         font-weight: 300 !important;
         font-size: 18px;
     }
-    .cls-error .cls-ion-datetime .native-input.sc-ion-input-md {
+    .cls-error .cls-ion-datetime .native-input.sc-ion-input-ios {
         padding-bottom: 4px;
     }
 
-    .native-input.sc-ion-input-md {
+    .native-input.sc-ion-input-ios {
         font-size: 18px;
         font-weight: 300 !important;
     }
 
-    .label-stacked.sc-ion-label-md-h {
+    .label-stacked.sc-ion-label-ios-h {
         transform: translateY(50%) scale(1) !important;
     }
 }
