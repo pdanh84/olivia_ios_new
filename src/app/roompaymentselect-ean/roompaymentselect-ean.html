@@ -142,7 +142,7 @@
       </label>
       <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
     </ion-item>
-    <ion-radio-group *ngIf="arrbankrmb.length>0&&ischeckvisa">
+    <ion-radio-group mode="md"  *ngIf="arrbankrmb.length>0&&ischeckvisa">
       <ion-item class="ion-item" *ngFor="let item of arrbankrmb">
         <ion-radio   [checked]="item.checked" (click)="chooseacc(item)"></ion-radio>
         <img class="imgcard ml8" src={{item.imgbank}}>

@@ -62,6 +62,9 @@ export class HotelreviewsimagePage  {
     if (this.countslide<this.arrimgreview.length-1) {
       this.countslide++;
       this.slider?.nativeElement.swiper.slideTo(this.countslide);
+      if(this.arrimgreview[this.countslide] && this.arrimgreview[this.countslide].CaptionImg){
+        this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
+      }
     }
 
   }
@@ -70,6 +73,9 @@ export class HotelreviewsimagePage  {
     if (this.countslide-1>=0) {
       this.countslide--;
       this.slider?.nativeElement.swiper.slideTo(this.countslide);
+      if(this.arrimgreview[this.countslide] && this.arrimgreview[this.countslide].CaptionImg){
+        this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
+      }
     }
 
   }
@@ -80,7 +86,7 @@ export class HotelreviewsimagePage  {
     //   this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
     // });
     this.countslide = this.slider?.nativeElement.swiper.activeIndex;
-    if(this.arrimgreview[this.countslide] && this.arrimgreview[this.countslide].CaptionImg){
+    if(this.arrimgreview[this.countslide]){
       this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
     }
   }
@@ -88,7 +94,7 @@ export class HotelreviewsimagePage  {
   ionSlideTransitionStart() {
     //this.slider?.nativeElement.getActiveIndex().then(index => {
       this.countslide = this.slider?.nativeElement.swiper.activeIndex;
-      if(this.arrimgreview[this.countslide] && this.arrimgreview[this.countslide].CaptionImg){
+      if(this.arrimgreview[this.countslide]){
         this.captionImg = this.arrimgreview[this.countslide].CaptionImg;
       }
       

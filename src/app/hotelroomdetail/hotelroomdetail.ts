@@ -25,7 +25,7 @@ export class HotelRoomDetailPage implements OnInit {
   notAllowBook: boolean = false;
   slideData:any=[];
   nameRoom: any;
-  countslide=1
+  countslide=0
   RoomDescription: any;
   ischeck: boolean = false;
   constructor(public platform: Platform, public modalCtrl: ModalController, public navCtrl: NavController,
@@ -149,16 +149,16 @@ export class HotelRoomDetailPage implements OnInit {
   nextslide()
   {
     if (this.countslide<this.slideData.length) {
-      this.countslide= this.countslide+1;
-      this.slider?.nativeElement.slideTo(this.countslide-1);
+      this.countslide = this.slider?.nativeElement.swiper.activeIndex + 1
+      this.slider?.nativeElement.swiper.slideTo(this.countslide);
     }
 
   }
   backslide()
   {
-    if (this.countslide-1>0) {
-      this.countslide= this.countslide-1;
-      this.slider?.nativeElement.slideTo(this.countslide-1);
+    if (this.countslide>0) {
+      this.countslide = this.slider?.nativeElement.swiper.activeIndex -1
+      this.slider?.nativeElement.swiper.slideTo(this.countslide);
     }
 
   }
@@ -167,6 +167,6 @@ export class HotelRoomDetailPage implements OnInit {
     // this.slider?.nativeElement.getActiveIndex().then(index => {
     //   this.countslide = index + 1;
     // });
-    this.countslide = this.slider?.nativeElement.swiper.activeIndex + 1;
+    // this.countslide = this.slider?.nativeElement.swiper.activeIndex + 1;
   }
 }
