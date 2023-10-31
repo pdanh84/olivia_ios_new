@@ -115,12 +115,12 @@ export class RoomdetailreviewPage implements OnInit {
     }
   }
 
-  ngOnInit() {
+   ngOnInit() {
     this._voucherService.getHotelObservable().subscribe((itemVoucher)=> {
       if(itemVoucher){
         if(this.promocode && this.promocode != itemVoucher.code && !this.itemVoucherHotel){
           this._voucherService.rollbackSelectedVoucher.emit(itemVoucher);
-          this.gf.showAlertMessageOnly("Chỉ hỗ trợ áp dụng nhiều voucher tiền mặt trên một đơn hàng, Coupon và Voucher khuyến mãi chỉ áp dụng một mã");
+          this.gf.showAlertMessageOnly(`Chỉ hỗ trợ áp dụng nhiều voucher tiền mặt trên một đơn hàng, Coupon và Voucher khuyến mãi chỉ áp dụng một`);
           return;
         }
         if(itemVoucher.claimed){
@@ -128,20 +128,18 @@ export class RoomdetailreviewPage implements OnInit {
           this.itemVoucherHotel = itemVoucher;
           this.promocode = itemVoucher.code;
           this.discountpromo = itemVoucher.rewardsItem.price;
-          
           this.ischeckbtnpromo = true;
           this.ischeckpromo = true;
+
           this.buildStringPromoCode();
         }else{
           this._voucherService.selectVoucher = null;
           this.itemVoucherHotel = null;
           this.promocode = "";
           this.discountpromo = 0;
-          //this.ischeckbtnpromo = false;
-          this.ischeckpromo = false;
-          this.Roomif.promocode = "";
-          this.Roomif.priceshow = "";
+
           this.buildStringPromoCode();
+
           if(this._voucherService.voucherSelected && this._voucherService.voucherSelected.length ==0 && this._voucherService.listPromoCode && this._voucherService.listPromoCode.length ==0){
             this.strPromoCode = '';
             this.totaldiscountpromo = 0;
@@ -161,6 +159,8 @@ export class RoomdetailreviewPage implements OnInit {
           this.discountpromo = 0;
           this.ischeckbtnpromo = false;
           this.ischeckpromo = false;
+          this.Roomif.promocode = "";
+          this.Roomif.priceshow = "";
 
           this.strPromoCode = '';
           this.totaldiscountpromo = 0;
@@ -170,8 +170,14 @@ export class RoomdetailreviewPage implements OnInit {
           this._voucherService.totalDiscountPromoCode = 0;
           this._voucherService.hotelPromoCode = "";
           this._voucherService.hotelTotalDiscount = 0;
-          this._voucherService.vouchers=[];
+
         this.edit();
+      }
+    })
+
+    this._voucherService.getVoucherHotelUsedObservable().subscribe((check)=>{
+      if(check){
+
       }
     })
   }
