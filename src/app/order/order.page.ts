@@ -67,7 +67,6 @@ export class OrderPage {
   public activeTabTrip = 1;
   public tabtrip: string = "nexttrip";
   public isShowConfirm = false;
-  private tabBarHeight;
   private topOrBottom: string;
   private contentBox;
   public currentPosition = 0;
