@@ -7,18 +7,11 @@ import { C } from './../providers/constants';
 import { GlobalFunction } from './../providers/globalfunction';
 import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { NetworkProvider } from '../network-provider.service';
 import { File, FileReader } from '@awesome-cordova-plugins/file/ngx';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FCM } from '@capacitor-community/fcm';
-import {
-  ActionPerformed,
-  DeliveredNotifications,
-  PushNotificationSchema,
-  PushNotifications,
-  Token,
-} from '@capacitor/push-notifications';
 import { BizTravelService } from '../providers/bizTravelService';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
@@ -54,7 +47,7 @@ export class Tab5Page implements OnInit {
   version: any;
   constructor(public platform: Platform, public navCtrl: NavController, public storage: Storage, public modalCtrl: ModalController,
     public valueGlobal: ValueGlobal, public zone: NgZone, public alertCtrl: AlertController, public gf: GlobalFunction, private router: Router,
-    public network: Network,
+    
     public networkProvider: NetworkProvider,
     public actionsheetCtrl: ActionSheetController,
     private camera: Camera,
@@ -82,7 +75,7 @@ export class Tab5Page implements OnInit {
     //Kiểm tra mạng trước khi loaddata
     if (this.networkProvider.isOnline()) {
       this.isConnected = true;
-      this.networkProvider.setNetworkStatus(true);
+      //
       this.gf.setNetworkStatus(true);
       setTimeout(() => {
         //Lấy danh sách nhân viên hỗ trợ
@@ -90,7 +83,7 @@ export class Tab5Page implements OnInit {
       }, 300)
     } else {
       this.isConnected = false;
-      this.networkProvider.setNetworkStatus(false);
+      //
       this.gf.setNetworkStatus(false);
       this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
     }
@@ -237,7 +230,7 @@ export class Tab5Page implements OnInit {
       se.point = 0;
       if (this.networkProvider.isOnline()) {
         this.isConnected = true;
-        this.networkProvider.setNetworkStatus(true);
+        
         this.gf.setNetworkStatus(true);
         setTimeout(() => {
           //Lấy danh sách nhân viên hỗ trợ
@@ -246,7 +239,7 @@ export class Tab5Page implements OnInit {
         }, 300)
       } else {
         this.isConnected = false;
-        this.networkProvider.setNetworkStatus(false);
+        
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
       }

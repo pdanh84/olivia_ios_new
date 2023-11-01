@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { SearchHotel, ValueGlobal } from '../providers/book-service';
 import { C } from './../providers/constants';
 import { GlobalFunction } from './../providers/globalfunction';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { NetworkProvider } from './../network-provider.service';
 import { Storage } from '@ionic/storage';
 import { Keyboard } from '@awesome-cordova-plugins/keyboard/ngx';

@@ -248,11 +248,11 @@ tabInbound: number=1;
         checkNetworkStatus(){
           if (this.networkProvider.isOnline()) {
             this.isConnected = true;
-            this.networkProvider.setNetworkStatus(true);
+            
             this.gf.setNetworkStatus(true);
           } else {
             this.isConnected = false;
-            this.networkProvider.setNetworkStatus(false);
+            
             this.gf.setNetworkStatus(false);
             this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
           }

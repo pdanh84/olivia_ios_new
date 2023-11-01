@@ -37,11 +37,11 @@ export class HomeTicketSlidePage implements OnInit {
       this.loadData();      
       this.platform.resume.subscribe(async()=>{
         if (this.networkProvider.isOnline()) {
-          this.networkProvider.setNetworkStatus(true);
+          
           this.gf.setNetworkStatus(true);
           this.loadData();
         } else {
-          this.networkProvider.setNetworkStatus(false);
+          
           this.gf.setNetworkStatus(false);
           this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
         }

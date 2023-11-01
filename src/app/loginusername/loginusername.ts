@@ -179,9 +179,9 @@ export class LoginusernamePage implements OnInit {
               se.searchhotel.rootPage ='login';
               se.countdownRefreshToken();
               //ẩn menu footer food
-              if(window.document.getElementsByClassName("homefood-footer").length >0){
-                window.document.getElementsByClassName("homefood-footer")[0]['style'].display ='none';
-              }
+              // if(window.document.getElementsByClassName("homefood-footer").length >0){
+              //   window.document.getElementsByClassName("homefood-footer")[0]['style'].display ='none';
+              // }
             
               if(se.valueGlobal.backValue == "flightaccount"){
                 se._flightService.itemMenuFlightClick.emit(4);

@@ -22,7 +22,7 @@ import { NavController, NavParams, ModalController,ToastController,LoadingContro
 //import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { AuthService } from './providers/auth-service';
-import { SearchHotel, ValueGlobal, Bookcombo, RoomInfo, DeviceLocation, foodInfo, Booking } from './providers/book-service';
+import { SearchHotel, ValueGlobal, Bookcombo, RoomInfo, DeviceLocation, Booking } from './providers/book-service';
 import { ComboPrice} from './providers/comboPrice';
 import { C } from './providers/constants';
 import { GlobalFunction, ActivityService } from './providers/globalfunction';
@@ -222,7 +222,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     DeviceLocation,
     CodePush,
     Clipboard,
-    foodInfo,
     //WebView,
     //Deeplinks,
     Calendar,

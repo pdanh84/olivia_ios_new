@@ -160,11 +160,11 @@ var document:any;
           const _network = await Network.getStatus();
           if (_network.connected) {
             this.isConnected = true;
-            this.networkProvider.setNetworkStatus(true);
+            //
             this.gf.setNetworkStatus(true);
           } else {
             this.isConnected = false;
-            this.networkProvider.setNetworkStatus(false);
+            //
             this.gf.setNetworkStatus(false);
             this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
             this.storage.get('listmytrips').then(data => {
@@ -203,7 +203,7 @@ var document:any;
           }
         })
 
-        se._mytripservice.itemLoginUser.pipe().subscribe((checkuser)=>{
+        se._mytripservice.getLoadDataWhenLoginUserSubject().subscribe((checkuser)=>{
           if(checkuser){
             se.storage.get('auth_token').then(auth_token => {
               se.zone.run(()=>{
@@ -328,7 +328,7 @@ var document:any;
           this.nexttripcounttext = "";
           //Kiểm tra mạng on/off để hiển thị
           if (this.networkProvider.isOnline()) {
-            this.networkProvider.setNetworkStatus(true);
+            
             this.gf.setNetworkStatus(true);
             this.isConnected = true;
             //Có cache thì ưu tiên load cache
@@ -2091,7 +2091,6 @@ var document:any;
         else if(this._mytripservice.rootPage == "homefood"){
           this._mytripservice.rootPage = "homefood";
           this.valueGlobal.backValue = "";
-          //this._foodService.menuFooterClick.emit(1);
           this.navCtrl.navigateForward('/homefood');
         }
         else{

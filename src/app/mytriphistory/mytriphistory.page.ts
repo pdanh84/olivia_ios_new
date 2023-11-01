@@ -55,7 +55,7 @@ export class MytripHistoryPage implements OnInit {
     });
 
     this.platform.resume.subscribe(async () => {
-      this.loadMytripHistory();
+      //this.loadMytripHistory();
     })
   }
 
@@ -67,13 +67,13 @@ export class MytripHistoryPage implements OnInit {
         se.hasloaddata = true;
         se.totalHistoryTrip = se._mytripservice.totalHistoryTrip;
         se.listHistoryTrips = se._mytripservice.listHistoryTrips ? se._mytripservice.listHistoryTrips : [];
-        se.listFoodOrders = se._mytripservice.mylistOrders ? se._mytripservice.mylistOrders : [];
+        //se.listFoodOrders = se._mytripservice.mylistOrders ? se._mytripservice.mylistOrders : [];
         se.historytripcount = se.listHistoryTrips ? se.listHistoryTrips.length : 0;
       }else{
         se.hasloaddata = false;
         se.totalHistoryTrip = 0;
         se.listHistoryTrips = [];
-        se.listFoodOrders = [];
+        //se.listFoodOrders = [];
         se.historytripcount = 0;
       }
     })

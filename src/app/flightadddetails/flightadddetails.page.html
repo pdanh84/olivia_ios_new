@@ -310,7 +310,7 @@
                                 <div class="text-airline">{{departFlight.airline}}</div>
                             </div>
                             <div class="div-input-airlinemember m-top-4">
-                                <ion-input class="cls-input-membercode" type="text" [(ngModel)]="itemAdult.departAirlineMemberCode" placeholder="Nhập số hành khách thân thiết"></ion-input>
+                                <ion-input class="cls-input-membercode" id="ipmembercodedepart" type="text" [(ngModel)]="itemAdult.departAirlineMemberCode" placeholder="Nhập số hành khách thân thiết" (ionFocus)="ipairlinememberOnFocus('ipmembercodedepart')"></ion-input>
                             </div>
                         </div>
                         <div *ngIf="returnFlight && departFlight.airlineCode != returnFlight.airlineCode " class=" m-top-8">
@@ -326,7 +326,7 @@
                                 <div class="text-airline">{{returnFlight.airline}}</div>
                             </div>
                             <div class="div-input-airlinemember m-top-4">
-                                <ion-input class="cls-input-membercode" type="text" [(ngModel)]="itemAdult.returnAirlineMemberCode" placeholder="Nhập số hành khách thân thiết"></ion-input>
+                                <ion-input class="cls-input-membercode" id="ipmembercodedreturn" type="text" [(ngModel)]="itemAdult.returnAirlineMemberCode" placeholder="Nhập số hành khách thân thiết" (ionFocus)="ipairlinememberOnFocus('ipmembercodedreturn')"></ion-input>
                             </div>
                         </div>
                     </div>

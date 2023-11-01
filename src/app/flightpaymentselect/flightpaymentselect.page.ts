@@ -191,14 +191,14 @@ export class FlightPaymentSelectPage implements OnInit {
   gobackpage(){
     this._flightService.itemFlightCache.backtochoiceseat = false;
     this.gf.hideLoading();
-    this.navCtrl.navigateBack('flightadddetails');
+    this.navCtrl.navigateBack('flightaddservice');
   }
   gotoaddservicepage(){
     //this.showAlertChoiceSeat();
     this._flightService.itemFlightCache.backtochoiceseat =  true;
     this._flightService.itemResetCheckSeat.emit(1);
     this.gf.hideLoading();
-    this.navCtrl.navigateBack('flightadddetails');
+    this.navCtrl.navigateBack('flightaddservice');
   }
 
   goback()

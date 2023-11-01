@@ -83,24 +83,26 @@ import { App } from '@capacitor/app';
           }
           
           public googleAnalytion(viewName,action,options ){
-              if(C.ENV == "prod"){
-                  this.platform.ready().then(() => {
-                    if(action != "screen_view"){
-                      FirebaseAnalytics.logEvent({name: action, params: { 'hitType': 'event', 'eventCategory': viewName , 'eventLabel': options}})
-                      .then((res: any) => {console.log(res);})
-                      .catch((error: any) => console.error(error));
-                    }else{
-                      //this.fba.logEvent(action, { 'hitType': 'event', 'firebase_screen_class': viewName , 'firebase_screen_name': viewName})
-                      //.then((res: any) => {console.log(res);})
-                      //.catch((error: any) => console.error(error));
-                      //this.fba.setCurrentScreen(viewName);
-                      FirebaseAnalytics.setScreenName({
-                        screenName: viewName, 
-                        nameOverride: viewName})
-                    }
-                    
-              })
-           }
+            if(this.platform.is('android') || this.platform.is('iphone')){
+                if(C.ENV == "prod"){
+                    this.platform.ready().then(() => {
+                      if(action != "screen_view"){
+                        FirebaseAnalytics.logEvent({name: action, params: { 'hitType': 'event', 'eventCategory': viewName , 'eventLabel': options}})
+                        .then((res: any) => {console.log(res);})
+                        .catch((error: any) => console.error(error));
+                      }else{
+                        //this.fba.logEvent(action, { 'hitType': 'event', 'firebase_screen_class': viewName , 'firebase_screen_name': viewName})
+                        //.then((res: any) => {console.log(res);})
+                        //.catch((error: any) => console.error(error));
+                        //this.fba.setCurrentScreen(viewName);
+                        FirebaseAnalytics.setScreenName({
+                          screenName: viewName, 
+                          nameOverride: viewName})
+                      }
+                      
+                })
+            }
+            }
           }
           
           public googleAnalytionCustom(action,params, type? ){

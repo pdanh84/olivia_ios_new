@@ -7,14 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { OrderPage } from './order.page';
 
-import { MytripHistoryPageModule } from '../mytriphistory/mytriphistory.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MytripHistoryPageModule,
   ],
   declarations: [OrderPage],
   exports: [OrderPage],

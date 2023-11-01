@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { Tab3Page } from './tab3.page';
 import { BookingPageModule } from '../bizTravel/booking/booking.module';
+import { OrderPageModule } from '../order/order.module';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    BookingPageModule
+    BookingPageModule,
+    OrderPageModule
   ],
   declarations: [Tab3Page],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

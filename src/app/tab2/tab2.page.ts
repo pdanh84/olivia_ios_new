@@ -5,7 +5,7 @@ import { NavController, Platform, LoadingController, ModalController } from '@io
 import { SearchHotel, ValueGlobal } from './../providers/book-service';
 import { C } from './../providers/constants';
 import { GlobalFunction } from './../providers/globalfunction';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { NetworkProvider } from './../network-provider.service';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import * as moment from 'moment';
@@ -49,7 +49,7 @@ export class Tab2Page implements OnInit {
   istextplace: boolean = false;
   slideData: any;
   constructor(public platform: Platform, public navCtrl: NavController, public storage: Storage, public zone: NgZone, public searchhotel: SearchHotel, public gf: GlobalFunction, public valueGlobal: ValueGlobal,
-    public network: Network, public loadingCtrl: LoadingController, private socialSharing: SocialSharing,
+     public loadingCtrl: LoadingController, private socialSharing: SocialSharing,
     public networkProvider: NetworkProvider, public router: Router, public modalCtrl: ModalController, public tourService: tourService) {
     this.platform.resume.subscribe(async () => {
       this.ionViewWillEnter();
@@ -96,7 +96,7 @@ export class Tab2Page implements OnInit {
     //this.intervalID =  setInterval(()=>{
     if (this.networkProvider.isOnline()) {
       this.isConnected = true;
-      this.networkProvider.setNetworkStatus(true);
+      
       this.gf.setNetworkStatus(true);
       setTimeout(() => {
         this.getlisthotellike();
@@ -107,7 +107,7 @@ export class Tab2Page implements OnInit {
       //this.getPlace();
     } else {
       this.isConnected = false;
-      this.networkProvider.setNetworkStatus(false);
+      
       this.gf.setNetworkStatus(false);
       this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
     }

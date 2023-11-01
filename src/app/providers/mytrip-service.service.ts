@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,13 @@ export class MytripService {
   }
   getLoadDataMytripHistorySubject(): Subject<any> {
     return this.loadDataMytripHistorySubject;
+  }
+
+  private loadDataWhenLoginUser = new BehaviorSubject<any>([]);
+  publicLoadDataWhenLoginUserSubject(data: any) {
+    this.loadDataWhenLoginUser.next(data);
+  }
+  getLoadDataWhenLoginUserSubject(): BehaviorSubject<any> {
+    return this.loadDataWhenLoginUser;
   }
 }

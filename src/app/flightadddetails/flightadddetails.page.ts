@@ -3148,4 +3148,10 @@ alert.present();
         this.sodienthoai = clipboardtext;
       }
     }
+
+    ipairlinememberOnFocus(id){
+      setTimeout(()=>{
+      (window.document.getElementById(id) as any).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      },100)
+    }
 }

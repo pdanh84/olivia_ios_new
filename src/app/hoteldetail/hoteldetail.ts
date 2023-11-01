@@ -20,7 +20,7 @@ import { OverlayEventDetail } from '@ionic/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { OccupancyPage } from 'src/app/occupancy/occupancy';
 import * as $ from 'jquery';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { NetworkProvider } from '../network-provider.service';
 import { Subscription } from 'rxjs';
 import { SelectDateRangePage } from '../selectdaterange/selectdaterange.page';
@@ -37,6 +37,7 @@ declare var infowindow;
 import { hotelDetailService } from '../providers/hotelDetailService';
 import { shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-hoteldetail',
@@ -218,7 +219,7 @@ export class HotelDetailPage implements OnInit {
     private http: HttpClientModule, public loadingCtrl: LoadingController, public Roomif: RoomInfo,
     public booking: Booking, public storage: Storage, public authService: AuthService, public platform: Platform, public bookCombo: Bookcombo, public value: ValueGlobal, public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, private socialSharing: SocialSharing,
     public gf: GlobalFunction, private sanitizer: DomSanitizer, public router: Router, public actionsheetCtrl: ActionSheetController,
-    public network: Network,
+    
     public networkProvider: NetworkProvider,
     private activeRoute: ActivatedRoute,
     public activityService: ActivityService,
@@ -228,7 +229,7 @@ export class HotelDetailPage implements OnInit {
     private youtube: YoutubeVideoPlayer,
     public _hotelDetailService: hotelDetailService) {
     this.platform.resume.subscribe(async () => {
-      this.network.onConnect().subscribe(() => {
+      Network.getStatus().then(() => {
       this.subscription = this.router.events.subscribe((event) => {
           if (event instanceof NavigationEnd && (event.url.indexOf('/hoteldetail/') != -1) ) {
             let key = 'hoteldetail_' + this.HotelID;

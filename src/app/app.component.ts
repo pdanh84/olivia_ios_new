@@ -189,46 +189,6 @@ export class AppComponent implements OnInit{
       } catch (error) {
         
       }
-
-      //this.statusBar.show();
-      //this.statusBar.setStyle(Style.Light);
-
-      // this.deeplinks.routeWithNavController(this.navCtrl, {
-      //   '/': '/'
-      // }).subscribe(match => {
-      //     let objlink = match.$link;
-      //     if(objlink.path == "/homeflight"){
-      //       this._flightService.itemFlightCache.ischeckpayment= 1;
-      //     }
-      //     else if(objlink.path.indexOf("hoteldetail") != -1){
-      //       let arrurl = objlink.path.split('/');
-      //       let id = arrurl[arrurl.length-1];
-      //       this.valueGlobal.notRefreshDetail = false;
-      //       this.navCtrl.navigateForward('/hoteldetail/'+id);
-      //     }
-      //     else if(objlink.path.indexOf("flightpage") != -1 || objlink.path.indexOf("home-flight") != -1){
-      //       this._flightService.itemTabFlightActive.emit(true);
-      //       this.valueGlobal.backValue = "homeflight";
-      //       this.navCtrl.navigateForward('/app/tabs/tab1');
-      //     }
-      //     else if(objlink.path.indexOf("tour") != -1){
-      //       this.navCtrl.navigateForward('/hometour');
-      //     }
-      //     else if(objlink.path.indexOf("home-food") != -1 || objlink.path.indexOf("homefood") != -1){
-      //       this._mytripservice.rootPage = "homefood";
-      //       this.navCtrl.navigateForward('/homefood');
-      //     }
-      //     else if(objlink.path.indexOf("foodpaymentdone") != -1){
-      //       this.navCtrl.navigateForward(objlink.path);
-      //     }
-      //     else{
-      //       this.navCtrl.navigateForward('/app/tabs/tab1');
-      //     }
-          
-      //     console.log('Successfully matched route', JSON.stringify(match));
-      //   }, nomatch => {
-      //     console.error('Got a deeplink that didn\'t match', nomatch);
-      // });
       
       //phone
       this.storage.get('phone').then(data =>{
@@ -459,7 +419,7 @@ export class AppComponent implements OnInit{
 
   showCart(){
     this.gf.hideStatusBar();
-    this.navCtrl.navigateForward('/foodbill');
+    //this.navCtrl.navigateForward('/foodbill');
   }
 
   async presentToastWarning(msg) {

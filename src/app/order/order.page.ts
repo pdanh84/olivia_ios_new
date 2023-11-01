@@ -11,7 +11,7 @@ import { GlobalFunction, ActivityService } from './../providers/globalfunction';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { NetworkProvider } from '../network-provider.service';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { UserReviewsPage } from '../userreviews/userreviews';
 import { OverlayEventDetail } from '@ionic/core';
 import { UserFeedBackPage } from '../userfeedback/userfeedback';
@@ -168,7 +168,7 @@ export class OrderPage {
   constructor(public platform: Platform, public navCtrl: NavController, public searchhotel: SearchHotel, public popoverController: PopoverController,
     public storage: Storage, public zone: NgZone, public modalCtrl: ModalController, public iab: InAppBrowser,
     public alertCtrl: AlertController, public valueGlobal: ValueGlobal, public gf: GlobalFunction, public loadingCtrl: LoadingController,
-    public network: Network,
+    
     public networkProvider: NetworkProvider,
     private router: Router,
     private actionsheetCtrl: ActionSheetController,
@@ -180,7 +180,6 @@ export class OrderPage {
     private transfer: FileTransfer,
     private photoLibrary: PhotoLibrary,
     private file: File, private socialSharing: SocialSharing) {
-
     //this.getdata();
     storage.get('auth_token').then(auth_token => {
       zone.run(() => {
@@ -193,8 +192,7 @@ export class OrderPage {
         this.memberid = uid;
       }
     })
-    //google analytic
-    gf.googleAnalytion('mytrips', 'Search', '');
+    
 
     //this.storage.remove("listAirport");
     this.storage.get("listAirport").then((data) => {
@@ -211,17 +209,19 @@ export class OrderPage {
       this.ionViewWillEnter();
       if (this.networkProvider.isOnline()) {
         this.isConnected = true;
-        this.networkProvider.setNetworkStatus(true);
+        
         this.gf.setNetworkStatus(true);
       } else {
         this.isConnected = false;
-        this.networkProvider.setNetworkStatus(false);
+        
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
         
       }
     })
 
+    //google analytic
+    gf.googleAnalytion('mytrips', 'Search', '');
   }
   fileTransfer: FileTransferObject = this.transfer.create();
   public async ngOnInit() {
@@ -239,7 +239,7 @@ export class OrderPage {
       se.enableheader = true;
     })
 
-    se._mytripservice.itemLoginUser.subscribe((checkuser) => {
+    se._mytripservice.getLoadDataWhenLoginUserSubject().subscribe((checkuser) => {
       if (checkuser) {
         se.storage.get('auth_token').then(auth_token => {
           se.zone.run(() => {
@@ -383,7 +383,7 @@ export class OrderPage {
       this.nexttripcounttext = "";
       //Kiểm tra mạng on/off để hiển thị
       if (this.networkProvider.isOnline()) {
-        this.networkProvider.setNetworkStatus(true);
+        
         this.gf.setNetworkStatus(true);
         this.isConnected = true;
 
@@ -839,7 +839,6 @@ export class OrderPage {
                 // if (element.booking_id=='VC0003453') {
                 //   se.listMyTrips.push(element);
                 // }
-                debugger
                 se.listMyTrips.push(element);
                 se.mytripcount++;
                 if (element.insuranceInfo && element.insuranceInfo.adultList.length > 0) {

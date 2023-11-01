@@ -179,7 +179,6 @@ export class Tab1Page implements OnInit {
           se.networkProvider.getNetworkStatus().then((connected: boolean) => {
             se.isConnected = connected;
             if (se.isConnected) {
-              se.networkProvider.setNetworkStatus(true);
               se.zone.run(()=>{
                 se.loaddata();
               })
@@ -296,7 +295,6 @@ export class Tab1Page implements OnInit {
     //console.log('already load tab1');
     se.zone.run(() => {
       se.isConnected = true;
-      //se.networkProvider.setNetworkStatus(true);
       se.gf.setNetworkStatus(true);
       se.gf.setReLoadValue(false);
       se.page = 1;
@@ -2949,16 +2947,18 @@ export class Tab1Page implements OnInit {
 
   ionViewWillEnter() {
     this.isConnected = this.networkProvider.isOnline();
+    if(this.platform.is('android') || this.platform.is('iphone')){
     FCM.getToken().then(token => {
-      this.storage.get('checktoken').then(checktoken => {
-        if (!checktoken) {
-          this.storage.set('checktoken',"1");
-          //PDANH 19/07/2019: Push memberid & devicetoken
-            this.gf.pushTokenAndMemberID("", token, this.appversion);
-          }
-      })
-   
-    });
+          this.storage.get('checktoken').then(checktoken => {
+            if (!checktoken) {
+              this.storage.set('checktoken',"1");
+              //PDANH 19/07/2019: Push memberid & devicetoken
+                this.gf.pushTokenAndMemberID("", token, this.appversion);
+              }
+          })
+      
+        });
+      }
     this.getShowNotice();
     this.valueGlobal.logingoback = '/app/tabs/tab1';
     if (this.valueGlobal.backValue == "homeflight") {
@@ -2989,7 +2989,7 @@ export class Tab1Page implements OnInit {
       this.setActiveTab(0);
     }
 
-    $(".homefood-header").removeClass("cls-visible").addClass("cls-disabled");
+   // $(".homefood-header").removeClass("cls-visible").addClass("cls-disabled");
     this.searchhotel.backPage = "";
     
   }
@@ -3530,29 +3530,6 @@ export class Tab1Page implements OnInit {
       //se.dataDist();
     })
   }
-  // dataDist() {
-  //   var se = this;
-  //   se.foodService.district = [];
-  //   for (let i = 0; i < se.arrCity.length; i++) {
-  //     var item;
-  //     var chuoi = "";
-  //     if (se.foodService.district.length > 0) {
-  //       var str = se.foodService.district[i - 1].namedist.length;
-  //       se.foodService.district[i - 1].namedist = se.foodService.district[i - 1].namedist.slice(0, str - 2);
-  //     }
-  //     for (let j = 0; j < se.arrDistrict.length; j++) {
-  //       if (se.arrCity[i].id == se.arrDistrict[j].parentId) {
-  //         if (j == se.arrDistrict.length - 1) {
-  //           chuoi = chuoi + se.arrDistrict[j].name;
-  //         } else {
-  //           chuoi = chuoi + se.arrDistrict[j].name + ', ';
-  //         }
-  //       }
-  //     }
-  //     item = { namecity: se.arrCity[i].name, namedist: chuoi };
-  //     se.foodService.district.push(item);
-  //   }
-  // }
 
   async showDR() {
 

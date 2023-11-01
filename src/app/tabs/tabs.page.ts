@@ -10,7 +10,6 @@ import { C } from './../providers/constants';
 import { ActivityService, GlobalFunction } from './../providers/globalfunction';
 import * as $ from 'jquery';
 import { Badge } from '@capawesome/capacitor-badge';
-import {FCM} from '@capacitor-community/fcm';
 import { Storage } from '@ionic/storage';
 import { NetworkProvider } from '../network-provider.service';
 import { flightService } from '../providers/flightService';
@@ -493,9 +492,6 @@ export class TabsPage implements OnInit {
       if (window.document.getElementsByClassName("homefood-footer").length > 0) {
         window.document.getElementsByClassName("homefood-footer")[0]['style'].display = 'block';
       }
-      // this.zone.run(() => {
-      //   this.foodService.countcart = this.foodService.listItemsCart.length;
-      // })
     }
     //////////////
     var el = window.document.getElementsByClassName('tab-button');

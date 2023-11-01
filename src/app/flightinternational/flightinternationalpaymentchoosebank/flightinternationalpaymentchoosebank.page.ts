@@ -1,5 +1,5 @@
 
-import { Bookcombo, foodInfo } from './../../providers/book-service';
+import { Bookcombo } from './../../providers/book-service';
 import { Booking, RoomInfo, SearchHotel } from '../../providers/book-service';
 import { Component, NgZone, ViewChild, OnInit } from '@angular/core';
 import { NavController, LoadingController, ToastController, AlertController, Platform } from '@ionic/angular';

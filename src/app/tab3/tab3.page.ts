@@ -12,7 +12,7 @@ import { GlobalFunction, ActivityService } from './../providers/globalfunction';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { NetworkProvider } from '../network-provider.service';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { UserReviewsPage } from '../userreviews/userreviews';
 import { OverlayEventDetail } from '@ionic/core';
 import { UserFeedBackPage } from '../userfeedback/userfeedback';
@@ -116,7 +116,7 @@ export class Tab3Page implements OnInit {
   constructor(public platform: Platform, public navCtrl: NavController, public searchhotel: SearchHotel, public popoverController: PopoverController,
     public storage: Storage, public zone: NgZone, public modalCtrl: ModalController, public iab: InAppBrowser,
     public alertCtrl: AlertController, public valueGlobal: ValueGlobal, public gf: GlobalFunction, public loadingCtrl: LoadingController,
-    public network: Network,
+    
     public networkProvider: NetworkProvider,
     private router: Router,
     private actionsheetCtrl: ActionSheetController,
@@ -142,7 +142,7 @@ export class Tab3Page implements OnInit {
 
   async ionViewWillEnter() {
     this.loadUserInfo();
-    this._mytripService.itemLoginUser.emit(1);
+
   }
 
   /**
@@ -164,13 +164,8 @@ export class Tab3Page implements OnInit {
                     authorization: text
                 }
             };
-            let urlStr = C.urls.baseUrl.urlMobile + '/api/Data/GetPlaceUserLike';
-            let headers = { 
-              'cache-control': 'no-cache',
-                'content-type': 'application/json',
-                authorization: text
-            };
-            this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'refreshToken').then((data)=>{
+           
+            this.gf.RequestApi('GET', options.url, options.headers, { }, 'tab3', 'loadUserInfo').then((data)=>{
                 if (data && data.statusCode != 401) {
                     se.storage.remove('userInfoData');
                     se.storage.set('userInfoData', data);
@@ -182,7 +177,8 @@ export class Tab3Page implements OnInit {
                       se.bizTravelService.bizAccount = null;
                       se.isBizAccount = false;
                     }
-                    
+                    //this._mytripService.itemLoginUser.emit(1);
+                    this._mytripService.publicLoadDataWhenLoginUserSubject(1);
                 }
                 else if (data && data.statusCode == 401) {
                   se.storage.get('jti').then((memberid) => {

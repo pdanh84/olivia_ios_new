@@ -943,98 +943,6 @@ ion-header ion-toolbar:first-child {
   color: #26bed6;
   font-weight: bold;
 }
-//   .homefood-footer {
-//     position: fixed;
-//     bottom: 0;
-//     z-index: 999;
-//     background: #fff;
-//     width: 100%;
-// }
-
-//css foodheader
-.homefood-header{
-  height: 48px;
-  position: fixed;
-  
-  .img-goback{
-      height: 48px; 
-      padding: 8px;
-  }
-  .text-title
-  {
-      font-weight: 600;
-      font-size: 20px;
-      padding: 0;
-      //margin-left: 48px;
-      text-align: center  ;
-  }
-  .btn-header{
-      width: 48px;color: #4f4f4f;background-color: #fff;-webkit-box-shadow: none;box-shadow: none;
-      height: 40px;
-    }
-    .img-cart{
-      width: 20px;
-    }
-    .btn-header{
-        position: absolute;
-    }
-    .r-60{
-        right: 60px;
-    }
-    .r-4{
-        right: 4px;
-    }
- }
-// .cls-visible{
-//   visibility: visible;
-//   transition: visibility 2s, opacity 0.5s linear;
-//   opacity: 1;
- 
-// }
-// .cls-disabled{
-//   visibility: hidden;
-//   height: 0px;
-//   opacity: 0;
-//   transition: visibility 2s, opacity 0.5s linear;
-//   z-index: 0;
-// }
-// .cls-badge-cart-header{
-//   color: #fff;
-//   width: 16px;
-//   height: 16px;
-//   border-radius: 16px;
-//   z-index: 999;
-//   position: absolute;
-//   top: 0;
-//   right: 4px;
-//   padding: 1px;
-// }
-
-// .cls-badge-filter{
-//   width: 10px;
-//     height: 10px;
-//     border-radius: 10px;
-//     z-index: 999;
-//     position: absolute;
-//     top: 5px;
-//     right: 9px;
-//     padding: 0px;
-//     color: #26bed6;
-//     background: #26bed6;
-// }
-
-// .cls-recommend{
-//   img{
-//       position: absolute;
-//     }
-//     b{
-//       margin-left: 30px;
-//   }
-//   .m-r-30{
-//     margin-right: 30px;
-//   }
-// } 
-
 
 .cls-visible{
   visibility: visible;
@@ -1392,8 +1300,8 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     left: 13px;
-    padding-top: -10px;
-    margin-top: -6px;
+    //padding-top: -10px;
+    //margin-top: -6px;
 
     // @media (min-width: 411px) and (max-width: 480px) {
     //     left: 11px !important;
@@ -1413,8 +1321,8 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     right: 0;
-    padding-top: -10px;
-    margin-top: -6px;
+    //padding-top: -10px;
+    //margin-top: -6px;
 
     // @media (min-width: 411px) and (max-width: 480px) {
     //   margin-top: -9px !important;
@@ -1441,8 +1349,8 @@ height: 12px !important;
     position: absolute !important;
     z-index: -1 !important;
     right: 0 !important;
-    padding-top: -10px !important;
-    margin-top: -4px !important;
+    //padding-top: -10px !important;
+    //margin-top: -4px !important;
     border-radius: 0px !important;
 
     // @media (min-width: 411px) and (max-width: 480px) {
@@ -1471,8 +1379,8 @@ height: 12px !important;
    position: absolute  !important;
    z-index: -1;
     left: 10px  !important;
-    padding-top: -10px  !important;
-    margin-top: -6px  !important;
+    //padding-top: -10px  !important;
+    //margin-top: -6px  !important;
 
     // @media (min-width: 411px) and (max-width: 480px) {
     //     left: 11px !important;
@@ -1490,8 +1398,8 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     left: 0 !important;
-    padding-top: -10px;
-    margin-top: -6px;
+    //padding-top: -10px;
+    //margin-top: -6px;
 
     // @media (min-width: 411px) and (max-width: 480px) {
     //   margin-top: -9px !important;
@@ -1509,8 +1417,8 @@ height: 12px !important;
    display: inline-block;
    position: absolute;
    z-index: -1;
-    padding-top: -10px;
-    margin-top: -6px;
+    //padding-top: -10px;
+    //margin-top: -6px;
     left: 0;
     
     // @media (min-width: 411px) and (max-width: 480px) {
@@ -1532,8 +1440,8 @@ height: 12px !important;
    display: inline-block !important;
    position: absolute !important;
    z-index: -1 !important;
-    padding-top: -10px !important;
-    margin-top: -6px !important;
+    //padding-top: -10px !important;
+    //margin-top: -6px !important;
     left: 0 !important;
     border: none !important;
     border-radius: 0;
@@ -1557,8 +1465,8 @@ height: 12px !important;
   position: absolute;
   z-index: 1;
   left: 9px;
-  padding-top: -10px;
-  margin-top: -7px;
+  //padding-top: -10px;
+  //margin-top: -7px;
     
     // @media (min-width: 411px) and (max-width: 480px) {
     //   margin-top: -9px !important;
@@ -1654,6 +1562,10 @@ height: 12px !important;
             width: 14.285% !important;
             padding: 10px 5px !important;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
           }
           
           .day-item.is-start-date,.day-item.is-end-date{
@@ -1679,7 +1591,9 @@ height: 12px !important;
         }
       }
     }
+    
   }
+  
 
   .price-calendar-text{
     font-size: 12px;
@@ -1714,8 +1628,16 @@ height: 12px !important;
     bottom: -13px !important;
   }
   
-  
+  .text-red::after {
+    content: '';
+    border: solid 0.5px #e52822;
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+  }
 }
+
 .litepicker .container__days .day-item.is-locked.cls-bod{
   text-decoration: line-through;
 }

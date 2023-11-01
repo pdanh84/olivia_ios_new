@@ -39,7 +39,7 @@ export class ForgotpassPage implements OnInit {
         'cache-control': 'no-cache',
           'content-type': 'application/json'
       };
-      this.gf.RequestApi('POST', urlPath, headers, {EmailOrPhone: this.phoneoremail}, 'foodReviewweek', 'loadReview').then((data)=>{
+      this.gf.RequestApi('POST', urlPath, headers, {EmailOrPhone: this.phoneoremail}, 'ForgotPassWord', 'OTPForgotPassWord').then((data)=>{
 
         if (data.result) {
           se.valueGlobal.phone = se.phoneoremail

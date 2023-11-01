@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IonContent } from '@ionic/angular';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
+
 import { NetworkProvider } from '../network-provider.service';
 //import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebook/ngx';
 import { flightService } from '../providers/flightService';
@@ -58,7 +58,7 @@ export class HotelCityItemDetailPage implements OnInit {
     private http: HttpClientModule, public loadingCtrl: LoadingController, public Roomif: RoomInfo,
     public booking: Booking, public storage: Storage, public authService: AuthService, public platform: Platform, public bookCombo: Bookcombo, public value: ValueGlobal, public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, private socialSharing: SocialSharing,
     public gf: GlobalFunction, private sanitizer: DomSanitizer, public router: Router, public actionsheetCtrl: ActionSheetController,
-    public network: Network,
+    
     public networkProvider: NetworkProvider,
     private activeRoute: ActivatedRoute,
     public activityService: ActivityService,
