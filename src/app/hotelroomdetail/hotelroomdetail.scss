@@ -320,13 +320,12 @@
     background: rgba(0, 0, 0, 0.05);
      }
  .img-navigation-back{
- margin-top: env(safe-area-inset-bottom);
  margin-left: -8px;
  }
- .img-navigation-forward{
-     margin-top: env(safe-area-inset-bottom);
+//  .img-navigation-forward{
+//      margin-top: env(safe-area-inset-bottom);
 
-     }
+//      }
     
      .div-img-caption-grad{
          position: absolute;

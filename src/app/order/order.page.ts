@@ -840,7 +840,6 @@ export class OrderPage {
                 // if (element.booking_id=='VC0003453') {
                 //   se.listMyTrips.push(element);
                 // }
-                debugger
                 se.listMyTrips.push(element);
                 se.mytripcount++;
                 if (element.insuranceInfo && element.insuranceInfo.adultList.length > 0) {

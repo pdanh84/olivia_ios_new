@@ -2624,24 +2624,20 @@ export class HotelDetailPage implements OnInit {
 
   }
   DescriptionPage() {
-    this.valueGlobal.backValue = "notrefreshdetail";
     this.valueGlobal.notRefreshDetail = true;
-    this.router.navigateByUrl('/hoteldescription/' + this.HotelID + '/' + this.hotelname);
+    this.router.navigateByUrl('/hoteldescription/' + this.HotelID);
   }
   HotelreviewsPage() {
-    this.valueGlobal.backValue = "notrefreshdetail";
     this.valueGlobal.notRefreshDetail = true;
-    this.router.navigateByUrl('/hotelreviews/' + this.HotelID + '/' + this.hotelname);
+    this.navCtrl.navigateForward('/hotelreviews/'+this.HotelID);
   }
   FacilitiesPage() {
-    this.valueGlobal.backValue = "notrefreshdetail";
     this.valueGlobal.notRefreshDetail = true;
-    this.router.navigateByUrl('/facilities/' + this.HotelID + '/' + this.hotelname);
+    this.router.navigateByUrl('/facilities/' + this.HotelID);
   }
   PolicyPage() {
-    this.valueGlobal.backValue = "notrefreshdetail";
     this.valueGlobal.notRefreshDetail = true;
-    this.router.navigateByUrl('/policy/' + this.HotelID + '/' + this.hotelname);
+    this.router.navigateByUrl('/policy/' + this.HotelID);
   }
   // async presentAlertbook() {
   //   const alertController = window.document.querySelector('ion-alert-controller');
@@ -4801,13 +4797,11 @@ export class HotelDetailPage implements OnInit {
 
  async showFullScreen(){
   this.searchhotel.tourDetailName = '';
-  this.searchhotel.trustedVideoUrl = this.trustedVideoUrl;
-  this.searchhotel.openFromTopReviewList = false;
   const modal: HTMLIonModalElement =
   await this.modalCtrl.create({
     component: HotelreviewsvideoPage,
   });
-  modal.present();
+modal.present();
  }
  CheckHasInternal(Meal) {
   return Meal.filter((el) => { return el.Supplier == 'Internal' || el.Supplier  == 'B2B' }).length > 0 ? true : false;

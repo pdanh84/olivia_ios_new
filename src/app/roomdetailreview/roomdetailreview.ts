@@ -187,9 +187,12 @@ export class RoomdetailreviewPage implements OnInit {
     var roomnumber = this.roomnumber;
     this.searchhotel.backPage = "roomdetailreview";
     this.valueGlobal.backValue = 'roompaymentbreakdown';
+    this._voucherService.hotelPromoCode = this.strPromoCode;
+    this._voucherService.hotelTotalDiscount = this.totaldiscountpromo;
     this.navCtrl.navigateForward('/roompaymentbreakdown/' + dur + '/' + roomnumber);
   }
   next() {
+    //this.presentLoading();
     this.Roomif.priceshow = "";
     this.Roomif.pricepoint = 0;
     this.Roomif.ischeckpoint = false;
@@ -206,13 +209,16 @@ export class RoomdetailreviewPage implements OnInit {
       else {
         this.Roomif.ischeckpoint = this.ischeck;
         this.Roomif.priceshow = this.PriceAvgPlusTAStr;
-        this.Roomif.point = '';
+        this.Roomif.point = null;
       }
     }
+    else{
+      this.Roomif.priceshow = this.PriceAvgPlusTAStr;
+    }
     if (this.ischeckbtnpromo) {
-      this.Roomif.promocode = this.promocode;
+      this.Roomif.promocode= this.promocode;
       this.Roomif.priceshow = this.Pricepointshow;
-      this._voucherService.hotelPromoCode = this.promocode;
+      this._voucherService.hotelPromoCode = this.strPromoCode;
       this._voucherService.hotelTotalDiscount = this.totaldiscountpromo;
 
     }
@@ -223,10 +229,12 @@ export class RoomdetailreviewPage implements OnInit {
     else if(this._voucherService.hotelPromoCode && this._voucherService.hotelTotalDiscount){
       this.Roomif.priceshow = this.Pricepointshow;
     }
-    else {
-      this.Roomif.promocode = "";
-      this.promocode = "";
+    else
+    {
+      this.Roomif.promocode= "";
+      this.promocode= "";
     }
+    this.valueGlobal.backValue = '';
     if (this.room[0].MealTypeRates[this.indexme].Supplier == 'Internal' || this.room[0].MealTypeRates[this.indexme].Supplier == 'B2B') {
       this.navCtrl.navigateForward('roomadddetails');
     } else {
@@ -235,10 +243,9 @@ export class RoomdetailreviewPage implements OnInit {
       }
       this.navCtrl.navigateForward('roomadddetails-ean');
     }
-    //this.gf.googleAnalytionCustom('add_to_cart', { item_category: 'roomdetail', item_name: this.booking.HotelName, item_id: this.booking.code, start_date: this.booking.CheckInDate, end_date: this.booking.CheckOutDate, value: Number(this.booking.cost.replace(/\./g, '').replace(/\,/g, '')), currency: "VND" });
-    //this._appsflyer.trackEvent('af_add_to_cart', {'af_content_id': this.bookCombo.HotelCode, 'af_content_name': this.bookCombo.HotelName, 'af_currency': 'VND', 'af_revenue': (this.bookCombo.ComboRoomPrice ? this.bookCombo.ComboRoomPrice.toString() : 0) });
-    var se = this;
     
+    //this.gf.googleAnalytionCustom('add_to_cart',{item_category:'roomdetail' , item_name: this.booking.HotelName, item_id: this.booking.code, start_date: this.booking.CheckInDate, end_date: this.booking.CheckOutDate, value: Number(this.booking.cost.replace(/\./g, '').replace(/\,/g, '') ), currency: 'VND'});
+    let se = this;
     if(se.Roomif.priceshow){
       se.searchhotel.totalPrice = se.Roomif.priceshow;
     }else if(se.booking.cost){
@@ -249,6 +256,7 @@ export class RoomdetailreviewPage implements OnInit {
       'fb_content_type': 'hotel', 'fb_content_id': se.booking.code, 'fb_num_items': se.searchhotel.roomnumber, 'fb_value': se.gf.convertNumberToDouble(se.booking.cost), 'fb_currency': 'VND',
       'checkin_date': se.searchhotel.CheckInDate, 'checkout_date ': se.searchhotel.CheckOutDate, 'num_adults': se.searchhotel.adult, 'num_children': (se.searchhotel.child ? se.searchhotel.child : 0)
     }, se.gf.convertStringToNumber(se.booking.cost));
+ 
   }
   ionViewWillEnter() {
     if(this.valueGlobal.backValue != 'roompaymentbreakdown'){
@@ -735,7 +743,10 @@ export class RoomdetailreviewPage implements OnInit {
         
         this.totaldiscountpromo += this._voucherService.totalDiscountPromoCode;
     }
-
+    if(!this.strPromoCode){
+      this.Pricepointshow = 0;
+      this.ischeckbtnpromo = false
+    }
     this._voucherService.hotelPromoCode = this.strPromoCode;
     this._voucherService.hotelTotalDiscount = this.totaldiscountpromo;
   }

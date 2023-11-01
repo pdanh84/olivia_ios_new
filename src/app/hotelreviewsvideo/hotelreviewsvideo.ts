@@ -28,5 +28,10 @@ export class HotelreviewsvideoPage  {
     this.modalCtrl.dismiss();
   }
   ionViewDidEnter() {
+    this.hotelName = this.searchhotel.hotelName;
+    this.tourName = this.searchhotel.tourDetailName;
+    this.trustedVideoUrl=this.searchhotel.trustedVideoUrl;
+    
+
   }
 }
