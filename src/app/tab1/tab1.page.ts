@@ -1565,7 +1565,10 @@ export class Tab1Page implements OnInit {
               break;
           }
           var item = { ischecked: 0, id: se.slideData[i].id, name: name[0], imageUrl: se.slideData[i].images[0].url, regionName: se.slideData[i].regionName, minPrice: minPrice, description: chuoi, rating: se.slideData[i].rating, priceshow: se.slideData[i].minPrice / 1000 > 1000 ? (se.slideData[i].minPrice / 1000).toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.").replace(',', '.') : 0, priceFor: se.slideData[i].priceFor };
-          se.slideData1.push(item);
+          if(!se.gf.checkExistsItemInArray(se.slideData1, item, 'trip')){
+            se.slideData1.push(item);
+            
+          }
         }
 
       }
@@ -1673,7 +1676,10 @@ export class Tab1Page implements OnInit {
               break;
           }
           var item = { ischecked: 0, id: se.slideData[i].id, name: name[0], imageUrl: se.slideData[i].images[0].url, regionName: se.slideData[i].regionName, minPrice: minPrice, description: chuoi, rating: se.slideData[i].rating, priceshow: se.slideData[i].minPrice / 1000 > 1000 ? (se.slideData[i].minPrice / 1000).toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.").replace(',', '.') : 0, priceFor: se.slideData[i].priceFor };
-          se.slideData1.push(item);
+          if(!se.gf.checkExistsItemInArray(se.slideData1, item, 'trip')){
+            se.slideData1.push(item);
+            
+          }
         }
 
       }
