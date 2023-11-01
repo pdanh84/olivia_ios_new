@@ -168,7 +168,7 @@
         </ion-label>
         </ion-item>
     </ion-radio-group>
-    <div *ngIf="isshowRemember" style="margin-left: 20px;margin-bottom: 10px;">
+    <div *ngIf="isshowRemember" class="cls-save-card">
       <ion-checkbox [disabled]="isdisable" (ionChange)="rememberCard()"  class="ion-checkbox" [value]="isremember" color="secondary"></ion-checkbox>
       <ion-label class="label-input" >Lưu và bảo mật thẻ để đặt dịch vụ nhanh hơn lần sau</ion-label>
     </div>

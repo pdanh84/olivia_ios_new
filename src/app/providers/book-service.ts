@@ -70,7 +70,7 @@ export class RoomInfo {
     ischeckpoint: boolean;
     priceshow: string;
     order: string;
-    point: string;
+    point: any;
     priceshowtt: string;
     HotelRoomHBedReservationRequest: string;
     ischeckpayment: boolean;
