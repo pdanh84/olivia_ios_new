@@ -31,7 +31,7 @@
 }
 
 .card-background-page-history-trips {
-    padding: calc( env(safe-area-inset-bottom) + 84px) 0px;
+    padding: 0px;
     .p-top-23{
         padding-top:23px;
     }
@@ -237,8 +237,9 @@
         text-transform: none;
         font-size: 16px;
         background: no-repeat;
-        letter-spacing: -0.4px;
+        padding-top: 10px;
     }
+
     
 
 //bkgoff
@@ -338,6 +339,21 @@
     }
     
   }
+  @media(min-width:340px) and (max-width:360px){
+    .div-flightto {
+        max-width: 130px;
+    }
+    }
+    @media(min-width:361px) and (max-width:375px){
+        .div-flightto {
+            max-width: 146px;
+        }
+    }
+    @media(min-width:376px) and (max-width:440px){
+        .div-flightto {
+            max-width: 178px;
+        }
+    }
 
   .foodmyorder-content{
       margin-bottom: 60px !important;
@@ -560,4 +576,118 @@
 }
 .m-left-8{
     margin-left: 8px;
+}
+
+.div-split-ticket {
+    height: 8px;
+    flex-grow: 0;
+    background-color: #f5f6f7;
+}
+.col-ticket-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    color: #3f3b3b;
+    padding: 0;
+    padding-left: 2px;
+}
+.h-15 {
+    height: 15px;
+}
+.div-bkg-ticket {
+    .div-bkg-name {
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        color: #26bed6;
+    }
+
+    .div-bkg-date {
+        font-size: 18px;
+        text-align: center;
+        color: #3f3b3b;
+    }
+
+    .div-bkg-qrcode {
+        text-align: center;
+        .img-qrcode {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+    }
+
+    .div-bkg-ticketcode {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.4px;
+        text-align: center;
+        color: #f79321;
+    }
+
+    .div-bkg-pax {
+        font-size: 18px;
+        text-align: center;
+        color: #3f3b3b;
+        margin-bottom: 12px;
+    }
+
+    .m-top-2 {
+        margin-top: 2px;
+    }
+    .m-top-10 {
+        margin-top: 10px;
+    }
+    .m-top-22 {
+        margin-top: 22px;
+    }
+
+    .div-bkg-price {
+        padding: 12px 16px;
+        background-color: #f2f2f2;
+        margin: 0 -16px;
+    }
+
+    .text-tour-detail-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #3f3b3b;
+        margin: 8px 0;
+    }
+
+    .text-tour-detail-subtitle {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        margin: 8px 5px;
+    }
+    .div-icon-tour {
+        display: flex;
+    }
+}
+.div-line-ticket {
+    margin-top: 14px;
+    margin-right: 10px;
+    height: 1px;
+    background-color: #dde0e4;
+}
+.div-split-ticket {
+    height: 8px;
+    flex-grow: 0;
+    background-color: #f5f6f7;
+}
+.col-ticket-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    color: #3f3b3b;
+    padding: 0;
+    padding-left: 2px;
+}
+.h-15 {
+    height: 15px;
+}
+.m-bottom-8{
+    margin-bottom: 8px;
 }

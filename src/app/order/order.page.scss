@@ -1,4 +1,4 @@
-//@import './flightmytrip.scss';
+@import './flightmytrip.scss';
     .header-ios ion-toolbar:last-child{
         --border-width: 0;
         --padding-bottom: 0;
@@ -16,9 +16,6 @@
     }
     .p-bottom-30{
         margin-bottom: calc(env(safe-area-inset-top) + 30px);
-    }
-    .p-bottom-24 {
-        padding-bottom: 24px;
     }
     .segment-button.activated, .segment-button.segment-activated,.segment-button-checked {
         border-color: #26bed6 !important;

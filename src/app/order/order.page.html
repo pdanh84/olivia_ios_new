@@ -917,7 +917,7 @@
                       <ng-template #notshowwaitpayment><label class="lbl-waitpayment label-text-waitpayment1">Hết hạn thanh toán</label></ng-template>
                     </ng-template>
                   </div>
-                  <div [ngClass]="trip.bookingsComboData  && (!trip.bookingsComboData[0].issueTicketDate || (trip.bookingsComboData[1] && !trip.bookingsComboData[1].issueTicketDate)) && (trip.payment_status == 1 || trip.payment_status == 5)?'col-bkg-status position-absolute mt-10':'col-bkg-status position-absolute'"
+                  <div [ngClass]="trip.bookingsComboData  && (!trip.bookingsComboData[0].issueTicketDate && (trip.bookingsComboData[1] && !trip.bookingsComboData[1].issueTicketDate)) && (trip.payment_status == 1 || trip.payment_status == 5)?'col-bkg-status position-absolute mt-10':'col-bkg-status position-absolute'"
                   size="4"  *ngIf="trip.isFlyBooking && trip.payment_status != 9 && (trip.payment_status != 3 && trip.payment_status != -2)">
                     <!-- <label *ngIf="(trip.payment_status == 1 || trip.payment_status == 5) else notpayment" class="label-text-paymented">Đã xuất vé</label>
                     <ng-template #notpayment><label class="label-text-waitpayment">Chưa thanh toán</label></ng-template> -->
