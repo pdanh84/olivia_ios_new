@@ -306,7 +306,7 @@
                             Không cho chọn ghế
                         </div>
                     </div>
-                    <div class="div-width-100">
+                    <div class="div-width-100" *ngIf="roundtrip">
                         <div class="text-desc m-bottom-6">Chiều về</div>
                         <div class="text-bold"  *ngIf="hasreturnseat && listreturnseatselected">
                             {{listreturnseatselected}}
@@ -438,7 +438,7 @@
                         <div class="div-width-100 text-label-name">Họ tên khách</div>
                         <div class="div-width-100 text-label-name">Sinh ngày</div>
                      </div>
-                     <div class="d-flex m-top-16" *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
+                     <div class="d-flex " *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
                         <div class="div-width-100 text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
                         <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemAdult, true)">
                                     <ion-input [value]="itemAdult.birdayDisplay"
@@ -449,7 +449,7 @@
                         </div>
                      </div>
 
-                     <div class="d-flex m-top-16" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
+                     <div class="d-flex" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
                         <div class="div-width-100 text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
                         <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, false)">
                             <ion-input [value]="itemChild.birdayDisplay"

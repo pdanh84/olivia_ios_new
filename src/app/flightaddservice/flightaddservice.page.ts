@@ -3341,6 +3341,7 @@ async selectDateOfBirth(pax, isChangeBOD){
   se.activityService.itemPax.isChangeBOD = isChangeBOD;
     let modal = await se.modalCtrl.create({
       component: SelectDateOfBirthPage,
+      cssClass: 'cls-flight-addservice-selectdatetime'
     });
     
     modal.present().then(()=>{

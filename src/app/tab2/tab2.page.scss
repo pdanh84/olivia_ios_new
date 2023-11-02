@@ -6,6 +6,11 @@
     font-size: 17px;
     //border: solid 1px #26bed6 !important;
   }
+  .row-h-56 {
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
 }
 ///style ios
 ::ng-deep{

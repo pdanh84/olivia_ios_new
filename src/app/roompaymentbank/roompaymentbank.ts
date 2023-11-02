@@ -548,7 +548,7 @@ export class RoompaymentbankPage implements OnInit{
             HotelID: se.booking.HotelId,
             paymentMethod: se.paymentMethod,
             note:se.Roomif.notetotal,
-            source  :'8',
+            source  :'6',
             MemberToken: se.auth_token,
             CustomersStr: JSON.stringify(se.Roomif.arrcustomer),
             UsePointPrice:se.Roomif.pricepoint,

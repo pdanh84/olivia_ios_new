@@ -710,10 +710,10 @@ export class FlightsearchresultPage implements OnInit {
         let selectFlightURL ="";
         if(obj.roundTrip){
           selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-          selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+objdepart.ticketType+'&returnTicketType=' +objreturn.ticketType+'&Source=8&memberId=' +se.jti;
+          selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+objdepart.ticketType+'&returnTicketType=' +objreturn.ticketType+'&Source=6&memberId=' +se.jti;
         }else{
           selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-          selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+objdepart.ticketType+"&returnTicketType=''"+'&Source=8&memberId=' +se.jti;
+          selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+objdepart.ticketType+"&returnTicketType=''"+'&Source=6&memberId=' +se.jti;
         }
          
 

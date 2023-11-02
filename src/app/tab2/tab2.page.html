@@ -1,12 +1,9 @@
 <ion-header class="likepage-header">
-  <!-- <ion-toolbar>
-  <ion-title style="text-align: center;font-size: 20px;font-weight: bold">Khách sạn yêu thích</ion-title>
-</ion-toolbar> -->
-    <ion-row>
+    <ion-row class="row-h-56">
       <ion-col class="header-title"><label>Yêu thích</label>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="valueGlobal.ischeckFavourite=='Hotel'">
+    <ion-row *ngIf="valueGlobal.ischeckFavourite=='Hotel'" >
       <ion-segment [(ngModel)]="tablike" class="div-segment" mode="md">
         <ion-segment-button (click)="Selecthotel()" class="segment-header" value="hotellike" mode="md">
           Khách sạn
@@ -14,9 +11,6 @@
         <ion-segment-button (click)="Selectblog()" class="segment-header" value="bloglike" mode="md">
           Bài viết
         </ion-segment-button>
-        <!-- <ion-segment-button (click)="SelectPlace()" class="segment-header" value="placelike" mode="md">
-          Trải nghiệm
-        </ion-segment-button> -->
       </ion-segment>
     </ion-row>
 </ion-header>

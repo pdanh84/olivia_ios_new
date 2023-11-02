@@ -22,7 +22,7 @@
         </div>
        
 
-        <div class="div-wrap-avatar d-flex m-top-8" *ngIf="loginuser">
+        <div class="div-wrap-avatar d-flex" *ngIf="loginuser">
             <div class="div-wrapimg width-80 m-right-12" (click)="changeAvatar()" >
                 <ion-card class="avatar">
                     <img *ngIf="avatar && !croppedImagepath" class="img-user-avatar" src="{{avatar}}">

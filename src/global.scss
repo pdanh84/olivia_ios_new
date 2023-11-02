@@ -79,6 +79,8 @@ label > p{
       --height: calc( env(safe-area-inset-top) + 417px);
       align-items: flex-start;
     }
+
+   
 }
 
 
@@ -2606,3 +2608,12 @@ swiper-slide img {
       }
       
   }
+
+   .cls-flight-addservice-selectdatetime {
+      @media (min-width: 350px) and (max-width: 375px) {
+        --height: 44%;
+      }
+      @media (min-width: 376px) and (max-width: 430px) {
+        --height: 36%;
+      }
+    }

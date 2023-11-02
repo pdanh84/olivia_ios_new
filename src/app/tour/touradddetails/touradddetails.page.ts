@@ -506,7 +506,7 @@ export class TourAddDetailsPage implements OnInit {
               objTourReq.PaxList = "";
               objTourReq.MemberId = this.memberid;
               objTourReq.UsePointPrice = this.ischeckpoint ? this.usePointPrice : 0;
-              objTourReq.Source = 8;
+              objTourReq.Source = 6;
               objTourReq.SupplierCode = "Internal";
               objTourReq.SupplierOrderID = "";
               objTourReq.RequestBookingXml = "";

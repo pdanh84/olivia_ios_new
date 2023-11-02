@@ -115,7 +115,14 @@
                                             </div>
                                             
                                       </div>
-
+                                      <div class="d-flex p-top-16" *ngIf="itemFlightDetail.aircraftStr || airCraft">
+                                        <div class="icon-left">
+                                            <img class="img-left" src="./assets/ic_flight/icon_action_info.svg">
+                                        </div>
+                                        <div class="content-right p-left-10 text-detail">
+                                            <div class="text-detail" *ngIf="itemFlightDetail.aircraftStr || airCraft">Máy bay {{itemFlightDetail.aircraftStr || airCraft}}</div>
+                                        </div>
+                                      </div>
                                       <div class="d-flex" *ngIf="meal">
                                         <div class="icon-left">
                                             <img class="img-meal" src="./assets/ic_flight/ic_meal_tealish.svg">
@@ -142,7 +149,6 @@
                                                 <img class="img-left" src="./assets/ic_flight/icon_action_info.svg">
                                             </div>
                                             <div class="content-right p-left-10 text-detail">
-                                                <div class="text-detail">{{itemFlightDetail.aircraftStr}}</div>
                                                 <div class="text-detail" *ngIf="seatMap">Sơ đồ ghế ngồi {{ seatMap }}</div>
                                                 <div class="text-detail" *ngIf="seatSpace">Khoảng cách ghế {{ seatSpace }}</div>
                                             </div>
@@ -341,7 +347,7 @@
                               </div>
                               <div class="text-name div-width-250 m-top-4">{{itemFlight.fromPlace}} → {{itemFlight.toPlace}}</div>
                             </div>
-                            <div class="div-width-150 text-name text-right v-align-center">
+                            <div class="div-width-170 text-name text-right v-align-center">
                                 {{itemFlight.ticketType}}
                             </div>
                         </div>

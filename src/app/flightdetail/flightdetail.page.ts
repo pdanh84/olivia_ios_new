@@ -60,6 +60,7 @@ export class FlightdetailPage implements OnInit {
   relax: any;
   meal: any;
   loaddatadone: boolean = false;
+  airCraft: any;
     constructor(public platform: Platform,public navCtrl: NavController, public modalCtrl: ModalController,public valueGlobal:ValueGlobal,
         public searchhotel: SearchHotel, public gf: GlobalFunction,
         public actionsheetCtrl: ActionSheetController,
@@ -195,6 +196,7 @@ export class FlightdetailPage implements OnInit {
                 this.seatSpace = data.addon.seatSpace;
                 this.powerSupply = data.addon.powerSupply;
                 this.relax = data.addon.relax;
+                this.airCraft = data.addon.airCaft;
 
                 if(data.ticketCondition){
                   this.itemFlightTicketCondition = data.ticketCondition;

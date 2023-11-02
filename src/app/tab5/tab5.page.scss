@@ -390,6 +390,7 @@
     }
 }
 .div-wrap-avatar {
+    margin-top: env(safe-area-inset-top);
     .width-80 {
         width: 80px;
     }
