@@ -1767,6 +1767,7 @@ export class TicketAdddetailsPage implements OnInit {
     
       let modal = await se.modalCtrl.create({
         component: SelectDateOfBirthPage,
+        cssClass: 'cls-flight-adddetails-selectdatetime'
       });
       
       modal.present().then(()=>{

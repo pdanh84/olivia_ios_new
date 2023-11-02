@@ -2609,7 +2609,7 @@ swiper-slide img {
       
   }
 
-   .cls-flight-addservice-selectdatetime {
+   .cls-flight-addservice-selectdatetime, .cls-flight-adddetails-selectdatetime {
       @media (min-width: 350px) and (max-width: 375px) {
         --height: 44%;
       }

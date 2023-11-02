@@ -91,6 +91,8 @@ export class FlightaddservicePage implements OnInit {
   departDateDisplay: string;
   returnDateDisplay: string;
   allowClickDateOfBirth: any=true;
+  chocieDepartLuggage: any = [];
+  chocieReturnLuggage: any = [];
   constructor(private navCtrl: NavController, public gf: GlobalFunction,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
@@ -589,58 +591,62 @@ getSummaryBooking(resNo) {
     }
   }
 
-  checkLuggage() {
-    let chocieDepartLuggage:any = [], chocieReturnLuggage:any = [];
-    if(this._flightService.itemFlightCache.adults && this._flightService.itemFlightCache.adults.length >0){
-      let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
-      _a.forEach(element => {
-        if(element){
-          chocieDepartLuggage.push(element);
-        }
-      });
-      let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLug);
-      _c.forEach(elementC => {
-        if(elementC){
-          chocieDepartLuggage.push(elementC);
-        }
-      });
+  checkLuggage(){
+    //let chocieDepartLuggage = [], chocieReturnLuggage = [];
+    this.chocieDepartLuggage = [];
+    this.chocieReturnLuggage = [];
+    let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
+    _a.forEach(element => {
+      if(element){
+        this.chocieDepartLuggage.push(element);
+      }
+    });
+    let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLug);
+    _c.forEach(elementC => {
+      if(elementC){
+        this.chocieDepartLuggage.push(elementC);
+      }
+    });
 
-      let _ar = this._flightService.itemFlightCache.adults.map(a => a.itemLugReturn);
-      _ar.forEach(element => {
-        if(element){
-          chocieReturnLuggage.push(element);
+    let _ar = this._flightService.itemFlightCache.adults.map(a => a.itemLugReturn);
+    _ar.forEach(element => {
+      if(element){
+        this.chocieReturnLuggage.push(element);
+      }
+    });
+    let _cr = this._flightService.itemFlightCache.childs.map(a => a.itemLugReturn);
+    _cr.forEach(elementC => {
+      if(elementC){
+        this.chocieReturnLuggage.push(elementC);
+      }
+    });
+    
+    setTimeout(()=>{
+      this.zone.run(()=>{
+        //this.departLuggage = this.chocieDepartLuggage;
+        //this.returnLuggage = this.chocieReturnLuggage;
+        if(this.chocieDepartLuggage && this.chocieDepartLuggage.length>0){
+                this.hasdepartluggage = true;
+                this.showbuttonluggage = false;
         }
-      });
-      let _cr = this._flightService.itemFlightCache.childs.map(a => a.itemLugReturn);
-      _cr.forEach(elementC => {
-        if(elementC){
-          chocieReturnLuggage.push(elementC);
+        else{
+                this.hasdepartluggage = false;
+                this.showbuttonluggage = true;
         }
-      });
-      
-      setTimeout(()=>{
-        this.zone.run(()=>{
-          this.departLuggage = chocieDepartLuggage;
-          this.returnLuggage = chocieReturnLuggage;
-          if(chocieDepartLuggage && chocieDepartLuggage.length>0){
-              
-                  this.hasdepartluggage = true;
-                  this.showbuttonluggage = false;
-              
-          }
-          else  if(chocieReturnLuggage && chocieReturnLuggage.length>0){
-                  this.hasreturnluggage = true;
-                  this.showbuttonluggage = false;
-          }
-          else{
-                  this.hasdepartluggage = false;
-                  this.showbuttonluggage = true;
-          }
-        })
-      },50)
-    }
-      
-      
+
+        if(this.chocieReturnLuggage && this.chocieReturnLuggage.length>0){
+          this.hasreturnluggage = true;
+          this.showbuttonluggage = false;
+        }
+        else{
+          this.hasreturnluggage = false;
+          this.showbuttonluggage = !this.hasdepartluggage;
+  }
+      })
+    },50)
+    
+    
+    
   }
 
   getLuggage(id, code, isdepart): Promise<any> {
@@ -3352,6 +3358,7 @@ async selectDateOfBirth(pax, isChangeBOD){
     if(rs){
       se.zone.run(()=>{
         pax = rs.itempushback;
+        pax.birdayDisplay = rs.itempushback.birdayDisplay;
       })
       
     }

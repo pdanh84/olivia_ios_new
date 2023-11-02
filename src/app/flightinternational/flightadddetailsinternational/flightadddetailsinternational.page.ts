@@ -3825,6 +3825,7 @@ alert.present();
       se.activityService.itemPax.isChangeBOD = isChangeBOD;
         let modal = await se.modalCtrl.create({
           component: SelectDateOfBirthPage,
+          cssClass: 'cls-flight-adddetails-selectdatetime'
         });
         
         modal.present().then(()=>{

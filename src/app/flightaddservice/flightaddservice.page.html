@@ -189,7 +189,7 @@
                                 <div class="div-desc" *ngIf="!isApiDirect &&(departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length <=4 && hasdepartluggage)">{{ departConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</div>
                                 <div class="div-desc" *ngIf="isApiDirect && (departConditionInfo && departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.length >0 && hasdepartluggage)"><span class="text-bold">{{ departConditionInfo.luggageSigned }} 
                                     <span class="text-bold" *ngIf="departConditionInfo.luggageSigned && departConditionInfo.luggageSigned.indexOf('kg') == -1">kg</span>/1 khách.</span></div>
-                                    <div *ngFor="let itemlug of departLuggage">
+                                    <div *ngFor="let itemlug of chocieDepartLuggage">
                                         <div *ngIf="itemlug.weight >0" class="div-desc">
                                             1 x <span class="text-bold">{{itemlug.weight}} kg <span class="text-desc" *ngIf="itemlug.title.indexOf('Oversize') != -1"> (HLQK)</span></span>
                                         </div>
@@ -207,7 +207,7 @@
                                 <div class="text-desc m-bottom-6">Chiều về</div>
                                 <div class="div-desc" *ngIf="!isApiDirect &&(returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length <=4 && hasreturnluggage)"><span class="text-bold">{{ returnConditionInfo.luggageSigned }} <span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') ==-1">kg</span>/1 khách.</span></div>
                                 <div class="div-desc" *ngIf="isApiDirect && (returnConditionInfo && returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.length >0 && hasreturnluggage)"><span class="text-bold">{{ returnConditionInfo.luggageSigned }}<span class="text-bold" *ngIf="returnConditionInfo.luggageSigned && returnConditionInfo.luggageSigned.indexOf('kg') == -1"> kg</span>/1 khách.</span></div>
-                                <div *ngFor="let itemlug of returnLuggage">
+                                <div *ngFor="let itemlug of chocieReturnLuggage">
                                     <div *ngIf="itemlug.weight >0" class="div-desc">
                                         1 x <span class="text-bold">{{itemlug.weight}} kg <span class="text-desc" *ngIf="itemlug.title.indexOf('Oversize') != -1"> (HLQK)</span></span>
                                     </div>
@@ -451,7 +451,7 @@
 
                      <div class="d-flex" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
                         <div class="div-width-100 text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
-                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, false)">
+                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, true)">
                             <ion-input [value]="itemChild.birdayDisplay"
                                     type="bday"
                                     id="datee_{{idxc}}"

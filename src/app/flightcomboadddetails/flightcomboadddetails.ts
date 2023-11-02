@@ -2549,6 +2549,7 @@ export class FlightComboAddDetailsPage implements OnInit {
     se.activityService.itemPax.isChangeBODCombo = isChangeBOD;
       let modal = await se.modalCtrl.create({
         component: SelectDateOfBirthPage,
+        cssClass: 'cls-flight-adddetails-selectdatetime'
       });
       
       modal.present().then(()=>{
