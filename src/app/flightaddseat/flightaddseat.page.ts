@@ -56,6 +56,8 @@ slideOpts = {
   listreturnseatselected="";
   listSeatNameLeft =['A','B','C'];
   listSeatNameRight =['D','E','F'];
+  listSeatNameLeftSmallSize = ['','A','C'];
+  listSeatNameRightSmallSize = ['D','F',''];
 
     totalreturnprice: any =0;
     listSeatNormal:any= [];
@@ -75,6 +77,7 @@ slideOpts = {
   listReturnSeatRollback:any = [];
   departSeatTemp:any= [];
   returnSeatTemp:any= [];
+  listSeatNameReturn: any;
   constructor(public platform: Platform,public navCtrl: NavController, public modalCtrl: ModalController,public valueGlobal:ValueGlobal,
     public searchhotel: SearchHotel, public gf: GlobalFunction,
     public actionsheetCtrl: ActionSheetController,
@@ -106,7 +109,12 @@ slideOpts = {
     else if((this._flightService.itemFlightCache.listSeatNormal && this._flightService.itemFlightCache.listSeatNormal.length >0) || (this._flightService.itemFlightCache.listReturnSeatNormal && this._flightService.itemFlightCache.listReturnSeatNormal.length >0) ){
       this.listSeatNormal = this._flightService.itemFlightCache.listSeatNormal;
       this.listReturnSeatNormal = this._flightService.itemFlightCache.listReturnSeatNormal;
-
+      if(this._flightService.itemFlightCache.listSeatName){
+        this.listSeatName = this._flightService.itemFlightCache.listSeatName;
+      }
+      if(this._flightService.itemFlightCache.listReturnSeatName){
+        this.listSeatNameReturn = this._flightService.itemFlightCache.listReturnSeatName;
+      }
     }
     if(this._flightService.itemFlightCache.listdepartseatselected || this._flightService.itemFlightCache.listreturnseatselected){
       

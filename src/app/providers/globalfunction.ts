@@ -66,6 +66,7 @@ import { App } from '@capacitor/app';
         private allowCheckHoldTicket: boolean = true;
         intervalHoldTicket: NodeJS.Timeout;
         showtoastctrl: boolean;
+        EVENTS = {EVENT_NAME_INITIATED_CHECKOUT: 'EVENT_NAME_INITIATED_CHECKOUT'};
       
           constructor(public platform: Platform, public alertCtrl: AlertController,public toastCtrl: ToastController,
             public storage: Storage,
@@ -278,6 +279,10 @@ import { App } from '@capacitor/app';
             })
           }
         }       
+        }
+
+        public logEventFaceBook(eventName, params){
+          
         }
       
         getTicketClass(flightObj){

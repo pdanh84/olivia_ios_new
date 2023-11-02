@@ -24,7 +24,7 @@ import { BizTravelService } from 'src/app/providers/bizTravelService';
   styleUrls: ['bookinghoteldetail.scss'],
 })
 export class BookingHotelDetailPage implements OnInit{
-  @ViewChild('mySlider') slider:  ElementRef | undefined;;
+  @ViewChild('mySlider') slider:  ElementRef | undefined;
   jsonroom1:any = [];
   hotelRooms:any = [];
   hotelRoomClasses:any= [];

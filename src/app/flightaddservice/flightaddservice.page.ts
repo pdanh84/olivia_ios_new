@@ -905,7 +905,8 @@ getSummaryBooking(resNo) {
                           const element = rowseat.seatOptions[idx];
                           if(element){
                             element.show = true;
-                            element.amount = element.seatAssignMentFee.amount;
+                            element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                             element.name = element.seatNumber;
                             element.type = 1;
   
@@ -961,7 +962,8 @@ getSummaryBooking(resNo) {
                           let idx = elementCompartmentDetails.seatConfigurationMap[index];
                           const element = rowseat.seatOptions[idx];
                           element.show = true;
-                          element.amount = element.seatAssignMentFee.amount;
+                          element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                           element.name = element.seatNumber;
                           element.type = 1;
 
@@ -988,7 +990,8 @@ getSummaryBooking(resNo) {
                           const element = rowseat.seatOptions[idx];
                           if(element){
                             element.show = true;
-                            element.amount = element.seatAssignMentFee.amount;
+                            element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                             element.name = element.seatNumber;
                             element.type = 1;
   
@@ -1023,6 +1026,7 @@ getSummaryBooking(resNo) {
                 se._flightService.itemFlightCache.isnewmodelseat = true;
               } else {
                 se._flightService.itemFlightCache.isnewmodelseat = false;
+                se._flightService.itemFlightCache.listSeatName = listSeatName;
                 se._flightService.itemFlightCache.listSeatNameLeft = listSeatNameLeft;
                 se._flightService.itemFlightCache.listSeatNameRight = listSeatNameRight;
                 se._flightService.itemFlightCache.listSeatNormal = listSeatNormal;
@@ -1061,7 +1065,8 @@ getSummaryBooking(resNo) {
                           let idx = elementCompartmentDetails.seatConfigurationMap[index];
                           const element = rowseat.seat ? rowseat.seat[idx] : rowseat.seatOptions[idx];
                           element.show = true;
-                          element.amount = element.seatAssignMentFee.amount;
+                          element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                           element.name = element.seatNumber;
                           element.type = 1;
 
@@ -1121,7 +1126,8 @@ getSummaryBooking(resNo) {
                           const element = rowseat.seat ? rowseat.seat[idx] : rowseat.seatOptions[idx];
                           element.show = true;
 
-                          element.amount = element.seatAssignMentFee.amount;
+                          element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                           element.name = element.seatNumber;
                           element.type = 1;
                           if (element.seatQualifiers.seatFront) {//ghế phía trước
@@ -1148,7 +1154,8 @@ getSummaryBooking(resNo) {
                           const element = rowseat.seat ? rowseat.seat[idx] : rowseat.seatOptions[idx];
                           element.show = true;
 
-                          element.amount = element.seatAssignMentFee.amount;
+                          element.amount = element.seatAssignMentFee && element.seatAssignMentFee.amount ? element.seatAssignMentFee.amount : 0;
+                            element.netPrice = element.seatAssignMentFee && element.seatAssignMentFee.netPrice ? element.seatAssignMentFee.netPrice : 0;
                           element.name = element.seatNumber;
                           element.type = 1;
                           if (element.seatQualifiers.seatFront) {//ghế phía trước
@@ -1184,6 +1191,7 @@ getSummaryBooking(resNo) {
               }
               else {
                 se._flightService.itemFlightCache.isnewmodelreturnseat = false;
+                se._flightService.itemFlightCache.listReturnSeatName = listSeatName;
                 se._flightService.itemFlightCache.listReturnSeatNameLeft = listReturnSeatNameLeft;
                 se._flightService.itemFlightCache.listReturnSeatNameRight = listReturnSeatNameRight;
                 se._flightService.itemFlightCache.listReturnSeatNormal = listReturnSeatNormal;

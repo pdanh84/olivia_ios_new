@@ -135,7 +135,7 @@ ion-app {
 }
 
 ion-header{
-  padding-top: env(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   background-color: #ffffff;
 }
 

@@ -7,7 +7,6 @@ import { RoomInfo } from '../providers/book-service';
 import { C } from '../providers/constants';
 import { Storage } from '@ionic/storage';
 import { GlobalFunction } from '../providers/globalfunction';
-import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { BizTravelService } from '../providers/bizTravelService';
 /**
  * Generated class for the RoomadddetailsPage page.
@@ -41,7 +40,6 @@ export class ComboadddetailsPage implements OnInit {
   constructor(public platform: Platform, public navCtrl: NavController, public zone: NgZone,
     private toastCtrl: ToastController, public Roomif: RoomInfo, public storage: Storage, public loadingCtrl: LoadingController,
     public booking: Booking, public gf: GlobalFunction, public Bookcombo: Bookcombo,
-    private fb: Facebook,
     public searchhotel: SearchHotel,
     public bizTravelService: BizTravelService) {
     this.ischeckpayment = Roomif.ischeckpayment;
@@ -139,8 +137,8 @@ export class ComboadddetailsPage implements OnInit {
     se.searchhotel.totalPrice = se.listcars.HotelBooking.TotalPrices;
     se.gf.logEventFirebase('',se.searchhotel, 'comboadddetails', 'add_shipping_info', 'Combo');
     
-    se.fb.logEvent(se.fb.EVENTS.EVENT_NAME_INITIATED_CHECKOUT, {'fb_content_type': 'hotel'  ,'fb_content_id': se.Bookcombo.HotelCode ? se.Bookcombo.HotelCode : se.booking.code,'fb_num_items': se.searchhotel.roomnumber, 'fb_value': se.gf.convertNumberToDouble(se.listcars.HotelBooking.TotalPrices) ,  'fb_currency': 'VND' , 
-    'checkin_date': se.listcars.HotelBooking.CheckInDate ,'checkout_date ': se.listcars.HotelBooking.CheckOutDate,'num_adults': se.listcars.HotelBooking.Adult,'num_children': (se.listcars.HotelBooking.Child ? se.listcars.HotelBooking.Child : 0), }, se.gf.convertStringToNumber(se.listcars.HotelBooking.TotalPrices) );
+    // se.gf.logEventFaceBook(se.gf.EVENTS.EVENT_NAME_INITIATED_CHECKOUT, {'fb_content_type': 'hotel'  ,'fb_content_id': se.Bookcombo.HotelCode ? se.Bookcombo.HotelCode : se.booking.code,'fb_num_items': se.searchhotel.roomnumber, 'fb_value': se.gf.convertNumberToDouble(se.listcars.HotelBooking.TotalPrices) ,  'fb_currency': 'VND' , 
+    // 'checkin_date': se.listcars.HotelBooking.CheckInDate ,'checkout_date ': se.listcars.HotelBooking.CheckOutDate,'num_adults': se.listcars.HotelBooking.Adult,'num_children': (se.listcars.HotelBooking.Child ? se.listcars.HotelBooking.Child : 0), }, se.gf.convertStringToNumber(se.listcars.HotelBooking.TotalPrices) );
   }
   insertbooking() {
     var se = this;

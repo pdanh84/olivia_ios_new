@@ -1076,6 +1076,9 @@ export class TicketAdddetailsPage implements OnInit {
           return;
         }
       }
+      /**
+       * 27-10-2023: Fix bug map item value theo dataraw[element.field] nếu item kkday có trả về dataraw
+       */
       if (this.customInfoArr) {
         for (let index = 0; index < this.customInfoArr.length; index++) {
           const element = this.customInfoArr[index];
@@ -1090,8 +1093,26 @@ export class TicketAdddetailsPage implements OnInit {
 
               resolve(false);
               return;
-            } else {
-              this.kkdayResource.dataInput.custom[index][elementCheck.name] = elementCheck[elementCheck.name];
+            } 
+            else if(!this.kkdayResource.dataInput.custom && this.kkdayResource.dataInput.mobile_device){
+              if(elementCheck && elementCheck.dataRaw && elementCheck.dataRaw.length >0){
+                let datamap = elementCheck.dataRaw.filter((item) => {return item.name ==  elementCheck[elementCheck.name]});
+                if(datamap && datamap.length>0){
+                  this.kkdayResource.dataInput.mobile_device[elementCheck.name] = datamap[0][elementCheck.field];
+                }
+              }else{
+                this.kkdayResource.dataInput.mobile_device[elementCheck.name] = elementCheck[elementCheck.name];
+              }
+            }else{
+
+              if(elementCheck && elementCheck.dataRaw && elementCheck.dataRaw.length >0){
+                let datamap = elementCheck.dataRaw.filter((item) => {return item.name == elementCheck[elementCheck.name] });
+                if(datamap && datamap.length>0){
+                  this.kkdayResource.dataInput.custom[index][elementCheck.name] = datamap[0][elementCheck.field];
+                }
+              }else{
+                this.kkdayResource.dataInput.custom[index][elementCheck.name] = elementCheck[elementCheck.name];
+              }
             }
           }
 
@@ -1129,7 +1150,14 @@ export class TicketAdddetailsPage implements OnInit {
             return;
           }
           else {
-            this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
+            if(element && element.dataRaw && element.dataRaw.length >0){
+              let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
+              if(datamap && datamap.length>0){
+                this.kkdayResource.dataInput.traffic.car[element.name] = datamap[0][element.field];
+              }
+            }else{
+              this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
+            }
           }
         }
       }
@@ -1141,7 +1169,14 @@ export class TicketAdddetailsPage implements OnInit {
             resolve(false);
             return;
           } else {
-            this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
+            this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name]; if(element && element.dataRaw && element.dataRaw.length >0){
+              let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
+              if(datamap && datamap.length>0){
+                this.kkdayResource.dataInput.traffic.car[element.name] = datamap[0][element.field];
+              }
+            }else{
+              this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
+            }
           }
         }
       }
@@ -1153,7 +1188,14 @@ export class TicketAdddetailsPage implements OnInit {
             resolve(false);
             return;
           } else {
-            this.kkdayResource.dataInput.traffic.flight[element.name] = element[element.name];
+            if(element && element.dataRaw && element.dataRaw.length >0){
+              let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
+              if(datamap && datamap.length>0){
+                this.kkdayResource.dataInput.traffic.flight[element.name] = datamap[0][element.field];
+              }
+            }else{
+              this.kkdayResource.dataInput.traffic.flight[element.name] = element[element.name];
+            }
           }
         }
       }

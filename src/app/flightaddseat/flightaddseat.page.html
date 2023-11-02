@@ -74,7 +74,7 @@
                     <div *ngIf="!departnewmodel">
                         <div class="div-seat m-top-21" >
         
-                            <div class="d-flex justify-content-between lh-25">
+                            <div class="d-flex justify-content-between lh-25" *ngIf="!listSeatName || (listSeatName && listSeatName.length >4)">
                                 <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeft; let idx1 =index">
                                     <div class="div-seat-icon text-seat">
                                         {{item}}
@@ -82,6 +82,19 @@
                                 </div>
                                 <div class="div-number-center"></div>
                                 <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRight; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between lh-25" *ngIf="listSeatName && listSeatName.length == 4">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeftSmallSize; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                                <div class="div-number-center"></div>
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRightSmallSize; let idx1 =index">
                                     <div class="div-seat-icon text-seat">
                                         {{item}}
                                     </div>
@@ -237,7 +250,7 @@
                     <div *ngIf="!returnnewmodel">
                         <div class="div-seat m-top-21">
         
-                            <div class="d-flex justify-content-between lh-25">
+                            <div class="d-flex justify-content-between lh-25" *ngIf="!listSeatNameReturn || (listSeatNameReturn && listSeatNameReturn.length >4)">
                                 <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeft; let idx1 =index">
                                     <div class="div-seat-icon text-seat">
                                         {{item}}
@@ -245,6 +258,19 @@
                                 </div>
                                 <div class="div-number-center"></div>
                                 <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRight; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between lh-25" *ngIf="listSeatNameReturn && listSeatNameReturn.length ==4">
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameLeftSmallSize; let idx1 =index">
+                                    <div class="div-seat-icon text-seat">
+                                        {{item}}
+                                    </div>
+                                </div>
+                                <div class="div-number-center"></div>
+                                <div [ngClass]="idx1 >0 ? 'div-seat-name m-left-14':'div-seat-name'" *ngFor="let item of listSeatNameRightSmallSize; let idx1 =index">
                                     <div class="div-seat-icon text-seat">
                                         {{item}}
                                     </div>

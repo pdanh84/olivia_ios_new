@@ -315,7 +315,19 @@ export class MytripdetailPage implements OnInit {
               console.log(JSON.parse(this.objSummary.supplement));
               let _objSup = JSON.parse(this.objSummary.supplement);
                 if(_objSup && _objSup.traffic && _objSup.traffic.car && _objSup.traffic.car.s_location && this.objSummary.expeName.indexOf('Vé') != -1){
-                    this.ticketChangeLocation = _objSup.traffic.car.s_location;
+                    //this.ticketChangeLocation = _objSup.traffic.car.s_location;
+                    let id = _objSup.traffic.car.s_location;
+                      if(data.data && data.data.kkdayResource && data.data.kkdayResource.data && data.data.kkdayResource.data.length >0){
+                        let _objlocationmap = data.data.kkdayResource.data.filter((f) => {return f.name == 's_location'});
+                        if(_objlocationmap && _objlocationmap.length >0){
+                          if(_objlocationmap[0] && _objlocationmap[0].dataRaw && _objlocationmap[0].dataRaw.length >0){
+                              let _location = _objlocationmap[0].dataRaw.filter((l) => {return l.id == id});
+                              if(_location && _location.length >0){
+                                this.ticketChangeLocation = _location[0].name;
+                              }
+                          }
+                        }
+                      }
                 }
             }
             this.showIncludeContent ='';

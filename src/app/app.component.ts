@@ -29,6 +29,7 @@ import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
 import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 
 register();
 @Component({
@@ -248,6 +249,8 @@ export class AppComponent implements OnInit{
       // this.storage.remove('listexeperienceregion');
       this.valueGlobal.countNotifi=0;
       await FirebaseAnalytics.enable();
+      await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
+      await FacebookLogin.setAdvertiserIDCollectionEnabled({enabled: true});
     });
     
   }
