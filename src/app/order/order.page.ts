@@ -695,16 +695,12 @@ export class OrderPage {
 
                 //if (element.payment_status != 3 && element.payment_status != -2) {
                 if (element.avatar && element.avatar.indexOf("104x104") == -1 && element.avatar.indexOf('i.travelapi.com') == -1 && element.booking_type != 'TICKET') {
-                  let urlavatar = "";
-                  let tail = "";
-                  if (element.avatar.indexOf('jpeg') != -1) {
-                    urlavatar = element.avatar.substring(0, element.avatar.length - 5);
-                    tail = element.avatar.substring(element.avatar.length - 5, element.avatar.length);
-                  } else {
-                    urlavatar = element.avatar.substring(0, element.avatar.length - 4);
-                    tail = element.avatar.substring(element.avatar.length - 4, element.avatar.length);
+                  const hasCdn1 = element.avatar.includes("cdn1");
+                  if (hasCdn1) {
+                    const imageUrl = element.avatar;
+                    const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                    element.avatar = newImageUrl;
                   }
-                  element.avatar = urlavatar + "-" + "104x104" + tail;
                 }
                 if (element.avatar) {
                   element.avatar = (element.avatar.toLocaleString().trim().indexOf("http") != -1) ? element.avatar : ('https:' + element.avatar);
@@ -835,7 +831,7 @@ export class OrderPage {
                 element.departAirport = se.getAirportByCode(element.departCode);
                 element.returnAirport = se.getAirportByCode(element.arrivalCode);
                 se.getRatingStar(element);
-                // if (element.booking_id=='VC0003453') {
+                // if (element.booking_id=='VMB1737782') {
                 //   se.listMyTrips.push(element);
                 // }
                 se.listMyTrips.push(element);
@@ -1000,9 +996,12 @@ export class OrderPage {
                 //if (element.payment_status != 3 && element.payment_status != -2) {
                 //if (element.payment_status != 3) {
                 if (element.avatar && element.avatar.indexOf("104x104") == -1 && element.avatar.indexOf('i.travelapi.com') == -1 && element.booking_type != 'TICKET') {
-                  let urlavatar = element.avatar.substring(0, element.avatar.length - 4);
-                  let tail = element.avatar.substring(element.avatar.length - 4, element.avatar.length);
-                  element.avatar = urlavatar + "-" + "104x104" + tail;
+                  const hasCdn1 = element.avatar.includes("cdn1");
+                  if (hasCdn1) {
+                    const imageUrl = element.avatar;
+                    const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                    element.avatar = newImageUrl;
+                  }
                 }
                 if (element.avatar) {
                   element.avatar = (element.avatar.toLocaleString().trim().indexOf("http") != -1) ? element.avatar : ('https:' + element.avatar);
@@ -1641,14 +1640,121 @@ export class OrderPage {
 
 
                 if (element.booking_id && (element.booking_id.indexOf("FLY") != -1 || element.booking_id.indexOf("VMB") != -1 || element.booking_type == "CB_FLY_HOTEL")) {
-                  let temp = element.bookingsComboData[0].departureDate.split("/");
-                  let daytemp=temp[2]+ temp[1] + temp[0];
-                  var dep = moment(daytemp+ " " + element.bookingsComboData[0].departureTime, "YYYYMMDD HH:mm")
-                  let _time = moment(dep).diff(new Date(), 'minutes');
+                  element.isFlyBooking = true;
+                  //console.log(JSON.parse(element.booking_json_data));
+                  //check đã xuất vé + có checkin online
+                  element.bookingjson = JSON.parse(element.booking_json_data);
+                   console.log(element.bookingjson);
+                  if ((element.payment_status == 1 || element.payment_status == 5) && element.bookingsComboData[0].issueTicketDate != '' && (!element.bookingsComboData[1] || (element.bookingsComboData[1] && element.bookingsComboData[1].issueTicketDate != ''))) {
+                    let objjson = JSON.parse(element.booking_json_data);
+                    let _checked = objjson.some(item => { return item.Passengers && item.Passengers.some(p => p.CheckinInfo && p.CheckinInfo.indexOf('http') != -1) });
+                    element.hadCheckinOnline = _checked;
+                    element.hadCheckinOnlineDepart=false;
+                    element.hadCheckinOnlineReturn=false;
+                    if (objjson[0] && objjson[0].Passengers) {
+                      for (let i = 0; i < objjson[0].Passengers.length; i++) {
+                        const el = objjson[0].Passengers[i];
+                        if (el.CheckinInfo && el.CheckinInfo.indexOf('http') != -1) {
+                          element.hadCheckinOnlineDepart = true;
+                          break;
+                        }
+                      }
+                    }
+                    if (objjson.length > 1 && objjson[1] && objjson[1].Passengers) {
+                      for (let i = 0; i < objjson[1].Passengers.length; i++) {
+                        const el = objjson[1].Passengers[i];
+                        if (el.CheckinInfo && el.CheckinInfo.indexOf('http') != -1) {
+                          element.hadCheckinOnlineReturn = true;
+                          break;
+                        }
+                      }
+                    }
+                    // console.log(JSON.parse(element.booking_json_data));
+                  }
+                  if (element.hotel_name.indexOf("VMB QT") != -1  || element.hotel_id == "F000002") {
+                    element.isBookingVMBQT = true;
+                    element.allowCheckinOnline = false;
+                    if (element.booking_json_data) {
+                    
+                      // element.bookingjson = JSON.parse(element.booking_json_data);
+                      if (element.bookingjson && element.bookingjson.length > 0) {
+                        element.totalCost = 0;
+                        let _timezone = new Date(element.checkInDate).getTimezoneOffset();
+                        element.bookingjson.forEach((elementbkg,idx) => {
+                          if (elementbkg.Supplier3rd){
+                            element.isTravelPort = true;
+                          }
+                          if (elementbkg && elementbkg.Transits) {
+                            element.totalCost += elementbkg.TotalCost * 1;
+
+                            for (let index = 0; index < elementbkg.Transits.length; index++) {
+                              const elementTran = elementbkg.Transits[index];
+                              let cin = moment(new Date(this.gf.getCinIsoDate(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1))).format('YYYY-MM-DD');
+                              if(element.bookingJsonDataParse && element.bookingJsonDataParse[idx] && element.bookingJsonDataParse[idx].transits[index] && element.bookingJsonDataParse[idx].transits[index].departTimeParse){
+                                elementTran.DepartTimeDisplay = moment(element.bookingJsonDataParse[idx].transits[index].departTimeParse).format('HH:mm');
+                                let _d = element.bookingJsonDataParse[idx].transits[index].departTimeParse;
+                                elementTran.DepartDayDisplay = moment(_d).format('DD')+ "Thg " + moment(_d).format('MM');
+                                if(elementTran.LandingTime){
+                                  elementTran.LandingTimeDisplay = moment(element.bookingJsonDataParse[idx].transits[index].landingTimeParse).format('HH:mm');
+                                  let _dr = element.bookingJsonDataParse[idx].transits[index].landingTimeParse;
+                                  elementTran.LandingDayDisplay = moment(_dr).format('DD')+ "Thg " + moment(_dr).format('MM');
+                                }
+                                cin = moment(_d).format('YYYY-MM-DD');
+                                }else{
+                                if (_timezone != -420) {
+                                  elementTran.DepartTimeDisplay = moment(new Date(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('HH:mm');
+                                  elementTran.LandingTimeDisplay = moment(new Date(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('HH:mm');
+
+                                  elementTran.DepartDayDisplay = moment(new Date(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('DD') + "Thg " + moment(new Date(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('MM');
+                                  elementTran.LandingDayDisplay = moment(new Date(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('DD') + "Thg " + moment(new Date(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('MM');
+                                  cin = moment(new Date(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1 + _timezone * 60000 + 25200000)).format('YYYY-MM-DD');
+
+                                } else {
+                                  elementTran.DepartTimeDisplay = moment(new Date(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1)).format('HH:mm');
+                                  elementTran.LandingTimeDisplay = moment(new Date(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1)).format('HH:mm');
+                                  elementTran.DepartDayDisplay = moment(new Date(this.gf.getCinIsoDate(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1))).format('DD') + "Thg " + moment(new Date(this.gf.getCinIsoDate(elementTran.DepartTime.replace('/Date(', '').replace(')/', '') * 1))).format('MM');
+                                  elementTran.LandingDayDisplay = moment(new Date(this.gf.getCinIsoDate(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1))).format('DD') + "Thg " + moment(new Date(this.gf.getCinIsoDate(elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1))).format('MM');
+                                }
+                              }
+                              elementTran.departAirport = this.getAirportByCode(elementTran.FromPlaceCode);
+                              elementTran.landingAirport = this.getAirportByCode(elementTran.ToPlaceCode);
+
+                              elementTran.cindisplay = this.gf.getDayOfWeek(cin).daynameshort + ", " + moment(cin).format('DD-MM-YYYY')
+
+                              let elementNext = elementbkg.Transits[index + 1];
+                              if (elementNext) {
+
+                                let dt = elementNext.DepartTime.replace('/Date(', '').replace(')/', '') * 1;
+                                let lt = elementTran.LandingTime.replace('/Date(', '').replace(')/', '') * 1;
+                                let diffminutes = moment(dt).diff(lt, 'minutes');
+                                if (diffminutes) {
+                                  let hours: any = Math.floor(diffminutes / 60);
+                                  let minutes: any = diffminutes - (hours * 60);
+                                  if (hours < 10) {
+                                    hours = hours != 0 ? "0" + hours : "0";
+                                  }
+                                  if (minutes < 10) {
+                                    minutes = "0" + minutes;
+                                  }
+                                  elementTran.timeOverlay = hours + ' tiếng ' + minutes + ' phút';
+                                }
+                              }
+                            }
+
+                          }
+                        });
+                        if(element.payment_fee){ 
+                          this.totalCost = this.totalCost - element.payment_fee;
+                        }
+                      }
+                      element.flightRoundTripStr = 'Vé máy bay ' + (element.bookingjson.length > 1 ? 'khứ hồi' : 'một chiều');
+                      if (element.totalPaxStr) {
+                        element.totalPaxStrVMBQT = element.totalPaxStr.replace(' |', ',');
+                      }
+                    }
+                  }
                   
-                  // if (element.booking_id=='VC0003453') {
-                  //   se.listMyTrips.push(element);
-                  // }
+            
 
                   //pdanh 02-08-2023: Thêm valid checkin online
                    //_time = khoảng thời gian từ lúc book vé so với ngày khởi hành
@@ -1669,6 +1775,9 @@ export class OrderPage {
                     element.checkOutDisplay = se.gf.getDayOfWeek(dr).daynameshort + ", " + moment(dr).format('DD-MM-YYYY');
                    }
                   
+                  // if (element.booking_id=='VMB1737782') {
+                  //   se.listMyTrips.push(element);
+                  // }
                   se.listMyTrips.push(element);
                   se.mytripcount++;
                   //se.nextflightcounttext ="(" + se.mytripcount +")";
@@ -1688,15 +1797,12 @@ export class OrderPage {
               if (element.request_id.indexOf("HTBKG") == -1) {
                 let urlavatar = "", tail = "";
                 if (element.hotelAvatar.indexOf('i.travelapi.com') == -1 && element.booking_type != 'TICKET') {
-                  if (element.hotelAvatar.indexOf('jpeg') != -1) {
-                    urlavatar = element.hotelAvatar.substring(0, element.hotelAvatar.length - 5);
-                    tail = element.hotelAvatar.substring(element.hotelAvatar.length - 5, element.hotelAvatar.length);
-                  } else {
-                    urlavatar = element.hotelAvatar.substring(0, element.hotelAvatar.length - 4);
-                    tail = element.hotelAvatar.substring(element.hotelAvatar.length - 4, element.hotelAvatar.length);
+                  const hasCdn1 = element.hotelAvatar.includes("cdn1");
+                  if (hasCdn1) {
+                    const imageUrl = element.hotelAvatar;
+                    const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                    element.hotelAvatar = newImageUrl;
                   }
-
-                  element.avatar = urlavatar + "-" + "104x104" + tail;
                 } else {
                   element.avatar = element.hotelAvatar;
                 }
@@ -1714,8 +1820,8 @@ export class OrderPage {
                 element.address = element.hotelAddress;
                 element.totalPaxStr = "" + (element.total_adult ? element.total_adult + " người lớn" : "") + (element.total_child ? ", " + element.total_child + " trẻ em" : "");
                 se.getRatingStar(element);
-                // if (element.booking_id=='IVIVU1002887') {
-                //   se.listMyTrips.push(element);
+                // if (element.booking_id=='VMB1737782') {
+                //     se.listMyTrips.push(element);
                 // }
                 se.listMyTrips.push(element);
                 se.mytripcount++;
@@ -2262,9 +2368,12 @@ export class OrderPage {
                 }
                 //if (elementHis.payment_status != 3 && elementHis.payment_status != -2) {
                 if (elementHis.avatar && elementHis.avatar.indexOf("104x104") == -1 && elementHis.avatar.indexOf('i.travelapi.com') == -1 && elementHis.booking_type != 'TICKET') {
-                  let urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 4);
-                  let tail = elementHis.avatar.substring(elementHis.avatar.length - 4, elementHis.avatar.length);
-                  elementHis.avatar = urlavatar + "-" + "104x104" + tail;
+                  const hasCdn1 = elementHis.avatar.includes("cdn1");
+                  if (hasCdn1) {
+                    const imageUrl = elementHis.avatar;
+                    const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                    elementHis.avatar = newImageUrl;
+                  }
                 }
                 if (elementHis.delivery_payment_date) {
                   let arrpaymentdate = elementHis.delivery_payment_date.split("T");
@@ -2554,9 +2663,12 @@ export class OrderPage {
                 //if (elementHis.payment_status != 3 && elementHis.payment_status != -2) {
                 //if (elementHis.payment_status != 3) {
                 if (elementHis.avatar && elementHis.avatar.indexOf('i.travelapi.com') == -1 && elementHis.booking_type != 'TICKET') {
-                  let urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 4);
-                  let tail = elementHis.avatar.substring(elementHis.avatar.length - 4, elementHis.avatar.length);
-                  elementHis.avatar = urlavatar + "-" + "104x104" + tail;
+                  const hasCdn1 = elementHis.avatar.includes("cdn1");
+                  if (hasCdn1) {
+                    const imageUrl = elementHis.avatar;
+                    const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                    elementHis.avatar = newImageUrl;
+                  }
                 }
                 if (elementHis.booking_id.indexOf("FLY") != -1 || elementHis.booking_id.indexOf("VMB") != -1 || elementHis.booking_type == "CB_FLY_HOTEL") {
                   elementHis.isFlyBooking = true;
@@ -3804,16 +3916,12 @@ export class OrderPage {
               //List trip yêu cầu
               lstRQTrips.forEach(element => {
                 if (element.request_id.indexOf("HTBKG") == -1) {
-                  let urlavatar = "", tail = "";
-                  if (element.hotelAvatar.indexOf('jpeg') != -1) {
-                    urlavatar = element.hotelAvatar.substring(0, element.hotelAvatar.length - 5);
-                    tail = element.hotelAvatar.substring(element.hotelAvatar.length - 5, element.hotelAvatar.length);
-                  } else {
-                    urlavatar = element.hotelAvatar.substring(0, element.hotelAvatar.length - 4);
-                    tail = element.hotelAvatar.substring(element.hotelAvatar.length - 4, element.hotelAvatar.length);
-                  }
-
-                  element.hotelAvatar = urlavatar + "-" + "104x104" + tail;
+                  const hasCdn1 = element.hotelAvatar.includes("cdn1");
+                    if (hasCdn1) {
+                      const imageUrl = element.hotelAvatar;
+                      const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                      element.hotelAvatar = newImageUrl;
+                    }
                   element.booking_id = element.request_id;
                   element.checkInDisplay = se.gf.getDayOfWeek(element.start_date).daynameshort + ", " + moment(element.start_date).format('DD-MM-YYYY')
                   element.checkOutDisplay = se.gf.getDayOfWeek(element.end_date).daynameshort + ", " + moment(element.end_date).format('DD-MM-YYYY')
@@ -5489,9 +5597,13 @@ export class OrderPage {
       orderdetail.totalPriceDisplay = se.gf.convertNumberToString(orderdetail.itemPrice * orderdetail.quantity);
       orderdetail.image = orderdetail.detailCombo.image;
       if (orderdetail.image.indexOf('104x104') == -1) {
-        let urlavatar = orderdetail.image.substring(0, orderdetail.image.length - 4);
-        let tail = orderdetail.image.substring(orderdetail.image.length - 4, orderdetail.image.length);
-        orderdetail.image = urlavatar + "-104x104" + tail;
+        const hasCdn1 = orderdetail.image.includes("cdn1");
+        if (hasCdn1) {
+          const imageUrl = orderdetail.image;
+          const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+          orderdetail.image = newImageUrl;
+        }
+
       }
       let extraitem = JSON.parse(orderdetail.extra);
       var extraText = "";

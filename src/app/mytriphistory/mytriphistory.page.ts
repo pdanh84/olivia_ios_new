@@ -557,13 +557,12 @@ export class MytripHistoryPage implements OnInit {
           }
           //if (elementHis.payment_status != 3 && elementHis.payment_status != -2) {
             if (elementHis.avatar && elementHis.avatar.indexOf("104x104") ==-1 && elementHis.avatar.indexOf('i.travelapi.com') ==-1) {
-              let urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 4);
-              let tail = elementHis.avatar.substring(elementHis.avatar.length - 4, elementHis.avatar.length);
-              if (tail.indexOf('jpeg') != -1) {
-                 urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 5);
-                 tail = elementHis.avatar.substring(elementHis.avatar.length - 5, elementHis.avatar.length);
+              const hasCdn1 = elementHis.avatar.includes("cdn1");
+              if (hasCdn1) {
+                const imageUrl = elementHis.avatar;
+                const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                elementHis.avatar = newImageUrl;
               }
-              elementHis.avatar = urlavatar + "-" + "104x104" + tail;
             }
             if (elementHis.avatar) {
               elementHis.avatar = (elementHis.avatar.toLocaleString().trim().indexOf("http") != -1) ? elementHis.avatar : 'https:' + elementHis.avatar;
@@ -672,13 +671,12 @@ export class MytripHistoryPage implements OnInit {
           //if (elementHis.payment_status != 3 && elementHis.payment_status != -2) {
             //if (elementHis.payment_status != 3) {
             if (elementHis.avatar && elementHis.avatar.indexOf('i.travelapi.com') ==-1) {
-              let urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 4);
-              let tail = elementHis.avatar.substring(elementHis.avatar.length - 4, elementHis.avatar.length);
-              if (tail.indexOf('jpeg') != -1) {
-                urlavatar = elementHis.avatar.substring(0, elementHis.avatar.length - 5);
-                tail = elementHis.avatar.substring(elementHis.avatar.length - 5, elementHis.avatar.length);
+              const hasCdn1 = elementHis.avatar.includes("cdn1");
+              if (hasCdn1) {
+                const imageUrl = elementHis.avatar;
+                const newImageUrl = imageUrl.replace(/(\.\w+)$/, "-104x104$1");
+                elementHis.avatar = newImageUrl;
               }
-              elementHis.avatar = urlavatar + "-" + "104x104" + tail;
             }
             if (elementHis.avatar) {
               elementHis.avatar = (elementHis.avatar.toLocaleString().trim().indexOf("http") != -1) ? elementHis.avatar : 'https:' + elementHis.avatar;
