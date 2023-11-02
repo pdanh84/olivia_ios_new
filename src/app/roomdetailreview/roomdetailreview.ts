@@ -263,9 +263,10 @@ export class RoomdetailreviewPage implements OnInit {
       if(this.itemVoucherHotel){
         this._voucherService.rollbackSelectedVoucher.emit(this.itemVoucherHotel);
       }
+      
       this.point=0;
       this.ischeck = false;
-      this.Roomif.point='';
+      this.Roomif.point=null;
       this.price=0;
   
       this.textpromotion="iVIVU Voucher | Mobile Gift";
@@ -274,7 +275,6 @@ export class RoomdetailreviewPage implements OnInit {
       this.ischeckpromo=false;
       this.msg="";
       this.itemVoucherHotel = null;
-
       this.strPromoCode = '';
           this.totaldiscountpromo = 0;
           this._voucherService.voucherSelected = [];
@@ -283,16 +283,16 @@ export class RoomdetailreviewPage implements OnInit {
           this._voucherService.totalDiscountPromoCode = 0;
           this._voucherService.hotelPromoCode = "";
           this._voucherService.hotelTotalDiscount = 0;
-          this._voucherService.vouchers=[];
+          this._voucherService.vouchers = [];
     }
-    this.bookCombo.upgradeRoomChange.pipe().subscribe((dataRoomChange)=>{         
-      if(dataRoomChange){
-        this.updateRoomChange(dataRoomChange);
-      }
-  })
-    this.GetUserInfo();
-    this.edit();
-  }
+      this.bookCombo.upgradeRoomChange.pipe().subscribe((dataRoomChange)=>{         
+        if(dataRoomChange){
+          this.updateRoomChange(dataRoomChange);
+        }
+    })
+      this.GetUserInfo();
+      this.edit();
+    }
   GetUserInfo() {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
@@ -321,33 +321,30 @@ export class RoomdetailreviewPage implements OnInit {
                 })
               }
               se.zone.run(() => {
-                  if (data.point) {
-                    if (data.point > 0) {
-                      se.pointshow=data.point;
-                      se.Roomif.point = data.point;
-                      se.point = data.point * 1000;
-                      se.price = se.point.toLocaleString();
-                      if(se.PriceAvgPlusTAStr){
-                        var tempprice = se.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
-                        se.Pricepoint = tempprice - se.point;
-                        se.Pricepointshow = se.Pricepoint.toLocaleString();
-                        if (se.Pricepoint <= 0) {
-                          se.ischeckpoint = true;
-                          se.Pricepointshow = 0;
-                        }
-                      }
-                      
-                    }
-                    // if (data.point > 0) {
-                    //   se.pointshow = data.point;
-                    //   se.Roomif.point = data.point;
-                    //   se.point = data.point * 1000;
-                    //   se.price = se.point.toLocaleString();
-                    // }
+                if (data.point) {
+                  //point=500;
+                  // if (point > 0) {
+                  //   se.pointshow=point;
+                  //   se.Roomif.point = point;
+                  //   se.point = point * 1000;
+                  //   se.price = se.point.toLocaleString();
+                  //   var tempprice = se.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
+                  //   se.Pricepoint = tempprice - se.point;
+                  //   se.Pricepointshow = se.Pricepoint.toLocaleString();
+                  //   if (se.Pricepoint <= 0) {
+                  //     se.ischeckpoint = true;
+                  //     se.Pricepointshow = 0;
+                  //   }
+                  // }
+                  if (data.point > 0) {
+                    se.Roomif.point = data.point;
+                    se.point = data.point * 1000;
+                    se.price = se.point.toLocaleString();
                   }
-                  se.storage.remove('point');
-                  se.storage.set('point', data.point);
-              })
+                }
+                se.storage.remove('point');
+                se.storage.set('point', data.point);
+            })
               //se.storage.set('userInfoData', data);
             }
 
