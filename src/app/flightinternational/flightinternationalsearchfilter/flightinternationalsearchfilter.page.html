@@ -1,19 +1,17 @@
 <ion-header class="flightpage-header">
-  <ion-toolbar>
     <ion-row>
       <ion-col class="col-header">
         <div class="d-flex">
+          <div class="div-goback" (click)="close()">
+            <img class="header-img-back" src="./assets/imgs/ios-arrow-round-back.svg" >
+          </div>
           <div class="div-header-title">
             <div class="div-title">Lọc</div>
           </div>
   
-          <div class="div-close" (click)="close()">
-            <img class="header-img-close m-top-5" src="./assets/imgs/ios-arrow-round-back.svg" >
-        </div>
         </div>
       </ion-col>
     </ion-row>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content class="flight-search-filter-content">

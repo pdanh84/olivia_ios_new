@@ -999,6 +999,9 @@ ion-header ion-toolbar:first-child {
     margin: 8px 0
   }
 }
+.d-flex {
+  display: flex;
+}
 
 .flightpage-header{
   .col-header{
@@ -1008,10 +1011,11 @@ ion-header ion-toolbar:first-child {
       .div-goback{
           height: 48px;
           width: 48px;
+          margin-left: -3px;
 
           .header-img-back{
               width: 36px;
-              margin-top: 6px;
+              margin-top: 2px;
           }
       }
 
@@ -1019,8 +1023,6 @@ ion-header ion-toolbar:first-child {
         height: 48px;
         width: 48px;
         position: absolute;
-
-        left: 3px;
         z-index: 1;
 
         .header-img-close{
@@ -1036,7 +1038,7 @@ ion-header ion-toolbar:first-child {
           padding-top: 6px;
           
           .div-title{
-              font-size: 15px;
+              font-size: 18px;
               font-weight: 600;
               font-stretch: normal;
               font-style: normal;
@@ -1045,7 +1047,7 @@ ion-header ion-toolbar:first-child {
           }
           .div-subtitle{
               font-size: 11px;
-              font-weight: 300;
+              font-weight: 500;
               font-stretch: normal;
               font-style: normal;
               line-height: 1.82;

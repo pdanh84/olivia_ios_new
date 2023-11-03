@@ -3152,7 +3152,7 @@ alert.present();
 
     ipairlinememberOnFocus(id){
       setTimeout(()=>{
-      (window.document.getElementById(id) as any).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      (window.document.getElementById(id) as any).scrollIntoView({ behavior: 'smooth', block: 'start'});
       },100)
     }
 }

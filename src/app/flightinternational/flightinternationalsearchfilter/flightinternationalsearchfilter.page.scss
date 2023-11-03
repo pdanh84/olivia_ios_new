@@ -50,6 +50,8 @@ ion-footer {
 //     transform: rotate(45deg);
 //   }
 
+.flight-search-filter-content{
+
   ion-checkbox {
     --size: 26px;
     --background-checked: var(--ion-color-primary);
@@ -57,10 +59,13 @@ ion-footer {
   
   ion-checkbox::part(container) {
     border-radius: 4px;
-    border: 2px solid #828282;
-    padding: 5px;
+    border: 2px solid #cdcdcd;
+    padding: 0px;
   }
-.flight-search-filter-content{
+  ion-radio {
+    --color: #cdcdcd;
+  }
+
     .p-16{
         padding: 16px;
         padding-bottom: 100px;

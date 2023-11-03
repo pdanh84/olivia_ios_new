@@ -3107,7 +3107,7 @@ alert.present();
                 let checkpromocode = this._voucherService.voucherSelected && this._voucherService.voucherSelected.length ==0 && this._voucherService.listObjectPromoCode && this._voucherService.listObjectPromoCode.length ==0;
                 let arrpromocode = se._flightService.itemFlightInternational.promotionCode ? [{"voucherCode": se._flightService.itemFlightInternational.promotionCode, "voucherName": se._flightService.itemFlightInternational.promotionCode,"voucherType": 1,"voucherDiscount": se._flightService.itemFlightInternational.discountpromo,"keepCurrentVoucher": false  }] : [];
   
-                return new Promise((resolve, reject) => {
+                //return new Promise((resolve, reject) => {
                   let objPass
                      objPass = {
                       "contact": {
@@ -3167,7 +3167,7 @@ alert.present();
                       }
                     })
     
-                })
+                //})
               }
               catch(e){
                 se.gf.hideLoading();

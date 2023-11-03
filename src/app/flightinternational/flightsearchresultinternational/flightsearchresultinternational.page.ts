@@ -2516,7 +2516,7 @@ export class FlightSearchResultInternationalPage implements OnInit {
               se.gf.logEventFirebase('', se._flightService.itemFlightCache, 'flightsearchresultinternational', 'confirm', 'Flights');
 
               se._flightService.itemFlightCache.isApiDirect = true;
-              se.navCtrl.navigateForward('/flightaddservice');
+              se.navCtrl.navigateForward('/flightadddetails');
               se.stoprequest = true;
           }else{
             se.showAlertRefreshPrice('Vé máy bay bạn chọn hiện không còn. Vui lòng chọn lại!');
