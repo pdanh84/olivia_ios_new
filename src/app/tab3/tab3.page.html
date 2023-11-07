@@ -1,2 +1,5 @@
-<app-order style="height: 100%;" *ngIf="!isBizAccount"></app-order>
+<div class="div-header" *ngIf="!isBizAccount">
+    <app-order style="height: 100%;" ></app-order>
+</div>
+
 <app-booking style="height: 100%;" *ngIf="isBizAccount"></app-booking>

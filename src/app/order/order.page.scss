@@ -6,11 +6,6 @@
         --padding-left: 0;
         --padding-right: 0;
     }
-    .row-h-56 {
-        height: 56px;
-        display: flex;
-        align-items: center;
-      }
     .fix-header{
         position: fixed;
     }
@@ -48,7 +43,7 @@
     .div-order-content{
         height: 100%;
         background-color: #f2f2f2;
-        padding: 16px 8px;
+        padding: 0px 8px;
     }
     
     .div-order-content-1{
@@ -572,7 +567,7 @@
 
     .card-background-page-mytrips{
         height: 100%;
-        padding-top: calc( env(safe-area-inset-top) + 84px);
+        // padding-top: calc( env(safe-area-inset-top) + 84px);
         .min-height-84{
             min-height: 84px !important;
         }
@@ -2686,7 +2681,7 @@ color: #e52822
 
 
 .p-history{
-    padding-top: calc( env(safe-area-inset-top) + 84px) !important;
+    // padding-top: calc( env(safe-area-inset-top) + 84px) !important;
 }
 
 .div-height-120{
@@ -2715,6 +2710,7 @@ color: #e52822
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 160px;
 }
 .p-absolute{
     position: absolute;
@@ -4904,6 +4900,7 @@ and (orientation: portrait) {
   }
   .margin-16{
     margin: 0px 16px 16px;
+    margin-bottom: 60px;
   }
   .margin-16-detail{
     margin: 11px 8px 16px;
