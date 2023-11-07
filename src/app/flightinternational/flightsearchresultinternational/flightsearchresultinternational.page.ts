@@ -19,6 +19,7 @@ import { FlightInfoInternationalPage } from '../flightinfointernationnal/flighti
 import { FlightDepartureDetailInternationalPage } from '../flightdeparturedetailinternational/flightdeparturedetailinternational.page';
 import { FlightInternationalSearchfilterPage } from '../flightinternationalsearchfilter/flightinternationalsearchfilter.page';
 import { voucherService } from 'src/app/providers/voucherService';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-flightsearchresultinternational',
@@ -280,6 +281,10 @@ export class FlightSearchResultInternationalPage implements OnInit {
         this.loadFlightData(obj, true);
       }
     })
+  }
+
+  ionViewWillEnter(){
+    SplashScreen.hide();
   }
 
   goback(){
@@ -2411,6 +2416,10 @@ export class FlightSearchResultInternationalPage implements OnInit {
     }
     
     changeFlight(itemFlight, itemDeparture, type, idx) {
+      if(itemDeparture.ischeck){
+        return;
+      }
+      
       let arrCheck = type ==1 ? itemFlight.departFlights : itemFlight.returnFlights;
      
         this.zone.run(()=>{

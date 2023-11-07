@@ -1803,7 +1803,7 @@ import { App } from '@capacitor/app';
             {name: 'Kenya', code: 'KE'}, 
             {name: 'Kiribati', code: 'KI'}, 
             {name: 'Korea, Democratic People\'S Republic of', code: 'KP'}, 
-            {name: 'Korea, Republic of', code: 'KR'}, 
+            {name: 'Korea', code: 'KR'}, 
             {name: 'Kuwait', code: 'KW'}, 
             {name: 'Kyrgyzstan', code: 'KG'}, 
             {name: 'Lao People\'S Democratic Republic', code: 'LA'}, 
@@ -3961,7 +3961,7 @@ import { App } from '@capacitor/app';
   loadLocation():Promise<any>{
     var se = this;
     return new Promise((resolve, reject)=>{
-      let url = C.urls.baseUrl.urlFlight + "gate/apiv1/AllPlace";
+      let url = C.urls.baseUrl.urlFlight + "gate/apiv1/AllPlace?token=3b760e5dcf038878925b5613c32615ea3ds";
       this.RequestApi('GET', url, {"Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",'Content-Type' : 'application/json'}, {}, 'globalFunction', 'CheckPaymentTicket').then((data) => {
           let result = data;
           if(result && result.data && result.data.length >0){

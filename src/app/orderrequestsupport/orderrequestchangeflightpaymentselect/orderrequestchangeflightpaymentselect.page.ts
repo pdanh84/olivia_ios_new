@@ -356,6 +356,7 @@ export class OrderRequestChangeFlightPaymentSelectPage implements OnInit {
       if (datapayoo.success) {
         //this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
         //this.openWebpage(datapayoo.returnUrl.payUrl);
+        Browser.open({url : datapayoo.returnUrl.payUrl});
         this.zone.run(()=>{
           this.setinterval();
         })

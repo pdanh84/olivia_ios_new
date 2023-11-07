@@ -508,11 +508,13 @@ export class FlightPaymentSelectPage implements OnInit {
               var url = C.urls.baseUrl.urlContracting + '/build-link-to-pay-aio?paymentType=momo&source=app&amount=' + itemcache.totalPrice + '&orderCode=' + this.bookingCode + '&buyerPhone=' + itemcache.phone +'&memberId='+this.jti+'&callbackUrl=https://ivivudownload.page.link/ivivuapp' + '&version=2';
               this.gf.CreatePayoo(url).then(datapayoo => {
                 if (datapayoo.success) {
-                  this._flightService.itemFlightCache.hasvoucher = this._flightService.itemFlightCache.promotionCode;//set param xac dinh da nhap voucher o buoc chon dich vu
-                  this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
-                  this._flightService.itemFlightCache.hasvoucher = this._flightService.itemFlightCache.promotionCode;//set param xac dinh da nhap voucher o buoc chon dich vu
+                  
+                  //this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                  //console.log(datapayoo.returnUrl.payUrl)
+                  Browser.open({url : datapayoo.returnUrl.payUrl});
                   this.setinterval(null);
                   this.hideLoading();
+                  this._flightService.itemFlightCache.hasvoucher = this._flightService.itemFlightCache.promotionCode;//set param xac dinh da nhap voucher o buoc chon dich vu
                 }
                 else{
                   this.gf.showAlertOutOfTicket(this._flightService.itemFlightCache, 2,0);
@@ -540,7 +542,8 @@ export class FlightPaymentSelectPage implements OnInit {
                   var url = C.urls.baseUrl.urlContracting + '/build-link-to-pay-aio?paymentType=momo&source=app&amount=' + itemcache.totalPrice + '&orderCode=' + this.bookingCode + '&buyerPhone=' + itemcache.phone +'&memberId='+this.jti+'&callbackUrl=https://ivivudownload.page.link/ivivuapp'+ '&version=2';
                   this.gf.CreatePayoo(url).then(datapayoo => {
                     if (datapayoo.success) {
-                      this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                      //this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                      Browser.open({url : datapayoo.returnUrl.payUrl});
                       this.setinterval(null);
                       clearInterval(this.intervalID);
                       this.hideLoading();

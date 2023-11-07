@@ -238,7 +238,8 @@ export class MytripaymentflightselectPage implements OnInit {
             var url = C.urls.baseUrl.urlContracting + '/build-link-to-pay-aio?paymentType=momo&source=app&amount=' + totalPrice + '&orderCode=' + this.bookingCode + '&buyerPhone=' + this.cus_phone + '&callbackUrl=https://ivivudownload.page.link/ivivuapp';
             this.gf.CreatePayoo(url).then(datapayoo => {
               if (datapayoo.success) {
-                this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                //this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                Browser.open({url : datapayoo.returnUrl.payUrl});
                 this.setinterval(null);
                 this.hideLoading();
 

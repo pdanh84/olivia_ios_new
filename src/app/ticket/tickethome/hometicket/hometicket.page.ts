@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { NetworkProvider } from './../../../network-provider.service';
 
 import { ticketService } from 'src/app/providers/ticketService';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-hometicket',
@@ -33,5 +34,9 @@ export class HomeTicketPage implements OnInit {
 
   ngOnInit(){
   
+  }
+
+  ionViewDidEnter() {
+    SplashScreen.hide();
   }
 }

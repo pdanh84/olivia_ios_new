@@ -59,6 +59,7 @@
     "@capawesome/capacitor-badge": "^5.0.0",
     "@ionic/angular": "^7.0.0",
     "@ionic/storage": "^4.0.0",
+    "@pantrist/capacitor-firebase-dynamic-links": "^5.0.1",
     "ionicons": "^7.0.0",
     "jquery": "^3.7.1",
     "jwt-decode": "^3.1.2",

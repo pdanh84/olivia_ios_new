@@ -235,6 +235,10 @@
         font-style: normal;
         line-height: 1.5;
         top: 60px;
+
+        @media (min-width:350px) and (max-width: 375px) {
+            font-size: 17px !important;
+        }
     }
 
     .div-text-promo{

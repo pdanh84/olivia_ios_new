@@ -804,7 +804,8 @@
             <div class="text-refresh m-top-58 div-width-50"  (click)="doRefresh()">Cập nhật giá</div>
           </div>
           <div class="div-best-choice" *ngIf="(bestpricereturn && bestpricereturn.length >0 && (count >=1 || stoprequest) )">
-            <div [ngClass]="idx == bestpricereturn.length-1 ? 'div-item-flight':(idx == 0 ? 'div-item-flight m-b-8 bp-firstitem' : 'div-item-flight m-b-8')"  *ngFor="let item of bestpricereturn; let idx = index">
+            <div  *ngFor="let item of bestpricereturn; let idx = index">
+              <div [ngClass]="idx == bestpricereturn.length-1 ? 'div-item-flight':(idx == 0 ? 'div-item-flight m-b-8 bp-firstitem' : 'div-item-flight m-b-8')" *ngIf="item">
                 <div class="div-first d-flex"  >
                   <div (click)="select(2,item)">
                       <div class="d-flex">
@@ -890,6 +891,8 @@
                   </div>
                 </div>
                 <div *ngIf="item.operatedBy" class="text-operatedBy">{{item.operatedBy}}</div>
+              </div>
+                
             </div>
           </div>
   

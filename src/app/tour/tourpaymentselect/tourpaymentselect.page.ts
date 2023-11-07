@@ -400,7 +400,8 @@ export class TourPaymentSelectPage implements OnInit {
               se.hideLoading();
               if(paymentType == 'momo'){
                 //se.openWebpage(datapayoo.returnUrl.payUrl);
-                se._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                //se._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+                Browser.open({url : datapayoo.returnUrl.payUrl});
                 se.callSetInterval();
               }else{
                 se.openWebpage(datapayoo.returnUrl);

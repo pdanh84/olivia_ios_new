@@ -21,7 +21,8 @@ import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 })
 
 export class TourDetailPage {
-  @ViewChild('scrollArea') sliderTab:  ElementRef | undefined;;
+  @ViewChild('scrollArea') sliderTab:  ElementRef | undefined;
+;
   @ViewChild('headerScroll') headerScroll: IonContent;
   @ViewChild('scrollArea') scrollYArea: IonContent;
   slideOpts = {
@@ -55,6 +56,7 @@ export class TourDetailPage {
   TourIDLike: string;
   dataListLike: any;
   isChangeItemHeader: boolean=false;
+  currentPosition: any=0;
   constructor(private navCtrl: NavController, public gf: GlobalFunction,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
@@ -372,9 +374,23 @@ export class TourDetailPage {
         }
       }
 
+      if(this.isChangeItemHeader){
+        return;
+      }
+
+      let _scroll = event.detail.currentY;
+      let _scrollUp = true, _scrollDown = false;
+      if(_scroll > this.currentPosition){
+        _scrollUp = true;
+      }else {
+        _scrollDown = true;
+      }
+      this.currentPosition = _scroll;
+
       if ($('#content2') && $('#content2').length >0 && event.detail.currentY >= $('#content2')[0].offsetTop - 120) {
-        $($('.item-tour-header')[1]).siblings().removeClass('item-header-actived');
-        $($('.item-tour-header')[1]).addClass('item-header-actived');
+          $($('.item-tour-header')[1]).siblings().removeClass('item-header-actived');
+          $($('.item-tour-header')[1]).addClass('item-header-actived');
+        
         if(!this.isChangeItemHeader){
           (window.document.getElementById('header2') as any).scrollIntoView({  block: 'center'  });
         }
@@ -450,8 +466,11 @@ export class TourDetailPage {
           }
 
       }else {
-        $($('.item-tour-header')[0]).siblings().removeClass('item-header-actived');
-        $($('.item-tour-header')[0]).addClass('item-header-actived');
+        if(_scrollDown){
+          $($('.item-tour-header')[0]).siblings().removeClass('item-header-actived');
+          $($('.item-tour-header')[0]).addClass('item-header-actived');
+        }
+        
       }
     } catch (error:any) {
       error.page = "hoteldetail";
@@ -475,13 +494,14 @@ export class TourDetailPage {
           //this.scrollYArea.scrollToPoint(0, $('#content'+index).position().top +50, 350);
           if ($('#content' + index) && $('#content' + index).length > 0) {
             se.isChangeItemHeader = true;
+            se.currentPosition = 0;
             setTimeout(()=>{
               (window.document.getElementById('content' + index)as any).scrollIntoView({ behavior: 'smooth', block: 'center' });
             },200)
 
             setTimeout(()=>{
               se.isChangeItemHeader = false;
-            },1000)
+            },1500)
             
           }
 

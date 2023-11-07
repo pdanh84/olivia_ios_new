@@ -2799,9 +2799,9 @@ alert.present();
         }
       })
       
-      if(ev != 'dropdownicon'&& ev.detail && ev.detail.data ){
-        se.textCountrySearch = ev.detail.data;
-        const val =  ev.detail.data.toLowerCase();
+      if(ev != 'dropdownicon'&& ev.detail && ev.detail.value ){
+        se.textCountrySearch = ev.detail.value;
+        const val =  ev.detail.value.toLowerCase();
         let filteritems = se.listcountryFull.filter((element) => { return se.gf.convertFontVNI(element.name.toLowerCase()).indexOf(val) != -1 });
 
         se.zone.run(()=>{
@@ -2855,9 +2855,9 @@ alert.present();
         
       })
       
-      if(ev != 'dropdownicon' && ev.detail && ev.detail.data){
-        se.textPassportCountrySearch = ev.detail.data;
-        const val =  ev.detail.data.toLowerCase();
+      if(ev != 'dropdownicon' && ev.detail && ev.detail.value){
+        se.textPassportCountrySearch = ev.detail.value;
+        const val =  ev.detail.value.toLowerCase();
         let filteritems = se.listcountryFull.filter((element) => { return se.gf.convertFontVNI(element.name.toLowerCase()).indexOf(val) != -1 });
 
         se.zone.run(()=>{

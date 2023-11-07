@@ -3329,7 +3329,7 @@ alert.present();
                   })
           }
 
-          inputOnFocus(item, type){
+          inputOnFocus(item, type, index){
             var se = this;
             if(se.activeStep == 1 && se.hasinput){
               se.hasinput = false;
@@ -3358,9 +3358,30 @@ alert.present();
                     })
               }
             }
+
+            if(index != -1){
+              let field = '';
+              if(item.isChild){
+                field = (type == 6) ? 'ipPassportChild_' : (type == 2 ? 'ipNameChild_' : (type ==5 ? 'ipPPChild_' : 'ipPassportChild_'));
+              }else {
+                field = (type == 6) ? 'ipPassport_' : (type == 2 ? 'ipName_' : (type ==5 ? 'ipPP_' : 'ipPassport_'));
+              }
+                 
+                  if(type == 6){
+                    setTimeout(()=>{
+                      (window.document.getElementById(field+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    },1000)
+                  }else {
+                    setTimeout(()=>{
+                      (window.document.getElementById(field+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    },150)
+                  }
+                  
+             
+            }
           }
 
-          inputFocus(item, event){
+          inputFocus(item, event, index){
             var se = this;
             if(!se.inputtext){
               //clear error when focus
@@ -3396,6 +3417,11 @@ alert.present();
                 
               }
             
+              setTimeout(()=>{
+                if(index != -1){
+                  (window.document.getElementById('ipName_' + index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              },350)
           }
 
           updateHintPaxName(item, value, listpaxhint){
@@ -3641,7 +3667,7 @@ alert.present();
       
     }
 
-    getCountry(ev, item){
+    getCountry(ev, item, index){
       var se = this;
       
       se.zone.run(()=>{
@@ -3656,9 +3682,9 @@ alert.present();
         
       })
       
-      if(ev != 'dropdownicon'&& ev.detail && ev.detail.data ){
-        se.textCountrySearch = ev.detail.data;
-        const val =  ev.detail.data.toLowerCase();
+      if(ev != 'dropdownicon'&& ev.detail && ev.detail.value ){
+        se.textCountrySearch = ev.detail.value;
+        const val =  ev.detail.value.toLowerCase();
         let filteritems = se.listcountryFull.filter((element) => { return se.gf.convertFontVNI(element.name.toLowerCase()).indexOf(val) != -1 });
 
         se.zone.run(()=>{
@@ -3674,6 +3700,13 @@ alert.present();
         })
       }
       
+      if(index != -1){
+        setTimeout(()=>{
+          if(index != -1){
+            (window.document.getElementById((item.isChild ? 'ipCountryChild_' : 'ipCountry_')+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        },350)
+      }
     }
 
     blurCountry(item){
@@ -3712,9 +3745,9 @@ alert.present();
         
       })
       
-      if(ev != 'dropdownicon' && ev.detail && ev.detail.data){
-        se.textPassportCountrySearch = ev.detail.data;
-        const val =  ev.detail.data.toLowerCase();
+      if(ev != 'dropdownicon' && ev.detail && ev.detail.value){
+        se.textPassportCountrySearch = ev.detail.value;
+        const val =  ev.detail.value.toLowerCase();
         let filteritems = se.listcountryFull.filter((element) => { return se.gf.convertFontVNI(element.name.toLowerCase()).indexOf(val) != -1 });
 
         se.zone.run(()=>{
@@ -3730,6 +3763,7 @@ alert.present();
           se.listpassportcountry = [...se.listcountryFull];
         })
       }
+      
       
     }
 
@@ -3815,7 +3849,7 @@ alert.present();
       }
     }
 
-    async selectDateOfBirth(pax, isChangeBOD){
+    async selectDateOfBirth(pax, isChangeBOD, index){
       let se = this;
       if(!se.allowClickDateOfBirth){
         return;
@@ -3823,6 +3857,9 @@ alert.present();
       se.allowClickDateOfBirth = false;
       se.activityService.itemPax = pax;
       se.activityService.itemPax.isChangeBOD = isChangeBOD;
+       if(index != -1){
+            (window.document.getElementById((isChangeBOD ? (pax.isChild ? 'ipBirthDateChild_' : 'ipBirthDate_') : (pax.isChild ? 'ipExpireDateChild_':'ipExpireDate_'))+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         let modal = await se.modalCtrl.create({
           component: SelectDateOfBirthPage,
           cssClass: 'cls-flight-adddetails-selectdatetime'
@@ -3846,6 +3883,8 @@ alert.present();
           })
           
         }
+
+        
     }
     gobackToSearchPage(){
       this._flightService.itemFlightCache.hasvoucher = false;
@@ -4176,5 +4215,8 @@ alert.present();
       item.name = this.hoten;
       item.errorName = false;
       item.errorInfo = false;
+    }
+    togglecheckinonline(event){ 
+      this._flightService.itemFlightCache.isCheckinOnline=event.detail.checked;
     }
 }

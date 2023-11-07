@@ -187,8 +187,8 @@
                     </div>
 
                     <!-- list ẩn -->
-                      <div id="itemf_{{idxd > 0 ? idx : -1}}" [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
-                        <div *ngIf="!itemDepart.isHiden ">
+                      <div id="itemf_{{idxd > 0 ? idx : -1}}" [ngClass]="((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                        <div >
                             <div [ngClass]="idxd ==0 ? 'd-flex' : (idxd ==1 ? 'd-flex m-top-18' : 'd-flex m-top-8')">
                             <div class="d-flex div-maxwidth-flightinfo" (click)="showFlightInfo(itemDepart, item, idxd)">
                             
@@ -220,8 +220,8 @@
                             </div>
                               
 
-                              <div class="div-toggle" >
-                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck" color="secondary"></ion-toggle>
+                              <div class="div-toggle">
+                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck" [disabled]="itemDepart.ischeck" color="secondary"></ion-toggle>
                               </div>
                           </div>
 
@@ -253,7 +253,7 @@
                                 <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
                             </div>
                           </div>
-                          <div *ngIf="item.departFlights.length >2 && idxd >0 && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
+                          <div *ngIf="item.departFlights.length >=2 && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
                         </div>
                         
                         
@@ -341,8 +341,8 @@
                     </div>
 
                     <!-- list ẩn -->
-                    <div id="itemfr_{{idx}}" [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
-                      <div *ngIf="!itemReturn.isHiden ">
+                    <div id="itemfr_{{idx}}" [ngClass]="((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                      <div >
                           <div [ngClass]="idxr ==0 ? 'd-flex' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
                           <div class="d-flex div-maxwidth-flightinfo" (click)="showFlightInfo(itemReturn, item, idxr)">
                             
@@ -374,7 +374,7 @@
                           </div>
                           
                             <div class="div-toggle">
-                              <ion-toggle (click)="changeFlight(item, itemReturn, 3, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck" color="secondary"></ion-toggle>
+                              <ion-toggle (click)="changeFlight(item, itemReturn, 3, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck"  [disabled]="itemReturn.ischeck" color="secondary"></ion-toggle>
                             </div>
                         </div>
                         <!-- <div class="div-operatedby" *ngIf="itemReturn.operatedBy">{{itemReturn.operatedBy}}</div> -->
@@ -406,7 +406,7 @@
                           </div>
                         </div>
 
-                        <div *ngIf="item.returnFlights.length >2 && idxr >0 && idxr != item.returnFlights.length-1 && item.expanddivflightreturn" class="div-split-item-expand"></div>
+                        <div *ngIf="item.returnFlights.length >=2  && idxr != item.returnFlights.length-1 && item.expanddivflightreturn" class="div-split-item-expand"></div>
                       </div>
                       
                     </div>
@@ -512,8 +512,8 @@
                     </div>
 
                     <!-- list ẩn -->
-                      <div id="itemfo_{{idxd > 0 ? idx : -1}}" [ngClass]="itemDepart.ischeck ? (item.expanddivflight ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
-                        <div *ngIf="!itemDepart.isHiden ">
+                      <div id="itemfo_{{idxd > 0 ? idx : -1}}" [ngClass]="((idxd == item.departFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top') " *ngFor="let itemDepart of item.departFlights; let idxd = index">
+                        <div >
                             <div [ngClass]="idxd ==0 ? 'd-flex' : (idxd ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
                             <div class="d-flex  div-maxwidth-flightinfo" (click)="showFlightInfo(itemDepart, item, idxd)">
                               <div class="d-flex">
@@ -545,7 +545,7 @@
                               
 
                               <div class="div-toggle">
-                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck" color="secondary"></ion-toggle>
+                                <ion-toggle (click)="changeFlight(item, itemDepart, 1, idx)" [(ngModel)]="itemDepart.ischeck" [checked] = "itemDepart.ischeck"  [disabled]="itemDepart.ischeck" color="secondary"></ion-toggle>
                               </div>
                           </div>
 
@@ -577,7 +577,7 @@
                                 <div class="text-date">{{itemDepart.landingTimeDisplay}}</div>
                             </div>
                           </div>
-                          <div *ngIf="item.departFlights.length >2 && idxd >0 && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
+                          <div *ngIf="item.departFlights.length >=2  && idxd != item.departFlights.length-1 && item.expanddivflight" class="div-split-item-expand"></div>
                         </div>
                         
                         
@@ -667,9 +667,9 @@
                     </div>
 
                     <!-- list ẩn -->
-                    <div id="itemfor_{{idx}}" [ngClass]="itemReturn.ischeck ? (item.expanddivflightreturn ? 'div-item-flight no-border-radius-bottom div-hidden' : 'div-item-flight div-hidden') : ((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
+                    <div id="itemfor_{{idx}}" [ngClass]="((idxr == item.returnFlights.length-1) ? 'div-item-flight div-collapse cls-expand-div cls-clippath-top ' : 'div-item-flight div-collapse cls-expand-div no-border-bottom cls-clippath-top ') " *ngFor="let itemReturn of item.returnFlights; let idxr = index">
                      
-                      <div *ngIf="!itemReturn.isHiden ">
+                      <div >
                           <div [ngClass]="idxr ==0 ? 'd-flex' : (idxr ==1 ? 'd-flex m-top-8' : 'd-flex m-top-8')">
                           <div class="d-flex  div-maxwidth-flightinfo" (click)="showFlightInfo(itemReturn, item, idxr)">
                             <div class="d-flex">
@@ -700,7 +700,7 @@
                           </div>
                           
                             <div class="div-toggle">
-                              <ion-toggle (click)="changeFlight(item, itemReturn, 4, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck" color="secondary"></ion-toggle>
+                              <ion-toggle (click)="changeFlight(item, itemReturn, 4, idx)" [(ngModel)]="itemReturn.ischeck" [checked] = "itemReturn.ischeck"  [disabled]="itemReturn.ischeck" color="secondary"></ion-toggle>
                             </div>
                         </div>
 
@@ -733,7 +733,7 @@
                           </div>
                         </div>
 
-                        <div *ngIf="item.returnFlights.length >2 && idxr >0 && item.expanddivflightreturn" class="div-split-item-expand"></div>
+                        <div *ngIf="item.returnFlights.length >=2  && item.expanddivflightreturn" class="div-split-item-expand"></div>
                       </div>
                       
                       

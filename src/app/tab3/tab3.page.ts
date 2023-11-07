@@ -24,6 +24,7 @@ import { flightService } from '../providers/flightService';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { MytripService } from '../providers/mytrip-service.service';
 import { BizTravelService } from '../providers/bizTravelService';
+import { SplashScreen } from '@capacitor/splash-screen';
 /**
  * Generated class for the MytripsPage page.
  *
@@ -142,7 +143,7 @@ export class Tab3Page implements OnInit {
 
   async ionViewWillEnter() {
     this.loadUserInfo();
-
+    SplashScreen.hide();
   }
 
   /**

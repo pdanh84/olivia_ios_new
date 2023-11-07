@@ -266,7 +266,7 @@ export class SearchBlogModalPage implements OnInit {
   clickSearch(ev){
     var se = this;
     se.page = 1;
-    if(ev.detail.data){
+    if(ev.detail.value){
       se.filterblog = true;
       const val = se.input.value;
       let loadtype = se.gf.getParams('seemoreblog');

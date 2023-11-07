@@ -13,7 +13,7 @@
   </ion-row>
 
   <ion-row>
-    <ion-segment [(ngModel)]="tabluggage" class="div-segment"  mode="md">
+    <ion-segment [(ngModel)]="tabluggage" class="div-segment"  mode="md" *ngIf="roundtrip">
       <ion-segment-button (click)="SelectTab(1)" mode="md" style="text-transform: inherit;" value="1" >
         Chiều đi
         </ion-segment-button>

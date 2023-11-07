@@ -14,6 +14,7 @@ import { MytripService } from '../providers/mytrip-service.service';
 import { BizTravelService } from '../providers/bizTravelService';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SplashScreen } from '@capacitor/splash-screen';
 var document:any;
 
 @Component({
@@ -242,7 +243,7 @@ tabInbound: number=1;
         }
 
         async ionViewDidEnter() {
-         
+          SplashScreen.hide();
         }
 
         checkNetworkStatus(){

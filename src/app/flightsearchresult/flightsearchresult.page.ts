@@ -18,6 +18,7 @@ import { Facebook, FacebookLoginResponse } from '@awesome-cordova-plugins/facebo
 import { FlightselecttimepriorityPage } from '../flightselecttimepriority/flightselecttimepriority.page';
 import { SelectDateRangePage } from '../selectdaterange/selectdaterange.page';
 import { voucherService } from '../providers/voucherService';
+import { SplashScreen } from '@capacitor/splash-screen';
 //import { Appsflyer } from '@ionic-native/appsflyer/ngx';
 
 
@@ -280,6 +281,10 @@ export class FlightsearchresultPage implements OnInit {
         let obj= this._flightService.objSearch;
       }
     })
+  }
+
+  ionViewWillEnter(){
+    SplashScreen.hide();
   }
 
   goback(){

@@ -17,7 +17,10 @@ import {
 import {FCM} from '@capacitor-community/fcm';
 import { Storage } from '@ionic/storage';
 //import { FirebaseDynamicLinks } from '@awesome-cordova-plugins/firebase-dynamic-links/ngx';
-
+import {
+  FirebaseDynamicLinks,
+  LinkConfig,
+} from '@pantrist/capacitor-firebase-dynamic-links';
 import { App } from '@capacitor/app';
 import { CodePush, InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
 import { OverlayEventDetail } from '@ionic/core';
@@ -218,7 +221,10 @@ export class AppComponent implements OnInit{
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng','Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng','Đóng');
       }
-      
+      this.createShortLink();
+      FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
+        
+      });
       //Dynamiclink
       // this.firebaseDynamicLinks.onDynamicLink().subscribe((res:any)=>{
       //   console.log(res);
@@ -247,6 +253,8 @@ export class AppComponent implements OnInit{
       // this.storage.remove('regionnamesuggest');
       // this.storage.remove('deviceToken');
       // this.storage.remove('listexeperienceregion');
+
+      
       this.valueGlobal.countNotifi=0;
       await FirebaseAnalytics.enable();
       await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
@@ -254,6 +262,15 @@ export class AppComponent implements OnInit{
     });
     
   }
+
+  createShortLink(): Promise<string> {
+    const config: LinkConfig = {
+       domainUriPrefix: 'https://ivivudownload.page.link',
+       uri: 'https://ivivudownload.page.link/ivivuapp',
+    };
+    return FirebaseDynamicLinks.createDynamicShortLink(config).then(link => link.value);
+ }
+
   showNotification(data){
     //chuyển qua tab mytrip
     if(data && data.BookingCode && data.notifyAction && data.notifyAction != "cancel"){

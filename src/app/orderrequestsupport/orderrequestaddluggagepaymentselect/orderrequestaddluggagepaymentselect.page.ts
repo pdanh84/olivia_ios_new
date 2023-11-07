@@ -234,7 +234,8 @@ export class OrderRequestAddluggagePaymentSelectPage implements OnInit {
     this.gf.CreatePayoo(url).then(datapayoo => {
       //datapayoo = JSON.parse(datapayoo);
       if (datapayoo.success) {
-        this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+        //this._windowmomo = window.open(datapayoo.returnUrl.payUrl, '_system');
+        Browser.open({url : datapayoo.returnUrl.payUrl});
         this.zone.run(()=>{
           this.setinterval();
         })

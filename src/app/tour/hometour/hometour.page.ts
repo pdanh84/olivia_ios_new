@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { NetworkProvider } from '../../network-provider.service';
 
 import { tourService } from 'src/app/providers/tourService';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-hometour',
@@ -58,5 +59,8 @@ export class HomeTourPage implements OnInit {
   }
   ngOnInit(){
    
+  }
+  ionViewDidEnter() {
+    SplashScreen.hide();
   }
 }

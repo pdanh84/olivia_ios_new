@@ -375,7 +375,8 @@ export class RoompaymentselectPage implements OnInit {
           }
           else if(paymentType=='momo'){
             if (dataBuildLink.success) {
-              se._windowmomo=window.open(dataBuildLink.returnUrl.payUrl, '_system');
+              //se._windowmomo=window.open(dataBuildLink.returnUrl.payUrl, '_system');
+              Browser.open({url : dataBuildLink.returnUrl.payUrl});
               this.setinterval();
             }
           }
@@ -443,7 +444,8 @@ export class RoompaymentselectPage implements OnInit {
                       if (this.loader) {
                         this.loader.dismiss();
                       }
-                      window.open(dataBuildLink.returnUrl.payUrl, '_system');
+                      //window.open(dataBuildLink.returnUrl.payUrl, '_system');
+                      Browser.open({url: dataBuildLink.returnUrl.payUrl});
                       this.setinterval();
                     }
                   }

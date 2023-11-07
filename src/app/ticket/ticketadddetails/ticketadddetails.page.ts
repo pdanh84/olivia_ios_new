@@ -1555,9 +1555,9 @@ export class TicketAdddetailsPage implements OnInit {
 
     })
 
-    if (ev != 'dropdownicon' && ev.detail && ev.detail.data) {
+    if (ev != 'dropdownicon' && ev.detail && ev.detail.value) {
 
-      const val = ev.detail.data.toLowerCase();
+      const val = ev.detail.value.toLowerCase();
       let filteritems = item.dataRawSearch.filter((element) => { return se.gf.convertFontVNI(element.name.toLowerCase()).indexOf(val) != -1 });
 
       se.zone.run(() => {

@@ -38,6 +38,7 @@ import { hotelDetailService } from '../providers/hotelDetailService';
 import { shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Network } from '@capacitor/network';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-hoteldetail',
@@ -711,7 +712,7 @@ export class HotelDetailPage implements OnInit {
     })
     
    
-     
+    SplashScreen.hide();
   }
 
   closeModal() {

@@ -363,7 +363,8 @@ export class FlightInternationalPaymentSelectPage implements OnInit {
                       if (data.success) {
                         this._flightService.itemFlightCache.periodPaymentDate = data.periodPaymentDate;
                         //this.openWebpage(data.returnUrl.payUrl);
-                        this._windowmomo = window.open(data.returnUrl.payUrl, '_system');
+                        //this._windowmomo = window.open(data.returnUrl.payUrl, '_system');
+                        Browser.open({url : data.returnUrl.payUrl});
                         this.zone.run(()=>{
                           this.setinterval(null);
                         })
@@ -397,7 +398,8 @@ export class FlightInternationalPaymentSelectPage implements OnInit {
               this._flightService.itemFlightCache.ischeckpayment= 1;
               this.hideLoading();
               this.gf.hideLoading();
-              this._inAppBrowser.close();
+              //this._inAppBrowser.close();
+              Browser.close();
               if(this._windowmomo){
                 this._windowmomo.close();
               }
@@ -409,7 +411,8 @@ export class FlightInternationalPaymentSelectPage implements OnInit {
             {
               this.hideLoading();
               this.gf.hideLoading();
-              this._inAppBrowser.close();
+              //this._inAppBrowser.close();
+              Browser.close();
               if(this._windowmomo){
                 this._windowmomo.close();
               }

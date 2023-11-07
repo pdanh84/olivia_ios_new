@@ -257,7 +257,8 @@ export class MytripaymentflightcomboPage implements OnInit {
                 if (this.loader) {
                   this.loader.dismiss();
                 }
-                this._windowmomo=window.open(dataBuildLink.returnUrl.payUrl, '_system');
+                //this._windowmomo=window.open(dataBuildLink.returnUrl.payUrl, '_system');
+                Browser.open({url : dataBuildLink.returnUrl.payUrl});
                 this.setinterval();
               }
             }

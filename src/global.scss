@@ -137,19 +137,13 @@ ion-app {
 }
 
 ion-header{
-  margin-top: env(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
   background-color: #ffffff;
 }
 
 ion-title{
   font-size:18px !important;
   background-color: #ffffff;
-}
-
-ion-footer{
-  -moz-box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
 }
 
 ion-header ion-toolbar:first-child {
