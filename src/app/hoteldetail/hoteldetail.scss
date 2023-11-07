@@ -1,4 +1,6 @@
-
+.cls-margin-top-header {
+    margin-top: env(safe-area-inset-top);
+}
  .innerreview{
     height: 100%;
     div{
@@ -1437,6 +1439,8 @@
         transition: visibility 0.2s, opacity 0.2s linear;
         opacity: 1;
         height: 48px;
+
+        
     }
     .float-arrow-disabled{
         visibility: hidden;
