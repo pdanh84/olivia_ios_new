@@ -434,7 +434,7 @@ small{
   .day-item.cls-tour-hasdeparture::after{
     content: "";
     margin-top: -25px;
-    width: 44px !important;
+    width: 47px !important;
     height: 50px !important;
     flex-grow: 0;
     display: flex;
@@ -445,6 +445,7 @@ small{
     border: solid 1px #cccccc;;
     margin-left: -1px;
     margin-top: -28px !important;
+    top: 54% !important;
   }
   .day-item.cls-tour-hasdeparture.div-boder-KM::after{
     border: solid 1px #9fc43a;

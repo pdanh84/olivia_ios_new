@@ -137,7 +137,6 @@ ion-app {
 }
 
 ion-header{
-  margin-top: env(safe-area-inset-top);
   background-color: #ffffff;
 }
 
@@ -154,7 +153,6 @@ ion-footer{
 
 ion-header ion-toolbar:first-child {
   margin-top: 0 !important;
-  padding-top: 0 !important;
 }
 
     button:focus{
@@ -183,11 +181,7 @@ ion-header ion-toolbar:first-child {
     }
 
     ion-header{
-        background-color: #ffffff;
-        -moz-box-shadow:    0px 0px 2px 0px #dedede;
-        -webkit-box-shadow: 0px 0px 2px 0px #dedede;
-        box-shadow: 0px 0px 2px 0px #dedede;
-        //padding-top: env(safe-area-inset-top);
+      box-shadow: 1px 0px 2px 0px #828282 !important;
     }
     ion-footer{
         background-color: #ffffff;
@@ -1304,6 +1298,7 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     left: 13px;
+    top: 7%;
     //padding-top: -10px;
     //margin-top: -6px;
 
@@ -1325,6 +1320,7 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     right: 0;
+    top: 7%;
     //padding-top: -10px;
     //margin-top: -6px;
 
@@ -1402,6 +1398,7 @@ height: 12px !important;
    position: absolute;
    z-index: -1;
     left: 0 !important;
+    top: 7%;
     //padding-top: -10px;
     //margin-top: -6px;
 
@@ -1424,7 +1421,7 @@ height: 12px !important;
     //padding-top: -10px;
     //margin-top: -6px;
     left: 0;
-    
+    top: 7%;
     // @media (min-width: 411px) and (max-width: 480px) {
     //   margin-top: -9px !important;
     // }
@@ -1566,12 +1563,21 @@ height: 12px !important;
             width: 14.285% !important;
             padding: 10px 5px !important;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            // display: flex;
+            // align-items: center;
+            // justify-content: center;
         
           }
           
+          .cls-tour-hasdeparture .day-item{
+            height: 56px !important;
+            width: 14.285% !important;
+            padding: 10px 5px !important;
+            position: relative;
+  
+        
+          }
+
           .day-item.is-start-date,.day-item.is-end-date{
             //background-color: var(--ion-color-primary);
             span{
@@ -1906,18 +1912,16 @@ ion-header {
 .strikethrough:before {
   position: absolute;
   content: "";
-  left: 6px;
-  top: 36%;
+  left: 0;
+  top: 40%;
   right: 0;
   border-top: 0.5px solid #bdbdbd;
-  -webkit-transform: rotate(-50deg);
   transform: rotate(-45deg);
-  width: 36px;
 }
 .is-start-date.strikethrough:before {
   content: "";
-  left: 10px !important;
-  top: 10px !important;
+  left: 14px !important;
+  top: 4px !important;
   right: 0 !important;
   -webkit-transform:none;
   transform: none;
@@ -1927,7 +1931,7 @@ ion-header {
 .is-end-date.strikethrough:before {
   content: "";
   left: 0px !important;
-  top: 10px !important;
+  top: 4px !important;
   right: 0 !important;
   -webkit-transform:none;
   transform: none;
@@ -1953,13 +1957,6 @@ ion-header {
 
 .is-in-range.strikethrough:before {
   content: "";
-  left: 0px !important;
-  top: 10px !important;
-  right: 0 !important;
-  -webkit-transform: none;
-  transform: none;
-  border-top: 0px solid #bdbdbd !important;
-
   width: 100% !important;
   border-radius: 0 !important;
   transform: none !important;
