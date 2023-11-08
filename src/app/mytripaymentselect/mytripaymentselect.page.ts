@@ -11,6 +11,7 @@ import { MytripService } from '../providers/mytrip-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { BizTravelService } from '../providers/bizTravelService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -80,7 +81,9 @@ export class MytripaymentselectPage implements OnInit {
             this.bizTravelService.isCompany = false;
           }
         });
-        
+        App.addListener('appUrlOpen', data => {
+          this.setinterval();
+        });
   }
   
   ngOnInit() {

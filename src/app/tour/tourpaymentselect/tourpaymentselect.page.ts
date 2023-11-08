@@ -11,6 +11,7 @@ import { BizTravelService } from '../../providers/bizTravelService';
 import { tourService } from 'src/app/providers/tourService';
 import { FlightquickbackPage } from 'src/app/flightquickback/flightquickback.page';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -168,6 +169,9 @@ export class TourPaymentSelectPage implements OnInit {
        this.dataSF.payoo_storesSF = payoo_storesf && payoo_storesf.length >0 ? payoo_storesf[0] : null;
      }
    })
+   App.addListener('appUrlOpen', data => {
+    this.callSetInterval();
+  });
   }
   ngOnInit() {
   }

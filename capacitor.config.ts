@@ -25,6 +25,14 @@ const config: CapacitorConfig = {
       persist: true,
       autoClear: false,
     },
+    BackgroundRunner: {
+      label: 'com.capacitor.background.check',
+      src: 'runners/runner.js',
+      event: 'paymentcheck',
+      repeat: true,
+      interval: 30,
+      autoStart: true,
+    },
   },
 };
 

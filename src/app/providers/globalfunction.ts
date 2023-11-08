@@ -3734,7 +3734,7 @@ import { App } from '@capacitor/app';
           topicIds: this.ticketService.topicfilters
         }
       }
-  
+      debugger
       this.RequestApi('POST', url, headers, body, 'SearchKeyword', 'SearchKeyword').then((data)=>{
         this.ticketService.slideData = [];
         if (data) {

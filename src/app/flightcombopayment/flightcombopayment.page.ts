@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { BizTravelService } from '../providers/bizTravelService';
 import { voucherService } from '../providers/voucherService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -115,6 +116,9 @@ export class FlightcombopaymentPage implements OnInit {
         });
 
     C.writePaymentLog("flightcombo", "paymentselect", "purchase", this.bookCombo.bookingcode);
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
   }
   getDay(thu) {
     switch (thu) {

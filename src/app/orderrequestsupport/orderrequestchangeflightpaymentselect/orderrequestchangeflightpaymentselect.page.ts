@@ -14,6 +14,7 @@ import { CustomAnimations } from '../../providers/CustomAnimations';
 import { BizTravelService } from '../../providers/bizTravelService';
 import * as $ from 'jquery';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-orderrequestchangeflightpaymentselect',
@@ -191,7 +192,9 @@ export class OrderRequestChangeFlightPaymentSelectPage implements OnInit {
         clearInterval(this.intervalID);
     }, 1000 * 60 * 10);
     })
-
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
     //C.writePaymentLog("flight", "paymentselect", "purchase", this.bookingCode);
   }
   async showPriceDetail(){

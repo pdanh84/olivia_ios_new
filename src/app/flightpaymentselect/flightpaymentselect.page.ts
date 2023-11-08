@@ -14,7 +14,8 @@ import { FlightquickbackPage } from '../flightquickback/flightquickback.page';
 import { BizTravelService } from '../providers/bizTravelService';
 import { voucherService } from '../providers/voucherService';
 import { Browser } from '@capacitor/browser';
-
+import { BackgroundRunner } from '@capacitor/background-runner';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-flightpaymentselect',
@@ -128,6 +129,12 @@ export class FlightPaymentSelectPage implements OnInit {
       setTimeout(() => {
         clearInterval(this.intervalID);
     }, 1000 * 60 * 10);
+
+    //this.init();
+    App.addListener('appUrlOpen', data => {
+      this.setinterval(null);
+    });
+
     })
 
     if(!this._flightService.itemFlightCache.objHotelCitySelected){
@@ -164,6 +171,7 @@ export class FlightPaymentSelectPage implements OnInit {
 
     C.writePaymentLog("flight", "paymentselect", "purchase", this.bookingCode);
   }
+
   async showPriceDetail(){
     const modal: HTMLIonModalElement =
     await this.modalCtrl.create({

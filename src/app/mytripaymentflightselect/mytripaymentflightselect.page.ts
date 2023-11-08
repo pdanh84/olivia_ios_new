@@ -10,6 +10,7 @@ import { MytripService } from '../providers/mytrip-service.service';
 import { BizTravelService } from '../providers/bizTravelService';
 import * as moment from 'moment';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 @Component({
   selector: 'app-mytripaymentflightselect',
   templateUrl: './mytripaymentflightselect.page.html',
@@ -135,6 +136,9 @@ export class MytripaymentflightselectPage implements OnInit {
           
           })
         }
+        App.addListener('appUrlOpen', data => {
+          this.setinterval(null);
+        });
   }
   async loadCheckPayment(){
     //luồng CityHotel ko gọi lại updatepayment

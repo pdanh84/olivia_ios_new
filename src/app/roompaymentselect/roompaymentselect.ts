@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { BizTravelService } from '../providers/bizTravelService';
 import { voucherService } from '../providers/voucherService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 /**
  * Generated class for the RoompaymentselectPage page.
@@ -141,7 +142,9 @@ export class RoompaymentselectPage implements OnInit {
         });
     //google analytic
     gf.googleAnalytion('roompaymentselect', 'load', '');
-
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
   }
   ngOnInit() {
   }

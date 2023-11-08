@@ -14,7 +14,7 @@
             src="./assets/imgs/icon_back.svg">
         </div>
         <div class="div-search">
-          <ion-input (keyup.enter)="onEnter()"  #ipSearch [(ngModel)]="ticketService.inputText" (ionChange)="getItems($event)" [ngClass]="ticketService.inputText ? 'cls-input-search-text' : 'cls-input-search'" placeholder="Nhập tên địa điểm,thành phố..."></ion-input>
+          <ion-input (keyup.enter)="onEnter()"  #ipSearch [(ngModel)]="ticketService.inputText" (ionInput)="getItems($event)" (ionChange)="getItems($event)" [ngClass]="ticketService.inputText ? 'cls-input-search-text' : 'cls-input-search'" placeholder="Nhập tên địa điểm,thành phố..."></ion-input>
         </div>
         <div *ngIf="ticketService.inputText"  class="img-close" >
           <img (click)="clearText()"

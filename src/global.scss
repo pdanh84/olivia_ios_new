@@ -148,6 +148,7 @@ ion-title{
 
 ion-header ion-toolbar:first-child {
   margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
     button:focus{
@@ -1583,6 +1584,7 @@ height: 12px !important;
             z-index: 1;
             position: relative;
             opacity: 1 !important;
+            box-shadow: none;
           }
 
           .day-item.is-in-range{

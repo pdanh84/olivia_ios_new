@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { ActivityService } from './../providers/globalfunction';
 import { BizTravelService } from '../providers/bizTravelService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-mytripaymentflightcombo',
@@ -45,6 +46,9 @@ export class MytripaymentflightcomboPage implements OnInit {
         this.GeTokensOfMember(0);
       }
     })
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
   }
   
   ngOnInit() {

@@ -10,6 +10,7 @@ import { FlightBookingDetailsPage } from '../../flightbookingdetails/flightbooki
 import { FlightquickbackPage } from '../../flightquickback/flightquickback.page';
 import { BizTravelService } from '../../providers/bizTravelService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -104,7 +105,9 @@ export class OrderRequestAddluggagePaymentSelectPage implements OnInit {
     }, 1000 * 60 * 10);
     })
 
-    //C.writePaymentLog("flight", "paymentselect", "purchase", this.bookingCode);
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
   }
   async showPriceDetail(){
     const modal: HTMLIonModalElement =

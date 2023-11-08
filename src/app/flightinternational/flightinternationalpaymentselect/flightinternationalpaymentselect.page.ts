@@ -14,6 +14,7 @@ import { voucherService } from '../../providers/voucherService';
 import { FlightDetailInternationalPage } from '../flightdetailinternational/flightdetailinternational.page';
 import { SearchHotel } from 'src/app/providers/book-service';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-flightinternationalpaymentselect',
@@ -206,6 +207,9 @@ export class FlightInternationalPaymentSelectPage implements OnInit {
           })
 
     C.writePaymentLog("flightinternational", "paymentselect", "purchase", this.bookingCode);
+    App.addListener('appUrlOpen', data => {
+      this.setinterval(null);
+    });
   }
 
   async loadCheckPayment(){

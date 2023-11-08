@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { ActivityService } from './../providers/globalfunction';
 import { BizTravelService } from '../providers/bizTravelService';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 @Component({
   selector: 'app-mytripaymentcarcombo',
   templateUrl: './mytripaymentcarcombo.page.html',
@@ -52,6 +53,9 @@ export class MytripaymentcarcomboPage implements OnInit {
       }
     })
     this.totalPrice = this.priceshow.toString().replace(/\./g, '').replace(/\,/g, '');
+    App.addListener('appUrlOpen', data => {
+      this.setinterval();
+    });
   }
   loadTransferInfo() {
     var se = this;

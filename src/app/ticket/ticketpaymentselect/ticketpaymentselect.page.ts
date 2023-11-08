@@ -12,6 +12,7 @@ import { BizTravelService } from '../../providers/bizTravelService';
 import { ticketService } from 'src/app/providers/ticketService';
 import { FlightquickbackPage } from 'src/app/flightquickback/flightquickback.page';
 import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 
 
 
@@ -101,7 +102,9 @@ export class TicketPaymentSelectPage implements OnInit {
     })
 
 
-    //C.writePaymentLog("flight", "paymentselect", "purchase", this.bookingCode);
+    App.addListener('appUrlOpen', data => {
+      this.callSetInterval(null);
+    });
   }
   ngOnInit() {
   }
