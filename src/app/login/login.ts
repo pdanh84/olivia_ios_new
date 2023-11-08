@@ -108,11 +108,12 @@ export class LoginPage implements OnInit{
     const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.token.token}`;
     this.httpClient.get(url).subscribe((res:any) => {
       console.log(res);
+      this.userData = res;
+      this.userData.accessToken = this.token.token;
+      this.userData.picture = res.picture['url'];
       //this.userData = { accessToken: test, id: res['id'], email: res['email'], UserName: res['first_name'], picture: res['picture_large']['data']['url'], username: res['name'], phone: res['phone'], gender: res['gender'] }
       if(res && res.email){
-        this.userData = res;
-        this.userData.accessToken = this.token.token;
-        this.userData.picture = res.picture['url'];
+  
         this.postDatafb();
       }else{
         this.checknomail();
@@ -133,9 +134,7 @@ export class LoginPage implements OnInit{
       FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
 
         se.presentLoadingnotime();
-        alert(response);
         se.token = response.accessToken;
-        
         let test = response.accessToken;
         se.storage.set('fbaccesstoken',test);
         se.loadUserData(test);
@@ -358,7 +357,7 @@ getToken() {
         id: this.userData.id,
         idToken: '',
         image: this.userData.picture,
-        name: this.userData.username,
+        name: this.userData.name,
         provider: 'facebook',
         token: this.userData.accessToken
       }
