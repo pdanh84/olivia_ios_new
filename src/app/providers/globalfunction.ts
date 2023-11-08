@@ -3785,7 +3785,11 @@ import { App } from '@capacitor/app';
 
   public CheckPaymentTicket(url): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.RequestApi('GET', url, {"Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",'Content-Type' : 'application/json'}, {}, 'globalFunction', 'CheckPaymentTicket').then((data) => {
+      let header = {
+            apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
+            apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
+          }
+      this.RequestApi('POST', url, header, {}, 'globalfunction', 'CheckPaymentTicket').then((data)=>{
         resolve(data);
       })
     })

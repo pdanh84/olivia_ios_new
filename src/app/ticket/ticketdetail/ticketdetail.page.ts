@@ -544,7 +544,7 @@ isIncludeUnclosedElement($) {
       modal.present();
    }
    async showFullScreen(){
-    this.searchHotel.tourDetailName = this.itemDetail.Name;
+    this.searchHotel.ticketDetailName = this.itemDetail.name;
     this.searchHotel.trustedVideoUrl = this.itemDetail.trustedVideoUrl;
     const modal: HTMLIonModalElement =
     await this.modalCtrl.create({

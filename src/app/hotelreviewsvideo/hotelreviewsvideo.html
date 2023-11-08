@@ -9,8 +9,9 @@
         </div>
       </ion-col>
       <ion-col size="11">
-        <div *ngIf="!tourName" class="div-hotel-name">Video về {{hotelName}}</div>
-        <div *ngIf="tourName" class="div-tour-name">Video về {{tourName}}</div>
+       <div *ngIf="!tourName && !ticketName" class="div-hotel-name">Video về {{hotelName}}</div>
+       <div *ngIf="tourName && !ticketName" class="div-tour-name">Video về {{tourName}}</div>
+       <div *ngIf="ticketName" class="div-tour-name">Video về {{ticketName}}</div>
       </ion-col>
     </ion-row>
   </div>
