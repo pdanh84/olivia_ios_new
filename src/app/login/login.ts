@@ -21,6 +21,7 @@ import {
   SignInWithAppleOptions,
 } from '@capacitor-community/apple-sign-in';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -76,32 +77,7 @@ export class LoginPage implements OnInit{
   }
 
   ionViewDidLoad() {
-    //hide menu when on the login page, regardless of the screen resolution
-    // this.storage.remove('user');
-    // this.storage.remove('id_token');
-    // this.storage.get('id_token').then(id_token => {
-    //   if (id_token !== null) {
-    //     this.storage.get('user').then(user => {
-    //       this.id = user.id
-    //     });
-    //     this.toUser = {
-    //       toUserId: '',
-    //       toUserName: '',
-    //       UserId: this.id,
-    //       UserName: '',
-    //     }
-    //     this.navCtrl.push('ChatPage', this.toUser);
-    //   }
-
-    // });
-    //alert('Device UUID is: ' + this.device.uuid);
-    let elements = window.document.querySelectorAll(".tabbar");
-
-    if (elements != null) {
-      Object.keys(elements).map((key) => {
-        elements[key].style.display = 'none';
-      });
-    }
+    GoogleAuth.initialize();
   }
 
   async loadUserData(test) {
@@ -380,13 +356,6 @@ getToken() {
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
-  }
-  logingg() {
-    this.userData = { btn: ['2'] }
-    //this.app.getActiveNav().push('BlankPage', this.userData);
-    //google analytic
-    this.navCtrl.navigateForward('/blank');
-    this.gf.googleAnalytion('login', 'logingoogle', '');
   }
   logout() {
     FacebookLogin.logout()
@@ -895,4 +864,153 @@ getToken() {
     await alert.present();
   }
 
+  
+  async logingg() {
+    try {
+
+    }catch(ex) {
+
+    }
+    const res = await GoogleAuth.signIn();
+    console.log(res);
+    this.userData = res;
+    this.postDatagg();
+    // GoogleAuth.login({
+    //   'scopes': 'https://www.googleapis.com/auth/userinfo.profile',
+    // })
+    // .then(res => {
+    //   // alert(JSON.stringify(res))
+    //   this.userData = res;
+    //   this.postDatagg();
+
+    //   // Xử lý đăng nhập thành công
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    //   // Xử lý lỗi đăng nhập
+    // });
+  }
+
+  postDatagg() {
+    var se = this;
+    let body =
+    {
+      userData:
+      {
+        email: this.userData.email,
+        provider: 'google',
+        token: '',
+        idToken: '',
+        bearToken: this.userData.accessToken,
+        name: this.userData.displayName
+      }
+    }
+    let urlPath = C.urls.baseUrl.urlMobile + '/api/account/socialLogin';
+        let headers = {
+          'cache-control': 'no-cache',
+          'content-type': 'application/json'
+        };
+        this.gf.RequestApi('POST', urlPath, headers, body, 'Login', 'postDatafb').then((data)=>{
+
+      if (data.result) {
+        if(se.loader){
+          se.loader.dismiss();
+        }
+        var decoded = jwt_decode<any>(data.auth_token);
+        // console.log(JSON.stringify(decoded))
+        se.refreshTokenTimer= decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10;
+        se.storage.set("email", decoded.email);
+        se.storage.set("auth_token", data.auth_token);
+        se.storage.set("username", decoded.fullname);
+        se.storage.set("phone", decoded.phone);
+        se.storage.set("refreshTokenTimer", decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10);
+        var checkfullname=se.hasWhiteSpace(decoded.fullname);
+        //se.storage.remove('deviceToken');
+        if(se.platform.is('android')){
+          try {
+            FCM.getToken().then(token => {
+              se.deviceToken = token;
+              se.storage.set('deviceToken',token);
+              //PDANH 19/07/2019: Push memberid & devicetoken
+              if(se.deviceToken){
+                se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
+              }
+            });
+          } catch (error) {
+            
+          }
+          
+        }
+        var info;
+        if (checkfullname) {
+          var textfullname=decoded.fullname.trim();
+          textfullname=decoded.fullname.split(' ');
+          //info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone}
+          if(textfullname.length >2){
+            let name = '';
+            for(let i = 1; i < textfullname.length; i++){
+              if(i == 1){
+                name += textfullname[i];
+              }else{
+                name +=' ' +textfullname[i];
+              }
+            }
+            info = { ho: textfullname[0], ten: name , phone: decoded.phone, gender: decoded.gender}
+          }else if(textfullname.length>1){
+            info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone, gender: decoded.gender}
+          }
+          else if(textfullname.length==1){
+            info = { ho: textfullname[0], ten: "", phone: decoded.phone, gender: decoded.gender}
+          }
+          se.storage.set("infocus", info);
+        } else {
+          info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender}
+          se.storage.set("infocus", info);
+        }
+        // se.storage.set("jti", decoded.jti[0]);
+        if (Array.isArray(decoded.jti)) {
+          se.storage.set("jti", decoded.jti[0]);
+        }
+        else {
+          se.storage.set("jti", decoded.jti);
+        }
+        
+        se.storage.remove('blogtripdefault');
+        se.storage.remove('regionnamesuggest');
+        se.storage.remove('listtopdealdefault');
+        
+        se.valueGlobal.countNotifi = 0;
+        se.gf.setParams(true,'resetBlogTrips');
+        if (!se.checkreview) {
+          se.storage.set("checkreview", 0);
+        }
+        se.storage.set("point", decoded.point);
+        se.searchhotel.rootPage ='login';
+       
+        if(se.valueGlobal.backValue == "flightaccount"){
+          //se._flightService.itemFlightAccountToken.emit(data.auth_token);
+          se._flightService.itemMenuFlightClick.emit(4);
+          //se.goback();
+        }
+        if (se.valueGlobal.logingoback) {
+          if(se.valueGlobal.logingoback == "flightadddetails"|| se.valueGlobal.logingoback == "flightadddetailsinternational"){
+            se.goback();
+            se._flightService.itemFlightLogin.emit(1);
+          }else{
+            se.navCtrl.navigateBack([se.valueGlobal.logingoback]);
+          }
+          
+        }
+        else{
+          se.navCtrl.navigateRoot('/');
+        }
+        
+      }else if(!data.result && data.msg){
+        se.gf.showMessageWarning(data.msg);
+        if(se.loader){
+          se.loader.dismiss();
+        }
+      }
+    });
+  }
 }
