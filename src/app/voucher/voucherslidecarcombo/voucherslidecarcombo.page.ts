@@ -26,6 +26,7 @@ export class VoucherSlideCarComboPage implements OnInit{
     public intervalID;
     vouchers:any = [];
   msgMultiVoucherError: string;
+  msgApplyFor: any;
     constructor(public platform: Platform,public navCtrl: NavController,public toastCtrl: ToastController,
         public zone: NgZone,public storage: Storage,public alertCtrl: AlertController,public modalCtrl: ModalController,public valueGlobal: ValueGlobal,
         public gf: GlobalFunction,
@@ -106,32 +107,46 @@ export class VoucherSlideCarComboPage implements OnInit{
       })
   }
 
-    voucherSelect(voucher){
-      if(!voucher.isActive){
-        return;
-      }
-      if(voucher.rewardsItem.price <= 0){
-        this.showVoucherDetail(voucher);
-      }else{
-        this.checkVoucherActive(voucher).then((check) => {
-          if(!check){
-            this.gf.showAlertMessageOnly('Mã voucher không còn hiệu lực. Vui lòng chọn mã voucher khác!');
-            return;
-          }else{
-          
-              for (let index = 0; index < this._voucherService.vouchers.length; index++) {
-                const element = this._voucherService.vouchers[index];
-                if(element.id != voucher.id){
-                  element.claimed = false;
-                }
-                
-              }
-              voucher.claimed = !voucher.claimed;
-              this._voucherService.publicVoucherCarComboClicked(voucher);
-          }
-        })
-      }
+  voucherSelect(voucher){
+    if(!voucher.isActive){
+      return;
     }
+    if(voucher.rewardsItem.price <= 0){
+      this.showVoucherDetail(voucher);
+    }else{
+      if(voucher.applyFor && voucher.applyFor != 'hotel'){
+        this.gf.showAlertMessageOnly(`Mã giảm giá chỉ áp dụng cho đơn hàng ${ voucher.applyFor == 'flight' ? 'vé máy bay' : 'tour'}. Quý khách vui lòng chọn lại mã khác!`);
+        return;
+        } else{
+          this.checkVoucherActive(voucher).then((check) => {
+            if(!check){
+              if(this.msgApplyFor){
+                this.gf.showAlertMessageOnly(this.msgApplyFor);
+              } 
+              else if(this.msgMultiVoucherError){
+                this.gf.showAlertMessageOnly(this.msgMultiVoucherError);
+              } 
+              else {
+                if(voucher.claimed){//Cảnh báo với voucher đã sử dụng
+                  this._voucherService.publicVoucherUsedClicked(voucher);
+                }else{
+                  this.gf.showAlertMessageOnly('Mã voucher không còn hiệu lực. Vui lòng chọn mã voucher khác!');
+                }
+              }
+              return;
+            }else{
+              voucher.claimed = !voucher.claimed;
+              if(voucher.claimed && !this.gf.checkExistsItemInArray(this._voucherService.voucherSelected, voucher, 'voucher')){
+                this._voucherService.voucherSelected.push(voucher);
+              }else if(!voucher.claimed && this.gf.checkExistsItemInArray(this._voucherService.voucherSelected, voucher, 'voucher')){
+                this.gf.removeItemInArray(this._voucherService.voucherSelected, voucher);
+              }
+                this._voucherService.publicVoucherCarComboClicked(voucher);
+              }
+          })
+        }
+      }
+  }
 
     checkVoucherActive(itemVoucher): Promise<any> {
       return new Promise((resolve, reject) => {

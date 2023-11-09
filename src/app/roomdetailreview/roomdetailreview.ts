@@ -42,6 +42,7 @@ export class RoomdetailreviewPage implements OnInit {
   nameroomHBED="";
   strPromoCode: string;
   totaldiscountpromo: number;
+  statusRoom: any;
   constructor(public searchhotel: SearchHotel, public platform: Platform, public valueGlobal: ValueGlobal, public navCtrl: NavController, public Roomif: RoomInfo, public zone: NgZone,
     public booking: Booking, public storage: Storage, public bookCombo: Bookcombo, public alertCtrl: AlertController, public value: ValueGlobal, public modalCtrl: ModalController, public gf: GlobalFunction,
     private fb: Facebook,private activityService: ActivityService,
@@ -696,6 +697,7 @@ export class RoomdetailreviewPage implements OnInit {
     var se = this;
     this.objroomfsale=[];
     se.PriceAvgPlusTAStr=dataRoomChange.itemroom.MealTypeRates[dataRoomChange.index].PriceAvgPlusTAStr;
+    this.statusRoom=dataRoomChange.itemroom.MealTypeRates[dataRoomChange.index].Status;
     this.booking.indexmealtype=dataRoomChange.index;
     se.nameroom = dataRoomChange.itemroom.ClassName;
     se.bookCombo.roomNb = dataRoomChange.itemroom.TotalRoom;
@@ -710,10 +712,12 @@ export class RoomdetailreviewPage implements OnInit {
     this.arrroomFS = [];
     this.arrroomFS.push(dataRoomChange.itemroom);
     this.Roomif.roomtype = this.objroomfsale[0];
+    this.roomtype = this.objroomfsale[0];
     this.Roomif.HotelRoomHBedReservationRequest = JSON.stringify(this.arrroomFS[0].HotelRoomHBedReservationRequest);
     this.Roomif.arrroom = this.arrroomFS;
     this.Roomif.imgRoom = this.arrroomFS[0].Rooms[0].ImagesMaxWidth320;
     this.Roomif.objMealType = dataRoomChange.itemroom.MealTypeRates[dataRoomChange.index];
+    
   }
   nextShuttlebus(){
     this.navCtrl.navigateForward("/shuttlebusnote");

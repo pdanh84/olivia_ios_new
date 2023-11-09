@@ -146,7 +146,7 @@ export class VoucherSlideHotelPage implements OnInit{
           }
         }
     }
-
+    
     checkVoucherActive(itemVoucher): Promise<any> {
       return new Promise((resolve, reject) => {
           var se = this;

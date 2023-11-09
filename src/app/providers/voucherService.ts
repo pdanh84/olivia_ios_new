@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class voucherService{
     itemVoucher;
     hasVoucher: boolean;
-    selectVoucher: any;
+    selectVoucher: any=[];
     itemSelectVoucher: any = new EventEmitter();
     rollbackSelectedVoucher: any= new EventEmitter();
     vouchers: any[];
@@ -26,6 +26,7 @@ export class voucherService{
   listObjectPromoCode: any=[];
   voucherUsedSubject= new Subject<any>();
   voucherRefreshListSubject= new Subject<any>();
+  rollbackAllSelectedVoucher= new Subject<any>();
   hotelPromoCode: string;
   hotelTotalDiscount: number;
   flightPromoCode: string;
@@ -36,6 +37,9 @@ export class voucherService{
   comboFlightTotalDiscount: number;
   ticketTotalDiscount: any;
   ticketPromoCode: string;
+  getRollbackAllSelectedVoucher(): Subject<any> {
+    return this.rollbackAllSelectedVoucher;
+  }
   getVoucherRefreshList(): Subject<any> {
     return this.voucherRefreshListSubject;
   }
