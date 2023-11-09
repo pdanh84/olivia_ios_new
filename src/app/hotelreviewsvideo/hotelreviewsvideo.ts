@@ -19,9 +19,11 @@ export class HotelreviewsvideoPage  {
   hotelName: any;
   tourName: any;
   trustedVideoUrl: any;
+  ticketName: any;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public searchhotel: SearchHotel,public zone:NgZone) {
     this.hotelName = this.searchhotel.hotelName;
     this.tourName = this.searchhotel.tourDetailName;
+    this.ticketName = this.searchhotel.ticketDetailName
     this.trustedVideoUrl=this.searchhotel.trustedVideoUrl;
   }
   goback() {
@@ -30,6 +32,7 @@ export class HotelreviewsvideoPage  {
   ionViewDidEnter() {
     this.hotelName = this.searchhotel.hotelName;
     this.tourName = this.searchhotel.tourDetailName;
+    this.ticketName = this.searchhotel.ticketDetailName
     this.trustedVideoUrl=this.searchhotel.trustedVideoUrl;
     
 

@@ -307,6 +307,7 @@ export class SearchHotel {
   //changeInfoHotelList = new EventEmitter();
   changeInfoHotelList= new Subject<any>();
   elder: any;
+  ticketDetailName: any;
   publicChangeInfoHotelList(data: any) {
     this.changeInfoHotelList.next(data);
   }
