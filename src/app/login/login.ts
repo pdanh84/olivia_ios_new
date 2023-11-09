@@ -770,22 +770,15 @@ getToken() {
         var checkfullname=se.hasWhiteSpace(decoded.fullname);
         var info;
         if (checkfullname) {
-          var textfullname=decoded.fullname.split(' ')
-          if(textfullname.length >2){
-            let name = '';
-            for(let i = 1; i < textfullname.length; i++){
-              if(i == 1){
-                name += textfullname[i];
-              }else{
-                name +=' ' +textfullname[i];
-              }
-            }
-            info = { ho: textfullname[0], ten: name , phone: decoded.phone, gender: decoded.gender}
-          }else if(textfullname.length >1){
-            info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone, gender: decoded.gender}
+          const textfullname = decoded.fullname.trim().split(' ');
+          let info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender};
+        
+          if (textfullname.length > 0) {
+            info.ho = textfullname[0];
           }
-          else if(textfullname.length == 1){
-            info = { ho: textfullname[0], ten: "", phone: decoded.phone, gender: decoded.gender}
+        
+          if (textfullname.length > 1) {
+            info.ten = textfullname.slice(1).join(' ');
           }
           se.storage.remove('infocus');
           se.storage.remove('listblogtripdefault');
@@ -793,11 +786,10 @@ getToken() {
           se.storage.remove('listtopdealdefault');
           se.storage.remove('regionnamesuggest');
           se.valueGlobal.countNotifi = 0;
-    
           se.storage.set("infocus", info);
           se.gf.setParams(true,'resetBlogTrips');
         } else {
-          info = { ho: "", ten: "", phone: decoded.phone, gender: decoded.gender}
+          const info = { ho: "", ten: "", phone: decoded.phone, fullname: "", gender: decoded.gender };
           se.storage.set("infocus", info);
         }
         // se.storage.set("jti", decoded.jti[0]);
@@ -871,23 +863,9 @@ getToken() {
 
     }
     const res = await GoogleAuth.signIn();
-    console.log(res);
     this.userData = res;
+    this.userData.fullName = this.userData.familyName + " " + this.userData.givenName;
     this.postDatagg();
-    // GoogleAuth.login({
-    //   'scopes': 'https://www.googleapis.com/auth/userinfo.profile',
-    // })
-    // .then(res => {
-    //   // alert(JSON.stringify(res))
-    //   this.userData = res;
-    //   this.postDatagg();
-
-    //   // Xử lý đăng nhập thành công
-    // })
-    // .catch(err => {
-    //   console.error(err);
-    //   // Xử lý lỗi đăng nhập
-    // });
   }
 
   postDatagg() {
@@ -900,8 +878,8 @@ getToken() {
         provider: 'google',
         token: '',
         idToken: '',
-        bearToken: this.userData.accessToken,
-        name: this.userData.displayName
+        bearToken: this.userData.authentication.accessToken,
+        name: this.userData.familyName + " " + this.userData.givenName,
       }
     }
     let urlPath = C.urls.baseUrl.urlMobile + '/api/account/socialLogin';
@@ -925,7 +903,7 @@ getToken() {
         se.storage.set("refreshTokenTimer", decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10);
         var checkfullname=se.hasWhiteSpace(decoded.fullname);
         //se.storage.remove('deviceToken');
-        if(se.platform.is('android')){
+        if(se.platform.is('ios')){
           try {
             FCM.getToken().then(token => {
               se.deviceToken = token;
@@ -940,30 +918,21 @@ getToken() {
           }
           
         }
-        var info;
         if (checkfullname) {
-          var textfullname=decoded.fullname.trim();
-          textfullname=decoded.fullname.split(' ');
-          //info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone}
-          if(textfullname.length >2){
-            let name = '';
-            for(let i = 1; i < textfullname.length; i++){
-              if(i == 1){
-                name += textfullname[i];
-              }else{
-                name +=' ' +textfullname[i];
-              }
-            }
-            info = { ho: textfullname[0], ten: name , phone: decoded.phone, gender: decoded.gender}
-          }else if(textfullname.length>1){
-            info = { ho: textfullname[0], ten: textfullname[1], phone: decoded.phone, gender: decoded.gender}
+          const textfullname = decoded.fullname.trim().split(' ');
+          let info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender};
+        
+          if (textfullname.length > 0) {
+            info.ho = textfullname[0];
           }
-          else if(textfullname.length==1){
-            info = { ho: textfullname[0], ten: "", phone: decoded.phone, gender: decoded.gender}
+        
+          if (textfullname.length > 1) {
+            info.ten = textfullname.slice(1).join(' ');
           }
+        
           se.storage.set("infocus", info);
         } else {
-          info = { ho: "", ten: "", phone: decoded.phone,fullname:"", gender: decoded.gender}
+          const info = { ho: "", ten: "", phone: decoded.phone, fullname: "", gender: decoded.gender };
           se.storage.set("infocus", info);
         }
         // se.storage.set("jti", decoded.jti[0]);
