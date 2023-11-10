@@ -3708,6 +3708,8 @@ import { App } from '@capacitor/app';
           regionFilters: this.ticketService.regionFilters,
           typeFilters: this.ticketService.typeFilters,
           topicfilters:this.ticketService.topicfilters.length > 0 ? this.ticketService.topicfilters:[],
+          pageIndex: 1,
+          pageSize: 1000
         }
       }else if (this.ticketService.searchType == 2){
         // var arrregion = [];
@@ -3719,7 +3721,9 @@ import { App } from '@capacitor/app';
           // regionFilters: this.ticketService.regionFilters,
           // typeFilters: this.ticketService.typeFilters,
           topicfilters:this.ticketService.topicfilters.length > 0 ? this.ticketService.topicfilters:[],
-          regionIds: this.ticketService.regionFilters
+          regionIds: this.ticketService.regionFilters,
+          pageIndex: 1,
+          pageSize: 1000
         }
       }else if (this.ticketService.searchType == 3){
         // var arrTopic = [];
@@ -3731,10 +3735,11 @@ import { App } from '@capacitor/app';
           regionFilters: this.ticketService.regionFilters,
           // typeFilters: this.ticketService.typeFilters,
           // topicfilters:this.ticketService.topicfilters.length > 0 ? this.ticketService.topicfilters:[],
-          topicIds: this.ticketService.topicfilters
+          topicIds: this.ticketService.topicfilters,
+          pageIndex: 1,
+          pageSize: 1000
         }
       }
-      debugger
       this.RequestApi('POST', url, headers, body, 'SearchKeyword', 'SearchKeyword').then((data)=>{
         this.ticketService.slideData = [];
         if (data) {

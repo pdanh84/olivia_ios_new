@@ -56,7 +56,7 @@
                 <div class="div-image"><img class="img-avatar" [src]="trip.avatar"></div>
                 <div class="div-ticket-name m-left-12">
                     <div class="text-ticket-name">{{trip.hotel_name}}</div>
-                    <div class="text-ticket-address m-top-8 d-flex">
+                    <div *ngIf="trip.address" class="text-ticket-address m-top-8 d-flex">
                       <div class="icon-local"><img class="img-local" src="./assets/imgs/location.svg"></div>
                       <div class="cls-hidden-row">{{trip.address}}</div>
                      

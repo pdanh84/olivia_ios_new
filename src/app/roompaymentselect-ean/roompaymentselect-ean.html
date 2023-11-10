@@ -128,7 +128,12 @@
       <!-- <ion-icon slot="end" name="arrow-forward-outline" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - totalPrice) >0" class='cls-arrow-payment-align-right m-r-21'></ion-icon> -->
       <img src="./assets/imgs/ic_arrow_grey.svg" *ngIf="bizTravelService.bizAccount && (bizTravelService.bizAccount.balanceAvaiable - totalPrice) >0" class='ic-arrow-right'/>
     </ion-item>
-    
+    <ion-item *ngIf="checkpayment" (click)="roompaymentbank()" class="h-54">
+      <label class="text-list">
+        Chuyển khoản ngân hàng
+      </label>
+      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
+    </ion-item>
     <ion-item (click)="roompaymentatm()" class="h-54">
       <label class="text-list">
         Thẻ ATM nội địa /Internet Banking
@@ -192,12 +197,7 @@
       </label>
       <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
     </ion-item>
-    <ion-item *ngIf="checkpayment" (click)="roompaymentbank()" class="h-54">
-      <label class="text-list">
-        Chuyển khoản ngân hàng
-      </label>
-      <img src="./assets/imgs/ic_arrow_grey.svg" class='ic-arrow-right'/>
-    </ion-item>
+   
     <ion-item *ngIf="checkpayment" (click)="roompaymentlive()" class="h-54">
       <label class="text-list">
         Trực tiếp tại văn phòng iVIVU
