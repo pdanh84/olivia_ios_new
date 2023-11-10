@@ -76,8 +76,10 @@ export class RoomdetailreviewPage implements OnInit {
     var chuoicout =  moment(se.cout).format('YYYY-MM-DD').split('-');
     se.cin = chuoicin[2] + "-" + chuoicin[1] + "-" + chuoicin[0];
     se.cout = chuoicout[2] + "-" + chuoicout[1] + "-" + chuoicout[0];
-    se.nameroom = se.room[0].ClassName;
-    se.RoomType = se.room[0].RoomType;
+    if(se.room && se.room.length > 0) {
+        se.nameroom = se.room[0].ClassName;
+        se.RoomType = se.room[0].RoomType;
+    }
     se.roomcancel = se.Roomif.objMealType;
     se.breakfast = se.Roomif.objMealType.Name;
     se.ischeckroom = se.room[0].MealTypeRates[se.indexme].Supplier

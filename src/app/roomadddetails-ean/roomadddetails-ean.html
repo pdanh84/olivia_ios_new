@@ -37,13 +37,13 @@
     <div >
           <div >
               <ion-item style="--padding-start: 0px">
-                  <ion-label class="label-name" position="floating">Họ Tên</ion-label>
+                  <ion-label class="label-name" position="floating">Họ Tên<span *ngIf="hoten">*</span><span *ngIf="!hoten" class="color-red">*</span></ion-label>
                   <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus(null, $event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
               </ion-item>
           </div>
         <div>
           <ion-item style="--padding-start: 0px">
-            <ion-label class="label-name" position="floating">Điện thoại</ion-label>
+            <ion-label class="label-name" position="floating">Điện thoại<span *ngIf="phone">*</span><span *ngIf="!phone" class="color-red">*</span></ion-label>
             <ion-input  class="label-input" [(ngModel)]="phone" type="tel" required></ion-input>
           </ion-item>
         </div>
@@ -52,7 +52,7 @@
       <div *ngIf="!validemail">
         <div >
           <ion-item style="--padding-start: 0px">
-            <ion-label class="cls-label" position="floating">Email</ion-label>
+            <ion-label class="cls-label" position="floating">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
             <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
     
           </ion-item>
@@ -115,7 +115,7 @@
         </ion-col> -->
         <ion-col size="12">
             <ion-item style="--padding-start: 0px">
-                <ion-label class="label-name" position="stacked">Họ Tên</ion-label>
+                <ion-label class="label-name" position="stacked">Họ Tên<span *ngIf="m.hoten">*</span><span *ngIf="!m.hoten" class="color-red">*</span></ion-label>
                 <ion-input class="label-input" [(ngModel)]="m.hoten" type="text" (ionInput)="inputFocus(m, $event)" (ionBlur)="inputLostFocus(m)"  (ionFocus)="inputOnFocus(m, 9)" required></ion-input>
             </ion-item>
         </ion-col>
@@ -123,7 +123,7 @@
       <ion-row *ngIf="i==0" style="margin-left: -5px">
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
-            <ion-label class="label-name" position="stacked">Điện thoại</ion-label>
+            <ion-label class="label-name" position="stacked">Điện thoại<span *ngIf="m.phone">*</span><span *ngIf="!m.phone" class="color-red">*</span></ion-label>
             <ion-input class="label-input" [(ngModel)]="m.phone" type="tel" required></ion-input>
           </ion-item>
         </ion-col>
@@ -132,7 +132,7 @@
       <ion-row *ngIf="!validemail && i==0">
           <ion-col size="12">
             <ion-item style="--padding-start: 0px">
-              <ion-label class="cls-label" position="stacked">Email</ion-label>
+              <ion-label class="cls-label" position="stacked">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
               <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
       
             </ion-item>

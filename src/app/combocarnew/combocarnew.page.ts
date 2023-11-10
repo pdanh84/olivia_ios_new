@@ -972,7 +972,7 @@ export class CombocarnewPage implements OnInit {
     self.totalPriceDep = priceseatdep + (self.surchargedepd + self.surchargedept) * self.totalAdult;
     self.totalPriceRet = priceseatret + (self.surchargeretd + self.surchargerett) * self.totalAdult;
 
-    let voucherSelectedMap = this._voucherService.selectVoucher.map(v => {
+    let voucherSelectedMap = this._voucherService.voucherSelected.map(v => {
       let newitem = {};
       newitem["voucherCode"] = v.code;
       newitem["voucherName"] = v.rewardsItem.title;
@@ -990,7 +990,7 @@ export class CombocarnewPage implements OnInit {
       newitem["keepCurrentVoucher"] = false;
       return newitem;
     });
-    let checkpromocode = this._voucherService.selectVoucher && this._voucherService.selectVoucher.length ==0 && this._voucherService.listObjectPromoCode && this._voucherService.listObjectPromoCode.length ==0;
+    let checkpromocode = this._voucherService.voucherSelected && this._voucherService.voucherSelected.length ==0 && this._voucherService.listObjectPromoCode && this._voucherService.listObjectPromoCode.length ==0;
     let arrpromocode = this.promocode ? [{"voucherCode": this.promocode , "voucherName": this.promocode,"voucherType": 1,"voucherDiscount": this.discountpromo ,"keepCurrentVoucher": false  }] : [];
 
         var objectCar = {

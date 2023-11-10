@@ -1911,12 +1911,14 @@ ion-header {
 }
 .strikethrough:before {
   position: absolute;
-  content: "";
-  left: 0;
-  top: 40%;
-  right: 0;
-  border-top: 0.5px solid #bdbdbd;
-  transform: rotate(-45deg);
+    content: "";
+    top: 38%;
+    right: 0;
+    border-top: 0.5px solid #bdbdbd;
+    transform: rotate(-45deg);
+    width: 28px;
+    left: 22%;
+
 }
 .is-start-date.strikethrough:before {
   content: "";
@@ -2615,4 +2617,7 @@ swiper-slide img {
       @media (min-width: 376px) and (max-width: 430px) {
         --height: 36%;
       }
+    }
+    .color-red{
+      color: red;
     }
