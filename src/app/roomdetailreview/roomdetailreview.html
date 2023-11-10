@@ -104,6 +104,16 @@
         <p class="text-detail">
           <img class="image-card" *ngIf="breakfast" src="./assets/ic_facility/ic_food_b.svg"> {{breakfast}}
           <p>
+            <div *ngIf="titlecombo" class="d-flex">
+              <div class="div-location">
+                <img class="img-location" src="./assets/iconaccount/info.svg">
+              </div>
+              <div class="text-address text-thin color-blue m-left-18">
+                <ion-label  *ngIf="Roomif.payment=='AL'" >Xác nhận ngay</ion-label>
+                <ion-label  *ngIf="Roomif.payment!='AL'" >Xác nhận trong 60 phút</ion-label>
+              </div>
+            </div>
+            
   </div>
   <div class="div-TaxFee" *ngIf="Roomif.DescriptionTaxFee && Roomif.DescriptionTaxFee.include.length>0">
     <div class="text-normal" style="font-weight: bold">

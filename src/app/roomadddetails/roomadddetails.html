@@ -28,13 +28,13 @@
   <div >
         <div >
             <ion-item style="--padding-start: 0px">
-                <ion-label class="label-name" position="stacked">Họ Tên</ion-label>
+                <ion-label class="label-name" position="stacked">Họ Tên<span *ngIf="hoten">*</span><span *ngIf="!hoten" class="color-red">*</span></ion-label>
                 <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
             </ion-item>
         </div>
       <div >
         <ion-item style="--padding-start: 0px">
-          <ion-label class="label-name" position="stacked">Số điện thoại</ion-label>
+          <ion-label class="label-name" position="stacked">Số điện thoại<span *ngIf="phone">*</span><span *ngIf="!phone" class="color-red">*</span></ion-label>
           <ion-input class="label-input" [(ngModel)]="phone" type="tel" required></ion-input>
         </ion-item>
       </div>
@@ -42,7 +42,7 @@
     <div *ngIf="!validemail">
       <div >
         <ion-item style="--padding-start: 0px">
-          <ion-label class="label-name" position="stacked">Email</ion-label>
+          <ion-label class="label-name" position="stacked"><span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
           <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
   
         </ion-item>

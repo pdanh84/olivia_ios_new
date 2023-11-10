@@ -340,12 +340,12 @@ text-overflow: ellipsis;
   line-height: 16px;
   padding-left: 16px;
 }
+
+
+}
 .color-blue{
-color: #26bed6 !important
+  color: #26bed6 !important
 }
-
-}
-
 .div-voucher-apply {
 display: flex;
 margin: 14px 0 6px 0;
@@ -384,4 +384,14 @@ color: #3f3b3b;
 .div-TaxFee{
 background-color: wheat;
 padding: 8px;
+}
+.div-location{
+  position: absolute;
+  margin-top: -1px;
+}
+.img-location{
+  height: 12px;
+}
+.m-left-18{
+  margin-left: 18px;
 }
