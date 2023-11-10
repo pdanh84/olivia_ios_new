@@ -31,7 +31,7 @@ export class FlightaddluggagePage implements OnInit {
       toggle: false
     }
   };
-  tabluggage = 1;
+  tabluggage = '1';
   adults = 2;
   child = 0;
   room = 1;
@@ -224,8 +224,8 @@ export class FlightaddluggagePage implements OnInit {
   }
   confirm()
   {
-    if(this.tabluggage ==1 && this.roundtrip){
-      this.SelectTab(2);
+    if(this.tabluggage =='1' && this.roundtrip){
+      this.SelectTab('2');
     }else{
       this._flightService.itemFlightLuggagePriceChange.emit(true);
       this.navCtrl.navigateBack('/flightaddservice');
@@ -244,7 +244,7 @@ export class FlightaddluggagePage implements OnInit {
     //this.sliderTab?.nativeElement.swiper.lockSwipes(false);
     this.zone.run(()=>{
       this.tabluggage = tabindex;
-      this.sliderTab?.nativeElement.swiper.slideTo(tabindex-1);
+      //this.sliderTab?.nativeElement.swiper.slideTo(tabindex-1);
       this.contentFlightAddLuggage.scrollToTop(200);
     })
     //this.sliderTab?.nativeElement.swiper.lockSwipes(true);

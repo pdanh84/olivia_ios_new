@@ -2647,7 +2647,7 @@ getSummaryBooking(resNo) {
   }
 
   splitFullName(strHoten, ho, ten) {
-    let textfullname = strHoten.split(' ');
+    let textfullname = strHoten.trim().split(' ');
     let name = '';
     if (textfullname.length > 2) {
       for (let i = 1; i < textfullname.length; i++) {

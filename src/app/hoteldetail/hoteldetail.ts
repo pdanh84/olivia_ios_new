@@ -2138,7 +2138,7 @@ export class HotelDetailPage implements OnInit {
             }
             for (let i = 0; i < element.MealTypeRates.length; i++) {
               if (element.MealTypeRates[i] != null) {
-                var PriceAvgPlusTA = element.MealTypeRates[i].PriceAvgPlusTotalTA
+                var PriceAvgPlusTA = element.MealTypeRates[i].PriceAvgPlusTotalTA;
                 PriceAvgPlusTA = PriceAvgPlusTA / 100000;
                 PriceAvgPlusTA = Math.floor(PriceAvgPlusTA);
                 element.MealTypeRates[i].point = PriceAvgPlusTA;
@@ -2201,7 +2201,11 @@ export class HotelDetailPage implements OnInit {
               }
               element.countMealType = 0;
               for (let m = 0; m < element.hotelMealTypes.length; m++) {
-                element.countMealType += element.hotelMealTypes[m].countMealType;
+                //element.countMealType += element.hotelMealTypes[m].countMealType;
+
+                let counthide = element.MealTypeRates.filter(item => !item.displayMealType ).length;
+                element.countMealType = counthide;
+                //console.log(counthide)
               }
             }
             element.checkwarning = 0;
