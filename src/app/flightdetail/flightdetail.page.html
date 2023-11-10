@@ -15,7 +15,7 @@
     </ion-row>
 
     <ion-row>
-        <ion-segment [(ngModel)]="tabflightdetail" class="div-segment"  mode="md">
+        <ion-segment [(ngModel)]="tabflightdetail" [value]="tabflightdetail" class="div-segment"  mode="md">
           <ion-segment-button (click)="SelectTabFlight(1)" mode="md" style="text-transform: inherit;" value="1" >
             Chuyến bay
             </ion-segment-button>

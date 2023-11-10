@@ -1133,7 +1133,7 @@ export class FlightComboReviewsPage implements OnInit {
     se.listDeparture = [];
     this.totaldepluggage=0;
     this.totalretluggage=0;
-    se.loadflightpricedone = false;
+    //se.loadflightpricedone = false;
     if (departFlight && departFlight.length > 0) {
       se.listDeparture.push(departFlight[0]);
       let de_date = new Date(this.gf.getCinIsoDate(departFlight[0].departTime));

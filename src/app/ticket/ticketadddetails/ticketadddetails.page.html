@@ -36,7 +36,28 @@
           </ion-item>
         </ion-col>
       </ion-row>
-
+      <div class="div-option-contact">
+        <div class="text-normal m-bottom-10">Chọn kênh liên lạc và nhận vé</div>
+        <div class="div-option">
+            <ion-radio-group name="rdgContactOption" class="list-option" [(ngModel)]="contactOption" (ionChange)="contactOptionClick($event)">
+                <div class="div-item-radio">
+                    <ion-radio style="--color-checked:#26bed6" mode="md" value="zalo"></ion-radio>
+                    <ion-label class="text-label">Zalo</ion-label>
+                    
+                    <ion-radio style="margin-left:30px;--color-checked:#26bed6" mode="md" value="mail"></ion-radio>
+                    <ion-label class="text-label">Email</ion-label>
+                </div>
+                
+            </ion-radio-group>
+        </div>
+        <div [ngClass]="((hasinput && !email) || emailinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' " *ngIf="contactOption=='mail'">
+            <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
+                <ion-label class="sub-label m-bottom-6 f-13" position="stacked">Nhập email</ion-label>
+                <ion-input [(ngModel)]="email" type="email" (ionBlur)="checkInputUserInfo(3)"
+                    (ionFocus)="inputOnFocus()"></ion-input>
+            </ion-item>
+        </div>
+    </div>
       <ion-row >
         <ion-col size="12" class="no-padding">
           <ion-item style="--padding-start: 0px" class="item-input-custom">

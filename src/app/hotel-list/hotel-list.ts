@@ -816,7 +816,7 @@ export class HotelListPage implements OnInit {
             se.json1[index].HasCheckPrice = true;
             for (let i = 0; i < se.listHotelPrice.length; i++) {
               //Chỉ bind lại giá cho hotel, combo bỏ qua
-             
+                
                 if (se.json1[index] && se.json1[index].HotelId == se.listHotelPrice[i].GroupId) {
                   se.json1[index].MinPriceOTAStr = se.listHotelPrice[i].MinPriceTAStr || se.listHotelPrice[i].MinPriceOTAStr;
                   se.json1[index].MinPriceTAStr = se.listHotelPrice[i].MinPriceTAStr;

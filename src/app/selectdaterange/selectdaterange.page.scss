@@ -87,7 +87,7 @@ ion-header {
           text-align: center;
       }
       .title-cincout{
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 300;
           text-align: left;
       }
@@ -464,7 +464,11 @@ small{
 .cls-tour-custom .is-end-date.cls-text-red::before {
   width: 0% !important;
 }
-
+@media (min-height: 812px) and (max-height: 930px) {
+  ion-footer {
+    height: 33%;
+  }
+}
 .selectdaterange-footer{
   background-color: #ffffff; text-align: center;
   width: 100%;

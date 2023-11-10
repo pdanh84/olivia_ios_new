@@ -386,7 +386,7 @@
                   </button> 
                 </ion-row>
                 <!-- Text warning khi quá hạn flashsale -->
-                <ion-row class="cls-fs-warning" *ngIf="loadcomplete&& fs && flashSaleEndDate">
+                <ion-row class="cls-fs-warning" *ngIf="loadcomplete&& fs && flashSaleEndDate && !(loaddonecombo && checkBODdone && ischeckBOD)">
                   <ion-col class="no-padding">
                     <button ion-button round outline class="button btn-book f-14" (click)="changeDate()">Combo chỉ áp dụng đến ngày {{flashSaleEndDate}}</button>
                   </ion-col>

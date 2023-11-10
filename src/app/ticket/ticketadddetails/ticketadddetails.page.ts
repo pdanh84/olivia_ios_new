@@ -39,6 +39,9 @@ export class TicketAdddetailsPage implements OnInit {
   timestamp; paymentMethod; jsonroom; ischeckpayment; public loader: any;
   _email: any;
   validemail: boolean = true;
+  email:any;
+  emailinvalid: boolean;
+  hasinput=false;
   auth_token: any = '';
   installmentPriceStr: any;
   showInstallmentButton: boolean = false;
@@ -103,6 +106,7 @@ export class TicketAdddetailsPage implements OnInit {
   alert: HTMLIonAlertElement;
   allowClickDateOfBirth: boolean = true;
   loadResourceInfoDone: boolean;
+  contactOption:any="zalo";
   ngOnInit() {
     this._voucherService.getTicketObservable().subscribe((itemVoucher)=> {
       if(itemVoucher){
@@ -963,7 +967,9 @@ export class TicketAdddetailsPage implements OnInit {
       paxList: '',
       tourNotes: this.note,
       kkdayResource: this.kkdayResource,
-      code: promoCodeArray
+      code: promoCodeArray,
+      contactChannel: this.contactOption =='mail' ? 'mail' : 'zalo',
+      contactChannelInput: this.contactOption =='mail' ? this.email :'',
     };
     let headers =
     {
@@ -1020,6 +1026,27 @@ export class TicketAdddetailsPage implements OnInit {
         return;
 
       }
+
+      if(!this.contactOption){
+        this.gf.showToastWarning('Chưa chọn kênh liên lạc và nhận vé. Vui lòng kiểm tra lại');
+        resolve(false);
+        return;
+      }
+
+      if(this.contactOption && this.contactOption == "mail"){
+        if(!this.email){
+          this.gf.showToastWarning('Vui lòng nhập email!');
+          resolve(false);
+            return;
+        }
+        else if(this.email && (!this.validateEmail(this.email) || !this.gf.checkUnicodeCharactor(this.email) || this.gf.checkEmailInvalidFormat(this.email)) ){
+            this.emailinvalid = true;
+            this.gf.showToastWarning('Email không hợp lệ. Vui lòng nhập lại!');
+            resolve(false);
+            return;
+        }
+      }
+
       if (this.ischeck) {
         if (this.companyname && this.address && this.tax) {
           this.companyname = this.companyname.trim();
@@ -1036,6 +1063,7 @@ export class TicketAdddetailsPage implements OnInit {
         if (this.companyname && this.address && this.tax) {
           this.Roomif.hoten = this.hoten;
           this.Roomif.phone = this.phone;
+          this.Roomif.email = this.email;
           this.Roomif.companyname = this.companyname;
           this.Roomif.address = this.address;
           this.Roomif.tax = this.tax;
@@ -1802,5 +1830,31 @@ export class TicketAdddetailsPage implements OnInit {
    hidePaxHint(){
     
    }
+   contactOptionClick(event){
+    this.contactOption = event.currentTarget.value;
+    this.ishideNameMail = this.contactOption == 'mail';
+  }
+  checkInputUserInfo(type){
+    var se = this;
+    se.hasinput = true;
+    if(type == 3){
+      let strcheck = se.email;
+      if(se.email.indexOf('@') != -1){
+        strcheck = se.email.split('@')[1];
+      }
+      
+        if(se.gf.checkEmailInvalidFormat(strcheck) || !se.validateEmail(se.email) || !se.gf.checkUnicodeCharactor(se.email) ){
+            se.emailinvalid = true; 
+        }else{
+          se.emailinvalid = false; 
+        }
+    }
+  }
+  inputOnFocus(){
+    var se = this;
+    if(se.hasinput){
+      se.hasinput = false;
+    }
+  }
 }
 

@@ -457,6 +457,8 @@ export class SelectDateRangePage implements OnInit {
           }
         }
         this.checkLoadPrice();
+
+       
       });
       this.picker.on('preselect', (date1, date2) => {
         let fromdate = this.gf.getCinIsoDate(date1.dateInstance);
@@ -481,6 +483,12 @@ export class SelectDateRangePage implements OnInit {
           $(monthitem).addClass('cls-calendar-display');
         }
 
+        setTimeout(() => {
+          if (!this.tourCalendar) {
+            this.renderCustomDayConfig(0);
+          }
+    
+        }, 100)
       });
 
       this.picker.on('change:month', (date, calendarIdx) => {
@@ -1011,7 +1019,7 @@ export class SelectDateRangePage implements OnInit {
             if ($('.div-wrap-item-lunar').length == 0) {
               $('.div-expand-lunar').append("<div class='div-wrap-item-lunar'></div>");
             }
-            // $(dayitem).addClass('text-red');
+            $(dayitem).addClass('text-red');
             $('.div-wrap-item-lunar').append("<div class='div-border-small'>" + "<div class='text-red width-78'>" + mapconfig[0].subTitle + ": " + "</div>" + "<span>" + mapconfig[0].description + (mapconfig[0].lunarDate ? "</span>" + " " + "<span class='text-red m-l-4'> (" + mapconfig[0].lunarDate + ")</span>" : '') + "</div>");
           }
 

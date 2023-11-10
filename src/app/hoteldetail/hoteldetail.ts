@@ -1152,6 +1152,7 @@ export class HotelDetailPage implements OnInit {
     if(jsondata.Youtube){
       se.youtubeId = jsondata.Youtube;
       se.trustedVideoUrl = se.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+se.youtubeId);
+      this.searchhotel.trustedVideoUrl = se.trustedVideoUrl;
     }
     if (!isloaddata) {
       if (jsondata.HotelImages.length > 0) {
@@ -2031,7 +2032,7 @@ export class HotelDetailPage implements OnInit {
     let body = `CheckInDate=${moment(self.cin).format('YYYY-MM-DD')}&CheckOutDate=${moment(self.cout).format('YYYY-MM-DD')}&CityID=''&CountryID=''`
     +`&HotelID=${self.HotelID}&IsLeadingPrice=1&IsPackageRate=false&NationalityID=82&ReferenceClient=''&RoomNumber=${self.room}&RoomsRequest[0].RoomIndex=1`
     +`&Supplier='IVIVU'&dataKey=''&RoomsRequest[0][Adults][value]=${self.adults ? self.adults : "2"}&RoomsRequest[0][Child][value]=${self.child ? self.child : "0"}&IsFenced=${self.loginuser && self.isShowPrice ? true : false}`
-    +`GetVinHms=1&GetSMD=1&IsB2B=true&IsSeri=true&IsAgoda=true&IsOccWithBed=true&NoCache=false`;
+    +`&GetVinHms=1&GetSMD=1&IsB2B=true&IsSeri=true&IsAgoda=true&IsOccWithBed=true&NoCache=false`;
     if (self.searchhotel.arrchild && self.searchhotel.arrchild.length >0) {
       self.arrchild1 = [];
       for (var i = 0; i < self.searchhotel.arrchild.length; i++) {

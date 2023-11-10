@@ -34,7 +34,7 @@ export class FlightdetailPage implements OnInit {
         toggle: false
       }
     };
-    tabflightdetail = 1;
+    tabflightdetail = '1';
     title: any;
     subtitle: any;
     itemFlight: any;

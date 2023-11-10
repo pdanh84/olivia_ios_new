@@ -5,7 +5,7 @@
           src="./assets/imgs/icon_back.svg">
       </div>
       <div class="div-search">
-        <ion-input #myInput [(ngModel)]="inputText" (ionInput)="getItems($event)" class="cls-input-search" placeholder="Nhập tên khách sạn,thành phố,khu vực..."></ion-input>
+        <ion-input #myInput [(ngModel)]="inputText" (ionInput)="getItems($event)" debounce="500" class="cls-input-search" placeholder="Nhập tên khách sạn,thành phố,khu vực..."></ion-input>
       </div>
       <div *ngIf="inputText" class="img-close" (click)="clearText()">
         <img 
