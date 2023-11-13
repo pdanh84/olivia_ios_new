@@ -2993,7 +2993,7 @@
                         <img src="./assets/imgs/ic_expand_down.svg" />
                       </div>
                     </div>
-                    <div  *ngIf="(trip.payment_status == 1 || trip.payment_status == 5)&& !trip.bookingOffType" class="div-panel-1px"></div>
+                    <!-- <div  *ngIf="(trip.payment_status == 1 || trip.payment_status == 5)&& !trip.bookingOffType" class="div-panel-1px"></div> -->
                     <div class="m-top-24"  *ngIf="isptp">
                       <div>
                         <label [innerHTML]="trip.off_hotel_paypolicy">
@@ -3006,15 +3006,6 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div *ngIf="(trip.payment_status == 1 || trip.payment_status == 5)" class="d-flex">
-                      <div class="text-info-2">
-                        Cẩm nang du lịch
-                      </div>
-                      <div (click)="openWebpage()" class="position-absolute">
-                        <img src="./assets/imgs/ic_expand.svg" />
-                      </div>
-                    </div> -->
-              
                   </div>
 
                 <!-- case VMB -->

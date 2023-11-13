@@ -143,7 +143,7 @@ export class MytripHistoryPage implements OnInit {
   }
 
   async showUserFeedBackPage(trip) {
-    var se = this;
+    const se = this;
     se.gf.setParams(trip, 'tripFeedBack');
     const modal: HTMLIonModalElement =
       await this.modalCtrl.create({
@@ -158,7 +158,6 @@ export class MytripHistoryPage implements OnInit {
 
     modal.onDidDismiss().then((data: OverlayEventDetail) => {
       this.reloadHistoryTrip();
-
     })
   }
   reloadHistoryTrip() {
