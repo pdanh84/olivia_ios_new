@@ -2401,13 +2401,9 @@ export class OrderPage {
                   }
 
 
-                  if (elementHis.extra_guest_info) {
-                    let arrpax = elementHis.extra_guest_info.split('|');
-                    if (arrpax && arrpax.length > 1 && arrpax[1] > 0) {
-                      elementHis.paxDisplay = arrpax[0].toString() + " người lớn, " + arrpax[1].toString() + " trẻ em";
-                    } else if (arrpax && arrpax.length > 1 && arrpax[1] == 0) {
-                      elementHis.paxDisplay = arrpax[0].toString() + " người lớn";
-                    }
+                  if (elementHis.booking_type=="TICKET") {
+                    let arrtemp = elementHis.inclusion.split('|');
+                    elementHis.paxDisplay = arrtemp[6];
                   }
                   if (elementHis.amount_after_tax) {
                     elementHis.priceShow = Math.round(elementHis.amount_after_tax).toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");

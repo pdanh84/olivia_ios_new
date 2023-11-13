@@ -130,16 +130,35 @@
                         </ion-row>
                           </div>
                       </div>
+                      <div *ngIf="trip.address" class="div-line-new-1">
+
+                      </div>
+                      <div  *ngIf="trip.booking_type == 'TICKET'" class="d-flex m-bottom-8">
+                        <img *ngIf="trip.address" src="./assets/ic_ticket/booth.svg">
+                        <div *ngIf="trip.address" class="text-info m-left-4 text-overflow-ellipsis">{{trip.address}}</div>
+                      </div>
                       <div class="div-line-new-1">
 
                       </div>
-                      <div *ngIf="trip.totalPaxStr" class="d-flex div-people">
+                      <div *ngIf="trip.totalPaxStr && trip.booking_type != 'TICKET' " class="d-flex div-people">
                         <div>
                           <img src="./assets/imgs/ic_people.svg">
                           
                         </div>
                         <div class="mt4">
                           {{trip.totalPaxStr}} <span *ngIf="trip.textChildDisplay">{{trip.textChildDisplay}}</span> <span class="p-l-4" *ngIf="trip.hasCathay && !trip.isBookingVMBQT"><img src="https://beta-member.ivivu.com/assets/img/dashboard_trips/cathay.png"/></span>
+                        </div>
+                        <div  *ngIf="trip.payment_status == 1 || trip.payment_status == 5"  class="p-absolute-16">
+                          <img  class="cls-icon-img-detail"  src="./assets/imgs/ic_arrow_grey.svg">
+                        </div>
+                      </div>
+                      <div *ngIf="trip.totalPaxStr && trip.booking_type == 'TICKET' " class="d-flex div-people">
+                        <div>
+                          <img src="./assets/imgs/ic_people.svg">
+                          
+                        </div>
+                        <div class="mt4">
+                          {{trip.paxDisplay}} <span class="p-l-4" *ngIf="trip.hasCathay && !trip.isBookingVMBQT"><img src="https://beta-member.ivivu.com/assets/img/dashboard_trips/cathay.png"/></span>
                         </div>
                         <div  *ngIf="trip.payment_status == 1 || trip.payment_status == 5"  class="p-absolute-16">
                           <img  class="cls-icon-img-detail"  src="./assets/imgs/ic_arrow_grey.svg">
