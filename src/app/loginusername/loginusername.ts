@@ -107,11 +107,10 @@ export class LoginusernamePage implements OnInit {
               se.storage.set("username", decoded.fullname);
               se.storage.set("phone", decoded.phone);
               //se.storage.remove('deviceToken');
-              if(se.platform.is('cordova')){
+              if(se.platform.is('mobile')){
                 FCM.getToken().then(token => {
-                  se.deviceToken = token;
-                  se.storage.set('deviceToken',token);
-                  //PDANH 19/07/2019: Push memberid & devicetoken
+                  se.deviceToken = token && token.token ? token.token: token;
+                  se.storage.set('deviceToken',se.deviceToken);
                   if(se.deviceToken){
                     se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
                   }

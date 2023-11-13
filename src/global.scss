@@ -1471,7 +1471,7 @@ height: 12px !important;
 }
 .is-start-date.is-end-date:before{
   width: 32px !important;
-  left: 13px !important;
+  left: 13px;
   opacity: 1 !important;
 }
 
@@ -2620,4 +2620,44 @@ swiper-slide img {
     }
     .color-red{
       color: red;
+    }
+    .no-allotment {
+      position: relative;
+      p{
+        color:  #c8c9d0 !important;
+      }
+    }
+    .no-allotment:before {
+      content: "";
+      background: none;
+      border-radius: 0 !important;
+      right: 0;
+      border-top: 1px solid #c8c9d0 !important;
+      transform: rotate(-45deg);
+      z-index: 99;
+      @media (min-width: 350px) and (max-width: 375px) {
+        left: 5px !important;
+        top: 59% !important;
+        margin: -7px;
+      }
+
+      @media (min-width: 376px) and (max-width: 414px) {
+        left: 7px !important;
+        top: 65% !important;
+        margin: -10px;
+      }
+    
+      @media (min-width: 376px) and (max-width: 414px) {
+        left: 7px !important;
+        top: 65% !important;
+        margin: -10px;
+        width: 100%;
+      }
+
+    }
+    .is-start-date.is-end-date .no-allotment:before {
+      width: 61px !important;
+      opacity: 1 !important;
+      left: 22px !important;
+      top: 58% !important;
     }

@@ -1268,6 +1268,9 @@ tabInbound: number=1;
           if(data){
             se.loadcachetopdeal(data);
           }
+          else if(!se.listflighttopdeal || (se.listflighttopdeal && se.listflighttopdeal.length ==0)){
+            se.loadflighttopdeal();
+          }
         })
       }
 

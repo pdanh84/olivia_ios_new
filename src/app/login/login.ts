@@ -161,11 +161,11 @@ export class LoginPage implements OnInit{
             se.storage.set("refreshTokenTimer", decoded.refreshTokenTimer ? decoded.refreshTokenTimer : 10);
             var checkfullname=se.hasWhiteSpace(decoded.fullname);
             //se.storage.remove('deviceToken');
-            //if(se.platform.is('android')){
+            if(se.platform.is('mobile')){
               try {
                 FCM.getToken().then(token => {
-                  se.deviceToken = token;
-                  se.storage.set('deviceToken',token);
+                  se.deviceToken = (token && token.token) ? token.token : token;
+                  se.storage.set('deviceToken',se.deviceToken);
                   //PDANH 19/07/2019: Push memberid & devicetoken
                   if(se.deviceToken){
                     se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
@@ -175,7 +175,7 @@ export class LoginPage implements OnInit{
                 
               }
               
-            //}
+            }
             var info;
             if (checkfullname) {
               var textfullname=decoded.fullname.trim();
@@ -535,11 +535,11 @@ getToken() {
           se.storage.set("username", decoded.fullname);
           se.storage.set("phone", decoded.phone);
           se.storage.remove('deviceToken');
-          //if(se.platform.is('android')){
+          if(se.platform.is('mobile')){
             try {
               FCM.getToken().then(token => {
-                se.deviceToken = token;
-                se.storage.set('deviceToken',token);
+                se.deviceToken = (token && token.token) ? token.token : token;
+                se.storage.set('deviceToken',se.deviceToken);
                 //PDANH 19/07/2019: Push memberid & devicetoken
                 if(se.deviceToken){
                   se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
@@ -549,7 +549,7 @@ getToken() {
               
             }
             
-         // }
+          }
           
           se.valueGlobal.countNotifi=0;
           // var checkfullname=se.hasWhiteSpace(decoded.fullname);
@@ -807,8 +807,8 @@ getToken() {
         PushNotifications.addListener('registration',
           async (token: Token) => {
               //console.log('token: ' + token.value);
-              se.deviceToken = token;
-              se.storage.set('deviceToken',token);
+              se.deviceToken = token && token.value ? token.value : token;
+              se.storage.set('deviceToken',se.deviceToken);
               if(se.deviceToken){
                 se.gf.pushTokenAndMemberID(response.auth_token, se.deviceToken, se.appversion);
               }
@@ -906,8 +906,8 @@ getToken() {
         if(se.platform.is('ios')){
           try {
             FCM.getToken().then(token => {
-              se.deviceToken = token;
-              se.storage.set('deviceToken',token);
+              se.deviceToken = token && token.token ? token.token : token;
+              se.storage.set('deviceToken',se.deviceToken);
               //PDANH 19/07/2019: Push memberid & devicetoken
               if(se.deviceToken){
                 se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);

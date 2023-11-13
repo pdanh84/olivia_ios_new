@@ -20,7 +20,7 @@
               debounce="500"
               inputmode="text"
               type="text"
-              class="input-search-blog" placeholder="Tìm bài viết" searchIcon="false" ([ngModel])="textsearch" (ionClear)="cancelInput()" (ionInput)="clickSearch($event)" 
+              class="input-search-blog" placeholder="Tìm bài viết" searchIcon="false" [(ngModel)]="textsearch" (ionClear)="cancelInput()" (ionInput)="clickSearch($event)" 
               ></ion-searchbar>
               </form>
           </div>

@@ -111,27 +111,7 @@ export class AppComponent implements OnInit{
   }
   
   ionViewDidEnter() {
-    // const preloadArea: HTMLElement = window.document.getElementById('preload');
-    // preloadArea.appendChild(window.document.createElement('ion-modal'));
-    // preloadArea.appendChild(window.document.createElement('ion-backdrop'));
-    // preloadArea.appendChild(window.document.createElement('ion-header'));
-    // preloadArea.appendChild(window.document.createElement('ion-toolbar'));
-    // preloadArea.appendChild(window.document.createElement('ion-buttons'));
-    // preloadArea.appendChild(window.document.createElement('ion-content'));
-    // preloadArea.appendChild(window.document.createElement('ion-footer'));
-    // preloadArea.appendChild(window.document.createElement('swiper-container'));
-    // preloadArea.appendChild(window.document.createElement('ion-row'));
-    // preloadArea.appendChild(window.document.createElement('ion-col'));
-    // preloadArea.appendChild(window.document.createElement('ion-label'));
-    // preloadArea.appendChild(window.document.createElement('ion-badge'));
-    // preloadArea.appendChild(window.document.createElement('ion-grid'));
-    // preloadArea.appendChild(window.document.createElement('ion-list'));
-    // preloadArea.appendChild(window.document.createElement('ion-item-group'));
-    // preloadArea.appendChild(window.document.createElement('ion-item'));
-    // preloadArea.appendChild(window.document.createElement('ion-radio'));
-    // preloadArea.appendChild(window.document.createElement('ion-icon'));
-    // preloadArea.appendChild(window.document.createElement('ion-note'));
-    // preloadArea.appendChild(window.document.createElement('ion-skeleton-text'));
+    
   }
 
   getToken() {
@@ -166,6 +146,8 @@ export class AppComponent implements OnInit{
               // Show some error
             }
           });
+
+          
   
           PushNotifications.addListener(
             'pushNotificationReceived',
@@ -187,6 +169,16 @@ export class AppComponent implements OnInit{
   
             },
           );
+
+            FCM.refreshToken().then(token => {
+              this.storage.get('auth_token').then((auth_token)=>{
+                let deviceToken = token && token.token ? token.token: token;
+                this.storage.set('deviceToken',deviceToken);
+                if(deviceToken){
+                  this.gf.pushTokenAndMemberID(auth_token, deviceToken, this.appversion);
+                }
+              })
+            });
         }
         
         
@@ -244,17 +236,6 @@ export class AppComponent implements OnInit{
       //     this.gf.pushTokenAndMemberID("", token, this.appversion);
       // })
      
-
-   
-      //clear cache khi start app
-      // this.storage.remove('blogtripdefault');
-      // this.storage.remove('listblogdefault');
-      // this.storage.remove('listtopdealdefault');
-      // this.storage.remove('regionnamesuggest');
-      // this.storage.remove('deviceToken');
-      // this.storage.remove('listexeperienceregion');
-
-      
       this.valueGlobal.countNotifi=0;
       await FirebaseAnalytics.enable();
       await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});

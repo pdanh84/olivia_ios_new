@@ -805,16 +805,18 @@ export class SelectDateRangePage implements OnInit {
              
                   $(elementday).append(`<span class='price-calendar-text-tour-green' (click)="clickedElement(e)">${totalprice}</span>`);
                  
-                  $('.price-calendar-text-tour-green').parent().addClass('div-boder-KM');
+                  $('.price-calendar-text-tour-green').parent().addClass(`div-boder-KM ${!objday[0].AvaiableNo && objday[0].Status == 'SS' ? ' no-allotment' : ''}`);
                   // $(".price-calendar-text-tour-green").click(e => this.clickedElement(e));
                 } else if (objday[0].PriceAdultAvg == maxPrice) {
                   $(elementday).append(`<span class='price-calendar-text-tour-red'>${totalprice}</span>`);
-                  $('.price-calendar-text-tour-red').parent().addClass('div-boder-red');
+                  $('.price-calendar-text-tour-red').parent().addClass(`div-boder-red ${!objday[0].AvaiableNo && objday[0].Status == 'SS' ? ' no-allotment' : ''}`);
                   // $(".price-calendar-text-tour-red").click(e => this.clickedElement(e));
                 } else {
                   if (elementday) {
                     $(elementday).append(`<span class='price-calendar-text-tour'>${totalprice}</span>`);
-                    // $(".price-calendar-text-tour").click(e => this.clickedElement(e));
+                    if(!objday[0].AvaiableNo && objday[0].Status == 'SS'){
+                      $(elementday).addClass(' no-allotment');
+                    }
                   }
                 }
   
