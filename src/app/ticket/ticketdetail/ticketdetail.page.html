@@ -412,11 +412,10 @@
                        
 
                                 <div *ngIf="slide.shortDescription" class="m-top-16 height-65">
-                                    <!-- <div *ngFor="let itemNote of slide.Notes; let idx = index;">
-                                        <div class="div-item-note">{{itemNote.Description}}</div>
-                                    </div> -->
                                     <div class="div-item-note" *ngFor="let item of slide.shortDescription.split('\n');let idx=index">
                                        <li *ngIf="idx < 3">{{item}}</li> </div>
+                                </div>
+                                <div *ngIf="!slide.shortDescription" class="m-top-16 height-65">
                                 </div>
                                 <div class="d-flex m-top-8 div-button-sale" *ngIf="slide.numberOfBooking>0">
                                     <ion-label class="text-topsale">{{slide.numberOfBooking}} khách đặt trong 24 giờ qua</ion-label>

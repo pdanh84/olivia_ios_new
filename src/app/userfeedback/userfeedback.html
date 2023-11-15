@@ -20,7 +20,7 @@
         <!-- Ảnh hotel -->
         <ion-col size="4" style="padding: 0">
           <div class="div-wrapimg">
-              <img *ngIf="trip.avatar104" class="img-avatar" src="https:{{trip.avatar104}}">
+              <img *ngIf="trip.avatar" class="img-avatar" src="{{trip.avatar}}">
               <img *ngIf="!trip.avatar104" class="img-avatar" src="https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-104x104.png">
           </div>
         </ion-col>
@@ -132,10 +132,14 @@
                 <ion-textarea maxlength=300  [(ngModel)]="Description" placeholder="Ý kiến của quý khách" class="cls-text-feedback"></ion-textarea>
             </ion-col>
         </ion-row>
-        <ion-row class="cls-row-text">
+        <ion-row *ngIf="trip.booking_type!= 'TICKET' && !trip.isFlyBooking" class="cls-row-text">
             <ion-col style="padding: 0;"><label class="cls-text-share">Chia sẻ thêm hình ảnh về chuyến đi của Quý khách với mọi người. Nhận ngay 10 điểm tích lũy!
             </label></ion-col>
         </ion-row>
+        <ion-row *ngIf="trip.booking_type == 'TICKET' || trip.isFlyBooking" class="cls-row-text">
+          <ion-col style="padding: 0;"><label class="cls-text-share">Chia sẻ thêm hình ảnh về chuyến đi của Quý khách với mọi người.
+          </label></ion-col>
+      </ion-row>
         <!-- button thêm ảnh -->
         <ion-row  style="padding-top: 12px">
             <ion-col   style="padding:0">

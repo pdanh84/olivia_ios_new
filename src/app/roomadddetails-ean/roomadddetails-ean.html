@@ -52,7 +52,7 @@
       <div *ngIf="!validemail">
         <div >
           <ion-item style="--padding-start: 0px">
-            <ion-label class="cls-label" position="floating">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
+            <ion-label class="label-name" position="floating">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
             <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
     
           </ion-item>
@@ -132,7 +132,7 @@
       <ion-row *ngIf="!validemail && i==0">
           <ion-col size="12">
             <ion-item style="--padding-start: 0px">
-              <ion-label class="cls-label" position="stacked">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
+              <ion-label class="label-name" position="stacked">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
               <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
       
             </ion-item>

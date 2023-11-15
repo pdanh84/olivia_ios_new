@@ -2333,6 +2333,7 @@ export class OrderPage {
                 if (elementHis.flight_ticket_info && elementHis.flight_ticket_info.indexOf("VXR") != -1) {
                   elementHis.booking_type = "COMBO_VXR";
                 }
+                
                 else if (elementHis.booking_id.indexOf('VC') != -1) {
                   elementHis.booking_type = "TICKET";//VVC
                   elementHis.VVCCheckinDisplay =se.gf.getDayOfWeek(se.gf.getCinIsoDate(elementHis.checkInDate)).daynameshort + ", " +  moment(elementHis.checkInDate).format('DD-MM-YYYY');

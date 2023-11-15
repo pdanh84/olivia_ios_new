@@ -393,7 +393,8 @@
               
           </div>
           <div *ngIf="!trip.reviewPoint && trip.reviewLink" class="label-reviews m-left-8" (click)="feedback(trip)">
-            Đánh giá chuyến đi để nhận đến 10 điểm
+           <div *ngIf="trip.booking_type!= 'TICKET' && !trip.isFlyBooking">Đánh giá chuyến đi để nhận đến 10 điểm</div>
+           <div *ngIf="trip.booking_type == 'TICKET' || trip.isFlyBooking">Đánh giá chuyến đi</div>
          </div>
           <!-- <div class="div-split-listtrip"></div> -->
         </div>
