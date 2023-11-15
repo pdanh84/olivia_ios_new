@@ -130,7 +130,7 @@ export class MytripHistoryPage implements OnInit {
   async feedback(trip: any) {
     var se = this;
     if (trip.booking_id) {
-      se.gf.showLoading();
+      // se.gf.showLoading();
       se.checkBookingReview(trip).then((result) => {
         if (result) {
           this.activityService.objPaymentMytrip = { returnPage: 'mytrip', tripindex: se._mytripservice.currentTrip, paymentStatus: 0, bookingid: trip.HotelIdERP, trip: trip };
@@ -143,7 +143,7 @@ export class MytripHistoryPage implements OnInit {
   }
 
   async showUserFeedBackPage(trip) {
-    var se = this;
+    const se = this;
     se.gf.setParams(trip, 'tripFeedBack');
     const modal: HTMLIonModalElement =
       await this.modalCtrl.create({
@@ -158,7 +158,6 @@ export class MytripHistoryPage implements OnInit {
 
     modal.onDidDismiss().then((data: OverlayEventDetail) => {
       this.reloadHistoryTrip();
-
     })
   }
   reloadHistoryTrip() {
@@ -528,12 +527,18 @@ export class MytripHistoryPage implements OnInit {
           if (elementHis.flight_ticket_info && elementHis.flight_ticket_info.indexOf("VXR") != -1) {
             elementHis.booking_type = "COMBO_VXR";
           }
+          else if (elementHis.booking_id.indexOf('VC') != -1) {
+            elementHis.booking_type = "TICKET";
+            elementHis.VVCCheckinDisplay =se.gf.getDayOfWeek(se.gf.getCinIsoDate(elementHis.checkInDate)).daynameshort + ", " +  moment(elementHis.checkInDate).format('DD-MM-YYYY');
+            
+          }
           if(elementHis.booking_id.indexOf('DL') != -1 ){
             elementHis.tourCheckinDisplay = moment(elementHis.checkInDate).format('DD-MM-YYYY');
             let _listpax = elementHis.totalPaxStr.split('|');
             _listpax = _listpax.map((p) => { return p.trim().split(' ').slice(1).join(' ').replace('n', 'N').replace('t', 'T') + ' x' + p.trim().split(' ')[0] });
             elementHis.tourListPax = _listpax;
           }
+       
           if(elementHis.booking_type == "20" || elementHis.booking_id.indexOf('OFF') != -1 || elementHis.booking_id.indexOf('TO') != -1 ){
             elementHis.isFlyBooking = false;
               if(elementHis.hotel_name && (elementHis.room_id || elementHis.hotel_name.toUpperCase().indexOf('VOUCHER') != -1) ){
@@ -603,6 +608,27 @@ export class MytripHistoryPage implements OnInit {
               }
               if (elementHis.amount_after_tax) {
                 elementHis.priceShow = Math.round(elementHis.amount_after_tax).toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+              }
+              
+            }
+            if (elementHis.extra_guest_info) {
+              let arrpax = elementHis.extra_guest_info.split('|');
+              if (arrpax && arrpax.length > 1 && arrpax[1] > 0 && arrpax[2] == 0) {
+                elementHis.paxDisplay = arrpax[0].toString() + " người lớn, " + arrpax[1].toString() + " trẻ em";
+                elementHis.adultDisplay = "Người lớn x"+ arrpax[0];
+                elementHis.childDisplay = "Trẻ em x"+ arrpax[1];
+              } else if (arrpax && arrpax[0] > 0 && arrpax[1] == 0 && arrpax[2] == 0) {
+                elementHis.paxDisplay = arrpax[0].toString() + " người lớn";
+                elementHis.adultDisplay = "Người lớn x"+ arrpax[0];
+              }else if (arrpax && arrpax[0] > 0 && arrpax[1] >0 && arrpax[2] > 0){
+                elementHis.paxDisplay = arrpax[0].toString() + " người lớn, " + arrpax[1].toString() + " trẻ em, " + arrpax[2].toString() + " người già";
+                elementHis.adultDisplay = "Người lớn x"+ arrpax[0];
+                elementHis.childDisplay = "Trẻ em x"+ arrpax[1];
+                elementHis.elderDisplay = "Người già x"+ arrpax[2];
+              }else if (arrpax && arrpax[0] > 0 && arrpax[2] > 0){
+                elementHis.paxDisplay = arrpax[0].toString() + " người lớn," + arrpax[2].toString() + " người già";
+                elementHis.adultDisplay = "Người lớn x"+ arrpax[0];
+                elementHis.elderDisplay = "Người già x"+ arrpax[2];
               }
             }
             elementHis.isRequestTrip = false;

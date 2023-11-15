@@ -86,9 +86,9 @@
                       <div class="col-mytrip-text-description">
                         <div class="text-left">
                           <div *ngIf="trip.hotel_name && !trip.isFlyBooking && !trip.bookingOffType">
-                            <ion-label style=" -webkit-box-orient: vertical" class="label-comboname div-name-hotel">{{trip.hotel_name}}
+                            <div class="label-comboname div-name-hotel-his">{{trip.hotel_name}}
                               <!-- <span class="trip-star" *ngIf="trip.RatingStar"><img *ngIf="trip.RatingStar!=0" src={{trip.RatingStar}}></span> -->
-                            </ion-label>
+                            </div>
                           </div>
                           <!-- check in, checkout -->
                           <ion-row class="row-height-listtrip p-top-4" >
@@ -120,7 +120,7 @@
                               </ion-col>
                             </ion-row>
                             <!-- Ăn sáng -->
-                        <ion-row *ngIf="trip.meal_plan" [ngClass]="trip.room_name.length >= 30 ? 'row-height-listtrip p-top-6' : 'row-height-listtrip'">
+                        <ion-row *ngIf="trip.meal_plan" [ngClass]="trip.room_name.length >= 30 ? 'row-height-listtrip' : 'row-height-listtrip'">
                           <ion-col size="1"  class="col-address">
                             <img style="height:12px" src="./assets/ic_facility/ic_food_b.svg">
                           </ion-col>
@@ -393,7 +393,8 @@
               
           </div>
           <div *ngIf="!trip.reviewPoint && trip.reviewLink" class="label-reviews m-left-8" (click)="feedback(trip)">
-            Đánh giá chuyến đi để nhận đến 10 điểm
+           <div *ngIf="trip.booking_type!= 'TICKET' && !trip.isFlyBooking">Đánh giá chuyến đi để nhận đến 10 điểm</div>
+           <div *ngIf="trip.booking_type == 'TICKET' || trip.isFlyBooking">Đánh giá chuyến đi</div>
          </div>
           <!-- <div class="div-split-listtrip"></div> -->
         </div>

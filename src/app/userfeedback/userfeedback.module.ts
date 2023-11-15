@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { UserFeedBackPage } from './userfeedback';
-
+import { File } from '@awesome-cordova-plugins/file';
 @NgModule({
   declarations: [
     UserFeedBackPage,
@@ -18,6 +18,7 @@ import { UserFeedBackPage } from './userfeedback';
       component: UserFeedBackPage
     }]),
   ],
+  providers: [File], 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class UserFeedBackPageModule {}

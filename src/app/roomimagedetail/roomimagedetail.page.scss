@@ -46,3 +46,14 @@
         color: #3f3b3b;
     }
 }
+
+  .div-text-room{
+    padding-top: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 60px;
+}
