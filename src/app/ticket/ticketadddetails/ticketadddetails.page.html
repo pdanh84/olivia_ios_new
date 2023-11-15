@@ -23,7 +23,7 @@
       <ion-row >
           <ion-col size="12" class="no-padding">
               <ion-item style="--padding-start: 0px" class="item-input-custom">
-                  <ion-label class="label-name" position="stacked">Họ và tên*</ion-label>
+                  <ion-label class="label-name" position="stacked">Họ và tên <span class='cls-required'>*</span></ion-label>
                   <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  required></ion-input>
               </ion-item>
           </ion-col>
@@ -31,7 +31,7 @@
       <ion-row >
         <ion-col size="12" class="no-padding">
           <ion-item style="--padding-start: 0px" class="item-input-custom">
-            <ion-label class="label-name" position="stacked">Điện thoại* (nhận vé SMS/Zalo) </ion-label>
+            <ion-label class="label-name" position="stacked">Điện thoại <span class='cls-required'>*</span> (nhận vé SMS/Zalo) </ion-label>
             <ion-input class="label-input" [(ngModel)]="phone" maxlength=10 type="tel" required></ion-input>
           </ion-item>
         </ion-col>
@@ -139,7 +139,7 @@
                     <ion-radio value="0" [checked]="true" mode="md"></ion-radio>
                     <ion-label class="m-left-6">Có</ion-label>
                   </div>
-                  <div class="m-left-32">
+                  <div class="m-left-32 v-align-center">
                     <ion-radio value="1" mode="md"></ion-radio>
                     <ion-label class="m-left-6">Không</ion-label>
                   </div>
@@ -291,7 +291,7 @@
 
             <div id="input_{{itemTraffic.name}}" *ngIf="itemTraffic.type == 'date'" class="div-traffic-date cls-input-date d-flex">
               <div class="div-icon-date"><img class="img-date" src="./assets/ic_tour/ic_date.svg" /></div>
-                  <div (touchend)="selectDateOfBirth(itemTraffic, true)">
+                  <div (touchend)="selectDateOfBirth(itemTraffic, true)" class='div-text-date'>
                       <ion-input
                       [value]="itemTraffic.birdayDisplay"
                       type="bday"
@@ -326,7 +326,7 @@
                     <ion-radio value="0" [checked]="true" mode="md"></ion-radio>
                     <ion-label class="m-left-6">Có</ion-label>
                   </div>
-                  <div class="m-left-32">
+                  <div class="m-left-32 v-align-center">
                     <ion-radio value="1" mode="md"></ion-radio>
                     <ion-label class="m-left-6">Không</ion-label>
                   </div>

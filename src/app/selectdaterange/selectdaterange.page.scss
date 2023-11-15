@@ -276,6 +276,11 @@ display: none;
 }
 .price-calendar-visible{
 display: block;
+animation: showNav 300ms ease-in-out both;
+}
+@keyframes showNav {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 small{
@@ -466,7 +471,7 @@ small{
 }
 @media (min-height: 812px) and (max-height: 930px) {
   ion-footer {
-    height: 33%;
+    height: 24%;
   }
 }
 .selectdaterange-footer{

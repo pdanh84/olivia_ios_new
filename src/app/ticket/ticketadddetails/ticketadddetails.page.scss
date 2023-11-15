@@ -469,6 +469,7 @@ ion-radio {
   .img-date {
     width: 16px;
     height: 16px;
+    max-width: 16px !important;
   }
   .div-text-date {
     margin-left: 4px;
@@ -569,7 +570,7 @@ ion-radio {
 }
 ion-searchbar {
   padding: 0;
-  padding-inline-end: 0;
+  padding-inline-end: 16px;
 }
 
 .cls-deactive {
@@ -852,7 +853,7 @@ ion-searchbar {
 .div-icon-down{
   position: absolute;
   right: -2px;
-  top: 12px;
+  top: 21px;
 }
 .m-5{
   margin: 5px;

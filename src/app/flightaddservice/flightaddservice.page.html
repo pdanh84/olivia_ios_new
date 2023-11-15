@@ -428,7 +428,7 @@
                 <div class="d-flex">
                     <span class="price-total">{{gf.numberToCurrency(priceCathay, '.')}} <span class="price-vnd m-top-3">VND</span></span>
                     <div>
-                        <ion-toggle (ionChange)="toggleCathay($event)" class="ion-toggle" mode='ios' [(ngModel)]="_flightService.itemFlightCache.isCathay"></ion-toggle>
+                        <ion-toggle (ionChange)="toggleCathay($event)" class="ion-toggle" mode='ios' [value]="_flightService.itemFlightCache.isCathay" [(ngModel)]="_flightService.itemFlightCache.isCathay"></ion-toggle>
                     </div>
                 
                 </div>
@@ -440,7 +440,7 @@
                      </div>
                      <div class="d-flex " *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
                         <div class="div-width-100 text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
-                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemAdult, true)">
+                        <div class="div-width-50 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemAdult, true)">
                                     <ion-input [value]="itemAdult.birdayDisplay"
                                     type="bday"
                                     id="datee_{{idxa}}"
@@ -451,7 +451,7 @@
 
                      <div class="d-flex" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
                         <div class="div-width-100 text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
-                        <div class="div-width-100 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, true)">
+                        <div class="div-width-50 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, true)">
                             <ion-input [value]="itemChild.birdayDisplay"
                                     type="bday"
                                     id="datee_{{idxc}}"

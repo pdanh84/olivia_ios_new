@@ -109,10 +109,10 @@ export class LoginusernamePage implements OnInit {
               //se.storage.remove('deviceToken');
               if(se.platform.is('mobile')){
                 FCM.getToken().then(token => {
-                  se.deviceToken = token && token.token ? token.token: token;
+                  se.deviceToken = (token && token.token) ? token.token: token;
                   se.storage.set('deviceToken',se.deviceToken);
                   if(se.deviceToken){
-                    se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
+                    se.gf.pushTokenAndMemberID(data.auth_token, token.token, se.appversion);
                   }
                 });
               }

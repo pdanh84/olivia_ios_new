@@ -168,7 +168,7 @@ export class LoginPage implements OnInit{
                   se.storage.set('deviceToken',se.deviceToken);
                   //PDANH 19/07/2019: Push memberid & devicetoken
                   if(se.deviceToken){
-                    se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
+                    se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.gf.getAppVersion());
                   }
                 });
               } catch (error) {
@@ -542,7 +542,7 @@ getToken() {
                 se.storage.set('deviceToken',se.deviceToken);
                 //PDANH 19/07/2019: Push memberid & devicetoken
                 if(se.deviceToken){
-                  se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
+                  se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.gf.getAppVersion());
                 }
               });
             } catch (error) {
@@ -807,10 +807,10 @@ getToken() {
         PushNotifications.addListener('registration',
           async (token: Token) => {
               //console.log('token: ' + token.value);
-              se.deviceToken = token && token.value ? token.value : token;
+              se.deviceToken = (token && token.value) ? token.value : token;
               se.storage.set('deviceToken',se.deviceToken);
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(response.auth_token, se.deviceToken, se.appversion);
+                se.gf.pushTokenAndMemberID(response.auth_token, token.value || token, se.appversion);
               }
             }
           )
@@ -906,11 +906,11 @@ getToken() {
         if(se.platform.is('ios')){
           try {
             FCM.getToken().then(token => {
-              se.deviceToken = token && token.token ? token.token : token;
+              se.deviceToken = (token && token.token) ? token.token: token;
               se.storage.set('deviceToken',se.deviceToken);
               //PDANH 19/07/2019: Push memberid & devicetoken
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
+                se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.appversion);
               }
             });
           } catch (error) {

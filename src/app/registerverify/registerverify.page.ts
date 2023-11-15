@@ -120,8 +120,8 @@ export class RegisterverifyPage implements OnInit {
             if(se.platform.is('cordova')){
               se.storage.remove('deviceToken');
               FCM.getToken().then(token => {
-                se.deviceToken = token;
-                se.storage.set('deviceToken',token);
+                se.deviceToken = (token && token.token) ? token.token: token;
+                se.storage.set('deviceToken', se.deviceToken);
               });
             }
             var info;

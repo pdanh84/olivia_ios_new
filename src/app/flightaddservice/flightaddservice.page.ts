@@ -3146,6 +3146,19 @@ getSummaryBooking(resNo) {
           se.priceCathay=jsondata.priceCathay;
           se._flightService.itemFlightCache.InsuranceType=0;
           se._flightService.itemFlightCache.priceCathay=0;
+          if(!se.isApiDirect){
+            se._flightService.itemFlightCache.isCathay = true;
+            se.isCathay = true;
+            se._flightService.itemFlightCache.priceCathay = se.priceCathay;
+            if(se.roundtrip){
+              se._flightService.itemFlightCache.InsuranceType = 3;
+            }
+            else{
+              se._flightService.itemFlightCache.InsuranceType = 2;
+            }
+            this.totalPriceAll(0);
+          }
+          
         }
     })
   }

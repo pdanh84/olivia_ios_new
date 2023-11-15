@@ -823,7 +823,9 @@ export class InsurrancedetailPage implements OnInit {
 
     let modal = await this.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
 
     // se.searchhotel.formChangeDate = 2;
     // se.searchhotel.CheckInDate = fromdate;

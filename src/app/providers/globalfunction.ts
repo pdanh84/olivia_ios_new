@@ -821,7 +821,7 @@ import { App } from '@capacitor/app';
           }
           
        
-            let body = { tokenId: devicetoken, appVersion: appversion ? appversion.replace(/\./g, '') : '352',source:6 };
+            let body = { tokenId: devicetoken, appVersion: appversion ? appversion?.toString().replace(/\./g, '') : '352',source:6 };
          
             this.RequestApi('POST', strUrl, headers, body, 'globalfunction', 'pushTokenAndMemberID').then((data)=>{
             })
@@ -836,7 +836,7 @@ import { App } from '@capacitor/app';
                     'content-type': 'application/json-patch+json',
                     authorization: text
               };
-              let body = { tokenId: deviceToken, appVersion: appversion.replace(/\./g, '') };
+              let body = { tokenId: deviceToken, appVersion: appversion?.toString().replace(/\./g, '') || '10' };
               let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/DeleteNotificationTokenOfUser';
               this.RequestApi('POST', strUrl, headers, body, 'globalfunction', 'DeleteTokenOfUser').then((data)=>{
               })

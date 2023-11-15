@@ -41,7 +41,7 @@ export class TourDetailPage {
   coutslide: number = 1;
   listDepartureDate:any = [];
   listDepartureDatesdk = [1, 2, 3, 4, 5];
-  tabTourRule: number = 1;
+  tabTourRule = '1';
   totalReview: any = 0;
   AvgPoint: any = 0;
   tourReviews: any = [];
@@ -386,6 +386,7 @@ export class TourDetailPage {
         _scrollDown = true;
       }
       this.currentPosition = _scroll;
+      
 
       if ($('#content2') && $('#content2').length >0 && event.detail.currentY >= $('#content2')[0].offsetTop - 120) {
           $($('.item-tour-header')[1]).siblings().removeClass('item-header-actived');
@@ -467,8 +468,13 @@ export class TourDetailPage {
 
       }else {
         if(_scrollDown){
+          
           $($('.item-tour-header')[0]).siblings().removeClass('item-header-actived');
           $($('.item-tour-header')[0]).addClass('item-header-actived');
+
+          if(event.detail.currentY > 505){
+            (window.document.getElementById('header1') as any).scrollIntoView({  block: 'center'  });
+          }
         }
         
       }

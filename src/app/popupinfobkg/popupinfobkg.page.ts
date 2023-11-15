@@ -98,6 +98,8 @@ export class PopupinfobkgPage implements OnInit {
     se.valueGlobal.ischeckCB=0;
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
 
       modal.present().then(() => {

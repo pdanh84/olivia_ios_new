@@ -98,6 +98,7 @@ tabInbound: number=1;
   roundTrip: any;
   hassomelistinteroneway: boolean;
   hassomelistintertwoway: boolean;
+  showLunarCalendar: any;
 
     constructor(private navCtrl: NavController, public gf: GlobalFunction,
         private modalCtrl: ModalController,
@@ -824,6 +825,8 @@ tabInbound: number=1;
       }
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
       se.searchhotel.formChangeDate = 4;
       let objIsoDate = se.gf.getIsoDate(se.cin, se.cout);
@@ -836,6 +839,168 @@ tabInbound: number=1;
 
     }
   }
+
+  // showLowestPrice(event){
+  //   setTimeout(()=>{
+  //     this.showlowestprice = event.target.checked;
+  //     this._flightService.itemFlightCache.showCalendarLowestPrice = this.showlowestprice;
+  //     if(this.departCode && this.returnCode){
+  //       if(this.showlowestprice){
+  //         this.showLunarCalendar = !event.target.checked;
+  //         this._flightService.itemFlightCache.showLunarCalendar = this.showLunarCalendar;
+  //         $('.lunardate').removeClass('date-lunar-visible');
+  //         ($('.chk-showlunar')[0] as any).checked = false;
+  //         $('.price-calendar-text').removeClass('price-calendar-disabled').addClass('price-calendar-visible');
+
+  //       }else{
+  //         $('.price-calendar-text').removeClass('price-calendar-visible').addClass('price-calendar-disabled');
+  //       }
+  //     }else{
+  //       this.gf.showToastWarning('Vui lòng chọn điểm khởi hành và điểm đến trước khi xem lịch giá rẻ.');
+  //     }
+  //   }, 100)
+  // }
+
+  // checkLunarCalendar(event){
+  //   setTimeout(()=>{
+  //     this.showLunarCalendar = event.target.checked;
+  //     this._flightService.itemFlightCache.showLunarCalendar = this.showLunarCalendar;
+  //       if(this.showLunarCalendar){
+  //         this.showlowestprice = !event.target.checked;
+  //         this._flightService.itemFlightCache.showCalendarLowestPrice = this.showlowestprice;
+  //         $('.price-calendar-text').removeClass('price-calendar-visible').addClass('price-calendar-disabled');
+  //         ($('.button-show-lowest-price')[0]as any).checked = false;
+  //         $('.lunardate').addClass('date-lunar-visible');
+  //       }else{
+  //         $('.lunardate').removeClass('date-lunar-visible');
+  //       }
+  //   }, 100)
+  // }
+
+  // /**
+  //  * Hàm bắt sự kiện click chọn ngày trên lịch bằng jquery
+  //  * @param e biến event
+  //  */
+  // async clickedElement(e: any) {
+  //   var obj: any = e.currentTarget;
+  //   if ( (this.flighttype=="twoway" && ($(obj.parentNode).hasClass("endSelection") || $(obj.parentNode).hasClass("startSelection"))) || (this.flighttype=="oneway" && $(obj).hasClass('on-selected'))  ) {
+  //     if (this.modalCtrl) {
+  //       let fday: any;
+  //       let tday: any;
+  //       var monthenddate: any;
+  //       var yearenddate: any;
+  //       var monthstartdate: any;
+  //       var yearstartdate: any;
+  //       var objTextMonthEndDate: any;
+  //       var objTextMonthStartDate: any;
+
+  //       this.cofdate = 0;
+  //       this.cotdate = 0;
+  //       this.cinthu = "";
+  //       this.coutthu = "";
+  //       if(this.flighttype=="twoway"){
+  //         this.roundtriptext = "khứ hồi/khách";
+  //         if ($(obj.parentNode).hasClass('endSelection')) {
+  //           if ( $('.days-btn.lunarcalendar.on-selected > p')[0]) {
+  //             fday= $('.days-btn.lunarcalendar.on-selected > p')[0].innerText;
+  //           } else {
+  //             fday = $('.on-selected > p')[0].textContent;
+  //           }
+  //           if ($('.days.endSelection .days-btn.lunarcalendar > p')[0]) {
+  //             tday = $('.days.endSelection .days-btn.lunarcalendar > p')[0].innerText; 
+  //           } else {
+  //             //tday = $(obj)[0].textContent;
+  //             tday = $('.days.endSelection .days-btn > p')[0].innerText;
+  //           }
+  //           objTextMonthStartDate = ($('.on-selected')?.closest('.month-box')?.children()[0] as any).textContent.replace('Tháng ','');
+  //           objTextMonthEndDate = ($(obj).closest('.month-box').children()[0] as any).textContent.replace('Tháng ','');
+  //         } else {
+  //           if ($('.days-btn.lunarcalendar.on-selected > p')[0]) {
+  //             fday =$('.days-btn.lunarcalendar.on-selected > p')[0].innerText;
+  //           }
+  //           else{
+  //             //fday = $(obj)[0].textContent;
+  //             fday = $(obj)[0].children[0].textContent
+  //           }
+  //           if ($('.days.endSelection .days-btn.lunarcalendar > p')[0]) {
+  //             tday = $('.days.endSelection .days-btn.lunarcalendar > p')[0].innerText;
+  //           }
+  //           else{
+  //             //tday = $('.endSelection').children('.days-btn')[0].textContent;
+  //             tday = $('.days.endSelection .days-btn > p')[0].innerText;
+  //           }
+  //           objTextMonthStartDate = ($(obj).closest('.month-box').children()[0] as any).textContent.replace('Tháng ','');
+  //           objTextMonthEndDate = ($('.endSelection').closest('.month-box').children()[0] as any).textContent.replace('Tháng ','');
+  //         }
+  //       }else{
+  //         this.roundtriptext = "một chiều/khách";
+  //           if ( $('.days-btn.lunarcalendar.on-selected > p')[0]) {
+  //             fday= $('.days-btn.lunarcalendar.on-selected > p')[0].innerText;
+  //           } else {
+  //             //fday = $('.on-selected')[0].textContent;
+  //             fday = $('.on-selected > p')[0].textContent;
+  //           }
+  //           tday = fday;
+  //           objTextMonthStartDate = ($('.on-selected').closest('.month-box').children()[0]as any).textContent.replace('Tháng ','');
+  //           objTextMonthEndDate = objTextMonthStartDate;
+  //       }
+        
+
+  //       if (
+  //         objTextMonthEndDate &&
+  //         objTextMonthEndDate.length > 0 &&
+  //         objTextMonthStartDate &&
+  //         objTextMonthStartDate.length > 0
+  //       ) {
+  //         monthstartdate = objTextMonthStartDate.trim().split(" ")[0];
+  //         yearstartdate = objTextMonthStartDate.trim().split(" ")[1];
+  //         monthenddate = objTextMonthEndDate.trim().split(" ")[0];
+  //         yearenddate = objTextMonthEndDate.trim().split(" ")[1];
+  //         var fromdate = this.gf.getCinIsoDate(new Date(yearstartdate, monthstartdate - 1, fday));
+  //         var todate = this.gf.getCinIsoDate(new Date(yearenddate, monthenddate - 1, tday));
+  //         let diffday =moment(todate).diff(fromdate, "days");
+  //         this.countday = diffday;
+  //         this.countdaydisplay = this.countday +1;
+         
+  //         var se = this;
+  //         let allowseach = (diffday >=0) ? true : false;
+  //         if (fromdate && todate && allowseach) {
+  //           setTimeout(() => {
+  //             se.modalCtrl.dismiss();
+  //           }, 300);
+
+  //           se.cin = moment(fromdate).format("YYYY-MM-DD");
+  //           se.cout = se.flighttype=="twoway" ? moment(todate).format("YYYY-MM-DD") : moment(fromdate).format("YYYY-MM-DD");
+  //           se.zone.run(() => {
+             
+  //             //se.datecin = new Date(se.cin);
+  //             //se.datecout = new Date(se.cout);
+  //             se.cindisplay = moment(se.gf.getCinIsoDate(se.cin)).format("DD-MM-YYYY");
+  //             se.coutdisplay = moment(se.gf.getCinIsoDate(se.cout)).format("DD-MM-YYYY");
+  //             se.cindisplaymonth = moment(se.cin).format("DD") + " tháng " + moment(se.cin).format("MM")+ ", " + moment(this.cin).format("YYYY");
+  //             se.coutdisplaymonth = moment(se.cout).format("DD") + " tháng " + moment(se.cout).format("MM") + ", " + moment(this.cout).format("YYYY");
+  //             se.checkInDisplayMonth = se.gf.getDayOfWeek(se.cin).dayname +", " + moment(se.cin).format("DD") + " thg " + moment(se.cin).format("MM");
+  //               se.checkOutDisplayMonth = se.gf.getDayOfWeek(se.cout).dayname +", " + moment(se.cout).format("DD") + " thg " + moment(se.cout).format("MM");
+  //               se._flightService.itemFlightCache.checkInDate = se.cin;
+  //               se._flightService.itemFlightCache.checkOutDate = se.cout;
+  //             //se.getDayName(se.cin, se.cout);
+  //             se.storage.get("itemFlightCache").then((data)=>{
+  //               if(data){
+  //                 se.storage.remove("itemFlightCache").then(()=>{
+  //                   se.storage.set("itemFlightCache", JSON.stringify(se._flightService.itemFlightCache));
+  //                 })
+  //               }else{
+  //                 se.storage.set("itemFlightCache", JSON.stringify(se._flightService.itemFlightCache));
+  //               }
+  //             })
+  //             //xử lý âm lịch
+  //             //se.bindlunar();
+  //           });
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
     checklunar(s) {
         return s.indexOf('Mùng') >= 0;

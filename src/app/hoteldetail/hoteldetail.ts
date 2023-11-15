@@ -4460,6 +4460,8 @@ export class HotelDetailPage implements OnInit {
       se.valueGlobal.ischeckCB=0;
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
       se.searchhotel.formChangeDate = 2;
       se.searchhotel.CheckInDate = se.gf.getCinIsoDate(se.cin);

@@ -178,7 +178,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HotelreviewsvideoPageModule,
     FlightInternationalFilterClassPageModule,
     MytripTicketQrcodeSlidePageModule,
-    TicketfilterPageModule
+    TicketfilterPageModule,
     //ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
@@ -243,6 +243,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     Facebook,
     YoutubeVideoPlayer,
     PhotoLibrary,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent],

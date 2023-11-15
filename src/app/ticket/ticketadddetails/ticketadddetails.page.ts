@@ -273,7 +273,9 @@ export class TicketAdddetailsPage implements OnInit {
     public ticketService: ticketService, public valueGlobal: ValueGlobal) {
     this.ischeckpayment = Roomif.ischeckpayment;
     // let tp =0;
-
+    this.platform.resume.subscribe(async () => {
+      this.navCtrl.navigateBack('/app/tabs/tab1');
+    })
     if (this.ticketService && this.ticketService.itemTicketService) {
       // tp = ((this.ticketService.itemTicketService.PriceAdultAvg ||0) * this.searchhotel.adult || 0) + ((this.ticketService.itemTicketService.PriceChildAvg ||0) * this.searchhotel.child || 0) + ((this.ticketService.itemTicketService.PriceElderAvg ||0) * this.searchhotel.elder || 0);
       this.totalPriceStr = this.gf.convertNumberToString(this.ticketService.totalPriceNum);
@@ -371,17 +373,17 @@ export class TicketAdddetailsPage implements OnInit {
         se.gf.RequestApi('GET', strUrl, headers, {}, 'touradddetails', 'loadUserInfo').then((data) => {
           if (data) {
             se.zone.run(() => {
-              var corpInfomations = data.corpInfomations[0];
-              if (corpInfomations) {
-                se.companyname = corpInfomations.legalName;
-                se.address = corpInfomations.address;
-                se.tax = corpInfomations.taxCode;
-                se.addressorder = corpInfomations.addressorder;
-                se.hotenhddt = corpInfomations.fullName;
-                se.emailhddt = corpInfomations.email;
-                se.ishideNameMail = true;
-              }
-              else {
+              // var corpInfomations = data.corpInfomations[0];
+              // if (corpInfomations) {
+              //   se.companyname = corpInfomations.legalName;
+              //   se.address = corpInfomations.address;
+              //   se.tax = corpInfomations.taxCode;
+              //   se.addressorder = corpInfomations.addressorder;
+              //   se.hotenhddt = corpInfomations.fullName;
+              //   se.emailhddt = corpInfomations.email;
+              //   se.ishideNameMail = true;
+              // }
+              // else {
                 se.storage.get('order').then(order => {
                   if (order) {
                     se.companyname = order.companyname;
@@ -393,7 +395,7 @@ export class TicketAdddetailsPage implements OnInit {
                     se.ishideNameMail = order.ishideNameMail;
                   }
                 })
-              }
+              //}
               if (data.point) {
                 se.Roomif.point = data.point;
                 se.point = data.point * 1000;
@@ -460,13 +462,13 @@ export class TicketAdddetailsPage implements OnInit {
       this.gf.showAlertMessageOnly('Đang xử lý thông tin. Vui lòng chờ trong giây lát.')
       return;
     }
-    this.gf.showLoading();
+    //this.gf.showLoading();
     this.createObjectBooking().then((checkvalid) => {
       if (checkvalid) {
         this.CustomerSave();
       }
       this.gf.logEventFirebase('', this.tourService, 'ticketadddetails', 'add_shipping_info', 'Ticket');
-      this.gf.hideLoading();
+      //this.gf.hideLoading();
     })
 
   }
@@ -975,10 +977,10 @@ export class TicketAdddetailsPage implements OnInit {
     {
       'content-type': 'application/json'
     }
-    this.showLoading();
-    this.gf.RequestApi('POST', C.urls.baseUrl.urlTicket + '/api/Booking/CustomerSave/' + this.ticketService.itemTicketService.objbooking.bookingCode, headers, objCustomer, 'ticketservice', 'RecheckRateBooking').then((data: any) => {
+    this.gf.showLoading();
+    this.gf.RequestApi('POST', C.urls.baseUrl.urlTicket + '/api/Booking/CustomerSavev2/' + this.ticketService.itemTicketService.objbooking.bookingCode, headers, objCustomer, 'ticketservice', 'RecheckRateBooking').then((data: any) => {
       if (data && data.success) {
-        this.hideLoading();
+        this.gf.hideLoading();
         this.ticketService.totalPriceStr = this.totalPriceStr;
         this.ticketService.totalPriceNum = this.totalPriceNum;
         if (this.totalPriceNum > 0) {
@@ -994,7 +996,7 @@ export class TicketAdddetailsPage implements OnInit {
           this.navCtrl.navigateForward('/ticketpaymentdone/0');
         }
       } else {
-        this.hideLoading();
+        this.gf.hideLoading();
         alert(data.error);
       }
     });
@@ -1789,7 +1791,7 @@ export class TicketAdddetailsPage implements OnInit {
     se.allowClickDateOfBirth = false;
     se.activityService.itemPax = cusInfo;
     se.activityService.itemPax.isChangeBOD = isChangeBOD;
-    if(cusInfo.name.indexOf('expdate') != -1){
+    if(cusInfo.name.indexOf('date') != -1){
       se.activityService.itemPax.maxbod = '2100';
     }
     

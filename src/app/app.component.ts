@@ -120,11 +120,13 @@ export class AppComponent implements OnInit{
   initializeApp() {
     
     this.platform.ready().then(async () => {
-      this.getToken();
+      //this.getToken();
       
       //codepush
       try {
-        this.codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+        if(this.platform.is('iphone')){
+          this.codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+        }
       } catch (error) {
         let objError = {
           page: 'appcomponent',
@@ -137,7 +139,7 @@ export class AppComponent implements OnInit{
       }
      
       try {
-        if(this.platform.is('mobile')){
+        if(this.platform.is('iphone')){
           PushNotifications.requestPermissions().then(result => {
             if (result.receive === 'granted') {
               // Register with Apple / Google to receive push via APNS/FCM
@@ -172,7 +174,7 @@ export class AppComponent implements OnInit{
 
             FCM.refreshToken().then(token => {
               this.storage.get('auth_token').then((auth_token)=>{
-                let deviceToken = token && token.token ? token.token: token;
+                let deviceToken = (token && token.token) ? token.token: token;
                 this.storage.set('deviceToken',deviceToken);
                 if(deviceToken){
                   this.gf.pushTokenAndMemberID(auth_token, deviceToken, this.appversion);
@@ -202,9 +204,11 @@ export class AppComponent implements OnInit{
       // this.appVersion.getVersionNumber().then(version => {
       //   this.appversion=version;
       // })
-      App.getInfo().then((info)=>{
-        this.appversion = info.version;
-      })
+      if(this.platform.is('iphone')){
+        App.getInfo().then((info)=>{
+          this.appversion = info.version;
+        })
+      }
   
       this.connectSubscription = await Network.getStatus();
       if(this.connectSubscription.connected){
@@ -213,10 +217,12 @@ export class AppComponent implements OnInit{
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng','Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng','Đóng');
       }
-      this.createShortLink();
-      FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
-        
-      });
+      if(this.platform.is('iphone')){
+        this.createShortLink();
+        FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
+          
+        });
+      }
       //Dynamiclink
       // this.firebaseDynamicLinks.onDynamicLink().subscribe((res:any)=>{
       //   console.log(res);
@@ -237,9 +243,11 @@ export class AppComponent implements OnInit{
       // })
      
       this.valueGlobal.countNotifi=0;
-      await FirebaseAnalytics.enable();
-      await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
-      await FacebookLogin.setAdvertiserIDCollectionEnabled({enabled: true});
+      if(this.platform.is('iphone')){
+        await FirebaseAnalytics.enable();
+        await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
+        await FacebookLogin.setAdvertiserIDCollectionEnabled({enabled: true});
+      }
     });
     
   }

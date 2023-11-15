@@ -355,7 +355,9 @@ export class TicketServicePage implements OnInit{
     this.ticketService.checkinDate = this.checkinDate;
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
     modal.present().then(()=>{ se.allowclickcalendar = true; });
       const event: any = await modal.onDidDismiss();
       const date = event.data;

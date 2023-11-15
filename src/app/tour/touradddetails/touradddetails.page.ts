@@ -129,6 +129,9 @@ export class TourAddDetailsPage implements OnInit {
     public tourService: tourService,
     public _voucherService: voucherService,
     private modalCtrl: ModalController) {
+      this.platform.resume.subscribe(async () => {
+        this.navCtrl.navigateBack('/app/tabs/tab1');
+      })
     this.ischeckpayment = Roomif.ischeckpayment;
     let tp =0;
     if(this.tourService.itemDepartureCalendar && this.tourService.itemDepartureCalendar.TotalRate){

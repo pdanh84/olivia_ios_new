@@ -589,6 +589,8 @@ export class FlightchangeinfoPage implements OnInit {
 
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
       se.searchhotel.formChangeDate = 5;
       se._flightService.itemFlightCache.checkInDate = moment(this.cin).format('YYYY-MM-DD');

@@ -343,7 +343,9 @@ export class RequestCombo1Page implements OnInit {
 
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
     se.searchhotel.formChangeDate = 9;
 
     se.searchhotel.CheckInDate = this.gf.getCinIsoDate(se.bookCombo.CheckInDate);

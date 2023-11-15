@@ -408,6 +408,8 @@ export class RequestRoomPage implements OnInit{
 
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
       se.searchhotel.formChangeDate = 9;
 

@@ -2967,7 +2967,9 @@ export class FlightComboReviewsPage implements OnInit {
     
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
     se.searchhotel.formChangeDate = 8;
     se.valueGlobal.ischeckCB = 1;
     modal.present();

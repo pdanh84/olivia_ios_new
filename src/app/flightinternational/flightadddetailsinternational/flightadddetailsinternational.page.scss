@@ -142,7 +142,7 @@
         overflow-y: scroll;
         background: #fff;
         z-index: 99;
-        margin-top: 51px;
+        margin-top: 47px;
 
         .item-country{
             font-size: 14px;
@@ -154,7 +154,7 @@
         padding: 0;
         border-bottom: none;
         position: absolute;
-        margin-top: -17px;
+        margin-top: -8px;
         background: transparent;
         z-index: -1;
         width: 90%;
@@ -186,7 +186,7 @@
     }
     .label-dob-transition {
         position: absolute;
-        top: -4px;
+        top: -7px;
         transition: top 0.1s ease-out;
     }
     .m-h-48 {
@@ -252,7 +252,7 @@
         letter-spacing: -0.34px;
         margin-top: 8px;
         height: 32px;
-        padding-top: 3px;
+        padding-top: 4px;
     }
     .text-bold{
         font-weight: 600 !important;
@@ -260,7 +260,7 @@
     .div-icon-down{
         position: absolute;
         right: 0;
-        bottom: 3px;
+        bottom: 6px;
     }
 
     .cls-datetofbirth{
@@ -399,6 +399,7 @@
     --padding-start: 0;
     --padding-top: 0;
     --padding-bottom: 4px;
+    min-height: 32px;
 }
 .border-bottom.cls-error{
     border-bottom: 0.5px solid #f79321 !important;
@@ -435,7 +436,8 @@
     border-bottom: 0.5px solid rgb(205, 205, 205);
     --padding-start: 0;
     --padding-top: 0;
-    --padding-bottom: 4px;
+    --padding-bottom: 0;
+    min-height: 32px;
 }
 
 .no-border{
@@ -618,7 +620,7 @@
 
     .cls-input-country-custom  .searchbar-input.sc-ion-searchbar-ios{
         padding: 0;
-        padding-top: 20px;
+        padding-top: -8px;
         box-shadow: none;
         font-weight: 300 !important;
         font-size: 18px;
@@ -884,5 +886,5 @@
     margin-top: 10px;
   }
   .cls-minheight-32 {
-    min-height: 32px;
+    min-height: 28px;
   }

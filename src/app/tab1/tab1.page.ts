@@ -2099,6 +2099,8 @@ export class Tab1Page implements OnInit {
     se.searchhotel.formChangeDate = 1;
       let modal = await se.modalCtrl.create({
         component: SelectDateRangePage,
+        animated: true,
+        mode: 'ios'
       });
 
       modal.present().then(() => {
@@ -3541,7 +3543,9 @@ export class Tab1Page implements OnInit {
 
     let modal = await this.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
     this.searchhotel.formChangeDate = 1;
     this.searchhotel.CheckInDate = this.cin;
     this.searchhotel.CheckOutDate = this.cout;

@@ -5068,7 +5068,7 @@ export class OrderPage {
     }
     se._mytripservice.backroute = "order";
     se.activityService.objPaymentMytrip = { returnPage: 'mytrip', tripindex: se.currentTrip, paymentStatus: 0, bookingid: trip.HotelIdERP, trip: trip };
-    this.activityService.objPaymentMytrip.trip.priceShow = se.amount_after_tax;
+    this.activityService.objPaymentMytrip.trip.priceShow = se.amount_after_tax || trip.amount_after_tax;
     if (trip.booking_type == 'COMBO_FLIGHT') {
       if (stt == 0) {
         se.navCtrl.navigateForward("/mytripaymentflightcombo/0");

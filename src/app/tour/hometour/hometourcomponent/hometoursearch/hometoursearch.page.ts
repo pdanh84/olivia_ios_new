@@ -116,7 +116,9 @@ export class HomeTourSearchPage implements OnInit {
     se.tourService.departures = [];
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
   
     modal.present();
       const event: any = await modal.onDidDismiss();

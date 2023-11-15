@@ -326,7 +326,9 @@ export class TourDepartureCalendarPage implements OnInit{
     se.searchhotel.formChangeDate = 10;
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
-    });
+        animated: true,
+        mode: 'ios'
+      });
     modal.present().then(()=>{ se.allowclickcalendar = true; });
       const event: any = await modal.onDidDismiss();
       const date = event.data;
