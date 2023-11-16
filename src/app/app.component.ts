@@ -335,7 +335,13 @@ export class AppComponent implements OnInit{
           }
         }
       
-      }else{
+      }
+      else if(data.flyNotify){
+        this._flightService.itemTabFlightActive.emit(true);
+        this.valueGlobal.backValue = "homeflight";
+        this.navCtrl.navigateForward('/tabs/tab1');
+      }
+      else{
         //show notifi
         this.showToast(data.message);
       }
