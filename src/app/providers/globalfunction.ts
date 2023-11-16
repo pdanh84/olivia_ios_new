@@ -3276,98 +3276,93 @@ import { App } from '@capacitor/app';
           }
         })
       }
-      // lưu cache search
-      setCacheSearch(objSearch,stt): Promise<any> {
-        return new Promise((resolve, reject) => {
-          this.storage.get('arrHistory').then((data) => {
-            if(data && stt==1){
-              for (let i = 0; i < data.length; i++) {
-                const element = data[i];
-                if (objSearch.id==element.id) {
-                  data.splice(i, 1);
-                }
-                
-              }
+       // lưu cache search
+  setCacheSearch(objSearch,stt): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.storage.get('arrHistory').then((data) => {
+        var objkey=objSearch.id;
+        if(data){
+          for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            if (objkey==element.objkey) {
+              data.splice(i, 1);
             }
-           this.searchhotel.objRecent=objSearch;
-            if( !objSearch.imageUrl){
-              if(objSearch.isType==0 ){
-                // this.getHoteldetail(objSearch.id).then((obj) => {
-                //   if(obj){
-                //     objSearch.imageUrl=obj;
-                //   }
+          }
+        }
+    
+          this.searchhotel.objRecent=objSearch;
+          if( !objSearch.imageUrl){
+            if(objSearch.isType==0 ){
+              this.getHoteldetail(objSearch.id).then((obj) => {
+                if(obj){
+                  objSearch.imageUrl=obj;
+                }
+                if(data && data.length>2){
+                  data.splice(0, 1);
+                  objSearch.objkey=objkey;
+                  data.push(objSearch) 
+                  this.storage.set('arrHistory', data);
                   
+                }else{
+                  if(!data){
+                    data=[];
+                  }
+                  objSearch.objkey=objkey;
+                  data.push(objSearch);
+                  this.storage.set('arrHistory', data);
+                }
+              })
+            }else{
+              this.storage.get('listtopregions').then(dataregion => {
+                if(dataregion){
+                  var el = dataregion.filter(item => item.regionId==objSearch.id);
+                  if(el && el.length >0){
+                    if(el[0].image){
+                      objSearch.imageUrl= (el[0].image.toLocaleString().trim().indexOf("http") == -1) ? 'https:' +el[0].image: el[0].image;
+                    }
+                  }else{
+                    objSearch.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg'
+                  }
                   if(data && data.length>2){
                     data.splice(0, 1);
+                    objSearch.objkey=objkey;
                     data.push(objSearch) 
-                   
                     this.storage.set('arrHistory', data);
-                    
                   }else{
                     if(!data){
                       data=[];
                     }
+                    objSearch.objkey=objkey;
                     data.push(objSearch);
-                   
                     this.storage.set('arrHistory', data);
                   }
-                //})
-              }else{
-                this.storage.get('listtopregions').then(dataregion => {
-                  if(dataregion){
-                    var el = dataregion.filter(item => item.regionId==objSearch.id);
-                    if(el && el.length >0){
-                      if(el[0].image){
-                        objSearch.imageUrl= (el[0].image.toLocaleString().trim().indexOf("http") == -1) ? 'https:' +el[0].image: el[0].image;
-                      }
-               
-    
-                    }else{
-                      objSearch.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg'
-                    }
-                    if(data && data.length>2){
-                      data.splice(0, 1);
-                      data.push(objSearch) 
-                     
-                      this.storage.set('arrHistory', data);
-                      
-                    }else{
-                      if(!data){
-                        data=[];
-                      }
-                      data.push(objSearch);
-                     
-                      this.storage.set('arrHistory', data);
-                    }
-                  }
-                  
-                })
-              }
-            
-            }else{
-              if(data && data.length>2){
-                data.splice(0, 1);
-                data.push(objSearch) 
-               
-                this.storage.set('arrHistory', data);
-                
-              }else{
-                if(!data){
-                  data=[];
                 }
-              
-                data.push(objSearch);
-               
-                this.storage.set('arrHistory', data);
-              }
+                
+              })
             }
-           
-            resolve(true);
-          })
-         
-        })
-       
-      }
+          }else{
+            if(data && data.length>2){
+              data.splice(0, 1);
+              objSearch.objkey=objkey;
+              data.push(objSearch) 
+              this.storage.set('arrHistory', data);
+            }else{
+              if(!data){
+                data=[];
+              }
+              objSearch.objkey=objkey;
+              data.push(objSearch);
+              this.storage.set('arrHistory', data);
+            }
+          }
+
+        resolve(true);
+      })
+     
+    })
+   
+  }
+      
       getHoteldetail(id): Promise<any> {
         return new Promise((resolve, reject) => {
           let url = C.urls.baseUrl.urlPost + "/mhoteldetail/" +id;
