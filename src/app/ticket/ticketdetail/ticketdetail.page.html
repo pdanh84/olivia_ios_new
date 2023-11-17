@@ -389,25 +389,20 @@
                                     </h2>
                                 </div>
 
-
-                                <div class="d-flex m-top-8" *ngIf="slide.avgPoint ">
+                                <div class="d-flex m-top-8" *ngIf="slide.avgPoint else noAvgPoint">
                                     <div class="div-badge">
                                         <div class="text-point">{{slide.avgPoint}}</div>
                                         <div class="text-review m-right-6" *ngIf="slide.avgPointStr">
                                             {{slide.avgPointStr}}</div>
-                                        <!-- <div class="text-point-des" *ngIf="slide.AvgPoint>=9 && slide.AvgPoint <10">Xuất sắc</div>
-                                        <div class="text-point-des" *ngIf="slide.AvgPoint>=8 && slide.AvgPoint <9">Rất tốt</div>
-                                        <div class="text-point-des" *ngIf="slide.AvgPoint>=7 && slide.AvgPoint <8">Khá tốt</div>
-                                        <div class="text-point-des" *ngIf="slide.AvgPoint>5 && slide.AvgPoint <7">Tạm được</div>
-                                        <div class="text-point-des" *ngIf="slide.AvgPoint <5">Không tốt</div> -->
+                                        
                                         <div class="text-service-des" *ngIf="slide.numOfReview"> |
                                             <span>{{slide.numOfReview}} đánh giá</span>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- <ng-template #noAvgPoint>
-                                    <div class="text-point-des m-h-20 m-top-8">Chưa có đánh giá</div>
-                                </ng-template> -->
+                                </div> 
+                                <ng-template #noAvgPoint>
+                                    <div class="text-point-des m-h-20 m-top-8"></div>
+                                </ng-template>
 
                        
 
@@ -420,7 +415,7 @@
                                 <div class="d-flex m-top-8 div-button-sale" *ngIf="slide.numberOfBooking>0">
                                     <ion-label class="text-topsale">{{slide.numberOfBooking}} khách đặt trong 24 giờ qua</ion-label>
                                 </div>
-                                <div *ngIf="slide.salePrice" [ngClass]="slide.numberOfBooking>0 ? 'text-price-topic m-top-8':'text-price-topic m-top-40'"><span class="text-giatu">Giá từ </span>{{
+                                <div *ngIf="slide.salePrice" [ngClass]="slide.numberOfBooking>0 ? 'text-price-topic m-top-8':'text-price-topic m-top-14'"><span class="text-giatu">Giá từ </span>{{
                                     gf.convertNumberToString(slide.salePrice) }}
                                     VND</div>
                             </div>
