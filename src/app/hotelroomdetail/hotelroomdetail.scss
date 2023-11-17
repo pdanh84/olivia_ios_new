@@ -296,7 +296,7 @@
 .div-navigation-back{
     z-index: 100;
     position: absolute;
-    top: 18%;
+    top: 12%;
     left: 10px;
     color: #ffffff;
     width: 48px;
@@ -309,7 +309,7 @@
  .div-navigation-forward{
     z-index: 100;
     position: absolute;
-    top: 18%;
+    top: 12%;
     right: 8px;
     color: #ffffff;
     width: 48px;
@@ -401,7 +401,7 @@ img.reveal {
         .div-navigation-back{
             z-index: 100;
             position: absolute;
-            top: 20% !important;
+            top: 16% !important;
             left: 10px;
             color: #ffffff;
             width: 48px;
@@ -414,7 +414,7 @@ img.reveal {
          .div-navigation-forward{
             z-index: 100;
             position: absolute;
-            top: 20% !important;
+            top: 16% !important;
             right: 8px;
             color: #ffffff;
             width: 48px;
@@ -434,7 +434,7 @@ img.reveal {
         .div-navigation-back{
             z-index: 100;
             position: absolute;
-            top: 18%;
+            top: 12%;
             left: 10px;
             color: #ffffff;
             width: 48px;
@@ -447,7 +447,7 @@ img.reveal {
          .div-navigation-forward{
             z-index: 100;
             position: absolute;
-            top: 18%;
+            top: 12%;
             right: 8px;
             color: #ffffff;
             width: 48px;
@@ -460,4 +460,7 @@ img.reveal {
         /* Add your CSS here */
     }
     
+}
+.div-relative{
+    margin-top: -10px;
 }

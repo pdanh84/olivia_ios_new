@@ -207,17 +207,28 @@ export class OccupancyPage implements OnInit {
     }
   }
 
-  async selectAge(textchild){
+  async selectAge(item){
     var se =this;
-   
     var columnOptions =['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'];
 
+    // Tìm vị trí của '5' trong mảng
+    let index = columnOptions.indexOf(item.numage.toString());
+
+    if (index !== -1) {
+      // Xóa phần tử '5' khỏi vị trí hiện tại
+      columnOptions.splice(index, 1);
+
+      // Thêm vào đầu mảng
+      columnOptions.unshift(item.numage.toString());
+    }
+
     const picker = await this.pickerController.create({
-      columns: this.getColumns(1, this.ChildAgeTo, columnOptions, textchild),
+      columns: this.getColumns(1, se.ChildAgeTo, columnOptions, item.text),
+      mode: 'ios',
       cssClass: 'action-sheets-select-age',
       buttons: [
         {
-          text: textchild,
+          text: item.text,
           cssClass: 'picker-header',
           handler: (value) => {
            return false;
@@ -229,7 +240,7 @@ export class OccupancyPage implements OnInit {
     $('.picker-wrapper.sc-ion-picker-ios').append('<div class="div-button"><button (click)="getPickerValue()" ion-button round outline class="button button-done">Xong</button></div>');
     $('.action-sheets-select-age .button-done').on('click', ()=>{
       let value = $('.picker-opt.picker-opt-selected')[0].innerText;
-      se.selectclick(value, textchild);
+      se.selectclick(value, item.text);
       picker.dismiss();
     })
     await picker.present();
