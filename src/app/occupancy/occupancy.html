@@ -63,7 +63,7 @@
             Tuổi trẻ em
           </label>
           <div *ngFor="let msg of arrchild; let idx = index" class="p-top-20">
-            <div (click)="selectAge(msg.text)"  class="div-age no-border-bottom">
+            <div (click)="selectAge(msg)"  class="div-age no-border-bottom">
               <ion-label class="text-child">{{msg.text}}</ion-label>
               <div class="div-text-age">
                 <ion-label class="selected-age p-right-8" *ngIf="msg.numage">{{msg.numage}}</ion-label>

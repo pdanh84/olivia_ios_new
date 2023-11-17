@@ -19,7 +19,7 @@
     <!-- <img-loader *ngIf="slideData.length==0" [spinner]="true" useImg [src]="imgurl" class="img-hotel-detail" style="width: 100%;"></img-loader> -->
     <div class="div-relative">
         <swiper-container (slidechange)="onSlideChange()" *ngIf="ischeck" #mySlider class="cls-slide-room-detail-image">
-            <swiper-slide (click)="imgDetail()" *ngFor="let slide of slideData" >
+            <swiper-slide style="height: 240px;" (click)="imgDetail()" *ngFor="let slide of slideData" >
             
             <!-- <img [src]="slide.Url" style="min-height: 195px;height: auto; width: 100%" [defaultImage]="defaultImage" [lazyLoad]="slide.Url" /> -->
                <img [src]="slide.Url" style="min-height: 195px;height: auto; width: 100%"  class="preview"  />
