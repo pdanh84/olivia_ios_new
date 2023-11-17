@@ -14,6 +14,7 @@ import {tourService } from '../providers/tourService';
 import { FileTransferObject, FileTransfer } from '@awesome-cordova-plugins/file-transfer/ngx';
 import { PhotoLibrary } from '@awesome-cordova-plugins/photo-library/ngx';
 import { voucherService } from '../providers/voucherService';
+import { ticketService } from '../providers/ticketService';
 
 @Component({
   selector: 'app-paymentqrcode',
@@ -49,7 +50,8 @@ export class PaymentqrcodePage implements OnInit {
         private photoLibrary: PhotoLibrary,
         public booking: Booking,
         public Roomif: RoomInfo,
-        public _voucherService: voucherService
+        public _voucherService: voucherService,
+        private ticketService: ticketService
          ){
             this.bankName = activityService.bankName;
             this.bankTransfer = activityService.bankTransfer;
@@ -103,12 +105,17 @@ export class PaymentqrcodePage implements OnInit {
 
     }
     async ionViewWillEnter(){
-
-      let dataSummary = await this.gf.getSummaryBooking(this._flightService.itemFlightCache);
-      let date = dataSummary.periodPaymentDate;
-      if(date){
-        this.periodPaymentDisplay= moment(date).format("HH:mm") + " " + this.gf.getDayOfWeek(date).dayname +", "+ moment(date).format("DD") + " thg " + moment(date).format("MM");
+      if(this._flightService && this._flightService.itemFlightCache){
+        let dataSummary = await this.gf.getSummaryBooking(this._flightService.itemFlightCache);
+        let date = dataSummary.periodPaymentDate;
+        if(date){
+          this.periodPaymentDisplay= moment(date).format("HH:mm") + " " + this.gf.getDayOfWeek(date).dayname +", "+ moment(date).format("DD") + " thg " + moment(date).format("MM");
+        }
       }
+      if( this.ticketService){
+        this.ticketService.ischeckCalendar = false;
+      }
+      
     }
 
     buildLinkQrCode() {

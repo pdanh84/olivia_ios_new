@@ -61,6 +61,7 @@ export class TicketPaymentDonePage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    this.ticketService.ischeckCalendar = false;
     this.gf.hideLoading();
     this.gf.logEventFirebase(this.ticketService.gaPaymentType,this.ticketService, 'ticketpaymentdone', 'purchase', 'Ticket');
   }

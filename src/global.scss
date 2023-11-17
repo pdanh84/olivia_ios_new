@@ -1928,9 +1928,34 @@ ion-header {
     right: 0;
     border-top: 0.5px solid #bdbdbd;
     transform: rotate(-45deg);
-    width: 28px;
+    width: 32px;
     left: 22%;
 
+    // position: absolute !important;
+    // content: "" !important;
+    // top: 38% !important;
+    // right: 0;
+    // border: none !important;
+    // border-top: 0.5px solid #bdbdbd !important;
+    // transform: rotate(-45deg);
+    // width: 28px !important;
+    // left: 22% !important;
+    // border-radius: 0 !important;
+    // height: auto !important;
+}
+
+.text-red.strikethrough:before {
+  position: absolute !important;
+    content: "" !important;
+    top: 28% !important;
+    right: 0;
+    border: none !important;
+    border-top: 0.5px solid #bdbdbd !important;
+    transform: rotate(-45deg);
+    width: 32px !important;
+    left: 38% !important;
+    border-radius: 0 !important;
+    //height: auto !important;
 }
 .is-start-date.strikethrough:before {
   content: "";
@@ -1940,6 +1965,12 @@ ion-header {
   -webkit-transform:none;
   transform: none;
   border-top: 0px solid #bdbdbd !important;
+}
+
+.is-start-date.text-red.strikethrough::before {
+  border-radius: 32px !important;
+  border: solid 0.5px #e52822 !important;
+  width: 32px !important;
 }
 
 .is-end-date.strikethrough:before {

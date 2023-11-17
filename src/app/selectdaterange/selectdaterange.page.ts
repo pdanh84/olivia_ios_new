@@ -70,7 +70,7 @@ export class SelectDateRangePage implements OnInit {
     public tourService: tourService, public ticketService: ticketService, public zone: NgZone) {
     this.getListLunar();
     setTimeout(() => {
-      if (this.ticketService.ischeckCalendar) {
+      if (ticketService.ischeckCalendar) {
         this.initDateRangePickerTicket();
         this.tourCalendar = false;
       }else{
@@ -934,7 +934,9 @@ export class SelectDateRangePage implements OnInit {
                 // if ($(element)) {
                 //   $(element).append(`<span class='price-calendar-text-ticket'>${totalprice}</span>`);
                 // } 
-                $(elementday).append(`<p class='price-calendar-text-ticket' (click)="clickedElement(e)">${totalprice}</p>`);
+                if ($(element) && elementday.textContent !== "") {
+                  $(elementday).append(`<p class='price-calendar-text-ticket' (click)="clickedElement(e)">${totalprice}</p>`);
+                }
               }
             }
             else {

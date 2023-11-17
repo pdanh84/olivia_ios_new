@@ -157,8 +157,11 @@ export class TicketAdddetailsPage implements OnInit {
         this.discountpromo = 0;
         this.strPromoCode = "";
         this.totaldiscountpromo=0;
-        this.ticketService.itemFlightCache.hasvoucher = false;
-        this.ticketService.itemFlightCache.listVouchersAlreadyApply = [];
+        if(this.ticketService && this.ticketService.itemFlightCache){
+          this.ticketService.itemFlightCache.hasvoucher = false;
+          this.ticketService.itemFlightCache.listVouchersAlreadyApply = [];
+        }
+        
         this._voucherService.totalDiscountPromoCode =0;
         this._voucherService.listPromoCode =[];
         this._voucherService.voucherSelected = [];

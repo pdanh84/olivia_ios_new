@@ -345,6 +345,9 @@ export class TicketServicePage implements OnInit{
     }
 
   }
+  ionViewWillLeave(){
+    this.ticketService.ischeckCalendar = false;
+  }
   async openPickupCalendar(){
     let se = this;
 
