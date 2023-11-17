@@ -19,6 +19,8 @@ import { OverlayEventDetail } from '@ionic/core';
 import { ticketService } from 'src/app/providers/ticketService';
 import { HTMLIonOverlayElement } from '@ionic/core';
 import { SelectDateOfBirthPage } from 'src/app/selectdateofbirth/selectdateofbirth.page';
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 var document:any;
 /**
  * Generated class for the RoomadddetailsPage page.
@@ -107,6 +109,7 @@ export class TicketAdddetailsPage implements OnInit {
   allowClickDateOfBirth: boolean = true;
   loadResourceInfoDone: boolean;
   contactOption:any="zalo";
+  private subscription: Subscription;
   ngOnInit() {
     this._voucherService.getTicketObservable().subscribe((itemVoucher)=> {
       if(itemVoucher){
@@ -270,11 +273,19 @@ export class TicketAdddetailsPage implements OnInit {
     public tourService: tourService,
     public _voucherService: voucherService,
     private modalCtrl: ModalController,
-    public ticketService: ticketService, public valueGlobal: ValueGlobal) {
+    public ticketService: ticketService, public valueGlobal: ValueGlobal,
+    public router: Router) {
     this.ischeckpayment = Roomif.ischeckpayment;
     // let tp =0;
     this.platform.resume.subscribe(async () => {
-      this.navCtrl.navigateBack('/app/tabs/tab1');
+      
+      this.subscription = this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd && (event.url.indexOf('ticketadddetails') != -1) ) {
+          if (!this.ticketService || (this.ticketService && !this.ticketService.itemTicketService)) {
+            this.navCtrl.navigateBack('/app/tabs/tab1');
+          }
+        }
+      })
     })
     if (this.ticketService && this.ticketService.itemTicketService) {
       // tp = ((this.ticketService.itemTicketService.PriceAdultAvg ||0) * this.searchhotel.adult || 0) + ((this.ticketService.itemTicketService.PriceChildAvg ||0) * this.searchhotel.child || 0) + ((this.ticketService.itemTicketService.PriceElderAvg ||0) * this.searchhotel.elder || 0);

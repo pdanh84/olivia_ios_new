@@ -16,6 +16,9 @@ import * as $ from 'jquery';
 import { voucherService } from '../../providers/voucherService';
 import { AdddiscountPage } from 'src/app/adddiscount/adddiscount.page';
 import { OverlayEventDetail } from '@ionic/core';
+
+import { Subscription } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 var document:any;
 /**
  * Generated class for the RoomadddetailsPage page.
@@ -59,7 +62,7 @@ export class TourAddDetailsPage implements OnInit {
   Pricepointshow: any;
   ischeckpromo: boolean;
   usePointPrice: number;
-
+  private subscription: Subscription;
   ngOnInit() {
     this._voucherService.getTourObservable().subscribe((itemVoucher)=> {
       if(itemVoucher){
@@ -128,9 +131,16 @@ export class TourAddDetailsPage implements OnInit {
     public activityService: ActivityService,
     public tourService: tourService,
     public _voucherService: voucherService,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    public router: Router) {
       this.platform.resume.subscribe(async () => {
-        this.navCtrl.navigateBack('/app/tabs/tab1');
+        this.subscription = this.router.events.subscribe((event) => {
+          if (event instanceof NavigationEnd && (event.url.indexOf('touradddetails') != -1) ) {
+            if (!this.tourService || (this.tourService && !this.tourService.itemDepartureCalendar)) {
+              this.navCtrl.navigateBack('/app/tabs/tab1');
+            }
+          }
+        })
       })
     this.ischeckpayment = Roomif.ischeckpayment;
     let tp =0;
