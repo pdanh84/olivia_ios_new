@@ -17,7 +17,8 @@
 </ion-header>
 <ion-content >
   <div class="p-all-16">
-  <div class="cls-filter"> 
+    <div class="cls-filter"> 
+   
       <div style="margin-top: 20px">
         <ion-row>
             <ion-col style="padding: 0">
@@ -70,7 +71,7 @@
         </ion-range>
         </div>
 </div>
-  
+ 
   <ion-item class="ion-item">
     <ion-label slot="start" class="text-title1">Còn phòng</ion-label>
     <ion-toggle style="left: 16px;" [(ngModel)]="ischeckAL"  slot="end" name="blueberry"></ion-toggle>
@@ -112,7 +113,9 @@
             <div *ngFor="let itemfacility of dataFacility; let j = index" id="{{itemfacility.Id}}" class="cls-col-border facility-item-{{itemfacility.Id}}" (click)="localClick($event,'facility')" >{{ itemfacility.Name }}</div>
         </div>
   </div>
-</div>
+  </div>
+  
+
 </ion-content>
 <ion-footer style="text-align: center">
   <button ion-button round outline class="button button-footer" [class.click]=" ischeckbtnreset==true " [class.none]=" ischeckbtn==true " (click)="clickCancel()">Xóa</button>

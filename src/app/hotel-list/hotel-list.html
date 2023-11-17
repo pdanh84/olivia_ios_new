@@ -21,7 +21,7 @@
   <div class="div-note" *ngIf="ishide==true">*Giá trung bình phòng 1 đêm cho 2 khách</div>
   <div *ngIf="(ishide==true && loadpricedone) else loadingsk" class="cls-background">
         <div class="card-background-detailpage" *ngIf="json1 && json1.length >0">
-          <div *ngFor="let msg of json1; let i = index" [id]="msg.currentPage" class="{{msg.MinPriceOTAStr}}">
+          <div *ngFor="let msg of json1; let i = index" [id]="msg.currentPage">
             <div *ngIf="!ischeckAL && msg.MinPriceOTAStr && msg.HasCheckPrice && loadpricedone" class="row-item-hotellist">
               <div class="col-img-hotellist">
                   <img  class="img-radius" [src]="msg.Avatar" style="position:relative" (click)="itemSelected(msg)">
