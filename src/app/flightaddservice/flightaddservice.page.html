@@ -433,7 +433,7 @@
                 
                 </div>
 
-                <div *ngIf="isCathay">
+                <div *ngIf="_flightService.itemFlightCache.dataBooking.fromPlace.internal!=0 && _flightService.itemFlightCache.dataBooking.toPlace.internal!=0 && priceCathay && isCathay">
                     <div class="d-flex m-top-12">
                         <div class="div-width-100 text-label-name">Họ tên khách</div>
                         <div class="div-width-50 text-label-name">Sinh ngày</div>

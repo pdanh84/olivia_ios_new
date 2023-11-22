@@ -19,7 +19,7 @@ import { FileTransferObject, FileTransfer } from '@awesome-cordova-plugins/file-
 import { PhotoLibrary } from '@awesome-cordova-plugins/photo-library/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { MytripTicketQrcodeSlidePage } from '../mytripticketqrcodeslide/mytripticketqrcodeslide';
-var document:any;
+
 @Component({
   selector: 'app-mytripdetail',
   templateUrl: './mytripdetail.page.html',

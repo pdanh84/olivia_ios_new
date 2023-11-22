@@ -2004,7 +2004,7 @@ getSummaryBooking(resNo) {
       }
 
     } else {
-      if(se.isCathay){
+      if(se._flightService.itemFlightCache.dataBooking.fromPlace.internal!=0 && se._flightService.itemFlightCache.dataBooking.toPlace.internal!=0 && se.priceCathay &&se.isCathay && se.checkAddCathayTime() && !se.isExtenal && !se.departFlight.stops && (!se.returnFlight || (!se.returnFlight.stops && se.returnFlight)) && !se.isApiDirect){
         se.checkInput().then((check)=>{
           if(check){
             se.gotopaymentpage();

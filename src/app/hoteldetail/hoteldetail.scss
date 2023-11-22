@@ -1,6 +1,9 @@
 .cls-margin-top-header {
     margin-top: env(safe-area-inset-top);
 }
+.cls-no-padding-header {
+    padding-top: 0px;
+}
  .innerreview{
     height: 100%;
     div{
@@ -270,7 +273,7 @@
             
          .div-img-heart{
                 position: absolute;
-                top: 3%;
+                top: calc(0px + env(safe-area-inset-top));
                 right: 2px;
                 //color: #ffffff;
                 z-index: 10;
@@ -291,7 +294,7 @@
         }
         .div-img-share{
             position: absolute;
-            top: 3%;
+            top: calc(0px + env(safe-area-inset-top));
             right: 50px;
             color: #ffffff;
             z-index: 10;
@@ -1410,7 +1413,7 @@
     .div-go-back{
         z-index: 100;
         position: absolute;
-          top: 3%;
+          top: calc(0px + env(safe-area-inset-top));
           color: #ffffff;
           width: 48px;
           height: 48px;
@@ -1440,7 +1443,7 @@
         transition: visibility 0.2s, opacity 0.2s linear;
         opacity: 1;
         height: 48px;
-
+        padding-top: env(safe-area-inset-top);
         
     }
     .float-arrow-disabled{
@@ -1449,6 +1452,7 @@
         opacity: 0;
         transition: visibility 0.2s, opacity 0.2s linear;
         z-index: 0;
+        padding-top: 0;
     }
     .label-price-login{
         color: #26bed6;
