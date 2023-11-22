@@ -1162,15 +1162,15 @@ export class HotelDetailPage implements OnInit {
             se.imgHotel = (se.slideData[index].LinkImage.toLocaleString().trim().indexOf("http") != -1) ? se.slideData[index].LinkImage : 'https:' + se.slideData[index].LinkImage;
           }
           //pdanh 27/09/2023: Thêm case fix hình webp ko hiển thị được
-          if(se.slideData[index].LinkImage && se.slideData[index].LinkImage.indexOf('1024x768.webp') != -1){
-            se.slideData[index].LinkImage = se.slideData[index].LinkImage.replace('1024x768.webp', '1024x768-1024x768.webp');
-          }
-          else if(se.slideData[index].LinkImage && se.slideData[index].LinkImage.indexOf('768x576.webp') != -1){
-            se.slideData[index].LinkImage = se.slideData[index].LinkImage.replace('768x576.webp', '768x576-768x576.webp');
-          }
-          else if(se.slideData[index].LinkImage && se.slideData[index].LinkImage.indexOf('346x260.webp') != -1){
-            se.slideData[index].LinkImage = se.slideData[index].LinkImage.replace('346x260.webp', '346x260-346x260.webp');
-          }
+        const sizes = ['1024x768', '768x576', '346x260'];
+        for (let size of sizes) {
+            const normal = `${size}.webp`;
+            const replaced = `${size}-${size}.webp`;
+        
+            if (se.slideData[index].LinkImage && se.slideData[index].LinkImage.includes(normal) && !se.slideData[index].LinkImage.includes(replaced)) {
+                se.slideData[index].LinkImage = se.slideData[index].LinkImage.replace(normal, replaced);
+            }
+        }
           se.slideData[index].LinkImage = (se.slideData[index].LinkImage.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + se.slideData[index].LinkImage : se.slideData[index].LinkImage;
           se.slideData[index].ImageUrl = (se.slideData[index].LinkImage.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + se.slideData[index].LinkImage : se.slideData[index].LinkImage;
         }

@@ -1,7 +1,7 @@
 import { SearchHotel } from 'src/app/providers/book-service';
 import { GlobalFunction } from './../providers/globalfunction';
 import { Keyboard } from '@awesome-cordova-plugins/keyboard/ngx';
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone,AfterViewInit } from '@angular/core';
 import { NavController, ToastController, ModalController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ValueGlobal } from '../providers/book-service';
@@ -10,21 +10,22 @@ import { C } from './../providers/constants';
 import {FCM} from '@capacitor-community/fcm';
 import jwt_decode from 'jwt-decode';
 import { flightService } from '../providers/flightService';
-
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-loginsmsverify',
   templateUrl: './loginsmsverify.page.html',
   styleUrls: ['./loginsmsverify.page.scss'],
 })
-export class LoginsmsverifyPage implements OnInit {
+export class LoginsmsverifyPage implements OnInit,AfterViewInit {
 
-  @ViewChild('ipOTP1') ipOTP1;
-  @ViewChild('ipOTP2') ipOTP2;
-  @ViewChild('ipOTP3') ipOTP3;
-  @ViewChild('ipOTP4') ipOTP4;
-  @ViewChild('ipOTP5') ipOTP5;
-  @ViewChild('ipOTP6') ipOTP6;
+  @ViewChild('ipOTP1') ipOTP1 : IonInput;
+  @ViewChild('ipOTP2') ipOTP2 : IonInput;
+  @ViewChild('ipOTP3') ipOTP3 : IonInput;
+  @ViewChild('ipOTP4') ipOTP4 : IonInput;
+  @ViewChild('ipOTP5') ipOTP5 : IonInput;
+  @ViewChild('ipOTP6') ipOTP6 : IonInput;
+
   checkreview;
   num1 = ""; num2 = ""; num3 = ""; num4 = ""; num5 = ""; num6 = ""; phone; obj; strwarning; public deviceToken;refreshTokenTimer;appversion;
   constructor(public modalCtrl: ModalController,public searchhotel: SearchHotel, public zone: NgZone, public navCtrl: NavController, public keyboard: Keyboard, public storage: Storage, public valueGlobal: ValueGlobal, public toastCtrl: ToastController, public gf: GlobalFunction,
@@ -39,6 +40,21 @@ export class LoginsmsverifyPage implements OnInit {
   }
 
   ngOnInit() {
+
+    
+  
+  }
+  ngAfterViewInit() {
+
+      setTimeout(() => {
+        this.ipOTP1.setFocus();
+        this.ipOTP2.setFocus();
+        this.ipOTP3.setFocus();
+        this.ipOTP4.setFocus();
+        this.ipOTP5.setFocus();
+        this.ipOTP6.setFocus();
+
+      },150);
   }
   goback() {
     this.navCtrl.back();
