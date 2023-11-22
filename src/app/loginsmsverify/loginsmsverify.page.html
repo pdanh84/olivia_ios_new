@@ -30,20 +30,20 @@
     <ion-col size="2" class="no-padding">
       <ion-label class="label-otp">IVV-</ion-label>
     </ion-col>
-    <ion-col size="1.5" (ionChange)="change1()" class="no-padding">
-      <ion-input [(ngModel)]="num1" #ipOTP1 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    <ion-col size="1.5" class="no-padding">
+      <ion-input (ionInput)="change1()"  [(ngModel)]="num1" #ipOTP1 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
     </ion-col>
-    <ion-col size="1.5" (ionChange)="change2()" class="no-padding">
-      <ion-input [(ngModel)]="num2" #ipOTP2 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    <ion-col size="1.5"  class="no-padding">
+      <ion-input (ionInput)="change2()" [(ngModel)]="num2" #ipOTP2 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
     </ion-col>
-    <ion-col size="1.5" (ionChange)="change3()" class="no-padding">
-      <ion-input [(ngModel)]="num3" #ipOTP3 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    <ion-col size="1.5"  class="no-padding">
+      <ion-input (ionInput)="change3()" [(ngModel)]="num3" #ipOTP3 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
     </ion-col>
-    <ion-col size="1.5" (ionChange)="change4()" class="no-padding">
-      <ion-input [(ngModel)]="num4" #ipOTP4 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    <ion-col size="1.5"  class="no-padding">
+      <ion-input (ionInput)="change4()" [(ngModel)]="num4" #ipOTP4 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
     </ion-col>
-    <ion-col size="1.5" (ionChange)="change5()" class="no-padding">
-      <ion-input [(ngModel)]="num5" #ipOTP5 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
+    <ion-col size="1.5"  class="no-padding">
+      <ion-input (ionInput)="change5()" [(ngModel)]="num5" #ipOTP5 maxlength=1 type=tel class="input-otp" autofocus></ion-input>
     </ion-col>
     <ion-col size="1.5" class="no-padding">
       <ion-input #ipOTP6 maxlength=1 [(ngModel)]="num6" type=tel class="input-otp" autofocus></ion-input>
