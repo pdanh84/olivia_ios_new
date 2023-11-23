@@ -552,6 +552,7 @@ export class TourAddDetailsPage implements OnInit {
   next() {
     this.createObjectBooking(1).then((checkvalid)=>{
       if(checkvalid){
+        this.gf.showLoading();
         this.checkTourAllotment().then((data)=>{
           if(data.Status != 'Error' && data.Status != 'False' && data.Response.TourRate && data.Response.TourRate.Status == 'AL'){
             if(this.tourService.discountPrice == 0 && (this.tourService.promocode || this.ischeckpoint)){
@@ -567,6 +568,7 @@ export class TourAddDetailsPage implements OnInit {
             }else{
               this.tourService.dataBookResponse = data.Response;
               this.tourService.BookingTourMytrip = null;
+              this.gf.hideLoading();
               this.navCtrl.navigateForward('/tourpaymentselect');
             }
             
