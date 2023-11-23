@@ -432,3 +432,80 @@
 .f-point {
     font-size: 20px;
 }
+
+////improve scss
+// ion-input {
+//     font-size: 1rem; // Adjust font size as necessary
+//     border: 1px solid #ccc; // A subtle border
+//     border-radius: 4px; // Rounded corners for a modern look
+//     padding: 12px; // Comfortable padding inside the fields
+//   }
+  
+//   // Remove styles that add depth like box-shadow on focus
+//   ion-input:focus {
+//     box-shadow: none;
+//     border-color: #007bff; // Highlight with a color that matches the brand
+//   }
+
+//   .button {
+//     background-color: #007bff; // A solid color that stands out
+//     color: #fff;
+//     padding: 15px 30px;
+//     border-radius: 4px;
+//     font-size: 1rem; // Larger font size for readability
+//     transition: background-color 0.3s ease; // Smooth transition for hover effect
+//   }
+  
+//   .button:hover {
+//     background-color: darken(#007bff, 10%); // Slightly darker on hover
+//   }
+
+//   .forgot-password {
+//     font-size: 1rem; // Bigger font size for better visibility
+//     color: #007bff; // Use brand color for recognition and accessibility
+//     cursor: pointer;
+//     margin-top: 8px; // More space above the link
+//   }
+//   .div-btn-other-login {
+//     display: flex;
+//     align-items: center; // Center align the text with the icons
+//     margin-top: 16px; // More spacing between each method
+  
+//     .text-button {
+//       flex-grow: 1;
+//       margin-left: 12px; // Space between icon and text
+//     }
+  
+//     .div-icon-button {
+//       // Ensure icons are the same size and have a uniform style
+//       img {
+//         width: 24px; // Example fixed width for all icons
+//         height: auto;
+//       }
+//     }
+//   }
+
+//   .login-container {
+//     // Center the container more effectively for all screen sizes
+//     max-width: 400px;
+//     margin: auto;
+//     padding: 20px;
+//   }
+  
+//   // Spacing around 'Or' separator
+//   .div-other-login {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     margin: 20px 0; // More vertical space
+  
+//     .cls-border {
+//       flex: 1;
+//       height: 1px;
+//       background-color: #ccc; // A subtle line color
+//     }
+  
+//     .text-normal {
+//       margin: 0 10px;
+//     }
+//   }

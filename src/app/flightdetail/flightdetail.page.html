@@ -106,7 +106,10 @@
                                                         <div class="text-detail">Không bao gồm hành lý xách tay</div>
                                                     </ng-template>
   
-                                                <div class="text-detail" *ngIf="(itemFlightTicketCondition.luggageSigned && itemFlightTicketCondition.luggageSigned.length <=5) else noluggageSigned">{{itemFlightTicketCondition.luggageSigned}}kg hành lý ký gửi </div>
+                                                <div class="text-detail" *ngIf="(itemFlightTicketCondition.luggageSigned && itemFlightTicketCondition.luggageSigned.length >0 && itemFlightTicketCondition.luggageSigned.toString().toLowerCase().indexOf('không') == -1) else noluggageSigned">
+                                                    <span *ngIf="itemFlightTicketCondition.luggageSigned.length <=5">{{itemFlightTicketCondition.luggageSigned}}kg hành lý ký gửi </span>
+                                                    <span *ngIf="itemFlightTicketCondition.luggageSigned.length > 5">Hành lý ký gửi: {{itemFlightTicketCondition.luggageSigned}}</span>
+                                                </div>
                                                 <ng-template #noluggageSigned>
                                                     <div class="text-detail">Không bao gồm hành lý ký gửi</div>
                                                 </ng-template>
@@ -245,13 +248,20 @@
                                                     </div>
                                                     <div class="content-right p-left-10 text-detail" >
                                                         <!-- <div class="text-detail">{{itemstop.ticketCondition.baggageHanded}} hành lý xách tay </div> -->
-                                                        <div class="text-detail" *ngIf=" (itemstop.ticketCondition && itemstop.ticketCondition.baggageHanded) else noBaggageHanded">{{itemstop.ticketCondition.baggageHanded}} hành lý xách tay </div>
+                                                        <div class="text-detail" *ngIf=" (itemstop.ticketCondition && itemstop.ticketCondition.baggageHanded) else noBaggageHanded">
+                                                            {{itemstop.ticketCondition.baggageHanded}} hành lý xách tay 
+                                                           
+                                                        </div>
                                                         <ng-template #noBaggageHanded>
                                                             <div class="text-detail">Không bao gồm hành lý xách tay</div>
                                                         </ng-template>
 
         
-                                                        <div class="text-detail" *ngIf="(itemstop.ticketCondition.luggageSigned && itemstop.ticketCondition.luggageSigned.length <=5) else noluggageSigned">{{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi </div>
+                                                        <div class="text-detail" *ngIf="(itemstop.ticketCondition.luggageSigned && itemstop.ticketCondition.luggageSigned.length >0 && itemstop.ticketCondition.luggageSigned.toString().toLowerCase().indexOf('không') == -1) else noluggageSigned">
+                                                            <!-- {{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi  -->
+                                                                <span *ngIf="itemstop.ticketCondition.luggageSigned.length <=5">{{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi </span>
+                                                                <span *ngIf="itemstop.ticketCondition.luggageSigned.length > 5">Hành lý ký gửi: {{itemstop.ticketCondition.luggageSigned}}</span>
+                                                        </div>
                                                         <ng-template #noluggageSigned>
                                                             <div class="text-detail">Không bao gồm hành lý ký gửi</div>
                                                         </ng-template>
