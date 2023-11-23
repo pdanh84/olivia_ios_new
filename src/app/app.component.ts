@@ -2,7 +2,7 @@ import { HomePage } from './home/home.page';
 import { Component, ViewChildren, QueryList, NgZone, OnInit } from '@angular/core';
 import { Platform, IonRouterOutlet, ModalController, PopoverController, ActionSheetController, ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
-//import { StatusBar, StatusBarPlugin, Style } from '@capacitor/status-bar';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { SearchHotel,Booking, ValueGlobal } from'./providers/book-service';
 import { GlobalFunction } from'./providers/globalfunction';
 import { C } from './providers/constants';
@@ -247,7 +247,11 @@ export class AppComponent implements OnInit{
         await FirebaseAnalytics.enable();
         await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
         await FacebookLogin.setAdvertiserIDCollectionEnabled({enabled: true});
+
+        await StatusBar.setStyle({ style: Style.Light });
       }
+
+      
     });
     
   }

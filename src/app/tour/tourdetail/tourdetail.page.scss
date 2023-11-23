@@ -396,6 +396,7 @@
   transition: visibility 0.2s, opacity 0.2s linear;
   opacity: 1;
   height: 48px;
+  padding-top: env(safe-area-inset-top) !important;
 }
 .float-arrow-disabled{
   visibility: hidden;
@@ -403,9 +404,13 @@
   opacity: 0;
   transition: visibility 0.2s, opacity 0.2s linear;
   z-index: 0;
+  padding-top: 0;
 }
-
+.p-top-24 {
+  padding-top: 24px;
+}
 .cls-tourdetail-header {
+  padding-top: 0;
   .div-width-48 {
     width: 48px;
   }

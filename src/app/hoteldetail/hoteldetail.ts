@@ -2907,7 +2907,7 @@ export class HotelDetailPage implements OnInit {
     this.searchhotel.isRefreshDetail = false;
     this.searchhotel.showPopup = false;
     if (this.searchhotel.rootPage == "mainpage" || this.searchhotel.rootPage == "topdeal") {
-      this.router.navigateByUrl('/app/tabs/tab1');
+      this.navCtrl.navigateBack('/app/tabs/tab1');
     }
     else {
       if (this.searchhotel.rootPage == "listpage") {

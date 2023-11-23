@@ -313,7 +313,7 @@
     
     #grad1 {
         position: absolute; 
-        top: 0;
+        top: calc(0px + env(safe-area-inset-top));
         left: 0;
         width: 100%;
         height: 30%; /* For browsers that do not support gradients */

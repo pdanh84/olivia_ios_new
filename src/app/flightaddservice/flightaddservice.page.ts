@@ -3146,7 +3146,7 @@ getSummaryBooking(resNo) {
           se.priceCathay=jsondata.priceCathay;
           se._flightService.itemFlightCache.InsuranceType=0;
           se._flightService.itemFlightCache.priceCathay=0;
-          if(!se.isApiDirect){
+          if(!se.isApiDirect && se._flightService.itemFlightCache.fromCountryCode == 'VN' && se._flightService.itemFlightCache.toCountryCode == 'VN'){
             se._flightService.itemFlightCache.isCathay = true;
             se.isCathay = true;
             se._flightService.itemFlightCache.priceCathay = se.priceCathay;
@@ -3389,7 +3389,7 @@ checkInput() :Promise<any>{
       for (let index = 0; index < se._flightService.itemFlightCache.adults.length; index++) {
         const element = se._flightService.itemFlightCache.adults[index];
         if(!element.dateofbirth){
-          se.gf.showAlertMessageOnly('Vui lòng nhập ngày sinh Người lớn'+(element.id));
+          se.gf.showAlertMessageOnly('Vui lòng nhập ngày sinh Người lớn '+(element.id));
           resolve(false);
         }
         if(element.dateofbirth){

@@ -1,6 +1,6 @@
 <ion-header class="cls-tourdetail-header float-arrow-disabled">
     <div class="cls-shadow">
-        <div class="d-flex cls-border-bottom" (click)="goback()">
+        <div class="d-flex cls-border-bottom p-top-32" (click)="goback()">
             <div class="div-width-48 m-top-12"><img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg"></div>
             <div [ngClass]="itemDetail.name.length<35 ? 'div-width-100 m-top-12 header-tourname' : 'div-width-100 m-top-12 header-tourname-1'"
                 *ngIf="itemDetail && itemDetail.name">
