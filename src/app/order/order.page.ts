@@ -1766,15 +1766,15 @@ export class OrderPage {
                       element.textCheckinOnline = element.allowRequestCheckinOnline.note;
                     }
                   })
-
-                  if(element.isBookingVMBQT && element.bookingJsonDataParse && element.bookingJsonDataParse.length >0){
-                    //element.ischeckinOnl = false;
-                    let d = element.bookingJsonDataParse[0].departureDateParse;
-                    let dr = element.bookingJsonDataParse[element.bookingJsonDataParse.length-1].departureDateParse;
-                    element.checkInDisplay = se.gf.getDayOfWeek(d).daynameshort + ", " + moment(d).format('DD-MM-YYYY');
-                    element.checkOutDisplay = se.gf.getDayOfWeek(dr).daynameshort + ", " + moment(dr).format('DD-MM-YYYY');
-                   }
                   
+                  // if(element.isBookingVMBQT && element.bookingJsonDataParse && element.bookingJsonDataParse.length >0){
+                  //   //element.ischeckinOnl = false;
+                  //   let d = element.bookingJsonDataParse[0].departureDateParse;
+                  //   let dr = element.bookingJsonDataParse.length ==1 ? element.bookingJsonDataParse[0].arrivalDateParse : element.bookingJsonDataParse[element.bookingJsonDataParse.length-1].departureDateParse;
+                  //   element.checkInDisplay = se.gf.getDayOfWeek(d).daynameshort + ", " + moment(d).format('DD-MM-YYYY');
+                  //   element.checkOutDisplay = se.gf.getDayOfWeek(dr).daynameshort + ", " + moment(dr).format('DD-MM-YYYY');
+                  //  }
+                   
                   // if (element.booking_id=='VMB1737782') {
                   //   se.listMyTrips.push(element);
                   // }
