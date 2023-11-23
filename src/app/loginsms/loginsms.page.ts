@@ -54,6 +54,9 @@ export class LoginsmsPage implements OnInit {
       this.presentToastPhone();
     }
   }
+  ionViewWillEnter() {
+    (window.document.getElementById("iptel") as any).focus();
+  }
   async presentToastPhone() {
     let toast = await this.toastCtrl.create({
       message: "Số điện thoại không hợp lệ. Xin vui lòng nhập lại.",

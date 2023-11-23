@@ -25,7 +25,10 @@
     <div class="m-top-8">
       <ion-item style="--padding-start: 0px">
         <ion-label class="cls-label" position="stacked">Số điện thoại</ion-label>
-        <ion-input class="cls-input" [(ngModel)]="phone" maxlength=10 type="tel" required></ion-input>
+        <form action =".">
+          <ion-input id="iptel" class="cls-input" [(ngModel)]="phone" maxlength=10 type="tel" required></ion-input>
+        </form>
+        
       </ion-item>
     </div>
   <div style="margin-top: 24px"><button ion-button round outline class="button btn-save-phone" (click)="next()">Tiếp tục</button></div>
