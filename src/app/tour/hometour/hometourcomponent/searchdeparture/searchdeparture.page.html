@@ -13,7 +13,7 @@
         <div class="div-header-title">
         
             <form action=".">
-              <ion-searchbar searchIcon="false" #ipSearchDeparture id="input" class="ip-search-flight" style="padding: 0;padding-bottom: 15px;padding-inline-start: 10px" autocomplete="on" autocorrect="true" debounce="300" placeholder="Khởi hành từ..." (ionChange)="getItems($event)" ></ion-searchbar>
+              <ion-searchbar searchIcon="false" #ipSearchDeparture id="input" class="ip-search-flight" style="padding: 0;padding-bottom: 15px;padding-inline-start: 10px" autocomplete="on" autocorrect="true" debounce="300" placeholder="Khởi hành từ..." (ionInput)="getItems($event)" ></ion-searchbar>
             </form>
          
         </div>

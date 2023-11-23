@@ -375,7 +375,7 @@
 }
 .div-align-bottom {
   display: flex;
-  align-items: end;
+  align-items: center;
 }
 .div-flex-end {
   justify-content: end;
@@ -398,6 +398,9 @@
 .m-left-8 {
   margin-left: 8px;
 }
+.m-left-16 {
+  margin-left: 16px;
+}
 .div-split-panel {
   height: 8px;
   margin: 16px -16px 8px -16px;
@@ -410,4 +413,7 @@
 }
 .no-padding {
   padding: 0;
+}
+.m-top-8{
+  margin-top: 8px;
 }

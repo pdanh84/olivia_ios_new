@@ -91,6 +91,7 @@ export class SearchDeparturePage implements OnInit {
         }
       }else{
         se.zone.run(()=>{
+          se.items = [];
           for (let index = 0; index < 25; index++) {
             const element = se.itemsfull[index];
             if(element){

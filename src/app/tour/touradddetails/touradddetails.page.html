@@ -106,16 +106,16 @@
 
       <div class='div-split-panel'></div>
     <ion-row *ngIf="!Roomif.ExcludeVAT && tourService.paymentType == 1">
-      <div class='width-100 d-flex'>
+      <div class='width-100 d-flex m-top-8'>
         <div class='width-100 div-align-bottom '><ion-label class="label-order">Yêu cầu xuất hóa đơn</ion-label></div>
         <div class='width-50 div-align-bottom text-right div-flex-end'><ion-toggle (ionChange)="edit(0)" [(ngModel)]="ischeck" [checked] = "ischeck" color="secondary"></ion-toggle></div>
       </div>
     </ion-row>
    
       <div *ngIf="ischeck && !Roomif.ExcludeVAT && tourService.paymentType == 1">
-        <div class='div-check-order'>
+        <div class='div-check-order d-flex'>
           <ion-checkbox (ionChange)="showNameMail($event)" [checked]="ishideNameMail" class="ion-checkbox" color="secondary"></ion-checkbox>
-          <ion-label class="label-input-order m-left-8" >Dùng thông tin liên hệ làm thông tin xuất hoá đơn</ion-label>
+          <ion-label class="label-input-order m-left-16" >Dùng thông tin liên hệ làm thông tin xuất hoá đơn</ion-label>
         </div>
 
         <ion-row >

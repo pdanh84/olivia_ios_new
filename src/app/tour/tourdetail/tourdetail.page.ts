@@ -21,7 +21,7 @@ import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 })
 
 export class TourDetailPage {
-  @ViewChild('scrollArea') sliderTab:  ElementRef | undefined;
+  @ViewChild('mySlider') sliderTab:  ElementRef | undefined;
 ;
   @ViewChild('headerScroll') headerScroll: IonContent;
   @ViewChild('scrollArea') scrollYArea: IonContent;
