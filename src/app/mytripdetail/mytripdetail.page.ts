@@ -19,7 +19,7 @@ import { FileTransferObject, FileTransfer } from '@awesome-cordova-plugins/file-
 import { PhotoLibrary } from '@awesome-cordova-plugins/photo-library/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { MytripTicketQrcodeSlidePage } from '../mytripticketqrcodeslide/mytripticketqrcodeslide';
-var document:any;
+
 @Component({
   selector: 'app-mytripdetail',
   templateUrl: './mytripdetail.page.html',
@@ -1467,7 +1467,14 @@ export class MytripdetailPage implements OnInit {
             se.trip.bookingsComboData[0].passengers.forEach(element => {
               element.hanhLyshow = "";
               if (element.hanhLy && se.luggageSignedDepart) {
-                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedDepart.toString().replace('kgs', '').replace('kg', ''));
+                let _arr = se.luggageSignedDepart.split(' ');
+                let _luggageSignedDepart =0;
+                if(_arr && _arr.length >0){
+                  _luggageSignedDepart = isNaN(Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''))) ? 0 : Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''));
+                }else{
+                  _luggageSignedDepart = Number(se.luggageSignedDepart.toString().replace('kgs', '').replace('kg', ''));
+                }
+                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + _luggageSignedDepart;
               } else {
                 if (element.hanhLy) {
                   element.hanhLyshow = element.hanhLy;
@@ -1489,7 +1496,15 @@ export class MytripdetailPage implements OnInit {
             se.trip.bookingsComboData[1].passengers.forEach(element => {
               element.hanhLyshow = "";
               if (element.hanhLy && se.luggageSignedReturn) {
-                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                //element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                let _arr = se.luggageSignedReturn.split(' ');
+                let _luggageSignedReturn =0;
+                if(_arr && _arr.length >0){
+                  _luggageSignedReturn = isNaN(Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''))) ? 0 : Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''));
+                }else{
+                  _luggageSignedReturn = Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                }
+                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + _luggageSignedReturn;
               } else {
                 if (element.hanhLy) {
                   element.hanhLyshow = element.hanhLy;

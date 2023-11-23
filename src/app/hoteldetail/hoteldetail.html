@@ -1,4 +1,4 @@
-<ion-header class="cls-header float-arrow-disabled">
+<ion-header class="cls-header cls-no-padding-header float-arrow-disabled">
   <ion-toolbar>
     <ion-row>
       <ion-col size="1">
@@ -35,8 +35,8 @@
     <div class="card-background-page">
       <swiper-container (slidechange)="onSlideChange()" [options]="slideOpts" #mySlider>
         <swiper-slide *ngFor="let slide of slideData; let idximg = index" style="height: 236px" (click)="showSlideImage(idximg)">
-          <div id="grad1" class="grad1">
-          </div>
+          <!-- <div id="grad1" class="grad1">
+          </div> -->
           <img [src]="slide.LinkImage" style="height: 236px;width: 100%" class="preview" alt="image" />
           <div *ngIf="slide.CaptionImg" class="div-img-caption-grad"></div>
           <div *ngIf="slide.CaptionImg" class="div-img-caption">{{slide.CaptionImg}}</div>

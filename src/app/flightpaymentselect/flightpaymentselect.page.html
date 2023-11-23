@@ -104,7 +104,7 @@
       </div>
     </div>
 
-    <div class="div-DC" *ngIf="_flightService.itemFlightCache && _flightService.itemFlightCache.priceCathay>0">
+    <div class="div-DC" *ngIf="_flightService.itemFlightCache && _flightService.itemFlightCache.priceCathay>0 && _flightService.itemFlightCache.fromCountryCode == 'VN' && _flightService.itemFlightCache.toCountryCode == 'VN'">
       <div class="text-DC">
         Dịch vụ thêm: <span class="text-DC text-bold">Bảo hiểm trễ chuyến</span>
       </div>

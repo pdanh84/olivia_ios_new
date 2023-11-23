@@ -179,6 +179,9 @@ ion-header ion-toolbar:first-child {
     ion-header{
       box-shadow: 1px 0px 2px 0px #828282 !important;
     }
+    .header-color-tealish {
+        background: var(--ion-color-primary);
+    }
     ion-footer{
         background-color: #ffffff;
         -moz-box-shadow:    2px -7px 4px -6px #f2f2f2;

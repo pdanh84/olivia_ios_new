@@ -40,6 +40,8 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (5.0.6):
     - Capacitor
+  - CapacitorStatusBar (5.0.6):
+    - Capacitor
   - CapawesomeCapacitorBadge (5.0.0):
     - Capacitor
   - CodetrixStudioCapacitorGoogleAuth (0.0.1):
@@ -185,6 +187,7 @@ DEPENDENCIES:
   - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapawesomeCapacitorBadge (from `../../node_modules/@capawesome/capacitor-badge`)"
   - "CodetrixStudioCapacitorGoogleAuth (from `../../node_modules/@codetrix-studio/capacitor-google-auth`)"
   - "PantristCapacitorFirebaseDynamicLinks (from `../../node_modules/@pantrist/capacitor-firebase-dynamic-links`)"
@@ -245,6 +248,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/push-notifications"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
   CapawesomeCapacitorBadge:
     :path: "../../node_modules/@capawesome/capacitor-badge"
   CodetrixStudioCapacitorGoogleAuth:
@@ -270,6 +275,7 @@ SPEC CHECKSUMS:
   CapacitorNetwork: d80b3e79bef6ec37640ee2806c19771f07ff2d0c
   CapacitorPushNotifications: b31e326c6e4eb216a622041d6ca21a973f34943f
   CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
+  CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
   CapawesomeCapacitorBadge: 2b9919ea79b85bdc5455143cf6607c9e25bec9ae
   CodetrixStudioCapacitorGoogleAuth: fcce058390347c1ce5d8ac4764bdf1f5c1ee233b
   FBAEMKit: af2972f39bb0f3f7c45998f435b007833c32ffb2
@@ -293,6 +299,6 @@ SPEC CHECKSUMS:
   PantristCapacitorFirebaseDynamicLinks: e4c083f27d6783e0b189cbdf3fe13c04aecf81eb
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
 
-PODFILE CHECKSUM: ce2db0a546bd73ea91f00f2519d8a9b04cfc96ce
+PODFILE CHECKSUM: 4a49aaafe2628ac54ad6ec7d2751146c23c8d881
 
 COCOAPODS: 1.13.0

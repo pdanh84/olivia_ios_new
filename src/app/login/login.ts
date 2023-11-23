@@ -108,12 +108,13 @@ export class LoginPage implements OnInit{
       ];
 
       FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
-
-        se.presentLoadingnotime();
-        se.token = response.accessToken;
-        let test = response.accessToken;
-        se.storage.set('fbaccesstoken',test);
-        se.loadUserData(test);
+        if(response.accessToken){
+          se.token = response.accessToken;
+          let test = response.accessToken;
+          se.storage.set('fbaccesstoken',test);
+          se.loadUserData(test);
+        }
+        
       })
       //google analytic
       se.gf.googleAnalytion('login', 'loginfacebook', '');
@@ -463,9 +464,7 @@ getToken() {
     this.navCtrl.navigateForward('register');
   }
   async presentLoadingnotime() {
-    this.loader = await this.loadingCtrl.create({
-      message: "",
-    });
+    this.loader = await this.loadingCtrl.create();
     this.loader.present();
   }
   logintksms()

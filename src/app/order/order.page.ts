@@ -6369,13 +6369,22 @@ export class OrderPage {
         if (data) {
           let result = data;
           if (stt == 0) {
+            
             se.baggageHandedDepart = se.listMyTrips[0].bookingJsonDataParse[0] && se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions && se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions.BaggageHanded ? se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions.BaggageHanded : result.ticketCondition.baggageHanded;
             se.luggageSignedDepart = se.listMyTrips[0].bookingJsonDataParse[0] && se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions && se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions.LuggageSigned ? se.listMyTrips[0].bookingJsonDataParse[0].ticketConditions.LuggageSigned : result.ticketCondition.luggageSigned;
             se.departConditionInfo = result;
             se.listMyTrips[0].bookingsComboData[0].passengers.forEach(element => {
               element.hanhLyshow = "";
               if (element.hanhLy && se.luggageSignedDepart) {
-                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedDepart.toString().replace('kgs', '').replace('kg', ''));
+                //element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedDepart.toString().replace('kgs', '').replace('kg', ''));
+                let _arr = se.luggageSignedDepart.split(' ');
+                let _luggageSignedDepart =0;
+                if(_arr && _arr.length >0){
+                  _luggageSignedDepart = isNaN(Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''))) ? 0 : Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''));
+                }else{
+                  _luggageSignedDepart = Number(se.luggageSignedDepart.toString().replace('kgs', '').replace('kg', ''));
+                }
+                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + _luggageSignedDepart;
               } else {
                 if (element.hanhLy) {
                   element.hanhLyshow = element.hanhLy;
@@ -6398,7 +6407,15 @@ export class OrderPage {
             se.listMyTrips[0].bookingsComboData[1].passengers.forEach(element => {
               element.hanhLyshow = "";
               if (element.hanhLy && se.luggageSignedReturn) {
-                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                //element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                let _arr = se.luggageSignedReturn.split(' ');
+                let _luggageSignedReturn =0;
+                if(_arr && _arr.length >0){
+                  _luggageSignedReturn = isNaN(Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''))) ? 0 : Number(_arr[_arr.length-1].toString().replace('kgs', '').replace('kg', ''));
+                }else{
+                  _luggageSignedReturn = Number(se.luggageSignedReturn.toString().replace('kgs', '').replace('kg', ''));
+                }
+                element.hanhLyshow = Number(element.hanhLy.toString().replace('kgs', '').replace('kg', '')) + _luggageSignedReturn;
               } else {
                 if (element.hanhLy) {
                   element.hanhLyshow = element.hanhLy;

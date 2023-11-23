@@ -3226,12 +3226,19 @@ export class Tab1Page implements OnInit {
         if(event.detail.scrollTop >= 1140 ){
           if(elinter && elinter.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999 ) - 250){
               if(el.length >0 && el[0] && !el[0].classList.contains("cls-topdeal-float")){
-                el[0].classList.add('cls-topdeal-float');
-                divnotch[0].classList.remove('cls-disabled');
-                divnotch[0].classList.add('cls-visible');
+                for (let index = 0; index < el.length; index++) {
+                  el[index].classList.add('cls-topdeal-float');
+                }
+                for (let dindex = 0; dindex < divnotch.length; dindex++) {
+                  divnotch[dindex].classList.remove('cls-disabled');
+                  divnotch[dindex].classList.add('cls-visible');
+                }
+                
               }
               if(el1 && el1[0] && el1[0].classList.contains("cls-topdeal-float")){
-                el1[0].classList.remove('cls-topdeal-float');
+                for (let index = 0; index < el1.length; index++) {
+                  el1[index].classList.remove('cls-topdeal-float');
+                }
                
               }
            
@@ -3240,34 +3247,48 @@ export class Tab1Page implements OnInit {
                 if(el1 && el1.length >0 && event.detail.scrollTop >= ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 220 ){
                 
                     if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
-                      el1[0].classList.add('cls-topdeal-float');
-                      divnotch[0].classList.remove('cls-disabled');
-                      divnotch[0].classList.add('cls-visible');
+                      for (let index = 0; index < el1.length; index++) {
+                        el1[index].classList.add('cls-topdeal-float');
+                      }
+                      for (let dindex = 0; dindex < divnotch.length; dindex++) {
+                        divnotch[dindex].classList.remove('cls-disabled');
+                        divnotch[dindex].classList.add('cls-visible');
+                      }
                     }
                   
                 }
                 else if(el1 && el1[0] && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) -120){
-                  el1[0].classList.remove('cls-topdeal-float');
+                  for (let index = 0; index < el1.length; index++) {
+                    el1[index].classList.remove('cls-topdeal-float');
+                  }
 
                   if(event.detail.scrollTop < 1020 ){
-                    divnotch[0].classList.remove('cls-visible');
-                    divnotch[0].classList.add('cls-disabled');
+                    for (let dindex = 0; dindex < divnotch.length; dindex++) {
+                      divnotch[dindex].classList.remove('cls-disabled');
+                      divnotch[dindex].classList.add('cls-visible');
+                    }
                   }
                 }
           }
         }else{
           if(el[0]){
-            el[0].classList.remove('cls-topdeal-float');
-           
+            //el[0].classList.remove('cls-topdeal-float');
+            for (let index = 0; index < el.length; index++) {
+              el[index].classList.remove('cls-topdeal-float');
+            }
           }
           if(el1[0]){
-            el1[0].classList.remove('cls-topdeal-float');
-           
+            //el1[0].classList.remove('cls-topdeal-float');
+            for (let index = 0; index < el1.length; index++) {
+              el1[index].classList.remove('cls-topdeal-float');
+            }
           }
           //console.log(event.detail.scrollTop )
           if(event.detail.scrollTop < 1020 ){
-            divnotch[0].classList.remove('cls-visible');
-            divnotch[0].classList.add('cls-disabled');
+            for (let dindex = 0; dindex < divnotch.length; dindex++) {
+              divnotch[dindex].classList.remove('cls-visible');
+              divnotch[dindex].classList.add('cls-disabled');
+            }
           }
           
         }
@@ -3275,13 +3296,20 @@ export class Tab1Page implements OnInit {
       }else{
         if(el1 && el1.length >0 && event.detail.scrollTop >= ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 120){
           if(el1.length >0 && el1[0] && !el1[0].classList.contains("cls-topdeal-float")){
-            el1[0].classList.add('cls-topdeal-float');
-            divnotch[0].classList.remove('cls-disabled');
-            divnotch[0].classList.add('cls-visible');
+            //el1[0].classList.add('cls-topdeal-float');
+            for (let index = 0; index < el1.length; index++) {
+              el1[index].classList.add('cls-topdeal-float');
+            }
+            for (let dindex = 0; dindex < divnotch.length; dindex++) {
+              divnotch[dindex].classList.remove('cls-disabled');
+              divnotch[dindex].classList.add('cls-visible');
+            }
           }
         }if(el1 && el1.length >0 && event.detail.scrollTop < ($('.div-group-name') && $('.div-group-name').length >0 ? $('.div-group-name')[0].offsetTop : 99999) - 100){
-          el1[0].classList.remove('cls-topdeal-float');
-          
+          //el1[0].classList.remove('cls-topdeal-float');
+          for (let index = 0; index < el1.length; index++) {
+            el1[index].classList.remove('cls-topdeal-float');
+          }
         }
 
         
