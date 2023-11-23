@@ -305,16 +305,48 @@ isIncludeUnclosedElement($) {
           (window.document.getElementById('header2')as any).scrollIntoView({  block: 'center'  });
         }
 
-          if ($('#content4') && $('#content4').length >0&& event.detail.currentY >= $('#content4')[0].offsetTop - 120) {
+         
+
+          if ($('#divReview') && $('#divReview').length >0&& event.detail.currentY >= $('#divReview')[0].offsetTop - 120) {
+            $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
+            $($('.item-tour-header')[3]).addClass('item-header-actived');
+            (window.document.getElementById('header4')as any).scrollIntoView({  block: 'center'  });
+          }
+          if ($('#divGT') && $('#divGT').length >0&& event.detail.currentY >= $('#divGT')[0].offsetTop - 120) {
+            $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
+            $($('.item-tour-header')[3]).addClass('item-header-actived');
+            (window.document.getElementById('headerGT')as any).scrollIntoView({  block: 'center'  });
+          }
+          if ($('#divDDTN') && $('#divDDTN').length >0&& event.detail.currentY >= $('#divDDTN')[0].offsetTop - 120) {
+            if (this.kkdayProductIntroDesc) {
+              $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
+              $($('.item-tour-header')[4]).addClass('item-header-actived');
+              (window.document.getElementById('headerDDTN')as any).scrollIntoView({  block: 'center'  });
+            }else{
+              $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
+              $($('.item-tour-header')[3]).addClass('item-header-actived');
+              (window.document.getElementById('headerDDTN')as any).scrollIntoView({  block: 'center'  });
+            }
+          
+          }
+          if ($('#divDDDV') && $('#divDDDV').length >0&& event.detail.currentY >= $('#divDDDV')[0].offsetTop - 120) {
             $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[4]).addClass('item-header-actived');
             (window.document.getElementById('header4')as any).scrollIntoView({  block: 'center'  });
-          }else if ($('#content4') && $('#content4').length >0 && $('#content3').length >0 && event.detail.currentY < $('#content4')[0].offsetTop - 120 && event.detail.currentY > $('#content3')[0].offsetTop - 120){
-            $($('.item-tour-header')[2]).siblings().removeClass('item-header-actived');
-            $($('.item-tour-header')[2]).addClass('item-header-actived');
-            (window.document.getElementById('header3')as any).scrollIntoView({  block: 'center'  });
+          }else if ($('#divDDDV') && $('#divDDDV').length >0 && $('#divDDTN').length >0 && event.detail.currentY < $('#divDDDV')[0].offsetTop - 120 && event.detail.currentY > $('#divDDTN')[0].offsetTop - 120){
+            $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
+            $($('.item-tour-header')[3]).addClass('item-header-actived');
+            (window.document.getElementById('header4')as any).scrollIntoView({  block: 'center'  });
           }
-
+          if ($('#divReview') && $('#divReview').length >0&& event.detail.currentY >= $('#divReview')[0].offsetTop - 120) {
+            $($('.item-tour-header')[5]).siblings().removeClass('item-header-actived');
+            $($('.item-tour-header')[5]).addClass('item-header-actived');
+            (window.document.getElementById('header7')as any).scrollIntoView({  block: 'center'  });
+          }else if ($('#divReview') && $('#divReview').length >0 && $('#divDDDV').length >0 && event.detail.currentY < $('#divReview')[0].offsetTop - 120 && event.detail.currentY > $('#divDDDV')[0].offsetTop - 120){
+            $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
+            $($('.item-tour-header')[4]).addClass('item-header-actived');
+            (window.document.getElementById('header7')as any).scrollIntoView({  block: 'center'  });
+          }
           if ($('#content5') && $('#content5').length >0&& event.detail.currentY >= $('#content5')[0].offsetTop - 120) {
             $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[4]).addClass('item-header-actived');
@@ -333,29 +365,6 @@ isIncludeUnclosedElement($) {
             $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[4]).addClass('item-header-actived');
             (window.document.getElementById('header5')as any).scrollIntoView({  block: 'center'  });
-          }
-
-          if ($('#divReview') && $('#divReview').length >0&& event.detail.currentY >= $('#divReview')[0].offsetTop - 120) {
-            $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
-            $($('.item-tour-header')[3]).addClass('item-header-actived');
-            (window.document.getElementById('header7')as any).scrollIntoView({  block: 'center'  });
-          }
-          if ($('#divGT') && $('#divGT').length >0&& event.detail.currentY >= $('#divGT')[0].offsetTop - 120) {
-            $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
-            $($('.item-tour-header')[3]).addClass('item-header-actived');
-            (window.document.getElementById('headerGT')as any).scrollIntoView({  block: 'center'  });
-          }
-          if ($('#divDDTN') && $('#divDDTN').length >0&& event.detail.currentY >= $('#divDDTN')[0].offsetTop - 120) {
-            if (this.kkdayProductIntroDesc) {
-              $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
-              $($('.item-tour-header')[4]).addClass('item-header-actived');
-              (window.document.getElementById('headerDDTN')as any).scrollIntoView({  block: 'center'  });
-            }else{
-              $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
-              $($('.item-tour-header')[3]).addClass('item-header-actived');
-              (window.document.getElementById('headerDDTN')as any).scrollIntoView({  block: 'center'  });
-            }
-          
           }
           // else if ($('#divDDTN') && $('#divDDTN').length >0&& event.detail.currentY < $('#divDDTN')[0].offsetTop - 120 && event.detail.currentY > $('#content6')[0].offsetTop - 120){
           //   $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
