@@ -107,7 +107,7 @@
                                                     </ng-template>
   
                                                 <div class="text-detail" *ngIf="(itemFlightTicketCondition.luggageSigned && itemFlightTicketCondition.luggageSigned.length >0 && itemFlightTicketCondition.luggageSigned.toString().toLowerCase().indexOf('không') == -1) else noluggageSigned">
-                                                    <span *ngIf="itemFlightTicketCondition.luggageSigned.length <=5">{{itemFlightTicketCondition.luggageSigned}}kg hành lý ký gửi </span>
+                                                    <span *ngIf="itemFlightTicketCondition.luggageSigned.length <=5">{{itemFlightTicketCondition.luggageSigned}}<span *ngIf="itemFlightTicketCondition.luggageSigned && itemFlightTicketCondition.luggageSigned.indexOf('kg') ==-1">kg</span> hành lý ký gửi </span>
                                                     <span *ngIf="itemFlightTicketCondition.luggageSigned.length > 5">Hành lý ký gửi: {{itemFlightTicketCondition.luggageSigned}}</span>
                                                 </div>
                                                 <ng-template #noluggageSigned>
@@ -259,7 +259,7 @@
         
                                                         <div class="text-detail" *ngIf="(itemstop.ticketCondition.luggageSigned && itemstop.ticketCondition.luggageSigned.length >0 && itemstop.ticketCondition.luggageSigned.toString().toLowerCase().indexOf('không') == -1) else noluggageSigned">
                                                             <!-- {{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi  -->
-                                                                <span *ngIf="itemstop.ticketCondition.luggageSigned.length <=5">{{itemstop.ticketCondition.luggageSigned}}kg hành lý ký gửi </span>
+                                                                <span *ngIf="itemstop.ticketCondition.luggageSigned.length <=5">{{itemstop.ticketCondition.luggageSigned}}<span *ngIf="itemstop.ticketCondition.luggageSigned && itemstop.ticketCondition.luggageSigned.indexOf('kg') ==-1">kg</span> hành lý ký gửi </span>
                                                                 <span *ngIf="itemstop.ticketCondition.luggageSigned.length > 5">Hành lý ký gửi: {{itemstop.ticketCondition.luggageSigned}}</span>
                                                         </div>
                                                         <ng-template #noluggageSigned>

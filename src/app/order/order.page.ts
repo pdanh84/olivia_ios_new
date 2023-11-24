@@ -254,7 +254,7 @@ export class OrderPage {
         se.foodtextorder = "";
         se.pageIndex = 1;
         se.isConnected = true;
-        if (se.networkProvider.isOnline()) {
+        if (se.networkProvider && se.networkProvider.isOnline()) {
           se.getdata(null, false);
           se.getdata(null, true);
         }
@@ -489,7 +489,7 @@ export class OrderPage {
           authorization: text
         };
         this.gf.RequestApi('GET', urlPath, headers, {}, 'MytripHistory', 'getdatanewtoken').then((data) => {
-
+          
           if (data && data.statusCode == 401) {
             se.storage.get('jti').then((memberid) => {
               se.storage.get('deviceToken').then((devicetoken) => {

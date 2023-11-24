@@ -65,6 +65,7 @@ objRate: any;
 kkdayProductIntroDesc: any;
 kkdayProductExpe: any;
 loader: any;
+  loadsametopicdone: boolean;
   constructor(private navCtrl: NavController, public gf: GlobalFunction,
       private modalCtrl: ModalController,
       private toastCtrl: ToastController,
@@ -90,7 +91,9 @@ private loaddata() {
       this.loadslidedone = true;
       this.AvgPoint = res.data.experience.avgPoint;
       if(this.AvgPoint && (this.AvgPoint == 10  || this.AvgPoint == 6  || this.AvgPoint == 9  || this.AvgPoint == 8  || this.AvgPoint == 7)){
-        this.AvgPoint = this.AvgPoint + ".0";
+        this.AvgPoint = this.AvgPoint + ",0";
+      }else if(this.AvgPoint){
+        this.AvgPoint = this.AvgPoint.toString().replace(/\./g,',');
       }
       this.totalReview = res.data.experience.numOfReview;
   
@@ -161,6 +164,7 @@ private loaddata() {
         apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
         apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
       };
+      this.loadsametopicdone = false;
       this.gf.RequestApi('POST', url, headers, null, 'hometicketslide', 'GetExperienceSameTopic').then((data) => {
         let res = data;
         this.itemSlide=[];
@@ -168,10 +172,13 @@ private loaddata() {
           for (let i = 0; i < 3; i++) {
             const element = res.data[i];
               if(element.avgPoint && (element.avgPoint == 10  || element.avgPoint == 6  || element.avgPoint == 9  || element.avgPoint == 8  || element.avgPoint == 7)){
-                element.avgPoint = element.avgPoint + ".0";
+                element.avgPoint = element.avgPoint + ",0";
+              }else if(element.avgPoint){
+                element.avgPoint = element.avgPoint.toString().replace(/\./g,',');
               }
             this.itemSlide.push(element);
           }
+          this.loadsametopicdone = true;
         }
        
         let url = C.urls.baseUrl.urlTicket + '/api/Detail/GetExperienceReviews?experienceCode=' + this.ticketService.itemTicketDetail.experienceId+'&pageSize=10&pageindex=1';
@@ -179,7 +186,7 @@ private loaddata() {
         apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
         apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
         };
-       this.gf.RequestApi('GET', url, headers, null, 'hometicketslide', 'GetExperienceSameTopic').then((data) => {
+       this.gf.RequestApi('GET', url, headers, null, 'hometicketslide', 'GetExperienceReviews').then((data) => {
         let res = data;
         this.ticketReviews = res.data.reviews;
         if (this.ticketReviews) {

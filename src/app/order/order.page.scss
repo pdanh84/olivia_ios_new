@@ -2712,7 +2712,17 @@ color: #e52822
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 160px;
+    width: 142px;
+
+    @media (min-width:376px) and (max-width:390px){
+        width: 148px !important;
+    }
+    @media (min-width:391px) and (max-width:414px){
+        width: 154px !important;
+    }
+    @media (min-width:415px) and (max-width:440px){
+        width: 160px !important;
+    }
 }
 .p-absolute{
     position: absolute;
