@@ -329,11 +329,11 @@ isIncludeUnclosedElement($) {
             }
           
           }
-          if ($('#divDDDV') && $('#divDDDV').length >0&& event.detail.currentY >= $('#divDDDV')[0].offsetTop - 120) {
+          if ($('#content4') && $('#content4').length >0&& event.detail.currentY >= $('#content4')[0].offsetTop - 120) {
             $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[4]).addClass('item-header-actived');
             (window.document.getElementById('header4')as any).scrollIntoView({  block: 'center'  });
-          }else if ($('#divDDDV') && $('#divDDDV').length >0 && $('#divDDTN').length >0 && event.detail.currentY < $('#divDDDV')[0].offsetTop - 120 && event.detail.currentY > $('#divDDTN')[0].offsetTop - 120){
+          }else if ($('#content4') && $('#content4').length >0 && $('#divDDTN').length >0 && event.detail.currentY < $('#content4')[0].offsetTop - 120 && event.detail.currentY > $('#divDDTN')[0].offsetTop - 120){
             $($('.item-tour-header')[3]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[3]).addClass('item-header-actived');
             (window.document.getElementById('header4')as any).scrollIntoView({  block: 'center'  });
@@ -343,7 +343,7 @@ isIncludeUnclosedElement($) {
             $($('.item-tour-header')[5]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[5]).addClass('item-header-actived');
             (window.document.getElementById('header7')as any).scrollIntoView({  block: 'center'  });
-          }else if ($('#divReview') && $('#divReview').length >0 && $('#divDDDV').length >0 && event.detail.currentY < $('#divReview')[0].offsetTop - 120 && event.detail.currentY > $('#divDDDV')[0].offsetTop - 120){
+          }else if ($('#divReview') && $('#divReview').length >0 && $('#content4').length >0 && event.detail.currentY < $('#divReview')[0].offsetTop - 120 && event.detail.currentY > $('#content4')[0].offsetTop - 120){
             $($('.item-tour-header')[4]).siblings().removeClass('item-header-actived');
             $($('.item-tour-header')[4]).addClass('item-header-actived');
             (window.document.getElementById('header7')as any).scrollIntoView({  block: 'center'  });

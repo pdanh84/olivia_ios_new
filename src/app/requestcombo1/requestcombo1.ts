@@ -40,7 +40,7 @@ export class RequestCombo1Page implements OnInit {
   hidepaxhint: boolean = false;
   currentSelectPax: any;
   arrPlace: any;
-  arrtransportDepartTime; arrtransportReturnTime; transportDepartTime; transportReturnTime; ischeck
+  arrtransportDepartTime; arrtransportReturnTime; transportDepartTime; transportReturnTime;
   constructor(public toastCtrl: ToastController, private alertCtrl: AlertController, public zone: NgZone, public modalCtrl: ModalController,
     public storage: Storage, public platform: Platform, public bookCombo: Bookcombo, public value: ValueGlobal,
     public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, public navCtrl: NavController,
@@ -51,16 +51,16 @@ export class RequestCombo1Page implements OnInit {
 
   ngOnInit() {
     var se = this;
-    if (se.bookCombo.transportDepartTime) {
-      se.arrtransportDepartTime = se.bookCombo.transportDepartTime.split('|');
-      se.arrtransportReturnTime = se.bookCombo.transportReturnTime.split('|');
-      se.transportDepartTime = se.arrtransportDepartTime[0];
-      se.transportReturnTime = se.arrtransportReturnTime[0];
-      this.ischeck = true;
-    }
-    else {
-      this.ischeck = false;
-    }
+    // if (se.bookCombo.transportDepartTime) {
+    //   se.arrtransportDepartTime = se.bookCombo.transportDepartTime.split('|');
+    //   se.arrtransportReturnTime = se.bookCombo.transportReturnTime.split('|');
+    //   se.transportDepartTime = se.arrtransportDepartTime[0];
+    //   se.transportReturnTime = se.arrtransportReturnTime[0];
+    //   this.ischeck = true;
+    // }
+    // else {
+    //   this.ischeck = false;
+    // }
     se.storage.get('email').then(email => {
       se.usermail = email;
     });

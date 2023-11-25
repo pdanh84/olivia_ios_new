@@ -490,7 +490,7 @@ export class CombocarnewPage implements OnInit {
 
       se.totalAdultExtrabed = se.totalAdult - se.AdultCombo;
       se.total = se.total - se.PriceAvgPlusTA;
-      se.PriceAvgPlusTA = itemroom.MealTypeRates[0].PriceAvgPlusTotalTA;
+      se.PriceAvgPlusTA = itemroom.MealTypeRates[se.index].PriceAvgPlusTotalTA;
       se.total= se.total + se.PriceAvgPlusTA;
       se.PriceAvgPlusTAStr = se.total;
       se.PriceAvgPlusTAStr = se.PriceAvgPlusTAStr.toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
