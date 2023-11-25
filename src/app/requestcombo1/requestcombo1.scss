@@ -3,6 +3,7 @@
         padding-left: 5px;
         font-weight: bold;
         padding-top: 32px;
+        text-align: center;
     }
     .hotel-request-combo-content{
         padding: 15px;
@@ -108,9 +109,11 @@
     .div-icon-close{
         float: right;
         opacity: 0.6;
-        padding: 60px 21px 10px 16px;
-        opacity: 0.6;
+        // padding: 60px 21px 10px 16px;
         font-size: 30px;
+        position: absolute;
+        right: 16px;
+        top: 8%;
     }
     .btn-disable{
         opacity: 0.5;
@@ -144,6 +147,13 @@
     ::ng-deep{
         .alert-button.sc-ion-alert-md{
             width: 100% !important;
+        }
+        @media screen and (device-width: 375px) and (device-height: 667px) {
+            /* Thêm các quy tắc CSS của bạn ở đây */
+            
+            .div-icon-close{
+                top: 11% !important;
+            }
         }
     }
 
