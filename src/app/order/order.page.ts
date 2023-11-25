@@ -1185,7 +1185,7 @@ export class OrderPage {
                   }
                   //Thay mới ngày bay
                   if (element.bookingsComboData) {
-                    if (element.bookingsComboData && element.bookingsComboData.length > 1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(element.bookingsComboData[1].trip_Code) == -1 && element.bookingsComboData[1].airlineName && element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1) {
+                    if (element.bookingsComboData && element.bookingsComboData.length > 1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(element.bookingsComboData[1].trip_Code) == -1 && element.bookingsComboData[1].airlineName && ((element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(element.isBookingVMBQT && element.isTravelPort)) || (element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (element.isBookingVMBQT && element.isTravelPort)))) {
 
                       for (let i = 0; i < 2; i++) {
                         const elementNew = element.bookingsComboData[i];

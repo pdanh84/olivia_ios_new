@@ -22,7 +22,7 @@ import {
   LinkConfig,
 } from '@pantrist/capacitor-firebase-dynamic-links';
 import { App } from '@capacitor/app';
-import { CodePush, InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
+import { codePush } from "cap-codepush";
 import { OverlayEventDetail } from '@ionic/core';
 //import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 import { flightService } from './providers/flightService';
@@ -33,6 +33,7 @@ import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
 import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
 
 register();
 @Component({
@@ -70,7 +71,6 @@ export class AppComponent implements OnInit{
     public valueGlobal: ValueGlobal,
     //private firebaseDynamicLinks: FirebaseDynamicLinks,
     private toastCrl: ToastController,
-    private codePush: CodePush,
     private zone: NgZone,
     private toastCtrl: ToastController,
     //private deeplinks: Deeplinks,
@@ -125,7 +125,14 @@ export class AppComponent implements OnInit{
       //codepush
       try {
         if(this.platform.is('iphone')){
-          this.codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+          //codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+          codePush.sync({
+            onSyncStatusChanged: (syncStatus) => {
+              console.log(syncStatus);
+            },
+            updateDialog: { updateTitle: "Đang cập nhật lên phiên bản mới nhất!" },
+            installMode: InstallMode.IMMEDIATE,
+          });
         }
       } catch (error) {
         let objError = {

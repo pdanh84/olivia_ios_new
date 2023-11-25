@@ -429,8 +429,8 @@
 .h-22 {
   height: 22px;
 }
-.p-top-42 {
-  padding-top: 42px;
+.p-top-header {
+  padding-top: env(safe-area-inset-top);
 }
 .float-arrow-enabled{
   visibility: visible;

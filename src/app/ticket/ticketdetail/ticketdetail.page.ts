@@ -144,13 +144,15 @@ private loaddata() {
       this.kkdayProductExpe=res.data.kkdayProductExpe;
       this.kkdayProductExpe.forEach(element => {
         element.isshow=false;
-        let link = "https://maps.google.com/maps?q="+element.latitude+","+element.longitude+"&hl=es;z=14&amp&output=embed";          element.linkGoogleMap = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+        let link = "https://maps.google.com/maps?q="+element.latitude+","+element.longitude+"&hl=es;z=14&amp&output=embed";          
+        element.linkGoogleMap = this.sanitizer.bypassSecurityTrustResourceUrl(link);
       });
       // thêm địa điểm đổi vé
       this.kkdayExchanges=res.data.kkdayExchanges;
       this.kkdayExchanges.forEach(element => {
         element.isshow=false;
-        let link = "https://maps.google.com/maps?q="+element.latitude+","+element.longitude+"&hl=es;z=14&amp&output=embed";          element.linkGoogleMap = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+        let link = "https://maps.google.com/maps?q="+element.latitude+","+element.longitude+"&hl=es;z=14&amp&output=embed";          
+        element.linkGoogleMap = this.sanitizer.bypassSecurityTrustResourceUrl(link);
       });
       this.kkdayVenueLocations=res.data.kkdayVenueLocations;
 
@@ -159,16 +161,16 @@ private loaddata() {
         let link = "https://maps.google.com/maps?q="+element.latitude+","+element.longitude+"&hl=es;z=14&amp&output=embed";
         element.linkGoogleMap = this.sanitizer.bypassSecurityTrustResourceUrl(link);
       });
-      let url = C.urls.baseUrl.urlTicket + '/api/Home/GetExperienceSameTopic/' + res.data.topic.id +'?expId=' + (this.ticketService.itemTicketDetail.experienceId || 1)+'&numberKeep=3';
+      let url = C.urls.baseUrl.urlTicket + '/api/Home/GetExperienceSameTopicV2/' + res.data.topic.id +'?expeId=' + (this.ticketService.itemTicketDetail.experienceId || 1);
       let headers = {
         apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
         apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
       };
       this.loadsametopicdone = false;
-      this.gf.RequestApi('POST', url, headers, null, 'hometicketslide', 'GetExperienceSameTopic').then((data) => {
+      this.gf.RequestApi('GET', url, headers, null, 'hometicketslide', 'GetExperienceSameTopic').then((data) => {
         let res = data;
         this.itemSlide=[];
-        if (res.data) {
+        if (res.data && res.data.length >0) {
           for (let i = 0; i < 3; i++) {
             const element = res.data[i];
               if(element.avgPoint && (element.avgPoint == 10  || element.avgPoint == 6  || element.avgPoint == 9  || element.avgPoint == 8  || element.avgPoint == 7)){
@@ -178,6 +180,8 @@ private loaddata() {
               }
             this.itemSlide.push(element);
           }
+          this.loadsametopicdone = true;
+        }else{
           this.loadsametopicdone = true;
         }
        
@@ -189,7 +193,15 @@ private loaddata() {
        this.gf.RequestApi('GET', url, headers, null, 'hometicketslide', 'GetExperienceReviews').then((data) => {
         let res = data;
         this.ticketReviews = res.data.reviews;
+        
         if (this.ticketReviews) {
+          this.ticketReviews.forEach(element => {
+            if(element.reviewPoint && (element.reviewPoint == 10  || element.reviewPoint == 6  || element.reviewPoint == 9  || element.reviewPoint == 8  || element.reviewPoint == 7)){
+              element.reviewPoint = element.reviewPoint + ",0";
+            }else if(element.reviewPoint){
+              element.reviewPoint = element.reviewPoint.toString().replace(/\./g,',');
+            }
+          });
           this.ticketReviews =  this.ticketReviews.map((item) => {
             return { ...item, reviewDateDisplay: moment(this.ticketReviews.reviewDate).format('DD-MM-YYYY') }
           });
