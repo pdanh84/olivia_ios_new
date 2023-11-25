@@ -196,66 +196,44 @@
                         <div *ngIf="trip.bookingsComboData && trip.bookingsComboData[0]" class="min-width-100 cls-text-overflow">
                           <div class="div-logo div-width-100">
                             <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietjetair'" src="./assets/ic_airticket/ic_vietjet_b.png">
-                            <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) &&trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
-                            <img class="img-logo logo_vna" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) &&trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
-                            <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                            <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
+                            <img class="img-logo logo_vna" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
+                            <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) &&  trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
                             <img class="img-logo " *ngIf=" (trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingjson && trip.bookingjson.length>0 && trip.bookingjson[0].Transits && trip.bookingjson[0].Transits[0]" [src]="trip.bookingjson[0].Transits[0].Logo">
 
-                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[0].flightNumner">{{trip.bookingsComboData[0].flightNumner}}</span>
+                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[0].flightNumner && !trip.bookingsComboData[0].flightNumberNew">{{trip.bookingsComboData[0].flightNumner}}</span>
+                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[0].flightNumberNew">{{trip.bookingsComboData[0].flightNumberNew}}</span>
                         </div>
                         
-                            <div class="div-flightfrom">{{ trip.bookingsComboData[0].flightFrom }} <span class="m-left-4"> ({{trip.bookingsComboData[0].departCode}})</span></div>
-                            <div *ngIf="trip.bookingsComboData[0].departureTime && !trip.bookingsComboData[0].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[0].departureTime }} </div>
-                            <div *ngIf="trip.bookingsComboData[0].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[0].departureTimeNew }} </div>
-                            <div class="text-flight-datetime">{{ trip.checkInDisplay }} </div>
-<!--        
-                            <div class="div-logo div-width-100">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietjetair'" src="./assets/ic_airticket/ic_vietjet_b.png">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
-                              <img class="img-logo logo_vna" *ngIf="trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
-                              <img class="img-logo" *ngIf=" trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
+                        <div class="div-flightfrom">{{ trip.bookingsComboData[0].flightFrom }} <span class="m-left-4"> ({{trip.bookingsComboData[0].departCode}})</span></div>
+                        <div *ngIf="trip.bookingsComboData[0].departureTime && !trip.bookingsComboData[0].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[0].departureTime }} </div>
+                        <div *ngIf="trip.bookingsComboData[0].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[0].departureTimeNew }} </div>
+                        <div class="text-flight-datetime">{{ trip.checkInDisplay }} </div>
 
-                              <span class="text-fn p-left-8 m-top-6 text-small p-absolute" *ngIf="trip.bookingsComboData[0].flightNumner">{{trip.bookingsComboData[0].flightNumner}} - {{trip.bookingsComboData[0].departureTime}}</span>
-                          </div> -->
                         </div>
                         <div class="div-flight-inout">
-                            <img class="img-flight-inout" src="./assets/ic_flight/ic_flight_inout.svg" *ngIf="(trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 ) else oneway">
-                            <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/imgs/ic_arrow.svg"></ng-template>
+                            <img class="img-flight-inout top-35" src="./assets/ic_mytripbooking/ico_2ways.svg" *ngIf="(trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].airlineName && ((trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) || (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (trip.isBookingVMBQT && trip.isTravelPort)))) else oneway">
+                            <ng-template #oneway><img class="img-flight-inout img-oneway" src="../assets/ic_mytripbooking/ico_1way.svg"></ng-template>
                         </div> 
-                        <div [ngClass]="(trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 ) ? 'min-width-100 cls-text-overflow' : 'min-width-100 cls-text-overflow mt-30'">
-                          <div class="div-logo div-width-100" *ngIf="trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 ">
+                        <div [ngClass]="(trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].airlineName && ((trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) || (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (trip.isBookingVMBQT && trip.isTravelPort)))) ? 'min-width-100 cls-text-overflow' : 'min-width-100 cls-text-overflow mt-30'">
+                          <div class="div-logo div-width-100" *ngIf=" trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].airlineName && ((trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) || (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (trip.isBookingVMBQT && trip.isTravelPort)))">
                             <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'vietjetair'" src="./assets/ic_airticket/ic_vietjet_b.png">
                             <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
                             <img class="img-logo logo_vna" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
                             <img class="img-logo" *ngIf="!(trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingsComboData[1] &&  trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
                             <img class="img-logo " *ngIf=" (trip.isBookingVMBQT && trip.isTravelPort) && trip.bookingjson && trip.bookingjson.length>0 && trip.bookingjson[0].Transits && trip.bookingjson[0].Transits[1]" [src]="trip.bookingjson[0].Transits[1].Logo">
 
-                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[1].flightNumner">{{trip.bookingsComboData[1].flightNumner}}</span>
+                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[1].flightNumner && !trip.bookingsComboData[1].flightNumberNew">{{trip.bookingsComboData[1].flightNumner}}</span>
+                            <span class="text-code-fly p-left-8 m-top-6 p-absolute" *ngIf="trip.bookingsComboData[1].flightNumberNew ">{{trip.bookingsComboData[1].flightNumberNew}}</span>
                           </div>
-                            <div class="div-flightto">{{ trip.bookingsComboData[0].flightTo }} <span class="m-left-4"> ({{trip.bookingsComboData[0].arrivalCode}})</span></div>
-                            <div *ngIf="trip.bookingsComboData.length >1 && trip.bookingsComboData  && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].departureTime && !trip.bookingsComboData[1].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[1].departureTime }} </div>
-                            <div *ngIf="trip.bookingsComboData.length >1 && trip.bookingsComboData  && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].departureTimeNew" class="text-time-fly">{{ trip.bookingsComboData[1].departureTimeNew }} </div>
-                            <div *ngIf="trip.bookingsComboData && trip.bookingsComboData.length ==1" class="text-time-fly">{{trip.bookingsComboData[0].arrivalTime}} </div>
-                            <div class="text-flight-datetime">{{ trip.checkOutDisplay }} </div>
+
+                          <div class="div-flightto">{{ trip.bookingsComboData[0].flightTo }} <span class="m-left-4"> ({{trip.bookingsComboData[0].arrivalCode}})</span></div>
+                          <div *ngIf="trip.bookingsComboData.length >1 && trip.bookingsComboData[1].departureTime && !trip.bookingsComboData[1].departureTimeNew && trip.bookingsComboData && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && ((trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) || (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (trip.isBookingVMBQT && trip.isTravelPort)))" class="text-time-fly">{{ trip.bookingsComboData[1].departureTime }} </div>
+                          <div *ngIf="trip.bookingsComboData.length >1 && trip.bookingsComboData[1].departureTimeNew && trip.bookingsComboData  && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && ((trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) || (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (trip.isBookingVMBQT && trip.isTravelPort)))" class="text-time-fly">{{ trip.bookingsComboData[1].departureTimeNew }} </div>
+                          <div *ngIf="trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 && trip.bookingsComboData[1].airlineName && (trip.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && !(trip.isBookingVMBQT && trip.isTravelPort)) " class="text-time-fly">{{trip.bookingsComboData[0].arrivalTime}} </div>
+                          <div *ngIf="trip.bookingsComboData && trip.bookingsComboData.length ==1" class="text-time-fly-1">{{trip.bookingsComboData[0].arrivalTime}} </div>
+                          <div class="text-flight-datetime">{{ trip.checkOutDisplay }} </div>
                             
-
-                            <!-- <div class="div-logo div-width-100" *ngIf="trip.bookingsComboData && trip.bookingsComboData.length >1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(trip.bookingsComboData[1].trip_Code) == -1 ">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'vietjetair'" src="./assets/ic_airticket/ic_vietjet_b.png">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
-                              <img class="img-logo logo_vna" *ngIf="trip.bookingsComboData[1] && trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[1] &&  trip.bookingsComboData[1].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
-
-                              <span class="text-fn p-left-8 m-top-6 text-small p-absolute" *ngIf="trip.bookingsComboData[1].flightNumner">{{trip.bookingsComboData[1].flightNumner}} - {{trip.bookingsComboData[1].departureTime}}</span>
-                            </div> -->
-
-                            <!-- <div class="div-logo div-width-100" *ngIf="trip.bookingsComboData && trip.bookingsComboData.length ==1">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[0] && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietjetair'" src="./assets/ic_airticket/ic_vietjet_b.png">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[0] && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'jetstar'" src="./assets/ic_airticket/ic_jetstar_b.png">
-                              <img class="img-logo logo_vna" *ngIf="trip.bookingsComboData[0] && trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'vietnamairlines'"src="./assets/ic_airticket/logo_vna.png">
-                              <img class="img-logo" *ngIf="trip.bookingsComboData[0] &&  trip.bookingsComboData[0].airlineName.trim().replace(' ','').toLowerCase() == 'bambooairways'" src="./assets/ic_airticket/ic_bamboo_b.png">
-
-                              <span class="text-fn p-left-8 m-top-6 text-small p-absolute" *ngIf="trip.bookingsComboData[0].flightNumner">{{trip.bookingsComboData[0].flightNumner}} - {{trip.bookingsComboData[0].arrivalTime}}</span>
-                            </div> -->
                         </div>
                     </div>
                   </div>

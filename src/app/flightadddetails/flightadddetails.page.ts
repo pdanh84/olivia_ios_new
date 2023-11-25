@@ -1107,6 +1107,11 @@ export class FlightadddetailsPage implements OnInit {
                                 return;
                               }
                               let departdatestring = moment(departdate).format('DD-MM-YYYY');
+                              if(departdatestring == '01-01-0001'){
+                                se.gf.showToastWarning("Đã có lỗi xảy ra. Vui lòng chọn lại vé!");
+                                se.navCtrl.navigateBack('/tabs/tab1');
+                                return;
+                              }
                               //Check độ tuổi trẻ em > 2
                               if(!elementChild.isInfant && moment(departdate).diff(moment(elementChild.dateofbirth).format('YYYY-MM-DD'), 'months') < 24){
                                 elementChild.errorDateofbirth = true;

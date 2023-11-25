@@ -81,8 +81,12 @@ export class HomeTicketSlidePage implements OnInit {
           se.slideData[index].experienceHomeModelsDisplay = [];
           for (let j = 0; j < se.slideData[index].experienceHomeModels.length; j++) {
             const elementVVC = se.slideData[index].experienceHomeModels[j];
-            if(elementVVC.avgPoint && elementVVC.avgPoint.toString().indexOf('.0') == -1 && (elementVVC.avgPoint == 10  || elementVVC.avgPoint == 6  || elementVVC.avgPoint == 9  || elementVVC.avgPoint == 8  || elementVVC.avgPoint == 7)){
-              elementVVC.avgPoint = elementVVC.avgPoint + ".0";
+            if(elementVVC.avgPoint){
+              elementVVC.avgPoint = elementVVC.avgPoint.toString().replace(/\./g,',');
+            }
+           
+            if(elementVVC.avgPoint && elementVVC.avgPoint.toString().indexOf(',0') == -1 && (elementVVC.avgPoint == 10  || elementVVC.avgPoint == 6  || elementVVC.avgPoint == 9  || elementVVC.avgPoint == 8  || elementVVC.avgPoint == 7)){
+              elementVVC.avgPoint = elementVVC.avgPoint + ",0";
             }
             if(elementVVC.avatarLink && elementVVC.avatarLink.indexOf('cdn') != -1 && elementVVC.avatarLink.indexOf('360x240') ==-1 && elementVVC.avatarLink.indexOf('.webp') != -1){
               elementVVC.avatarLink = elementVVC.avatarLink.replace('.webp', '-360x240.webp');

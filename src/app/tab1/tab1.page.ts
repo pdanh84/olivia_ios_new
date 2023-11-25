@@ -228,6 +228,9 @@ export class Tab1Page implements OnInit {
         SplashScreen.hide();
       },100)
       
+      if($('app-tabs') && $('app-tabs').length>1 && $('app-tabs')[0] && $('app-tabs')[0].classList.value.indexOf('ion-page-hidden') != -1){
+        $($('app-tabs')[0]).remove();
+      }
    
     
     this.getCalendarholidays();
@@ -3234,6 +3237,15 @@ export class Tab1Page implements OnInit {
                   divnotch[dindex].classList.add('cls-visible');
                 }
                 
+              }
+              else if(el.length >0 && el[1] && !el[1].classList.contains("cls-topdeal-float")){
+                for (let index = 0; index < el.length; index++) {
+                  el[index].classList.add('cls-topdeal-float');
+                }
+                for (let dindex = 0; dindex < divnotch.length; dindex++) {
+                  divnotch[dindex].classList.remove('cls-disabled');
+                  divnotch[dindex].classList.add('cls-visible');
+                }
               }
               if(el1 && el1[0] && el1[0].classList.contains("cls-topdeal-float")){
                 for (let index = 0; index < el1.length; index++) {

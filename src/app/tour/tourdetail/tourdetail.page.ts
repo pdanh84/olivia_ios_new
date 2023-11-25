@@ -114,8 +114,14 @@ export class TourDetailPage {
               if (data.reviews && data.reviews.length > 0) {
                 this.zone.run(() => {
                   this.totalReview = data.loaded;
-                  this.AvgPoint = (data.reviews.reduce((total, b) => { return total + (b.ReviewPoint * 1 || 0); }, 0) / data.loaded).toFixed(1);
+                  this.AvgPoint = (data.reviews.reduce((total, b) => { return total + (b.ReviewPoint * 1 || 0); }, 0) / data.loaded).toFixed(1).replace(/\./g,',');
                   this.tourReviews = data.reviews;
+                  this.tourReviews.forEach((r)=>{
+                    if(r.ReviewPoint){
+                      r.ReviewPoint = r.ReviewPoint.replace(/\./g,',');
+                    }
+                    
+                  })
                 })
 
 
@@ -126,7 +132,7 @@ export class TourDetailPage {
           })
         }
         if (this.itemDetail.AvgPoint && (this.itemDetail.AvgPoint.toString().length == 1 || this.itemDetail.AvgPoint === 10)) {
-          this.itemDetail.AvgPoint = this.itemDetail.AvgPoint + ".0";
+          this.itemDetail.AvgPoint = this.itemDetail.AvgPoint + ",0";
         }
       } else {
         this.gf.showAlertMessageOnly('Sản phẩm đang được cập nhật, Quý khách vui lòng chọn thông báo khác!');

@@ -125,7 +125,7 @@
         }
         .div-icon {
             position: absolute;
-            top: 24px;
+            top: 48px;
             width: 100%;
             z-index: 1;
 
@@ -133,7 +133,7 @@
               background-color: rgba(0, 0, 0, 0.25);
               border-radius: 50%;
               margin-left: 8px;
-              width: 48px;
+              width: 56px;
             }
 
             .div-icon-share, .div-icon-like {
@@ -157,7 +157,6 @@
             right: 8px;
             padding: 4px 10px;
             border-radius: 16px;
-            width: 50px;
             text-align: center;
             border: solid 0.5px rgba(255, 255, 255, 0.5);
             background-color: rgba(0, 0, 0, 0.5);
@@ -338,6 +337,7 @@
         margin: 10px 0 16px 0;
       }
       .div-btn-point {
+        padding: 4px 6px;
         border-radius: 4px;
         background-color: #9fc43a;
         color: #fff;
@@ -429,8 +429,8 @@
 .h-22 {
   height: 22px;
 }
-.p-top-32 {
-  padding-top: 32px;
+.p-top-42 {
+  padding-top: 42px;
 }
 .float-arrow-enabled{
   visibility: visible;
@@ -461,14 +461,12 @@
     font-weight: 600;
     text-align: center;
     color: #3f3b3b;
-    height: 40px;
-
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     /* autoprefixer: ignore next */ -webkit-box-orient: vertical;
-    align-self: flex-end;
+    align-self: center;
   }
   .header-tourname-1 {
     font-size: 18px;

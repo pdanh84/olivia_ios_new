@@ -164,7 +164,6 @@ var document:any;
             this.gf.setNetworkStatus(true);
           } else {
             this.isConnected = false;
-            //
             this.gf.setNetworkStatus(false);
             this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
             this.storage.get('listmytrips').then(data => {
@@ -219,7 +218,7 @@ var document:any;
             se.foodtextorder= "";
             se.pageIndex=1;
             se.isConnected = true;
-            if (se.networkProvider.isOnline()) {
+            if (se.networkProvider && se.networkProvider.isOnline()) {
               se.getdata(null, false);
               se.getdata(null, true);
             }

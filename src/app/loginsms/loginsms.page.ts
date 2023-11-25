@@ -1,6 +1,6 @@
 import { ValueGlobal } from './../providers/book-service';
 import { ToastController, NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { C } from '../providers/constants';
 import { GlobalFunction } from '../providers/globalfunction';
 @Component({
@@ -9,7 +9,8 @@ import { GlobalFunction } from '../providers/globalfunction';
   styleUrls: ['./loginsms.page.scss'],
 })
 export class LoginsmsPage implements OnInit {
-  phone
+  phone;
+  @ViewChild('iptel') ipTel;
   constructor(private toastCtrl: ToastController, public navCtrl: NavController, public valueGlobal: ValueGlobal,
     public gf: GlobalFunction) { }
   ngOnInit() {
@@ -53,6 +54,12 @@ export class LoginsmsPage implements OnInit {
     } else {
       this.presentToastPhone();
     }
+  }
+  ionViewWillEnter() {
+    setTimeout(()=>{
+      this.ipTel.setFocus();
+    },300)
+    
   }
   async presentToastPhone() {
     let toast = await this.toastCtrl.create({
