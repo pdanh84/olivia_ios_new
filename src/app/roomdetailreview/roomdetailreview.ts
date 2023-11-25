@@ -496,7 +496,10 @@ export class RoomdetailreviewPage implements OnInit {
         }
         else
         {
-          this.PriceAvgPlusTAStr = this.roomtype.PriceAvgPlusTAStr;
+          if (this.roomtype) {
+            this.PriceAvgPlusTAStr = this.roomtype.PriceAvgPlusTAStr;
+          }
+        
           
         }
       }
@@ -517,7 +520,8 @@ export class RoomdetailreviewPage implements OnInit {
     if (this.valueGlobal.backValue == 'hotelroomdetail') {
       this.navCtrl.navigateBack('/hotelroomdetail');
     } else {
-      this.navCtrl.navigateBack('/hoteldetail/' + this.booking.HotelId);
+      // this.navCtrl.navigateBack('/hoteldetail/' + this.booking.HotelId);
+      this.navCtrl.back();
     }
 
   }
