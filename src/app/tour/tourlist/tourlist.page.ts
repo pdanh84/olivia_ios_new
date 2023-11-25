@@ -315,7 +315,9 @@ export class TourListPage implements OnInit{
 
   convertAvgPoint(element){
     if(element.AvgPoint && (element.AvgPoint.toString().length == 1 || element.AvgPoint === 10)){
-      element.AvgPoint = element.AvgPoint +".0";
+      element.AvgPoint = element.AvgPoint +",0";
+    }else{
+      element.AvgPoint = element.AvgPoint.replace(/\./g,',');
     }
   }
 

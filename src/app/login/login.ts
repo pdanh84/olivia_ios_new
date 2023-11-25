@@ -109,6 +109,7 @@ export class LoginPage implements OnInit{
 
       FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
         if(response.accessToken){
+          se.presentLoadingnotime();
           se.token = response.accessToken;
           let test = response.accessToken;
           se.storage.set('fbaccesstoken',test);
@@ -119,6 +120,9 @@ export class LoginPage implements OnInit{
       //google analytic
       se.gf.googleAnalytion('login', 'loginfacebook', '');
     } catch (error) {
+      if(se.loader){
+        se.loader.dismiss();
+      }
       alert(error);
     }
     

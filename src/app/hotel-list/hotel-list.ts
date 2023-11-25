@@ -1001,8 +1001,10 @@ export class HotelListPage implements OnInit {
             item = { Avatar: se.dataList[index].Avatar, Name: se.dataList[index].HotelName, AvgPoint: se.dataList[index].Point, SubLocation: '', Rating: se.dataList[index].Rating, HotelId: se.dataList[index].HotelId, RoomNameSubString: "", MinPriceOTAStr: se.dataList[index].MinPrice ? se.dataList[index].MinPrice.toLocaleString().replace("VND", "").trim() : "", PromotionDescriptionSubstring: "", MinPriceTAStr: se.dataList[index].MinPrice ? se.dataList[index].MinPrice.toLocaleString().replace("VND", "").trim() : "", Liked: itemlike,HasCheckPrice: false ,StyleTag: se.dataList[index].StyleTag,Facilities: se.dataList[index].Facilities, IsShowPrice: se.dataList[index].IsShowPrice, HotelLink: se.dataList[index].HotelLink, currentPage: se.page || -1};
           }
         }
-        if(item.AvgPoint == "10.0"){
+        if(item.AvgPoint == "10,0"){
           item.AvgPoint = "10";
+        }else{
+            item.AvgPoint = item.AvgPoint.replace(/\./g,',');
         }
         se.json1.push(item);
         se.nodata = false;

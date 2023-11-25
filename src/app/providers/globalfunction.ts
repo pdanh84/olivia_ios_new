@@ -3755,8 +3755,8 @@ import { App } from '@capacitor/app';
    
   }
   convertAvgPoint(element) {
-    if (element.avgPoint && (element.avgPoint.toString().length == 1 || element.avgPoint == 6 || element.avgPoint == 9 || element.avgPoint == 8 || element.avgPoint == 7)) {
-      element.avgPoint = element.avgPoint + ".0";
+    if (element.avgPoint && (element.avgPoint.toString().length == 1 || element.avgPoint == 10 || element.avgPoint == 6 || element.avgPoint == 9 || element.avgPoint == 8 || element.avgPoint == 7)) {
+      element.avgPoint = element.avgPoint + ",0";
     }
   }
 
