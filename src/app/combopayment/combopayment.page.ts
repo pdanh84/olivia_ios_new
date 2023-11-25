@@ -39,6 +39,8 @@ export class CombopaymentPage implements OnInit {
   totalPrice: any;
   sttbooking = 0;
   ischeckedDK = true;
+  cindisplay: string;
+  coutdisplay: string;
   constructor(public platform: Platform, public searchhotel: SearchHotel, public navCtrl: NavController,
     public storage: Storage, public Roomif: RoomInfo, public booking1: Booking,
     public booking: Booking, public authService: AuthService, public modalCtrl: ModalController, public loadingCtrl: LoadingController,
@@ -55,8 +57,10 @@ export class CombopaymentPage implements OnInit {
     this.Avatar = Roomif.imgHotel;
     this.Name = booking.HotelName;
     this.Address = Roomif.Address;
-    this.cin = booking.CheckInDate;
-    this.cout = booking.CheckOutDate;
+    this.cin =moment(booking.CheckInDate).format("DD-MM-YYYY");
+    this.cout = moment(booking.CheckOutDate).format("DD-MM-YYYY");
+    this.cindisplay =moment(booking.CheckInDate).format("DD-MM-YYYY");
+    this.coutdisplay = moment(booking.CheckOutDate).format("DD-MM-YYYY");
     this.dur = moment(this.cout).diff(moment(this.cin), 'days');
     this.roomnumber = this.searchhotel.roomnumber;
     this.adults = booking.Adults;

@@ -288,7 +288,11 @@ export class FlightComboAddDetailsPage implements OnInit {
             if (data) {
               se.zone.run(() => {
                 se.ischeck = false;
-                var corpInfomations=data.corpInfomations[0];
+                var corpInfomations
+                if (data.corpInfomations) {
+                  corpInfomations=data.corpInfomations[0];
+                }
+               
                 if(corpInfomations){
                   se.companyname = corpInfomations.legalName;
                   se.address = corpInfomations.address;
@@ -621,26 +625,27 @@ export class FlightComboAddDetailsPage implements OnInit {
             return;
           }
           else {
-            se.checkValidName(itempax).then((itemcheckname) => {
-              if (itemcheckname) {
-                se.showAlertInvalidName(itemcheckname);
-                return;
-              } else {
-                se.checkInValidSubNameBeforeNextStep(itempax).then((iteminvalid) => {
-                  if (!iteminvalid) {
-                    var checkappleemail = (se._email.includes("appleid") || se._email.includes("vivumember.info"));
+            var checkappleemail = (se._email.includes("appleid") || se._email.includes("vivumember.info"));
                     if (checkappleemail) {
                       se.showConfirmEmail();
                     } else {
                       se.activeStep = 2;
                     }
-                  } else {
-                    se.showAlertInvalidSubName(iteminvalid);
-                    return;
-                  }
-                })
-              }
-            })
+            // se.checkValidName(itempax).then((itemcheckname) => {
+              // if (itemcheckname) {
+              //   se.showAlertInvalidName(itemcheckname);
+              //   return;
+              // } else {
+                // se.checkInValidSubNameBeforeNextStep(itempax).then((iteminvalid) => {
+                //   if (!iteminvalid) {
+                    
+                //   } else {
+                //     se.showAlertInvalidSubName(iteminvalid);
+                //     return;
+                //   }
+                // })
+              // }
+            // })
           }
         })
       }

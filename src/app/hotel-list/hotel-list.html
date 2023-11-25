@@ -209,14 +209,17 @@
                         
                       </div>
                       <div *ngIf="msg.AvgPoint <=0" class="div-width-100"></div>
-                      <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
-                        src="./assets/imgs/ic_share_black.svg"></div>
-                      <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
-                        <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
+                      <div class="div-share">
+                        <div class="img-sharehd" (click)="share(msg)"><img style="padding-top:10px;width: 18px"
+                          src="./assets/imgs/ic_share_black.svg"></div>
+                        <div *ngIf="msg.Liked" class="div-heart m-top-5" (click)="unlikeItem(msg.HotelId)">
+                          <img src="./assets/imgs/heart-red.svg" class="cls-img-content" >
+                        </div>
+                        <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
+                          <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
+                        </div>
                       </div>
-                      <div *ngIf="!msg.Liked" class="div-heart m-top-5" (click)="likeItem(msg.HotelId)">
-                        <img src="./assets/imgs/ic_heart_b.svg" class="cls-img-content" >
-                      </div>
+                     
                     </div>
                       
                   </div>

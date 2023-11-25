@@ -59,6 +59,15 @@ export class RoomdetailreviewPage implements OnInit {
     se.ischeckpayment = se.Roomif.ischeckpayment;
     se.checkpayment = se.Roomif.payment;
     se.Avatar = se.Roomif.imgHotel;
+    const sizes = ['1024x768', '768x576', '346x260'];
+    for (let size of sizes) {
+        const normal = `${size}.webp`;
+        const replaced = `${size}-${size}.webp`;
+    
+        if (se.Avatar && se.Avatar.includes(normal) && !se.Avatar.includes(replaced)) {
+            se.Avatar = se.Avatar.replace(normal, replaced);
+        }
+    }
     se.Name = se.booking.HotelName;
     se.Address = se.Roomif.Address;
     se.cin = moment(se.gf.getCinIsoDate(se.booking.CheckInDate)).format('YYYY-MM-DD');
@@ -520,8 +529,9 @@ export class RoomdetailreviewPage implements OnInit {
     if (this.valueGlobal.backValue == 'hotelroomdetail') {
       this.navCtrl.navigateBack('/hotelroomdetail');
     } else {
-      // this.navCtrl.navigateBack('/hoteldetail/' + this.booking.HotelId);
-      this.navCtrl.back();
+      this.valueGlobal.notRefreshDetail = false;
+      this.navCtrl.navigateBack('/hoteldetail/' + this.booking.HotelId);
+      // this.navCtrl.back();
     }
 
   }
