@@ -19,7 +19,7 @@
                 margin-left:48px;height: 48px;min-height: 48px;max-width: 270px;"
                 autocomplete="on" autocorrect="true"
                 debounce="500"
-                class="input-search-bloglist" placeholder="Tìm bài viết" searchIcon="false" [(ngModel)]="textsearch" (ionClear)="cancelInput()" (ionChange)="clickSearch($event)" 
+                class="input-search-bloglist" placeholder="Tìm bài viết" searchIcon="false" [(ngModel)]="textsearch" (ionClear)="cancelInput()" (ionInput)="clickSearch($event)" 
                 ></ion-searchbar>
                 </form>
             </div>

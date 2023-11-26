@@ -21,7 +21,7 @@
                 height: 48px;min-height: 48px;"
                 autocomplete="on" autocorrect="true"
                 debounce="500"
-                class="input-blog" placeholder="Tìm bài viết" searchIcon="false" (ionClear)="cancelInput()" (ionChange)="clickSearch($event)" 
+                class="input-blog" placeholder="Tìm bài viết" searchIcon="false" (ionClear)="cancelInput()" (ionInput)="clickSearch($event)" 
                 ></ion-searchbar>
             </form>
         </div>
