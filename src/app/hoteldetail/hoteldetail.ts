@@ -2955,32 +2955,28 @@ export class HotelDetailPage implements OnInit {
     var se = this;
     se.flag = 1;
     se.isheader1 = true;
-    se.presentLoadingnotime();
+    se.presentLoadingRelated(100);
     se.zone.run(() => {
       se.HotelID = msg.Id;
       se.hotelname=msg.Name;
       se.searchhotel.isRefreshDetail = true;
       se.searchhotel.hotelID = msg.Id;
-        se.loadcomplete = false;
-        se.mealtypegrouplist = [];
-        se.hotelRoomClasses = [];
-        se.hotelRoomClassesFS = [];
-        se.ischeck = false;
+      se.loadpricecombodone = false;
+      se.loadcomplete = false;
+      se.hotelRoomClasses = [];
+      se.mealtypegrouplist = [];
+      se.ischeck = false;
       se.setCacheHotel();
+      se.presentLoading();
       se.loadTopSale24h(msg.Id);
-      se.loadHotelDetailFromItemRelate();
-
-      let el = window.document.getElementsByClassName('div-float-arrow');
-      if (el.length > 0) {
-        el[0].classList.remove('float-arrow-enabled');
-        el[0].classList.add('float-arrow-disabled');
-      }
-      if (se.loader) {
-        se.loader.dismiss();
-      }
+          let el = document.getElementsByClassName('div-float-arrow');
+          if(el.length >0){
+              el[0].classList.remove('float-arrow-enabled');
+              el[0].classList.add('float-arrow-disabled');
+            }
     })
     //google analytic
-    se.gf.googleAnalytion('hoteldetail', 'hotelrelatedclick', '');
+    se.gf.googleAnalytion('hoteldetail','hotelrelatedclick','');
   }
   // add value KH
   plusadults() {
