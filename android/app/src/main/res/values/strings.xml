@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">iVIVU.com</string>
+    <string name="title_activity_main">iVIVU.com</string>
+    <string name="package_name">iVIVU.com</string>
+    <string name="custom_url_scheme">iVIVU.com</string>
+    <string name="facebook_app_id">628025334278848</string>
+    <string name="facebook_client_token">81400e5b53b504163e707289ca2b3ecc</string>
+</resources>

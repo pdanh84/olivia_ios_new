@@ -716,7 +716,7 @@ export class CarComboPage implements OnInit {
               CompTaxCode: "",
               JsonSurchargeFee: JSON.stringify(self.JsonSurchargeFee),
               Commission: self.Commission,
-              Source: '6',
+              source: '8',
               Supplier: (self.elementMealtype.IsHoliday ? "Holiday" : (self.elementMealtype.IsVoucher ? "Voucher" : self.elementMealtype.Supplier)),
               MemberId: jti,
               UsePointPrice: pointprice,

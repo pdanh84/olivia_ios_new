@@ -31,7 +31,7 @@ import { tourService } from 'src/app/providers/tourService';
 import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
-import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
+import { FirebaseAnalytics, FirebaseInitOptions } from '@capacitor-community/firebase-analytics';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
 
 register();
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit{
       
       //codepush
       try {
-        if(this.platform.is('iphone')){
+        if(this.platform.is('android')){
           this.codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
         }
       } catch (error) {
@@ -139,7 +139,7 @@ export class AppComponent implements OnInit{
       }
      
       try {
-        if(this.platform.is('iphone')){
+        if(this.platform.is('android')){
           PushNotifications.requestPermissions().then(result => {
             if (result.receive === 'granted') {
               // Register with Apple / Google to receive push via APNS/FCM
@@ -204,7 +204,7 @@ export class AppComponent implements OnInit{
       // this.appVersion.getVersionNumber().then(version => {
       //   this.appversion=version;
       // })
-      if(this.platform.is('iphone')){
+      if(this.platform.is('android')){
         App.getInfo().then((info)=>{
           this.appversion = info.version;
         })
@@ -217,11 +217,11 @@ export class AppComponent implements OnInit{
         this.gf.setNetworkStatus(false);
         this.gf.showWarning('Không có kết nối mạng','Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng','Đóng');
       }
-      if(this.platform.is('iphone')){
-        this.createShortLink();
-        FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
+      if(this.platform.is('android')){
+        // this.createShortLink();
+        // FirebaseDynamicLinks.addListener('deepLinkOpen', (data) => {
           
-        });
+        // });
       }
       //Dynamiclink
       // this.firebaseDynamicLinks.onDynamicLink().subscribe((res:any)=>{
@@ -243,10 +243,27 @@ export class AppComponent implements OnInit{
       // })
      
       this.valueGlobal.countNotifi=0;
-      if(this.platform.is('iphone')){
-        await FirebaseAnalytics.enable();
+      if(this.platform.is('android')){
+        try {
+          await FirebaseAnalytics.enable();
+        let options: FirebaseInitOptions = {
+          apiKey: 'AIzaSyCQzf2MGU_DutboClZZC5dx4n9Ddhfdflk',
+          authDomain: 'iVIVU.com',
+          projectId: 'ivivu-9aeb4',
+          storageBucket: '',
+          messagingSenderId: '',
+          appId: '936105820400-ltcgbr12a7jh71gmmp6sb0i037g4sql1.apps.googleusercontent.com',
+          measurementId: ''
+        }
+        await FirebaseAnalytics.initializeFirebase(options);
         await FacebookLogin.setAdvertiserTrackingEnabled({enabled: true});
         await FacebookLogin.setAdvertiserIDCollectionEnabled({enabled: true});
+
+        } catch (error) {
+          
+        }
+        
+        
       }
     });
     

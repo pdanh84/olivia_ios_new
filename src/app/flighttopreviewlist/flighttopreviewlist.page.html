@@ -65,8 +65,7 @@
                 </div>
               </div>
               
-              <div class="m-top-8 div-text">
-                {{slide.replyMessage}}
+              <div class="m-top-8 div-text" [innerHTML]="slide.replyMessage">
               </div>
             </div>
             <div class="div-images" *ngIf="slide.images && slide.images.length >0" >

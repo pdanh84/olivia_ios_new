@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "936105820400",
+    "firebase_url": "https://ivivu-9aeb4.firebaseio.com",
+    "project_id": "ivivu-9aeb4",
+    "storage_bucket": "ivivu-9aeb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936105820400:android:f59954cd2634fd98",
+        "android_client_info": {
+          "package_name": "iVIVU.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936105820400-ltcgbr12a7jh71gmmp6sb0i037g4sql1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iVIVU.com",
+            "certificate_hash": "19d83a651fca89b453ef063d318dd86e99ac4bc9"
+          }
+        },
+        {
+          "client_id": "936105820400-80afpaikiol4ummmeie7vl82fm8lhs94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iVIVU.com",
+            "certificate_hash": "4754e46061f224139bfcc074520d6986a82eef54"
+          }
+        },
+        {
+          "client_id": "936105820400-8mdceaj9hffii1g64dsv2494etbtq5ud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQzf2MGU_DutboClZZC5dx4n9Ddhfdflk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936105820400-8mdceaj9hffii1g64dsv2494etbtq5ud.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "936105820400-6hh4r5l1qgvkjkua746j4c2ceaag91t4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "iVIVU.com",
+                "app_store_id": "1464844301"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

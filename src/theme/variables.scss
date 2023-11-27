@@ -1,14 +1,9 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-$font-path: "../assets/fonts";
-@font-face {
-  font-family: 'SF-Pro-Text-Regular';
-  src: url(../assets/fonts/SF-Pro-Text-Regular.otf);
-}
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-font-family: "SF-Pro-Text-Regular";
+  --ion-font-family: "Roboto-Regular, Roboto";
   --ion-text-color: #222222;
   --ion-color-primary: #26bed6;
   --ion-color-primary-rgb: 56, 128, 255;

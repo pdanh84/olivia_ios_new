@@ -2955,7 +2955,7 @@ export class Tab1Page implements OnInit {
 
   ionViewWillEnter() {
     this.isConnected = this.networkProvider.isOnline();
-    if(this.platform.is('android') || this.platform.is('iphone')){
+    if(this.platform.is('android') || this.platform.is('android')){
     FCM.getToken().then(token => {
           this.storage.get('checktoken').then(checktoken => {
             if (!checktoken) {

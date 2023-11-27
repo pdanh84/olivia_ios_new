@@ -244,7 +244,16 @@ ion-header ion-toolbar:first-child {
     //////////
 
     ::ng-deep{
-        .action-sheets-notification .action-sheet-container.sc-ion-action-sheet-ios{
+      .alert-session-confirm .alert-button-group.sc-ion-alert-md, .alert-button-group.sc-ion-alert-md{
+        flex-wrap: inherit;
+      }
+  
+      .alert-session-confirm .alert-button.sc-ion-alert-md {
+        padding-right: 0;
+        width: 100%;
+      }
+
+        .action-sheets-notification .action-sheet-container.sc-ion-action-sheet-ios, .action-sheet-container.sc-ion-action-sheet-md{
           justify-content: flex-start;
           margin-top: calc(env(safe-area-inset-top));
           -webkit-padding-start: 8px;
@@ -253,7 +262,7 @@ ion-header ion-toolbar:first-child {
           padding-inline-end: 8px;
         }
         
-        .action-sheets-notification .action-sheet-title.sc-ion-action-sheet-ios{
+        .action-sheets-notification .action-sheet-title.sc-ion-action-sheet-ios,.action-sheet-title.sc-ion-action-sheet-md{
           background-color: #ffffff;
           background-position: unset;
           text-align: left;
@@ -264,7 +273,7 @@ ion-header ion-toolbar:first-child {
           padding-left: 44px;
           font-size: 14px;
         }
-        .action-sheets-notification .action-sheet-button-inner.sc-ion-action-sheet-ios{
+        .action-sheets-notification .action-sheet-button-inner.sc-ion-action-sheet-ios,.action-sheet-button-inner.sc-ion-action-sheet-md{
           color: #000000;
           font-size: 14px;
         }
@@ -278,7 +287,28 @@ ion-header ion-toolbar:first-child {
           left: 8px;
           margin-top: 13px ;
         }
+        .ic_bus2 .action-sheet-group.sc-ion-action-sheet-md::before{
+          float: left;
+          content: url('../src/assets/imgs/ic_bus2.svg');
+          padding-top: 0px;
+          margin-left: 10px;
+          margin-right: 10px;
+          position: absolute;
+          left: 8px;
+          margin-top: 13px ;
+        }
         .ic_home .action-sheet-group.sc-ion-action-sheet-ios::before{
+          float: left;
+          content: url('../src/assets/imgs/ic_home.svg');
+          padding-top: 0px;
+          margin-left: 10px;
+          margin-right: 10px;
+          position: absolute;
+          left: 8px;
+          margin-top: 13px ;
+          //top:13px;
+        }
+        .ic_home .action-sheet-group.sc-ion-action-sheet-md::before{
           float: left;
           content: url('../src/assets/imgs/ic_home.svg');
           padding-top: 0px;
@@ -1207,7 +1237,7 @@ height: 12px !important;
   }
 
   .cls-topdeal-float{
-    top: calc(env(safe-area-inset-top) - 22px) !important;
+    //top: calc(env(safe-area-inset-top) - 22px) !important;
     padding-top: 19px !important;
     height: 68px !important;
   }

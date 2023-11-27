@@ -600,10 +600,10 @@ export class FlightSearchResultInternationalPage implements OnInit {
         let selectFlightURL ="";
         if(obj.roundTrip){
           selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-          selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+objdepart.ticketType+'&returnTicketType=' +objreturn.ticketType+'&Source=6&memberId=' +se.jti;
+          selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+objdepart.ticketType+'&returnTicketType=' +objreturn.ticketType+'&source=8&memberId=' +se.jti;
         }else{
           selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-          selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+objdepart.ticketType+"&returnTicketType=''"+'&Source=6&memberId=' +se.jti;
+          selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+objdepart.ticketType+"&returnTicketType=''"+'&source=8&memberId=' +se.jti;
         }
          
 
@@ -2550,7 +2550,7 @@ export class FlightSearchResultInternationalPage implements OnInit {
           FareId: item.fare.key,
           ReturnId: itemr && itemr.length >0 ? itemr[0].id : '',
           SessionId: item.sessions,
-          Source: 6
+          source: 8
         }
          
 
@@ -2618,10 +2618,10 @@ export class FlightSearchResultInternationalPage implements OnInit {
           let selectFlightURL ="";
           if(obj.roundTrip){
             selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-            selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+(objdepart.airlineCode == "VietJetAir" ? objdepart.ticketType : objdepart.ticketClass)+'&returnTicketType=' +(objreturn.airlineCode == "VietJetAir" ? objreturn.ticketType: (objreturn.ticketClass||objreturn.ticketType))+'&Source=6&memberId=' +se.jti;
+            selectFlightURL +='&departFlightId='+objdepart.id+'&returnFlightId='+objreturn.id+'&departTicketType='+(objdepart.airlineCode == "VietJetAir" ? objdepart.ticketType : objdepart.ticketClass)+'&returnTicketType=' +(objreturn.airlineCode == "VietJetAir" ? objreturn.ticketType: (objreturn.ticketClass||objreturn.ticketType))+'&source=8&memberId=' +se.jti;
           }else{
             selectFlightURL = C.urls.baseUrl.urlFlight +'gate/apiv1/InitBooking?token=Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09&from='+ obj.departCode +'&to='+obj.arrivalCode+'&departdate='+ obj.departDate +'&returndate='+ obj.returnDate +'&adult='+ obj.adult+'&child='+ obj.child+'&infant='+ obj.infant+'&flighttype='+flighttype;
-            selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+(objdepart.airlineCode == "VietJetAir" ? objdepart.ticketType : objdepart.ticketClass)+"&returnTicketType=''"+'&Source=6&memberId=' +se.jti;
+            selectFlightURL +='&departFlightId='+objdepart.id+"&returnFlightId=''&departTicketType="+(objdepart.airlineCode == "VietJetAir" ? objdepart.ticketType : objdepart.ticketClass)+"&returnTicketType=''"+'&source=8&memberId=' +se.jti;
           }
            
   

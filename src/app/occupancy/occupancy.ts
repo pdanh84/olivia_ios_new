@@ -237,7 +237,7 @@ export class OccupancyPage implements OnInit {
       ],
     });
 
-    $('.picker-wrapper.sc-ion-picker-ios').append('<div class="div-button"><button (click)="getPickerValue()" ion-button round outline class="button button-done">Xong</button></div>');
+    $('.picker-wrapper.sc-ion-picker-md').append('<div class="div-button"><button (click)="getPickerValue()" ion-button round outline class="button button-done">Xong</button></div>');
     $('.action-sheets-select-age .button-done').on('click', ()=>{
       let value = $('.picker-opt.picker-opt-selected')[0].innerText;
       se.selectclick(value, item.text);

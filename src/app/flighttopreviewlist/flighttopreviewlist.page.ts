@@ -57,6 +57,10 @@ export class FlightTopReviewListPage implements OnInit {
                 if(element.replyDate){
                   element.replyDateDisplay = moment(element.replyDate).format("DD/MM/YYYY");
                 }
+                
+                if(element.replyMessage){
+                  element.replyMessage = element.replyMessage.replace(/\r\n/g, "<br/>");
+                }
               });
 
             this.valueGlobal.flightAvgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
@@ -113,7 +117,7 @@ export class FlightTopReviewListPage implements OnInit {
                   this.listImages = Array.prototype.concat.apply([], _images);
                 }
                 
-               console.log(this.listImages);
+               //console.log(this.listImages);
               }
             })
     }

@@ -570,7 +570,7 @@ export class RoompaymentselectPage implements OnInit {
         HotelID: this.booking.HotelId,
         paymentMethod: paymentMethod,
         note: this.Roomif.notetotal,
-        Source: '6',
+        source: '8',
         MemberToken: this.auth_token,
         Customers: this.Roomif.arrcustomer,
         UsePointPrice: this.Roomif.pricepoint,

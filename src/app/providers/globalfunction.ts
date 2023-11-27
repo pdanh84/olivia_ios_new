@@ -84,7 +84,7 @@ import { App } from '@capacitor/app';
           }
           
           public googleAnalytion(viewName,action,options ){
-            if(this.platform.is('android') || this.platform.is('iphone')){
+            if(this.platform.is('android') || this.platform.is('android')){
                 if(C.ENV == "prod"){
                     this.platform.ready().then(() => {
                       if(action != "screen_view"){
@@ -107,7 +107,7 @@ import { App } from '@capacitor/app';
           }
           
           public googleAnalytionCustom(action,params, type? ){
-            if(this.platform.is('android') || this.platform.is('iphone')){
+            if(this.platform.is('android') || this.platform.is('android')){
               if(C.ENV == "prod" || C.ENV == "release"){
                   this.platform.ready().then(() => {
                     FirebaseAnalytics.logEvent({name: action, params: params})
@@ -117,7 +117,7 @@ import { App } from '@capacitor/app';
                 }
                 // else if(C.ENV == "dev") {
                 //   this.platform.ready().then(() => {
-                //     if(this.platform.is('android') || this.platform.is('iphone')){
+                //     if(this.platform.is('android') || this.platform.is('android')){
                 //       this.fba.logEvent(action, params)
                 //       .then((res: any) => {console.log('test');})
                 //       .catch((error: any) => console.log(error));
@@ -130,7 +130,7 @@ import { App } from '@capacitor/app';
       
         public gaSetScreenName(_screenName){
           this.platform.ready().then(() => {
-            if(this.platform.is('android') || this.platform.is('iphone')){
+            if(this.platform.is('android') || this.platform.is('android')){
               FirebaseAnalytics.setScreenName({screenName: _screenName, nameOverride: _screenName})
                       .catch((error: any) => console.error(error));
                 }
@@ -175,7 +175,7 @@ import { App } from '@capacitor/app';
       
       
         public logEventFirebase(paymentType, itemcache, screenName, viewAction, category){
-          if(this.platform.is('android') || this.platform.is('iphone')){
+          if(this.platform.is('android') || this.platform.is('android')){
           if(category == 'Flights'){
             //this.gaSetScreenName("/ve-may-bay/"+itemcache.departCode+"-di-"+itemcache.returnCode);
             FirebaseAnalytics.logEvent({name: 'screen_view', params: {
@@ -821,7 +821,7 @@ import { App } from '@capacitor/app';
           }
           
        
-            let body = { tokenId: devicetoken, appVersion: appversion ? appversion?.toString().replace(/\./g, '') : '352',source:6 };
+            let body = { tokenId: devicetoken, appVersion: appversion ? appversion?.toString().replace(/\./g, '') : '352',source: 8 };
          
             this.RequestApi('POST', strUrl, headers, body, 'globalfunction', 'pushTokenAndMemberID').then((data)=>{
             })

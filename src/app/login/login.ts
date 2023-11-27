@@ -15,11 +15,6 @@ import {FCM} from '@capacitor-community/fcm';
 import { SearchHotel, ValueGlobal } from '../providers/book-service';
 import { flightService } from '../providers/flightService';
 import { HttpClient } from '@angular/common/http';
-import {
-  SignInWithApple,
-  SignInWithAppleResponse,
-  SignInWithAppleOptions,
-} from '@capacitor-community/apple-sign-in';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
@@ -658,50 +653,6 @@ getToken() {
     else {
       return false;
     }
-  }
-
-  loginapple(){
-    var se = this;
-    let options: SignInWithAppleOptions = {
-      clientId: 'com.ivivu.oliviaapp2019',
-      redirectURI: '/',
-    };
-    // se.signInWithApple.signin({
-    //   requestedScopes: [
-    //     ASAuthorizationAppleIDRequest.ASAuthorizationScopeFullName,
-    //     ASAuthorizationAppleIDRequest.ASAuthorizationScopeEmail
-    //   ]
-    // })
-    try {
-      SignInWithApple.authorize(options)
-    .then((response: SignInWithAppleResponse) => {
-      console.log(response);
-      if (response && response.response) {
-        //THEM email appid tra ve
-        //var decoded = jwt_decode(res.identityToken);
-        let res = response.response;
-        var objAppid = {
-          "identityToken":  res.identityToken,
-          "authorizationCode":res.authorizationCode
-        }
-        se.storage.set("objAppid", objAppid);
-        
-        se.storage.set("email", res.email);
-        se.postDataApple(res);
-      } 
-    })
-    } catch (error) {
-      alert('Đã có lỗi xảy ra. Vui lòng nâng cấp phiên bản IOS để sử dụng chức năng này!');
-    }
-    
-    // .catch((error: SignInWithAppleResponse) => {
-    //   if(!error.response){
-    //     alert('Đã có lỗi xảy ra. Vui lòng nâng cấp phiên bản IOS để sử dụng chức năng này!');
-    //   }else{
-    //     console.log(error)
-    //   }
-      
-    // });
   }
 
   postDataApple(res) {

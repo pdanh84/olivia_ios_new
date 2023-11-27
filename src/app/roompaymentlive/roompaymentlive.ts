@@ -135,7 +135,7 @@ export class RoompaymentlivePage implements OnInit {
       HotelID: se.booking.HotelId,
       paymentMethod: "51",
       note: se.Roomif.notetotal,
-      Source: '6',
+      source: '8',
       MemberToken: se.auth_token,
       CustomersStr: JSON.stringify(se.Roomif.arrcustomer),
       UsePointPrice: se.Roomif.pricepoint,

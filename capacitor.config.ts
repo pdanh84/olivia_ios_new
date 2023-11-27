@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ivivu.oliviaapp2019',
+  appId: 'iVIVU.com',
   appName: 'iVIVU.com',
   webDir: 'www',
   server: {

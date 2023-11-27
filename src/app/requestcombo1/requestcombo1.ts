@@ -198,7 +198,7 @@ export class RequestCombo1Page implements OnInit {
           employeeKey: '',
           TPDepartTime: transportDepartTime,
           TPReturnTime: transportReturnTime,
-          Source: 6,
+          source: 8,
         });
         urlstr = C.urls.baseUrl.urlContracting + '/gui-yeu-cau-gia-deal-fs';
       }

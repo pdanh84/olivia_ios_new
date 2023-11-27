@@ -286,7 +286,7 @@ export class RequestComboPage implements OnInit{
             Markup: "0",
             Username: 'kmudivivu',
             employeeKey: '',
-            Source: 6,
+            source: 8,
             RequestPromotion: this.strPromoCode
             });
 
@@ -315,7 +315,7 @@ export class RequestComboPage implements OnInit{
             Markup: "0",
             Username: 'kmudivivu',
             employeeKey: '',
-            Source: 6,
+            source: 8,
             RequestPromotion: this.strPromoCode
           });
        
