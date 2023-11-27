@@ -28,7 +28,7 @@
 
       <div class="d-flex">
         <div [ngClass]="(m.errorGender || m.errorInfo)? 'div-left cls-error' : 'div-left'" (click)="selectAdultGender(m)" (blur)="checkInput(m, 1, true)">
-          <div [ngClass]="!m.genderdisplay ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+          <div [ngClass]="!m.genderdisplay ? 'sub-label label-absolute' : 'sub-label label-absolute cls-gender-transition'">
             <ion-label class="sub-label">Danh xưng</ion-label>
           </div>
           <div class="text-gender" *ngIf="m.genderdisplay">{{m.genderdisplay}}</div>
@@ -39,7 +39,7 @@
         </div>
         <div [ngClass]="(m.errorName || m.errorSubName || m.errorInfo) ? 'div-right cls-error' : 'div-right'">
           <ion-label
-            [ngClass]="!m.hoten ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+            [ngClass]="!m.hoten ? 'sub-label label-absolute' : 'sub-label label-absolute cls-gender-transition'">
             Họ và tên đầy đủ</ion-label>
           <ion-input class="cls-input-custom" type="text"  [(ngModel)]="m.hoten" required (ionBlur)="inputLostFocus(m, true)" (ionInput)="inputFocus(m, $event)" (ionFocus)="inputOnFocus(m, 2)">
           </ion-input>
@@ -106,7 +106,7 @@
 
         <div class="d-flex">
           <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-left cls-error' : 'div-left '" (click)="selectGender(itemChild)"  (blur)="checkInput(itemChild, 1, false)">
-            <div [ngClass]="!itemChild.genderdisplay ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+            <div [ngClass]="!itemChild.genderdisplay ? 'sub-label label-absolute' : 'sub-label label-absolute cls-gender-transition'">
               <ion-label class="sub-label">Danh xưng</ion-label>
             </div>
             <div class="text-gender" *ngIf="itemChild.genderdisplay">{{itemChild.genderdisplay}}</div>
@@ -117,7 +117,7 @@
           </div>
           <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
             <ion-label
-              [ngClass]="!itemChild.hoten ? 'sub-label m-top-10 label-absolute' : 'sub-label m-top-10 label-absolute cls-gender-transition'">
+              [ngClass]="!itemChild.hoten ? 'sub-label label-absolute' : 'sub-label label-absolute cls-gender-transition'">
               Họ và tên đầy đủ</ion-label>
             <ion-input class="cls-input-custom" [(ngModel)]="itemChild.hoten"
               type="text" (ionBlur)="inputLostFocus(itemChild, false)" (ionInput)="inputFocus(itemChild, $event)" (ionFocus)="inputOnFocus(itemChild, 2)" required></ion-input>
@@ -250,7 +250,7 @@
         </ion-row>
         <div style="margin-left: 5px;margin-top: 10px">
           <ion-checkbox (ionChange)="showNameMail($event)" [value]="ishideNameMail" class="ion-checkbox" color="secondary"></ion-checkbox>
-          <ion-label class="label-input" >Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
+          <ion-label class="label-input m-left-8">Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
         </div>
         <div *ngIf="!ishideNameMail">
           <ion-col size="12">

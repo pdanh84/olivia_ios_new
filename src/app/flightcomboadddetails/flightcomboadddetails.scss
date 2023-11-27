@@ -121,7 +121,6 @@
         }
     
         .cls-gender-transition{
-            top: 0px;
             transition: top 0.1s ease-out;
         }
         .div-right{
@@ -155,7 +154,7 @@
     
         .text-gender{
             letter-spacing: -0.34px;
-            margin-top: 24px;
+            margin-top: 45px;
             font-weight: 300;
             color: #222222;
         }
@@ -165,7 +164,7 @@
         .div-icon-down{
             position: absolute;
             right: 0;
-            bottom: 3px;
+            bottom: 12px;
         }
         .cls-input-custom{
             margin-top: 21px;
@@ -179,12 +178,16 @@
             margin-bottom: 16px;
         }
         ::ng-deep{
+            .cls-input-custom .native-wrapper.sc-ion-input-md
+            {
+                margin-top: 10px;
+            }
             .cls-input-custom .native-input.sc-ion-input-ios{
                 padding: 0;
                 line-height: 28px;
                 font-size: 14px;
             }
-        
+ 
             .text-bold .sc-ion-action-sheet-ios{
                 font-weight: 600 !important;
             }

@@ -713,13 +713,17 @@ export class FlightComboReviewsPage implements OnInit {
     var se = this;
     if (element && !element.MSGCode) {
       // Giá nhà cung cấp
-      se.TravPaxPrices = element.MealTypeRates[index].PriceAvgPlusNet * se.roomnumber * se.TotalNight;
+      if (element && element.MealTypeRates[index]) {
+        se.TravPaxPrices = element.MealTypeRates[index].PriceAvgPlusNet * se.roomnumber * se.TotalNight;
+        se.roomclass = element;
+        se.elementMealtype = element.MealTypeRates[index];
+        se.bookCombo.mealTypeRates = element.MealTypeRates[index];
+        se.breakfast= element.MealTypeRates[index].Name;
+        se.statusRoom=element.MealTypeRates[index].Status;
+      }
+     
 
-      se.roomclass = element;
-      se.elementMealtype = element.MealTypeRates[index];
-      se.bookCombo.mealTypeRates = element.MealTypeRates[index];
-      se.breakfast= element.MealTypeRates[index].Name;
-      se.statusRoom=element.MealTypeRates[index].Status;
+     
       this.index=index;
       se.AdultCombo = element.Rooms[0].IncludeAdults * se.elementMealtype.TotalRoom;
       se.AdultCombo = se.AdultCombo > se.totalAdult ? se.totalAdult : se.AdultCombo;
@@ -1562,7 +1566,7 @@ export class FlightComboReviewsPage implements OnInit {
                 CompanyContactName:"",
                 JsonSurchargeFee: JSON.stringify(this.JsonSurchargeFee),
                 Commission: this.Commission,
-                source: '8',
+                Source: '6',
                 Supplier: (this.elementMealtype.IsHoliday ? "Holiday" : (this.elementMealtype.IsVoucher ? "Voucher" : this.elementMealtype.Supplier)),
                 MemberId: jti,
                 UsePointPrice: pointprice,
@@ -1684,7 +1688,7 @@ export class FlightComboReviewsPage implements OnInit {
               CompTaxCode: "",
               JsonSurchargeFee: JSON.stringify(this.JsonSurchargeFee),
               Commission: this.Commission,
-              source: '8',
+              Source: '6',
               Supplier: (this.elementMealtype.IsHoliday ? "Holiday" : (this.elementMealtype.IsVoucher ? "Voucher" : this.elementMealtype.Supplier)),
               MemberId: jti,
               UsePointPrice: pointprice,
@@ -1804,7 +1808,7 @@ export class FlightComboReviewsPage implements OnInit {
                 CompTaxCode: "",
                 JsonSurchargeFee: JSON.stringify(this.JsonSurchargeFee),
                 Commission: this.Commission,
-                source: '8',
+                Source: '6',
                 Supplier: (this.elementMealtype.IsHoliday ? "Holiday" : (this.elementMealtype.IsVoucher ? "Voucher" : this.elementMealtype.Supplier)),
                 MemberId: jti,
                 UsePointPrice: pointprice,
@@ -1908,7 +1912,7 @@ export class FlightComboReviewsPage implements OnInit {
 
   initFlightBooking(objFlight): Promise<any> {
     var se = this;
-    se.presentLoading();
+    // se.presentLoading();
     return new Promise((resolve, reject) => {
       objFlight.InitFlight = true;
       var settings = {
