@@ -62,9 +62,11 @@ export class FlightTopReviewListPage implements OnInit {
                   element.replyMessage = element.replyMessage.replace(/\r\n/g, "<br/>");
                 }
               });
-
-            this.valueGlobal.flightAvgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
-            this.avgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+              if(data.avgPoint){
+                this.valueGlobal.flightAvgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+                this.avgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+              }
+            
             this.numOfReview = this.gf.convertNumberToString(data.total);
             if(this.listflighttopreview && this.listflighttopreview.length ==0){
               this.listflighttopreview = data.reviews;

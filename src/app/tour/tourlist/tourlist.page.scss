@@ -1,6 +1,9 @@
 .cls-header-tourlist {
   box-shadow: none !important;
   margin-top: 10px;
+  .cls-toolbar-tourlist {
+    height: 56px;
+  }
   .img-sort{
     height: 40px; padding: 12px;right: -3px;
   }

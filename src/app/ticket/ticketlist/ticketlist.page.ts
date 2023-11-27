@@ -179,8 +179,8 @@ export class TicketListPage implements OnInit {
   convertAvgPoint(element) {
     if (element.avgPoint && (element.avgPoint.toString().length == 1 || element.avgPoint == 10 || element.avgPoint == 6 || element.avgPoint == 9 || element.avgPoint == 8 || element.avgPoint == 7)) {
       element.avgPoint = element.avgPoint + ",0";
-    }else{
-        element.avgPoint = element.avgPoint.replace(/\./g,',');
+    }else if(element.avgPoint){
+        element.avgPoint = element.avgPoint.toString().replace(/\./g,',');
     }
   }
 
