@@ -845,7 +845,7 @@ import { App } from '@capacitor/app';
       
       async getAppVersion() {
       let info = await  App.getInfo();
-        return info.version.replace(/\./g, '');
+        return info.version;
       }
       
         /**
@@ -3983,6 +3983,30 @@ import { App } from '@capacitor/app';
           }
       })
     })
+  }
+
+  GetUserInfo():Promise<any> {
+    var se = this;
+    return new Promise((resolve, reject) => {
+      se.storage.get('auth_token').then(auth_token => {
+        if (auth_token) {
+          var text = "Bearer " + auth_token;
+          let headers =
+            {
+              'cache-control': 'no-cache',
+              'content-type': 'application/json',
+              authorization: text
+            };
+            let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
+            this.RequestApi('GET', strUrl, headers, {}, 'globalFunction', 'GetUserInfo').then((data)=>{
+            resolve(data);
+          });
+        }else {
+          resolve(false);
+        }
+      })
+    })
+    
   }
 }
      

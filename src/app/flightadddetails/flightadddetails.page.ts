@@ -110,6 +110,14 @@ export class FlightadddetailsPage implements OnInit {
     private router: Router,
     public _voucherService: voucherService,
     private _clipboard: Clipboard) {
+      this.storage.get('auth_token').then(auth_token => {
+        this.loginuser = auth_token;
+        if(auth_token){
+          this.GetUserInfo(auth_token);
+        }
+      
+      });
+
       this.platform.resume.subscribe(async()=>{
         if(!this._flightService.itemFlightCache){
           this._flightService.itemTabFlightActive.emit(true);
@@ -231,22 +239,22 @@ export class FlightadddetailsPage implements OnInit {
       })
 
       if(this._flightService.itemFlightCache){
-        let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice + (this._flightService.itemFlightCache.returnFlight ? this._flightService.itemFlightCache.returnFlight.totalPrice : 0);
-        if(this._flightService.itemFlightCache.HotelCityMealtypeSelected && this._flightService.itemFlightCache.itemsFlightCityHotel.length >0){
-          //check lại xem có mealtype nào đang chọn không
-          let check = false;
-          for (let index = 0; index < this._flightService.itemFlightCache.itemsFlightCityHotel.length; index++) {
-            const element = this._flightService.itemFlightCache.itemsFlightCityHotel[index];
-            if(element.checkaddhotel){
-              check = true;
-            }
-            
+let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice + (this._flightService.itemFlightCache.returnFlight ? this._flightService.itemFlightCache.returnFlight.totalPrice : 0);
+      if(this._flightService.itemFlightCache.HotelCityMealtypeSelected && this._flightService.itemFlightCache.itemsFlightCityHotel.length >0){
+        //check lại xem có mealtype nào đang chọn không
+        let check = false;
+        for (let index = 0; index < this._flightService.itemFlightCache.itemsFlightCityHotel.length; index++) {
+          const element = this._flightService.itemFlightCache.itemsFlightCityHotel[index];
+          if(element.checkaddhotel){
+            check = true;
           }
-          if(check){
-            totalprice+= this._flightService.itemFlightCache.HotelCityMealtypeSelected.PriceAvgPlusOTA;
-          }
+          
         }
-        this.totalPriceDisplay = this.gf.convertNumberToString(totalprice);
+        if(check){
+          totalprice+= this._flightService.itemFlightCache.HotelCityMealtypeSelected.PriceAvgPlusOTA;
+        }
+      }
+      this.totalPriceDisplay = this.gf.convertNumberToString(totalprice);
       }
       
       
@@ -266,6 +274,9 @@ export class FlightadddetailsPage implements OnInit {
                   se.ischeck = false;
                   if(data.email){
                     se.email = data.email;
+                  }
+                  if(data.gender != null){
+                    se.gender = data.gender;
                   }
                   var corpInfomations=data.corpInfomations[0];
                   if(corpInfomations){
@@ -647,10 +658,6 @@ export class FlightadddetailsPage implements OnInit {
                     se.sodienthoai = infocus.phone;
                     se.ischeckedit = false;
                   }
-
-                  if(infocus.gender){
-                    se.gender = infocus.gender;
-                  }
                 }else{
                   se.ischeckedit = false;
                 }
@@ -669,17 +676,12 @@ export class FlightadddetailsPage implements OnInit {
                   se.hoten = username;
                  });
               }
+              
               setTimeout(()=>{
                 se.setAdultProperty();
               },400)
              
-              se.storage.get('auth_token').then(auth_token => {
-                se.loginuser = auth_token;
-                if(auth_token){
-                  se.GetUserInfo(auth_token);
-                }
               
-              });
             })
         }
 

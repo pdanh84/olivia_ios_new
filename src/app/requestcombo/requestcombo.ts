@@ -57,7 +57,11 @@ export class RequestComboPage implements OnInit{
       public gf: GlobalFunction,
       private fb: Facebook,public _voucherService: voucherService,    public booking: Booking,
       public Roomif: RoomInfo) {
-          
+        this.gf.GetUserInfo().then((data)=>{
+          if(data && data.email){
+            this.usermail = data.email;
+          }
+        })
     }
 
     ngOnInit(){

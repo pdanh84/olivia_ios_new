@@ -53,7 +53,11 @@ export class RequestRoomPage implements OnInit{
       public Roomif: RoomInfo,
       public booking: Booking
       ) {
-          
+        this.gf.GetUserInfo().then((data)=>{
+          if(data && data.email){
+            this.usermail = data.email;
+          }
+        })
     }
 
     ngOnInit(){

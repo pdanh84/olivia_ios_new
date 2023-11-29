@@ -72,8 +72,33 @@ export class RoomchoosebankPage implements OnInit {
   ionViewWillEnter() {
     
     this.storage.get('auth_token').then(auth_token => {
-      this.auth_token = auth_token;
-    })
+      if (auth_token) {
+            let text = "Bearer " + auth_token;
+            let headers =
+                {
+                    'cache-control': 'no-cache',
+                    'content-type': 'application/json',
+                    authorization: text
+                }
+
+            this.gf.RequestApi('GET', C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo', headers, {}, 'flightcombopaymentselect', 'initpage').then((data)=>{
+              if(data && data.statusCode == 401){
+                this.storage.get('jti').then((memberid) => {
+                  this.storage.get('deviceToken').then((devicetoken) => {
+                    this.gf.refreshToken(memberid, devicetoken).then((token) => {
+                      if(token){
+                        this.auth_token = token;
+                      }
+                    });
+    
+                  })
+                })
+              }else{
+                this.auth_token = auth_token;
+              }
+            })
+          }
+        });
     this.storage.get('jti').then(jti => {
       if (jti) {
         this.jti = jti;
