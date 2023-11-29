@@ -717,6 +717,9 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                   if (data && !data.statusCode) {
                     se.zone.run(() => {
                       se.ischeck = false;
+                      if(data.email){
+                        se.email = data.email;
+                      }
                       var corpInfomations=data.corpInfomations[0];
                       if(corpInfomations){
                         se.companyname = corpInfomations.legalName;

@@ -185,7 +185,7 @@ export class TourDepartureCalendarPage implements OnInit{
             }else {
               this.itemDepartureCalendar.AllotmentDateDisplay = moment(_date).format('DD-MM-YYYY');
               this.tourService.itemDepartureCalendar.AllotmentDateDisplay = moment(_date).format('DD-MM-YYYY');
-
+              //this.tourService.DepartureDate = moment(_date).format('YYYY-MM-DD');
             }
             if(this.itemDepartureCalendar.RateChildAvg){
               this.itemDepartureCalendar.PriceChildAvg = this.itemDepartureCalendar.RateChildAvg;

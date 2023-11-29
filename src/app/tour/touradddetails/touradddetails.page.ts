@@ -241,6 +241,9 @@ export class TourAddDetailsPage implements OnInit {
               //var data = JSON.parse(body);
             if(data){
               se.zone.run(() => {
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations=data.corpInfomations[0];
                 if(corpInfomations){
                   se.companyname = corpInfomations.legalName;
@@ -573,6 +576,7 @@ export class TourAddDetailsPage implements OnInit {
             }
             
           }else{
+            this.gf.hideLoading();
             this.gf.showAlertMessageOnly(data.Msg);
           }
         })
@@ -1068,8 +1072,9 @@ export class TourAddDetailsPage implements OnInit {
 
           checkTourAllotment() : Promise<any>{
             var se = this;
+            debugger
             let body = { "TourId": se.tourService.tourDetailId,
-            "StartDate": moment(se.tourService.DepartureDate).format('YYYY-MM-DD'),
+            "StartDate": moment(se.tourService.itemDepartureCalendar?.AllotmentDate||se.tourService.DepartureDate).format('YYYY-MM-DD'),
             "AdultNo": se.tourService.adult,
             "ChildNo": se.tourService.child ? se.tourService.child :0,
             "ChildAges": se.tourService.child ? se.tourService.arrchild.map(c=>c.numage).join(',') : ""

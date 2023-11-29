@@ -11,7 +11,7 @@
               <div class="div-hotel-item-info"  (click)="itemHotelCityClick(item)"> 
                   <div class="view-row m-l-12">
                     <div class="div-img-hotel">
-                      <img class="img-item" [src]="item.Avatar" backgroundSize="cover" spinner="true" />
+                      <img class="img-item" [src]="(item.Avatar.trim().indexOf('http') != -1 ? item.Avatar : 'https:' + item.Avatar)" backgroundSize="cover" spinner="true" />
                     </div>
                     <div [ngClass]="index == itemlen-1 ? 'div-content-right v-align-center' : 'div-content-right v-align-center max-width-200'">
                         <div class="div-hotel-name">

@@ -288,6 +288,9 @@ export class FlightComboAddDetailsPage implements OnInit {
             if (data) {
               se.zone.run(() => {
                 se.ischeck = false;
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations
                 if (data.corpInfomations) {
                   corpInfomations=data.corpInfomations[0];

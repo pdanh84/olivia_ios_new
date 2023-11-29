@@ -950,6 +950,9 @@ export class CarComboPage implements OnInit {
           let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
           se.gf.RequestApi('GET', strUrl, headers, {}, 'carcombo', 'promofunc').then((data) => {
             if (data && data.statusCode != 401) {
+              if(data.email){
+                se.email = data.email;
+              }
               se.storage.set("email", data.email);
               se.storage.set("jti", data.memberId);
               se.storage.set("username", data.fullname);

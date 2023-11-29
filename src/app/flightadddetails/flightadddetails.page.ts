@@ -229,6 +229,27 @@ export class FlightadddetailsPage implements OnInit {
             }
         })
       })
+
+      if(this._flightService.itemFlightCache){
+        let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice + (this._flightService.itemFlightCache.returnFlight ? this._flightService.itemFlightCache.returnFlight.totalPrice : 0);
+        if(this._flightService.itemFlightCache.HotelCityMealtypeSelected && this._flightService.itemFlightCache.itemsFlightCityHotel.length >0){
+          //check lại xem có mealtype nào đang chọn không
+          let check = false;
+          for (let index = 0; index < this._flightService.itemFlightCache.itemsFlightCityHotel.length; index++) {
+            const element = this._flightService.itemFlightCache.itemsFlightCityHotel[index];
+            if(element.checkaddhotel){
+              check = true;
+            }
+            
+          }
+          if(check){
+            totalprice+= this._flightService.itemFlightCache.HotelCityMealtypeSelected.PriceAvgPlusOTA;
+          }
+        }
+        this.totalPriceDisplay = this.gf.convertNumberToString(totalprice);
+      }
+      
+      
     }
     GetUserInfo(auth_token) {
       var se = this;
@@ -243,6 +264,9 @@ export class FlightadddetailsPage implements OnInit {
               if (data && !data.statusCode) {
                 se.zone.run(() => {
                   se.ischeck = false;
+                  if(data.email){
+                    se.email = data.email;
+                  }
                   var corpInfomations=data.corpInfomations[0];
                   if(corpInfomations){
                     se.companyname = corpInfomations.legalName;
@@ -363,8 +387,11 @@ export class FlightadddetailsPage implements OnInit {
                         element.id = elementcache.id;
                         element.name = elementcache.name;
                         element.subName = elementcache.subName;
-                        element.gender = elementcache.gender;
-                        element.genderdisplay = elementcache.genderdisplay;
+                        if(element.gender){
+                          element.gender = elementcache.gender;
+                          element.genderdisplay = elementcache.genderdisplay;
+                        }
+                        
                         //element.airlineMemberCode = elementcache.airlineMemberCode;
                         //element.airlineCardCode = elementcache.airlineCardCode;
                         if(elementcache.dateofbirth){
@@ -420,8 +447,11 @@ export class FlightadddetailsPage implements OnInit {
                         element.id = elementcache.id;
                         element.name = elementcache.name;
                         element.subName = elementcache.subName;
-                        element.gender = elementcache.gender;
-                        element.genderdisplay = elementcache.genderdisplay;
+                        if(element.gender){
+                          element.gender = elementcache.gender;
+                          element.genderdisplay = elementcache.genderdisplay;
+                        }
+                        
                         if(elementcache.dateofbirth){
                           element.dateofbirth = elementcache.dateofbirth;
                           element.birdayDisplay = elementcache.dateofbirth ? moment(elementcache.dateofbirth).format('DD/MM/YYYY') : '';
@@ -478,12 +508,12 @@ export class FlightadddetailsPage implements OnInit {
         }
         
 
-        changegender(event, item){
-          if(event.detail.value){
-            item.gender = event.detail.value == "Ông" ? 1 : (event.detail.value == "Bà" ? 2 : (event.detail.value == "Bé trai" ? 1 : 2));
-            item.genderdisplay = event.detail.value;
-          }
-        }
+        // changegender(event, item){
+        //   if(event.detail.value){
+        //     item.gender = event.detail.value == "Ông" ? 1 : (event.detail.value == "Bà" ? 2 : (event.detail.value == "Bé trai" ? 1 : 2));
+        //     item.genderdisplay = event.detail.value;
+        //   }
+        // }
 
         setAdultProperty(){
           var se = this;
@@ -641,7 +671,7 @@ export class FlightadddetailsPage implements OnInit {
               }
               setTimeout(()=>{
                 se.setAdultProperty();
-              },200)
+              },400)
              
               se.storage.get('auth_token').then(auth_token => {
                 se.loginuser = auth_token;
@@ -657,6 +687,9 @@ export class FlightadddetailsPage implements OnInit {
           this._flightService.itemFlightCache.isCathay = null;
             if(this.activeStep ==1){
                 this.resetLuggage();
+                this._flightService.itemFlightCache.HotelCityMealtypeSelected = null;
+                this._flightService.itemFlightCache.itemsFlightCityHotel = [];
+                this._flightService.itemFlightCache.objHotelCitySelected = null;
                 if(this._flightService.itemFlightCache.isApiDirect){
                   this.navCtrl.navigateBack('/flightsearchresultinternational');
                 }else{

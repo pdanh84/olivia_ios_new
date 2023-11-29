@@ -153,17 +153,17 @@ export class RoomadddetailsPage implements OnInit {
               se.zone.run(() => {
                 se.ishide = false;
                 se.ischeck = false;
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations=data.corpInfomations[0];
                 if(corpInfomations){
                   se.companyname = corpInfomations.legalName;
                   se.address = corpInfomations.address;
                   se.tax = corpInfomations.taxCode;
-                  // se.addressorder = corpInfomations.addressorder;
-                  // se.hotenhddt=corpInfomations.hotenhddt;
-                  // se.emailhddt=corpInfomations.emailhddt;
-                  // se.ishideNameMail=corpInfomations.ishideNameMail;
                   se.ishide = true;
                   se.ischeck = true;
+                  
                 }
                 else{
                   se.storage.get('order').then(order => {
@@ -183,6 +183,9 @@ export class RoomadddetailsPage implements OnInit {
               })
             }
             else{
+              if(data.email){
+                se._email = data.email;
+              }
               se.storage.get('order').then(order => {
                 if (order) {
                   se.companyname = order.companyname;

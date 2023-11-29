@@ -13,6 +13,8 @@ PODS:
     - Capacitor
   - CapacitorBrowser (5.1.0):
     - Capacitor
+  - CapacitorCamera (5.0.7):
+    - Capacitor
   - CapacitorCommunityAppleSignIn (5.0.0):
     - Capacitor
   - CapacitorCommunityFacebookLogin (5.0.3):
@@ -185,6 +187,7 @@ DEPENDENCIES:
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorBackgroundRunner (from `../../node_modules/@capacitor/background-runner`)"
   - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
+  - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityAppleSignIn (from `../../node_modules/@capacitor-community/apple-sign-in`)"
   - "CapacitorCommunityFacebookLogin (from `../../node_modules/@capacitor-community/facebook-login`)"
   - "CapacitorCommunityFcm (from `../../node_modules/@capacitor-community/fcm`)"
@@ -239,6 +242,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/background-runner"
   CapacitorBrowser:
     :path: "../../node_modules/@capacitor/browser"
+  CapacitorCamera:
+    :path: "../../node_modules/@capacitor/camera"
   CapacitorCommunityAppleSignIn:
     :path: "../../node_modules/@capacitor-community/apple-sign-in"
   CapacitorCommunityFacebookLogin:
@@ -286,6 +291,7 @@ SPEC CHECKSUMS:
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorBackgroundRunner: f2415aebbcea4e744eb45f785a50f07ba72f1d0b
   CapacitorBrowser: 7a0fb6a1011abfaaf2dfedfd8248f942a8eda3d6
+  CapacitorCamera: 084b0b228bba7d00587910337b1c89e93b1d32ab
   CapacitorCommunityAppleSignIn: eafdd59b18b38161fa5cceee7b0e31312b122958
   CapacitorCommunityFacebookLogin: c0e2bb54cb567d90443a80ae20569fdac0df3f89
   CapacitorCommunityFcm: f7b5158169ea27d8a8444e0adeb17584d7997e91
@@ -327,6 +333,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
 
-PODFILE CHECKSUM: 612cda5b0fe32c8c4ffc14af5d5fac1f76e6ef07
+PODFILE CHECKSUM: 687f8597da5a6db7f1e51a4ffe3f3913ba8195dd
 
 COCOAPODS: 1.13.0

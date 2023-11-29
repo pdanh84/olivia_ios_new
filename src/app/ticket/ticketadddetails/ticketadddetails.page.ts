@@ -387,17 +387,9 @@ export class TicketAdddetailsPage implements OnInit {
         se.gf.RequestApi('GET', strUrl, headers, {}, 'touradddetails', 'loadUserInfo').then((data) => {
           if (data) {
             se.zone.run(() => {
-              // var corpInfomations = data.corpInfomations[0];
-              // if (corpInfomations) {
-              //   se.companyname = corpInfomations.legalName;
-              //   se.address = corpInfomations.address;
-              //   se.tax = corpInfomations.taxCode;
-              //   se.addressorder = corpInfomations.addressorder;
-              //   se.hotenhddt = corpInfomations.fullName;
-              //   se.emailhddt = corpInfomations.email;
-              //   se.ishideNameMail = true;
-              // }
-              // else {
+              if(data.email){
+                se.email = data.email;
+              }
                 se.storage.get('order').then(order => {
                   if (order) {
                     se.companyname = order.companyname;

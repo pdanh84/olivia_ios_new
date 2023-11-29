@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 //import { Crop } from '@ionic-native/crop/ngx';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
-import { Camera, CameraOptions  } from '@awesome-cordova-plugins/camera/ngx';
+import { Camera, CameraOptions, CameraResultType, CameraSource } from '@capacitor/camera';
 import { File } from '@awesome-cordova-plugins/file';
 //import { ImageCrop } from 'capacitor-image-crop';
 //const crop = new ImageCrop();
@@ -56,7 +56,7 @@ export class UserFeedBackPage implements OnInit {
   departCode: any;
   checkInDisplayFullYear: any;
   constructor(public platform: Platform, public navCtrl: NavController, public zone: NgZone, public storage: Storage,
-    public gf: GlobalFunction, private ActivatedRoute: ActivatedRoute, public camera: Camera, public modalCtrl: ModalController,
+    public gf: GlobalFunction, private ActivatedRoute: ActivatedRoute, public modalCtrl: ModalController,
     private imagePicker: ImagePicker, public loadingCtrl: LoadingController,
     //private crop: Crop,
     public actionsheetCtrl: ActionSheetController,
@@ -90,18 +90,6 @@ export class UserFeedBackPage implements OnInit {
     if (trip) {
       se.loadInfoTrip(trip);
     }
-    const options: CameraOptions = {
-      quality: 76,
-      sourceType: se.camera.PictureSourceType.SAVEDPHOTOALBUM,
-      destinationType: se.camera.DestinationType.FILE_URI,
-      encodingType: se.camera.EncodingType.JPEG,
-      mediaType: se.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-    }
-    // this.imagePicker.getPictures(options).then((results) => {
-    // });
-    // console.log(trip)
   }
 
   loadInfoTrip(trip) {
@@ -180,50 +168,10 @@ export class UserFeedBackPage implements OnInit {
   }
 
   async addImage() {
-    this.getImages();
+   
   }
 
-  getImages() {
-    var se = this;
-    const options: CameraOptions = {
-      quality: 76,
-      sourceType: se.camera.PictureSourceType.SAVEDPHOTOALBUM,
-      destinationType: se.camera.DestinationType.FILE_URI,
-      encodingType: se.camera.EncodingType.JPEG,
-      mediaType: se.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-    }
-    this.imageResponse = [];
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        let filename, path;
-        se.base64Image = results[i];
-        path = results[i].substring(0, results[i].lastIndexOf('/') + 1);
-        filename = results[i].substring(results[i].lastIndexOf('/') + 1);
-        let index = filename.indexOf('?');
-        if (index > -1) {
-          filename = filename.substring(0, index);
-        }
-        //se.croppedImagefilename = filename;
-        //se.cropImage(imageData);
-
-        //let filepath = path + filename;
-        //alert(filepath)
-        se.file.readAsDataURL(path, filename).then(base64 => {
-          // let b64: any = base64.split(',')[1];
-          var item = { img: base64, filename: filename }
-          this.imageResponse.push(item);
-        })
-
-        //this.uploadImage(results[i],filename);
-      }
-      // this.croppedImagepath=this.imageResponse[0];
-      // console.log(this.imageResponse);
-    }, (err) => {
-      alert(err);
-    });
-  }
+ 
 
   /**
        * Chọn từ bộ sưu tập
@@ -232,36 +180,32 @@ export class UserFeedBackPage implements OnInit {
   async captureImageGallery() {
     var se = this;
     const options: CameraOptions = {
-      quality: 76,
-      sourceType: se.camera.PictureSourceType.SAVEDPHOTOALBUM,
-      destinationType: se.camera.DestinationType.FILE_URI,
-      encodingType: se.camera.EncodingType.JPEG,
-      mediaType: se.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Base64,
+      saveToGallery: true,
       correctOrientation: true,
     }
 
-    se.camera.getPicture(options).then((imageData) => {
-      if (imageData) {
+    Camera.getPhoto(options).then((res:any) => {
+      if (res && res.base64String) {
+        let base64Image = res.base64String;
         let filename, path;
+        let imageData = res.base64String;
         se.base64Image = imageData;
+        se.zone.run(() => {
+          se.croppedImagepath = "data:image/jpeg;base64," + imageData;
+        })
         path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
         filename = imageData.substring(imageData.lastIndexOf('/') + 1);
         let index = filename.indexOf('?');
         if (index > -1) {
           filename = filename.substring(0, index);
+          imageData = imageData.split('?')[0];
+
         }
-        //se.croppedImagefilename = filename;
-        //se.cropImage(imageData);
-
-        //let filepath = path + filename;
-        //alert(filepath)
-        se.file.readAsDataURL(path, filename).then(base64 => {
-          let b64: any = base64.split(',')[1];
-          console.log(b64)
-          se.uploadImage(b64, filename, 0);
-        })
-
+        se.croppedImagefilename = filename;
+        //se.uploadAvatar(imageData);
       }
 
     })
@@ -274,70 +218,38 @@ export class UserFeedBackPage implements OnInit {
   async captureImage() {
     var se = this;
     const options: CameraOptions = {
-      quality: 76,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA,
+      quality: 90,
+      resultType: CameraResultType.Base64,
+      //encodingType: this.camera.EncodingType.JPEG,
+      //mediaType: this.camera.MediaType.PICTURE,
+      source: CameraSource.Camera,
+      saveToGallery: true,
       correctOrientation: true,
     }
 
     this.zone.run(() => {
-      this.camera.getPicture(options).then((imageData) => {
-        if (imageData) {
+      Camera.getPhoto(options).then((res:any) => {
+        if (res && res.base64String) {
           let filename, path;
-          se.base64Image = imageData;
-          path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
-          filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+          let base64Image = res.base64String;
+          se.base64Image = base64Image;
+          se.zone.run(() => {
+            se.croppedImagepath =  "data:image/jpeg;base64," +base64Image;
+          })
+          path = base64Image.substring(0, base64Image.lastIndexOf('/') + 1);
+          filename = base64Image.substring(base64Image.lastIndexOf('/') + 1);
           let index = filename.indexOf('?');
           if (index > -1) {
             filename = filename.substring(0, index);
           }
-          //se.croppedImagefilename = filename;
-          //se.cropImage(imageData);
+          se.croppedImagefilename = filename;
+          //se.uploadAvatar(base64Image);
         }
       });
     })
   }
   uploadImage(text, filename, co) {
     var se = this;
-    //var fs1 = require('fs');
-    // var formdata = new formData();
-    // console.log(fs);
-    // formdata.append('myfile', fs.createReadStream(filepath));
-    //     var options = { 
-    //       method: 'POST',
-    //       url: 'https://cdn1.ivivu.com/newcdn/api/upload/uimages',
-    //       headers: 
-    //       { 'cache-control': 'no-cache',
-    //         'Connection': 'keep-alive',
-    //         'Content-Length': '60092',
-    //         'Content-Type': 'multipart/form-data; boundary=--------------------------538357226843524475162502',
-    //         'Accept-Encoding': 'gzip, deflate',
-    //         'Host': 'cdn1.ivivu.com',
-    //         'Accept': '*/*',
-    //         'User-Agent': 'PostmanRuntime/7.15.2',
-    //         'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' 
-    //       },
-    //       formData: formdata
-    //         // { 'myfile': 
-    //         //     { value: fs.createReadStream(filepath),
-    //         //       options: 
-    //         //       { filename: filepath,
-    //         //         contentType: null 
-    //         //       } 
-    //         //     },
-    //         //   'order': '1',
-    //         //   'desc_img': 'abc',
-    //         //   'id': '0' 
-    //         // } 
-    //     };
-
-    //   request(options, function (error, response, body) {
-    //     if(!error){
-    //       console.log(body);
-    //     }
-    //   });
     var form = {
       imgBase64: text,
       desc_img: 'desc ',
@@ -345,14 +257,6 @@ export class UserFeedBackPage implements OnInit {
       fileName64: filename,
       order: '0'
     }
-    // var options = {
-    //   method: 'POST',
-    //   url: 'https://cdn1.ivivu.com/newcdn/api/upload/Base64Upload',
-    //   headers:
-    //   {
-    //   },
-    //   form
-    // };
     let body = `imgBase64=${text}&desc_img='desc'&id='0'&fileName64=${filename}&order='0'`;
     let urlStr = 'https://cdn1.ivivu.com/newcdn/api/upload/Base64Upload';
         let headers = {

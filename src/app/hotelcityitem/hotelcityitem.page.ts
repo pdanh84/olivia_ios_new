@@ -49,6 +49,7 @@ export class HotelCityItemPage {
           if (data) {
             let jsondata = data;
             item.defaultHotelData = jsondata;
+            item.Avatar = (item.Avatar.trim().indexOf("http") != -1 ? item.Avatar : 'https:' + item.Avatar);
             se.showHotelCityDetail(item.defaultHotelData);
           }
           se.gf.hideLoading();

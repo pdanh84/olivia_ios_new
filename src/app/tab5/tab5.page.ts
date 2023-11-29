@@ -9,8 +9,9 @@ import { Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 
 import { NetworkProvider } from '../network-provider.service';
-import { File, FileReader } from '@awesome-cordova-plugins/file/ngx';
-import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+//import { File, FileReader } from '@awesome-cordova-plugins/file/ngx';
+import {Filesystem, Directory, Encoding} from '@capacitor/filesystem';
+import { Camera, CameraOptions, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FCM } from '@capacitor-community/fcm';
 import { BizTravelService } from '../providers/bizTravelService';
 import { InAppBrowser, InAppBrowserOptions } from '@awesome-cordova-plugins/in-app-browser/ngx';
@@ -41,7 +42,7 @@ export class Tab5Page implements OnInit {
   base64Image: any;
   croppedImagefilename: any;
   fileType: any;
-  croppedImagepath: string;
+  croppedImagepath: any;
   avatar: any;
   linkfb: any;
   version: any;
@@ -50,8 +51,6 @@ export class Tab5Page implements OnInit {
     
     public networkProvider: NetworkProvider,
     public actionsheetCtrl: ActionSheetController,
-    private camera: Camera,
-    private file: File,
     public bizTravelService: BizTravelService,
     private iab: InAppBrowser) {
 
@@ -300,7 +299,21 @@ export class Tab5Page implements OnInit {
                 se.point = data.point;
                 se.storage.set('userInfoData', data);
                 se.storage.set('point', data.point);
-
+                se.storage.set("email", data.email);
+                se.storage.set("jti", data.memberId);
+                //se.storage.set("auth_token", body.auth_token);
+                se.storage.set("username", data.fullname);
+                se.storage.set("phone", data.phone);
+                se.storage.set("point", data.point);
+                se.storage.get('auth_token').then(auth_token => {
+                  se.loginuser = auth_token;
+                });
+                se.storage.get('username').then(username => {
+                  se.username = username;
+                });
+                se.storage.get('point').then(point => {
+                  se.point = point;
+                });
                 if (data.bizAccount) {
                   se.bizTravelService.bizAccount = data.bizAccount;
                   se.bizTravelService.isCompany = true;
@@ -756,19 +769,22 @@ export class Tab5Page implements OnInit {
   async captureImageGallery() {
     var se = this;
     const options: CameraOptions = {
-      quality: 76,
-      sourceType: se.camera.PictureSourceType.SAVEDPHOTOALBUM,
-      destinationType: se.camera.DestinationType.FILE_URI,
-      encodingType: se.camera.EncodingType.JPEG,
-      mediaType: se.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Base64,
+      saveToGallery: true,
       correctOrientation: true,
     }
 
-    se.camera.getPicture(options).then((imageData) => {
-      if (imageData) {
+    Camera.getPhoto(options).then((res:any) => {
+      if (res && res.base64String) {
+        let base64Image = res.base64String;
         let filename, path;
+        let imageData = res.base64String;
         se.base64Image = imageData;
+        se.zone.run(() => {
+          se.croppedImagepath = "data:image/jpeg;base64," + imageData;
+        })
         path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
         filename = imageData.substring(imageData.lastIndexOf('/') + 1);
         let index = filename.indexOf('?');
@@ -778,7 +794,7 @@ export class Tab5Page implements OnInit {
 
         }
         se.croppedImagefilename = filename;
-        se.cropImage(imageData);
+        se.uploadAvatar(imageData);
       }
 
     })
@@ -791,27 +807,32 @@ export class Tab5Page implements OnInit {
   async captureImage() {
     var se = this;
     const options: CameraOptions = {
-      quality: 76,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA,
+      quality: 90,
+      resultType: CameraResultType.Base64,
+      //encodingType: this.camera.EncodingType.JPEG,
+      //mediaType: this.camera.MediaType.PICTURE,
+      source: CameraSource.Camera,
+      saveToGallery: true,
       correctOrientation: true,
     }
 
     this.zone.run(() => {
-      this.camera.getPicture(options).then((imageData) => {
-        if (imageData) {
+      Camera.getPhoto(options).then((res:any) => {
+        if (res && res.base64String) {
           let filename, path;
-          se.base64Image = imageData;
-          path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
-          filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+          let base64Image = res.base64String;
+          se.base64Image = base64Image;
+          se.zone.run(() => {
+            se.croppedImagepath =  "data:image/jpeg;base64," +base64Image;
+          })
+          path = base64Image.substring(0, base64Image.lastIndexOf('/') + 1);
+          filename = base64Image.substring(base64Image.lastIndexOf('/') + 1);
           let index = filename.indexOf('?');
           if (index > -1) {
             filename = filename.substring(0, index);
           }
           se.croppedImagefilename = filename;
-          se.cropImage(imageData);
+          se.uploadAvatar(base64Image);
         }
       });
     })
@@ -819,29 +840,14 @@ export class Tab5Page implements OnInit {
 
   uploadAvatar(image: any) {
     var se = this;
-    se.getFullImage(se.base64Image.split('?')[0]).then((data) => {
+    //se.getFullImage(se.base64Image.split('?')[0]).then((data) => {
       se.storage.get('auth_token').then(auth_token => {
         if (auth_token) {
           var text = "Bearer " + auth_token;
-          // var options = {
-          //   method: 'POST',
-          //   url: C.urls.baseUrl.urlMobile + '/api/dashboard/UploadAvatarBase64',
-          //   headers:
-          //   {
-          //     Authorization: text,
-          //   },
-          //   body: {
-          //     "imgBase64Full": data,
-          //     "imgBase64Crop": image,
-          //     "fileExtension": se.fileType
-          //   },
-          //   json: true
-          // };
-
           let body = {
-            "imgBase64Full": data,
+            "imgBase64Full": image,
             "imgBase64Crop": image,
-            "fileExtension": se.fileType
+            "fileExtension": 'jpeg'
           };
           let urlStr = C.urls.baseUrl.urlMobile + '/api/dashboard/UploadAvatarBase64';
           let headers = {
@@ -855,7 +861,7 @@ export class Tab5Page implements OnInit {
         }
       })
 
-    });
+    //});
 
 
 
@@ -874,7 +880,8 @@ export class Tab5Page implements OnInit {
     //         error => {
     //         throw error;
     //     })
-    this.showCroppedImage(imgPath);
+    //this.showCroppedImage(imgPath);
+    this.uploadAvatar(imgPath);
   }
   /**
    * Trả về dạng base64 của image full
@@ -889,9 +896,11 @@ export class Tab5Page implements OnInit {
       var splitType = imageName.split('.');
       var imageType = splitType[splitType.length - 1];
       var se = this;
-      se.file.readAsDataURL(filePath, imageName).then(base64 => {
-        let b64: any = base64.split(',')[1];
-        resolve(b64);
+      Filesystem.readFile({path: ImagePath,  directory: Directory.Documents,
+        encoding: Encoding.UTF8}).then(base64 => {
+          console.log(base64)
+        //let b64: any = base64.split(',')[1];
+        resolve(base64);
       })
     })
   }
@@ -909,14 +918,15 @@ export class Tab5Page implements OnInit {
 
     var se = this;
     se.fileType = imageType;
-    se.file.readAsDataURL(filePath, imageName).then(base64 => {
+    Filesystem.readFile({path: filePath,  directory: Directory.Documents,
+      encoding: Encoding.UTF8}).then(base64 => {
       se.zone.run(() => {
         se.croppedImagepath = base64;
       })
       const contentType = 'image/' + imageType;
-      let b64: any = base64.split(',')[1];
+      //let b64: any = base64.split(',')[1];
       //se.croppedImagepath = "data:image/jpeg;base64,"+base64;
-      se.uploadAvatar(b64);
+      se.uploadAvatar(base64);
     })
 
   }

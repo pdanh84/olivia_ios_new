@@ -556,14 +556,18 @@ export class FlightsearchresultPage implements OnInit {
         for (let index = 0; index < dataHotelCity.List.length; index++) {
           const elementHotel = dataHotelCity.List[index];
          
-
             let objhoteldetailmap = dataHotelCityPrice.HotelDetailData.filter((itemdetail) => {return itemdetail.HotelID == elementHotel.HotelId});
             if(objhoteldetailmap && objhoteldetailmap.length >0){
+              
               elementHotel.hotelDetail = objhoteldetailmap[0];
-
+              if(elementHotel.hotelDetail && elementHotel.hotelDetail.RoomClasses && elementHotel.hotelDetail.RoomClasses[0]){
+                elementHotel.hotelDetail.RoomClasses[0].selected = true;
+              }
+              
               let objhotelmap = dataHotelCityPrice.HotelListResponse.HotelList.HotelSummary.filter((item) => {return item.HotelId == elementHotel.HotelId});
               if(objhotelmap && objhotelmap.length >0){
                 elementHotel.dataPrice = objhotelmap[0];
+                
                 arrHotel.push(elementHotel);
               }
             }
@@ -599,16 +603,6 @@ export class FlightsearchresultPage implements OnInit {
   getHotelCityPrice(key){
     var se = this;
     return new Promise((resolve, reject) => {
-      // var options = {
-      //   method: 'POST',
-      //   url: C.urls.baseUrl.urlContracting + "/api/contracting/HotelSearchReqContractMultiHotel",
-      //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-      //   body: JSON.stringify({cacheKey: key}),
-      //   headers: {
-      //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-      //     'Content-Type': 'application/json; charset=utf-8'
-      //   }
-      // };
       let urlPath = C.urls.baseUrl.urlContracting + "/api/contracting/HotelSearchReqContractMultiHotel";
           let headers = {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",

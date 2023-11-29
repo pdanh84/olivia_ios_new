@@ -382,7 +382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.3.7;
+				MARKETING_VERSION = 4.3.8;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivivu.oliviaapp2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -412,7 +412,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.3.7;
+				MARKETING_VERSION = 4.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivivu.oliviaapp2019;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

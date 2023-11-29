@@ -2357,6 +2357,9 @@ export class CombocarnewPage implements OnInit {
                     se.price = se.point.toLocaleString();
                   }
                 }
+                if(data.email){
+                  se.email = data.email;
+                }
                   se.storage.remove('point');
                   se.storage.set('point', data.point);
               })

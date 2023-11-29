@@ -3,8 +3,7 @@
     <div class="card-background-page h-198">
       <swiper-container (slidechange)="onSlideChange()" [options]="slideOpts" #mySlider class="h-198">
         <swiper-slide *ngFor="let slide of slideData" style="height: 198px">
-          <div id="grad1" class="grad1">
-          </div>
+         
           <img [src]="slide.LinkImage" alt="image"/>
           <div *ngIf="slide.CaptionImg" class="div-img-caption-grad"></div>
           <div *ngIf="slide.CaptionImg" class="div-img-caption">{{slide.CaptionImg}}</div>

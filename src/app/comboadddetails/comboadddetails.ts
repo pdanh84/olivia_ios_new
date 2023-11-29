@@ -197,6 +197,9 @@ export class ComboadddetailsPage implements OnInit {
               se.zone.run(() => {
                 se.ishide = false;
                 se.ischeck = false;
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations=data.corpInfomations[0];
                 if(data.corpInfomations){
                   se.companyname = corpInfomations.legalName;
