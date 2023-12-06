@@ -362,7 +362,7 @@ export class RequestCombo1Page implements OnInit {
       let todate:any = this.gf.getCinIsoDate(event.data.to);
       if (fromdate) {
         if (event.data) {
-          if (!todate) {
+          if (!todate || (todate && moment(todate).diff(fromdate, 'hours') <0)) {
             todate = moment(fromdate).add('days', 1);
           }
           se.zone.run(()=>{

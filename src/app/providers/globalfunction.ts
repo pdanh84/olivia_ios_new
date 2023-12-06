@@ -184,22 +184,53 @@ import { App } from '@capacitor/app';
 
                 this.googleAnalytionCustom(viewAction, { 
                   transaction_id: viewAction=='purchase'? this._flightService.itemFlightCache.bookingCode :'',
-                  value: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice) : 0,
-                  currency: "VND",
-                  shipping_tier: paymentType || viewAction == 'add_shipping_info' ? "Ground" : '',
-                  payment_type: paymentType ? this.getGAPaymentType(paymentType) : '',
-    
-                  item_id: "Ve-may-bay-"+itemcache.departCode+"-di-"+itemcache.returnCode + (itemcache.roundTrip ? '-khu-hoi' :''),
-                  item_name: "Vé máy bay "+itemcache.departCity+" đi "+itemcache.returnCity+ (itemcache.roundTrip ?' khứ hồi' :''),
-                  discount: itemcache.discount,
-                  item_brand: "iVIVU.com",
-                  item_category: category,
-                  item_category2: itemcache.departCode,
-                  item_category3: itemcache.departFlight ? this.getTicketClass(itemcache.departFlight) : (itemcache.isInternationalFlight && itemcache.itemFlightInternationalDepart) ? this.getTicketClass(itemcache.itemFlightInternationalDepart) : '',
-                  item_category4: itemcache.isInternationalFlight ? 'Travelport' :"Api", 
-                  item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
-                  price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0)) ) : 0,
-                  quantity: itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0),
+                  items: itemcache.roundTrip ? [
+                    {
+                      item_id: "Ve-may-bay-"+itemcache.departCode+"-di-"+itemcache.returnCode,
+                      item_name: "Vé Máy Bay "+itemcache.departCity+" đi "+itemcache.returnCity,
+                      discount: itemcache.discount,
+                      item_brand: "iVIVU.com",
+                      item_category: category,
+                      item_category2: itemcache.departCode,
+                      item_category3: itemcache.departFlight ? this.getTicketClass(itemcache.departFlight) : itemcache.isInternationalFlight && itemcache.itemFlightInternationalDepart ? this.getTicketClass(itemcache.itemFlightInternationalDepart) : '',
+                      item_category4: itemcache.isInternationalFlight ? 'Travelport' :"Api", 
+                      item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
+                      price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0))) : '',
+                      quantity: itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0),
+                    },
+                    {
+                      item_id: "Ve-may-bay-"+itemcache.returnCode+"-di-"+itemcache.departCode,
+                      item_name: "Vé Máy Bay "+itemcache.returnCity+" đi "+itemcache.departCity,
+                      discount: 0,
+                      item_brand: "iVIVU.com",
+                      item_category: category,
+                      item_category2: itemcache.returnCode,
+                      item_category3: itemcache.returnFlight ? this.getTicketClass(itemcache.returnFlight) : itemcache.isInternationalFlight && itemcache.itemFlightInternationalReturn ? this.getTicketClass(itemcache.itemFlightInternationalReturn) : '',
+                      item_category4: itemcache.isInternationalFlight ? 'Travelport' :"Api", 
+                      item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
+                      price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0))) : '',
+                      quantity: itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0),
+                    }
+                   ] : 
+                   [
+                    {
+                      item_id: "Ve-may-bay-"+itemcache.departCode+"-di-"+itemcache.returnCode,
+                      item_name: "Vé Máy Bay "+itemcache.departCity+" đi "+itemcache.returnCity,
+                      discount: itemcache.discount,
+                      item_brand: "iVIVU.com",
+                      item_category: category,
+                      item_category2: itemcache.departCode,
+                      item_category3: itemcache.departFlight ? this.getTicketClass(itemcache.departFlight) : itemcache.isInternationalFlight && itemcache.itemFlightInternationalDepart? this.getTicketClass(itemcache.itemFlightInternationalDepart) : '',
+                      item_category4: itemcache.isInternationalFlight ? 'Travelport' :"Api", 
+                      item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
+                      price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0))) : '',
+                      quantity: itemcache.adult + (itemcache.child || 0) + (itemcache.infant || 0),
+                    }
+                   ],
+                    value: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice) : '',
+                    currency: "VND",
+                    shipping_tier: paymentType || viewAction == 'add_shipping_info' ? "Ground" : '',
+                    payment_type: paymentType ? this.getGAPaymentType(paymentType) : '',
                 });
             
           }
@@ -213,31 +244,20 @@ import { App } from '@capacitor/app';
             FirebaseAnalytics.logEvent({name: 'screen_view', params: {
               screen_name: itemcache.gaHotelDetail ? itemcache.gaHotelDetail.Url : '', 
               screen_class: itemcache.gaHotelDetail ? itemcache.gaHotelDetail.Url : ''}})
-            this.googleAnalytionCustom(viewAction, viewAction == 'view_item' ? {
+            this.googleAnalytionCustom(viewAction,{
               transaction_id: viewAction=='purchase'?(this.roomInfo.bookingCode || this.bookcombo.bookingcode || '') :'',
-              currency: "VND",
-                  value: 0,
-                          item_brand: "iVIVU.com",
-                          item_id: itemcache.gaHotelId || (itemcache.gaComboId || ''),
-                          item_name: category == 'Hotels' ? itemcache.hotelName : itemcache.gaComboName,
-                          item_category: 'Hotels',
-                          item_category2: category == 'Combo' ? itemcache.location : (itemcache.gaHotelDetail ? itemcache.gaHotelDetail.District : ''),
-                          item_category3: itemcache.gaHotelDetail ? itemcache.gaHotelDetail.RatingValue.toString() : '',
-                          item_category4: category == 'Combo' ? 'Combo' : 'Room',
-                          item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
-                          price: 0,
-                          quantity: itemcache.roomnumber * duration
-            }:
-            {
               currency: "VND",
                   value: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice) : 0,
                   shipping_tier: paymentType || viewAction == 'add_shipping_info' ? "Ground" : '',
                   payment_type: paymentType ? this.getGAPaymentType(paymentType) : '',
-                  // items: [
-                  //     {
-                          item_brand: "iVIVU.com",
+                  items: [
+                      {
                           item_id: itemcache.gaHotelId || (itemcache.gaComboId || ''),
                           item_name: category == 'Hotels' ? itemcache.hotelName : itemcache.gaComboName,
+      
+                          discount: itemcache.gaDiscountPromo || 0,
+                          index: 0,
+                          item_brand: "iVIVU.com",
                           item_category: 'Hotels',
                           item_category2: category == 'Combo' ? itemcache.location : (itemcache.gaHotelDetail ? itemcache.gaHotelDetail.District : ''),
                           item_category3: itemcache.gaHotelDetail ? itemcache.gaHotelDetail.RatingValue.toString() : '',
@@ -245,10 +265,9 @@ import { App } from '@capacitor/app';
                           item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
                           price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(itemcache.roomnumber * duration)) : 0,
                           quantity: itemcache.roomnumber * duration
-                  //     }
-                  // ]
-            }
-            )
+                      }
+                  ]
+            })
           }
           else if(category == 'Tours' && itemcache && itemcache.gaTourDetail && itemcache.gaTourDetail.TourDetailUrl){
             //this.gaSetScreenName('/du-lich/'+itemcache.gaTourDetail.Code);
@@ -261,23 +280,59 @@ import { App } from '@capacitor/app';
                   value: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice) : (itemcache.itemDepartureCalendar && itemcache.itemDepartureCalendar.PriceAdultAvgStr ? this.convertStringToNumber(itemcache.itemDepartureCalendar.PriceAdultAvgStr) : (this.convertStringToNumber(itemcache.gaTourDetail.AdultPrice) || 0)),
                   shipping_tier: paymentType || viewAction == 'add_shipping_info' ? "Ground" : '',
                   payment_type: paymentType ? this.getGAPaymentType(paymentType) : '',
-                  // items: [
-                  //     {
-                          item_id: itemcache.gaTourDetail.TourDetailUrl.replace('https://www.ivivu.com','') || '',
+                  items: [
+                      {
+                          item_id: itemcache.gaTourDetail.TourDetailUrl.replace('https://www.ivivu.com/',''),
                           item_name: itemcache.gaTourDetail.Name,
                           discount: itemcache.gaDiscountPromo || 0,
+                          index: 0,
                           item_brand: "iVIVU.com",
                           item_category: 'Tours',
                           item_category2: itemcache.itemDeparture ? itemcache.itemDeparture.Name : 'Hồ Chí Minh',
                           item_category3: '',
                           item_category4: itemcache.gaTourDetail.TourType ||'',
                           item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
-                          price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(this.searchhotel.adult +(this.searchhotel.child || 0))) : (itemcache.itemDepartureCalendar && itemcache.itemDepartureCalendar.PriceAdultAvgStr ? this.convertStringToNumber(itemcache.itemDepartureCalendar.PriceAdultAvgStr/(this.searchhotel.adult +(this.searchhotel.child || 0))) : (this.convertStringToNumber(itemcache.gaTourDetail.AdultPrice/(this.searchhotel.adult +(this.searchhotel.child || 0))) || 0)),
-                          quantity: this.searchhotel.adult +(this.searchhotel.child || 0)
-                  //     }
-                  // ]
+                          price: itemcache.totalPrice ? this.convertStringToNumber(itemcache.totalPrice/(this.tourService.adult +(this.tourService.child || 0))) : (itemcache.itemDepartureCalendar && itemcache.itemDepartureCalendar.PriceAdultAvgStr ? this.convertStringToNumber(itemcache.itemDepartureCalendar.PriceAdultAvgStr/(this.tourService.adult +(this.tourService.child || 0))) : (this.convertStringToNumber(itemcache.gaTourDetail.AdultPrice/(this.tourService.adult +(this.tourService.child || 0))) || 0)),
+                          quantity: this.tourService.adult +(this.tourService.child || 0),
+    
+                      }
+                  ]
             })
           }
+        }
+        else if(category == 'Ticket'){
+          try {
+            if(this.ticketService.itemExperienceDetail){
+              this.gaSetScreenName('ve-vui-choi/'+this.ticketService.itemExperienceDetail.topic.code +'/'+ this.ticketService.itemExperienceDetail.experience.code);
+              this.googleAnalytionCustom(viewAction, {
+                transaction_id: viewAction=='purchase'?this.ticketService.itemExperienceDetail.experience.code :'',
+                currency: "VND",
+                    value: this.ticketService.totalPriceNum ||0,
+                    shipping_tier: paymentType || viewAction == 'add_shipping_info' ? "Ground" : '',
+                    payment_type: paymentType ? this.getGAPaymentType(paymentType) : '',
+                    items: [
+                        {
+                            item_id: this.ticketService.itemExperienceDetail.experience.code,
+                            item_name: this.ticketService.itemExperienceDetail.experience.name,
+                            discount: itemcache.gaDiscountPromo || 0,
+                            index: 0,
+                            item_brand: "iVIVU.com",
+                            item_category: 'Tickets',
+                            item_category2: this.ticketService.itemExperienceDetail.city && this.ticketService.itemExperienceDetail.city.code ? this.ticketService.itemExperienceDetail.city.code : 'Hồ Chí Minh',
+                            item_category3: '',
+                            item_category4: this.ticketService.itemExperienceDetail.topic.code ||'',
+                            item_category5: paymentType ? this.getGAPaymentType(paymentType) : '', 
+                            price: this.ticketService.totalPriceNum ? this.convertStringToNumber(this.ticketService.totalPriceNum/ this.ticketService.totalPax) : 0,
+                            quantity: this.ticketService.totalPax || 0,
+      
+                        }
+                    ]
+              })
+            }
+          } catch (error) {
+            throw error;
+          }
+          
         }       
         }
 
@@ -567,7 +622,7 @@ import { App } from '@capacitor/app';
       var textbank, bankName, bankBranch, accountNumber,urlimgbank,url;
       switch (method) {
         case 41:
-          textbank = "ACBbank";
+          textbank = "ACB";
           bankName = "Ngân hàng TMCP Á Châu (ACB)";
           bankBranch = "Chi nhánh Tp. Hồ Chí Minh";
           accountNumber = "190862589";
@@ -583,7 +638,7 @@ import { App } from '@capacitor/app';
           url = 'https://www.vietcombank.com.vn/IBanking2020';
           break;
         case 45:
-          textbank = "Vietinbank";
+          textbank = "Viettinbank";
           bankName = "Ngân hàng TMCP Công thương Việt Nam VietinBank";
           bankBranch = "Chi Nhánh 03, Tp.HCM";
           accountNumber = "1110 0014 2852";
@@ -655,7 +710,7 @@ import { App } from '@capacitor/app';
           url = 'https://omni.ocb.com.vn/frontend-web/app/auth.html#/login';
           break;
         default:
-          textbank = "ACBbank";
+          textbank = "ACB";
           bankName = "Ngân hàng TMCP Á Châu (ACB)";
           bankBranch = "Chi nhánh Tp. Hồ Chí Minh";
           accountNumber = "190862589";

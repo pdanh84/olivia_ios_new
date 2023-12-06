@@ -210,3 +210,18 @@
     .m-top-8{
         margin-top: 8px !important;
     }
+    input::-webkit-input-placeholder {
+        color:    red !important;
+        max-width:  95% !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+    }
+    
+    input:-moz-placeholder {
+        color:    red !important;
+        max-width:  95% !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+    }

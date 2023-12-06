@@ -2969,7 +2969,7 @@ export class HotelDetailPage implements OnInit {
       se.setCacheHotel();
       se.presentLoading();
       se.loadTopSale24h(msg.Id);
-          let el = document.getElementsByClassName('div-float-arrow');
+          let el = document.getElementsByClassName('cls-header');
           if(el.length >0){
               el[0].classList.remove('float-arrow-enabled');
               el[0].classList.add('float-arrow-disabled');
@@ -4619,8 +4619,14 @@ export class HotelDetailPage implements OnInit {
               se.zone.run(() => {
                 se.isShowPrice = data.showPrice;
                 se.storage.set('userInfoData', data);
+
+                if(data.email){
+                  this.usermail = data.email;
+                }
               })
             }
+
+            
           }
         });
       }else{

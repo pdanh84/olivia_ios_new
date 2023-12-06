@@ -1,12 +1,12 @@
 <ion-content>
     <ion-datetime *ngIf="item.isChangeBOD else changeExpireDate" [firstDayOfWeek]="1" presentation="date" preferWheel="true" [(ngModel)]="item.dateofbirth"
     [ngClass]="item.dateofbirth ? 'cls-iondatetime' : 'cls-iondatetime text-birth-cathay' "
-    [min]="item.mindob" [max]="item.maxbod" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY"
+    [min]="item.mindob" [max]="item.maxbod" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY"  (ionChange)="changeDate($event)"
     >
     </ion-datetime>
     <ng-template #changeExpireDate>
         <ion-datetime [firstDayOfWeek]="1" presentation="date" preferWheel="true" [(ngModel)]="item.passportExpireDate"
-        [min]="item.mindob" [max]="item.maxepdate" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY" class="cls-iondatetime"
+        [min]="item.mindob" [max]="item.maxepdate" displayFormat="DD-MM-YYYY" pickerFormat="DD MM YYYY" class="cls-iondatetime" (ionChange)="changeDate($event)"
         >
         </ion-datetime>
     </ng-template>

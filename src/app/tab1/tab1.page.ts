@@ -2692,7 +2692,7 @@ export class Tab1Page implements OnInit {
             }
           }
           if (cocheck == 0) {
-            var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel };
+            var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
             se.searchhotel.recent = [];
 
             if (this.recent.length > 1) {
@@ -2706,7 +2706,7 @@ export class Tab1Page implements OnInit {
 
         }
         else {
-          var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel };
+          var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
           se.searchhotel.recent = [];
           se.searchhotel.recent.push(item1);
         }
@@ -2716,6 +2716,9 @@ export class Tab1Page implements OnInit {
         item.arrchild= se.searchhotel.arrchild
         if(this.gbmsg.imageUrl){
           item.imageUrl = (this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl;
+        }
+        else if(this.searchhotel.objRecent.imageUrl){
+          item.imageUrl = this.searchhotel.objRecent.imageUrl;
         }
         else{
           item.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg';
@@ -2750,7 +2753,7 @@ export class Tab1Page implements OnInit {
               }
             }
             if (cocheck == 0) {
-              var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' };
+              var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
               se.searchhotel.recent = [];
 
               if (this.recent.length > 1) {
@@ -2763,7 +2766,7 @@ export class Tab1Page implements OnInit {
             }
           }
           else {
-            var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' };
+            var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
             se.searchhotel.recent = [];
 
             this.searchhotel.recent.push(item2);
@@ -2805,7 +2808,7 @@ export class Tab1Page implements OnInit {
               }
             }
             if (cocheck == 0) {
-              var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels };
+              var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
               se.searchhotel.recent = [];
 
               if (this.recent.length > 1) {
@@ -2818,7 +2821,7 @@ export class Tab1Page implements OnInit {
             }
           }
           else {
-            var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels };
+            var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
             se.searchhotel.recent = [];
             this.searchhotel.recent.push(item3)
           }
@@ -2840,6 +2843,9 @@ export class Tab1Page implements OnInit {
           item.roomnumber= this.searchhotel.roomnumber;
           if(this.gbitem.imageUrl){
             item.imageUrl = (this.gbitem.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbitem.imageUrl : this.gbitem.imageUrl;
+          }
+          else if(this.searchhotel.objRecent.imageUrl){
+            item.imageUrl = this.searchhotel.objRecent.imageUrl;
           }
           else{
             item.imageUrl='';

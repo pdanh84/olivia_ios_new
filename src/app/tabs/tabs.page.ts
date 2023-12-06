@@ -212,15 +212,16 @@ export class TabsPage implements OnInit {
             
           }
         }
-        else if(data.dataLink.indexOf('ticketdetail') != -1){
-          let arr = data.dataLink.replace('/','').split('/');
-          if(arr && arr.length ==2){
-            this.ticketService.itemTicketDetail = {experienceId: arr[1]};
-            this.ticketService.backPage = 'hometicket';
-            this.navCtrl.navigateForward('/ticketdetail');
-          }
+        // else if(data.dataLink.indexOf('ticketdetail') != -1){
+        //   let arr = data.dataLink.toString().split(':');
+        //   if(arr && arr.length ==2){
+        //     this.ticketService.itemTicketDetail = {};
+        //     this.ticketService.itemTicketDetail.experienceId = arr[1];
+        //     this.ticketService.backPage = 'hometicket';
+        //     this.navCtrl.navigateForward('/ticketdetail');
+        //   }
         
-        }
+        // }
         else {
           this.navCtrl.navigateForward(data.dataLink);
         }

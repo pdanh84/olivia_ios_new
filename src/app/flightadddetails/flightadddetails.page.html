@@ -132,8 +132,8 @@
                             <ion-input class="cls-input-custom" [(ngModel)]="tax" type="text" required></ion-input>
                           </ion-item>
                         </div>
-                        <div style="margin-left: 5px" *ngIf="contactOption=='mail'">
-                            <ion-checkbox (ionChange)="showNameMail($event)" style="width: 20px; height: 20px" [value]="ishideNameMail"  color="secondary"></ion-checkbox>
+                        <div class="d-flex" *ngIf="contactOption=='mail'">
+                            <ion-checkbox (ionChange)="showNameMail($event)" style="width: 24px; height: 30px" [value]="ishideNameMail"  color="secondary"></ion-checkbox>
                             <ion-label class="label-input" style="margin: 0px 10px;">Dùng họ tên & email của người đặt dịch vụ để xuất hoá đơn</ion-label>
                           </div>
                           <div *ngIf="!ishideNameMail || contactOption=='zalo'">
@@ -197,13 +197,13 @@
                         <div [ngClass]="(itemAdult.errorName || itemAdult.errorSubName || itemAdult.errorInfo) ? 'div-right cls-error' : 'div-right'">
                             <ion-input class="cls-input-name" type="text" (ionChange)=textchangehoten(itemAdult)
                                 [(ngModel)]="itemAdult.name" (ionInput)="inputFocus(itemAdult, $event, 2)"
-                                (ionBlur)="inputLostFocus(itemAdult, true)" (ionFocus)="inputOnFocus(itemAdult, 2)"
+                                (ionBlur)="inputLostFocus(itemAdult, true)" (ionFocus)="inputOnFocus(itemAdult, 2)" (ionChange)="inputChange(itemAdult)"
                                 required></ion-input>
                         </div>
                     </div>
 
                     <div *ngIf="_flightService.itemFlightCache.priceCathay>0 && !isExtenal" class="d-flex m-top-16 ">
-                                <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'div-left cls-error ' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
+                                <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'div-left border-bottom cls-error ' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
                                     <ion-label [ngClass]="!itemAdult.dateofbirth ? 'sub-label m-bottom-6' : 'sub-label m-bottom-6 top-dob-24'" >Sinh ngày</ion-label>
                                          <ion-input
                                          class="cls-input-date"
@@ -214,16 +214,16 @@
                                 </div>
                     </div>
 
-                    <div *ngIf="isExtenal && showLotusPoint">
+                    <div *ngIf="((isExtenal && showLotusPoint) || isShowPassport)">
                         <div class="m-top-24 d-flex">
                           
-                            <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
+                            <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-r-8 border-bottom cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true)">
                                 <ion-label [ngClass]="!itemAdult.dateofbirth ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
                                     <ion-input
                                     [value]="itemAdult.birdayDisplay"
                                     type="bday"
                                     id="datee_{{idxa}}"
-                                    class="cls-ion-datetime"
+                                    [ngClass]="itemAdult.birdayDisplay ? 'cls-ion-datetime cls-height-inherit' : 'cls-ion-datetime'"
                                     ></ion-input>
                             </div>
 
@@ -250,7 +250,7 @@
                             
                         </div>
 
-                        <div class='d-flex p-relative m-top-24 h-45'>
+                        <div class='d-flex p-relative m-top-24 '>
                         
                             <div [ngClass]="(itemAdult.errorPassportCountry || (!itemAdult.passportCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
                                 <div class="sub-label label-country">
@@ -268,13 +268,13 @@
                                     <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemAdult, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
                                 </div>
                             </div>
-                            <div [ngClass]="(itemAdult.errorPassportExpireDate || (!itemAdult.passportExpireDate && itemAdult.errorInfo))? 'div-width-100 m-left-8 cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemAdult, false)">
+                            <div [ngClass]="(itemAdult.errorPassportExpireDate || (!itemAdult.passportExpireDate && itemAdult.errorInfo))? 'div-width-100 m-left-8 border-bottom cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemAdult, false)">
                                 <ion-label [ngClass]="!itemAdult.passportExpireDate ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6'" position="stacked">Ngày hết hạn</ion-label>
                                    <ion-input
                                     [value]="itemAdult.passportExpireDateDisplay"
                                     type="bday"
                                     id="datebirth_{{idxa}}"
-                                    class="cls-ion-datetime cls-ppe"
+                                    [ngClass]="itemAdult.passportExpireDateDisplay ? 'cls-ion-datetime cls-ppe cls-height-inherit' : 'cls-ion-datetime'"
                                     ></ion-input>
                             </div>
                         </div>
@@ -390,13 +390,13 @@
                         <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
                             <ion-input class="cls-input-name" type="text" (ionChange)=textchangehoten(itemChild)
                                 [(ngModel)]="itemChild.name" (ionInput)="inputFocus(itemChild, $event)"
-                                (ionBlur)="inputLostFocus(itemChild, false)" (ionFocus)="inputOnFocus(itemChild, 2)"
+                                (ionBlur)="inputLostFocus(itemChild, false)" (ionFocus)="inputOnFocus(itemChild, 2)" (ionChange)="inputChange(itemChild)"
                                 required></ion-input>
                         </div>
                     </div>
 
-                    <div *ngIf="!(isExtenal && showLotusPoint)" class=" d-flex m-top-16 ">
-                        <div [ngClass]="(itemChild.errorDateofbirth || (itemChild.errorInfo && !itemChild.dateofbirth) )? 'div-left cls-error' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
+                    <div *ngIf="!(isExtenal && showLotusPoint) && !isShowPassport" class=" d-flex m-top-16 ">
+                        <div [ngClass]="(itemChild.errorDateofbirth || (itemChild.errorInfo && !itemChild.dateofbirth) )? 'div-left border-bottom cls-error' : 'div-left border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
                                 <ion-label class="sub-label m-bottom-6" position="floating">Sinh ngày</ion-label>
                                 <ion-input
                                 class="cls-input-date"
@@ -407,16 +407,16 @@
                         </div>
                     </div>
 
-                    <div *ngIf="isExtenal && showLotusPoint">
+                    <div *ngIf="((isExtenal && showLotusPoint) || isShowPassport)">
                         <div class="m-top-24 d-flex">
                           
-                            <div [ngClass]="(itemChild.errorDateofbirth || (!itemChild.dateofbirth && itemChild.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
+                            <div [ngClass]="(itemChild.errorDateofbirth || (!itemChild.dateofbirth && itemChild.errorInfo)) ? 'p-relative div-width-100 m-r-8 border-bottom cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemChild, true)">
                                 <ion-label [ngClass]="!itemChild.dateofbirth ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
                                     <ion-input
                                     [value]="itemChild.birdayDisplay"
                                     type="bday"
                                     id="datee_{{idxc}}"
-                                    class="cls-ion-datetime"
+                                    [ngClass]="itemChild.birdayDisplay ? 'cls-ion-datetime cls-height-inherit' : 'cls-ion-datetime'"
                                     ></ion-input>
                             </div>
 
@@ -443,7 +443,7 @@
                             
                         </div>
 
-                        <div class='d-flex p-relative m-top-24 h-45'>
+                        <div class='d-flex p-relative m-top-24 '>
                         
                             <div [ngClass]="(itemChild.errorPassportCountry || (!itemChild.passportCountry && itemChild.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
                                 <div class="sub-label label-country">
@@ -461,13 +461,13 @@
                                     <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemChild, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
                                 </div>
                             </div>
-                            <div [ngClass]="(itemChild.errorPassportExpireDate || (!itemChild.passportExpireDate && itemChild.errorInfo))? 'div-width-100 m-left-8 cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemChild, false)">
+                            <div [ngClass]="(itemChild.errorPassportExpireDate || (!itemChild.passportExpireDate && itemChild.errorInfo))? 'div-width-100 m-left-8 border-bottom cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemChild, false)">
                                 <ion-label [ngClass]="!itemChild.passportExpireDate ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6'" position="stacked">Ngày hết hạn</ion-label>
                                    <ion-input
                                     [value]="itemChild.passportExpireDateDisplay"
                                     type="bday"
                                     id="datebirth_{{idxc}}"
-                                    class="cls-ion-datetime cls-ppe"
+                                    [ngClass]="itemChild.passportExpireDateDisplay ? 'cls-ion-datetime cls-ppe cls-height-inherit' : 'cls-ion-datetime '"
                                     ></ion-input>
                             </div>
                         </div>

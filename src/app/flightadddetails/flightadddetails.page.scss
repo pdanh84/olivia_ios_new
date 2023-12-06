@@ -83,7 +83,7 @@
     }
     .label-passport {
         position: absolute;
-        top: 4px;
+        top: -4px;
     }
     .label-passportcountry{
         
@@ -139,7 +139,7 @@
         overflow-y: scroll;
         background: #fff;
         z-index: 99;
-        margin-top: 42px;
+        margin-top: 46px;
 
         .item-country{
             font-size: 12px;
@@ -159,7 +159,8 @@
 
         .searchbar-input.sc-ion-searchbar-ios{
             background: transparent;
-            padding-inline-start: 0;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 0 !important;
         }
     }
     
@@ -172,16 +173,17 @@
         z-index: -1;
         width: 90%;
 
-        .searchbar-input.sc-ion-searchbar-ios{
+        .searchbar-input.sc-ion-searchbar-ios, .searchbar-input-container.sc-ion-searchbar-ios{
             background: transparent;
-            padding-inline-start: 0;
+            padding-inline-start: 0 !important;
+            padding-inline-end: 0 !important;
         }
     }
     .cls-country {
-        margin-top: -21px !important;
+        margin-top: -25px !important;
     }
     .cls-passportcountry {
-        margin-top: -28px !important;
+        margin-top: -27px !important;
     }
     .p-absolute{
         position: absolute;
@@ -393,7 +395,20 @@
     }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    -webkit-text-fill-color: #000;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(232, 240, 254) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 ::ng-deep{
+    .cls-ion-datetime .native-input.sc-ion-input-ios {
+        padding: 3px !important;
+        padding-inline-start: 0 !important;
+    }
     .cls-input-custom .native-input.sc-ion-input-ios{
         padding: 0;
         line-height: 28px;
@@ -425,8 +440,8 @@
     }
 
     .cls-input-country-custom .searchbar-input.sc-ion-searchbar-ios {
-        padding-inline-start: 0;
-        padding-inline-end: 0;
+        padding-inline-start: 0 !important;
+        padding-inline-end: 0 !important;
         box-shadow: none;
         background: transparent;
         padding-bottom: 0;
@@ -435,8 +450,8 @@
         font-weight: 300 !important;
     }
     .cls-input-passportcountry-custom .searchbar-input.sc-ion-searchbar-ios {
-        padding-inline-start: 0;
-        padding-inline-end: 0;
+        padding-inline-start: 0 !important;
+        padding-inline-end: 0 !important;
         box-shadow: none;
         background: transparent;
         padding-bottom: 0;
@@ -458,12 +473,16 @@
     
   
 }
+.cls-height-inherit {
+    min-height: inherit !important;
+}
 .cls-ion-datetime{
     --padding-start: 0;
-    --padding-top: 8px;
+    --padding-top: 3px;
+    min-height: 48px;
 }
 .cls-ppe {
-    --padding-top: 3px !important;
+    --padding-top: -3px !important;
 }
 
 .cls-error{

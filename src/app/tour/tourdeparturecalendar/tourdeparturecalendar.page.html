@@ -139,17 +139,17 @@
   <ion-footer class="bg-white">
     <div class="div-tourdeparturecalendar-footer d-flex">
       <div class="width-50 m-r-8" (click)="requestQuote()">
-        <button ion-button round outline [ngClass]="tourService.departuresItemList && tourService.departuresItemList.length > 0 ? 'button btn-advise' : 'button btn-advise cls-no-departure' " >
+        <button ion-button round outline [disabled]="!loaddeparturedone" [ngClass]="tourService.departuresItemList && tourService.departuresItemList.length > 0 ? 'button btn-advise' : 'button btn-advise cls-no-departure' " >
           Liên hệ tư vấn
         </button>
       </div>
-      <div [ngClass]="hasDeparture ? 'width-50' : 'width-50 cls-no-departure' " *ngIf="hasAllotment" (click)="book()">
-          <button ion-button round outline class="button btn-book">
+      <div [ngClass]="hasDeparture ? 'width-50' : 'width-50 cls-no-departure' " *ngIf="hasAllotment" (click)="book()" >
+          <button ion-button round outline  [disabled]="!loaddeparturedone" class="button btn-book">
               Đặt ngay
           </button>
       </div>
       <div [ngClass]="hasDeparture && statusAllotment!='SS' ? 'width-50' : 'width-50 cls-no-departure' " *ngIf="!hasAllotment " (click)="requestBook()">
-        <button ion-button round outline [ngClass]="tourService.departuresItemList && tourService.departuresItemList.length > 0 ? 'button btn-book' : 'button btn-book cls-no-departure'">
+        <button ion-button round outline  [disabled]="!loaddeparturedone" [ngClass]="tourService.departuresItemList && tourService.departuresItemList.length > 0 ? 'button btn-book' : 'button btn-book cls-no-departure'">
             Yêu cầu đặt
         </button>
     </div>

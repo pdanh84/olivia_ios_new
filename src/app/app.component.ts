@@ -28,6 +28,7 @@ import { OverlayEventDetail } from '@ionic/core';
 import { flightService } from './providers/flightService';
 import { MytripService } from './providers/mytrip-service.service';
 import { tourService } from 'src/app/providers/tourService';
+import { ticketService } from 'src/app/providers/ticketService';
 import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
@@ -76,7 +77,8 @@ export class AppComponent implements OnInit{
     //private deeplinks: Deeplinks,
     public _flightService: flightService,
     public _mytripservice: MytripService,public tourService: tourService,
-    private fb: Facebook
+    private fb: Facebook,
+    public ticketService: ticketService
   ) {
     //console.log(performance.now());
     
@@ -325,6 +327,30 @@ export class AppComponent implements OnInit{
           }
           
         }
+      }
+      else if(data.dataLink.indexOf('ticketdetail') != -1){
+        setTimeout(()=>{
+          let arr = data.dataLink.split(':');
+          if(arr && arr.length ==2){
+            this.ticketService.itemTicketDetail = {};
+            this.ticketService.itemTicketDetail.experienceId = arr[1];
+            this.ticketService.backPage = 'hometicket';
+            this.navCtrl.navigateForward('/ticketdetail');
+          }
+        
+        },300);
+       
+      }
+      else if(data.dataLink.indexOf('blog') != -1){
+        setTimeout(()=>{
+          let arr = data.dataLink.split(':');
+          if(arr && arr.length ==2){
+            this.valueGlobal.backValue = "tab4";
+            this.navCtrl.navigateForward("/blog/" +arr[1]);
+          }
+        
+        },300);
+       
       }
         else{
           if (data.updateNewVersion) {

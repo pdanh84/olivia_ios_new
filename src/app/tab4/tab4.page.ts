@@ -11,6 +11,7 @@ import { MytripService } from '../providers/mytrip-service.service';
 import * as $ from 'jquery';
 import { flightService } from '../providers/flightService';
 import { tourService } from 'src/app/providers/tourService';
+import { ticketService } from 'src/app/providers/ticketService';
 import { Browser } from '@capacitor/browser';
 var document:any;
 /**
@@ -58,7 +59,8 @@ export class Tab4Page implements OnInit {
     private alertCtrl: AlertController,
     public activityService: ActivityService,
     public _mytripservice: MytripService,
-    public _flightService: flightService, public tourService: tourService, public searchhotel: SearchHotel
+    public _flightService: flightService, public tourService: tourService, public searchhotel: SearchHotel,
+    public ticketService: ticketService
   ) {
     //google analytic
     gf.googleAnalytion('inbox', 'load', '');
@@ -434,6 +436,16 @@ export class Tab4Page implements OnInit {
                 
               }
             }
+            else if(element.dataLink.indexOf('ticketdetail') != -1){
+              let arr = element.dataLink.toString().split(':');
+              if(arr && arr.length ==2){
+                this.ticketService.itemTicketDetail = {};
+                this.ticketService.itemTicketDetail.experienceId = arr[1];
+                this.ticketService.backPage = 'hometicket';
+                this.navCtrl.navigateForward('/ticketdetail');
+              }
+            
+            }
             else {
               se.navCtrl.navigateForward(element.dataLink);
             }
@@ -473,6 +485,27 @@ export class Tab4Page implements OnInit {
                   }
                   
                 }
+              }
+              else if(element.bookingCode.indexOf('ticketdetail') != -1){
+                let arr = element.bookingCode.toString().split(':');
+                if(arr && arr.length ==2){
+                  this.ticketService.itemTicketDetail = {};
+                  this.ticketService.itemTicketDetail.experienceId = arr[1];
+                  this.ticketService.backPage = 'hometicket';
+                  this.navCtrl.navigateForward('/ticketdetail');
+                }
+              
+              }
+              else if(element.bookingCode.indexOf('blog') != -1){
+                setTimeout(()=>{
+                  let arr = element.bookingCode.split(':');
+                  if(arr && arr.length ==2){
+                    this.valueGlobal.backValue = "tab4";
+                    this.navCtrl.navigateForward("/blog/" +arr[1]);
+                  }
+                
+                },300);
+               
               }
               else {
                 if (element.bookingCode == '1') {

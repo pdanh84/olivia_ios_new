@@ -507,6 +507,24 @@ export class FlightsearchresultPage implements OnInit {
                           se.mapHotelInfo(dataHotelCity,dataHotelCityPrice,arrHotelPrice,arrHotelDetail, arrHotel).then((data)=>{
                             se._flightService.itemFlightCache.itemsFlightCityHotel = [...data];
                             se._flightService.itemCheckHotelCity.emit([...data]);
+
+                            let _data = data[0];
+                            console.log(_data);
+                            if(_data.dataPrice && _data.hotelDetail){
+                              _data.hotelDetail.RoomClasses[0].selected = true;
+                              _data.PaxAndRoomInfo = _data.hotelDetail.SummaryFilter+ ", " + _data.hotelDetail.RoomClasses[0].TotalRoom+ " · " + _data.dataPrice.mealName;
+                              _data.roomName = _data.dataPrice.roomName;
+                              _data.priceDiff = (_data.dataPrice.lowRateOta * _data.hotelDetail.TotalNight) - _data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA;
+                              _data.priceOriginal = _data.dataPrice.lowRateOta * _data.hotelDetail.TotalNight;
+                              _data.priceOriginalDisplay = se.gf.convertNumberToString(_data.priceOriginal);
+                              _data.pricePromo = se.gf.convertNumberToString(_data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA);
+                              _data.priceTotal = _data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA;
+                              _data.SummaryFilter = _data.hotelDetail.SummaryFilter;
+                    
+                              _data.hotelDetail.RoomClasses.forEach(roomClass => {
+                                roomClass.MealTypeRates[0].PriceDiffUpgradeDisplay = se.gf.convertNumberToString(roomClass.MealTypeRates[0].PriceAvgPlusOTA);
+                              });
+                            }
                           })
                           
                         }else{

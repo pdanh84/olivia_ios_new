@@ -580,7 +580,7 @@ export class FlightSearchResultInternationalPage implements OnInit {
           if(se.pickerCtrl){
             se.pickerCtrl.dismiss();
           }
-          se.navCtrl.navigateBack('/flightsearchresult');
+          se.navCtrl.navigateBack('/flightsearchresultinternational');
           alert.dismiss();
         }
       }
@@ -749,7 +749,7 @@ export class FlightSearchResultInternationalPage implements OnInit {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
             'Content-Type': 'application/json; charset=utf-8'
           };
-          this.gf.RequestApi('POST', urlPath, headers, objjson, 'flightSearchResult', 'getHotelCity').then((data)=>{
+          this.gf.RequestApi('POST', urlPath, headers, objjson, 'flightsearchresultinternational', 'checkloadcache').then((data)=>{
 
         if(data){
           //console.log(body);

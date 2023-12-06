@@ -1039,6 +1039,9 @@ export class SelectDateRangePage implements OnInit {
       }
     }
     if (!this.flightmode && !this.showFromHotelList) {
+      if(this.searchhotel.formChangeDate == 1){
+        this.valueGlobal.dayhot = [];
+      }
       if (this.valueGlobal.ischeckCB == 0) {
         if (this.valueGlobal.dayhot && this.valueGlobal.dayhot.length > 0) {
           for (let index = 0; index < this.valueGlobal.dayhot.length; index++) {

@@ -439,9 +439,10 @@
                         <div class="div-width-50 text-label-name">Sinh ngày</div>
                      </div>
                      <div class="d-flex " *ngFor="let itemAdult of _flightService.itemFlightCache.adults; let idxa = index">
-                        <div class="div-width-100 text-normal div-align-end">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
+                        <div class="div-width-100 text-normal div-align-end p-bottom-4">{{itemAdult.genderdisplay}}. <span class="text-bold m-left-4">{{itemAdult.name}}</span></div>
                         <div class="div-width-50 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemAdult, true)">
                                     <ion-input [value]="itemAdult.birdayDisplay"
+                                    style="--padding-top: 18px"
                                     type="bday"
                                     id="datee_{{idxa}}"
                                     class="cls-ion-datetime"
@@ -450,10 +451,11 @@
                      </div>
 
                      <div class="d-flex" *ngFor="let itemChild of _flightService.itemFlightCache.childs; let idxc = index">
-                        <div class="div-width-100 text-normal div-align-end">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
+                        <div class="div-width-100 text-normal div-align-end p-bottom-4">{{itemChild.genderdisplay}}. <span class="text-bold m-left-4">{{itemChild.name}}</span></div>
                         <div class="div-width-50 text-normal div-border-bottom" (touchend)="selectDateOfBirth(itemChild, true)">
                             <ion-input [value]="itemChild.birdayDisplay"
                                     type="bday"
+                                    style="--padding-top: 18px"
                                     id="datee_{{idxc}}"
                                     class="cls-ion-datetime"
                                     ></ion-input>

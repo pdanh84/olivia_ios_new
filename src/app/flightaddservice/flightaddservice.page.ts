@@ -3152,6 +3152,7 @@ getSummaryBooking(resNo) {
             se._flightService.itemFlightCache.isCathay = true;
             se.isCathay = true;
             se._flightService.itemFlightCache.priceCathay = se.priceCathay;
+            //se.checkMappingBirthday();
             if(se.roundtrip){
               se._flightService.itemFlightCache.InsuranceType = 3;
             }
@@ -3163,6 +3164,28 @@ getSummaryBooking(resNo) {
           
         }
     })
+  }
+
+  
+  checkMappingBirthday(){
+      this.storage.get('listpaxcache').then((data)=>{
+        if(data){
+          let arraycheck = [...this._flightService.itemFlightCache.adults,...this._flightService.itemFlightCache.childs];
+          for (let index = 0; index < arraycheck.length; index++) {
+            const elementpax = arraycheck[index];
+            let isexist = data.some(r => r.name.trim().toLowerCase() != elementpax.name.trim().toLowerCase() && moment(r.birthDay).format('YYYYMMDD') == moment(elementpax.birthDay).format('YYYYMMDD') && r.birdayDisplay == elementpax.birdayDisplay);
+            if(isexist){
+              this.zone.run(()=>{
+                elementpax.birthDay = '';
+                elementpax.birdayDisplay ='';
+                elementpax.dateofbirth = '';
+              })
+              
+            }
+          }
+        }else{
+        }
+      })
   }
 
   getCheckAirportDiChung() {

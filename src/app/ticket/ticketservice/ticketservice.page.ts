@@ -356,6 +356,7 @@ export class TicketServicePage implements OnInit{
     this.ticketService.timeId = "";
     this.ticketService.timeId = this.timeId;
     this.ticketService.checkinDate = this.checkinDate;
+    this.searchhotel.formChangeDate = 12;
     let modal = await se.modalCtrl.create({
       component: SelectDateRangePage,
         animated: true,

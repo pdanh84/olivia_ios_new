@@ -47,15 +47,18 @@ export class SelectDateOfBirthPage implements OnInit {
   }
 
   ok(){
-    if(this.activityService.itemPax.isChangeBOD){
-      this.item.birdayDisplay = moment(this.item.dateofbirth).format("DD/MM/YYYY");
-    }else if(this.activityService.itemPax.isChangeBODCombo){
-      this.item.BirthDay = this.item.passportExpireDate;
-      this.item.birdayDisplay = moment(this.item.passportExpireDate).format("DD/MM/YYYY");
-    }else{
-      this.item.passportExpireDateDisplay = moment(this.item.passportExpireDate).format("DD/MM/YYYY");
-    }
-    this.modalCtrl.dismiss({itempushback: this.item});
+    setTimeout(()=>{
+      if(this.item.dateofbirth && this.activityService.itemPax.isChangeBOD){
+        this.item.birdayDisplay = moment(this.item.dateofbirth).format("DD/MM/YYYY");
+      }else if(this.item.passportExpireDate && this.activityService.itemPax.isChangeBODCombo){
+        this.item.BirthDay = this.item.passportExpireDate;
+        this.item.birdayDisplay = moment(this.item.passportExpireDate).format("DD/MM/YYYY");
+      }else if(this.item.passportExpireDate){
+        this.item.passportExpireDateDisplay = moment(this.item.passportExpireDate).format("DD/MM/YYYY");
+      }
+      this.modalCtrl.dismiss({itempushback: this.item});
+    },10)
+   
   }
 
       changeDate(event){

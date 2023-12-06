@@ -8,7 +8,7 @@
     margin-bottom: 10px;
 }
 
-.content-flightadddetails{
+.content-flightadddetailsinternational{
     padding: 16px;
     font-size: 16px;
     font-weight: 500;
@@ -92,7 +92,7 @@
     }
     .label-passport {
         position: absolute;
-        top: 12px;
+        top: -20px;
     }
     .label-passportcountry{
         
@@ -108,10 +108,10 @@
         transition: top 0.1s ease-out;
     }
     .cls-country{
-        top: 12px;
+        top: -12px;
     }
     .cls-country-transition{
-        top: -11px;
+        top: -13px;
         //transition: top 0.1s ease-out;
     }
     .f-normal {
@@ -142,7 +142,7 @@
         overflow-y: scroll;
         background: #fff;
         z-index: 99;
-        margin-top: 47px;
+        margin-top: 58px;
 
         .item-country{
             font-size: 14px;
@@ -158,6 +158,9 @@
         background: transparent;
         z-index: -1;
         width: 90%;
+
+        padding: 0;
+        margin-top: -15px;
 
         .searchbar-input.sc-ion-searchbar-ios{
             background: transparent;
@@ -182,11 +185,11 @@
     }
     .label-dob{
         position: absolute;
-        top: 16px;
+        top: -6px;
     }
     .label-dob-transition {
         position: absolute;
-        top: -7px;
+        top: -8px;
         transition: top 0.1s ease-out;
     }
     .m-h-48 {
@@ -561,6 +564,10 @@
 }
 
 ::ng-deep{
+    .cls-ion-datetime .native-input.sc-ion-input-ios{
+        padding: 3px !important;
+        padding-inline-start: 0 !important;
+    }
     .searchbar-clear-icon.sc-ion-searchbar-ios {
         opacity: 0.7;
     }

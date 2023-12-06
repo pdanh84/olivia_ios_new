@@ -15,9 +15,9 @@
 <ion-content class="login-content">
 
   <div class="p-all-16" >
-    <div class="m-top-logo">
+    <!-- <div class="m-top-logo">
       <img class="img-logo" src="./assets/logo/ivv_logo.png" />
-    </div>
+    </div> -->
 
     <ion-grid class="no-padding m-top-32">
       <ion-row justify-content-around>
@@ -50,11 +50,12 @@
       <div class="cls-border div-right"></div>
     </div>
     <div class="m-top-32">
-
-      <div class="div-btn-other-login">
-        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/sms.svg" /></div>
-        <button shape="round" fill="outline"  (click)="logintksms()"  class="button text-button">Đăng nhập bằng SMS</button >
+      <div class="div-btn-other-login ">
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Apple.svg" /></div>
+        <button shape="round" fill="outline"  (click)="loginapple()"  class="button text-button btn-apple">Đăng
+          nhập bằng Apple</button >
       </div>
+     
       <div class="div-btn-other-login m-top-12">
         <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Facebook.svg" /></div>
         <button ion-button round (click)="loginfb()" class="button text-button button-fb">
@@ -70,9 +71,8 @@
       </div>
 
       <div class="div-btn-other-login m-top-12">
-        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/Apple.svg" /></div>
-        <button shape="round" fill="outline"  (click)="loginapple()"  class="button text-button btn-apple">Đăng
-          nhập bằng Apple</button >
+        <div class="div-icon-button"> <img class="img-login" src="./assets/ic_login/sms.svg" /></div>
+        <button shape="round" fill="outline"  (click)="logintksms()"  class="button text-button">Đăng nhập bằng SMS</button >
       </div>
       
     </div>

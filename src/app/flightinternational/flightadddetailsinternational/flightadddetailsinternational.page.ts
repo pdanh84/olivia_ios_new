@@ -119,6 +119,14 @@ export class FlightAdddetailsInternationalPage implements OnInit {
     private fb: Facebook,
     public activityService: ActivityService,
     public _voucherService: voucherService) {
+      this.storage.get('auth_token').then(auth_token => {
+        this.loginuser = auth_token;
+        if(auth_token){
+          this.GetUserInfo(auth_token);
+        }
+      
+      });
+      
       this.platform.resume.subscribe(async()=>{
         if(!this._flightService.itemFlightCache){
           this._flightService.itemTabFlightActive.emit(true);
@@ -309,8 +317,17 @@ export class FlightAdddetailsInternationalPage implements OnInit {
             se._flightService.itemFlightLogin.pipe().subscribe((data)=>{
                 if(data){
                   setTimeout(()=>{
+                    se.storage.get('auth_token').then(auth_token => {
+                      se.loginuser = auth_token;
+                      if(auth_token){
+                        se.GetUserInfo(auth_token);
+                      }
+                    });
+                  },200)
+
+                  setTimeout(()=>{
                     se.loadUserInfo();
-                  },300)
+                  },500)
                     
                 }
             })
@@ -704,6 +721,17 @@ export class FlightAdddetailsInternationalPage implements OnInit {
             })
             
         }
+        
+        setAdultGenderProperty(){
+          var se = this;
+          if(se.adults && se.adults.length>0){
+            let itema = se.adults[0];
+            if(se.gender){
+              itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
+              itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
+            }
+          }
+        }
         GetUserInfo(auth_token) {
           var se = this;
               var text = "Bearer " + auth_token;
@@ -719,6 +747,10 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                       se.ischeck = false;
                       if(data.email){
                         se.email = data.email;
+                      }
+                      if(data.gender != null){
+                        se.gender = data.gender;
+                        se.setAdultGenderProperty();
                       }
                       var corpInfomations=data.corpInfomations[0];
                       if(corpInfomations){
@@ -3530,8 +3562,10 @@ alert.present();
                 }
                 //if(se.optionPassport){
                   se.currentSelectPax.country = paxhint.country ? paxhint.country: se.currentSelectPax.country;
+                  se.currentSelectPax.countryName = paxhint.countryName ? paxhint.countryName: se.currentSelectPax.countryName;
                   se.currentSelectPax.passport = paxhint.passport ? paxhint.passport: se.currentSelectPax.passport; 
                   se.currentSelectPax.passportCountry = paxhint.passportCountry ? paxhint.passportCountry: se.currentSelectPax.passportCountry;
+                  se.currentSelectPax.passportCountryName = paxhint.passportCountryName ? paxhint.passportCountryName: se.currentSelectPax.passportCountryName;
                   se.currentSelectPax.passportExpireDate = paxhint.passportExpireDate ? paxhint.passportExpireDate: se.currentSelectPax.passportExpireDate; 
                   se.currentSelectPax.passportExpireDateDisplay = paxhint.passportExpireDate ? moment(paxhint.passportExpireDate).format('DD/MM/YYYY') : (se.currentSelectPax.passportExpireDate ? moment(se.currentSelectPax.passportExpireDate).format('DD/MM/YYYY') : '');
 
