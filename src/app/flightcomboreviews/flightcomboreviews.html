@@ -119,12 +119,12 @@
             <div  text-wrap>
               <img src="./assets/iconaccount/info.svg">
             </div>
-            <div  class="text-p text-width-190 margin-left-3 color-blue" text-wrap>
+            <div  class=" text-width-190 margin-left-3 text-status-room" text-wrap>
               <span *ngIf="statusRoom!= 'RQ'" >Xác nhận ngay</span>
               <span *ngIf="statusRoom!='AL'" >Xác nhận trong 60 phút</span>
             </div>
             <span  style="right: 0px;" class="text-change mtt-2">
-              <span (click)="upgradeRoom()" class="margin-right-5">Đổi</span> <img src="./assets/imgs/vector.svg">
+              <span (click)="upgradeRoom()" class="margin-right-5 text-underline">Đổi</span> <img src="./assets/imgs/vector.svg">
             </span>
           </div>
         </div>
@@ -151,6 +151,7 @@
 
     <div class="m-top-16 m-bottom-16" *ngIf="loadflightpricedone">
       <div class="div-flex">
+        <img class="icon-flight" src="./assets/ic_flight/flight_cin.svg"> 
         <label class="div-flight-label">
           {{de_departdatestr}}
         </label>
@@ -187,12 +188,13 @@
         <img class="img-logo" *ngIf="idx==0 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
         <div class="div-flight-name margin-left-5" *ngIf="idx==0">{{com.airlineCode}}</div> 
         <span *ngIf="idx==0" class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==0">{{com.ticketClass}}</div>
-        <div  *ngIf="idx==0" (click)="showListFlight(idx)" class="text-change mtt-2">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
+        <div  *ngIf="idx==0" (click)="showListFlight(idx)" class="text-change mtt-2  text-underline">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
         </div>
       </div>
       <div *ngIf="operatedBydep" class="text-operatedBy">{{operatedBydep}}</div>
       <hr class="m-top-15 m-bottom-16">
       <div class="div-flex">
+        <img class="icon-flight" src="./assets/ic_flight/flight_cout.svg"> 
         <label class="div-flight-label">
           {{ar_departdatestr}}
         </label>
@@ -228,7 +230,7 @@
         <img class="img-logo logo-vna" *ngIf="idx==1 && com.operatedBy && com.urlLogo" [src]="com.urlLogo">
         <img class="img-logo" *ngIf="idx==1 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
         <div class="div-flight-name margin-left-5" *ngIf="idx==1">{{com.airlineCode}}</div> <span class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==1">{{com.ticketClass}}</div>
-        <div *ngIf="idx==1" (click)="showListFlight(idx)" class="text-change mtt-2">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
+        <div *ngIf="idx==1" (click)="showListFlight(idx)" class="text-change mtt-2  text-underline">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
         </div>
       </div>
       <div *ngIf="operatedByret" class="text-operatedBy">{{operatedByret}}</div>
@@ -245,7 +247,9 @@
        
       </label>
       <div (click)="buyLuggage()">
+        <img src="./assets/ic_flight/vali.svg" class='icon-lug' />
         <span class="text-luggage margin-left-8">Đi: {{totaldepluggage}} kg.</span>
+        <img src="./assets/ic_flight/vali.svg" class='icon-lug' />
         <span class="text-luggage margin-left-8">Về: {{totalretluggage}} kg.</span>
        </div>
       <img src="./assets/imgs/ic_arrow_grey.svg" class='cls-icon-img' (click)="buyLuggage()"/>
@@ -296,7 +300,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -316,7 +320,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -357,7 +361,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -378,7 +382,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -406,7 +410,7 @@
     </ion-row>
     <ion-row *ngIf="PriceAvgPlusTAStr">
       <ion-col style="padding:5px 0">
-        <label class="text-note">*Tổng giá không được đảm bảo cho đến khi quý khách xuất vé.</label>
+        <label class="text-note">*Giá cuối cùng sẽ được xác nhận khi bạn hoàn tất việc đặt vé.</label>
       </ion-col>
     </ion-row>
   </div>

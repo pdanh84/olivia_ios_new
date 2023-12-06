@@ -30,6 +30,21 @@
         color: #26bed6
       }
     }
+    .icon-flight {
+      margin-right: 6px;
+    }
+    .text-status-room {
+      font-size: 14px;
+      font-weight: 600;
+      color: #222222;
+      letter-spacing: -0.4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap !important;
+    }
+    .text-underline {
+      text-decoration: underline;
+    }
       .text-fee{
         margin: 2px 0px 5px 0px;
         color: #828282;

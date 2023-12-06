@@ -2732,3 +2732,12 @@ swiper-slide img {
         width: 100% !important;
       }
     }
+
+    ////////////
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #828282;
+      font-size: 14px;
+      font-weight: 300;
+      opacity: 0.8;
+    }

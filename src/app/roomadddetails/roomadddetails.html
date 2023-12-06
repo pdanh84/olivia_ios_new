@@ -29,13 +29,13 @@
         <div >
             <ion-item style="--padding-start: 0px">
                 <ion-label class="label-name" position="stacked">Họ Tên<span *ngIf="hoten">*</span><span *ngIf="!hoten" class="color-red">*</span></ion-label>
-                <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
+                <ion-input class="label-input" [(ngModel)]="hoten" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)" placeholder="Nhập họ và tên đầy đủ (Ví dụ: Nguyễn Văn A)" required></ion-input>
             </ion-item>
         </div>
       <div >
         <ion-item style="--padding-start: 0px">
           <ion-label class="label-name" position="stacked">Số điện thoại<span *ngIf="phone">*</span><span *ngIf="!phone" class="color-red">*</span></ion-label>
-          <ion-input class="label-input" [(ngModel)]="phone" type="tel" required></ion-input>
+          <ion-input class="label-input" [(ngModel)]="phone" type="tel" required placeholder="Nhập số điện thoại (Ví dụ: 0123 456 789)"></ion-input>
         </ion-item>
       </div>
     
@@ -43,7 +43,7 @@
       <div >
         <ion-item style="--padding-start: 0px">
           <ion-label class="label-name" position="stacked">Email<span *ngIf="_email">*</span><span *ngIf="!_email" class="color-red">*</span></ion-label>
-          <ion-input class="label-input" [(ngModel)]="_email" type="text" required></ion-input>
+          <ion-input class="label-input" [(ngModel)]="_email" type="text" required placeholder="Nhập email (Ví dụ: nva1999@gmail.com)"></ion-input>
   
         </ion-item>
       </div>
@@ -69,7 +69,7 @@
           <ion-col size="12">
             <ion-item style="--padding-start: 0px" id="ipNote">
               <ion-label class="label-name" position="stacked">Yêu cầu khác</ion-label>
-              <ion-input class="label-input" [(ngModel)]="note" (ionFocus)="setFocusInput()"></ion-input>
+              <ion-input class="label-input" [(ngModel)]="note" (ionFocus)="setFocusInput()" placeholder="Nhập bất kỳ yêu cầu đặc biệt hoặc thông tin bổ sung mà bạn muốn chúng tôi biết"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -83,19 +83,19 @@
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
             <ion-label class="label-input-order" position="stacked">Tên công ty</ion-label>
-            <ion-input class="label-input" [(ngModel)]="companyname" type="text" required></ion-input>
+            <ion-input class="label-input" [(ngModel)]="companyname" type="text" required placeholder="Nhập tên công ty (nếu áp dụng)"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
             <ion-label class="label-input-order" position="stacked">Địa chỉ</ion-label>
-            <ion-input class="label-input" [(ngModel)]="address" type="text" required></ion-input>
+            <ion-input class="label-input" [(ngModel)]="address" type="text" required placeholder="Nhập địa chỉ đầy đủ của công ty"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
             <ion-label class="label-input-order" position="stacked">Mã số thuế</ion-label>
-            <ion-input class="label-input" [(ngModel)]="tax" type="text" required></ion-input>
+            <ion-input class="label-input" [(ngModel)]="tax" type="text" required placeholder="Nhập mã số thuế của công ty"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -107,13 +107,13 @@
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
             <ion-label class="cls-label" position="stacked">Họ tên</ion-label>
-            <ion-input class="label-input" [(ngModel)]="hotenhddt" type="text" required></ion-input>
+            <ion-input class="label-input" [(ngModel)]="hotenhddt" type="text" required placeholder="Nhập tên người liên hệ cho hóa đơn"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="12">
           <ion-item style="--padding-start: 0px">
             <ion-label class="cls-label" position="stacked">Email nhận HĐ</ion-label>
-            <ion-input class="label-input" [(ngModel)]="emailhddt" type="text" required></ion-input>
+            <ion-input class="label-input" [(ngModel)]="emailhddt" type="text" required placeholder="Nhập email để nhận hóa đơn điện tử"></ion-input>
           </ion-item>
         </ion-col>
       </div>
