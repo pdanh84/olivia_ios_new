@@ -61,6 +61,17 @@ export class FlightComboAddDetailsPage implements OnInit {
     var id = 1;
     let num = 1;
     this.objectFlight = this.gf.getParams('flightcombo');
+    if(!this.objectFlight){
+      this.navCtrl.back();
+      return;
+    }
+
+    this.platform.resume.subscribe(async()=>{
+      if(!this.objectFlight){
+        this.navCtrl.back();
+        return;
+      }
+    })
     this.showLotusPoint = ((this.objectFlight.FlightBooking.departFlight && this.objectFlight.FlightBooking.departFlight.AirlineCode.indexOf('VietnamAirlines') != -1) || (this.objectFlight.FlightBooking.returnFlight && this.objectFlight.FlightBooking.returnFlight.AirlineCode.indexOf('VietnamAirlines') != -1)) ? true : false;
     this.PriceAvgPlusTAStr = this.objectFlight.HotelBooking.TotalPrices;
     this.PriceAvgPlusTA = this.objectFlight.HotelBooking.TotalPrices;
@@ -152,14 +163,14 @@ export class FlightComboAddDetailsPage implements OnInit {
                 if (elementcache) {
                   element.id = elementcache.id;
                   //element.PassengerType = elementcache.PassengerType;
-                  element.Gender = elementcache.Gender;
+                  element.gender = elementcache.gender;
                   element.FirstName = elementcache.FirstName;
                   element.LastName = elementcache.LastName;
                   element.hoten = elementcache.hoten;
                   element.genderdisplay = elementcache.genderdisplay;
                   element.airlineMemberCode = elementcache.airlineMemberCode;
 
-                  if (element.Gender) {
+                  if (element.gender) {
                     this.checkInput(element, 1, true);
                   }
                   if (element.hoten) {
@@ -174,7 +185,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                 const elementcache = data.child[index];
                 if (elementcache) {
                   element.id = elementcache.id;
-                  element.Gender = elementcache.Gender;
+                  element.gender = elementcache.gender;
                   element.FirstName = elementcache.FirstName;
                   element.LastName = elementcache.LastName;
                   element.hoten = elementcache.hoten;
@@ -185,7 +196,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                   
                   element.genderdisplay = elementcache.genderdisplay;
 
-                  if (element.Gender) {
+                  if (element.gender) {
                     this.checkInput(element, 1, false);
                   }
                   if (element.hoten) {
@@ -273,23 +284,29 @@ export class FlightComboAddDetailsPage implements OnInit {
 
   ngOnInit() {
   }
+  setAdultGenderProperty(gender){
+    var se = this;
+    if(se.arradult && se.arradult.length>0){
+      let itema = se.arradult[0];
+      if(gender){
+        itema.gender = (gender == 1 || gender.toLowerCase().indexOf('ông')!= -1 || gender.toLowerCase().indexOf('nam')!= -1 || gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
+        itema.genderdisplay = (gender == 1 || gender.toLowerCase().indexOf('ông') != -1 || gender.toLowerCase().indexOf('nam') != -1 || gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
+      }
+    }
+  }
   GetUserInfo() {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers = {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'flightComboAddDetails', 'GetUserInfo').then((data)=>{
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
               se.zone.run(() => {
                 se.ischeck = false;
                 if(data.email){
                   se._email = data.email;
+                }
+                if(data.gender){
+                  se.setAdultGenderProperty(data.gender);
                 }
                 var corpInfomations
                 if (data.corpInfomations) {
@@ -476,14 +493,14 @@ export class FlightComboAddDetailsPage implements OnInit {
         this.arradult[i].errorTextBirthday = '';
         this.arradult[i].textErrorInfo = '';
 
-        if (!this.arradult[i].Gender && !this.arradult[i].hoten && !this.arradult[i].BirthDay) {
+        if (!this.arradult[i].gender && !this.arradult[i].hoten && !this.arradult[i].BirthDay) {
           this.arradult[i].errorInfo = true;
           this.arradult[i].textErrorInfo = "Vui lòng nhập thông tin Người lớn " + (i + 1);
           co = 5;
           break;
         }
 
-        if (!this.arradult[i].Gender) {
+        if (!this.arradult[i].gender) {
           co = 3;
           this.arradult[i].errorGender = true;
           this.arradult[i].errorTextGender = 'Vui lòng nhập giới tính Người lớn ' + (i + 1);
@@ -527,14 +544,14 @@ export class FlightComboAddDetailsPage implements OnInit {
         this.arrchild[i].errorTextBirthday = '';
         this.arrchild[i].errorTextInfo = '';
 
-        if(!this.arrchild[i].Gender && !this.arrchild[i].hoten && !this.arrchild[i].BirthDay){
+        if(!this.arrchild[i].gender && !this.arrchild[i].hoten && !this.arrchild[i].BirthDay){
           this.arrchild[i].errorInfo = true;
           this.arrchild[i].textErrorInfo = "Vui lòng nhập thông tin "+(this.arrchild[i].isChild ? (this.arrchild[i].PassengerType==1 ?  'Trẻ em ': 'Trẻ sơ sinh '): 'Người lớn ')+" "+(i+1);
           co = 5;
           break;
         }
 
-        if (!this.arrchild[i].Gender) {
+        if (!this.arrchild[i].gender) {
           co = 3;
           this.arrchild[i].errorGender = true;
           this.arrchild[i].errorTextGender = 'Vui lòng nhập giới tính '+(this.arrchild[i].isChild ? (this.arrchild[i].PassengerType==1 ?  'Trẻ em ': 'Trẻ sơ sinh '): 'Người lớn ')+' '+ (i+1);
@@ -929,12 +946,12 @@ export class FlightComboAddDetailsPage implements OnInit {
             name += ' ' + texthoten[j];
           }
         }
-        item = { PassengerType: this.arradult[i].PassengerType, FirstName: name, LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].Gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
+        item = { PassengerType: this.arradult[i].PassengerType, FirstName: name, LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
       } else if (texthoten.length > 1) {
-        item = { PassengerType: this.arradult[i].PassengerType, FirstName: texthoten[1], LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].Gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
+        item = { PassengerType: this.arradult[i].PassengerType, FirstName: texthoten[1], LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
       }
       else if (texthoten.length == 1) {
-        item = { PassengerType: this.arradult[i].PassengerType, FirstName: "", LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].Gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
+        item = { PassengerType: this.arradult[i].PassengerType, FirstName: "", LastName: texthoten[0], BirthDay: this.arradult[i].BirthDay, Gender: this.arradult[i].gender, Baggage: this.arradult[i].Baggage, ReturnBaggage: this.arradult[i].ReturnBaggage, AncillaryJson: this.arradult[i].AncillaryJson, AncillaryReturnJson: this.arradult[i].AncillaryReturnJson, AirlineMemberCode: (this.showLotusPoint && this.arradult[i].airlineMemberCode) ? this.arradult[i].airlineMemberCode : "" };
       }
       arrPassengers.push(item);
     }
@@ -954,12 +971,12 @@ export class FlightComboAddDetailsPage implements OnInit {
             name += ' ' + texthoten[j];
           }
         }
-        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: name, LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].Gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
+        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: name, LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].gender, gender: this.arrchild[i].gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
       } else if (texthoten.length > 1) {
-        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: texthoten[1], LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].Gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
+        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: texthoten[1], LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].gender, gender: this.arrchild[i].gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
       }
       else if (texthoten.length == 1) {
-        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: "", LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].Gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
+        item = { PassengerType: this.arrchild[i].PassengerType, FirstName: "", LastName: texthoten[0], BirthDay: this.arrchild[i].BirthDay, Gender: this.arrchild[i].gender, gender: this.arrchild[i].gender, Baggage: this.arrchild[i].Baggage, ReturnBaggage: this.arrchild[i].ReturnBaggage, AncillaryJson: this.arrchild[i].AncillaryJson, AncillaryReturnJson: this.arrchild[i].AncillaryReturnJson };
       }
       arrPassengers.push(item);
     }
@@ -1058,7 +1075,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                      se.navCtrl.navigateForward('/flightcombopaymentdone/RQ');
 
                    } else {
-                     alert('Gặp sự cố, vui lòng thử lại sau')
+                     alert('Vé máy bay hiện tại chưa giữ chỗ được, vui lòng chọn vé khác!')
                    }
                  })
                })
@@ -1128,7 +1145,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                         se.navCtrl.navigateForward('/flightcombopaymentdone/RQ');
 
                       } else {
-                        alert('Gặp sự cố, vui lòng thử lại sau')
+                        alert('Vé máy bay hiện tại chưa giữ chỗ được, vui lòng chọn vé khác!')
                       }
                     })
                   })
@@ -1171,7 +1188,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                         }
                         se.navCtrl.navigateForward('/flightcombodoneprepay/' + se.bookcombo.bookingcode + '/' + se.PriceAvgPlusTAStr + '/' + 1)
                       } else {
-                        alert('Gặp sự cố, vui lòng thử lại')
+                        alert('Vé máy bay hiện tại chưa giữ chỗ được, vui lòng chọn vé khác!')
                       }
                     })
                   });
@@ -1242,7 +1259,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                       }
                       se.navCtrl.navigateForward('/flightcombodoneprepay/' + se.bookcombo.bookingcode + '/' + se.PriceAvgPlusTAStr + '/' + 1)
                     } else {
-                      alert('Gặp sự cố, vui lòng thử lại')
+                      alert('Vé máy bay hiện tại chưa giữ chỗ được, vui lòng chọn vé khác!')
                     }
                   })
                 });
@@ -1264,18 +1281,18 @@ export class FlightComboAddDetailsPage implements OnInit {
 
   itemrdmale(index, value) {
     if (value == 0) {
-      this.arradult[index].Gender = 1;
+      this.arradult[index].gender = 1;
     }
     else {
-      this.arrchild[index].Gender = 1;
+      this.arrchild[index].gender = 1;
     }
   }
   itemrdfemale(index, value) {
     if (value == 0) {
-      this.arradult[index].Gender = 2;
+      this.arradult[index].gender = 2;
     }
     else {
-      this.arrchild[index].Gender = 2;
+      this.arrchild[index].gender = 2;
     }
   }
   async presentToast1() {
@@ -1552,7 +1569,7 @@ export class FlightComboAddDetailsPage implements OnInit {
                     if (data) {
                       se.navCtrl.navigateForward('/flightcombodoneprepay/' + se.bookcombo.bookingcode + '/' + se.PriceAvgPlusTAStr + '/' + 1)
                     } else {
-                      alert('Gặp sự cố, vui lòng thử lại')
+                      alert('Vé máy bay hiện tại chưa giữ chỗ được, vui lòng chọn vé khác!')
                     }
                   })
                 });
@@ -1584,7 +1601,7 @@ export class FlightComboAddDetailsPage implements OnInit {
           cssClass: item.genderdisplay == "Anh" ? 'text-bold' : '',
           handler: () => {
             item.genderdisplay = 'Anh';
-            item.Gender = 1;
+            item.gender = 1;
           }
         },
         {
@@ -1592,7 +1609,7 @@ export class FlightComboAddDetailsPage implements OnInit {
           cssClass: item.genderdisplay == "Chị" ? 'text-bold' : '',
           handler: () => {
             item.genderdisplay = 'Chị';
-            item.Gender = 2;
+            item.gender = 2;
           }
         }
       ],
@@ -1615,7 +1632,7 @@ export class FlightComboAddDetailsPage implements OnInit {
           cssClass: item.genderdisplay == "Bé trai" ? 'text-bold' : '',
           handler: () => {
             item.genderdisplay = 'Bé trai';
-            item.Gender = 1;
+            item.gender = 1;
           }
         },
         {
@@ -1623,7 +1640,7 @@ export class FlightComboAddDetailsPage implements OnInit {
           cssClass: item.genderdisplay == "Bé gái" ? 'text-bold' : '',
           handler: () => {
             item.genderdisplay = 'Bé gái';
-            item.Gender = 2;
+            item.gender = 2;
           }
         }
       ],
@@ -2339,12 +2356,12 @@ export class FlightComboAddDetailsPage implements OnInit {
       for (let index = 0; index < listpaxhint.length; index++) {
         const element = listpaxhint[index];
         if(!item.isChild && !element.isChild){
-          if(item && !item.genderdisplay || (item && item.Gender && item.Gender == element.gender) ){
+          if(item && !item.genderdisplay || (item && item.gender && item.gender == element.gender) ){
             arraypax.push(element);
           }
         }
         else if(item.isChild && element.isChild){
-          if(item && !item.genderdisplay || (item && item.Gender && item.Gender == element.gender) ){
+          if(item && !item.genderdisplay || (item && item.gender && item.gender == element.gender) ){
             arraypax.push(element);
           }
         }
@@ -2377,13 +2394,13 @@ export class FlightComboAddDetailsPage implements OnInit {
         for (let index = 0; index < listpaxhint.length; index++) {
           const element = listpaxhint[index];
           if(!item.isChild && !element.isChild && value && element.fullName && se.gf.convertFontVNI(element.fullName).toLowerCase().indexOf(se.gf.convertFontVNI(value).toLowerCase()) != -1 ){
-            if(!item.genderdisplay || (item.Gender && item.Gender == element.gender) ){
+            if(!item.genderdisplay || (item.gender && item.gender == element.gender) ){
               arraypax.push(element);
             }
           }
 
           else if(item.isChild && element.isChild && value && element.fullName && se.gf.convertFontVNI(element.fullName).toLowerCase().indexOf(se.gf.convertFontVNI(value).toLowerCase()) != -1 ){
-            if(!item.genderdisplay || (item.Gender && item.Gender == element.gender) ){
+            if(!item.genderdisplay || (item.gender && item.gender == element.gender) ){
               arraypax.push(element);
             }
           }
@@ -2414,10 +2431,10 @@ export class FlightComboAddDetailsPage implements OnInit {
         se.currentSelectPax.phone = paxhint.phoneNumber ? paxhint.phoneNumber : se.currentSelectPax.phone;
         if(!se.currentSelectPax.isChild){
           se.currentSelectPax.genderdisplay = paxhint.gender == 1 ? 'Anh' : 'Chị';
-          se.currentSelectPax.Gender = paxhint.gender;
+          se.currentSelectPax.gender = paxhint.gender;
         }else{
           se.currentSelectPax.genderdisplay = paxhint.gender ==1? 'Bé trai' : 'Bé gái';
-          se.currentSelectPax.Gender = paxhint.gender ? paxhint.gender : 1;
+          se.currentSelectPax.gender = paxhint.gender ? paxhint.gender : 1;
         }
         
         if(paxhint.dateOfBirth){

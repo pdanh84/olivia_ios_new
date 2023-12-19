@@ -129,26 +129,7 @@ export class RoomadddetailsPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       this.auth_token = auth_token;
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        this.gf.RequestApi('GET', strUrl, headers, {}, 'roomadddetails', 'GetUserInfo').then((data)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
           if(data && data.corpInfomations && data.corpInfomations.length >0){
               se.zone.run(() => {
                 se.ishide = false;

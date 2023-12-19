@@ -181,10 +181,10 @@ export class AppComponent implements OnInit{
             },
           );
 
-            FCM.refreshToken().then(token => {
+            FCM.getToken().then(token => {
               this.storage.get('auth_token').then((auth_token)=>{
                 let deviceToken = (token && token.token) ? token.token: token;
-                this.storage.set('deviceToken',deviceToken);
+                this.storage.set('deviceToken',token);
                 if(deviceToken){
                   this.gf.pushTokenAndMemberID(auth_token, deviceToken, this.appversion);
                 }

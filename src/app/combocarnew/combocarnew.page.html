@@ -5,7 +5,7 @@
     </ion-col>
     <ion-col size="8" class="header-text">
       <ion-title class="text-title">
-        Kiểm tra
+        Xác nhận
       </ion-title>
     </ion-col>
   </ion-row>
@@ -108,7 +108,7 @@
                 </div>
               </div>
               <div *ngIf="pickup_pointsdep.length>1||drop_off_points_at_arrivedep.length>1">
-                <ion-label class="text-change" (click)="changeplace(0)">Đổi điểm đón/trả</ion-label>
+                <ion-label class="text-change text-link" (click)="changeplace(0)">Đổi điểm đón/trả</ion-label>
               </div>
           </div>
         </ion-col>
@@ -163,7 +163,7 @@
               </div>
           </div>
           <div  *ngIf="pickup_pointsret.length>1||drop_off_points_at_arriveret.length>1">
-            <ion-label class="text-change" (click)="changeplace(1)">Đổi điểm đón/trả</ion-label>
+            <ion-label class="text-change text-link" (click)="changeplace(1)">Đổi điểm đón/trả</ion-label>
           </div>
         </div>
         </ion-col>
@@ -209,7 +209,7 @@
           {{nameroom}}
         </label>
         <label *ngIf="PriceAvgPlusTAStr" class="text-p line-blue">
-          <span (click)="upgradeRoom()" class="margin-right-5">Đổi</span> <img src="./assets/imgs/vector.svg">
+          <span (click)="upgradeRoom()" class="margin-right-5 text-link">Đổi</span> <img src="./assets/imgs/vector.svg">
         </label>
       </div>
       <div class="text-regular p-top-8" text-wrap>
@@ -225,7 +225,7 @@
         <div class="div-location">
           <img class="img-location" src="./assets/iconaccount/info.svg">
         </div>
-           <div class="text-address text-thin color-blue">
+           <div class="text-address text-bold ">
             <ion-label  *ngIf="statusRoom=='AL'" >Xác nhận ngay</ion-label>
             <ion-label  *ngIf="statusRoom!='AL'" >Xác nhận trong 60 phút</ion-label>
           </div>
@@ -280,7 +280,7 @@
             <div>
               <h2 class="text-name" style="font-size: 18px;" position="stacked">{{adulsdisplay}} người lớn
                 {{childrendisplay}} trẻ em</h2>
-              <p class="text-tax-include" class="text-tax-include">Giá đã bao gồm thuế & phí dịch vụ</p>
+              <p class="text-tax-include" class="text-tax-include">Giá đã bao gồm thuế & phí</p>
             </div>
           </ion-col>
           <ion-col size="5" class="no-padding" (click)="showComboDetail()">
@@ -301,7 +301,7 @@
             <div>
               <h2 class="text-name" style="font-size: 18px;" position="stacked">{{adulsdisplay}} người lớn
                 {{childrendisplay}} trẻ em</h2>
-              <p class="text-tax-include">Giá đã bao gồm thuế & phí dịch vụ</p>
+              <p class="text-tax-include">Giá đã bao gồm thuế & phí</p>
             </div>
           </ion-col>
           <ion-col size="5" style="padding: 0;" (click)="showComboDetail()">
@@ -341,7 +341,7 @@
             <div>
               <h2 class="text-name" style="font-size: 18px;" position="stacked">{{adulsdisplay}} người lớn
                 {{childrendisplay}} trẻ em</h2>
-              <p class="text-tax-include">Giá đã bao gồm thuế & phí dịch vụ</p>
+              <p class="text-tax-include">Giá đã bao gồm thuế & phí</p>
             </div>
           </ion-col>
           <ion-col size="5" style="padding: 0;" (click)="showComboDetail()">
@@ -358,7 +358,7 @@
             <div>
               <h2 class="text-name" style="font-size: 18px;" position="stacked">{{adulsdisplay}} người lớn
                 {{childrendisplay}} trẻ em</h2>
-              <p class="text-tax-include">Giá đã bao gồm thuế & phí dịch vụ</p>
+              <p class="text-tax-include">Giá đã bao gồm thuế & phí</p>
             </div>
           </ion-col>
           <ion-col size="5" style="padding: 0;" (click)="showComboDetail()">
@@ -376,10 +376,9 @@
     </div>
     <div class="div-split-panel" *ngIf="!loadpricedone&&PriceAvgPlusTAStr"></div>
     <div *ngIf="PriceAvgPlusTAStr">
-      <ion-row *ngIf="PriceAvgPlusTAStr">
+      <ion-row *ngIf="PriceAvgPlusTAStr && loadpricedone">
         <ion-col style="padding:5px 0">
-          <label class="text-thin-italic">*iVIVU không đảm bảo giá vé này cho đến khi bạn
-            hoàn tất thanh toán và mã ghế ngồi được xác nhận!</label>
+          <label class="text-bold">*Hãy hoàn tất các bước đặt phòng để đảm bảo bạn không bỏ lỡ mức giá tuyệt vời này!</label>
         </ion-col>
       </ion-row>
     </div>

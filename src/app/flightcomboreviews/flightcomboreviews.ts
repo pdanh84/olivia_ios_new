@@ -237,7 +237,15 @@ export class FlightComboReviewsPage implements OnInit {
     this.showInsurranceText = this.hasInsurrance ? this.hasInsurrance : (this.bookCombo.checkInsurranceFee ? true : false);
     var cb;
     this.loadComboData(cb);
-    this.getHotelContractPrice(this.bookCombo.FormParam);
+    
+    //this.getHotelContractPrice(this.bookCombo.FormParam);
+    // .then((data) => {
+    //   if (data) {
+    //     se.listDepart=[];
+    //     se.listReturn=[];
+    //     se.loadFlightDataNew(false);
+    //   }
+    // });
     this.roomPriceSale = this.basepricesale;
     this.totalInfant = this.infant;
     this.totalChild = this.children - this.infant;
@@ -550,17 +558,7 @@ export class FlightComboReviewsPage implements OnInit {
           else if (a[property] * 1 > b[property] * 1) {
             return -1 * direction;
           }
-          // else if (a[property] * 1 == b[property] * 1 && a["rangeTime"] && b["rangeTime"]) {
-          //   if (a["rangeTime"] >= 600 && a["rangeTime"] <= 720) {
-          //     return 1 * direction;
-          //   }
-          //   else if (b["rangeTime"] >= 600 && b["rangeTime"] <= 720) {
-          //     return -1 * direction;
-          //   }
-          //   else {
-          //     return 1 * direction;
-          //   }
-          // }
+         
         }
       }));
     }
@@ -631,7 +629,7 @@ export class FlightComboReviewsPage implements OnInit {
                 let cbp = se.bookcombodetail;
                 var element = se.checkElement(se.jsonroom);
                 se.elementRooom=element;
-                
+                console.log(element);
                 //check lấy theo meal
                 if (element) {
                   var index = 0;
@@ -794,14 +792,17 @@ export class FlightComboReviewsPage implements OnInit {
     var se = this;
     se.resetValue();
     setTimeout(() => {
-      se.stoprequest = true;
-      se.loadpricedone = true;
-      if (se.listDepart.length == 0 || se.listReturn.length == 0) {
-        se.PriceAvgPlusTAStr = 0;
-        se.loadflightpricedone=true;
-        se.ischeckwaitlug=true;
-        se.msgEmptyFlight = se.listDepart.length == 0 && se.listReturn.length == 0 ? 'Vé máy bay không có.' : (se.listDepart.length == 0 ? 'Vé máy bay chiều đi không có.' : 'Vé máy bay chiều về không có.');
-      }
+      se.zone.run(()=>{
+        se.stoprequest = true;
+        se.loadpricedone = true;
+        if (se.listDepart.length == 0 || se.listReturn.length == 0) {
+          se.PriceAvgPlusTAStr = 0;
+          se.loadflightpricedone=true;
+          se.ischeckwaitlug=true;
+          se.msgEmptyFlight = se.listDepart.length == 0 && se.listReturn.length == 0 ? 'Vé máy bay không có.' : (se.listDepart.length == 0 ? 'Vé máy bay chiều đi không có.' : 'Vé máy bay chiều về không có.');
+        }
+      })
+      
     }, 50 * 1000);
 
     se.checkLoadCacheData(hascache).then(data => {
@@ -893,9 +894,9 @@ export class FlightComboReviewsPage implements OnInit {
         } else {
           se.allowSearchReturn = true;
         }
-        if (result.stop) {
-          se.stoprequest = result.stop;
-        }
+        // if (result.stop) {
+        //   se.stoprequest = result.stop;
+        // }
         if (result) {
           if (result.data && result.data.length > 0) {
             result.data.forEach(element => {
@@ -928,6 +929,20 @@ export class FlightComboReviewsPage implements OnInit {
               se.loadFlightCacheDataByAirline(source, 'return');
             }, 1500)
             // obj.countretry++;
+          }
+          else if(result.stop && type=='depart' && result.data && result.data.length == 0){
+            se.zone.run(() => {
+              se.loadflightpricedone =true;
+              se.ischeckwaitlug = true;
+              se.loadpricedone = true;
+            })
+          }
+          else if(result.stop && result.data && result.data.length == 0){
+            se.zone.run(() => {
+              se.loadflightpricedone =true;
+              se.ischeckwaitlug = true;
+              se.loadpricedone = true;
+            })
           }
         }
       
@@ -972,7 +987,7 @@ export class FlightComboReviewsPage implements OnInit {
   }
   getdata() {
     var se = this;
-    se.loadpricedone = true;
+    //se.loadpricedone = true;
     // se.storage.set('listflight_' + se.booking.HotelId + '_' + se.booking.CheckInDate + '_' + se.booking.CheckOutDate + '_' + se.bookCombo.ComboDetail.departureCode + '_' + se.bookCombo.arrivalCode + '_' + se.adults + '_' + se.children + '_' + se.infant, jsondata);
     se.zone.run(() => {
       if (se.listDepart && se.listDepart.length > 0) {
@@ -1328,10 +1343,16 @@ export class FlightComboReviewsPage implements OnInit {
     setTimeout(() => {
       se.ischeckwaitlug=true;
     }, 10 *1000)
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   se.loadflightpricedone = true;
+    //   se.checkVoucherClaimed();
+    // },4000)
+
+    if (departFlight && departFlight.length > 0 && returnFlight && returnFlight.length>0) {
       se.loadflightpricedone = true;
+      se.loadpricedone = true;
       se.checkVoucherClaimed();
-    },4000)
+    }
   }
 
   getDayOfWeek(date): string {
@@ -1397,7 +1418,7 @@ export class FlightComboReviewsPage implements OnInit {
     }
 
     if(this.elementMealtype.Supplier == 'SERI' && this.elementMealtype.HotelCheckDetailTokenInternal){
-      //Check allotment trÆ°á»›c khi book
+      //Check allotment trước khi book
       this.gf.checkAllotmentSeri(
         this.booking.HotelId,
         this.elementMealtype.RoomId,
@@ -2461,15 +2482,21 @@ export class FlightComboReviewsPage implements OnInit {
         se.ischangefly = true;
         se.bookCombo.Luggage = 0;
         se.ischeck = false;
-        se.GetUserInfo();
+        //se.GetUserInfo();
         se.loadflightpricedone = false;
+        se.loadpricedone = false;
         se.listDepart = [];
         se.listReturn = [];
         se.listDeparture = [];
         if (se.bookCombo.MealTypeIndex) {
           se.index = se.bookCombo.MealTypeIndex;
         }
-        se.loadFlightDataNew(true);
+        se.getHotelContractPrice(se.bookCombo.FormParam).then((data)=>{
+          if(data){
+            se.loadFlightDataNew(true);
+          }
+        })
+        
       } else {
         se.valueGlobal.backValue = "";
       }
@@ -2481,25 +2508,7 @@ export class FlightComboReviewsPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
-        let headers = {
-          'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-          this.gf.RequestApi('GET', strUrl, headers, {}, 'flightComboReview', 'GetUserInfo').then((data)=>{
+        se.gf.getUserInfo(auth_token).then((data) => {
 
             se.point = 0;
             if (data) {

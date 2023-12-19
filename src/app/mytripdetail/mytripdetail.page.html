@@ -255,7 +255,7 @@
                   {{gf.numberToCurrency(trip.paid_amount, '.')}} <span class="f-14">VND</span>
                 </div>
               </div>
-              <div class="text-sub">(Giá đã bao gồm thuế & phí dịch vụ)</div>
+              <div class="text-sub">(Giá đã bao gồm thuế & phí)</div>
 
             </div>
 
@@ -800,7 +800,7 @@
                     </div>
                   </div>
                   <div class="text-name-airport">
-                    (Giá đã bao gồm thuế & phí dịch vụ)
+                    (Giá đã bao gồm thuế & phí)
                   </div>
                 </div>
               </div>
@@ -1199,7 +1199,7 @@
                   [ngClass]="(trip.payment_status == 5 || trip.payment_status == 1) ? 'f-13' : 'text-orange f-13' ">VND</span>
               </div>
             </div>
-            <div class="text-sub" *ngIf="!trip.exclude_vat">(Giá đã bao gồm thuế & phí dịch vụ)</div>
+            <div class="text-sub" *ngIf="!trip.exclude_vat">(Giá đã bao gồm thuế & phí)</div>
           </div>
 
           <div *ngIf="trip.itemTourDetail else loadingtourdetail" class="div-item-tour-detail">
@@ -1420,7 +1420,7 @@
                 <span class="f-bold text-red" *ngIf="!(trip.payment_status == 5 || trip.payment_status == 1)"> - Chờ
                   thanh toán</span>
               </div>
-              <div class="text-sub">(Giá đã bao gồm thuế & phí dịch vụ)</div>
+              <div class="text-sub">(Giá đã bao gồm thuế & phí)</div>
             </div>
             <div class="div-width-100"
               *ngIf="!trip.promotionDiscountAmount && !(trip.paid_amount && trip.paid_amount>0)">
@@ -1875,7 +1875,7 @@
             <div class="div-payment-combo-flight">
               <div class="div-payment-left">
                 <div><label class="text-name" position="stacked">{{ trip.paxDisplay}}</label></div>
-                <div class="div-text-fee"><label class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</label></div>
+                <div class="div-text-fee"><label class="text-fee">Giá đã bao gồm thuế & phí</label></div>
               </div>
               <div class="div-price">
                 <label class="total-price">
@@ -2933,7 +2933,7 @@
                     </div>
                   </div>
                   <div class="text-name-airport">
-                    (Giá đã bao gồm thuế & phí dịch vụ)
+                    (Giá đã bao gồm thuế & phí)
                   </div>
                 </div>
               </div>
@@ -2958,7 +2958,7 @@
         <div class="div-payment-combo-flight">
           <div class="div-payment-left">
             <div><label class="text-name" position="stacked">{{ trip.paxDisplay}}</label></div>
-            <div class="div-text-fee"><label class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</label></div>
+            <div class="div-text-fee"><label class="text-fee">Giá đã bao gồm thuế & phí</label></div>
           </div>
           <div class="div-price">
             <label class="total-price">

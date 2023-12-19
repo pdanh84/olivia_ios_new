@@ -13,11 +13,11 @@
     </ion-row>
 
     <ion-row>
-        <ion-segment [(ngModel)]="tabseat" class="div-segment"  mode="md">
-          <ion-segment-button (click)="SelectTab(1)" mode="md" style="text-transform: inherit;" value="1" >
+        <ion-segment value="tabseat" class="div-segment"  mode="md">
+          <ion-segment-button (click)="SelectTab('1')" mode="md" style="text-transform: inherit;" value="1" [ngClass]="tabseat=='1' ? 'segment-button-checked' : ''">
             Chiều đi
             </ion-segment-button>
-            <ion-segment-button (click)="SelectTab(2)" mode="md" style="text-transform: inherit;" value="2" *ngIf="roundtrip">
+            <ion-segment-button (click)="SelectTab('2')" mode="md" style="text-transform: inherit;" value="2" [ngClass]="tabseat=='2' ? 'segment-button-checked' : ''" *ngIf="roundtrip">
             Chiều về
             </ion-segment-button>
           </ion-segment>
@@ -378,7 +378,7 @@
 
   <ion-footer>
     <div class="div-footer d-flex-footer">
-        <div *ngIf="(tabseat == 1 && (listSeatNormal && listSeatNormal.length>0))" class="d-flex-footer div-width-100">
+        <div *ngIf="(tabseat == '1' && (listSeatNormal && listSeatNormal.length>0))" class="d-flex-footer div-width-100">
             <div class="div-total" >
                 <div class="d-flex-footer text-sub-total">
                   {{ listdepartseatselected }}
@@ -393,10 +393,10 @@
                 
               </div>
               <div class="div-button">
-                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận <ion-icon class="btn-arrow-checkmark" name="checkmark" *ngIf="listdepartseatselected"></ion-icon></button>
               </div>
         </div>
-        <div *ngIf="(tabseat == 2 && (listReturnSeatNormal && listReturnSeatNormal.length>0))" class="d-flex-footer div-width-100">
+        <div *ngIf="(tabseat == '2' && (listReturnSeatNormal && listReturnSeatNormal.length>0))" class="d-flex-footer div-width-100">
             <div class="div-total">
                 <div class="d-flex-footer text-sub-total">
                   {{ listreturnseatselected }}
@@ -410,7 +410,7 @@
                 </ng-template>
               </div>
               <div class="div-button">
-                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận <ion-icon class="btn-arrow-checkmark" name="checkmark" *ngIf="listreturnseatselected"></ion-icon></button>
               </div>
         </div>
     </div>

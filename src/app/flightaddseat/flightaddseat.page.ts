@@ -49,7 +49,7 @@ slideOpts = {
   totalquantity=0;
   totaldepartquantity: any=0;
   totalreturnquantity: any=0;
-  tabseat = 1;
+  tabseat = '1';
   totalpricedisplay = "0đ";
   totalreturnpricedisplay = "0đ";
   listdepartseatselected = "";
@@ -85,6 +85,10 @@ slideOpts = {
     private zone: NgZone,
     public _flightService: flightService) {
       this.roundtrip = this._flightService.itemFlightCache.roundTrip;
+      setTimeout(()=>{
+        this.tabseat = '1';
+      },350)
+      
     if(this._flightService.itemFlightCache.isnewmodelseat || this._flightService.itemFlightCache.isnewmodelreturnseat ){
         if(this._flightService.itemFlightCache.isnewmodelseat){
           this.departnewmodel = true;
@@ -330,8 +334,8 @@ slideOpts = {
       if(this.returnSeatChoice && this.returnSeatChoice.length >0){
         this.haschoiceseatreturn = true;
       }
-      if(this.tabseat ==1 && this.listReturnSeatNormal && this.listReturnSeatNormal.length >0){
-        this.SelectTab(2);
+      if(this.tabseat =='1' && this.listReturnSeatNormal && this.listReturnSeatNormal.length >0){
+            this.sliderTab?.nativeElement.swiper.slideNext();
       }else{
         this.navCtrl.navigateBack('/flightaddservice');
       }
@@ -427,20 +431,28 @@ slideOpts = {
   }
 
   slidetabchange(){
-    // this.sliderTab?.nativeElement.getActiveIndex().then(index => {
-    //   this.tabseat = index+1;
-    // });
     this.tabseat =this.sliderTab?.nativeElement.swiper.activeIndex+1;
   }
 
   SelectTab(tabindex){
-    this.tabseat = tabindex;
-    this.sliderTab?.nativeElement.swiper.slideTo(tabindex-1);
+    // this.zone.run(()=>{
+    
+    // })
+    setTimeout(()=>{
+      if(tabindex == '2'){
+        this.sliderTab?.nativeElement.swiper.slideNext();
+      }else{
+        this.sliderTab?.nativeElement.swiper.slidePrev();
+      }
+      
+      this.tabseat = tabindex;
+    },10)
+    
   }
 
   checkPax(){
     let maxseat = (this._flightService.itemFlightCache.pax - (this._flightService.itemFlightCache.infant ? this._flightService.itemFlightCache.infant : 0) );
-      if(this.departSeatChoice.length == maxseat && this.tabseat ==1){
+      if(this.departSeatChoice.length == maxseat && this.tabseat =='1'){
         if(this._flightService.itemFlightCache.infant){
           this.gf.showToastWarning("Không chọn ghế cho em bé. Vui lòng kiểm tra lại!");
         }else{
@@ -449,7 +461,7 @@ slideOpts = {
           return false;
       }
 
-      if(this.returnSeatChoice.length == maxseat && this.tabseat ==2){
+      if(this.returnSeatChoice.length == maxseat && this.tabseat =='2'){
         if(this._flightService.itemFlightCache.infant){
           this.gf.showToastWarning("Không chọn ghế cho em bé. Vui lòng kiểm tra lại!");
         }else{

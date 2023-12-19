@@ -1113,6 +1113,9 @@ ion-header ion-toolbar:first-child {
 .m-top-8{
   margin-top: 8px;
 }
+.m-top-6 {
+  margin-top: 6px;
+}
 .m-top-4{
   margin-top: 4px;
 }
@@ -2741,3 +2744,19 @@ swiper-slide img {
       font-weight: 300;
       opacity: 0.8;
     }
+
+    .div-button{
+      
+      .btn-arrow {
+          width: 24px;
+          margin-top: 1px;
+          position: absolute;
+      }
+      .btn-arrow-checkmark {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        margin-left: 4px;
+        margin-top: -5px;
+      }
+  }

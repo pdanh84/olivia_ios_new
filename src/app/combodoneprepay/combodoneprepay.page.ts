@@ -60,14 +60,7 @@ export class CombodoneprepayPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-      let headers =  {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-      };
-      se.gf.RequestApi('GET', strUrl, headers, {}, 'combodoneprepay', 'GetUserInfo').then((data) => {
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
               var info;
               var checkfullname = se.validateEmail(data.fullname);

@@ -368,7 +368,7 @@
                 </button>
                 <ion-col size="5" class="ion-col-fsale" *ngIf="!warningCombofsIP && hotelRoomClasses.length > 0">
                   <button 
-                  ion-button round outline class="button btn-book-fsale"   *ngIf="fs && !flashSaleEndDate && loadcomplete && (!ischeckBOD && checkBODdone)&& comboDetailList.length==0&&ischeckcbfs" (click)="requestCombo(5,null,0)">Đặt Combo</button>
+                  ion-button round outline class="button btn-book-fsale"   *ngIf="fs && !flashSaleEndDate && loadcomplete && (!ischeckBOD && checkBODdone)&& comboDetailList.length==0&&ischeckcbfs" (click)="requestCombo(5,null,0)">Đặt Combo ngay</button>
                   <button 
                   ion-button round outline class="button btn-book-fsale"   *ngIf="fs && !flashSaleEndDate && loadcomplete && (!ischeckBOD && checkBODdone)&& comboDetailList.length==0&&!ischeckcbfs" (click)="requestCombo(4,null,0)">Yêu cầu đặt</button>
                 </ion-col>
@@ -408,7 +408,7 @@
                 </ion-row>
                 <ion-row *ngIf="fcbcar && ischeckcbcarhide && !ischeckBOD && checkBODdone && hotelRoomClasses.length >0"
                 class="button-combo">
-                <button ion-button round outline class="button btn-book" *ngIf="ischeckcbcar"  (click)="requestCombo(2,null,0)">Đặt combo</button>
+                <button ion-button round outline class="button btn-book" *ngIf="ischeckcbcar"  (click)="requestCombo(2,null,0)">Đặt combo ngay</button>
                 <button ion-button round outline class="button btn-book"  *ngIf="!ischeckcbcar && loadcomplete && !ischeckBOD && checkBODdone"  (click)="requestCombo(4,null,0)">Gửi yêu cầu</button>
                 </ion-row>
                 
@@ -436,7 +436,7 @@
                   <ion-row
                     *ngIf="fc && loadcomplete && loginuser && usermail && allowbookcombofc && hotelRoomClasses.length > 0 && (!ischeckBOD && checkBODdone) && guest <=9"
                       class="button-combo">
-                    <button ion-button round outline class="button btn-book" (click)="requestCombo(1,null,0)">Đặt Combo</button>
+                    <button ion-button round outline class="button btn-book" (click)="requestCombo(1,null,0)">Đặt Combo ngay</button>
                   </ion-row>
                   
                 </div>

@@ -29,15 +29,15 @@
             <div class="div-user-info">
                     <div  [ngClass]=" ( (hasinput && !hoten) || hoteninvalid || subnameinvalid)? 'm-bottom-12 cls-error': 'm-bottom-12' ">
                         <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
-                            <ion-label class="sub-label m-bottom-6" position="floating">Họ tên</ion-label>
-                            <ion-input [(ngModel)]="hoten" type="text"  (ionBlur)="inputLostFocus(null,null)" (ionInput)="inputFocus(null, $event, -1)" (ionFocus)="inputOnFocus(null, 9,-1)"></ion-input>
+                            <ion-label class="sub-label m-bottom-6" position="floating">Họ tên (như trong CCCD/Hộ chiếu)</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="hoten" type="text"  (ionBlur)="inputLostFocus(null,null)" (ionInput)="inputFocus(null, $event, -1)" (ionFocus)="inputOnFocus(null, 9,-1)"></ion-input>
                         </ion-item>
                     </div>
                     
                     <div [ngClass]="((hasinput && !sodienthoai) || sodienthoaiinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' ">
                         <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
-                            <ion-label class="sub-label m-bottom-6" position="floating">Số điện thoại</ion-label>
-                            <ion-input [(ngModel)]="sodienthoai" maxlength=11 type="tel" required  (ionBlur)="checkInputUserInfo(2)" (ionFocus)="inputOnFocus(null, 10,-1)"></ion-input>
+                            <ion-label class="sub-label m-bottom-6" position="floating">Số điện thoại liên lạc</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="sodienthoai" maxlength=11 type="tel" required  (ionBlur)="checkInputUserInfo(2)" (ionFocus)="inputOnFocus(null, 10,-1)"></ion-input>
                         </ion-item>
                     </div>
     
@@ -59,8 +59,8 @@
                 </div>
                 <div [ngClass]="((hasinput && !email) || emailinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' " *ngIf="contactOption=='mail'">
                     <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
-                        <ion-label class="sub-label m-bottom-6" position="stacked">Nhập email</ion-label>
-                        <ion-input [(ngModel)]="email" type="email" (ionBlur)="checkInputUserInfo(3)" (ionFocus)="inputOnFocus(null, 11,-1)"></ion-input>
+                        <ion-label class="sub-label m-bottom-6" position="floating">Email (để xác nhận đặt phòng)</ion-label>
+                        <ion-input class="cls-input-custom" [(ngModel)]="email" type="email" (ionBlur)="checkInputUserInfo(3)" (ionFocus)="inputOnFocus(null, 11,-1)"></ion-input>
                     </ion-item>
                 </div>
             </div>
@@ -157,10 +157,10 @@
             <div class="div-title m-bottom-12">Thông tin hành khách</div>
     
             <div *ngIf="adults && adults.length >0">
-                <div *ngFor="let itemAdult of adults; let idxa = index">
+                <div *ngFor="let itemAdult of adults; let idxa = index" class="div-adult-{{idxa}}">
                     <div  class="div-sub-title d-flex">
                             <div class="div-width-300">Người lớn {{itemAdult.id}}</div>
-                            <div class="div-width-100 text-right f-normal" *ngIf="itemAdult.genderdisplay && itemAdult.name" (click)= "editPaxInfo(itemAdult, 1)">Xóa</div>
+                            <div class="div-width-100 text-right f-normal" *ngIf="itemAdult.genderdisplay && itemAdult.name" (click)= "editPaxInfo(itemAdult, 1, idxa)">Xóa</div>
                             
                     </div>
                     
@@ -168,54 +168,47 @@
                         <div class="text-normal">Sao chép từ thông tin liên hệ</div>
                         <div class="m-left-4"><img class="img-next" src="./assets/ic_flight/next_tealish.svg"></div>
                     </div>
-                    <div class="m-top-12">
-                        <div class="sub-label m-bottom-6">Danh xưng</div>
-                        <div [ngClass]="(itemAdult.errorGender || itemAdult.errorInfo) ? 'div-width-50 cls-error cls-minheight-32' : 'div-width-50 cls-minheight-32'"
-                            (click)="selectAdultGender(itemAdult)" (blur)="checkInput(itemAdult, 1, true)">
-                            <div class='text-gender' *ngIf="itemAdult.genderdisplay">{{itemAdult.genderdisplay}}</div>
-                            <div
-                                [ngClass]="(itemAdult.errorGender || itemAdult.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
-                                <img *ngIf="!(itemAdult.errorGender || itemAdult.errorInfo)"
-                                    src="./assets/imgs/ic_down_b.svg">
-                                <img *ngIf="(itemAdult.errorGender || itemAdult.errorInfo)"
-                                    src="./assets/ic_flight/ic_down_orange.svg">
-                            </div>
-                        </div>
+                    <div class="m-top-6 ">
+                        <ion-item [ngClass]="!itemAdult.genderdisplay ? 'cls-ionitem-custom div-width-50 border-bottom cls-error' : 'cls-ionitem-custom div-width-50 border-bottom'">
+                            <ion-label class="sub-label " position="floating">Danh xưng</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="itemAdult.genderdisplay" (touchend)="selectAdultGender(itemAdult)" required></ion-input>
+                            <img class="img-down" *ngIf="itemAdult.genderdisplay" src="./assets/imgs/ic_down_b.svg">
+                            <img class="img-down" *ngIf="!itemAdult.genderdisplay" src="./assets/ic_flight/ic_down_orange.svg">
+                        </ion-item>
 
-                        <div class="p-top-16">
-                            <ion-label class="cls-error">Họ và tên đầy đủ như trên Hộ chiếu/Passport</ion-label>
-                        </div>
-                        <div [ngClass]="(itemAdult.errorName || itemAdult.errorSubName || itemAdult.errorInfo) ? 'div-right cls-error' : 'div-right'">
-                            <ion-input class="cls-input-name" type="text" (ionChange)=textchangehoten(itemAdult) id="ipName_{{idxa}}"
-                                [(ngModel)]="itemAdult.name" (ionInput)="inputFocus(itemAdult, $event, idxa)"
-                                (ionBlur)="inputLostFocus(itemAdult, true)" (ionFocus)="inputOnFocus(itemAdult, 2, idxa)"
-                                required></ion-input>
-                        </div>
+                        <ion-item [ngClass]="!itemAdult.name ? 'cls-ionitem-custom cls-error m-top-6' : 'cls-ionitem-custom border-bottom m-top-6'">
+                            <ion-label class="sub-label m-bottom-6 " position="floating">Họ và tên đầy đủ như trên Hộ chiếu/Passport</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="itemAdult.name" type="text" (ionBlur)="inputLostFocus(itemAdult, true)" (ionFocus)="inputOnFocus(itemAdult, 2, idxa)" (ionInput)="inputFocus(itemAdult, $event, idxa)" required></ion-input>
+                        </ion-item>
                     </div>
 
                     <div *ngIf="optionPassport ">
-                        <div class="m-top-12 d-flex">
+                        
+                        <div class="d-flex m-top-6 ">
                           
-                            <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-r-8  cls-error ' : 'p-relative div-width-100 m-r-8 border-bottom' " (touchend)="selectDateOfBirth(itemAdult, true, idxa)" id="ipBirthDate_{{idxa}}">
-                                <ion-label [ngClass]="!itemAdult.dateofbirth ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
-                                    <ion-input
-                                    [value]="itemAdult.birdayDisplay"
-                                    type="bday"
-                                    id="datee_{{idxa}}"
-                                    class="cls-ion-datetime"
-                                    ></ion-input>
+                            <div [ngClass]="(itemAdult.errorDateofbirth || (!itemAdult.dateofbirth && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error max-height-68' : 'p-relative div-width-100 m-r-8 border-bottom max-height-68' " (touchend)="selectDateOfBirth(itemAdult, true, idxa)" id="ipBirthDate_{{idxa}}">
+                               
+                                    <ion-item [ngClass]="itemAdult.birdayDisplay ? 'max-height-68' : 'max-height-68 border-bottom cls-error' " style="--padding-start: 0px;">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Sinh ngày</ion-label>
+                                        <ion-input
+                                        [value]="itemAdult.birdayDisplay"
+                                        type="bday"
+                                        id="datee_{{idxa}}"
+                                        [ngClass]="itemAdult.birdayDisplay ? 'cls-ion-datetime cls-height-inherit' : 'cls-ion-datetime'"
+                                        ></ion-input> 
+                                    </ion-item>
                             </div>
 
-                            <div [ngClass]="(itemAdult.errorCountry || (!itemAdult.errorCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom cls-error' : 'div-width-100 p-relative border-bottom'" >
-                                <div class="sub-label label-country">
-                                    <div [ngClass]=" !itemAdult.countryName ? 'p-absolute cls-country' :'p-absolute cls-country-transition'">
-                                        Quốc tịch
-                                    </div>
-                                    <ion-searchbar id="ipCountry_{{idxa}}" class="cls-input-country-custom " [(ngModel)]="itemAdult.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemAdult, idxa)" (ionBlur)="checkInput(itemAdult, 4, true)"  (ionFocus)="inputOnFocus(itemAdult, 4, idxa)"></ion-searchbar>
-                                </div>
-                                <div [ngClass]="(itemAdult.errorCountry || itemAdult.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' " (click)="getCountry('dropdownicon', itemAdult, -1)">
-                                    <img *ngIf="!itemAdult.errorCountry" src="./assets/imgs/ic_down_b.svg">
-                                    <img *ngIf="itemAdult.errorCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                            <div [ngClass]="(itemAdult.errorCountry || (!itemAdult.errorCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom cls-error m-left-8' : 'div-width-100 p-relative border-bottom m-left-8'" >
+                                <div class="sub-label label-country div-adult-country-{{idxa}}">
+                                
+                                    <ion-item  class="max-height-68" style="--padding-start: 0px;" [ngClass]="itemAdult.countryName ? 'border-bottom' : ''">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Quốc tịch</ion-label>
+                                        <ion-searchbar [ngClass]="itemAdult.countryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemAdult.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemAdult, idxa)" (ionBlur)="checkInput(itemAdult, 4, true, idxa)"  (ionFocus)="inputOnFocus(itemAdult, 4, idxa)"></ion-searchbar> 
+                                        <img class="img-down bottom-2" *ngIf="itemAdult.countryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down" *ngIf="!itemAdult.countryName" src="./assets/ic_flight/ic_down_orange.svg">
+                                    </ion-item>
+                                   
                                 </div>
                                 <div *ngIf="itemAdult.showSelectCountry" class="cls-selection-country">
                                     <ion-item class="item-country" *ngFor="let itemcountry of listcountry" (click)="selectCountry(itemAdult, itemcountry)">{{ itemcountry.name }}</ion-item>
@@ -223,52 +216,43 @@
                             </div>
                         </div>
 
-                        <div [ngClass]="(itemAdult.errorPassport || (!itemAdult.passport && itemAdult.errorInfo)) ? 'p-relative div-width-100 m-top-36 cls-error' : 'p-relative div-width-100 m-top-36'">
-                            <ion-label [ngClass]="!itemAdult.passport ? 'sub-label label-passport' : 'sub-label label-passport cls-passport-transition'" >Số hộ chiếu</ion-label>
-                            <ion-input id="ipPP_{{idxa}}" class="cls-input-custom" type="text" [(ngModel)]="itemAdult.passport" (ionBlur)="checkInput(itemAdult, 5, true)" (ionFocus)="inputOnFocus(itemAdult, 5, idxa)" required></ion-input>
-                            
+                        <div [ngClass]="(itemAdult.errorPassport || (!itemAdult.passport && itemAdult.errorInfo)) ? 'p-relative div-width-100  cls-error' : 'p-relative div-width-100 '">
+                            <ion-item style="--padding-start: 0px" class="m-top-6">
+                                <ion-label class="sub-label" position="floating">Số hộ chiếu</ion-label>
+                                <ion-input class="m-top-6" type="text" [(ngModel)]="itemAdult.passport" (ionBlur)="checkInput(itemAdult, 5, true)" (ionFocus)="inputOnFocus(itemAdult, 5, idxa)" required></ion-input>
+                            </ion-item>
                         </div>
 
-                        <div class='d-flex p-relative m-top-12'>
+                        <div class='d-flex p-relative m-top-6 '>
                         
                             <div [ngClass]="(itemAdult.errorPassportCountry || (!itemAdult.passportCountry && itemAdult.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
-                                <div class="sub-label label-country">
-                                    <div [ngClass]=" !itemAdult.passportCountryName ? 'p-absolute cls-country' :'p-absolute cls-country-transition'">
-                                        Quốc gia cấp
-                                    </div>
-                                    <ion-searchbar id="ipPassport_{{idxa}}" class="cls-input-country-custom " [(ngModel)]="itemAdult.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemAdult)" (ionBlur)="checkInput(itemAdult, 6, true)"  (ionFocus)="inputOnFocus(itemAdult, 6, idxa)"></ion-searchbar>
-                                </div>
-                                <div [ngClass]="(itemAdult.errorPassportCountry || itemAdult.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6' "   (click)="getPassportCountry('dropdownicon', itemAdult)">
-                                    <img *ngIf="!itemAdult.errorPassportCountry" src="./assets/imgs/ic_down_b.svg">
-                                    <img *ngIf="itemAdult.errorPassportCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                                <div class="sub-label label-country max-height-68  div-adult-passportcountry-{{idxa}}">
+                                    <ion-item  [ngClass]="itemAdult.errorPassportCountry? 'max-height-68' : 'max-height-68 border-bottom-custom' " style="--padding-start: 0px;">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Quốc gia cấp</ion-label>
+                                        <ion-searchbar [ngClass]="itemAdult.passportCountryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemAdult.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemAdult)" (ionBlur)="checkInput(itemAdult, 6, true, idxa)"  (ionFocus)="inputOnFocus(itemAdult, 6, idxa)"></ion-searchbar>
+                                        <img class="img-down bottom-2" *ngIf="itemAdult.passportCountryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down" *ngIf="!itemAdult.passportCountryName" src="./assets/ic_flight/ic_down_orange.svg">
+                                    </ion-item>
                                 </div>
 
                                 <div *ngIf="itemAdult.showSelectPassportCountry" class="cls-selection-country">
                                     <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemAdult, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
                                 </div>
                             </div>
-                            <div [ngClass]="(itemAdult.errorPassportExpireDate || (!itemAdult.passportExpireDate && itemAdult.errorInfo))? 'div-width-100 m-left-8 cls-error m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemAdult, false, idxa)" id="ipExpireDate_{{idxa}}">
-                                <ion-label [ngClass]="!itemAdult.passportExpireDate ? 'sub-label label-dob ' : 'sub-label label-dob-transition m-bottom-6'" position="stacked">Ngày hết hạn</ion-label>
-                                   <ion-input
-                                    [value]="itemAdult.passportExpireDateDisplay"
-                                    type="bday"
-                                    id="datebirth_{{idxa}}"
-                                    class="cls-ion-datetime"
-                                    ></ion-input>
+                            <div [ngClass]="(itemAdult.errorPassportExpireDate || (!itemAdult.passportExpireDate && itemAdult.errorInfo))? 'div-width-100 m-left-8  ' : 'div-width-100 m-left-8 '" (touchend)="selectDateOfBirth(itemAdult, false, idxa)" id="ipExpireDate_{{idxa}}">
+                                    <ion-item [ngClass]="itemAdult.passportExpireDateDisplay ? 'max-height-68' : 'max-height-68 border-bottom cls-error' " style="--padding-start: 0px">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Ngày hết hạn</ion-label>
+                                        <ion-input
+                                        [value]="itemAdult.passportExpireDateDisplay"
+                                        type="bday"
+                                        id="datebirth_{{idxa}}"
+                                        [ngClass]="itemAdult.passportExpireDateDisplay ? 'cls-ion-datetime cls-ppe cls-height-inherit' : 'cls-ion-datetime'"
+                                        ></ion-input>
+                                    </ion-item>
                             </div>
                         </div>
                     </div>
 
-                  
-                    <!-- <div class="d-flex m-top-16 m-bottom-8" (click)="expandAirlineMember(itemAdult,idxa)">
-                        <div class="text-airlinemember">Nhập thẻ thành viên hãng bay</div>
-                        <div class="icon-expand" *ngIf="!itemAdult.expanddivairlinemember" >
-                            <img class="img-seemoreroom" src="./assets/ic_flight/next_tealish.svg">
-                          </div>
-                          <div class="icon-expand" *ngIf="itemAdult.expanddivairlinemember">
-                            <img class="img-seemoreroom" src="./assets/ic_flight/expand_tealish.svg">
-                            </div>
-                    </div> -->
                     <div class="d-flex m-top-16 m-bottom-8 v-align-center" >
                         <div class="div-checkbox"><ion-checkbox style="--border-width: 1px;--border-color: #cccccc;;height: 22px;width: 22px;" mode="md" (click)="expandAirlineMember(itemAdult,idxa)"></ion-checkbox></div>
                         <div class="text-airlinemember">Nhập thẻ thành viên hãng bay</div>
@@ -307,7 +291,7 @@
            
     
             <div *ngIf="childs && childs.length >0">
-                <div *ngFor="let itemChild of childs; let idxc = index">
+                <div *ngFor="let itemChild of childs; let idxc = index" class="div-child-{{idxc}}">
                     <div class="d-flex">
                         <div class="div-width-300">
                                 <div class="div-sub-title " *ngIf="!itemChild.isInfant else divinfant">Trẻ em {{itemChild.id}} <span class="sub-label f-12">(Từ 2 - Dưới 12 tuổi)</span></div>
@@ -315,34 +299,10 @@
                                     <div class="div-sub-title m-bottom-6">Em bé {{itemChild.iddisplay}} <span class="sub-label f-12">(Dưới 2 tuổi)</span></div>
                                 </ng-template>
                         </div>
-                        <div class="div-width-100 text-right f-normal" *ngIf="itemChild.genderdisplay && itemChild.name && itemChild.dateofbirth" (click)= "editPaxInfo(itemChild, 2)">Xóa</div>
+                        <div class="div-width-100 text-right f-normal" *ngIf="itemChild.genderdisplay && itemChild.name && itemChild.dateofbirth" (click)= "editPaxInfo(itemChild, 2, idxc)">Xóa</div>
                     </div>
                   
-                    <!-- <div class=" d-flex ">
-                        <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-left cls-error' : 'div-left '" (click)="selectGender(itemChild)" (blur)="checkInput(itemChild, 1, false)">
-                            <div [ngClass]="!itemChild.genderdisplay ? 'sub-label m-top-17 cls-gender' : 'sub-label m-top-19 label-absolute cls-gender-transition'">
-                                <ion-label class="sub-label">Danh xưng</ion-label>
-                            </div>
-                            <div class="text-gender" *ngIf="itemChild.genderdisplay" >{{itemChild.genderdisplay}}</div>
-                            <div [ngClass]="(itemChild.errorGender || itemChild.errorInfo)? 'div-icon-down cls-error' : 'div-icon-down'">
-                                <img *ngIf="!(itemChild.errorGender || itemChild.errorInfo)" src="./assets/imgs/ic_down_b.svg">
-                                <img *ngIf="(itemChild.errorGender || itemChild.errorInfo)" src="./assets/ic_flight/ic_down_orange.svg">
-                            </div>
-                        </div>
-                        <div class="p-relative m-top-16 h-45 div-width-100">
-                        </div>
-                    </div>
-                    <div class="p-relative m-top-36 div-width-100">
-                        <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
-                            <ion-label [ngClass]="!itemChild.name ? 'sub-label cls-name'  : 'sub-label cls-name-transition'" >Họ và tên đầy đủ</ion-label>
-                            <ion-input class="cls-input-custom" type="text" (ionChange)=textchangehoten(itemChild) [(ngModel)]="itemChild.name" (ionInput)="inputFocus(itemChild, $event)" (ionBlur)="inputLostFocus(itemChild, false)" (ionFocus)="inputOnFocus(itemChild, 2)" required></ion-input>
-                        </div>
-                    </div>
-
-                    <div class="p-top-6">
-                        <ion-label class="cls-error">Điền đầy đủ Họ tên như trên giấy tờ tùy thân dùng để thực hiện chuyến bay</ion-label>
-                    </div> -->
-                    <div class=" m-top-12">
+                    <!-- <div class=" m-top-16">
                         <div class="sub-label">
                             Danh xưng
                         </div>
@@ -363,93 +323,102 @@
                         <div [ngClass]="(itemChild.errorName || itemChild.errorSubName || itemChild.errorInfo) ? 'div-right cls-error' : 'div-right'">
                             <ion-input id="ipNameChild_{{idxc}}" class="cls-input-name" type="text" (ionChange)=textchangehoten(itemChild) [(ngModel)]="itemChild.name" (ionInput)="inputFocus(itemChild, $event, idxc)" (ionBlur)="inputLostFocus(itemChild, false)"  (ionFocus)="inputOnFocus(itemChild, 2, idxc)" required></ion-input>
                         </div>
+                    </div> -->
+                    <div class=" m-top-6">
+                        <ion-item [ngClass]="!itemChild.genderdisplay ? 'cls-ionitem-custom div-width-50 border-bottom cls-error' : 'cls-ionitem-custom div-width-50 border-bottom'">
+                            <ion-label class="sub-label " position="floating">Danh xưng</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="itemChild.genderdisplay" (touchend)="selectGender(itemChild)" required></ion-input>
+                            <img class="img-down" *ngIf="itemChild.genderdisplay" src="./assets/imgs/ic_down_b.svg">
+                            <img class="img-down" *ngIf="!itemChild.genderdisplay" src="./assets/ic_flight/ic_down_orange.svg">
+                        </ion-item>
+
+                        <ion-item [ngClass]="!itemChild.name ? 'cls-ionitem-custom cls-error m-top-6' : 'cls-ionitem-custom border-bottom m-top-6'">
+                            <ion-label class="sub-label m-bottom-6 " position="floating">Họ và tên đầy đủ như trên Hộ chiếu/Passport</ion-label>
+                            <ion-input class="cls-input-custom" [(ngModel)]="itemChild.name" type="text" (ionBlur)="inputLostFocus(itemChild, false)" (ionFocus)="inputOnFocus(itemChild, 2, idxc)" (ionInput)="inputFocus(itemChild, $event, idxc)" required></ion-input>
+                        </ion-item>
                     </div>
 
-                    <div *ngIf="!optionPassport" class="d-flex m-top-12 ">
-                        <div class="div-width-50">
-                            <div [ngClass]="(itemChild.errorDateofbirth || (itemChild.errorInfo && !itemChild.dateofbirth) )? 'p-relative div-width-100 m-r-8 border-bottom cls-error' : 'p-relative div-width-100 m-r-8 border-bottom' "  (touchend)="selectDateOfBirth(itemChild, true,idxc)" id="ipBirthDateChild_{{idxc}}">
-                                <ion-label [ngClass]="!itemChild.dateofbirth ? 'sub-label label-dob ' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
+                    <div *ngIf="!optionPassport" class="d-flex m-top-6 ">
+                        <div [ngClass]="(itemChild.errorDateofbirth || (!itemChild.dateofbirth && itemChild.errorInfo)) ? 'p-relative div-width-50 m-r-8 cls-error max-height-68' : 'p-relative div-width-50 m-r-8 border-bottom max-height-68' " (touchend)="selectDateOfBirth(itemChild, true, idxc)" id="ipBirthDateChild_{{idxc}}">
+                               
+                            <ion-item [ngClass]="itemChild.birdayDisplay ? 'max-height-68' : 'max-height-68 border-bottom cls-error' " style="--padding-start: 0px;">
+                                <ion-label class="sub-label m-bottom-6" position="floating">Sinh ngày</ion-label>
                                 <ion-input
-                                [(ngModel)]="itemChild.birdayDisplay"
+                                [value]="itemChild.birdayDisplay"
                                 type="bday"
                                 id="dateb_{{idxc}}"
-                                class="cls-ion-datetime"
-                                ></ion-input>
-                               
-                            </div>
-
+                                [ngClass]="itemChild.birdayDisplay ? 'cls-ion-datetime cls-height-inherit' : 'cls-ion-datetime'"
+                                ></ion-input> 
+                            </ion-item>
                         </div>
 
                     </div>
 
                     <div *ngIf="optionPassport ">
-                        <div class="d-flex m-top-12">
-                           
-                            <div [ngClass]="(itemChild.errorDateofbirth || (itemChild.errorInfo && !itemChild.dateofbirth) )? 'p-relative div-width-100 m-r-8 cls-error' : 'p-relative div-width-100 m-r-8 border-bottom' "  (touchend)="selectDateOfBirth(itemChild, true, idxc)" id="ipBirthDateChild_{{idxc}}">
-                                <ion-label [ngClass]="!itemChild.dateofbirth ? 'sub-label label-dob ' : 'sub-label label-dob-transition m-bottom-6 '" position="stacked">Sinh ngày</ion-label>
-                                <ion-input
-                                [(ngModel)]="itemChild.birdayDisplay"
-                                type="bday"
-                                id="dateb_{{idxc}}"
-                                class="cls-ion-datetime"
-                                ></ion-input>
-                               
+                        <div class="d-flex m-top-6">
+                            <div [ngClass]="(itemChild.errorDateofbirth || (!itemChild.dateofbirth && itemChild.errorInfo)) ? 'p-relative div-width-100 m-r-8 cls-error max-height-68' : 'p-relative div-width-100 m-r-8 border-bottom max-height-68' " (touchend)="selectDateOfBirth(itemChild, true, idxc)" id="ipBirthDateChild_{{idxc}}">
+                                <ion-item [ngClass]="itemChild.birdayDisplay ? 'max-height-68' : 'max-height-68 border-bottom cls-error' " style="--padding-start: 0px;">
+                                    <ion-label class="sub-label m-bottom-6" position="floating">Sinh ngày</ion-label>
+                                    <ion-input
+                                    [value]="itemChild.birdayDisplay"
+                                    type="bday"
+                                    id="dateb_{{idxc}}"
+                                    [ngClass]="itemChild.birdayDisplay ? 'cls-ion-datetime cls-height-inherit' : 'cls-ion-datetime'"
+                                    ></ion-input> 
+                                </ion-item>
                             </div>
 
-                            <div [ngClass]="(itemChild.errorCountry || (itemChild.errorInfo && !itemChild.country)) ? 'div-width-100 p-relative border-bottom cls-error' : 'div-width-100 p-relative border-bottom'" >
-                                <div class="sub-label label-country">
-                                    <div [ngClass]=" !itemChild.countryName ? 'p-absolute cls-country' :'p-absolute cls-country-transition'">
-                                        Quốc tịch
-                                    </div>
-                                    <ion-searchbar id="ipCountryChild_{{idxc}}" class="cls-input-country-custom " [(ngModel)]="itemChild.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemChild, idxc)" (ionBlur)="checkInput(itemChild, 4, false)" (ionFocus)="inputOnFocus(itemChild, 4, idxc)" ></ion-searchbar>
+                            <div [ngClass]="(itemChild.errorCountry || (!itemChild.errorCountry && itemChild.errorInfo)) ? 'div-width-100 p-relative border-bottom cls-error m-left-8' : 'div-width-100 p-relative border-bottom m-left-8'" >
+                                <div class="sub-label label-country div-child-country-{{idxc}}">
+                                
+                                    <ion-item  class="max-height-68" style="--padding-start: 0px;" [ngClass]="itemChild.countryName ? 'border-bottom' : ''">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Quốc tịch</ion-label>
+                                        <ion-searchbar [ngClass]="itemChild.countryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemChild.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemChild, idxc)" (ionBlur)="checkInput(itemChild, 4, false, idxc)"  (ionFocus)="inputOnFocus(itemChild, 4, idxc)"></ion-searchbar> 
+                                        <img class="img-down bottom-2" *ngIf="itemChild.countryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down" *ngIf="!itemChild.countryName" src="./assets/ic_flight/ic_down_orange.svg">
+                                    </ion-item>
+                                   
                                 </div>
-                              
-                                <div [ngClass]="(itemChild.errorCountry || itemChild.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6'" (click)="getCountry('dropdownicon', itemChild, -1)">
-                                    <img *ngIf="!itemChild.errorCountry" src="./assets/imgs/ic_down_b.svg">
-                                    <img *ngIf="itemChild.errorCountry" src="./assets/ic_flight/ic_down_orange.svg">
-                                </div>
-
                                 <div *ngIf="itemChild.showSelectCountry" class="cls-selection-country">
                                     <ion-item class="item-country" *ngFor="let itemcountry of listcountry" (click)="selectCountry(itemChild, itemcountry)">{{ itemcountry.name }}</ion-item>
                                 </div>
                             </div>
                         </div>
 
-                        <div [ngClass]="(itemChild.errorPassport || (itemChild.errorInfo && !itemChild.passport)) ? 'div-width-100 p-relative m-top-36 cls-error' : 'div-width-100 p-relative m-top-36'">
-                            <ion-label [ngClass]="!itemChild.passport ? 'sub-label label-passport' : 'sub-label label-passport cls-passport-transition'" >Số hộ chiếu</ion-label>
-                            <ion-input id="ipPPChild_{{idxc}}" class="cls-input-custom" type="text" [(ngModel)]="itemChild.passport" (ionBlur)="checkInput(itemChild, 5, false)"  (ionFocus)="inputOnFocus(itemChild, 5, idxc)" required></ion-input>
-                            
+                        <div [ngClass]="(itemChild.errorPassport || (!itemChild.passport && itemChild.errorInfo)) ? 'p-relative div-width-100  cls-error' : 'p-relative div-width-100 '">
+                            <ion-item style="--padding-start: 0px" class="m-top-6">
+                                <ion-label class="sub-label" position="floating">Số hộ chiếu</ion-label>
+                                <ion-input class="m-top-6" type="text" [(ngModel)]="itemChild.passport" (ionBlur)="checkInput(itemChild, 5, false)" (ionFocus)="inputOnFocus(itemChild, 5, idxc)" required></ion-input>
+                            </ion-item>
                         </div>
 
-                        <div class="d-flex p-relative m-top-12 ">
-                            <div [ngClass]="(itemChild.errorPassportCountry || (itemChild.errorInfo && !itemChild.passportCountry)) ? 'div-width-100 p-relative border-bottom  w-100 cls-error  m-h-48' : 'div-width-100 p-relative border-bottom  w-100  m-h-48'">
-                                <div class="sub-label label-country">
-                                    <div [ngClass]=" !itemChild.passportCountryName ? 'p-absolute cls-country' :'p-absolute cls-country-transition'">
-                                        Quốc gia cấp
-                                    </div>
-                                    <ion-searchbar id="ipPassportChild_{{idxc}}" class="cls-input-country-custom " [(ngModel)]="itemChild.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemChild)" (ionBlur)="checkInput(itemChild, 6, false)" (ionFocus)="inputOnFocus(itemChild, 6, idxc)" ></ion-searchbar>
-                                </div>
-
-                                <div [ngClass]="(itemChild.errorPassportCountry || itemChild.errorInfo)? 'div-icon-down bottom-6 cls-error' : 'div-icon-down bottom-6'"  (click)="getPassportCountry('dropdownicon', itemChild)">
-                                    <img *ngIf="!itemChild.errorPassportCountry" src="./assets/imgs/ic_down_b.svg">
-                                    <img *ngIf="itemChild.errorPassportCountry" src="./assets/ic_flight/ic_down_orange.svg">
+                        
+                        <div class='d-flex p-relative m-top-6 '>
+                        
+                            <div [ngClass]="(itemChild.errorPassportCountry || (!itemChild.passportCountry && itemChild.errorInfo)) ? 'div-width-100 p-relative border-bottom w-100 cls-error m-h-48' : 'div-width-100 p-relative border-bottom w-100 m-h-48'">
+                                <div class="sub-label label-country max-height-68 div-child-passportcountry-{{idxc}}">
+                                    <ion-item  [ngClass]="itemChild.errorPassportCountry? 'max-height-68' : 'max-height-68 border-bottom-custom' " style="--padding-start: 0px;">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Quốc gia cấp</ion-label>
+                                        <ion-searchbar [ngClass]="itemChild.passportCountryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemChild.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemChild)" (ionBlur)="checkInput(itemChild, 6, false, idxc)"  (ionFocus)="inputOnFocus(itemChild, 6, idxc)"></ion-searchbar>
+                                        <img class="img-down bottom-2" *ngIf="itemChild.passportCountryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down" *ngIf="!itemChild.passportCountryName" src="./assets/ic_flight/ic_down_orange.svg">
+                                    </ion-item>
                                 </div>
 
                                 <div *ngIf="itemChild.showSelectPassportCountry" class="cls-selection-country">
-                                    <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemChild, itempassportcountry)">{{ itempassportcountry.name }}</ion-item>
+                                    <ion-item class="item-country" *ngFor="let itempassportcountry of listpassportcountry" (click)="selectPassportCountry(itemChild, itempassportcountry)" >{{ itempassportcountry.name }}</ion-item>
                                 </div>
                             </div>
-
-                            <div [ngClass]="(itemChild.errorPassportExpireDate || (itemChild.errorInfo && !itemChild.passportExpireDate))? 'div-width-100 m-left-8 cls-error  m-h-48' : 'div-width-100 border-bottom m-left-8 m-h-48'" (touchend)="selectDateOfBirth(itemChild, false, idxc)" id="ipExpireDateChild_{{idxc}}">
-                                <ion-label [ngClass]="!itemChild.passportExpireDate ? 'sub-label label-dob m-bottom-6' : 'sub-label label-dob-transition m-bottom-6 top-dob-24'" position="stacked">Ngày hết hạn</ion-label>
-                               
-                                <ion-input
-                                [value]="itemChild.passportExpireDateDisplay"
-                                type="bday"
-                                id="datec_{{idxc}}"
-                                class="cls-ion-datetime"
-                                ></ion-input>
-                                
+                            <div [ngClass]="(itemChild.errorPassportExpireDate || (!itemChild.passportExpireDate && itemChild.errorInfo))? 'div-width-100 m-left-8  ' : 'div-width-100 m-left-8 '" (touchend)="selectDateOfBirth(itemChild, false, idxc)" id="ipExpireDateChild_{{idxc}}">
+                                    <ion-item [ngClass]="itemChild.passportExpireDateDisplay ? 'max-height-68' : 'max-height-68 border-bottom cls-error' " style="--padding-start: 0px">
+                                        <ion-label class="sub-label m-bottom-6" position="floating">Ngày hết hạn</ion-label>
+                                        <ion-input
+                                        [value]="itemChild.passportExpireDateDisplay"
+                                        type="bday"
+                                        id="datebirth_{{idxc}}"
+                                        [ngClass]="itemChild.passportExpireDateDisplay ? 'cls-ion-datetime cls-ppe cls-height-inherit' : 'cls-ion-datetime'"
+                                        ></ion-input>
+                                    </ion-item>
                             </div>
                         </div>
                     </div>
@@ -495,7 +464,8 @@
                  </div>
               </div>
               <div class="div-button">
-                <button (click)="confirm()" ion-button round outline class="button button-done">Xác nhận</button>
+                <button (click)="confirm()" ion-button round outline class="button button-done" *ngIf="activeStep == 1">Tiếp tục <ion-icon class="btn-arrow" name="chevron-forward-outline"></ion-icon></button>
+                <button (click)="confirm()" ion-button round outline class="button button-done" *ngIf="activeStep == 2">Chọn thanh toán <ion-icon class="btn-arrow" name="chevron-forward-outline"></ion-icon></button>
               </div>
         </div>
     </div>

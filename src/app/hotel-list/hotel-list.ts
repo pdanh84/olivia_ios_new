@@ -96,7 +96,11 @@ export class HotelListPage implements OnInit {
           this.loaddata(authService, searchhotel, 0);
           this.activityService.firstloadhotelist = true;
         },500);
-    
+        this.platform.resume.subscribe(async () => {
+          if(!this.name && !this.guest){
+            this.goback();
+          }
+        });
   }
 
   public async ngOnInit() {

@@ -17,6 +17,7 @@ import { tourService } from './tourService';
 import { ticketService } from './ticketService';
 import { debounceTime } from 'rxjs';
 import { App } from '@capacitor/app';
+import { FCM } from '@capacitor-community/fcm';
       @Injectable({
           providedIn: 'root'  // <- ADD THIS
       })
@@ -854,7 +855,7 @@ import { App } from '@capacitor/app';
           * @param devicetoken key token của device
           * @param authentoken key id member user
           */
-         pushTokenAndMemberID(authentoken, devicetoken, appversion){
+         async pushTokenAndMemberID(authentoken, devicetoken, appversion){
           var se = this;
           let headers;
           let strUrl;
@@ -875,8 +876,8 @@ import { App } from '@capacitor/app';
             strUrl = C.urls.baseUrl.urlMobile +'/mobile/OliviaApis/PushTokenUser';
           }
           
-       
-            let body = { tokenId: devicetoken, appVersion: appversion ? appversion?.toString().replace(/\./g, '') : '352',source:6 };
+          const version= await this.getAppVersion();
+            let body = { tokenId: devicetoken, version: version ? version?.toString().replace(/\./g, '') : '352',source:6 };
          
             this.RequestApi('POST', strUrl, headers, body, 'globalfunction', 'pushTokenAndMemberID').then((data)=>{
             })
@@ -917,74 +918,109 @@ import { App } from '@capacitor/app';
           return new Promise(
               (resolve, reject) => {
                 if(methodFunc == 'GET'){
-                  se.httpClient.get(strUrl, {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
-                    if(data && data.StatusCode && data.StatusCode == 401){
-                      resolve({statusCode: 401})
-                    }else{
-                      resolve(data);
-                    }
-                    
-                  }, error => { 
-                   
-                    var objError = {
-                          page: pageName,
-                          func: funcName,
-                          message: 'error',
-                          content: error,
-                          type: "error",
-                          //param: JSON.stringify(options)
-                      };
-                      C.writeErrorLog(objError,error);
-                      if(error.status == 401 ){
+                  try {
+                    se.httpClient.get(strUrl, {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
+                      if(data && data.StatusCode && data.StatusCode == 401){
+                        resolve({statusCode: 401})
+                      }else if(data && data.status ==401){
                         resolve({statusCode: 401})
                       }
-                  })
-                }else{
-                  if(bodyObj){
-                    se.httpClient.post(strUrl, bodyObj , {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
-                      if(data && typeof(data) == 'object'){
-                        data.statusCode = 200;
+                      
+                      else{
+                        resolve(data);
                       }
                       
-                      resolve(data);
                     }, error => { 
+                     
                       var objError = {
                             page: pageName,
                             func: funcName,
                             message: 'error',
                             content: error,
                             type: "error",
-                            param: JSON.stringify(bodyObj)
-                        };
-                        C.writeErrorLog(objError,error);
-                        if(error.status == 401 ){
-                          resolve({statusCode: 401})
-                        }
-                        else if(error.status == 400 && typeof(error.error) == 'object'){
-                          resolve(error.error)
-                        }
-                    })
-                  }else{
-                    se.httpClient.post(strUrl, {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
-                      if(data && typeof(data) == 'object'){
-                        data.statusCode = 200;
-                      }
-                      resolve(data);
-                    }, error => { 
-                      var objError = {
-                            page: pageName,
-                            func: funcName,
-                            message: 'error',
-                            content: error,
-                            type: "error",
-                            param: JSON.stringify(headerObj)
+                            //param: JSON.stringify(options)
                         };
                         C.writeErrorLog(objError,error);
                         if(error.status == 401 ){
                           resolve({statusCode: 401})
                         }
                     })
+                  } catch (error) {
+                    var objError = {
+                      page: pageName,
+                      func: funcName,
+                      message: 'error',
+                      content: error,
+                      type: "error",
+                      //param: JSON.stringify(options)
+                    };
+                    C.writeErrorLog(objError,error);
+                   
                   }
+                  
+                }else{
+                  try {
+                    if(bodyObj){
+                      se.httpClient.post(strUrl, bodyObj , {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
+                        if(data && typeof(data) == 'object'){
+                          data.statusCode = 200;
+                        }
+                        else if(data && data.status ==401){
+                          resolve({statusCode: 401})
+                        }
+                        
+                        resolve(data);
+                      }, error => { 
+                        var objError = {
+                              page: pageName,
+                              func: funcName,
+                              message: 'error',
+                              content: error,
+                              type: "error",
+                              param: JSON.stringify(bodyObj)
+                          };
+                          C.writeErrorLog(objError,error);
+                          if(error.status == 401 ){
+                            resolve({statusCode: 401})
+                          }
+                          else if(error.status == 400 && typeof(error.error) == 'object'){
+                            resolve(error.error)
+                          }
+                      })
+                    }else{
+                      se.httpClient.post(strUrl, {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
+                        if(data && typeof(data) == 'object'){
+                          data.statusCode = 200;
+                        }
+                        resolve(data);
+                      }, error => { 
+                        var objError = {
+                              page: pageName,
+                              func: funcName,
+                              message: 'error',
+                              content: error,
+                              type: "error",
+                              param: JSON.stringify(headerObj)
+                          };
+                          C.writeErrorLog(objError,error);
+                          if(error.status == 401 ){
+                            resolve({statusCode: 401})
+                          }
+                      })
+                    }
+                  } catch (error) {
+                    var objError = {
+                      page: pageName,
+                      func: funcName,
+                      message: 'error',
+                      content: error,
+                      type: "error",
+                      //param: JSON.stringify(options)
+                    };
+                    C.writeErrorLog(objError,error);
+                   
+                  }
+                  
                  
                 }
 
@@ -1061,20 +1097,6 @@ import { App } from '@capacitor/app';
           this.RequestApi('POST', strUrl, headers, JSON.stringify(objbook), 'globalFunction', 'CreateBooking').then((data) => {
             resolve(data);
           })
-          // var options = {
-          //   'method': 'POST',
-          //   'url': C.urls.baseUrl.urlFood+'/api/FOBooking/CreateBooking',
-          //   'headers': {
-          //     'Content-Type': 'application/json',
-          //     'token': '584f470f-7a45-4793-a136-0084fadea81c'
-          //   },
-          //   body: JSON.stringify(objbook)
-          
-          // };
-          // request(options, function (error, response) { 
-          //   if (error) throw new Error(error);
-          //   resolve(response.body);
-          // });
         })
         
       }
@@ -1088,34 +1110,11 @@ import { App } from '@capacitor/app';
           this.RequestApi('POST', strUrl, headers, JSON.stringify(objbook), 'globalFunction', 'CreateBooking').then((data) => {
             resolve(data);
           })
-          // var options = {
-          //   'method': 'POST',
-          //   'url': C.urls.baseUrl.urlERPFood+'api/erp/Email/getEmail_Request',
-          //   'headers': {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(objbook)
-          
-          // };
-          // request(options, function (error, response) { 
-          //   if (error) throw new Error(error);
-          //   resolve(response.body);
-          // });
         })
         
       }
       public Updatefoodpaytype(bookingCode,paymentMethod): Promise<any>{
         return new Promise((resolve, reject) => {
-          // var options = {
-          //   'method': 'GET',
-          //   'url': C.urls.baseUrl.urlContracting+'/update-food-paytype?token=3b760e5dcf038878925b5613c32615ea3&bookingCode='+bookingCode+'&paymentMethod='+paymentMethod+'',
-          //   'headers': {
-          //   }
-          // };
-          // request(options, function (error, response) { 
-          //   if (error) throw new Error(error);
-          //   resolve(true);
-          // });
           let strUrl = C.urls.baseUrl.urlContracting+'/update-food-paytype?token=3b760e5dcf038878925b5613c32615ea3&bookingCode='+bookingCode+'&paymentMethod='+paymentMethod+'';
           this.RequestApi('GET', strUrl, {}, {}, 'globalFunction', 'Updatefoodpaytype').then((data) => {
             resolve(true);
@@ -1127,18 +1126,6 @@ import { App } from '@capacitor/app';
          //Liên kết payoo
          public CreatePayoo(url): Promise<any>{
           return new Promise((resolve, reject) => {
-            // var options = {
-            //   'method': 'POST',
-            //   'url': url,
-            //   'headers': {
-            //     'Cookie': 'ASP.NET_SessionId=1zuyjhynxivxfmups4llel5v'
-            //   }
-            // };
-            // request(options, function (error, response) { 
-            //   if (error) throw new Error(error);
-            //   resolve(response.body);
-            // });
-            
             this.RequestApi('POST', url, {"Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",'Content-Type' : 'application/json'}, {}, 'globalFunction', 'CreatePayoo').then((data) => {
               resolve(data);
             })
@@ -1992,13 +1979,16 @@ import { App } from '@capacitor/app';
           var se = this;
           return new Promise((resolve, reject) => {
             if(devicetoken){
+              this.storage.remove('deviceToken').then(()=>{
+                this.storage.set('deviceToken',devicetoken);
+              })
               return new Promise((resolve, reject) => {
                 let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/Login';
                 let headers = {
                       'cache-control': 'no-cache',
                       'content-type': 'application/json'
                     };
-                let body = {emailOrPhone:'',password:'',rememberMe:true,memberId: mmemberid ,deviceToken: devicetoken};
+                let body = {emailOrPhone:'',password:'',rememberMe:true,memberId: mmemberid ,deviceToken: (devicetoken && devicetoken.token ? devicetoken.token : devicetoken)};
                 se.RequestApi('POST', strUrl, headers, body, 'globalFunction', 'refreshToken').then((data) => {
                   if (data && data.auth_token) {
                       var decoded = jwt_decode(data.auth_token);
@@ -2009,11 +1999,124 @@ import { App } from '@capacitor/app';
                         }
                         resolve(data.auth_token);
                       }
+                      else if(data && data.statusCode == 401){
+                        FCM.refreshToken().then(token => {
+                          this.storage.remove('deviceToken').then(()=>{
+                            this.storage.set('deviceToken',token);
+                          })
+                          this.refreshToken(mmemberid, token);
+                        })
+                      }
                   })
               })
+            }else {
+              this.refreshAndPushToken(mmemberid);
             }
           })
           
+        }
+
+        refreshTokenNew(oldToken): Promise<any> {
+          var se = this;
+              return new Promise((resolve, reject) => {
+                let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/RefreshToken';
+                let headers = {
+                      'cache-control': 'no-cache',
+                      'content-type': 'application/json'
+                    };
+                let body = {currentTokenId: oldToken};
+                se.RequestApi('POST', strUrl, headers, body, 'globalFunction', 'refreshTokenNew').then((data) => {
+                    if(data && data.auth_token){
+                      resolve(data);
+                    }else {
+                      resolve(false);
+                    }
+                  })
+              })
+          
+        }
+
+        refreshAndPushToken(mmemberid){
+          var se = this;
+          FCM.getToken().then(token => {
+            this.storage.remove('deviceToken').then(()=>{
+              this.storage.set('deviceToken',token);
+            })
+            return new Promise((resolve, reject) => {
+              let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/Login';
+              let headers = {
+                    'cache-control': 'no-cache',
+                    'content-type': 'application/json'
+                  };
+              let body = {emailOrPhone:'',password:'',rememberMe:true,memberId: mmemberid ,deviceToken: token};
+              se.RequestApi('POST', strUrl, headers, body, 'globalFunction', 'refreshToken').then((data) => {
+                if (data && data.auth_token) {
+                    var decoded = jwt_decode(data.auth_token);
+                      if (decoded) {
+                        se.storage.remove('auth_token').then(()=>{
+                          se.storage.set("auth_token", data.auth_token);
+                        })
+                      }
+                      resolve(data.auth_token);
+                    }
+                })
+            })
+          })
+        }
+
+        getUserInfo(auth_token): Promise<any> {
+          return new Promise((resolve, reject) => {
+            //this.storage.get('auth_token').then(auth_token => {
+              //if (auth_token) {
+                var text = "Bearer " + auth_token;
+                let headers =
+                {
+                  'cache-control': 'no-cache',
+                  'content-type': 'application/json',
+                  authorization: text
+                }
+                let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
+                this.RequestApi('GET', strUrl, headers, {}, 'globalFunction', 'getUserInfo').then((data) => {
+                  if(data && data.statusCode != 401){
+                    resolve(data);
+                  }else if(data && data.statusCode == 401){
+                    this.refreshTokenNew(auth_token).then((datanew)=>{
+                      if(datanew && datanew.auth_token){
+                        this.storage.remove('auth_token').then(()=>{
+                          this.storage.set('auth_token', datanew.auth_token).then(()=>{ 
+                            this.getUserInfo(datanew.auth_token);
+                          })
+                        })
+                       
+                      }else{
+                        this.storage.remove('auth_token').then(()=>{
+                          this.showAlertLogin();
+                        })
+                      }
+                    })
+                  }
+                })
+             // }
+           // })
+          })
+        }
+
+       async showAlertLogin(){
+            let alert = await this.alertCtrl.create({
+              message: 'Mã token hết hạn. Vui lòng đăng nhập lại để tiếp tục sử dụng dịch vụ!',
+              cssClass: "cls-alert-refreshPrice",
+              backdropDismiss: false,
+              buttons: [
+              {
+                text: 'OK',
+                role: 'OK',
+                handler: () => {
+                  this.navCtrl.navigateForward('login');
+                }
+              }
+            ]
+          });
+          alert.present();
         }
       
         async showLoadingWithMsg(msg){
@@ -2025,9 +2128,7 @@ import { App } from '@capacitor/app';
          }
       
         async showLoading(){
-         this.loader = this.loadCtrl.create({
-            message: ""
-          });
+         this.loader = this.loadCtrl.create();
       
           (await this.loader).present();
         }
@@ -2091,31 +2192,7 @@ import { App } from '@capacitor/app';
             "bankTransfer": BanksTranfer
           };
           return new Promise((resolve, reject) => {
-            // var options = {
-            //   method: 'POST',
-            //   url: C.urls.baseUrl.urlFlight + "/gate/apiv1/PaymentSave/"+data.reservationId,
-            //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-            //   headers: {
-            //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-            //     'Content-Type': 'application/json; charset=utf-8',
-            //   },
-            //   body: JSON.stringify(param)
-            // };
-
-            // let headers= {
-            //   "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-            //   'Content-Type': 'application/json; charset=utf-8',
-            // };
-            // let url = C.urls.baseUrl.urlFlight + "/gate/apiv1/PaymentSave/"+data.reservationId;
-            // this.RequestApi('POST', url, headers, param, 'globalFunction', 'CheckPaymentDate').then((data) => {
-            //     let result = data;
-            //     if(!result.error){
-            //       resolve(result);
-            //     }else{
-            //       resolve(false);
-            //     }
-              
-            // })
+            
             resolve({isHoldSuccess: true});
           })
         }
@@ -2127,29 +2204,7 @@ import { App } from '@capacitor/app';
           "bankTransfer": BanksTranfer
         };
         return new Promise((resolve, reject) => {
-          // var options = {
-          //   method: 'POST',
-          //   url: C.urls.baseUrl.urlFlight + "/gate/apiv1/PaymentSave/"+bookingCode,
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //     'Content-Type': 'application/json; charset=utf-8',
-          //   },
-          //   body: JSON.stringify(param)
-          // };
-          // let headers= {
-          //   "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //   'Content-Type': 'application/json; charset=utf-8',
-          // };
-          // let url = C.urls.baseUrl.urlFlight + "/gate/apiv1/PaymentSave/"+bookingCode;
-          // this.RequestApi('POST', url, headers, param, 'globalFunction', 'updatePaymentMethodNew').then((data) => {
-          //     let result = data;
-          //     if(!result.error){
-          //       resolve(result);
-          //     }else{
-          //       resolve(false);
-          //     }
-          // })
+         
           resolve({isHoldSuccess: true});
         })
       }
@@ -2186,15 +2241,7 @@ import { App } from '@capacitor/app';
         callCheckHoldTicket(url, data){
           var res = false;
           return new Promise((resolve, reject) => {
-            // var options = {
-            //   method: 'GET',
-            //   url: C.urls.baseUrl.urlFlight + "/gate/apiv1/SummaryBooking/"+data.pnr.resNo,
-            //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-            //   headers: {
-            //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-            //     'Content-Type': 'application/json; charset=utf-8',
-            //   },
-            // };
+            
             let strUrl = C.urls.baseUrl.urlFlight + "/gate/apiv1/SummaryBooking/"+data.pnr.resNo;
               let headers = {
                 "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2244,15 +2291,7 @@ import { App } from '@capacitor/app';
       
         holdTicket(data){
           var se = this;
-          // var options = {
-          //   method: 'GET',
-          //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/HoldPnr?reservationNo="+data.pnr.resNo+"&token=3b760e5dcf038878925b5613c32615ea3&cacheDepartId="+data.departFlight.id+"&cacheReturnId="+ (data.returnFlight ? data.returnFlight.id : ""),//GET /gate/apiv1/HoldPnr
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //     'Content-Type': 'application/json; charset=utf-8',
-          //   },
-          // };
+          
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/HoldPnr?reservationNo="+data.pnr.resNo+"&token=3b760e5dcf038878925b5613c32615ea3&cacheDepartId="+data.departFlight.id+"&cacheReturnId="+ (data.returnFlight ? data.returnFlight.id : "");
               let headers = {
                 "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2269,15 +2308,7 @@ import { App } from '@capacitor/app';
         holdTicketCombo(flyBookingCode,iddepart,idreturn): Promise<any>{
           var se = this;
           return new Promise((resolve, reject) => {
-            // var options = {
-            //   method: 'GET',
-            //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/HoldPnr?reservationNo="+flyBookingCode+"&token=3b760e5dcf038878925b5613c32615ea3&cacheDepartId="+iddepart+"&cacheReturnId="+ idreturn,//GET /gate/apiv1/HoldPnr
-            //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-            //   headers: {
-            //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-            //     'Content-Type': 'application/json; charset=utf-8',
-            //   },
-            // };
+           
             let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/HoldPnr?reservationNo="+flyBookingCode+"&token=3b760e5dcf038878925b5613c32615ea3&cacheDepartId="+iddepart+"&cacheReturnId="+ idreturn;
               let headers = {
                 "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2315,15 +2346,6 @@ import { App } from '@capacitor/app';
 
         issueTicket(data){
           var se = this;
-          // var options = {
-          //   method: 'GET',
-          //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/IssueTicket?reservationNo="+data.pnr.resNo+"&token=3b760e5dcf038878925b5613c32651dus",
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //     'Content-Type': 'application/json; charset=utf-8',
-          //   },
-          // };
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/IssueTicket?reservationNo="+data.pnr.resNo+"&token=3b760e5dcf038878925b5613c32651dus";
               let headers = {
                 "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2337,15 +2359,6 @@ import { App } from '@capacitor/app';
         }
       
         createFlightTransaction(data){
-          // var options = {
-          //   method: 'GET',
-          //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/EndTranaction?resNo="+data.pnr.resNo+"&sercureKey=3b760e5dcf038878925b5613c32651dus",
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //     'Content-Type': 'application/json; charset=utf-8',
-          //   },
-          // };
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/EndTranaction?resNo="+data.pnr.resNo+"&sercureKey='3b760e5dcf038878925b5613c32651dus'";
           let headers = {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2359,15 +2372,6 @@ import { App } from '@capacitor/app';
         }
       
         createFlightTransactionCombo(resNo){
-          // var options = {
-          //   method: 'GET',
-          //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/EndTranaction?resNo="+resNo+"&sercureKey=3b760e5dcf038878925b5613c32651dus",
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-          //     'Content-Type': 'application/json; charset=utf-8',
-          //   },
-          // };
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/EndTranaction?resNo="+resNo+"&sercureKey='3b760e5dcf038878925b5613c32651dus'";
           let headers = {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2383,15 +2387,6 @@ import { App } from '@capacitor/app';
         checkTicketAvaiable(data) : Promise<any>{
           var se = this;
           return new Promise((resolve, reject) => {
-            // var options = {
-            //   method: 'GET',
-            //   url: C.urls.baseUrl.urlFlight + "gate/apiv1/CheckAvailable?resid="+data.reservationId,
-            //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-            //   headers: {
-            //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-            //     'Content-Type': 'application/json; charset=utf-8',
-            //   },
-            // };
             let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/CheckAvailable?resid="+data.reservationId;
           let headers = {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
@@ -2499,12 +2494,6 @@ import { App } from '@capacitor/app';
         
     public UpdatePaymentMethod(bookingCode,paymentMethod): Promise<any>{
       return new Promise((resolve, reject) => {
-        // var options = {
-        //   'method': 'POST',
-        //   'url': C.urls.baseUrl.urlContracting + '/api/toolsapi/UpdatePaymentMethod?HotelCode='+bookingCode+'&paymentMethod='+paymentMethod +'',
-        //   'headers': {
-        //   }
-        // };
         let strUrl = C.urls.baseUrl.urlContracting + '/api/toolsapi/UpdatePaymentMethod?HotelCode='+bookingCode+'&paymentMethod='+paymentMethod +'';
           let headers = {};
           this.RequestApi('POST', strUrl, headers, {}, 'globalFunction', 'UpdatePaymentMethod').then((data) => {
@@ -2517,43 +2506,6 @@ import { App } from '@capacitor/app';
       var se = this;
       return new Promise(
         (resolve, reject) => {
-          // var options;
-          // if(headerObj && bodyObj ){
-          //   options = {
-          //     method: methodFunc,
-          //     url: strUrl,
-          //     headers: headerObj,
-          //     body: bodyObj,
-          //     json: true,
-          //     timeout: 180000,
-          //     maxAttempts: 5,
-          //     retryDelay: 2000
-          //   }
-          // }
-          
-          // if(headerObj && !bodyObj){
-          //   options = {
-          //     method: methodFunc,
-          //     url: strUrl,
-          //     timeout: 180000,
-          //     maxAttempts: 5,
-          //     retryDelay: 2000,
-          //     headers: headerObj
-          //   }
-          // }
-
-          // if(!headerObj && !bodyObj){
-          //   options = {
-          //     method: methodFunc,
-          //     url: strUrl,
-          //     timeout: 180000,
-          //     maxAttempts: 5,
-          //     retryDelay: 2000,
-          //   }
-          // }
-
-          //let strUrl = C.urls.baseUrl.urlContracting + '/api/toolsapi/UpdatePaymentMethod?HotelCode='+bookingCode+'&paymentMethod='+paymentMethod +'';
-          //let headers = {};
           this.RequestApi(methodFunc, strUrl, headerObj, bodyObj, pageName, funcName).then((data) => {
                 if (data) {
                     resolve(data);
@@ -2569,13 +2521,6 @@ import { App } from '@capacitor/app';
       //Liên kết url
       public CreateUrl(url): Promise<any>{
         return new Promise((resolve, reject) => {
-          // var options = {
-          //   'method': 'POST',
-          //   'url': url,
-          //   'headers': {
-          //     'Cookie': 'ASP.NET_SessionId=1zuyjhynxivxfmups4llel5v'
-          //   }
-          // };
           let headers = {};
           this.RequestApi('POST', url, headers, {}, 'globalFunction', 'CreateUrl').then((data) => {
             resolve(data);
@@ -3376,7 +3321,7 @@ import { App } from '@capacitor/app';
                       objSearch.imageUrl= (el[0].image.toLocaleString().trim().indexOf("http") == -1) ? 'https:' +el[0].image: el[0].image;
                     }
                   }else{
-                    objSearch.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg'
+                    objSearch.imageUrl='./assets/empty/no-image-icon.png'
                   }
                   if(data && data.length>2){
                     data.splice(0, 1);

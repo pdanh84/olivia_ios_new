@@ -20,86 +20,65 @@
   <div *ngIf="!ischeckpayment" style="text-align: center">
     <img  src="./assets/step/fc_step_3.svg">
     </div>
-  <div style="margin-top: 15px" *ngIf="status=='AL'">
-    <div>
-      <ion-label style="font-weight: bold">
+
+  <div class="m-top-16">
+    <div class="m-top-8">
+      <ion-label class="f-bold">
         Cảm ơn Quý khách đã sử dụng dịch vụ iVIVU.com
       </ion-label>
     </div>
-    <div>
-      <ion-label>
-        Mã đặt phòng của quý khách là
-        <span style="font-weight: bold">{{code}}</span>
-      </ion-label>
+
+    <div *ngIf="status=='AL'">
+      <div  class="m-top-16">
+        <ion-label>
+          Mã đặt phòng của quý khách là
+          <span class="f-bold">{{code}}</span>
+        </ion-label>
+      </div>
+      <div  class="m-top-6">
+        <ion-label text-wrap>
+          Thông tin thanh toán đã được gửi đến email của Quý khách.
+        </ion-label>
+      </div>
+      <div class="m-top-6">
+        <ion-label text-wrap>
+          Mời quý khách thanh toán số tiền
+          <span class="f-bold">{{priceshow}} VND</span> trước
+          <span class="f-bold">{{text}}</span> để hoàn tất việc đặt phòng.
+        </ion-label>
+      </div>
     </div>
-    <div>
-      <ion-label text-wrap>
-        Thông tin thanh toán đã được gửi đến email của Quý khách.
-      </ion-label>
+
+    <div *ngIf="status=='RQ'">
+      <div class="m-top-16">
+        <ion-label text-wrap>
+          Mã đặt phòng của quý khách là
+          <span class="f-bold">{{code}}</span>
+        </ion-label>
+      </div>
+      <div class="m-top-6">
+        <ion-label text-wrap>
+          Nhân viên iVIVU.COM sẽ liên lạc với Quý Khách trong thời gian sớm nhất.
+        </ion-label>
+      </div>
     </div>
-    <div>
-      <ion-label text-wrap>
-        Mời quý khách thanh toán số tiền
-        <span style="font-weight: bold">{{priceshow}} VND</span> trước
-        <span style="font-weight: bold">{{text}}</span> để hoàn tất việc đặt phòng.
-      </ion-label>
-    </div>
-    <div>
+    
+    <div class="m-top-16">
       <ion-label text-wrap>
         Nếu cần sự hỗ trợ vui lòng liên hệ tổng đài 1900 1870 hoặc email tc@ivivu.com để được trợ giúp.
       </ion-label>
     </div>
-    <div>
+    <div class="m-top-6">
       <ion-label text-wrap>
         Hồ Chí Minh: 1900 1870
       </ion-label>
     </div>
-    <div>
+    <div class="m-top-6">
       <ion-label text-wrap>
         Hà Nội: 1900 2045
       </ion-label>
     </div>
-    <div>
-    <ion-label text-wrap>
-      Cần Thơ: 1900 2087
-    </ion-label>
-    </div>
-  </div>
-
-  <div style="margin-top: 15px" *ngIf="status=='RQ'">
-    <div>
-      <ion-label style="font-weight: bold" text-wrap>
-        Cảm ơn Quý khách sử dụng dịch vụ iVIVU.com
-      </ion-label>
-    </div>
-    <div>
-      <ion-label text-wrap>
-        Mã đặt phòng của quý khách là
-        <span style="font-weight: bold">{{code}}</span>
-      </ion-label>
-    </div>
-    <div>
-      <ion-label text-wrap>
-        Nhân viên iVIVU.COM sẽ liên lạc với Quý Khách trong thời gian sớm nhất.
-      </ion-label>
-    </div>
-    <div>
-      <ion-label text-wrap>
-        Nếu cần sự hỗ trợ vui lòng liên hệ qua email tc@ivivu.com hoặc tổng đài sau:
-      </ion-label>
-    </div>
-    <div>
-      <ion-label text-wrap>
-        Hồ Chí Minh: 1900 1870
-      </ion-label>
-    </div>
-    <div>
-
-      <ion-label text-wrap>
-        Hà Nội: 1900 2045
-      </ion-label>
-    </div>
-    <div>
+    <div class="m-top-6">
       <ion-label text-wrap>
         Cần Thơ: 1900 2087
       </ion-label>

@@ -246,6 +246,11 @@ export class Tab1Page implements OnInit {
     this.storage.get('arrHistory').then((data: any) => {
       if (data) {
         this.arrHistory = data;
+        this.arrHistory.forEach(element => {
+          if(element && element.imageUrl && element.imageUrl.indexOf('noimage') != -1){
+            element.imageUrl = './assets/empty/no-image-icon.png';
+          }
+        });
         if(this.arrHistory.length>1){
           let elements = window.document.querySelectorAll(".d-flex-recent");
           if (elements.length>0) {
@@ -276,16 +281,10 @@ export class Tab1Page implements OnInit {
   }
   loadUserInfo() {
     var se = this;
+    
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers = {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab1', 'loadUserInfo').then((data) => {
+        se.gf.getUserInfo(auth_token).then((data) => {
           se.zone.run(() => {
               se.storage.set('point', data.point);
             })
@@ -513,6 +512,11 @@ export class Tab1Page implements OnInit {
     this.storage.get('arrHistory').then((data: any) => {
       if (data) {
         this.arrHistory = data;
+        this.arrHistory.forEach(element => {
+          if(element && element.imageUrl && element.imageUrl.indexOf('noimage') != -1){
+            element.imageUrl = './assets/empty/no-image-icon.png';
+          }
+        });
         if( this.arrHistory.length>1){
           let elements = window.document.querySelectorAll(".d-flex-recent");
           if (elements.length>0) {
@@ -1719,52 +1723,7 @@ export class Tab1Page implements OnInit {
           se.loadMoods(se.slideMood);
         })
     })
-    // var options = {
-    //   method: 'POST',
-    //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/Moods' + (se.memberid ? '?memberid=' + se.memberid : ''),
-    //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-    //   headers:
-    //   {
-    //     'postman-token': 'f0589249-bf19-001c-f359-9b33dcf6db86',
-    //     'cache-control': 'no-cache',
-    //     apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
-    //     apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
-    //   }
-    // };
-    // request(options, function (error, response, body) {
-    //   if (response.statusCode != 200) {
-    //     var objError = {
-    //       page: "main",
-    //       func: "getmood",
-    //       message: response.statusMessage,
-    //       content: response.body,
-    //       param: JSON.stringify(options),
-    //       type: "warning"
-    //     };
-    //     C.writeErrorLog(objError, response);
-    //   }
-    //   if (error) {
-    //     error.page = "main";
-    //     error.func = "getmood";
-    //     error.param = JSON.stringify(options);
-    //     C.writeErrorLog(error, response);
-    //   };
-    //   se.zone.run(() => {
-    //     se.slideMood = JSON.parse(body);
-
-    //     se.storage.get('listtopmoods').then((data) => {
-    //       if (data) {
-    //         se.storage.remove('listtopmoods').then((datanew) => {
-    //           se.storage.set('listtopmoods', datanew);
-    //         })
-    //       } else {
-    //         se.storage.set('listtopmoods', se.slideMood);
-    //       }
-    //     })
-    //     se.loadMoods(se.slideMood);
-
-    //   })
-    // });
+    
   }
 
   loadMoods(listmoods) {
@@ -2692,7 +2651,7 @@ export class Tab1Page implements OnInit {
             }
           }
           if (cocheck == 0) {
-            var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
+            var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel, imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl : ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' )  };
             se.searchhotel.recent = [];
 
             if (this.recent.length > 1) {
@@ -2706,22 +2665,22 @@ export class Tab1Page implements OnInit {
 
         }
         else {
-          var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
+          var item1 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbmsg.regionId, RegionCode: this.gbmsg.regionCode, regionName: this.gbmsg.regionName, flag: "1", TotalHotels: this.gbmsg.totalHotel , imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl : ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' )};
           se.searchhotel.recent = [];
           se.searchhotel.recent.push(item1);
         }
         var item: any ={};
         item.adult=se.searchhotel.adult;
         item.child=se.searchhotel.child;
-        item.arrchild= se.searchhotel.arrchild
+        item.arrchild= se.searchhotel.arrchild;
         if(this.gbmsg.imageUrl){
           item.imageUrl = (this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl;
         }
-        else if(this.searchhotel.objRecent.imageUrl){
+        else if(this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl){
           item.imageUrl = this.searchhotel.objRecent.imageUrl;
         }
         else{
-          item.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg';
+          item.imageUrl='./assets/empty/no-image-icon.png';
         }
         var checkInDate=new Date(this.gf.getCinIsoDate(this.searchhotel.CheckInDate));
         var checkOutDate=new Date(this.gf.getCinIsoDate(this.searchhotel.CheckOutDate));
@@ -2753,7 +2712,7 @@ export class Tab1Page implements OnInit {
               }
             }
             if (cocheck == 0) {
-              var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
+              var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl : ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' )};
               se.searchhotel.recent = [];
 
               if (this.recent.length > 1) {
@@ -2766,7 +2725,7 @@ export class Tab1Page implements OnInit {
             }
           }
           else {
-            var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent.imageUrl || ''};
+            var item2 = { Type: "1", HotelId: this.gbitem.hotelId, HotelName: this.gbitem.hotelName, RegionId: "", RegionCode: "", regionName: "", flag: "0", TotalHotels: '' , imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl : ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' )};
             se.searchhotel.recent = [];
 
             this.searchhotel.recent.push(item2);
@@ -2808,7 +2767,7 @@ export class Tab1Page implements OnInit {
               }
             }
             if (cocheck == 0) {
-              var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
+              var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl :  ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' ) };
               se.searchhotel.recent = [];
 
               if (this.recent.length > 1) {
@@ -2821,7 +2780,7 @@ export class Tab1Page implements OnInit {
             }
           }
           else {
-            var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent.imageUrl || '' };
+            var item3 = { Type: "2", HotelId: "", HotelName: "", RegionId: this.gbitem.regionId, RegionCode: this.gbitem.regionCode, regionName: this.gbitem.regionName, flag: "0", TotalHotels: this.gbitem.totalHotels, imageUrl: this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl ? this.searchhotel.objRecent.imageUrl : ( this.gbmsg && this.gbmsg.imageUrl ? ((this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl) : '' ) };
             se.searchhotel.recent = [];
             this.searchhotel.recent.push(item3)
           }
@@ -2844,7 +2803,7 @@ export class Tab1Page implements OnInit {
           if(this.gbitem.imageUrl){
             item.imageUrl = (this.gbitem.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbitem.imageUrl : this.gbitem.imageUrl;
           }
-          else if(this.searchhotel.objRecent.imageUrl){
+          else if(this.searchhotel.objRecent && this.searchhotel.objRecent.imageUrl){
             item.imageUrl = this.searchhotel.objRecent.imageUrl;
           }
           else{
@@ -2917,7 +2876,7 @@ export class Tab1Page implements OnInit {
             item.imageUrl = (this.gbmsg.imageUrl.toLocaleString().trim().indexOf("http") == -1) ? 'https:' + this.gbmsg.imageUrl : this.gbmsg.imageUrl;
           }
           else{
-            item.imageUrl='https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage-110x110.jpg';
+            item.imageUrl='./assets/empty/no-image-icon.png';
           }
           var checkInDate=new Date(this.gf.getCinIsoDate(this.searchhotel.CheckInDate));
           var checkOutDate=new Date(this.gf.getCinIsoDate(this.searchhotel.CheckOutDate));

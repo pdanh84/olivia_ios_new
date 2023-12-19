@@ -112,7 +112,7 @@ export class LoginusernamePage implements OnInit {
                   se.deviceToken = (token && token.token) ? token.token: token;
                   se.storage.set('deviceToken',se.deviceToken);
                   if(se.deviceToken){
-                    se.gf.pushTokenAndMemberID(data.auth_token, token.token, se.appversion);
+                    se.gf.pushTokenAndMemberID(data.auth_token, token.token, se.gf.getAppVersion());
                   }
                 });
               }

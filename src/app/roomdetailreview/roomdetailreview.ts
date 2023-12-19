@@ -304,50 +304,16 @@ export class RoomdetailreviewPage implements OnInit {
     })
       this.GetUserInfo();
       this.edit();
+      this.Roomif.notetotal = "";
     }
   GetUserInfo() {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-       
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        this.gf.RequestApi('GET', strUrl, headers, {}, 'roomdetailreview', 'GetUserInfo').then((data)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
-              if(data.statusCode == 401){
-                se.storage.get('jti').then((memberid) => {
-                  se.storage.get('deviceToken').then((devicetoken) => {
-                    se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                      setTimeout(() => {
-                        se.GetUserInfo();
-                      }, 100)
-                    });
-    
-                  })
-                })
-              }
               se.zone.run(() => {
                 if (data.point) {
-                  //point=500;
-                  // if (point > 0) {
-                  //   se.pointshow=point;
-                  //   se.Roomif.point = point;
-                  //   se.point = point * 1000;
-                  //   se.price = se.point.toLocaleString();
-                  //   var tempprice = se.PriceAvgPlusTAStr.replace(/\./g, '').replace(/\,/g, '');
-                  //   se.Pricepoint = tempprice - se.point;
-                  //   se.Pricepointshow = se.Pricepoint.toLocaleString();
-                  //   if (se.Pricepoint <= 0) {
-                  //     se.ischeckpoint = true;
-                  //     se.Pricepointshow = 0;
-                  //   }
-                  // }
                   if (data.point > 0) {
                     se.Roomif.point = data.point;
                     se.point = data.point * 1000;

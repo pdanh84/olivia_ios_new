@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import Litepicker from 'litepicker';
 import 'litepicker/dist/plugins/mobilefriendly';
-import { ValueGlobal, SearchHotel, Bookcombo } from '../providers/book-service';
+import { ValueGlobal, SearchHotel, Bookcombo, Booking } from '../providers/book-service';
 import { GlobalFunction } from '../providers/globalfunction';
 import { flightService } from '../providers/flightService';
 import { Storage } from '@ionic/storage';
@@ -67,7 +67,8 @@ export class SelectDateRangePage implements OnInit {
     public _flightService: flightService,
     private storage: Storage,
     public bookCombo: Bookcombo, private alertCtrl: ToastController,
-    public tourService: tourService, public ticketService: ticketService, public zone: NgZone) {
+    public tourService: tourService, public ticketService: ticketService, public zone: NgZone,
+    public booking: Booking) {
     this.getListLunar();
     setTimeout(() => {
       if (ticketService.ischeckCalendar) {
@@ -339,8 +340,8 @@ export class SelectDateRangePage implements OnInit {
           return (se.tourCalendar && se.tourService.departures && se.tourService.departures.length > 0)
             ?(se.tourService.departures.includes(moment((date1 as any).dateInstance).format('YYYY-MM-DD')) ? false : true) : false;
         },
-        startDate: se.tourCalendar ? this.gf.getCinIsoDate((se.tourService.itemDepartureCalendar ? (se.tourService.itemDepartureCalendar.DepartureDate || se.tourService.itemDepartureCalendar.AllotmentDate) : se.searchhotel.CheckInDate)) : (!this.flightmode ? this.gf.getCinIsoDate(this.searchhotel.CheckInDate) : this.gf.getCinIsoDate(this._flightService.itemFlightCache.checkInDate)),
-        endDate: !this.flightmode ? this.requestForm ? undefined : this.gf.getCinIsoDate(this.searchhotel.CheckOutDate) : (this.searchhotel.formChangeDate >= 4 && this.searchhotel.formChangeDate < 7 && this.roundTrip) ? this.gf.getCinIsoDate(this._flightService.itemFlightCache.checkOutDate) : undefined,
+        startDate: se.tourCalendar ? this.gf.getCinIsoDate((se.tourService.itemDepartureCalendar ? (se.tourService.itemDepartureCalendar.DepartureDate || se.tourService.itemDepartureCalendar.AllotmentDate) : se.searchhotel.CheckInDate)) : (!this.flightmode ? (this.searchhotel.formChangeDate == 8 ? this.gf.getCinIsoDate(this.booking.CheckInDate) : this.gf.getCinIsoDate(this.searchhotel.CheckInDate) ): this.gf.getCinIsoDate(this._flightService.itemFlightCache.checkInDate)),
+        endDate: !this.flightmode ? this.requestForm ? undefined : (this.searchhotel.formChangeDate == 8 ? this.gf.getCinIsoDate(this.booking.CheckOutDate) : this.gf.getCinIsoDate(this.searchhotel.CheckOutDate)) : (this.searchhotel.formChangeDate >= 4 && this.searchhotel.formChangeDate < 7 && this.roundTrip) ? this.gf.getCinIsoDate(this._flightService.itemFlightCache.checkOutDate) : undefined,
         minDate: moment(this.gf.getCinIsoDate(new Date(this.gf.getCinIsoDate(new Date())))).format('YYYY-MM-DD'),
         mobileFriendly: true,
         autoApply: true,

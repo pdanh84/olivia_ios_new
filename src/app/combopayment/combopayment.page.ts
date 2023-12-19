@@ -111,14 +111,7 @@ export class CombopaymentPage implements OnInit {
     });
     this.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        let text = "Bearer " + auth_token;
-        let headers =
-        {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        }
-        this.gf.RequestApi('GET', C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo', headers, {}, 'flightcombopaymentselect', 'initpage').then((data) => {
+        this.gf.getUserInfo(auth_token).then((data) => {
           if (data && data.bizAccount) {
             this.zone.run(() => {
               this.bizTravelService.bizAccount = data.bizAccount;

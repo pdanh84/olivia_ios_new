@@ -36,7 +36,7 @@
     .text-status-room {
       font-size: 14px;
       font-weight: 600;
-      color: #222222;
+      color: #4f4f4f;
       letter-spacing: -0.4px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -77,6 +77,11 @@
         color:#828282;
         font-style: italic;
         letter-spacing: -0.34px;
+      }
+      .text-bold {
+        font-size: 14px;
+        font-weight: 600;
+        color: #4f4f4f;
       }
     
     .button2
@@ -576,28 +581,28 @@ hr
   }
 
   .div-hotel-info{
+    min-height: 154px;
     position: relative;
-    height: 128px;
     padding-top: 16px;
     padding-bottom: 16px;
 
     .div-wrapimg{
       position: absolute;
-      width: 104px;
-      height: 104px;
 
       .img-hotel-avatar-123{
         height: 123px;
+        width: 123px;
         border-radius: 6px;
       }
       .img-hotel-avatar{
-        height: 104px;
         border-radius: 6px;
+        height: 123px;
+        width: 123px;
       }
     }
 
     .div-hotel-name{
-      padding-left: 112px;
+      padding-left: 139px;
       position: relative;
     }
 
@@ -679,6 +684,7 @@ hr
 }
 .cls-hr
 {
+  margin-top: 0;
   margin-left: -16px;
   margin-right: -16px;
   height: 7px;

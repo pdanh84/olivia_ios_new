@@ -131,7 +131,7 @@
       </div>
     </div>
   </div>
-  <hr class="cls-hr" style="margin-top: 22px" *ngIf="statusRoom=='AL'">
+  <hr class="cls-hr" *ngIf="statusRoom=='AL'">
   <ion-row *ngIf="!loadflightpricedone" style="height: 100px">
     <!-- <ion-col style="padding:0 0 0 140px;"> -->
     <!-- <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> -->
@@ -247,9 +247,7 @@
        
       </label>
       <div (click)="buyLuggage()">
-        <img src="./assets/ic_flight/vali.svg" class='icon-lug' />
         <span class="text-luggage margin-left-8">Đi: {{totaldepluggage}} kg.</span>
-        <img src="./assets/ic_flight/vali.svg" class='icon-lug' />
         <span class="text-luggage margin-left-8">Về: {{totalretluggage}} kg.</span>
        </div>
       <img src="./assets/imgs/ic_arrow_grey.svg" class='cls-icon-img' (click)="buyLuggage()"/>
@@ -300,7 +298,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -320,7 +318,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -361,7 +359,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -382,7 +380,7 @@
           <div>
             <h2 class="text-name" position="stacked">{{ adulsdisplay}} người lớn ,
               {{childrendisplay}} trẻ em</h2>
-            <p class="text-fee">Giá đã bao gồm thuế & phí dịch vụ</p>
+            <p class="text-fee">Giá đã bao gồm thuế & phí</p>
           </div>
         </ion-col>
         <ion-col size="6" style="padding: 0;" (click)="showComboDetail()">
@@ -408,9 +406,9 @@
           80 tuổi</label>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="PriceAvgPlusTAStr">
+    <ion-row *ngIf="PriceAvgPlusTAStr &&loadpricedone&&loadflightpricedone">
       <ion-col style="padding:5px 0">
-        <label class="text-note">*Giá cuối cùng sẽ được xác nhận khi bạn hoàn tất việc đặt vé.</label>
+        <label class="text-bold">*Hãy hoàn tất các bước đặt phòng để đảm bảo bạn không bỏ lỡ mức giá tuyệt vời này!</label>
       </ion-col>
     </ion-row>
   </div>
@@ -422,12 +420,12 @@
 </ion-content>
 <ion-footer>
   <div style="background-color: #ffffff; text-align: center">
-    <ion-row *ngIf="PriceAvgPlusTAStr && loadflightpricedone">
+    <ion-row *ngIf="PriceAvgPlusTAStr && loadflightpricedone&& loadpricedone">
       <ion-col style="padding: 0"><button (click)="next(1)" ion-button round outline class="button button2">Thông tin hành khách
         <span><img src="./assets/imgs/ic_next.svg"></span>
       </button></ion-col>
     </ion-row>
-    <ion-row *ngIf="!PriceAvgPlusTAStr && loadflightpricedone">
+    <ion-row *ngIf="!PriceAvgPlusTAStr && loadflightpricedone&& loadpricedone">
       <ion-col style="padding: 0"><button (click)="sendRequestCombo()" ion-button round outline
           class="button button2">Gửi yêu cầu</button>
       </ion-col>

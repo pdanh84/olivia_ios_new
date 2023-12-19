@@ -114,22 +114,6 @@ export class FlightadddetailsPage implements OnInit {
     public _voucherService: voucherService,
     private _clipboard: Clipboard) {
 
-      // const activate = async () => {
-      //   await FirebaseRemoteConfig.activate();
-      // };
-      
-      // const fetchAndActivate = async () => {
-      //   await FirebaseRemoteConfig.fetchAndActivate();
-      // };
-      
-      // const fetchConfig = async () => {
-      //   await FirebaseRemoteConfig.fetchConfig({
-      //     minimumFetchIntervalInSeconds: 1200,
-      //   });
-      // };
-
-      
-
       this.storage.get('auth_token').then(auth_token => {
         this.loginuser = auth_token;
         if(auth_token){
@@ -293,27 +277,8 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
     }
     GetUserInfo(auth_token) {
       var se = this;
-          var text = "Bearer " + auth_token;
-          let headers = {
-            'cache-control': 'no-cache',
-              'content-type': 'application/json',
-              authorization: text
-          };
-          let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-          this.gf.RequestApi('GET', strUrl, headers, {}, 'flightAddDetails', 'GetUserInfo').then((data)=>{
-              if (data.statusCode == 401) {
-                se.storage.get('jti').then((memberid) => {
-                  se.storage.get('deviceToken').then((devicetoken) => {
-                    se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                      setTimeout(() => {
-                        se.GetUserInfo(token);
-                      }, 100)
-                    });
-    
-                  })
-                })
-              }
-              else if (data && !data.statusCode) {
+      se.gf.getUserInfo(auth_token).then((data) => {
+             if (data && !data.statusCode) {
                 se.zone.run(() => {
                   se.ischeck = false;
                   if(data.email){
@@ -578,17 +543,10 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
             }
           })
         }
-        
-
-        // changegender(event, item){
-        //   if(event.detail.value){
-        //     item.gender = event.detail.value == "Ông" ? 1 : (event.detail.value == "Bà" ? 2 : (event.detail.value == "Bé trai" ? 1 : 2));
-        //     item.genderdisplay = event.detail.value;
-        //   }
-        // }
 
         setAdultProperty(){
           var se = this;
+          if(!se.loginuser) return;
           if(se.adults && se.adults.length>0){
             let itema = se.adults[0];
             if(!itema.name){
@@ -2448,6 +2406,7 @@ alert.present();
           async selectGender(item){
             let actionSheet = await this.actionsheetCtrl.create({
               cssClass: 'action-sheets-flightselectgender',
+              keyboardClose: true,
               mode: 'md',
               header: 'Danh xưng',
               buttons: [
@@ -2472,14 +2431,12 @@ alert.present();
             });
         
             actionSheet.present();
-            actionSheet.onDidDismiss().then((data: OverlayEventDetail) => {
-              this.checkInput(item, 1, false);
-          })
           }
 
           async selectAdultGender(item){
             let actionSheet = await this.actionsheetCtrl.create({
               cssClass: 'action-sheets-flightselectgender',
+              keyboardClose: true,
               mode: 'md',
               header: 'Danh xưng',
               buttons: [
@@ -2504,14 +2461,11 @@ alert.present();
             });
         
             actionSheet.present();
-            actionSheet.onDidDismiss().then((data: OverlayEventDetail) => {
-                this.checkInput(item, 1, true);
-            })
           }
 
-          editPaxInfo(item, idx){
+          editPaxInfo(item, type, idx){
             var se = this;
-              if(item && idx == 1){
+              if(item && type == 1){
                   item.genderdisplay = '';
                   item.name = '';
                   item.airlineMemberCode ='';
@@ -2523,7 +2477,7 @@ alert.present();
                   item.birdayDisplay = '';
                   item.textErrorInfo = "Vui lòng nhập thông tin Người lớn " +item.id;
               }
-              else if(item && idx == 2){
+              else if(item && type == 2){
                   item.genderdisplay = '';
                   item.name = '';
                   item.dateofbirth = '';
@@ -2548,6 +2502,12 @@ alert.present();
                 item.errorPassport = true;
                 item.errorPassportCountry = true;
                 //item.errorPassportExpireDate = true;
+                if(type ==1){
+                  $(`.div-adult-${idx} ion-item`).removeClass('item-has-value');
+                }else{
+                  $(`.div-child-${idx} ion-item`).removeClass('item-has-value');
+                }
+                
               }
           }
 
@@ -3205,6 +3165,12 @@ alert.present();
         if(rs){
           se.zone.run(()=>{
             pax = rs.itempushback;
+            if(isChangeBOD){
+              pax.errorDateofbirth = '';
+            }else{
+              pax.errorPassportExpireDate = '';
+            }
+            
           })
           
         }

@@ -592,8 +592,8 @@ getSummaryBooking(resNo) {
   }
 
   checkLuggage(){
-    //let chocieDepartLuggage = [], chocieReturnLuggage = [];
-    this.chocieDepartLuggage = [];
+    try {
+      this.chocieDepartLuggage = [];
     this.chocieReturnLuggage = [];
     let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
     _a.forEach(element => {
@@ -644,8 +644,9 @@ getSummaryBooking(resNo) {
   }
       })
     },50)
-    
-    
+    } catch (error) {
+      
+    }
     
   }
 
@@ -2615,7 +2616,7 @@ getSummaryBooking(resNo) {
             'Content-Type': 'application/json; charset=utf-8',
           };
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/PassengerSave/"+data.reservationId;
-          this.gf.RequestApi('POST', strUrl, headers, objPass, 'flightAddService', 'GetUserInfo').then((data)=>{
+          this.gf.RequestApi('POST', strUrl, headers, objPass, 'flightAddService', 'SavePassengerInfo').then((data)=>{
             if (data) {
               let result = data;
               //console.log(result);

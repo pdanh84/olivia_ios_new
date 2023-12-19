@@ -376,15 +376,7 @@ export class TicketAdddetailsPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       this.auth_token = auth_token;
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-        {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'touradddetails', 'loadUserInfo').then((data) => {
+        this.gf.getUserInfo(auth_token).then((data) => {
           if (data) {
             se.zone.run(() => {
               if(data.email){

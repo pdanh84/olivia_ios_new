@@ -48,6 +48,8 @@ export class Tab2Page implements OnInit {
   arrplace: any = [];
   istextplace: boolean = false;
   slideData: any;
+  ishidetour: boolean = false;
+  nodatatour: boolean = false;
   constructor(public platform: Platform, public navCtrl: NavController, public storage: Storage, public zone: NgZone, public searchhotel: SearchHotel, public gf: GlobalFunction, public valueGlobal: ValueGlobal,
      public loadingCtrl: LoadingController, private socialSharing: SocialSharing,
     public networkProvider: NetworkProvider, public router: Router, public modalCtrl: ModalController, public tourService: tourService) {
@@ -75,6 +77,7 @@ export class Tab2Page implements OnInit {
   
   ionViewWillEnter() {
     this.gf.clearActivatedTab();
+    this.storage.remove('tab2_listHotelLike');
    
     this.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
@@ -88,12 +91,9 @@ export class Tab2Page implements OnInit {
     this.json1 = [];
     this.istext = false;
     this.istextblog = false;
-    //this.getlisthotellike();
-    //Kiểm tra mạng on/off để hiển thị
-    //this.networkProvider.getNetworkStatus().subscribe((connected: boolean) => {
-    //this.isConnected = connected;
-    //if (this.isConnected) {
-    //this.intervalID =  setInterval(()=>{
+    this.ishide = false;
+    this.ishidetour =false;
+   
     if (this.networkProvider.isOnline()) {
       this.isConnected = true;
       
@@ -174,21 +174,7 @@ export class Tab2Page implements OnInit {
           }
         }
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/RemoveFavouriteHotelByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': 'a19ecc0a-cb83-4dd9-3fd5-71062937a931',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { hotelId: id },
-        //   json: true
-        // };
-
+       
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/RemoveFavouriteHotelByUser';
             let headers = { 
               'cache-control': 'no-cache',
@@ -220,20 +206,6 @@ export class Tab2Page implements OnInit {
           }
         }
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/AddFavouriteHotel',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': 'a19ecc0a-cb83-4dd9-3fd5-71062937a931',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { hotelId: id },
-        //   json: true
-        // };
 
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/AddFavouriteHotel';
             let headers = { 
@@ -256,67 +228,205 @@ export class Tab2Page implements OnInit {
       }
     });
   }
-  getlisthotellike() {
-    var se = this;
-    //se.presentLoadingData();
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        se.loginuser = auth_token;
+  getListHotelLikeWithToken(auth_token){
+    let se = this;
+    se.loginuser = auth_token;
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
-
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
             let headers = { 
               'cache-control': 'no-cache',
               'content-type': 'application/json',
               authorization: text
              };
-            this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getlisthotellike').then((data)=>{
-
-          var arr = data;
-          if(arr && arr.length >0){
-            var chuoi = "";
-            for (let i = 0; i < arr.length; i++) {
-              if (i == arr.length - 1) {
-                chuoi = chuoi + arr[i];
-              } else {
-                chuoi = chuoi + arr[i] + ",";
-              }
-
-            }
-            se.zone.run(() => {
-              if (chuoi) {
-                // se.nodata = false;
-                se.postdata(chuoi);
-              }
-              else {
-                se.nodata = true;
-                if (se.myloader) {
-                  se.myloader.dismiss();
+            this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getListHotelLikeWithToken').then((data)=>{
+              if(data && data.statusCode ==401){
+                this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                  if(newtoken){
+                    this.storage.remove('auth_token').then(()=>{
+                      this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                        this.getListHotelLikeWithToken(newtoken.auth_token);
+                      })
+                    })
+                  }
+                })
+              }else{
+                var arr = data;
+                if(arr && arr.length >0){
+                  var chuoi = "";
+                  for (let i = 0; i < arr.length; i++) {
+                    if (i == arr.length - 1) {
+                      chuoi = chuoi + arr[i];
+                    } else {
+                      chuoi = chuoi + arr[i] + ",";
+                    }
+      
+                  }
+                  se.zone.run(() => {
+                    if (chuoi) {
+                      // se.nodata = false;
+                      se.postdata(chuoi);
+                    }
+                    else {
+                      se.nodata = true;
+                      if (se.myloader) {
+                        se.myloader.dismiss();
+                      }
+                    }
+      
+                  });
+                }else{
+                  se.nodata = true;
+                  se.ishide = true;
+                  if (se.myloader) {
+                    se.myloader.dismiss();
+                  }
                 }
               }
-
-            });
-          }else{
-            se.nodata = true;
-            se.ishide = true;
-            if (se.myloader) {
-              se.myloader.dismiss();
-            }
-          }
+         
           
 
         });
+  }
+
+  checkNewDataHotelLike(auth_token, cachedata) {
+    let se = this;
+      var text = "Bearer " + auth_token;
+      let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
+          let headers = { 
+            'cache-control': 'no-cache',
+            'content-type': 'application/json',
+            authorization: text
+           };
+          this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getlisthotellike').then((data)=>{
+            if(data && data.statusCode ==401){
+              this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                if(newtoken){
+                  this.storage.remove('auth_token').then(()=>{
+                    this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                      this.checkNewDataHotelLike(newtoken.auth_token, cachedata);
+                    })
+                  })
+                }
+              })
+            }
+            else if(data && data.error){
+              this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                if(newtoken){
+                  this.storage.remove('auth_token').then(()=>{
+                    this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                      this.checkNewDataHotelLike(newtoken.auth_token, cachedata);
+                    })
+                  })
+                }
+              })
+            }
+            else{
+              var arr = data;
+              var chuoi = "";
+              if(arr && arr.length >0){
+                chuoi = arr.join(',');
+              }
+              return cachedata != chuoi;
+            }
+      });
+  }
+
+  getlisthotellike() {
+    var se = this;
+    //se.presentLoadingData();
+    se.storage.get('auth_token').then(auth_token => {
+      if (auth_token) {
+       
+        se.storage.get('tab2_listHotelLike').then((datalike)=>{
+           //Ưu tiên load cache
+          if(datalike && datalike.length >0){
+            let chuoi = datalike;
+            se.postdata(chuoi);
+
+            setTimeout(()=>{
+              // if(se.checkNewDataHotelLike(auth_token, datalike)){
+
+              // }
+            }, 30 * 1000)
+          }else{
+            //Không có cache thì loadapi
+            se.loginuser = auth_token;
+            var text = "Bearer " + auth_token;
+            let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
+                let headers = { 
+                  'cache-control': 'no-cache',
+                  'content-type': 'application/json',
+                  authorization: text
+                 };
+
+                 try {
+                  this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getlisthotellike').then((data)=>{
+                    if(data && data.statusCode ==401){
+                      this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                        if(newtoken){
+                          this.storage.remove('auth_token').then(()=>{
+                            this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                              this.getListHotelLikeWithToken(newtoken.auth_token);
+                            })
+                          })
+                        }else {
+                          alert(newtoken)
+                        }
+                      })
+                    }
+                    else if(data && data.error){
+                      this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                        if(newtoken){
+                          this.storage.remove('auth_token').then(()=>{
+                            this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                              this.getListHotelLikeWithToken(newtoken.auth_token);
+                            })
+                          })
+                        }else {
+                          alert(newtoken)
+                        }
+                      })
+                    }
+                    else{
+                      var arr = data;
+                      
+                      if(arr && arr.length >0){
+                        var chuoi = "";
+                        chuoi = arr.join(',');
+                        // se.storage.remove('tab2_listHotelLike').then(()=>{
+                        //   se.storage.set('tab2_listHotelLike', chuoi);
+                        // })
+                        se.zone.run(() => {
+                          if (chuoi) {
+                            // se.nodata = false;
+                            se.postdata(chuoi);
+                          }
+                          else {
+                            se.nodata = true;
+                            if (se.myloader) {
+                              se.myloader.dismiss();
+                            }
+                          }
+            
+                        });
+                      }else{
+                        se.nodata = true;
+                        se.ishide = true;
+                        if (se.myloader) {
+                          se.myloader.dismiss();
+                        }
+                      }
+                    }
+                  });
+                 } catch (error) {
+                  se.nodata = true;
+                  se.ishide = true;
+                 }
+                
+          }
+        })
+
+        
       }
       else {
         se.nodata = true;
@@ -327,7 +437,7 @@ export class Tab2Page implements OnInit {
         if (se.myloader) {
           se.myloader.dismiss();
         }
-        se.refreshToken();
+        //se.refreshToken();
       }
 
     });
@@ -337,6 +447,57 @@ export class Tab2Page implements OnInit {
       }
     }, 1000)
   }
+
+  getListTourLikeWithToken(auth_token){
+    let se = this;
+    se.loginuser = auth_token;
+        var text = "Bearer " + auth_token;
+        let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteTourByUser';
+        let headers = { 
+          'cache-control': 'no-cache',
+            'content-type': 'application/json',
+            authorization: text
+        };
+        this.gf.RequestApi('GET', urlStr, headers, {}, 'tab2', 'getblog').then((data)=>{
+          if(data && data.statusCode ==401){
+            this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+              if(newtoken){
+                this.storage.remove('auth_token').then(()=>{
+                  this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                    this.getListTourLikeWithToken(newtoken.auth_token);
+                  })
+                })
+              }else {
+
+              }
+            })
+          }else{
+            var arr = data;
+            if (arr && arr.length > 0) {
+              var chuoi = "";
+              for (let i = 0; i < arr.length; i++) {
+                if (i == arr.length - 1) {
+                  chuoi = chuoi + arr[i];
+                } else {
+                  chuoi = chuoi + arr[i] + ",";
+                }
+              }
+            
+              se.loadTourListByListId(chuoi)
+            } else {
+              se.zone.run(() => {
+                se.ishidetour = true;
+                se.nodatatour = true;
+              })
+
+              // if (se.myloader) {
+              //   se.myloader.dismiss();
+              // }
+            }
+          }
+        });
+  }
+
   getlisttourlike() {
     var se = this;
     //se.presentLoadingData();
@@ -350,43 +511,76 @@ export class Tab2Page implements OnInit {
             'content-type': 'application/json',
             authorization: text
         };
-        this.gf.RequestApi('GET', urlStr, headers, {}, 'tab2', 'getblog').then((data)=>{
-          var arr = data;
-          if (arr && arr.length > 0) {
-            var chuoi = "";
-            for (let i = 0; i < arr.length; i++) {
-              if (i == arr.length - 1) {
-                chuoi = chuoi + arr[i];
+        try {
+          this.gf.RequestApi('GET', urlStr, headers, {}, 'tab2', 'getblog').then((data)=>{
+            if(data && data.statusCode ==401){
+              this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                if(newtoken){
+                  this.storage.remove('auth_token').then(()=>{
+                    this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                      this.getListTourLikeWithToken(newtoken.auth_token);
+                    })
+                  })
+                }else {
+  
+                }
+              })
+            }
+            else if(data && data.error){
+              this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+                if(newtoken){
+                  this.storage.remove('auth_token').then(()=>{
+                    this.storage.set('auth_token', newtoken.auth_token).then(()=>{ 
+                      this.getListTourLikeWithToken(newtoken.auth_token);
+                    })
+                  })
+                }
+              })
+            }
+            else{
+              var arr = data;
+              if (arr && arr.length > 0) {
+                var chuoi = "";
+                for (let i = 0; i < arr.length; i++) {
+                  if (i == arr.length - 1) {
+                    chuoi = chuoi + arr[i];
+                  } else {
+                    chuoi = chuoi + arr[i] + ",";
+                  }
+                }
+              
+                se.loadTourListByListId(chuoi);
+                
               } else {
-                chuoi = chuoi + arr[i] + ",";
+                se.zone.run(() => {
+                  se.ishidetour = true;
+                  se.nodatatour = true;
+                })
+  
+                // if (se.myloader) {
+                //   se.myloader.dismiss();
+                // }
               }
             }
+          });
+        } catch (error) {
+          se.zone.run(() => {
+            se.ishidetour = true;
+            se.nodatatour = true;
+           
+          })
+        }
         
-            se.loadTourListByListId(chuoi)
-          } else {
-            se.zone.run(() => {
-              se.ishide = true;
-              se.nodata = true;
-            })
-
-            if (se.myloader) {
-              se.myloader.dismiss();
-            }
-          }
-        });
       }
       else {
         se.zone.run(() => {
-          se.ishide = true;
-          se.nodata = true;
-          se.istext = true;
-          se.nodatablog = true;
-          se.istextblog = true;
-          se.arrblog = [];
+          se.ishidetour = true;
+          se.nodatatour = true;
+         
         })
-        if (se.myloader) {
-          se.myloader.dismiss();
-        }
+        // if (se.myloader) {
+        //   se.myloader.dismiss();
+        // }
       }
 
     });
@@ -396,23 +590,34 @@ export class Tab2Page implements OnInit {
       }
     }, 1000)
   }
-  postdata(chuoi) {
+  async postdata(chuoi) {
     var se = this;
-    // var options = {
-    //   method: 'GET',
-    //   url: C.urls.baseUrl.urlGet + '/hotelslist?hotelIds=' + chuoi,
-    //   timeout: 100000, maxAttempts: 5, retryDelay: 2000,
-    //   //qs: { hotelIds: chuoi },
-    //   // headers:
-    //   //   { 'cache-control': 'no-cache' }
-    // };
+    let _dataHotelList = await se.storage.get('tab2_listHotelList');
+    //console.log(_dataHotelList);
+    if(_dataHotelList){
+      se.dataList = JSON.parse(_dataHotelList);
+      se.executePushData();
+    }else{
+      let urlStr = C.urls.baseUrl.urlGet + '/hotelslist?hotelIds=' + chuoi;
+      let headers = { };
+      try {
+        this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getlisthotellike').then((data)=>{
+          var json = data;
+          se.dataList = json.List;
+          se.executePushData();
+        });
+      } catch (error) {
+        se.dataList = [];
+        se.ishide = true;
+      }
+     
+    }
+    
 
-    let urlStr = C.urls.baseUrl.urlGet + '/hotelslist?hotelIds=' + chuoi;
-    let headers = { };
-    this.gf.RequestApi('GET', urlStr, headers, { }, 'tab2', 'getlisthotellike').then((data)=>{
+  }
 
-      var json = data;
-      se.dataList = json.List;
+  executePushData(){
+    let se = this;
       se.pushdata();
 
       se.listhotels = "";
@@ -432,9 +637,6 @@ export class Tab2Page implements OnInit {
         }
       }
       se.getHotelprice();
-      // console.log(json);
-    });
-
   }
 
   pushdata() {
@@ -517,89 +719,104 @@ export class Tab2Page implements OnInit {
     });
 
   }
-  getHotelprice() {
+  async getHotelprice() {
     var se = this;
     var options;
-    if(!se.searchhotel.CheckInDate){
-      se.cin = new Date();
-      var rescin = se.cin.setTime(se.cin.getTime() + (24 * 60 * 60 * 1000));
-      var datein = new Date(rescin);
-      se.cin = moment(datein).format('YYYY-MM-DD');
-      se.datecin = new Date(rescin);
 
-      se.cout = new Date();
-      var res = se.cout.setTime(se.cout.getTime() + (2 * 24 * 60 * 60 * 1000));
-      var date = new Date(res);
-      se.cout = moment(date).format('YYYY-MM-DD');
-      se.datecout = new Date(res);
-  }
-    var form = {
-      RoomNumber: '1',
-      IsLeadingPrice: '',
-      ReferenceClient: '',
-      Supplier: 'IVIVU',
-      CheckInDate: se.searchhotel.CheckInDate ?se.searchhotel.CheckInDate : se.cin ,
-      CheckOutDate: se.searchhotel.CheckOutDate ? se.searchhotel.CheckOutDate : se.cout,
-      CountryID: '',
-      CityID: '',
-      NationalityID: '',
-      'RoomsRequest[0][RoomIndex]': '0',
-      'RoomsRequest[0][Adults][value]': se.searchhotel.adult ? se.searchhotel.adult : '2' ,
-      'RoomsRequest[0][Child][value]': se.searchhotel.child ? se.searchhotel.child : '0',
-      StatusMethod: '2',
-      'CityCode': '',
-      CountryCode: 'VN',
-      NoCache: 'false',
-      SearchType: '2',
-      HotelIds: se.listhotels,
-      HotelIdInternal: se.listhotelIdInternal
-    };
-    if (this.searchhotel.arrchild) {
-      for (var i = 0; i < this.searchhotel.arrchild.length; i++) {
-        form["RoomsRequest[0][AgeChilds][" + i + "][value]"] = + this.searchhotel.arrchild[i].numage;
-      }
+    let _dataHotelPrice = await se.storage.get('tab2_listHotelPrice');
+    console.log(_dataHotelPrice);
+    if(_dataHotelPrice){
+      se.jsonhtprice = JSON.parse(_dataHotelPrice);
+      se.zone.run(() => se.fillDataPrice());
+      se.ishide = true;
+    }else{
+      if(!se.searchhotel.CheckInDate){
+        se.cin = new Date();
+        var rescin = se.cin.setTime(se.cin.getTime() + (24 * 60 * 60 * 1000));
+        var datein = new Date(rescin);
+        se.cin = moment(datein).format('YYYY-MM-DD');
+        se.datecin = new Date(rescin);
+  
+        se.cout = new Date();
+        var res = se.cout.setTime(se.cout.getTime() + (2 * 24 * 60 * 60 * 1000));
+        var date = new Date(res);
+        se.cout = moment(date).format('YYYY-MM-DD');
+        se.datecout = new Date(res);
     }
-
-    let body = `RoomNumber=1&IsLeadingPrice=''&ReferenceClient=''&Supplier='IVIVU'`
-    +`&CheckInDate=${se.searchhotel.CheckInDate ? se.searchhotel.CheckInDate : se.cin}&CheckOutDate=${se.searchhotel.CheckOutDate ? se.searchhotel.CheckOutDate : se.cout}&CountryID=''&CityID=''&NationalityID=''&RoomsRequest[0][RoomIndex]=0&`
-    +`RoomsRequest[0][Adults][value]=${se.searchhotel.adult ? se.searchhotel.adult : '2'}&RoomsRequest[0][Child][value]=${se.searchhotel.child ? se.searchhotel.child : '0'}&StatusMethod=2&`
-    +`CityCode=''&CountryCode='VN'&NoCache=false&SearchType=2&HotelIds=${se.listhotels}&HotelIdInternal=${se.listhotelIdInternal}`;
-    
-    if (this.searchhotel.arrchild) {
-      for (var i = 0; i < this.searchhotel.arrchild.length; i++) {
-        body += `RoomsRequest[0][AgeChilds]["${i}"][value]=${se.searchhotel.arrchild[i].numage}`;
-      }
-    }
-
-    // options = {
-    //   method: 'POST',
-    //   url: C.urls.baseUrl.urlContracting + '/api/contracting/HotelsSearchPriceAjax',
-    //   timeout: 180000, maxAttempts: 5, retryDelay: 2000,
-    //   headers:
-    //     {},
-    //   form
-    // };
-    let urlStr = C.urls.baseUrl.urlContracting + '/api/contracting/HotelsSearchPriceAjax';
-    let headers = { 'content-type' : 'application/x-www-form-urlencoded', accept: '*/*'};
-    this.gf.RequestApi('POST', urlStr, headers, body, 'tab2', 'getlisthotellike').then((data)=>{
-     
-      se.zone.run(() => {
-        se.jsonhtprice = [];
-        se.jsonhtprice1 = data;
-        if (se.jsonhtprice1.HotelListResponse) {
-          se.jsonhtprice1 = se.jsonhtprice1.HotelListResponse.HotelList.HotelSummary;
-          for (var i = 0; i < se.jsonhtprice1.length; i++) {
-            let itemprice = se.jsonhtprice1[i];
-            //Add vào list ks có giá
-            se.jsonhtprice.push(itemprice);
-
-          }
-          //Bind giá vào list ks đã search
-          se.zone.run(() => se.fillDataPrice());
-          se.ishide = true;
+      var form = {
+        RoomNumber: '1',
+        IsLeadingPrice: '',
+        ReferenceClient: '',
+        Supplier: 'IVIVU',
+        CheckInDate: se.searchhotel.CheckInDate ?se.searchhotel.CheckInDate : se.cin ,
+        CheckOutDate: se.searchhotel.CheckOutDate ? se.searchhotel.CheckOutDate : se.cout,
+        CountryID: '',
+        CityID: '',
+        NationalityID: '',
+        'RoomsRequest[0][RoomIndex]': '0',
+        'RoomsRequest[0][Adults][value]': se.searchhotel.adult ? se.searchhotel.adult : '2' ,
+        'RoomsRequest[0][Child][value]': se.searchhotel.child ? se.searchhotel.child : '0',
+        StatusMethod: '2',
+        'CityCode': '',
+        CountryCode: 'VN',
+        NoCache: 'false',
+        SearchType: '2',
+        HotelIds: se.listhotels,
+        HotelIdInternal: se.listhotelIdInternal
+      };
+      if (this.searchhotel.arrchild) {
+        for (var i = 0; i < this.searchhotel.arrchild.length; i++) {
+          form["RoomsRequest[0][AgeChilds][" + i + "][value]"] = + this.searchhotel.arrchild[i].numage;
         }
+      }
+  
+      let body = `RoomNumber=1&IsLeadingPrice=''&ReferenceClient=''&Supplier='IVIVU'`
+      +`&CheckInDate=${se.searchhotel.CheckInDate ? se.searchhotel.CheckInDate : se.cin}&CheckOutDate=${se.searchhotel.CheckOutDate ? se.searchhotel.CheckOutDate : se.cout}&CountryID=''&CityID=''&NationalityID=''&RoomsRequest[0][RoomIndex]=0&`
+      +`RoomsRequest[0][Adults][value]=${se.searchhotel.adult ? se.searchhotel.adult : '2'}&RoomsRequest[0][Child][value]=${se.searchhotel.child ? se.searchhotel.child : '0'}&StatusMethod=2&`
+      +`CityCode=''&CountryCode='VN'&NoCache=false&SearchType=2&HotelIds=${se.listhotels}&HotelIdInternal=${se.listhotelIdInternal}`;
+      
+      if (this.searchhotel.arrchild) {
+        for (var i = 0; i < this.searchhotel.arrchild.length; i++) {
+          body += `RoomsRequest[0][AgeChilds]["${i}"][value]=${se.searchhotel.arrchild[i].numage}`;
+        }
+      }
+  
+      let urlStr = C.urls.baseUrl.urlContracting + '/api/contracting/HotelsSearchPriceAjax';
+      let headers = { 'content-type' : 'application/x-www-form-urlencoded', accept: '*/*'};
+      try {
+        this.gf.RequestApi('POST', urlStr, headers, body, 'tab2', 'getlisthotellike').then((data)=>{
+       
+          se.zone.run(() => {
+            se.jsonhtprice = [];
+            se.jsonhtprice1 = data;
+            if (se.jsonhtprice1.HotelListResponse) {
+              se.jsonhtprice1 = se.jsonhtprice1.HotelListResponse.HotelList.HotelSummary;
+              for (var i = 0; i < se.jsonhtprice1.length; i++) {
+                let itemprice = se.jsonhtprice1[i];
+                //Add vào list ks có giá
+                se.jsonhtprice.push(itemprice);
+    
+              }
+              // se.storage.remove('tab2_listHotelPrice').then(()=>{
+              //   se.storage.set('tab2_listHotelPrice', JSON.stringify(se.jsonhtprice));
+              // })
+              //Bind giá vào list ks đã search
+              se.zone.run(() => se.fillDataPrice());
+              
+            }
+            se.ishide = true;
+          });
+        });
+      } catch (error) {
+        se.zone.run(() => {
+          se.jsonhtprice = [];
+          se.ishide = true;
       });
-    });
+      }
+     
+    }
+
+    
 
   }
   fillDataPrice() {
@@ -683,6 +900,51 @@ export class Tab2Page implements OnInit {
       }
     }
   }
+  getBlogLikeWithToken(auth_token){
+    let se = this;
+    var text = "Bearer " + auth_token;
+     
+    let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteBlogByUser';
+    let headers = { 
+      'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        authorization: text
+    };
+    this.gf.RequestApi('GET', urlStr, headers, {}, 'tab2', 'getblog').then((data)=>{
+      if(data && data.statusCode ==401){
+        this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+          if(newtoken){
+            this.storage.remove('auth_token').then(()=>{
+              this.storage.set('auth_token', newtoken).then(()=>{ 
+                this.getBlogLikeWithToken(newtoken);
+              })
+            })
+          }else {
+
+          }
+        })
+      }else{
+        se.zone.run(() => {
+          se.arrblog = data;
+          if (se.arrblog.length > 0) {
+            se.nodatablog = false
+            for (let index = 0; index < se.arrblog.length; index++) {
+              se.arrblog[index].date = moment(se.arrblog[index].date).format('HH:ss DD/MM/YYYY');
+              se.arrblog[index].Like = true;
+            }
+          }
+          else {
+            se.arrblog = [];
+            se.nodatablog = true;
+            if (se.myloader) {
+              se.myloader.dismiss();
+            }
+          }
+        });
+      }
+    });
+  }
+
   getblog() {
     var se = this;
     //se.presentLoadingData();
@@ -697,24 +959,47 @@ export class Tab2Page implements OnInit {
             authorization: text
         };
         this.gf.RequestApi('GET', urlStr, headers, {}, 'tab2', 'getblog').then((data)=>{
-
-          se.zone.run(() => {
-            se.arrblog = data;
-            if (se.arrblog.length > 0) {
-              se.nodatablog = false
-              for (let index = 0; index < se.arrblog.length; index++) {
-                se.arrblog[index].date = moment(se.arrblog[index].date).format('HH:ss DD/MM/YYYY');
-                se.arrblog[index].Like = true;
+          if(data && data.statusCode ==401){
+            this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+              if(newtoken){
+                this.storage.remove('auth_token').then(()=>{
+                  this.storage.set('auth_token', newtoken).then(()=>{ 
+                    this.getBlogLikeWithToken(newtoken);
+                  })
+                })
               }
-            }
-            else {
-              se.arrblog = [];
-              se.nodatablog = true;
-              if (se.myloader) {
-                se.myloader.dismiss();
+            })
+          }
+          else if(data && data.error){
+            this.gf.refreshTokenNew(auth_token).then((newtoken)=>{
+              if(newtoken){
+                this.storage.remove('auth_token').then(()=>{
+                  this.storage.set('auth_token', newtoken).then(()=>{ 
+                    this.getBlogLikeWithToken(newtoken);
+                  })
+                })
               }
-            }
-          });
+            })
+          }
+          else{
+            se.zone.run(() => {
+              se.arrblog = data;
+              if (se.arrblog.length > 0) {
+                se.nodatablog = false
+                for (let index = 0; index < se.arrblog.length; index++) {
+                  se.arrblog[index].date = moment(se.arrblog[index].date).format('HH:ss DD/MM/YYYY');
+                  se.arrblog[index].Like = true;
+                }
+              }
+              else {
+                se.arrblog = [];
+                se.nodatablog = true;
+                if (se.myloader) {
+                  se.myloader.dismiss();
+                }
+              }
+            });
+          }
         });
 
       }
@@ -828,8 +1113,8 @@ export class Tab2Page implements OnInit {
     this.istext = false;
     this.istextblog = false;
     this.ishide = false;
-    this.getlisthotellike();
-    this.getblog();
+    //this.getlisthotellike();
+    //this.getblog();
 
   }
   bindItemUnLike(id) {
@@ -854,16 +1139,7 @@ export class Tab2Page implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims',
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        // }
+       
         let urlStr = C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims';
         let headers = { 
           'cache-control': 'no-cache',
@@ -1037,8 +1313,9 @@ export class Tab2Page implements OnInit {
         se.convertAvgPoint(element);
       });
       if(se.slideData.length>0){
-        se.nodata=false;
+        se.nodatatour=false;
       }
+      se.ishidetour = true;
       se.mapingPriceTour();
     })
   }
@@ -1077,6 +1354,7 @@ export class Tab2Page implements OnInit {
            
            
           }
+            
         })
 
         }

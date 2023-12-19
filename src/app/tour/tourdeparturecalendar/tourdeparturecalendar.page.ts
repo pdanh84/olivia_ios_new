@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import { SelectDateRangePage } from 'src/app/selectdaterange/selectdaterange.page';
 import { Storage } from '@ionic/storage';
-import { SearchHotel } from 'src/app/providers/book-service';
+import { SearchHotel, ValueGlobal } from 'src/app/providers/book-service';
 /**
  * Generated class for the tourServiceFilterPage page.
  *
@@ -42,7 +42,8 @@ export class TourDepartureCalendarPage implements OnInit{
     public gf: GlobalFunction,public modalCtrl: ModalController, private pickerController: PickerController,
     public tourService: tourService,
     public searchhotel: SearchHotel,
-    private storage: Storage,) {
+    private storage: Storage,
+    public valueGlobal: ValueGlobal) {
       if(!tourService.adult){
         tourService.adult = 2;
       }
@@ -58,6 +59,14 @@ export class TourDepartureCalendarPage implements OnInit{
       }
        this.calculatePrice(0);
        this.GetUserInfo();
+       this.platform.resume.subscribe(async()=>{
+        if(!tourService.itemDepartureCalendar){
+          //this.tourService.itemPaymentDone.emit(true);
+          this.valueGlobal.backValue = "hometour";
+          this.tourService.BookingTourMytrip = null;
+          this.navCtrl.navigateBack('/app/tabs/tab1');
+        }
+       })
     }
   
   ngOnInit() {
@@ -582,14 +591,7 @@ export class TourDepartureCalendarPage implements OnInit{
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let urlStr = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-            let headers = { 
-              'cache-control': 'no-cache',
-              'content-type': 'application/json',
-              authorization: text
-            };
-            se.gf.RequestApi('GET', urlStr, headers, {}, 'tab5', 'GetUserInfo').then((data)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
             if (data && data.statusCode != 401) {
               se.storage.get('point').then(point => {
                 se.point = point;
@@ -597,20 +599,7 @@ export class TourDepartureCalendarPage implements OnInit{
               if (data.point) {
                   se.point = data.point;
                 }
-            }else{
-              se.storage.get('jti').then((memberid) => {
-                se.storage.get('deviceToken').then((devicetoken) => {
-                  se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                    setTimeout(() => {
-                      se.GetUserInfo();
-                    }, 100)
-                  });
-  
-                })
-              })
             }
-
-          
         });
       }
     })

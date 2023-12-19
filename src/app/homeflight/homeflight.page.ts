@@ -349,15 +349,7 @@ tabInbound: number=1;
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
         if (auth_token) {
-            var text = "Bearer " + auth_token;
-            let headers =
-            {
-                'cache-control': 'no-cache',
-                'content-type': 'application/json',
-                authorization: text
-            }
-            let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-            se.gf.RequestApi('GET', strUrl, headers, {}, 'homeflight', 'loadUserInfo').then((data) => {
+          se.gf.getUserInfo(auth_token).then((data) => {
                   if (data && data.statusCode != 401) {
                     se.storage.remove('userInfoData');
                     se.storage.set('userInfoData', data);
@@ -371,18 +363,7 @@ tabInbound: number=1;
                       se.isBizAccount = false;
                     }
                  }
-                 else{
-                  se.storage.get('jti').then((memberid) => {
-                    se.storage.get('deviceToken').then((devicetoken) => {
-                      se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                        setTimeout(() => {
-                          se.loadUserInfo();
-                        }, 100)
-                      });
-      
-                    })
-                  })
-                }
+                
             });
         } 
     })

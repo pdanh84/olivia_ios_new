@@ -2744,7 +2744,7 @@ export class HotelDetailPage implements OnInit {
           }
           else if(rs.error != 0){
             //let result = JSON.parse(rs.Msg);
-            self.gf.showAlertMessageOnly(rs.Msg);
+            self.gf.showAlertMessageOnly('Giá đã thay đổi, vui lòng thực hiện lại booking !');
           }
       })
       
@@ -2787,7 +2787,7 @@ export class HotelDetailPage implements OnInit {
           self.Roomif.ischeckpayment = true;
           self.navCtrl.navigateForward('/roomdetailreview');
         }else{
-          self.gf.showToastWarning('Hiá»‡n táº¡i khÃ¡ch sáº¡n Ä‘Ã£ háº¿t phÃ²ng loáº¡i nÃ y.');
+          self.gf.showToastWarning('Hiện tại khách sạn hết phòng loại này!.');
         }
       })
     }
@@ -4593,28 +4593,7 @@ export class HotelDetailPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab5', 'loadUserInfo').then((data) => {
-          if (data.statusCode == 401) {
-            se.storage.get('jti').then((memberid) => {
-              se.storage.get('deviceToken').then((devicetoken) => {
-                se.gf.refreshToken(memberid, devicetoken).then((token) =>{
-                  setTimeout(()=>{
-                    se.loadUserInfoRefresh(token);
-                  },100)
-                });
-
-              })
-            })
-          }
-          else {
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
               se.zone.run(() => {
                 se.isShowPrice = data.showPrice;
@@ -4625,9 +4604,6 @@ export class HotelDetailPage implements OnInit {
                 }
               })
             }
-
-            
-          }
         });
       }else{
         se.zone.run(()=>{

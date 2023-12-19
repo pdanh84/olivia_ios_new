@@ -70,7 +70,6 @@ export class LoginPage implements OnInit{
      //Test notification
      this.platform.ready().then(() => {
         FCM.getToken().then(token => {
-          console.log(token);
           this.deviceToken = token;
       });
     })
@@ -807,13 +806,15 @@ getToken() {
         }
         se.storage.set("point", decoded.point);
         if(this.platform.is('mobile')){
-        PushNotifications.addListener('registration',
-          async (token: Token) => {
+        // PushNotifications.addListener('registration',
+        //   async (token: Token) => {
+          
               //console.log('token: ' + token.value);
-              se.deviceToken = (token && token.value) ? token.value : token;
+          FCM.getToken().then(token => {
+                se.deviceToken = (token && token.token) ? token.token: token;
               se.storage.set('deviceToken',se.deviceToken);
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(response.auth_token, token.value || token, se.appversion);
+                se.gf.pushTokenAndMemberID(response.auth_token, token.token || token, se.gf.getAppVersion());
               }
             }
           )
@@ -913,7 +914,7 @@ getToken() {
               se.storage.set('deviceToken',se.deviceToken);
               //PDANH 19/07/2019: Push memberid & devicetoken
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.appversion);
+                se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.gf.getAppVersion());
               }
             });
           } catch (error) {

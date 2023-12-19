@@ -60,12 +60,11 @@ export class Tab5Page implements OnInit {
     this.storage.get('fbaccesstoken').then((accesstoken) => {
       this.linkfb = accesstoken;
     });
-    // storage.get('username').then(username => {
-    //   this.username = username;
-    // });
-    // this.storage.get('point').then(point => {
-    //   this.point = point;
-    // }); 
+    this.storage.get('userInfoData').then((data)=>{
+      if(data.point){
+        this.point = data.point;
+      }
+    });
     this.platform.resume.subscribe(async () => {
       this.ionViewWillEnter();
     })
@@ -98,9 +97,6 @@ export class Tab5Page implements OnInit {
             se.loginuser = auth_token;
             se.refreshUserName();
             se.point = 0;
-            se.storage.get('point').then(point => {
-              se.point = point;
-            });
           })
 
           if (event instanceof NavigationEnd && (event.url.indexOf("tab5") != -1)) {
@@ -116,7 +112,6 @@ export class Tab5Page implements OnInit {
   onEnter() {
     var se = this;
     se.zone.run(() => {
-      //this.loadUserInfo();
       se.storage.get('userInfoData').then((data) => {
         if (data) {
           se.avatar = data.avatar;
@@ -128,6 +123,10 @@ export class Tab5Page implements OnInit {
             se.bizTravelService.bizAccount = null;
             se.bizTravelService.isCompany = false;
             se.bizTravelService.accountBizTravelChange.emit(2);
+          }
+
+          if(data.point){
+            se.point = data.point;
           }
         } else {
           //se.avatar = null;
@@ -154,18 +153,6 @@ export class Tab5Page implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/BookingMemberDetailByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     //'postman-token': '89692e55-6555-1572-db28-4becc311f0ba',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/BookingMemberDetailByUser';
         let headers = {
           'cache-control': 'no-cache',
@@ -267,79 +254,68 @@ export class Tab5Page implements OnInit {
    */
   loadUserInfo() {
     var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-        {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab5', 'loadUserInfo').then((data) => {
-          if (data.statusCode == 401) {
-            se.storage.get('jti').then((memberid) => {
-              se.storage.get('deviceToken').then((devicetoken) => {
-                se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                  setTimeout(() => {
-                    se.loadUserInfoRefresh(token);
-                  }, 100)
-                });
-
-              })
+    try {
+     
+      se.storage.get('auth_token').then(auth_token => {
+        if (auth_token) {
+            se.gf.getUserInfo(auth_token).then((data) => {
+              if (data) {
+                se.zone.run(() => {
+                  if (data) {
+                    se.avatar = data.avatar;
+                  }
+                  se.point = data.point;
+                  se.storage.set('userInfoData', data);
+                  se.storage.set('point', data.point);
+                  se.storage.set("email", data.email);
+                  se.storage.set("jti", data.memberId);
+                  se.storage.set("username", data.fullname);
+                  se.storage.set("phone", data.phone);
+                  se.storage.set("point", data.point);
+                  se.storage.get('auth_token').then(auth_token => {
+                    se.loginuser = auth_token;
+                  });
+                  se.storage.get('username').then(username => {
+                    se.username = username;
+                  });
+                  if (data.bizAccount) {
+                    se.bizTravelService.bizAccount = data.bizAccount;
+                    se.bizTravelService.isCompany = true;
+                  } else {
+                    se.bizTravelService.bizAccount = null;
+                    se.bizTravelService.isCompany = false;
+                  }
+  
+                  se.storage.get('fbaccesstoken').then((accesstoken) => {
+                    se.linkfb = accesstoken;
+                  });
+                })
+  
+  
+  
+              }
             })
-          }
-          else {
-            if (data) {
-              se.zone.run(() => {
-                if (data) {
-                  se.avatar = data.avatar;
-                }
-                se.point = data.point;
-                se.storage.set('userInfoData', data);
-                se.storage.set('point', data.point);
-                se.storage.set("email", data.email);
-                se.storage.set("jti", data.memberId);
-                //se.storage.set("auth_token", body.auth_token);
-                se.storage.set("username", data.fullname);
-                se.storage.set("phone", data.phone);
-                se.storage.set("point", data.point);
-                se.storage.get('auth_token').then(auth_token => {
-                  se.loginuser = auth_token;
-                });
-                se.storage.get('username').then(username => {
-                  se.username = username;
-                });
-                se.storage.get('point').then(point => {
-                  se.point = point;
-                });
-                if (data.bizAccount) {
-                  se.bizTravelService.bizAccount = data.bizAccount;
-                  se.bizTravelService.isCompany = true;
-                } else {
-                  se.bizTravelService.bizAccount = null;
-                  se.bizTravelService.isCompany = false;
-                }
-
-                se.storage.get('fbaccesstoken').then((accesstoken) => {
-                  se.linkfb = accesstoken;
-                });
-              })
-
-
-
-            }
-          }
-        });
-      } else {
-        se.zone.run(() => {
-          se.bizTravelService.bizAccount = null;
-          se.bizTravelService.isCompany = false;
-          se.loginuser = null;
-        })
-      }
-    })
+          //});
+        } else {
+          se.zone.run(() => {
+            se.bizTravelService.bizAccount = null;
+            se.bizTravelService.isCompany = false;
+            se.loginuser = null;
+          })
+        }
+      })
+    } catch (error) {
+      var objError = {
+        page: 'tab5',
+        func: 'LoadUserInfo',
+        message: 'error',
+        content: error,
+        type: "error",
+        param: JSON.stringify(error)
+      };
+      C.writeErrorLog(objError,error);
+    }
+    
   }
 
   loadUserInfoRefresh(token) {
@@ -934,14 +910,7 @@ export class Tab5Page implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let urlStr = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        let headers = {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        };
-        this.gf.RequestApi('GET', urlStr, headers, {}, 'tab5', 'GetUserInfo').then((data) => {
+        this.gf.getUserInfo(auth_token).then((data) => {
           if (data && data.statusCode != 401) {
             var info;
             var checkfullname = se.validateEmail(data.fullname);
@@ -982,17 +951,6 @@ export class Tab5Page implements OnInit {
             se.storage.get('point').then(point => {
               se.point = point;
             });
-          } else {
-            se.storage.get('jti').then((memberid) => {
-              se.storage.get('deviceToken').then((devicetoken) => {
-                se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                  setTimeout(() => {
-                    se.GetUserInfo();
-                  }, 100)
-                });
-
-              })
-            })
           }
 
 

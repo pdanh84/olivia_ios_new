@@ -138,7 +138,7 @@ export class LoginsmsverifyPage implements OnInit,AfterViewInit {
                 se.deviceToken = (token && token.token) ? token.token: token;
                 se.storage.set('deviceToken',se.deviceToken);
                 if(se.deviceToken){
-                  se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.appversion);
+                  se.gf.pushTokenAndMemberID(data.auth_token, se.deviceToken, se.gf.getAppVersion());
                 }
               });
             }

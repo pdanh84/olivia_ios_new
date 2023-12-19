@@ -74,7 +74,7 @@
 
         position: absolute;
         right: 0;
-        top: 2px;
+        top: -34px;
     }
 
     .div-split{
@@ -109,7 +109,7 @@
         .sub-label{
             font-size: 14px;
             font-weight: 300;
-            color: #828282;
+            color: #cdcdcd;
             //line-height: 12px;
         }
         .f-16{
@@ -117,11 +117,16 @@
         }
         .label-absolute{
             position: absolute;
-            top: 22px;
+            top: 6px;
+        }
+        .label-name-absolute {
+            position: absolute;
+            top: -18px;
+            color: #cdcdcd;
         }
     
         .cls-gender-transition{
-            top: 0px;
+            //top: 0px;
             transition: top 0.1s ease-out;
         }
         .div-right{
@@ -155,7 +160,8 @@
     
         .text-gender{
             letter-spacing: -0.34px;
-            margin-top: 35px;
+            margin-top: 10px;
+            margin-bottom: 4px;
             font-weight: 300;
             color: #222222;
         }
@@ -165,11 +171,11 @@
         .div-icon-down{
             position: absolute;
             right: 0;
-            bottom: 3px;
+            bottom: 6px;
         }
         .cls-input-custom{
-            margin-top: 21px;
             border-bottom: 1px solid rgb(205, 205, 205);
+            min-height: 36px;
         }
         .no-border{
             border-bottom: none !important;
@@ -182,7 +188,7 @@
             .cls-input-custom .native-input.sc-ion-input-ios{
                 padding: 0;
                 line-height: 28px;
-                font-size: 14px;
+                font-size: 16px;
             }
         
             .text-bold .sc-ion-action-sheet-ios{
@@ -201,12 +207,12 @@
             .cls-input-custom .native-input.sc-ion-input-ios{
                 padding: 0;
                 line-height: 24px;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: 300;
                 color: #222222;
             }
             .native-input.sc-ion-input-ios {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 300;
                 padding-bottom: 0;
               }
@@ -376,9 +382,9 @@
     } 
 
     .label-name{
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 300;
-          color: #828282;
+          color: #cdcdcd;
     }
     .label-input{
         font-size: 13px;
@@ -389,7 +395,8 @@
       .ion-checkbox{
         width: 16px;
         height: 16px;
-        margin: -2px;
+        margin-top: 5px;
+        margin-left: -5px;
       }
     .label-input-order{
         font-size: 14px;
@@ -449,3 +456,61 @@
     .m-left-16{
         margin-left: 16px;
     }
+    .bottom-4 {
+        bottom: 4px !important;
+    }
+    .item-has-focus .label-name-absolute, .item-has-value .label-name-absolute {
+        color: #828282 !important;
+        font-size: 16px;
+      }
+      .cls-top-gender {
+        top: 10px;
+      }
+      .cls-top-10 {
+        top: 10px;
+      }
+      .cls-top-32 {
+        top: 32px !important;
+      }
+      .top-3 {
+        top: -2px !important;
+      }
+      .has-input-label {
+        font-size: 14px;
+            font-weight: 300;
+            color: #828282 !important;
+      }
+      .div-flex-end{
+        display: flex;
+        align-items: flex-end;
+      }
+      .div-align-center {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+      }
+      .div-checkbox-mail {
+        margin-left: 5px;
+        margin-top: 10px;
+        display: flex;
+      }
+      .item-has-focus .label-name, .item-has-value .label-name {
+        color: #828282 !important;
+        font-size: 16px;
+      }
+      .has-input-label.cls-gender-transition {
+        margin-top: 2px;
+      }
+      .cls-datetime-label {
+        top: -12px;
+        position: absolute;
+      }
+      .top-34 {
+        top: -34px;
+      }
+      .m-top-10 {
+        margin-top: 10px;
+      }
+      .bottom-10 {
+        bottom: 10px !important;
+      }

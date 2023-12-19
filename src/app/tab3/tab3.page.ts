@@ -153,20 +153,7 @@ export class Tab3Page implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
         if (auth_token) {
-            var text = "Bearer " + auth_token;
-            var options = {
-                method: 'GET',
-                url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-                timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-                headers:
-                {
-                    'cache-control': 'no-cache',
-                    'content-type': 'application/json',
-                    authorization: text
-                }
-            };
-           
-            this.gf.RequestApi('GET', options.url, options.headers, { }, 'tab3', 'loadUserInfo').then((data)=>{
+          this.gf.getUserInfo(auth_token).then((data) => {
                 if (data && data.statusCode != 401) {
                     se.storage.remove('userInfoData');
                     se.storage.set('userInfoData', data);
@@ -198,7 +185,9 @@ export class Tab3Page implements OnInit {
                 }
                
             });
-        } 
+        }else{
+          se.isBizAccount = false;
+        }
     })
   }
 }

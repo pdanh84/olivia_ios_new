@@ -46,11 +46,14 @@ export class RequestCombo1Page implements OnInit {
     public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, public navCtrl: NavController,
     public gf: GlobalFunction,
     private fb: Facebook) {
-      this.gf.GetUserInfo().then((data)=>{
-        if(data && data.email){
-          this.usermail = data.email;
-        }
+      this.storage.get('auth_token').then((auth_token)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
+          if(data && data.email){
+            this.usermail = data.email;
+          }
+        })
       })
+      
   }
 
   ngOnInit() {

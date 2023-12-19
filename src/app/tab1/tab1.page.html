@@ -230,7 +230,7 @@
   <div  [ngClass]="arrHistory.length==1 ? 'd-flex-only' : 'd-flex-recent'"  id="div-recent">
     <div [ngClass]="arrHistory.length==1 ? 'div-recent-1' : 'div-recent'" (click)="funcRecent(item)" *ngFor="let item of arrHistory.slice().reverse()">
       <div>
-        <img class="img-recent" src={{item.imageUrl}}>
+        <img [ngClass]="item.imageUrl && item.imageUrl.indexOf('no-image') == -1 ? 'img-recent' : 'img-recent-noimage'" src={{item.imageUrl}}>
       </div>
       <div [ngClass]="arrHistory.length==1 ? 'div-right-recent-1' : 'div-right-recent'">
         <div [ngClass]="item.isType==0 ? 'div-text-info' : 'div-text-info-1'">
@@ -296,7 +296,7 @@
             (click)="clickitemblogtrips(slide)"
             class="slide2 img"
             *ngIf="!slide.avatar"
-            src="https://cdn1.ivivu.com/iVivu/2018/02/07/15/noimage.png"
+            src="./assets/empty/no-image-icon.png"
           />
           </div>
           <div (click)="clickitemblogtrips(slide)" class="float-info">

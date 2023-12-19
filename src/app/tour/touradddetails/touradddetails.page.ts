@@ -229,16 +229,7 @@ export class TourAddDetailsPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       this.auth_token = auth_token;
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'touradddetails', 'loadUserInfo').then((data) => {
-              //var data = JSON.parse(body);
+        this.gf.getUserInfo(auth_token).then((data) => {
             if(data){
               se.zone.run(() => {
                 if(data.email){
@@ -273,21 +264,6 @@ export class TourAddDetailsPage implements OnInit {
                   se.point = data.point * 1000;
                   //se.price = se.point.toLocaleString();
                 }
-              })
-            }
-            else if (data.statusCode == 401) {
-              se.storage.get('jti').then((memberid) => {
-                  se.storage.get('deviceToken').then((devicetoken) => {
-                      se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                          se.storage.remove('auth_token').then(() => {
-                              se.storage.set('auth_token', token);
-                          })
-                          setTimeout(() => {
-                              se.GetUserInfo();
-                          }, 300)
-                      });
-  
-                  })
               })
             }
             else{
