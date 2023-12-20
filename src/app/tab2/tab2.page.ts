@@ -54,7 +54,9 @@ export class Tab2Page implements OnInit {
      public loadingCtrl: LoadingController, private socialSharing: SocialSharing,
     public networkProvider: NetworkProvider, public router: Router, public modalCtrl: ModalController, public tourService: tourService) {
     this.platform.resume.subscribe(async () => {
-      this.ionViewWillEnter();
+      if(!this.json1 || (this.json1 && this.json1.length ==0)){
+        this.ionViewWillEnter();
+      }
     })
   }
   ionViewDidLoad() {
@@ -111,13 +113,7 @@ export class Tab2Page implements OnInit {
       this.gf.setNetworkStatus(false);
       this.gf.showWarning('Không có kết nối mạng', 'Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng', 'Đóng');
     }
-    //});
-    //});
-    // if(this.gf.getNetworkStatus()){
-    //   setTimeout(()=>{
-    //     this.getlisthotellike();
-    //   },100)
-    // }
+    
   }
   ionViewWillLeave() {
     this.zone.run(() => {
@@ -369,8 +365,6 @@ export class Tab2Page implements OnInit {
                               this.getListHotelLikeWithToken(newtoken.auth_token);
                             })
                           })
-                        }else {
-                          alert(newtoken)
                         }
                       })
                     }
@@ -382,8 +376,6 @@ export class Tab2Page implements OnInit {
                               this.getListHotelLikeWithToken(newtoken.auth_token);
                             })
                           })
-                        }else {
-                          alert(newtoken)
                         }
                       })
                     }
@@ -553,6 +545,7 @@ export class Tab2Page implements OnInit {
                 
               } else {
                 se.zone.run(() => {
+                  se.slideData = [];
                   se.ishidetour = true;
                   se.nodatatour = true;
                 })
@@ -565,6 +558,7 @@ export class Tab2Page implements OnInit {
           });
         } catch (error) {
           se.zone.run(() => {
+            se.slideData = [];
             se.ishidetour = true;
             se.nodatatour = true;
            
@@ -574,6 +568,7 @@ export class Tab2Page implements OnInit {
       }
       else {
         se.zone.run(() => {
+          se.slideData = [];
           se.ishidetour = true;
           se.nodatatour = true;
          
@@ -853,11 +848,11 @@ export class Tab2Page implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    this.subscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && (event.url === '/' || event.url === '/tabs/tab2' || event.url === '/app/tabs/tab2')) {
-        this.onEnter();
-      }
-    })
+    // this.subscription = this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd && (event.url === '/' || event.url === '/tabs/tab2' || event.url === '/app/tabs/tab2')) {
+    //     this.onEnter();
+    //   }
+    // })
   }
   Selectblog() {
     this.json1=[];

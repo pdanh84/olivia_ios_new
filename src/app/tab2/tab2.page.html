@@ -418,7 +418,7 @@
             <p class="h-line-sk"></p>
         </ion-item-group>
       </div>
-      <div *ngIf="(nodatatour==true&& slideData.length==0) || !isConnected " style="text-align: center;margin-top: 10px">
+      <div *ngIf="(nodatatour==true&& slideData && slideData.length==0) || !isConnected " style="text-align: center;margin-top: 10px">
           <img src="./assets/imgs/empty.svg">
           <div *ngIf="!isConnected">
             <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>

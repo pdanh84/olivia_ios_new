@@ -2079,7 +2079,24 @@ import { FCM } from '@capacitor-community/fcm';
                 this.RequestApi('GET', strUrl, headers, {}, 'globalFunction', 'getUserInfo').then((data) => {
                   if(data && data.statusCode != 401){
                     resolve(data);
-                  }else if(data && data.statusCode == 401){
+                  }
+                  else if(data && data.statusCode == 401){
+                    this.refreshTokenNew(auth_token).then((datanew)=>{
+                      if(datanew && datanew.auth_token){
+                        this.storage.remove('auth_token').then(()=>{
+                          this.storage.set('auth_token', datanew.auth_token).then(()=>{ 
+                            this.getUserInfo(datanew.auth_token);
+                          })
+                        })
+                       
+                      }else{
+                        this.storage.remove('auth_token').then(()=>{
+                          this.showAlertLogin();
+                        })
+                      }
+                    })
+                  }
+                  else if(data && data.error){
                     this.refreshTokenNew(auth_token).then((datanew)=>{
                       if(datanew && datanew.auth_token){
                         this.storage.remove('auth_token').then(()=>{

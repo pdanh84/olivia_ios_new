@@ -357,6 +357,12 @@
       .m-top-6 {
         margin-top: 6px;
       }
+
+      .icon-zalo, .icon-mail {
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
+      }
 }
 .cls-input-custom{
     font-size: 18px;
@@ -799,6 +805,9 @@ input:-webkit-autofill:focus {
         color: #3f3b3b;
         margin-top: 2px;
         margin-left: 4px;
+
+        display: flex;
+        align-items: center;
     }
     .m-bottom-6 {
         margin-bottom: 6px;

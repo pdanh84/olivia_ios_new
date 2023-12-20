@@ -15,10 +15,10 @@
     </ion-row>
   </ion-toolbar>
   <ion-segment [(ngModel)]="tabplace">
-    <ion-segment-button (click)="Selectdepart()" style="color:#828282;text-transform: none;min-height: 36px;" value="placed">
+    <ion-segment-button (click)="Selectdepart()" style="color:#828282;text-transform: none;min-height: 36px;" value="placed" [ngClass]="tabplace == 'placed' ? 'segment-button-checked' : ''" >
       Điểm đón
     </ion-segment-button>
-    <ion-segment-button (click)="Selectreturn()" style="color:#828282;text-transform: none;min-height: 36px;" value="placet">
+    <ion-segment-button (click)="Selectreturn()" style="color:#828282;text-transform: none;min-height: 36px;" value="placet" [ngClass]="tabplace == 'placet' ? 'segment-button-checked' : ''">
       Điểm trả
     </ion-segment-button>
   </ion-segment>
