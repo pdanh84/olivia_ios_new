@@ -82,6 +82,9 @@ ios/App/internal
 ios/App/NativeScript*
 ios/App/TNSWidgets*
 ios/App/.build*
+ios/App
 src/nativescript/node_modules
 src/nativescript/package-lock.json
+src/package.json
+src/package-lock.json
       
