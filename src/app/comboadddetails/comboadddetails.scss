@@ -98,6 +98,17 @@
             color: #222222;
         }
     }
+
+    .label-name{
+      font-size: 14px;
+      font-weight: 300;
+      color: #cdcdcd;
+    }
+    .item-has-focus .label-name, .item-has-value .label-name {
+      color: #828282 !important;
+      font-size: 16px;
+    }
+    
     ::ng-deep {
       .label-stacked.sc-ion-label-md-h {
         transform: translateY(50%) scale(1) !important;
@@ -108,3 +119,26 @@
         padding-bottom: 0;
       }
     }
+    .m-left-16{
+      margin-left: 16px;
+  }
+  .v-align-center {
+    display: flex;
+    align-items: center;
+  } 
+  .m-top-20 {
+    margin-top: 20px;
+  }
+  .div-check-namemail {
+    margin-top: 10px;
+    display: flex;
+
+    .ion-checkbox {
+      margin-right: 8px;
+      margin-top: 4px;
+    }
+  }
+.cls-placeholder{
+  --placeholder-color: #cdcdcd;
+  --placeholder-opacity: 1;
+}

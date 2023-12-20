@@ -239,24 +239,20 @@ export class OrderPage {
     })
 
     se._mytripservice.getLoadDataWhenLoginUserSubject().subscribe((checkuser) => {
-      if (checkuser) {
+      if (checkuser ==1) {
         se.storage.get('auth_token').then(auth_token => {
           se.zone.run(() => {
             se.loginuser = auth_token;
           })
 
         });
-        se.listMyTrips = [];
-        se.hasloaddata = false;
-        se.loaddatadone = false;
-        se.hasdata = false;
-        se.mytripcount = 0;
-        se.foodtextorder = "";
-        se.pageIndex = 1;
-        se.isConnected = true;
+        
         if (se.networkProvider && se.networkProvider.isOnline()) {
           se.getdata(null, false);
-          se.getdata(null, true);
+          setTimeout(()=>{
+            se.getdata(null, true);
+          },500)
+          
         }
         else {
           se.isConnected = false;
@@ -266,6 +262,20 @@ export class OrderPage {
             }
           })
         }
+      }else if(checkuser && checkuser.length ==0){
+        se.storage.get('auth_token').then(auth_token => {
+          if(!auth_token){
+            se.listMyTrips = [];
+            se.hasloaddata = true;
+            se.loaddatadone = true;
+            se.hasdata = false;
+            se.mytripcount = 0;
+            se.foodtextorder = "";
+            se.pageIndex = 1;
+            se.isConnected = true;
+          }
+       
+        })
       }
     })
 
@@ -305,55 +315,76 @@ export class OrderPage {
         se.memberid = uid;
       }
     })
-    if (se.listMyTrips.length > 0) {
-      se.listMyTrips = [];
-      se.mytripcount = 0;
-      se.pageIndex = 1;
-      se.foodtextorder = "";
-      se.hasloaddata = false;
-      se.loaddatadone = false;
-      se.hasdata = false;
-      se.getdata(null, false);
+    se.pageIndex = 1;
+    if (!se.listMyTrips || se.listMyTrips.length == 0) {
 
-      setTimeout(() => {
-        se.getdata(null, true);
-      }, 1000)
-      if (se.activityService.insurranceBookingId) {
-        se.refreshInsurranceInfo();
-      }
-      if (se.mytripcount + se.requestripcount > 0) {
-        let totalnexttrip = se.mytripcount * 1 + se.requestripcount * 1;
-        se.nexttripcounttext = " (" + totalnexttrip + ")";
-      } else {
-        se.nexttripcounttext = "";
-      }
-      if (se.historytripcount > 0) {
-        se.historytripcounttext = " (" + se.historytripcount + ")";
-      }
+        se.listMyTrips = [];
+        se.hasloaddata = false;
+        se.loaddatadone = false;
+        se.hasdata = false;
+        se.mytripcount = 0;
+        se.foodtextorder = "";
+        
+        se.isConnected = true;
 
-      //Update trạng thái đã thanh toán nếu thanh toán từ mytrip
-      if (se.listMyTrips && se.listMyTrips.length > 0 && se.activityService.objPaymentMytrip && se.activityService.objPaymentMytrip.book) {
-        se.listMyTrips.forEach(element => {
-          if (element.HotelIdERP == se.activityService.objPaymentMytrip.trip.HotelIdERP && se.activityService.objPaymentMytrip.trip.payment_status == 1) {
-            element.payment_status = 1;
-          }
-        });
-        se.activityService.objPaymentMytrip = null;
-      }
-      if (se.listMyTrips && se.listMyTrips.length > 0 && se.currentTrip == se.listMyTrips.length) {
-        se.currentTrip = 0;
-      }
-      if (se.gf.getParams('notifiBookingCode')) {
-        se.storage.get('listmytrips').then(data => {
-          if (data) {
-            se.loadMytrip(data, false);
-          }
-        })
-      }
-
-    } else {
-      se.loadPageData();
+      se.storage.get('listmytrips').then(data => {
+        if (data) {
+          se.loadMytrip(data, false);
+        }
+      })
+    }else{
+      se.hasloaddata = true;
     }
+    
+    // if (!se.listMyTrips || se.listMyTrips.length == 0) {
+    //   se.listMyTrips = [];
+    //   se.mytripcount = 0;
+    //   se.pageIndex = 1;
+    //   se.foodtextorder = "";
+    //   se.hasloaddata = false;
+    //   se.loaddatadone = false;
+    //   se.hasdata = false;
+    //   se.getdata(null, false);
+
+    //   setTimeout(() => {
+    //     se.getdata(null, true);
+    //   }, 1000)
+    //   if (se.activityService.insurranceBookingId) {
+    //     se.refreshInsurranceInfo();
+    //   }
+    //   if (se.mytripcount + se.requestripcount > 0) {
+    //     let totalnexttrip = se.mytripcount * 1 + se.requestripcount * 1;
+    //     se.nexttripcounttext = " (" + totalnexttrip + ")";
+    //   } else {
+    //     se.nexttripcounttext = "";
+    //   }
+    //   if (se.historytripcount > 0) {
+    //     se.historytripcounttext = " (" + se.historytripcount + ")";
+    //   }
+
+    //   //Update trạng thái đã thanh toán nếu thanh toán từ mytrip
+    //   if (se.listMyTrips && se.listMyTrips.length > 0 && se.activityService.objPaymentMytrip && se.activityService.objPaymentMytrip.book) {
+    //     se.listMyTrips.forEach(element => {
+    //       if (element.HotelIdERP == se.activityService.objPaymentMytrip.trip.HotelIdERP && se.activityService.objPaymentMytrip.trip.payment_status == 1) {
+    //         element.payment_status = 1;
+    //       }
+    //     });
+    //     se.activityService.objPaymentMytrip = null;
+    //   }
+    //   if (se.listMyTrips && se.listMyTrips.length > 0 && se.currentTrip == se.listMyTrips.length) {
+    //     se.currentTrip = 0;
+    //   }
+    //   if (se.gf.getParams('notifiBookingCode')) {
+    //     se.storage.get('listmytrips').then(data => {
+    //       if (data) {
+    //         se.loadMytrip(data, false);
+    //       }
+    //     })
+    //   }
+
+    // } else {
+    //   se.loadPageData();
+    // }
     se.storage.get('auth_token').then(auth_token => {
       se.loginuser = auth_token;
     });
@@ -372,7 +403,7 @@ export class OrderPage {
     this.storage.get('auth_token').then((data: any) => {
       this.loginuser = data;
     })
-
+    
     if (!this.activityService.tab3Loaded || (this.activityService.tab3Loaded && this.listAlltrips.length == 0)) {
       //this.gf.clearActivatedTab();
       this.mytripcount = 0;
@@ -670,9 +701,12 @@ export class OrderPage {
 
       if (!ishistory) {
         if (lstTrips && lstTrips.trips && lstTrips.trips.length > 0) {
-          se.hasdata = true;
-          lstTrips.trips.forEach(element => {
-
+          
+          //lstTrips.trips.forEach(element => {
+          for (let index = 0; index < lstTrips.trips.length; index++) {
+            const element = lstTrips.trips[index];
+            
+          
             if (!se.gf.checkExistsItemInArray(se.listMyTrips, element, 'order')) {
               if (element.booking_id && (element.booking_id.indexOf("FLY") == -1 && element.booking_id.indexOf("VMB") == -1) && element.booking_type != "CB_FLY_HOTEL") {
                 if (element.flight_ticket_info && element.flight_ticket_info.indexOf("VXR") != -1) {
@@ -834,8 +868,12 @@ export class OrderPage {
                 // if (element.booking_id=='VMB1737782') {
                 //   se.listMyTrips.push(element);
                 // }
-                se.listMyTrips.push(element);
-                se.mytripcount++;
+
+                if(!se.gf.checkExistsItemInArray(se.listMyTrips, element, 'trip')){
+                  se.listMyTrips.push(element);
+                  se.mytripcount++;
+                }
+                
                 if (element.insuranceInfo && element.insuranceInfo.adultList.length > 0) {
                   if (se.checkItemHasNotClaim(element.insuranceInfo.adultList) || se.checkItemHasNotClaim(element.insuranceInfo.childList)) {
                     se.zone.run(() => {
@@ -1185,7 +1223,7 @@ export class OrderPage {
                   }
                   //Thay mới ngày bay
                   if (element.bookingsComboData) {
-                    if (element.bookingsComboData && element.bookingsComboData.length > 1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(element.bookingsComboData[1].trip_Code) == -1 && element.bookingsComboData[1].airlineName && element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1) {
+                    if (element.bookingsComboData && element.bookingsComboData.length > 1 && ['GO', 'RETURN', 'GOROUNDTRIP', 'RETURNROUNDTRIP'].indexOf(element.bookingsComboData[1].trip_Code) == -1 && element.bookingsComboData[1].airlineName && ((element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') == -1 && !(element.isBookingVMBQT && element.isTravelPort)) || (element.bookingsComboData[1].airlineName.toLowerCase().indexOf('cathay') != -1 && (element.isBookingVMBQT && element.isTravelPort)))) {
 
                       for (let i = 0; i < 2; i++) {
                         const elementNew = element.bookingsComboData[i];
@@ -1767,32 +1805,26 @@ export class OrderPage {
                     }
                   })
                   
-                  // if(element.isBookingVMBQT && element.bookingJsonDataParse && element.bookingJsonDataParse.length >0){
-                  //   //element.ischeckinOnl = false;
-                  //   let d = element.bookingJsonDataParse[0].departureDateParse;
-                  //   let dr = element.bookingJsonDataParse.length ==1 ? element.bookingJsonDataParse[0].arrivalDateParse : element.bookingJsonDataParse[element.bookingJsonDataParse.length-1].departureDateParse;
-                  //   element.checkInDisplay = se.gf.getDayOfWeek(d).daynameshort + ", " + moment(d).format('DD-MM-YYYY');
-                  //   element.checkOutDisplay = se.gf.getDayOfWeek(dr).daynameshort + ", " + moment(dr).format('DD-MM-YYYY');
-                  //  }
-                   
-                  // if (element.booking_id=='VMB1737782') {
-                  //   se.listMyTrips.push(element);
-                  // }
-                  se.listMyTrips.push(element);
-                  se.mytripcount++;
-                  //se.nextflightcounttext ="(" + se.mytripcount +")";
+                 
+                  if(!se.gf.checkExistsItemInArray(se.listMyTrips, element, 'trip')){
+                    se.listMyTrips.push(element);
+                    se.mytripcount++;
+                 }
                 }
 
                 //}
               }
             }
 
-          });
-
+          };
+          
         }
 
         if (lstTrips && lstTrips.requestPrices && lstTrips.requestPrices.length > 0) {
-          lstTrips.requestPrices.forEach(element => {
+          //lstTrips.requestPrices.forEach(element => {
+          for (let index = 0; index < lstTrips.requestPrices.length; index++) {
+              const element = lstTrips.requestPrices[index];
+              
             if (!se.gf.checkExistsItemInArray(se.listMyTrips, element, 'order')) {
               if (element.request_id.indexOf("HTBKG") == -1) {
                 let urlavatar = "", tail = "";
@@ -1823,12 +1855,16 @@ export class OrderPage {
                 // if (element.booking_id=='VMB1737782') {
                 //     se.listMyTrips.push(element);
                 // }
-                se.listMyTrips.push(element);
-                se.mytripcount++;
+                if(!se.gf.checkExistsItemInArray(se.listMyTrips, element, 'trip')){
+                  se.listMyTrips.push(element);
+                  se.mytripcount++;
+                }
+                // se.listMyTrips.push(element);
+                // se.mytripcount++;
               }
 
             }
-          });
+          };
         }
 
         se._mytripservice.listMyTrips = se.listMyTrips;
@@ -1839,7 +1875,8 @@ export class OrderPage {
         }
 
         se.sortMytrip();
-
+        se.hasdata = true;
+        se.hasloaddata = true;
         if (se.listMyTrips.length > 0) {
           //Tạm thời gọi api get notifi để build lại thông tin thay đổi chuyến bay nếu có
           se.loadUserNotificationAndMapFlightChange();
@@ -2290,13 +2327,13 @@ export class OrderPage {
             se.buildLinkQrCode(se.listMyTrips[0]);
           }
 
-          se.zone.run(() => {
-            se.hasloaddata = true;
-            se.hasdata = true;
-          })
+          // se.zone.run(() => {
+          //   se.hasloaddata = true;
+          //   se.hasdata = true;
+          // })
 
         }, 300);
-        se.getListSupportByUser(this.loginuser);
+        //se.getListSupportByUser(this.loginuser);
       }
       //List trip đã đi
       else {
@@ -3945,204 +3982,6 @@ export class OrderPage {
         se.listRequestTrips = [];
       }
     });
-  }
-
-  getCombineRequestTrip() {
-    var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/dashboard/GetMyRequestPrice',
-        //   headers:
-        //   {
-        //     'accept': 'application/json',
-        //     'content-type': 'application/json-patch+json',
-        //     authorization: text
-        //   }
-        // };
-        let urlPath = C.urls.baseUrl.urlMobile + '/api/dashboard/GetMyRequestPrice';
-        let headers = {
-          'accept': 'application/json',
-          'content-type': 'application/json-patch+json',
-          authorization: text
-        };
-        this.gf.RequestApi('GET', urlPath, headers, {}, 'order', 'getCombineRequestTrip').then((data) => {
-          if (data) {
-            se.zone.run(() => {
-
-              var result = data;
-              se._mytripservice.listrequesttrips = result;
-              se.storage.get('listrequesttrips').then(data => {
-                if (data) {
-                  se.storage.remove('listrequesttrips').then(() => {
-                    se.storage.set('listrequesttrips', result);
-                  })
-                } else {
-                  se.storage.set('listrequesttrips', result);
-                }
-              })
-              se.loadRequestTrip(result);
-              se.getListSupportByUser(auth_token);
-            });
-          } else {
-            se.listRequestTrips = [];
-            se.requestripcount = 0;
-            if (se.mytripcount + se.requestripcount > 0) {
-              se.nexttripcounttext = " (" + se.mytripcount + se.requestripcount + ")";
-            } else {
-              se.nexttripcounttext = "";
-            }
-            se.hasloadRQdata = true;
-            se.hasloaddata = true;
-            if (se.myloader) {
-              se.myloader.dismiss();
-            }
-          }
-
-
-
-        });
-      } else {
-        se.hasloaddata = true;
-        se.hasloadRQdata = true;
-        se.listRequestTrips = [];
-        se.listHistoryTrips = [];
-        if (se.myloader) {
-          se.myloader.dismiss();
-        }
-      }
-    });
-    setTimeout(() => {
-      if (se.myloader) {
-        se.myloader.dismiss();
-      }
-    }, 1000)
-  }
-
-  loadRequestTrip(listrequesttrips) {
-    var se = this;
-    //se.currentTrip = 0;
-    se.requestripcount = 0;
-    se.listRequestTrips = [];
-    let lstRQTrips = listrequesttrips.data;
-    se.hasloadRQdata = true;
-    //List trip yêu cầu
-    lstRQTrips.forEach(element => {
-      //if (!element.booking_id && element.payment_status != 3 && element.payment_status != -2) {
-      // let urlavatar = element.hotelAvatar.substring(0, element.hotelAvatar.length - 4);
-      // let tail = element.hotelAvatar.substring(element.hotelAvatar.length - 4, element.hotelAvatar.length);
-      // element.hotelAvatar = urlavatar + "-" + "104x104" + tail;
-      if (element.request_id.indexOf("HTBKG") == -1) {
-        element.avatar = element.hotelAvatar;
-        element.isRequestTrip = true;
-        element.booking_id = element.request_id;
-        element.checkInDisplay = se.gf.getDayOfWeek(element.start_date).daynameshort + ", " + moment(element.start_date).format('DD-MM-YYYY')
-        element.checkOutDisplay = se.gf.getDayOfWeek(element.end_date).daynameshort + ", " + moment(element.end_date).format('DD-MM-YYYY')
-        se.getRatingStar(element);
-        se.listRequestTrips.push(element);
-        se.requestripcount++;
-      }
-
-      //}
-    });
-
-    se._mytripservice.listRequestTrips = se.listRequestTrips;
-
-    if (se.listRequestTrips.length > 0) {
-      se.listMyTrips.push(...se.listRequestTrips)
-    }
-
-    se.sortMytrip();
-
-    if (se.listMyTrips.length > 0) {
-      //Tạm thời gọi api get notifi để build lại thông tin thay đổi chuyến bay nếu có
-      se.loadUserNotificationAndMapFlightChange();
-
-      if (se.gf.getParams('notifiBookingCode')) {
-        //Map số bkg trong listtrip để focus vào bkg được notifi
-        var idxMap = se.listMyTrips.map((item, index) => {
-          return item.booking_id == se.gf.getParams('notifiBookingCode');
-        });
-        if (idxMap && idxMap.length > 0) {
-          var idx = idxMap.findIndex((el) => { return el == true });
-          se.currentTrip = idx;
-          se.gf.setParams('', 'notifiBookingCode');
-          if (idx != -1) {
-            se.showtripdetail(se.listMyTrips[idx]);
-          } else {
-
-            //Map số bkg trong listtrip để focus vào bkg được notifi
-            var idxMaphis = se.valueGlobal.listhistory.map((item, index) => {
-              return item.booking_id == se.valueGlobal.BookingCodeHis;
-            });
-            if (idxMaphis && idxMaphis.length > 0) {
-              var idxhis = idxMaphis.findIndex((el) => { return el == true });
-              se.currentTrip = idxhis;
-              if (idxhis != -1) {
-                se.showtripdetail(se.valueGlobal.listhistory[idxhis]);
-              } else {
-                se.getdata(null, true);
-              }
-            }
-
-          }
-        }
-        //Sau khi map được trip thì set giá trị về null
-        se.gf.setParams(null, 'notifiBookingCode');
-      }
-
-      //Map item được claim nếu có load lại dữ liệu
-      if (se.activityService.insurranceBookingId) {
-        var idxMap = se.listMyTrips.map((item, index) => {
-          return item.booking_id == se.activityService.insurranceBookingId;
-        });
-        if (idxMap && idxMap.length > 0) {
-          var idx = idxMap.findIndex((el) => { return el == true });
-          se.currentTrip = idx;
-        }
-      }
-
-      if (se.currentTrip && se.currentTrip != -1) {
-        let obj = se.listMyTrips[se.currentTrip];
-        if (obj && !obj.isRequestTrip) {
-          se.setCheckInCheckOutInfo(obj);
-          se.isRequestTrip = false;
-        } else {
-          se.setCheckInCheckOutRQInfo(obj);
-          se.isRequestTrip = true;
-        }
-      }
-      else {
-        se.currentTrip = -1;
-        if (se.listMyTrips.length > 0) {
-          se.nextTrip();
-        }
-
-      }
-    } else {
-      se.hasdata = false;
-    }
-
-    se.zone.run(() => {
-      se.hasdata = true;
-      se.hasloaddata = true;
-    })
-
-
-    setTimeout(() => {
-      if (se.myloader) {
-        se.myloader.dismiss();
-      }
-      if (se.mytripcount + se.requestripcount > 0) {
-        se.nexttripcounttext = " (" + (se.mytripcount + se.requestripcount) + ")";
-      } else {
-        se.nexttripcounttext = "";
-      }
-
-    }, 300);
-    se.getListSupportByUser(this.loginuser);
   }
 
   public scrollFunction = (event: any) => {

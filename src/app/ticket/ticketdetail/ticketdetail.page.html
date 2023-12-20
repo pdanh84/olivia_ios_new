@@ -1,8 +1,8 @@
 <ion-header class="cls-tourdetail-header float-arrow-disabled">
     <div class="cls-shadow">
-        <div class="d-flex cls-border-bottom p-top-42" (click)="goback()">
-            <div class="div-width-48 m-top-12 d-flex"><img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg"></div>
-            <div [ngClass]="itemDetail.name.length<35 ? 'div-width-100 m-top-12 header-tourname' : 'div-width-100 m-top-12 header-tourname-1'"
+        <div class="d-flex cls-border-bottom p-top-header" (click)="goback()">
+            <div class="div-width-48 d-flex"><img class="img-back" src="./assets/imgs/ios-arrow-round-back.svg"></div>
+            <div [ngClass]="itemDetail.name.length<35 ? 'div-width-100 header-tourname' : 'div-width-100 header-tourname-1'"
                 *ngIf="itemDetail && itemDetail.name">
                 {{itemDetail.name}}</div>
             <div class="div-width-48"></div>
@@ -235,7 +235,7 @@
                 </div>
 
                 <div class="div-split" *ngIf="kkdayExchanges && kkdayExchanges.length > 0"></div>
-                <div id="divDDDV" *ngIf="kkdayExchanges && kkdayExchanges.length > 0">
+                <div id="content4" *ngIf="kkdayExchanges && kkdayExchanges.length > 0">
                     <div class="text-headservice">Địa điểm đổi vé</div>
                     <div *ngFor="let item of kkdayExchanges" class="div-item-service">
                         <div class="location-title">
@@ -367,8 +367,8 @@
                     </div>
                 </div>
 
-                <div class="div-split"></div>
-                <div class="text-headline m-top-24 m-bottom-16">Có thể bạn thích</div>
+                <div class="div-split" *ngIf="itemSlide && itemSlide.length >0"></div>
+                <div class="text-headline m-top-24 m-bottom-16" *ngIf="itemSlide && itemSlide.length >0">Có thể bạn thích</div>
                 <div class="slide2-scroll p-0" *ngIf="(itemSlide && itemSlide.length >0 && loadsametopicdone) else loaddingsdksametopic">
                     <div (click)="showDetail(slide)"
                         [ngClass]="idx == 0 ? 'cls-deal-detail position-relative' : 'cls-deal-detail m-l-16 position-relative' "
@@ -427,7 +427,7 @@
                     </div> -->
                 </div>
                 <ng-template #loaddingsdksametopic>
-                    <div class="slide2-scroll p-0">
+                    <div class="slide2-scroll p-0" *ngIf="!loadsametopicdone">
                             <ion-skeleton-text animated class="div-wrap-deal" style="min-width: 299px;margin-right: 16px;height: 288px;border-radius: 6px"></ion-skeleton-text>
                             <ion-skeleton-text animated class="div-wrap-deal" style="min-width: 299px;margin-right: 16px;height: 288px;border-radius: 6px"></ion-skeleton-text>
                             <ion-skeleton-text animated class="div-wrap-deal" style="min-width: 299px;margin-right: 16px;height: 288px;border-radius: 6px"></ion-skeleton-text>

@@ -40,27 +40,34 @@ export class RequestCombo1Page implements OnInit {
   hidepaxhint: boolean = false;
   currentSelectPax: any;
   arrPlace: any;
-  arrtransportDepartTime; arrtransportReturnTime; transportDepartTime; transportReturnTime; ischeck
+  arrtransportDepartTime; arrtransportReturnTime; transportDepartTime; transportReturnTime;
   constructor(public toastCtrl: ToastController, private alertCtrl: AlertController, public zone: NgZone, public modalCtrl: ModalController,
     public storage: Storage, public platform: Platform, public bookCombo: Bookcombo, public value: ValueGlobal,
     public searchhotel: SearchHotel, public valueGlobal: ValueGlobal, public navCtrl: NavController,
     public gf: GlobalFunction,
     private fb: Facebook) {
-
+      this.storage.get('auth_token').then((auth_token)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
+          if(data && data.email){
+            this.usermail = data.email;
+          }
+        })
+      })
+      
   }
 
   ngOnInit() {
     var se = this;
-    if (se.bookCombo.transportDepartTime) {
-      se.arrtransportDepartTime = se.bookCombo.transportDepartTime.split('|');
-      se.arrtransportReturnTime = se.bookCombo.transportReturnTime.split('|');
-      se.transportDepartTime = se.arrtransportDepartTime[0];
-      se.transportReturnTime = se.arrtransportReturnTime[0];
-      this.ischeck = true;
-    }
-    else {
-      this.ischeck = false;
-    }
+    // if (se.bookCombo.transportDepartTime) {
+    //   se.arrtransportDepartTime = se.bookCombo.transportDepartTime.split('|');
+    //   se.arrtransportReturnTime = se.bookCombo.transportReturnTime.split('|');
+    //   se.transportDepartTime = se.arrtransportDepartTime[0];
+    //   se.transportReturnTime = se.arrtransportReturnTime[0];
+    //   this.ischeck = true;
+    // }
+    // else {
+    //   this.ischeck = false;
+    // }
     se.storage.get('email').then(email => {
       se.usermail = email;
     });
@@ -358,7 +365,7 @@ export class RequestCombo1Page implements OnInit {
       let todate:any = this.gf.getCinIsoDate(event.data.to);
       if (fromdate) {
         if (event.data) {
-          if (!todate) {
+          if (!todate || (todate && moment(todate).diff(fromdate, 'hours') <0)) {
             todate = moment(fromdate).add('days', 1);
           }
           se.zone.run(()=>{

@@ -22,17 +22,19 @@ import {
   LinkConfig,
 } from '@pantrist/capacitor-firebase-dynamic-links';
 import { App } from '@capacitor/app';
-import { CodePush, InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
+import { codePush } from "cap-codepush";
 import { OverlayEventDetail } from '@ionic/core';
 //import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 import { flightService } from './providers/flightService';
 import { MytripService } from './providers/mytrip-service.service';
 import { tourService } from 'src/app/providers/tourService';
+import { ticketService } from 'src/app/providers/ticketService';
 import { Facebook } from '@awesome-cordova-plugins/facebook/ngx';
 import { register } from 'swiper/element/bundle';
 import { Browser } from '@capacitor/browser';
 import { FirebaseAnalytics } from '@capacitor-community/firebase-analytics';
 import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { InstallMode } from '@awesome-cordova-plugins/code-push/ngx';
 
 register();
 @Component({
@@ -70,13 +72,13 @@ export class AppComponent implements OnInit{
     public valueGlobal: ValueGlobal,
     //private firebaseDynamicLinks: FirebaseDynamicLinks,
     private toastCrl: ToastController,
-    private codePush: CodePush,
     private zone: NgZone,
     private toastCtrl: ToastController,
     //private deeplinks: Deeplinks,
     public _flightService: flightService,
     public _mytripservice: MytripService,public tourService: tourService,
-    private fb: Facebook
+    private fb: Facebook,
+    public ticketService: ticketService
   ) {
     //console.log(performance.now());
     
@@ -125,7 +127,14 @@ export class AppComponent implements OnInit{
       //codepush
       try {
         if(this.platform.is('iphone')){
-          this.codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+          //codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 60 * 2 }).subscribe((syncStatus) => console.log(syncStatus));
+          codePush.sync({
+            onSyncStatusChanged: (syncStatus) => {
+              console.log(syncStatus);
+            },
+            updateDialog: { updateTitle: "Đang cập nhật lên phiên bản mới nhất!" },
+            installMode: InstallMode.IMMEDIATE,
+          });
         }
       } catch (error) {
         let objError = {
@@ -172,10 +181,10 @@ export class AppComponent implements OnInit{
             },
           );
 
-            FCM.refreshToken().then(token => {
+            FCM.getToken().then(token => {
               this.storage.get('auth_token').then((auth_token)=>{
                 let deviceToken = (token && token.token) ? token.token: token;
-                this.storage.set('deviceToken',deviceToken);
+                this.storage.set('deviceToken',token);
                 if(deviceToken){
                   this.gf.pushTokenAndMemberID(auth_token, deviceToken, this.appversion);
                 }
@@ -318,6 +327,30 @@ export class AppComponent implements OnInit{
           }
           
         }
+      }
+      else if(data.dataLink.indexOf('ticketdetail') != -1){
+        setTimeout(()=>{
+          let arr = data.dataLink.split(':');
+          if(arr && arr.length ==2){
+            this.ticketService.itemTicketDetail = {};
+            this.ticketService.itemTicketDetail.experienceId = arr[1];
+            this.ticketService.backPage = 'hometicket';
+            this.navCtrl.navigateForward('/ticketdetail');
+          }
+        
+        },300);
+       
+      }
+      else if(data.dataLink.indexOf('blog') != -1){
+        setTimeout(()=>{
+          let arr = data.dataLink.split(':');
+          if(arr && arr.length ==2){
+            this.valueGlobal.backValue = "tab4";
+            this.navCtrl.navigateForward("/blog/" +arr[1]);
+          }
+        
+        },300);
+       
       }
         else{
           if (data.updateNewVersion) {

@@ -16,10 +16,12 @@ def capacitor_pods
   pod 'CapacitorCommunityFcm', :path => '../../node_modules/@capacitor-community/fcm'
   pod 'CapacitorCommunityFirebaseAnalytics', :path => '../../node_modules/@capacitor-community/firebase-analytics'
   pod 'CapacitorCommunityNativeMarket', :path => '../../node_modules/@capacitor-community/native-market'
+  pod 'CapacitorFirebaseRemoteConfig', :path => '../../node_modules/@capacitor-firebase/remote-config'
   pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
   pod 'CapacitorBackgroundRunner', :path => '../../node_modules/@capacitor/background-runner'
   pod 'CapacitorBrowser', :path => '../../node_modules/@capacitor/browser'
   pod 'CapacitorFilesystem', :path => '../../node_modules/@capacitor/filesystem'
+  pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'
   pod 'CapacitorHaptics', :path => '../../node_modules/@capacitor/haptics'
   pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
   pod 'CapacitorNetwork', :path => '../../node_modules/@capacitor/network'
@@ -30,6 +32,11 @@ def capacitor_pods
   pod 'CodetrixStudioCapacitorGoogleAuth', :path => '../../node_modules/@codetrix-studio/capacitor-google-auth'
   pod 'NativescriptCapacitor', :path => '../../node_modules/@nativescript/capacitor'
   pod 'PantristCapacitorFirebaseDynamicLinks', :path => '../../node_modules/@pantrist/capacitor-firebase-dynamic-links'
+  pod 'CapacitorCommunityHttp', :path => '../../node_modules/@capacitor-community/http'
+  pod 'CapacitorDevice', :path => '../../node_modules/@capacitor/device'
+  pod 'CapacitorDialog', :path => '../../node_modules/@capacitor/dialog'
+  pod 'CapacitorFilesystem', :path => '../../node_modules/@capacitor/filesystem'
+  pod 'CapCodepush', :path => '../../node_modules/cap-codepush'
 end
 
 target 'App' do

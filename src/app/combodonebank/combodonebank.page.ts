@@ -282,14 +282,7 @@ export class CombodonebankPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-      let headers =  {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-      };
-      se.gf.RequestApi('GET', strUrl, headers, {}, 'combodonebank', 'GetUserInfo').then((data) => {
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
              
               var info;

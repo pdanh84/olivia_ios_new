@@ -45,9 +45,12 @@ export class FlightTopReviewPage {
                       });
                       if(this.page ==1){
                         this._flightService.listTopReviews = {...data};
-                        this.valueGlobal.flightAvgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
-                        this.valueGlobal.flightNumOfReview = this.gf.convertNumberToString(data.total);
-                        this.avgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+                        if(data.avgPoint){
+                          this.valueGlobal.flightAvgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+                          this.valueGlobal.flightNumOfReview = this.gf.convertNumberToString(data.total);
+                          this.avgPoint = data.avgPoint.toFixed(1).replace(/\./g,',');
+                        }
+                        
                         this.numOfReview = this.gf.convertNumberToString(data.total);
                         this.listflighttopreviewgroup = [];
                       }else{

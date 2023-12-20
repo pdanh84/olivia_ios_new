@@ -88,33 +88,11 @@ export class VoucherSlideInternationalPage implements OnInit{
       var se = this;
       se.storage.get('auth_token').then(auth_token => {
           if (auth_token) {
-              var text = "Bearer " + auth_token;
-              let headers =
-                {
-                  'cache-control': 'no-cache',
-                  'content-type': 'application/json',
-                  authorization: text
-                }
-              let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-              se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab5', 'loadUserInfo').then((data) => {
+            this.gf.getUserInfo(auth_token).then((data) => {
                   if(data && data.statusCode != 401){
                       se.zone.run(()=>{
                           se.userInfoData = data;
                       });
-                  }
-                  else if (data.statusCode == 401) {
-                    se.storage.get('jti').then((memberid) => {
-                      se.storage.get('deviceToken').then((devicetoken) => {
-                        se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                          setTimeout(() => {
-                            se.storage.remove('auth_token').then(()=>{
-                              se.storage.set('auth_token', token);
-                            })
-                          }, 100)
-                        });
-        
-                      })
-                    })
                   }
               });
           }else{
@@ -174,7 +152,7 @@ export class VoucherSlideInternationalPage implements OnInit{
               'cache-control': 'no-cache',
               'content-type': 'application/json',
             };
-            let body = { bookingCode: 'VMB',code: itemVoucher.code, totalAmount: se._flightService.itemFlightCache.totalPrice ? se._flightService.itemFlightCache.totalPrice : (itemVoucher.rewardsItem.price ? itemVoucher.rewardsItem.price : 0), comboDetailId: 0, couponData: (itemVoucher.applyFor && itemVoucher.applyFor == 'flight') ? {
+            let body = { bookingCode: 'VMB',code: itemVoucher.code, totalAmount: se._flightService.itemFlightInternational.totalPrice ? se._flightService.itemFlightInternational.totalPrice : (itemVoucher.rewardsItem.price ? itemVoucher.rewardsItem.price : 0), comboDetailId: 0, couponData: (itemVoucher.applyFor && itemVoucher.applyFor == 'flight') ? {
                flight: { "tickets": this._flightService.itemFlightCache.roundTrip ? [
                 {
                   "flightNumber":  se._flightService.itemFlightCache.itemFlightInternationalDepart.flightNumber ,
@@ -369,19 +347,16 @@ export class VoucherSlideInternationalPage implements OnInit{
 
           })
         }else if(data.statusCode == 401){
-          this.storage.get('jti').then((memberid) => {
-            this.storage.get('deviceToken').then((devicetoken) => {
-              this.gf.refreshToken(memberid, devicetoken).then((token) => {
-                setTimeout(() => {
-                  this.storage.remove('auth_token').then(()=>{
-                    this.storage.set('auth_token', token);
-                  })
-                  this.loadVoucherClaimed(token);
-                }, 100)
-              });
-
-            })
-          })
+          this.gf.refreshTokenNew(auth_token).then((token) => {
+            setTimeout(() => {
+              if(token && token.auth_token){
+                this.storage.remove('auth_token').then(()=>{
+                  this.storage.set('auth_token', token.auth_token);
+                  this.loadVoucherClaimed(token.auth_token);
+                })
+              }
+            }, 100)
+          });
         }
        
       })

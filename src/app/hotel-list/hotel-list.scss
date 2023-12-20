@@ -15,7 +15,7 @@
 {
   font-weight: bold;
   font-size: 20px;
-  padding: 0;
+  padding: 0 36px;
 }
 p{
   line-height: 16px;
@@ -724,4 +724,8 @@ background-color: #9fc43a;
 }
 .img-sharehd {
 margin-right: 16px;
+}
+.div-share{
+  position: absolute;
+  right: 16px;
 }

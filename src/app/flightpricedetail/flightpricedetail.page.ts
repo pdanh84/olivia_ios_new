@@ -149,39 +149,44 @@ export class FlightpricedetailPage implements OnInit {
               this.returnluggageprice = this._flightService.itemFlightCache.adults.reduce((total,a)=>{ return total + (a.itemLugReturn ? (a.itemLugReturn.amount) : 0); }, 0);
               this.returnluggageprice += this._flightService.itemFlightCache.childs.reduce((total,c)=>{ return total + (c.itemLugReturn ? (c.itemLugReturn.amount) : 0); }, 0);
             }
-            let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
-            _a.forEach(element => {
-              if(element){
-                element.amountDisplay = this.gf.convertNumberToString(element.amount);
-                this.departLuggage.push(element);
+            try {
+              let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
+              _a.forEach(element => {
+                if(element){
+                  element.amountDisplay = this.gf.convertNumberToString(element.amount);
+                  this.departLuggage.push(element);
+                }
+              });
+              let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLug);
+              _c.forEach(elementC => {
+                if(elementC){
+                  elementC.amountDisplay = this.gf.convertNumberToString(elementC.amount);
+                  this.departLuggage.push(elementC);
+                }
+              });
+    
+              if(this._flightService.itemFlightCache && this._flightService.itemFlightCache.returnFlight){
+                
+                    let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLugReturn);
+                    _a.forEach(element => {
+                      if(element){
+                        element.amountDisplay = this.gf.convertNumberToString(element.amount);
+                        this.returnLuggage.push(element);
+                      }
+                    });
+                    let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLugReturn);
+                    _c.forEach(elementC => {
+                      if(elementC){
+                        elementC.amountDisplay = this.gf.convertNumberToString(elementC.amount);
+                        this.returnLuggage.push(elementC);
+                      }
+                    });
+                   
               }
-            });
-            let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLug);
-            _c.forEach(elementC => {
-              if(elementC){
-                elementC.amountDisplay = this.gf.convertNumberToString(elementC.amount);
-                this.departLuggage.push(elementC);
-              }
-            });
-  
-            if(this._flightService.itemFlightCache && this._flightService.itemFlightCache.returnFlight){
+            } catch (error) {
               
-                  let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLugReturn);
-                  _a.forEach(element => {
-                    if(element){
-                      element.amountDisplay = this.gf.convertNumberToString(element.amount);
-                      this.returnLuggage.push(element);
-                    }
-                  });
-                  let _c = this._flightService.itemFlightCache.childs.map(a => a.itemLugReturn);
-                  _c.forEach(elementC => {
-                    if(elementC){
-                      elementC.amountDisplay = this.gf.convertNumberToString(elementC.amount);
-                      this.returnLuggage.push(elementC);
-                    }
-                  });
-                 
             }
+          
           }
           
           

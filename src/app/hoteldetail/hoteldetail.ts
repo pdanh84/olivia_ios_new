@@ -2744,7 +2744,7 @@ export class HotelDetailPage implements OnInit {
           }
           else if(rs.error != 0){
             //let result = JSON.parse(rs.Msg);
-            self.gf.showAlertMessageOnly(rs.Msg);
+            self.gf.showAlertMessageOnly('Giá đã thay đổi, vui lòng thực hiện lại booking !');
           }
       })
       
@@ -2787,7 +2787,7 @@ export class HotelDetailPage implements OnInit {
           self.Roomif.ischeckpayment = true;
           self.navCtrl.navigateForward('/roomdetailreview');
         }else{
-          self.gf.showToastWarning('Hiá»‡n táº¡i khÃ¡ch sáº¡n Ä‘Ã£ háº¿t phÃ²ng loáº¡i nÃ y.');
+          self.gf.showToastWarning('Hiện tại khách sạn hết phòng loại này!.');
         }
       })
     }
@@ -2955,32 +2955,28 @@ export class HotelDetailPage implements OnInit {
     var se = this;
     se.flag = 1;
     se.isheader1 = true;
-    se.presentLoadingnotime();
+    se.presentLoadingRelated(100);
     se.zone.run(() => {
       se.HotelID = msg.Id;
       se.hotelname=msg.Name;
       se.searchhotel.isRefreshDetail = true;
       se.searchhotel.hotelID = msg.Id;
-        se.loadcomplete = false;
-        se.mealtypegrouplist = [];
-        se.hotelRoomClasses = [];
-        se.hotelRoomClassesFS = [];
-        se.ischeck = false;
+      se.loadpricecombodone = false;
+      se.loadcomplete = false;
+      se.hotelRoomClasses = [];
+      se.mealtypegrouplist = [];
+      se.ischeck = false;
       se.setCacheHotel();
+      se.presentLoading();
       se.loadTopSale24h(msg.Id);
-      se.loadHotelDetailFromItemRelate();
-
-      let el = window.document.getElementsByClassName('div-float-arrow');
-      if (el.length > 0) {
-        el[0].classList.remove('float-arrow-enabled');
-        el[0].classList.add('float-arrow-disabled');
-      }
-      if (se.loader) {
-        se.loader.dismiss();
-      }
+          let el = document.getElementsByClassName('cls-header');
+          if(el.length >0){
+              el[0].classList.remove('float-arrow-enabled');
+              el[0].classList.add('float-arrow-disabled');
+            }
     })
     //google analytic
-    se.gf.googleAnalytion('hoteldetail', 'hotelrelatedclick', '');
+    se.gf.googleAnalytion('hoteldetail','hotelrelatedclick','');
   }
   // add value KH
   plusadults() {
@@ -4597,35 +4593,17 @@ export class HotelDetailPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab5', 'loadUserInfo').then((data) => {
-          if (data.statusCode == 401) {
-            se.storage.get('jti').then((memberid) => {
-              se.storage.get('deviceToken').then((devicetoken) => {
-                se.gf.refreshToken(memberid, devicetoken).then((token) =>{
-                  setTimeout(()=>{
-                    se.loadUserInfoRefresh(token);
-                  },100)
-                });
-
-              })
-            })
-          }
-          else {
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
               se.zone.run(() => {
                 se.isShowPrice = data.showPrice;
                 se.storage.set('userInfoData', data);
+
+                if(data.email){
+                  this.usermail = data.email;
+                }
               })
             }
-          }
         });
       }else{
         se.zone.run(()=>{

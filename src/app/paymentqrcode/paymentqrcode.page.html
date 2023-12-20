@@ -71,7 +71,7 @@
                 Thông tin thanh toán cũng được gửi đến email {{_email}}. Nếu không tìm thấy vui lòng kiểm tra trong hộp thư Spam hoặc Junk Folder.
             </div>
             <div class="div-text-note m-top-8 m-bottom-24">
-                Xác nhận đặt vé sẽ được gửi đến email của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được email Xác nhận sau 30 phút, vui lòng gửi chứng từ thanh toán (Ủy nhiệm chi, Lệnh thanh toán) về mail support@ivivu.com để hỗ trợ xử lý.
+                Xác nhận đặt <span *ngIf="activityService.qrcodepaymentfrom == 2">phòng</span><span *ngIf="activityService.qrcodepaymentfrom != 2">vé</span> sẽ được gửi đến email của Quý khách sau khi iVIVU.com nhận được tiền thanh toán. Nếu Quý khách không nhận được email Xác nhận sau 30 phút, vui lòng gửi chứng từ thanh toán (Ủy nhiệm chi, Lệnh thanh toán) về mail support@ivivu.com để hỗ trợ xử lý.
             </div>
           </ng-template>
     </div>

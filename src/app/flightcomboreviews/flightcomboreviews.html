@@ -119,19 +119,19 @@
             <div  text-wrap>
               <img src="./assets/iconaccount/info.svg">
             </div>
-            <div  class="text-p text-width-190 margin-left-3 color-blue" text-wrap>
+            <div  class=" text-width-190 margin-left-3 text-status-room" text-wrap>
               <span *ngIf="statusRoom!= 'RQ'" >Xác nhận ngay</span>
               <span *ngIf="statusRoom!='AL'" >Xác nhận trong 60 phút</span>
             </div>
             <span  style="right: 0px;" class="text-change mtt-2">
-              <span (click)="upgradeRoom()" class="margin-right-5">Đổi</span> <img src="./assets/imgs/vector.svg">
+              <span (click)="upgradeRoom()" class="margin-right-5 text-underline">Đổi</span> <img src="./assets/imgs/vector.svg">
             </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <hr class="cls-hr" style="margin-top: 22px" *ngIf="statusRoom=='AL'">
+  <hr class="cls-hr" *ngIf="statusRoom=='AL'">
   <ion-row *ngIf="!loadflightpricedone" style="height: 100px">
     <!-- <ion-col style="padding:0 0 0 140px;"> -->
     <!-- <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> -->
@@ -151,6 +151,7 @@
 
     <div class="m-top-16 m-bottom-16" *ngIf="loadflightpricedone">
       <div class="div-flex">
+        <img class="icon-flight" src="./assets/ic_flight/flight_cin.svg"> 
         <label class="div-flight-label">
           {{de_departdatestr}}
         </label>
@@ -187,12 +188,13 @@
         <img class="img-logo" *ngIf="idx==0 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
         <div class="div-flight-name margin-left-5" *ngIf="idx==0">{{com.airlineCode}}</div> 
         <span *ngIf="idx==0" class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==0">{{com.ticketClass}}</div>
-        <div  *ngIf="idx==0" (click)="showListFlight(idx)" class="text-change mtt-2">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
+        <div  *ngIf="idx==0" (click)="showListFlight(idx)" class="text-change mtt-2  text-underline">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
         </div>
       </div>
       <div *ngIf="operatedBydep" class="text-operatedBy">{{operatedBydep}}</div>
       <hr class="m-top-15 m-bottom-16">
       <div class="div-flex">
+        <img class="icon-flight" src="./assets/ic_flight/flight_cout.svg"> 
         <label class="div-flight-label">
           {{ar_departdatestr}}
         </label>
@@ -228,7 +230,7 @@
         <img class="img-logo logo-vna" *ngIf="idx==1 && com.operatedBy && com.urlLogo" [src]="com.urlLogo">
         <img class="img-logo" *ngIf="idx==1 && com.airlineCode == 'BambooAirways'" src="./assets/ic_airticket/ic_bamboo_b.png">
         <div class="div-flight-name margin-left-5" *ngIf="idx==1">{{com.airlineCode}}</div> <span class="div-flight-ticket margin-left-5  margin-right-5"> · </span>  <div class="div-flight-ticket"  *ngIf="idx==1">{{com.ticketClass}}</div>
-        <div *ngIf="idx==1" (click)="showListFlight(idx)" class="text-change mtt-2">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
+        <div *ngIf="idx==1" (click)="showListFlight(idx)" class="text-change mtt-2  text-underline">Đổi<img class="margin-left-5" src="./assets/imgs/vector.svg">
         </div>
       </div>
       <div *ngIf="operatedByret" class="text-operatedBy">{{operatedByret}}</div>
@@ -404,9 +406,9 @@
           80 tuổi</label>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="PriceAvgPlusTAStr">
+    <ion-row *ngIf="PriceAvgPlusTAStr &&loadpricedone&&loadflightpricedone">
       <ion-col style="padding:5px 0">
-        <label class="text-note">*Tổng giá không được đảm bảo cho đến khi quý khách xuất vé.</label>
+        <label class="text-bold">*Hãy hoàn tất các bước đặt phòng để đảm bảo bạn không bỏ lỡ mức giá tuyệt vời này!</label>
       </ion-col>
     </ion-row>
   </div>
@@ -418,12 +420,12 @@
 </ion-content>
 <ion-footer>
   <div style="background-color: #ffffff; text-align: center">
-    <ion-row *ngIf="PriceAvgPlusTAStr && loadflightpricedone">
+    <ion-row *ngIf="PriceAvgPlusTAStr && loadflightpricedone&& loadpricedone">
       <ion-col style="padding: 0"><button (click)="next(1)" ion-button round outline class="button button2">Thông tin hành khách
         <span><img src="./assets/imgs/ic_next.svg"></span>
       </button></ion-col>
     </ion-row>
-    <ion-row *ngIf="!PriceAvgPlusTAStr && loadflightpricedone">
+    <ion-row *ngIf="!PriceAvgPlusTAStr && loadflightpricedone&& loadpricedone">
       <ion-col style="padding: 0"><button (click)="sendRequestCombo()" ion-button round outline
           class="button button2">Gửi yêu cầu</button>
       </ion-col>

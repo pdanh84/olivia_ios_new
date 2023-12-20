@@ -119,6 +119,14 @@ export class FlightAdddetailsInternationalPage implements OnInit {
     private fb: Facebook,
     public activityService: ActivityService,
     public _voucherService: voucherService) {
+      this.storage.get('auth_token').then(auth_token => {
+        this.loginuser = auth_token;
+        if(auth_token){
+          this.GetUserInfo(auth_token);
+        }
+      
+      });
+      
       this.platform.resume.subscribe(async()=>{
         if(!this._flightService.itemFlightCache){
           this._flightService.itemTabFlightActive.emit(true);
@@ -309,8 +317,17 @@ export class FlightAdddetailsInternationalPage implements OnInit {
             se._flightService.itemFlightLogin.pipe().subscribe((data)=>{
                 if(data){
                   setTimeout(()=>{
+                    se.storage.get('auth_token').then(auth_token => {
+                      se.loginuser = auth_token;
+                      if(auth_token){
+                        se.GetUserInfo(auth_token);
+                      }
+                    });
+                  },200)
+
+                  setTimeout(()=>{
                     se.loadUserInfo();
-                  },300)
+                  },500)
                     
                 }
             })
@@ -697,26 +714,40 @@ export class FlightAdddetailsInternationalPage implements OnInit {
 
               se.storage.get('auth_token').then(auth_token => {
                 se.loginuser = auth_token;
-                se.GetUserInfo(auth_token);
+                if(auth_token){
+                  se.GetUserInfo(auth_token);
+                }
+                
               });
               
               
             })
             
         }
+        
+        setAdultGenderProperty(){
+          var se = this;
+          if(se.adults && se.adults.length>0){
+            let itema = se.adults[0];
+            if(se.gender){
+              itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
+              itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
+            }
+          }
+        }
         GetUserInfo(auth_token) {
           var se = this;
-              var text = "Bearer " + auth_token;
-              let headers = {
-                'cache-control': 'no-cache',
-                  'content-type': 'application/json',
-                  authorization: text
-              };
-              let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-              this.gf.RequestApi('GET', strUrl, headers, {}, 'flightAddDetails', 'GetUserInfo').then((data)=>{
+          se.gf.getUserInfo(auth_token).then((data) => {
                   if (data && !data.statusCode) {
                     se.zone.run(() => {
                       se.ischeck = false;
+                      if(data.email){
+                        se.email = data.email;
+                      }
+                      if(data.gender != null){
+                        se.gender = data.gender;
+                        se.setAdultGenderProperty();
+                      }
                       var corpInfomations=data.corpInfomations[0];
                       if(corpInfomations){
                         se.companyname = corpInfomations.legalName;
@@ -1567,7 +1598,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
          * @param type: 1 - giới tính; 2 - name;
          * @param isadult: true - là người lớn
          */
-        checkInput(inputcheck, type, isadult, event?){
+        checkInput(inputcheck, type, isadult, idx?){
           var se = this;
           if(isadult){
               if(type == 1){
@@ -1634,6 +1665,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                     inputcheck.errorCountry = true;
                     inputcheck.showSelectCountry = false;
                     inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch Người lớn "+(inputcheck.id);
+                    $(`.div-adult-country-${idx} ion-item`).removeClass('item-has-value');
                     return;
                     }
                     else{
@@ -1667,6 +1699,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                     inputcheck.errorPassportCountry = true;
                     inputcheck.showSelectPassportCountry = false;
                     inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp Người lớn "+(inputcheck.id);
+                    $(`.div-adult-passportcountry-${idx} ion-item`).removeClass('item-has-value');
                     return;
                   }
                   else{
@@ -1803,6 +1836,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                   inputcheck.errorCountry = true;
                   inputcheck.showSelectCountry = false;
                   inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch "+ (!inputcheck.isInfant ? "Trẻ em" : "Em bé") +" "+ (!inputcheck.isInfant ? inputcheck.id : inputcheck.iddisplay);
+                  $(`.div-child-country-${idx} ion-item`).removeClass('item-has-value');
                   return;
                   }
                   else{
@@ -1835,6 +1869,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                   inputcheck.errorPassportCountry = true;
                   inputcheck.showSelectPassportCountry = false;
                   inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp "+ (!inputcheck.isInfant ? "Trẻ em" : "Em bé") +" "+ (!inputcheck.isInfant ? inputcheck.id : inputcheck.iddisplay);
+                  $(`.div-child-passportcountry-${idx} ion-item`).removeClass('item-has-value');
                   return;
                 }
                 else{
@@ -3217,7 +3252,7 @@ alert.present();
         
             actionSheet.present();
             actionSheet.onDidDismiss().then((data: OverlayEventDetail) => {
-              this.checkInput(item, 1, false);
+             // this.checkInput(item, 1, false);
           })
           }
 
@@ -3249,14 +3284,14 @@ alert.present();
         
             actionSheet.present();
             actionSheet.onDidDismiss().then((data: OverlayEventDetail) => {
-                this.checkInput(item, 1, true);
+                //this.checkInput(item, 1, true);
             })
           }
 
-          editPaxInfo(item, idx){
+          editPaxInfo(item, type, idx){
             var se = this;
             item.byPassCheckRegularName = false;
-              if(item && idx == 1){
+              if(item && type == 1){
                   item.genderdisplay = '';
                   item.name = '';
                   item.airlineMemberCode ='';
@@ -3283,7 +3318,7 @@ alert.present();
                   //}
                   
               }
-              else if(item && idx == 2){
+              else if(item && type == 2){
                   item.genderdisplay = '';
                   item.name = '';
                   item.dateofbirth = '';
@@ -3310,6 +3345,11 @@ alert.present();
                     item.errorPassportCountry = true;
                     item.errorPassportExpireDate = true;
                   //}
+              }
+              if(type ==1){
+                $(`.div-adult-${idx} ion-item`).removeClass('item-has-value');
+              }else{
+                $(`.div-child-${idx} ion-item`).removeClass('item-has-value');
               }
           }
 
@@ -3369,11 +3409,11 @@ alert.present();
                  
                   if(type == 6){
                     setTimeout(()=>{
-                      (window.document.getElementById(field+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      (window.document.getElementById(field+ index)as any)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     },1000)
                   }else {
                     setTimeout(()=>{
-                      (window.document.getElementById(field+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      (window.document.getElementById(field+ index)as any)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     },150)
                   }
                   
@@ -3419,7 +3459,7 @@ alert.present();
             
               setTimeout(()=>{
                 if(index != -1){
-                  (window.document.getElementById('ipName_' + index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  (window.document.getElementById('ipName_' + index)as any)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
               },350)
           }
@@ -3527,8 +3567,10 @@ alert.present();
                 }
                 //if(se.optionPassport){
                   se.currentSelectPax.country = paxhint.country ? paxhint.country: se.currentSelectPax.country;
+                  se.currentSelectPax.countryName = paxhint.countryName ? paxhint.countryName: se.currentSelectPax.countryName;
                   se.currentSelectPax.passport = paxhint.passport ? paxhint.passport: se.currentSelectPax.passport; 
                   se.currentSelectPax.passportCountry = paxhint.passportCountry ? paxhint.passportCountry: se.currentSelectPax.passportCountry;
+                  se.currentSelectPax.passportCountryName = paxhint.passportCountryName ? paxhint.passportCountryName: se.currentSelectPax.passportCountryName;
                   se.currentSelectPax.passportExpireDate = paxhint.passportExpireDate ? paxhint.passportExpireDate: se.currentSelectPax.passportExpireDate; 
                   se.currentSelectPax.passportExpireDateDisplay = paxhint.passportExpireDate ? moment(paxhint.passportExpireDate).format('DD/MM/YYYY') : (se.currentSelectPax.passportExpireDate ? moment(se.currentSelectPax.passportExpireDate).format('DD/MM/YYYY') : '');
 
@@ -3702,9 +3744,14 @@ alert.present();
       
       if(index != -1){
         setTimeout(()=>{
-          if(index != -1){
-            (window.document.getElementById((item.isChild ? 'ipCountryChild_' : 'ipCountry_')+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          try {
+            if(index != -1){
+              (window.document.getElementById((item.isChild ? 'ipCountryChild_' : 'ipCountry_')+ index)as any)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          } catch (error) {
+            
           }
+         
         },350)
       }
     }
@@ -3858,7 +3905,7 @@ alert.present();
       se.activityService.itemPax = pax;
       se.activityService.itemPax.isChangeBOD = isChangeBOD;
        if(index != -1){
-            (window.document.getElementById((isChangeBOD ? (pax.isChild ? 'ipBirthDateChild_' : 'ipBirthDate_') : (pax.isChild ? 'ipExpireDateChild_':'ipExpireDate_'))+ index)as any).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            (window.document.getElementById((isChangeBOD ? (pax.isChild ? 'ipBirthDateChild_' : 'ipBirthDate_') : (pax.isChild ? 'ipExpireDateChild_':'ipExpireDate_'))+ index)as any)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         let modal = await se.modalCtrl.create({
           component: SelectDateOfBirthPage,
@@ -3922,7 +3969,7 @@ alert.present();
       this._flightService.itemFlightInternational.discountpromo = 0;
       this._voucherService.listPromoCode = [];
       this.buildStringPromoCode();
-      this._voucherService.openFrom = 'flightaddservice';
+      this._voucherService.openFrom = 'flightadddetailsinternational';
       const modal: HTMLIonModalElement =
       await this.modalCtrl.create({
         component: AdddiscountPage,

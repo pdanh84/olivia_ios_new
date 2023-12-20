@@ -4,7 +4,7 @@ import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angula
 import { Platform, NavController, AlertController, ToastController, ActionSheetController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { C } from './../providers/constants';
-import { Camera, CameraOptions  } from '@awesome-cordova-plugins/camera/ngx';
+import { Camera, CameraOptions, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ValueGlobal } from '../providers/book-service';
 import { GlobalFunction } from './../providers/globalfunction';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
@@ -48,7 +48,7 @@ export class UserProfilePage implements OnInit {
     
     constructor(public navCtrl: NavController, public toastCtrl: ToastController,public modalCtrl: ModalController,
         public zone: NgZone, public storage: Storage, public alertCtrl: AlertController, public formBuilder: FormBuilder,
-        public actionsheetCtrl: ActionSheetController, public platform: Platform, public camera: Camera, public valueGlobal: ValueGlobal,
+        public actionsheetCtrl: ActionSheetController, public platform: Platform, public valueGlobal: ValueGlobal,
         private file: File,
         public gf: GlobalFunction) {
         //self.loadUserInfo();
@@ -68,26 +68,7 @@ export class UserProfilePage implements OnInit {
         var se = this;
         se.storage.get('auth_token').then(auth_token => {
             if (auth_token) {
-                var text = "Bearer " + auth_token;
-                // var options = {
-                //     method: 'GET',
-                //     url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-                //     timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-                //     headers:
-                //     {
-                //         'cache-control': 'no-cache',
-                //         'content-type': 'application/json',
-                //         authorization: text
-                //     }
-                // };
-                let urlStr = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-          
-                let headers = {
-                    'cache-control': 'no-cache',
-                    'content-type': 'application/json',
-                    authorization: text
-                };
-                this.gf.RequestApi('GET', urlStr, headers, {}, 'userlinkprofile', 'postDatafb').then((data)=>{
+                this.gf.getUserInfo(auth_token).then((data) => {
 
                         if (data) {
                             se.zone.run(() => {
@@ -556,31 +537,36 @@ export class UserProfilePage implements OnInit {
     async captureImageGallery() {
         var se = this;
         const options: CameraOptions = {
-            quality: 76,
-            sourceType: se.camera.PictureSourceType.SAVEDPHOTOALBUM,
-            destinationType: se.camera.DestinationType.FILE_URI,
-            encodingType: se.camera.EncodingType.JPEG,
-            mediaType: se.camera.MediaType.PICTURE,
-            saveToPhotoAlbum: true,
-            correctOrientation: true,
+          quality: 90,
+          allowEditing: true,
+          resultType: CameraResultType.Base64,
+          saveToGallery: true,
+          correctOrientation: true,
         }
-
-        se.camera.getPicture(options).then((imageData) => {
-            if (imageData) {
-                let filename, path;
-                se.base64Image = imageData;
-                path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
-                filename = imageData.substring(imageData.lastIndexOf('/') + 1);
-                let index = filename.indexOf('?');
-                if (index > -1) {
-                    filename = filename.substring(0, index);
-                }
-                se.croppedImagefilename = filename;
-                se.cropImage(imageData);
+    
+        Camera.getPhoto(options).then((res:any) => {
+          if (res && res.base64String) {
+            let base64Image = res.base64String;
+            let filename, path;
+            let imageData = res.base64String;
+            se.base64Image = imageData;
+            se.zone.run(() => {
+              se.croppedImagepath = "data:image/jpeg;base64," + imageData;
+            })
+            path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
+            filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+            let index = filename.indexOf('?');
+            if (index > -1) {
+              filename = filename.substring(0, index);
+              imageData = imageData.split('?')[0];
+    
             }
-
+            se.croppedImagefilename = filename;
+            se.uploadAvatar(imageData);
+          }
+    
         })
-    }
+      }
 
     /**
      * Chụp ảnh
@@ -589,55 +575,45 @@ export class UserProfilePage implements OnInit {
     async captureImage() {
         var se = this;
         const options: CameraOptions = {
-            quality: 76,
-            destinationType: this.camera.DestinationType.FILE_URI,
-            encodingType: this.camera.EncodingType.JPEG,
-            mediaType: this.camera.MediaType.PICTURE,
-            sourceType: this.camera.PictureSourceType.CAMERA,
-            correctOrientation: true,
+          quality: 90,
+          resultType: CameraResultType.Base64,
+          //encodingType: this.camera.EncodingType.JPEG,
+          //mediaType: this.camera.MediaType.PICTURE,
+          source: CameraSource.Camera,
+          saveToGallery: true,
+          correctOrientation: true,
         }
-
+    
         this.zone.run(() => {
-            this.camera.getPicture(options).then((imageData) => {
-                if (imageData) {
-                    let filename, path;
-                    se.base64Image = imageData;
-                    path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
-                    filename = imageData.substring(imageData.lastIndexOf('/') + 1);
-                    let index = filename.indexOf('?');
-                    if (index > -1) {
-                        filename = filename.substring(0, index);
-                    }
-                    se.croppedImagefilename = filename;
-                    se.cropImage(imageData);
-                }
-            });
+          Camera.getPhoto(options).then((res:any) => {
+            if (res && res.base64String) {
+              let filename, path;
+              let base64Image = res.base64String;
+              se.base64Image = base64Image;
+              se.zone.run(() => {
+                se.croppedImagepath =  "data:image/jpeg;base64," +base64Image;
+              })
+              path = base64Image.substring(0, base64Image.lastIndexOf('/') + 1);
+              filename = base64Image.substring(base64Image.lastIndexOf('/') + 1);
+              let index = filename.indexOf('?');
+              if (index > -1) {
+                filename = filename.substring(0, index);
+              }
+              se.croppedImagefilename = filename;
+              se.uploadAvatar(base64Image);
+            }
+          });
         })
-    }
+      }
 
     uploadAvatar(image: any) {
         var se = this;
-        se.getFullImage(se.base64Image.split('?')[0]).then((data) => {
+        //se.getFullImage(se.base64Image.split('?')[0]).then((data) => {
             se.storage.get('auth_token').then(auth_token => {
                 if (auth_token) {
                     var text = "Bearer " + auth_token;
-                    // var options = {
-                    //     method: 'POST',
-                    //     url: C.urls.baseUrl.urlMobile + '/api/dashboard/UploadAvatarBase64',
-                    //     headers:
-                    //     {
-                    //         Authorization: text,
-                    //     },
-                    //     body: {
-                    //         "imgBase64Full": data,
-                    //         "imgBase64Crop": image,
-                    //         "fileExtension": se.fileType
-                    //     },
-                    //     json: true
-                    // };
-
                     let body = {
-                        "imgBase64Full": data,
+                        "imgBase64Full": image,
                         "imgBase64Crop": image,
                         "fileExtension": se.fileType
                     };
@@ -655,7 +631,7 @@ export class UserProfilePage implements OnInit {
                 }
             })
 
-        });
+       // });
 
 
 

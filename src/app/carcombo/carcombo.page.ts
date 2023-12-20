@@ -941,31 +941,16 @@ export class CarComboPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers ={
-          'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-          let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-          se.gf.RequestApi('GET', strUrl, headers, {}, 'carcombo', 'promofunc').then((data) => {
-            if (data && data.statusCode != 401) {
+        se.gf.getUserInfo(auth_token).then((data) => {
+            if (data) {
+              if(data.email){
+                se.email = data.email;
+              }
               se.storage.set("email", data.email);
               se.storage.set("jti", data.memberId);
               se.storage.set("username", data.fullname);
               se.storage.set("phone", data.phone);
               se.storage.set("point", data.point);
-            }else{
-              se.storage.get('jti').then((memberid) => {
-                se.storage.get('deviceToken').then((devicetoken) => {
-                  se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                    setTimeout(() => {
-                      se.GetUserInfo();
-                    }, 100)
-                  });
-  
-                })
-              })
             }
         });
       }

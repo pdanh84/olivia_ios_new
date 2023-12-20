@@ -376,28 +376,12 @@ export class TicketAdddetailsPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       this.auth_token = auth_token;
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers =
-        {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        }
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'touradddetails', 'loadUserInfo').then((data) => {
+        this.gf.getUserInfo(auth_token).then((data) => {
           if (data) {
             se.zone.run(() => {
-              // var corpInfomations = data.corpInfomations[0];
-              // if (corpInfomations) {
-              //   se.companyname = corpInfomations.legalName;
-              //   se.address = corpInfomations.address;
-              //   se.tax = corpInfomations.taxCode;
-              //   se.addressorder = corpInfomations.addressorder;
-              //   se.hotenhddt = corpInfomations.fullName;
-              //   se.emailhddt = corpInfomations.email;
-              //   se.ishideNameMail = true;
-              // }
-              // else {
+              if(data.email){
+                se.email = data.email;
+              }
                 se.storage.get('order').then(order => {
                   if (order) {
                     se.companyname = order.companyname;
@@ -1123,21 +1107,49 @@ export class TicketAdddetailsPage implements OnInit {
       /**
        * 27-10-2023: Fix bug map item value theo dataraw[element.field] nếu item kkday có trả về dataraw
        */
-      if (this.customInfoArr) {
+      if(this.customInfoArr){
         for (let index = 0; index < this.customInfoArr.length; index++) {
           const element = this.customInfoArr[index];
           for (let indexc = 0; indexc < element.listCustom.length; indexc++) {
             const elementCheck = element.listCustom[indexc];
-            if (!elementCheck[elementCheck.name]) {
-              if (this.customInfoArr.length > 1) {
-                this.gf.showToastWarning(`${elementCheck.label} Khách ${index + 1} không hợp lệ. Vui lòng kiểm tra lại`);
-              } else if (this.customInfoArr.length == 1) {
+            if(!elementCheck[elementCheck.name]){
+              if(this.customInfoArr.length >1){
+                this.gf.showToastWarning(`${elementCheck.label} Khách ${index+1} không hợp lệ. Vui lòng kiểm tra lại`);
+              }else if(this.customInfoArr.length ==1){
                 this.gf.showToastWarning(`${elementCheck.label} không hợp lệ. Vui lòng kiểm tra lại`);
               }
-
-              resolve(false);
-              return;
-            } 
+              
+                resolve(false);
+                return;
+            }else{
+              if(elementCheck && elementCheck.dataRaw && elementCheck.dataRaw.length >0){
+                let datamap = elementCheck.dataRaw.filter((item) => {return item.name ==  elementCheck[elementCheck.name]});
+                if(datamap && datamap.length>0){
+                  this.kkdayResource.dataInput.custom[index][elementCheck.name] = datamap[0][elementCheck.field];
+                }
+              }else{
+                this.kkdayResource.dataInput.custom[index][elementCheck.name] = elementCheck[elementCheck.name];
+              }
+              
+            }
+          }
+          
+        }
+      }
+      if(this.customGeneralInfoArr){
+        for (let index = 0; index < this.customGeneralInfoArr.length; index++) {
+          const element = this.customGeneralInfoArr[index];
+          for (let indexc = 0; indexc < element.listCustom.length; indexc++) {
+            const elementCheck = element.listCustom[indexc];
+            if(!elementCheck[elementCheck.name] && elementCheck.name != 'have_app'){
+              if((elementCheck.name == 'contact_app' || elementCheck.name == 'contact_app_account') && !elementCheck['allowInput']){
+                this.kkdayResource.dataInput.custom[index][elementCheck.name] = '';
+              }else{
+                this.gf.showToastWarning(`${elementCheck.label} không hợp lệ. Vui lòng kiểm tra lại`);
+                resolve(false);
+                return;
+              }
+            }
             else if(!this.kkdayResource.dataInput.custom && this.kkdayResource.dataInput.mobile_device){
               if(elementCheck && elementCheck.dataRaw && elementCheck.dataRaw.length >0){
                 let datamap = elementCheck.dataRaw.filter((item) => {return item.name ==  elementCheck[elementCheck.name]});
@@ -1159,41 +1171,38 @@ export class TicketAdddetailsPage implements OnInit {
               }
             }
           }
-
+          
         }
       }
-      if (this.customGeneralInfoArr) {
-        for (let index = 0; index < this.customGeneralInfoArr.length; index++) {
-          const element = this.customGeneralInfoArr[index];
-          for (let indexc = 0; indexc < element.listCustom.length; indexc++) {
-            const elementCheck = element.listCustom[indexc];
-            if (!elementCheck[elementCheck.name] && elementCheck.name != 'have_app') {
-              if ((elementCheck.name == 'contact_app' || elementCheck.name == 'contact_app_account') && !elementCheck['allowInput']) {
-                this.kkdayResource.dataInput.custom[index][elementCheck.name] = '';
-              } else {
-                this.gf.showToastWarning(`${elementCheck.label} không hợp lệ. Vui lòng kiểm tra lại`);
-                resolve(false);
-                return;
-              }
-            }
-            else if (!this.kkdayResource.dataInput.custom && this.kkdayResource.dataInput.mobile_device) {
-              this.kkdayResource.dataInput.mobile_device[elementCheck.name] = elementCheck[elementCheck.name];
-            } else {
-              this.kkdayResource.dataInput.custom[index][elementCheck.name] = elementCheck[elementCheck.name];
-            }
-          }
-
-        }
-      }
-      if (this.trafficInfoArr) {
+      if(this.trafficInfoArr){
         for (let index = 0; index < this.trafficInfoArr.length; index++) {
           const element = this.trafficInfoArr[index];
-          if (!element[element.name]) {
+          if(!element[element.name]){
             this.gf.showToastWarning(`${element.label} không hợp lệ. Vui lòng kiểm tra lại`);
-            resolve(false);
-            return;
+              resolve(false);
+              return;
           }
-          else {
+          else{
+            if(element && element.dataRaw && element.dataRaw.length >0){
+              let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
+              if(datamap && datamap.length>0){
+                this.kkdayResource.dataInput.traffic.car[element.name] = datamap[0][element.field];
+              }
+            }else{
+              this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
+            }
+            
+          }
+        }
+      }
+      if(this.trafficCarInfoArr){
+        for (let index = 0; index < this.trafficCarInfoArr.length; index++) {
+          const element = this.trafficCarInfoArr[index];
+          if(!element[element.name]){
+            this.gf.showToastWarning(`${element.label} không hợp lệ. Vui lòng kiểm tra lại`);
+              resolve(false);
+              return;
+          }else{
             if(element && element.dataRaw && element.dataRaw.length >0){
               let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
               if(datamap && datamap.length>0){
@@ -1205,33 +1214,14 @@ export class TicketAdddetailsPage implements OnInit {
           }
         }
       }
-      if (this.trafficCarInfoArr) {
-        for (let index = 0; index < this.trafficCarInfoArr.length; index++) {
-          const element = this.trafficCarInfoArr[index];
-          if (!element[element.name]) {
-            this.gf.showToastWarning(`${element.label} không hợp lệ. Vui lòng kiểm tra lại`);
-            resolve(false);
-            return;
-          } else {
-            this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name]; if(element && element.dataRaw && element.dataRaw.length >0){
-              let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
-              if(datamap && datamap.length>0){
-                this.kkdayResource.dataInput.traffic.car[element.name] = datamap[0][element.field];
-              }
-            }else{
-              this.kkdayResource.dataInput.traffic.car[element.name] = element[element.name];
-            }
-          }
-        }
-      }
-      if (this.trafficFlightInfoArr) {
+      if(this.trafficFlightInfoArr){
         for (let index = 0; index < this.trafficFlightInfoArr.length; index++) {
           const element = this.trafficFlightInfoArr[index];
-          if (!element[element.name]) {
+          if(!element[element.name]){
             this.gf.showToastWarning(`${element.label} không hợp lệ. Vui lòng kiểm tra lại`);
-            resolve(false);
-            return;
-          } else {
+              resolve(false);
+              return;
+          }else{
             if(element && element.dataRaw && element.dataRaw.length >0){
               let datamap = element.dataRaw.filter((item) => {return item.name ==  element[element.name]});
               if(datamap && datamap.length>0){

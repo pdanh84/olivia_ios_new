@@ -1,13 +1,13 @@
 <ion-content>
     <div class="div-icon-close" (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
+        <img class="header-img-close" src="./assets/imgs/ios-arrow-round-back.svg" >
     </div>
     <div class="hotel-request-combo-content">
         <h2 class="request-combo-title">Tư vấn cho tôi</h2>
-        <div  *ngIf="!ischeck">
+        <div  >
             <ion-row style="width: 100%;">
-                <ion-col size="5" class="text-label">Ngày khởi hành</ion-col>
-                <ion-col size="7" class="text-label">Số lượng</ion-col>
+                <ion-col size="5" class="text-label1">Ngày khởi hành</ion-col>
+                <ion-col size="7" class="text-label1">Số lượng</ion-col>
             </ion-row>
             <ion-row>
                 <ion-col size="5" *ngIf="isFlashSaleCombo" (click)="openPickupCalendar()">
@@ -21,34 +21,11 @@
                 </ion-col>
             </ion-row>
         </div>
-        <div *ngIf="ischeck" style="margin-left: 5px">
-                <ion-item style="--padding-start: 0px;width: 99%">
-                    <ion-col size="6" style="margin-left: -5px;">
-                        <ion-row>
-                            <ion-col class="text-label">Giờ xe đi</ion-col>
-                        </ion-row>
-                        <ion-select (ionChange)="selectclickdepart($event)" value={{transportDepartTime}}
-                            style="max-width: 100%;--padding-bottom: 0px;margin-left: -10px;" interface="popover">
-                            <ion-select-option *ngFor="let item of arrtransportDepartTime" value={{item}}>{{item}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-col>
-                    <ion-col size="6">
-                        <ion-row>
-                            <ion-col class="text-label">Giờ xe về</ion-col>
-                        </ion-row>
-                        <ion-select (ionChange)="selectclickreturn($event)" value={{transportReturnTime}}
-                            style="max-width: 100%;--padding-bottom: 0px;margin-left: -10px;" interface="popover">
-                            <ion-select-option *ngFor="let item of arrtransportReturnTime" value={{item}}>{{item}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-col>
-                </ion-item>
-        </div>
+       
         <div>
             <ion-row style="width: 100%">
                 <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                    <ion-label position="floating" class="text-label">Họ tên<span style="color: red">*</span></ion-label>
+                    <ion-label position="floating" class="text-label">Họ tên (như trong CCCD/Hộ chiếu)<span [ngClass]="!customerName ? 'color-red' : ''">*</span></ion-label>
                     <ion-input [(ngModel)]="customerName" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)"  (ionFocus)="inputOnFocus(null, 9)"required></ion-input>
                 </ion-item>
             </ion-row>
@@ -56,19 +33,15 @@
         <div>
             <ion-row>
                 <ion-item style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                    <ion-label position="floating" class="text-label">Số điện thoại</ion-label>
-                    <!-- <ion-label position="stacked" *ngIf="!mobilevalidate"
-                        [ngClass]="!mobilevalidate ? 'validate-error' : ''">Số điện thoại không hợp lệ</ion-label> -->
+                    <ion-label position="floating" class="text-label">Số điện thoại liên hệ<span [ngClass]="!mobile ? 'color-red' : ''">*</span></ion-label>
                     <ion-input id="cusMobile" [(ngModel)]="mobile" maxlength=10  type="tel" required></ion-input>
                 </ion-item>
             </ion-row>
         </div>
         <div>
             <ion-item style="--padding-start: 0px;margin: 0 5px;">
-                <ion-label position="floating" class="text-label">Email<span style="color: red">*</span></ion-label>
-                <!-- <ion-label position="stacked" *ngIf="!emailvalidate" [ngClass]="!emailvalidate ? 'validate-error' : ''">
-                    Email không hợp lệ</ion-label> -->
-                <ion-input id="cusEmail" [(ngModel)]="usermail" type="text" required></ion-input>
+                <ion-label position="floating" class="text-label">Email (để nhận Báo giá Combo)<span [ngClass]="!usermail ? 'color-red' : ''">*</span></ion-label>
+                <ion-input id="cusEmail" [(ngModel)]="usermail" type="email" required></ion-input>
             </ion-item>
         </div>
 

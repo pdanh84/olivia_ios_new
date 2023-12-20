@@ -69,6 +69,9 @@ export class FlightaddluggagePage implements OnInit {
     private zone: NgZone,
     public _flightService: flightService) {
     if(this._flightService.itemFlightCache.departFlight){
+      setTimeout(()=>{
+        this.tabluggage = '1';
+      },350)
       this.roundtrip = this._flightService.itemFlightCache.roundTrip;
       this.departLuggage = [];
       this.returnLuggage = [];

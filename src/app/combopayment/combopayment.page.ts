@@ -39,6 +39,8 @@ export class CombopaymentPage implements OnInit {
   totalPrice: any;
   sttbooking = 0;
   ischeckedDK = true;
+  cindisplay: string;
+  coutdisplay: string;
   constructor(public platform: Platform, public searchhotel: SearchHotel, public navCtrl: NavController,
     public storage: Storage, public Roomif: RoomInfo, public booking1: Booking,
     public booking: Booking, public authService: AuthService, public modalCtrl: ModalController, public loadingCtrl: LoadingController,
@@ -55,8 +57,10 @@ export class CombopaymentPage implements OnInit {
     this.Avatar = Roomif.imgHotel;
     this.Name = booking.HotelName;
     this.Address = Roomif.Address;
-    this.cin = booking.CheckInDate;
-    this.cout = booking.CheckOutDate;
+    this.cin =moment(booking.CheckInDate).format("DD-MM-YYYY");
+    this.cout = moment(booking.CheckOutDate).format("DD-MM-YYYY");
+    this.cindisplay =moment(booking.CheckInDate).format("DD-MM-YYYY");
+    this.coutdisplay = moment(booking.CheckOutDate).format("DD-MM-YYYY");
     this.dur = moment(this.cout).diff(moment(this.cin), 'days');
     this.roomnumber = this.searchhotel.roomnumber;
     this.adults = booking.Adults;
@@ -107,14 +111,7 @@ export class CombopaymentPage implements OnInit {
     });
     this.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        let text = "Bearer " + auth_token;
-        let headers =
-        {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        }
-        this.gf.RequestApi('GET', C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo', headers, {}, 'flightcombopaymentselect', 'initpage').then((data) => {
+        this.gf.getUserInfo(auth_token).then((data) => {
           if (data && data.bizAccount) {
             this.zone.run(() => {
               this.bizTravelService.bizAccount = data.bizAccount;

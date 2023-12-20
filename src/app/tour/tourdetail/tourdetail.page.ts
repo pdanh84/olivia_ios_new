@@ -255,7 +255,7 @@ export class TourDetailPage {
   }
   convertAvgPoint(element) {
     if (element.AvgPoint && (element.AvgPoint.toString().length == 1 || element.AvgPoint === 10)) {
-      element.AvgPoint = element.AvgPoint + ".0";
+      element.AvgPoint = element.AvgPoint + ",0";
     }
   }
   mapingPriceTour(slideData) {

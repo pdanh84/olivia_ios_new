@@ -490,7 +490,7 @@ export class CombocarnewPage implements OnInit {
 
       se.totalAdultExtrabed = se.totalAdult - se.AdultCombo;
       se.total = se.total - se.PriceAvgPlusTA;
-      se.PriceAvgPlusTA = itemroom.MealTypeRates[0].PriceAvgPlusTotalTA;
+      se.PriceAvgPlusTA = itemroom.MealTypeRates[se.index].PriceAvgPlusTotalTA;
       se.total= se.total + se.PriceAvgPlusTA;
       se.PriceAvgPlusTAStr = se.total;
       se.PriceAvgPlusTAStr = se.PriceAvgPlusTAStr.toLocaleString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
@@ -2339,15 +2339,8 @@ export class CombocarnewPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        let headers =  {
-          'cache-control': 'no-cache',
-              'content-type': 'application/json',
-              authorization: text
-        };
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'combocarnew', 'GetUserInfo').then((data) => {
-            if (data && data.statusCode != 401) {
+        se.gf.getUserInfo(auth_token).then((data) => {
+            if (data) {
               se.zone.run(() => {
                 if (data.point) {
                   if (data.point > 0) {
@@ -2357,19 +2350,11 @@ export class CombocarnewPage implements OnInit {
                     se.price = se.point.toLocaleString();
                   }
                 }
+                if(data.email){
+                  se.email = data.email;
+                }
                   se.storage.remove('point');
                   se.storage.set('point', data.point);
-              })
-            }else{
-              se.storage.get('jti').then((memberid) => {
-                se.storage.get('deviceToken').then((devicetoken) => {
-                  se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                    setTimeout(() => {
-                      se.GetUserInfo();
-                    }, 100)
-                  });
-  
-                })
               })
             }
         });

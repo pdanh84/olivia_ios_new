@@ -70,7 +70,6 @@ export class LoginPage implements OnInit{
      //Test notification
      this.platform.ready().then(() => {
         FCM.getToken().then(token => {
-          console.log(token);
           this.deviceToken = token;
       });
     })
@@ -109,6 +108,7 @@ export class LoginPage implements OnInit{
 
       FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS }).then((response: FacebookLoginResponse) => {
         if(response.accessToken){
+          se.presentLoadingnotime();
           se.token = response.accessToken;
           let test = response.accessToken;
           se.storage.set('fbaccesstoken',test);
@@ -119,6 +119,9 @@ export class LoginPage implements OnInit{
       //google analytic
       se.gf.googleAnalytion('login', 'loginfacebook', '');
     } catch (error) {
+      if(se.loader){
+        se.loader.dismiss();
+      }
       alert(error);
     }
     
@@ -803,13 +806,15 @@ getToken() {
         }
         se.storage.set("point", decoded.point);
         if(this.platform.is('mobile')){
-        PushNotifications.addListener('registration',
-          async (token: Token) => {
+        // PushNotifications.addListener('registration',
+        //   async (token: Token) => {
+          
               //console.log('token: ' + token.value);
-              se.deviceToken = (token && token.value) ? token.value : token;
+          FCM.getToken().then(token => {
+                se.deviceToken = (token && token.token) ? token.token: token;
               se.storage.set('deviceToken',se.deviceToken);
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(response.auth_token, token.value || token, se.appversion);
+                se.gf.pushTokenAndMemberID(response.auth_token, token.token || token, se.gf.getAppVersion());
               }
             }
           )
@@ -909,7 +914,7 @@ getToken() {
               se.storage.set('deviceToken',se.deviceToken);
               //PDANH 19/07/2019: Push memberid & devicetoken
               if(se.deviceToken){
-                se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.appversion);
+                se.gf.pushTokenAndMemberID(data.auth_token, token.token || token, se.gf.getAppVersion());
               }
             });
           } catch (error) {

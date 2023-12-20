@@ -184,19 +184,15 @@ export class ComboadddetailsPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        let headers = {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'comboadddetails', 'GetUserInfo').then((data) => {
+        se.gf.getUserInfo(auth_token).then((data) => {
             if (data && data.statusCode != 401) {
               var data = data;
               se.zone.run(() => {
                 se.ishide = false;
                 se.ischeck = false;
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations=data.corpInfomations[0];
                 if(data.corpInfomations){
                   se.companyname = corpInfomations.legalName;

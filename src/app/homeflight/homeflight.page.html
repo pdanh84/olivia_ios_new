@@ -88,7 +88,7 @@
                     <div class="div-roundtrip  div-width-100">
                         <div class=" d-flex t-right">
                             <div class="j-center h-48 text-roundtrip div-width-100">Khứ hồi?</div>
-                            <div class="j-center h-48 m-r-16"><ion-toggle (ionChange)="changeRoundTrip($event)" [checked]="flighttype == 'twoway' ? true : false"></ion-toggle></div>
+                            <div class="j-center h-48 m-r-16"><ion-toggle (ionChange)="changeRoundTrip($event)" [value]="flighttype == 'twoway'" [(ngModel)]="checkRoundTrip"></ion-toggle></div>
 
                         </div>
 

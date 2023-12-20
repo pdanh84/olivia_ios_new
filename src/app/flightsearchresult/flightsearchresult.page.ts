@@ -507,6 +507,24 @@ export class FlightsearchresultPage implements OnInit {
                           se.mapHotelInfo(dataHotelCity,dataHotelCityPrice,arrHotelPrice,arrHotelDetail, arrHotel).then((data)=>{
                             se._flightService.itemFlightCache.itemsFlightCityHotel = [...data];
                             se._flightService.itemCheckHotelCity.emit([...data]);
+
+                            let _data = data[0];
+                            console.log(_data);
+                            if(_data.dataPrice && _data.hotelDetail){
+                              _data.hotelDetail.RoomClasses[0].selected = true;
+                              _data.PaxAndRoomInfo = _data.hotelDetail.SummaryFilter+ ", " + _data.hotelDetail.RoomClasses[0].TotalRoom+ " · " + _data.dataPrice.mealName;
+                              _data.roomName = _data.dataPrice.roomName;
+                              _data.priceDiff = (_data.dataPrice.lowRateOta * _data.hotelDetail.TotalNight) - _data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA;
+                              _data.priceOriginal = _data.dataPrice.lowRateOta * _data.hotelDetail.TotalNight;
+                              _data.priceOriginalDisplay = se.gf.convertNumberToString(_data.priceOriginal);
+                              _data.pricePromo = se.gf.convertNumberToString(_data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA);
+                              _data.priceTotal = _data.hotelDetail.RoomClasses[0].MealTypeRates[0].PriceAvgPlusOTA;
+                              _data.SummaryFilter = _data.hotelDetail.SummaryFilter;
+                    
+                              _data.hotelDetail.RoomClasses.forEach(roomClass => {
+                                roomClass.MealTypeRates[0].PriceDiffUpgradeDisplay = se.gf.convertNumberToString(roomClass.MealTypeRates[0].PriceAvgPlusOTA);
+                              });
+                            }
                           })
                           
                         }else{
@@ -556,14 +574,18 @@ export class FlightsearchresultPage implements OnInit {
         for (let index = 0; index < dataHotelCity.List.length; index++) {
           const elementHotel = dataHotelCity.List[index];
          
-
             let objhoteldetailmap = dataHotelCityPrice.HotelDetailData.filter((itemdetail) => {return itemdetail.HotelID == elementHotel.HotelId});
             if(objhoteldetailmap && objhoteldetailmap.length >0){
+              
               elementHotel.hotelDetail = objhoteldetailmap[0];
-
+              if(elementHotel.hotelDetail && elementHotel.hotelDetail.RoomClasses && elementHotel.hotelDetail.RoomClasses[0]){
+                elementHotel.hotelDetail.RoomClasses[0].selected = true;
+              }
+              
               let objhotelmap = dataHotelCityPrice.HotelListResponse.HotelList.HotelSummary.filter((item) => {return item.HotelId == elementHotel.HotelId});
               if(objhotelmap && objhotelmap.length >0){
                 elementHotel.dataPrice = objhotelmap[0];
+                
                 arrHotel.push(elementHotel);
               }
             }
@@ -599,16 +621,6 @@ export class FlightsearchresultPage implements OnInit {
   getHotelCityPrice(key){
     var se = this;
     return new Promise((resolve, reject) => {
-      // var options = {
-      //   method: 'POST',
-      //   url: C.urls.baseUrl.urlContracting + "/api/contracting/HotelSearchReqContractMultiHotel",
-      //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-      //   body: JSON.stringify({cacheKey: key}),
-      //   headers: {
-      //     "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",
-      //     'Content-Type': 'application/json; charset=utf-8'
-      //   }
-      // };
       let urlPath = C.urls.baseUrl.urlContracting + "/api/contracting/HotelSearchReqContractMultiHotel";
           let headers = {
             "Authorization": "Basic YXBwOmNTQmRuWlV6RFFiY1BySXNZdz09",

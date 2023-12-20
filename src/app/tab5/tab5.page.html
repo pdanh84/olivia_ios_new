@@ -36,12 +36,12 @@
         </div>
         <div class="div-split-panel m-top-16" *ngIf="loginuser"></div>
         <div *ngIf="loginuser">
-            <div class="div-item" [ngClass]="loginuser ? 'p-top-24' : ''">
-                <div (click)="Point()" class="div-flex align-center">
+            <div class="div-item" [ngClass]="loginuser ? 'p-top-24' : ''" >
+                <div (click)="Point()" class="div-flex align-center" >
                     <div class="div-icon-left">
                         <img class="icon-left" src="./assets/iconaccount/ivvpoint.svg">
                     </div>
-                    <div class="div-width-100 d-flex h-22">
+                    <div class="div-width-100 d-flex h-22" >
                         <div class="item-list">iVIVUPoint</div>
                         <div class="text-color div-width-100 text-right f-point">
                             {{ point }} điểm

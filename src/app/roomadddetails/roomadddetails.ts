@@ -129,41 +129,22 @@ export class RoomadddetailsPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       this.auth_token = auth_token;
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
-        let headers =
-          {
-            'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-          };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-        this.gf.RequestApi('GET', strUrl, headers, {}, 'roomadddetails', 'GetUserInfo').then((data)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
           if(data && data.corpInfomations && data.corpInfomations.length >0){
               se.zone.run(() => {
                 se.ishide = false;
                 se.ischeck = false;
+                if(data.email){
+                  se._email = data.email;
+                }
                 var corpInfomations=data.corpInfomations[0];
                 if(corpInfomations){
                   se.companyname = corpInfomations.legalName;
                   se.address = corpInfomations.address;
                   se.tax = corpInfomations.taxCode;
-                  // se.addressorder = corpInfomations.addressorder;
-                  // se.hotenhddt=corpInfomations.hotenhddt;
-                  // se.emailhddt=corpInfomations.emailhddt;
-                  // se.ishideNameMail=corpInfomations.ishideNameMail;
                   se.ishide = true;
                   se.ischeck = true;
+                  
                 }
                 else{
                   se.storage.get('order').then(order => {
@@ -183,6 +164,9 @@ export class RoomadddetailsPage implements OnInit {
               })
             }
             else{
+              if(data.email){
+                se._email = data.email;
+              }
               se.storage.get('order').then(order => {
                 if (order) {
                   se.companyname = order.companyname;

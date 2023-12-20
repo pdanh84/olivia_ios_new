@@ -19,7 +19,7 @@ import { FlightInfoInternationalPage } from '../flightinternational/flightinfoin
 import { InAppBrowserOptions, InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { FlightdetailPage } from '../flightdetail/flightdetail.page';
 import { SelectDateOfBirthPage } from '../selectdateofbirth/selectdateofbirth.page';
-
+import { Browser } from '@capacitor/browser';
 @Component({
   selector: 'app-flightaddservice',
   templateUrl: './flightaddservice.page.html',
@@ -592,8 +592,8 @@ getSummaryBooking(resNo) {
   }
 
   checkLuggage(){
-    //let chocieDepartLuggage = [], chocieReturnLuggage = [];
-    this.chocieDepartLuggage = [];
+    try {
+      this.chocieDepartLuggage = [];
     this.chocieReturnLuggage = [];
     let _a = this._flightService.itemFlightCache.adults.map(a => a.itemLug);
     _a.forEach(element => {
@@ -644,8 +644,9 @@ getSummaryBooking(resNo) {
   }
       })
     },50)
-    
-    
+    } catch (error) {
+      
+    }
     
   }
 
@@ -1857,7 +1858,7 @@ getSummaryBooking(resNo) {
     this.hasdepartseat = true;
     this._flightService.itemFlightCache.isnewmodelseat = false;
     this._flightService.itemFlightCache.isnewmodelreturnseat = false;
-    this._flightService.itemFlightCache.objHotelCitySelected = null;
+    
     this._flightService.itemFlightCache.hasvoucher = false;
     this._voucherService.rollbackSelectedVoucher.emit(this._voucherService.selectVoucher);
         this._voucherService.selectVoucher = null;
@@ -1881,8 +1882,9 @@ getSummaryBooking(resNo) {
         this._voucherService.totalDiscountPromoCode = 0;
         this._voucherService.flightPromoCode = "";
         this._voucherService.flightTotalDiscount=0;
-        this._flightService.itemFlightCache.HotelCityMealtypeSelected = null;
-        this._flightService.itemFlightCache.itemsFlightCityHotel = [];
+        //this._flightService.itemFlightCache.HotelCityMealtypeSelected = null;
+        //this._flightService.itemFlightCache.itemsFlightCityHotel = [];
+        //this._flightService.itemFlightCache.objHotelCitySelected = null;
         this._flightService.itemFlightCache.priceCathay = 0;
         if(this._flightService.itemFlightCache.adults && this._flightService.itemFlightCache.adults.length>0){
           this._flightService.itemFlightCache.adults.forEach(element => {
@@ -2614,7 +2616,7 @@ getSummaryBooking(resNo) {
             'Content-Type': 'application/json; charset=utf-8',
           };
           let strUrl = C.urls.baseUrl.urlFlight + "gate/apiv1/PassengerSave/"+data.reservationId;
-          this.gf.RequestApi('POST', strUrl, headers, objPass, 'flightAddService', 'GetUserInfo').then((data)=>{
+          this.gf.RequestApi('POST', strUrl, headers, objPass, 'flightAddService', 'SavePassengerInfo').then((data)=>{
             if (data) {
               let result = data;
               //console.log(result);
@@ -3096,8 +3098,9 @@ getSummaryBooking(resNo) {
     }
     this.alert.present();
   }
-  noteCathay(){
-    this.navCtrl.navigateForward('/insurrancenote');
+  async noteCathay(){
+    let url = 'https://www.ivivu.com/cathay-landing-page';
+    await Browser.open({ url: url})
   }
   toggleCathay(ev){
     this.isCathay=ev.detail.checked;
@@ -3146,10 +3149,11 @@ getSummaryBooking(resNo) {
           se.priceCathay=jsondata.priceCathay;
           se._flightService.itemFlightCache.InsuranceType=0;
           se._flightService.itemFlightCache.priceCathay=0;
-          if(!se.isApiDirect && se._flightService.itemFlightCache.fromCountryCode == 'VN' && se._flightService.itemFlightCache.toCountryCode == 'VN'){
+          if(!se.isApiDirect && se._flightService.itemFlightCache.fromCountryCode == 'VN' && se._flightService.itemFlightCache.toCountryCode == 'VN' && this.checkAddCathayTime()){
             se._flightService.itemFlightCache.isCathay = true;
             se.isCathay = true;
             se._flightService.itemFlightCache.priceCathay = se.priceCathay;
+            //se.checkMappingBirthday();
             if(se.roundtrip){
               se._flightService.itemFlightCache.InsuranceType = 3;
             }
@@ -3161,6 +3165,28 @@ getSummaryBooking(resNo) {
           
         }
     })
+  }
+
+  
+  checkMappingBirthday(){
+      this.storage.get('listpaxcache').then((data)=>{
+        if(data){
+          let arraycheck = [...this._flightService.itemFlightCache.adults,...this._flightService.itemFlightCache.childs];
+          for (let index = 0; index < arraycheck.length; index++) {
+            const elementpax = arraycheck[index];
+            let isexist = data.some(r => r.name.trim().toLowerCase() != elementpax.name.trim().toLowerCase() && moment(r.birthDay).format('YYYYMMDD') == moment(elementpax.birthDay).format('YYYYMMDD') && r.birdayDisplay == elementpax.birdayDisplay);
+            if(isexist){
+              this.zone.run(()=>{
+                elementpax.birthDay = '';
+                elementpax.birdayDisplay ='';
+                elementpax.dateofbirth = '';
+              })
+              
+            }
+          }
+        }else{
+        }
+      })
   }
 
   getCheckAirportDiChung() {
@@ -3389,13 +3415,13 @@ checkInput() :Promise<any>{
       for (let index = 0; index < se._flightService.itemFlightCache.adults.length; index++) {
         const element = se._flightService.itemFlightCache.adults[index];
         if(!element.dateofbirth){
-          se.gf.showAlertMessageOnly('Vui lòng nhập ngày sinh Người lớn '+(element.id));
+          se.gf.showAlertMessageOnly('Vui lòng nhập ngày sinh Người lớn '+(element.id) + ' để hoàn tất mua Bảo Hiểm');
           resolve(false);
         }
         if(element.dateofbirth){
           let diffdate = moment(new Date()).diff(element.dateofbirth, 'months');
           if(diffdate < 144){
-            se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Người lớn "+(element.id)+" trên 12 tuổi");
+            se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Người lớn "+(element.id)+" trên 12 tuổi để hoàn tất mua Bảo Hiểm");
             resolve(false);
           }
         }
@@ -3407,7 +3433,7 @@ checkInput() :Promise<any>{
         const elementChild = se._flightService.itemFlightCache.childs[index];
         
         if(!elementChild.dateofbirth){
-          se.gf.showAlertMessageOnly("Vui lòng nhập ngày sinh "+ (!elementChild.isInfant ? "Trẻ em" : "Em bé") +" "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay));
+          se.gf.showAlertMessageOnly("Vui lòng nhập ngày sinh "+ (!elementChild.isInfant ? "Trẻ em" : "Em bé") +" "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay)) + ' để hoàn tất mua Bảo Hiểm';
           resolve(false);
         }
       
@@ -3416,24 +3442,24 @@ checkInput() :Promise<any>{
           let returndatestring = moment(returndate).format('DD-MM-YYYY');
                       //Check độ tuổi trẻ em > 2
                       if(!elementChild.isInfant && moment(returndate).diff(moment(elementChild.dateofbirth).format('YYYY-MM-DD'), 'months') < 24){
-                        se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Trẻ em "+(!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" lớn hơn hoặc bằng 2 tuổi so với ngày về "+returndatestring);
+                        se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Trẻ em "+(!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" lớn hơn hoặc bằng 2 tuổi so với ngày về "+returndatestring)+ ' để hoàn tất mua Bảo Hiểm';
                         resolve(false);
                       }
                       //Check độ tuổi trẻ em <12
                       if(!elementChild.isInfant && moment(returndate).diff(moment(elementChild.dateofbirth).format('YYYY-MM-DD'), 'months') >= 144){
-                        se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Trẻ em "+(!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" không được lớn hơn 12 tuổi so với ngày về "+returndatestring);
+                        se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Trẻ em "+(!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" không được lớn hơn 12 tuổi so với ngày về "+returndatestring)+ ' để hoàn tất mua Bảo Hiểm';
                         resolve(false);
                       }
                       
                       //Check độ tuổi của em bé <14 ngày
                       if(elementChild.isInfant && moment(returndate).diff(moment(elementChild.dateofbirth).format('YYYY-MM-DD'), 'days') < 14){
-                          se.gf.showAlertMessageOnly("Vui lòng nhập ngày sinh Em bé "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" lớn hơn 14 ngày tuổi so với ngày về "+returndatestring);
+                          se.gf.showAlertMessageOnly("Vui lòng nhập ngày sinh Em bé "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" lớn hơn 14 ngày tuổi so với ngày về "+returndatestring)+ ' để hoàn tất mua Bảo Hiểm';
                           resolve(false);
                       }
                       
                       //Check độ tuổi của em bé <2
                       if(elementChild.isInfant && moment(returndate).diff(moment(elementChild.dateofbirth), 'months') >= 24){
-                          se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Em bé "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" không được lớn hơn 2 tuổi so với ngày về "+returndatestring);
+                          se.gf.showAlertMessageOnly( "Vui lòng nhập ngày sinh Em bé "+ (!elementChild.isInfant ? elementChild.id : elementChild.iddisplay) +" không được lớn hơn 2 tuổi so với ngày về "+returndatestring)+ ' để hoàn tất mua Bảo Hiểm';
                           resolve(false);
                       }
                      

@@ -62,7 +62,11 @@
       .label-name{
           font-size: 14px;
           font-weight: 300;
-          color: #828282;
+          color: #cdcdcd;
+      }
+      .item-has-focus .label-name, .item-has-value .label-name {
+        color: #828282 !important;
+        font-size: 16px;
       }
       .label-input{
         font-size: 18px;
@@ -175,3 +179,7 @@
         margin-top: 4px;
       }
     }
+  .cls-placeholder{
+    --placeholder-color: #cdcdcd;
+    --placeholder-opacity: 1;
+  }

@@ -38,6 +38,11 @@
         font-style: italic;
         letter-spacing: -0.34px;
     }
+    .text-bold {
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      color:#4f4f4f !important;
+    }
     .text-name{
         margin-top:17px;
         margin-bottom: 0;
@@ -112,7 +117,7 @@
         }
         .info-hotel{
             position: relative;
-            padding-left: 112px;
+            padding-left: 120px;
 
            
             
@@ -250,7 +255,9 @@
         background-color: #ffffff;
         text-align: center
     }
-    
+    .text-link {
+      text-decoration: underline;
+    }
 }
 .div-footer{
     .button-footer
@@ -341,6 +348,7 @@
 }
 .divheight
 {
+  margin-top: 24px;
     @media (min-width:320px) and (min-height: 360px) {
         height: 140px;
     }

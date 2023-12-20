@@ -4,8 +4,8 @@
     <div class="hotel-request-combo-content">
         <h2 class="request-combo-title">Yêu cầu đặt combo</h2>
         <ion-row style="width: 100%;">
-            <ion-col size="5" class="text-label">Ngày khởi hành</ion-col>
-            <ion-col size="7" class="text-label">Số lượng</ion-col>
+            <ion-col size="5" class="text-label1">Ngày khởi hành</ion-col>
+            <ion-col size="7" class="text-label1">Số lượng</ion-col>
         </ion-row>
         <ion-row >
             <ion-col size="5" *ngIf="isFlashSaleCombo">
@@ -24,7 +24,7 @@
         </ion-row>
         <div class="hotel-request-departure">
                 <ion-row>
-                    <ion-col class="text-label">Khởi hành từ</ion-col>
+                    <ion-col class="text-label1">Khởi hành từ</ion-col>
                 </ion-row>
 
                 <div>
@@ -59,7 +59,7 @@
             <div class="hotel-request-name">
                 <ion-row>
                     <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                        <ion-label position="stacked" class="text-label">Họ tên*</ion-label>
+                        <ion-label position="floating" class="text-label">Họ tên (như trong CCCD/Hộ chiếu)<span [ngClass]="!customerName ? 'color-red' : ''">*</span></ion-label>
                         <ion-input [(ngModel)]="customerName" type="text" (ionInput)="inputFocus($event)" (ionBlur)="inputLostFocus(null)" (ionFocus)="inputOnFocus(null, 9)" required></ion-input>
                       </ion-item>
                 </ion-row>
@@ -67,15 +67,15 @@
             <div class="hotel-request-phone">
                 <ion-row>
                     <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                        <ion-label position="stacked" class="text-label">Số điện thoại</ion-label>
+                        <ion-label position="floating" class="text-label">Số điện thoại liên hệ<span [ngClass]="!mobile ? 'color-red' : ''">*</span></ion-label>
                         <ion-input id="cusMobile" maxlength=10 [(ngModel)]="mobile" type="tel" required></ion-input>
                     </ion-item>
                 </ion-row>
             </div>
             <div class="hotel-request-email m-bottom-24">
                 <ion-item  style="--padding-start: 0px;width: 100%;margin: 0 5px;">
-                        <ion-label position="stacked" class="text-label">Email*</ion-label>
-                        <ion-input id="cusEmail" [(ngModel)]="usermail" type="text" required></ion-input>
+                        <ion-label position="floating" class="text-label">Email (để nhận Báo giá Combo)<span [ngClass]="!usermail ? 'color-red' : ''">*</span></ion-label>
+                        <ion-input id="cusEmail" [(ngModel)]="usermail" type="email" required></ion-input>
                     </ion-item>
             </div>
             <div (click)="showdiscount()">

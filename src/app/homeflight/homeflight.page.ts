@@ -39,6 +39,7 @@ var document:any;
     child=0;
     infant=0;
     public flighttype= "twoway";
+    checkRoundTrip = true;
     myCalendar: any;
     cin: any;
     cout: any;
@@ -147,8 +148,7 @@ tabInbound: number=1;
                 this._flightService.itemFlightCache = data;
                 if(data.roundTrip){
                   this.flighttype = data.roundTrip ? 'twoway' : 'oneway';
-                }else{
-                  this.flighttype = 'oneway';
+                  this.checkRoundTrip = true;
                 }
                 this.myflight = {...data};
                 this.departCode = data.departCode;
@@ -349,15 +349,7 @@ tabInbound: number=1;
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
         if (auth_token) {
-            var text = "Bearer " + auth_token;
-            let headers =
-            {
-                'cache-control': 'no-cache',
-                'content-type': 'application/json',
-                authorization: text
-            }
-            let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-            se.gf.RequestApi('GET', strUrl, headers, {}, 'homeflight', 'loadUserInfo').then((data) => {
+          se.gf.getUserInfo(auth_token).then((data) => {
                   if (data && data.statusCode != 401) {
                     se.storage.remove('userInfoData');
                     se.storage.set('userInfoData', data);
@@ -371,18 +363,7 @@ tabInbound: number=1;
                       se.isBizAccount = false;
                     }
                  }
-                 else{
-                  se.storage.get('jti').then((memberid) => {
-                    se.storage.get('deviceToken').then((devicetoken) => {
-                      se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                        setTimeout(() => {
-                          se.loadUserInfo();
-                        }, 100)
-                      });
-      
-                    })
-                  })
-                }
+                
             });
         } 
     })
@@ -551,6 +532,7 @@ tabInbound: number=1;
                 this.myflight.isExtenal = this._flightService.objSearch.isExtenal;
                 this.myflight.paxDisplay = ((this._flightService.objSearch.adult ? `${this._flightService.objSearch.adult} người lớn`: '') + (this._flightService.objSearch.child ? `, ${this._flightService.objSearch.child} trẻ em`: '') + (this._flightService.objSearch.infant ? `, ${this._flightService.objSearch.infant} em bé` : '') );
                 this.flighttype = this._flightService.objSearch.roundTrip ? 'twoway' : 'oneway';
+                this.checkRoundTrip = this._flightService.objSearch.roundTrip;
               }
             }
             else if(this._flightService.itemFlightCache){
@@ -606,6 +588,7 @@ tabInbound: number=1;
                 this.myflight.isExtenal = this._flightService.itemFlightCache.isExtenal;
                 this.myflight.paxDisplay = ((this._flightService.itemFlightCache.adult ? `${this._flightService.itemFlightCache.adult} người lớn`: '') + (this._flightService.itemFlightCache.child ? `, ${this._flightService.itemFlightCache.child} trẻ em`: '') + (this._flightService.itemFlightCache.infant ? `, ${this._flightService.itemFlightCache.infant} em bé` : '') );
                 this.flighttype = this._flightService.itemFlightCache.roundTrip ? 'twoway' : 'oneway';
+                this.checkRoundTrip = this._flightService.objSearch.roundTrip;
               }
               //xử lý âm lịch
               this.bindlunar();
@@ -1442,19 +1425,285 @@ tabInbound: number=1;
 
       loadcachetopdeal(data){
         var se = this;
-        se.loadflighttopdealdone = false;
-        if(data && data.length >0 && data[0] && data[0].list){
-          data.forEach(elementdata => {
-            elementdata.list.forEach(element => {
+        
+        if(!se.listflighttopdeal || (se.listflighttopdeal && se.listflighttopdeal.length ==0)
+        || (!(se.listflighttopdealoneway && se.listflighttopdealoneway.slide && se.listflighttopdealoneway.slide.length >0) && !this.checkRoundTrip)
+        || (!(se.listflighttopdealroundtrip && se.listflighttopdealroundtrip.slide && se.listflighttopdealroundtrip.slide.length >0) && this.checkRoundTrip)
+        || !(se.listinternationalflighttopdeal && se.listinternationalflighttopdeal.length >0 && ((!this.checkRoundTrip && se.hassomelistinteroneway) || (this.checkRoundTrip && se.hassomelistintertwoway ) ))
+        ){
+          se.loadflighttopdealdone = false;
+          if(data && data.length >0 && data[0] && data[0].list){
+            data.forEach(elementdata => {
+              elementdata.list.forEach(element => {
+                element.roundTrip = false;
+                element.timesortorder = new Date(element.depart.departTime).getTime();
+                if(element.depart){
+                  element.fromPlaceName =  element.depart.fromPlaceName;
+                  element.toPlaceNameDisplay = element.depart.toPlaceName;
+                  element.dateDisplay = moment(element.depart.departTime).format('DD.MM');
+                  element.dateDepartDisplay = se.getDayOfWeek(element.depart.departTime).dayname + ", " + moment(element.depart.departTime).format('DD') + ' thg '+moment(element.depart.departTime).format('MM');
+                }
+                if(element.return && element.return.fromPlaceName){
+                  element.dateDisplay += " - " + moment(element.return.departTime).format('DD.MM');
+                  element.dateReturnDisplay = se.getDayOfWeek(element.return.departTime).dayname + ", " + moment(element.return.departTime).format('DD') + ' thg '+ moment(element.return.departTime).format('MM');
+                  element.roundTrip = true;
+                }
+                
+                element.priceDisplay = se.gf.convertNumberToString(element.price);
+              });
+            });
+            se.listflighttopdeal = data[0].list;
+            se.listflighttopdealoneway = se.listflighttopdeal.filter((item) => {return item.roundTrip = false});
+            se.listflighttopdealroundtrip = se.listflighttopdeal.filter((item) => {return item.roundTrip = true});
+  
+             
+            if(data.length >1){
+              se.listinternationalflighttopdeal = data.splice(1,data.length -1);
+              se.showDivFlightTopDeal = se.listflighttopdeal.some(item => item.roundTrip == (this.flighttype == 'twoway'));
+            }
+            
+            setTimeout(()=>{
+              if(se.listinternationalflighttopdeal && se.listinternationalflighttopdeal.length >0 && se.listinternationalflighttopdeal[0] && se.listinternationalflighttopdeal[0].list){
+               
+                  for (let index = 0; index < se.listinternationalflighttopdeal.length; index++) {
+                      const element = se.listinternationalflighttopdeal[index];
+                  
+                    element.tabInbound =1;
+                    element.listoneway = element.list.filter((item) => {return item.return && !item.return.fromPlaceName });
+                    element.listroundtrip = element.list.filter((item) => {return item.return && item.return.fromPlaceName});
+                    if(element.listoneway && element.listoneway.length >0){
+                      let slide1:any = [];
+                      let slide2:any = [];
+                      let slide3:any = [];
+                      let slide4:any = [];
+                      let slide5:any = [];
+                      let slide6:any = [];
+                      for (let index = 0; index < element.listoneway.length; index++) {
+                        const elementList = element.listoneway[index];
+                        if(index < 3){
+                          slide1.push(elementList);
+                        }
+                        else if(index >= 3 && index < 6){
+                          slide2.push(elementList);
+                        }
+                        else if(index >= 6 && index < 9){
+                          slide3.push(elementList);
+                        }
+                        else if(index >= 9 && index < 12){
+                          slide4.push(elementList);
+                        }
+                        else if(index >= 12 && index < 15){
+                          slide5.push(elementList);
+                        }
+                        else if(index >= 15 && index < 18){
+                          slide6.push(elementList);
+                        }
+                      }
+                      element.slide = [];
+                      if(slide1.length >0){
+                        element.slide.push({name: 'slide1', list: slide1});
+                      }
+                      if(slide2.length >0){
+                        element.slide.push({name: 'slide2', list: slide2});
+                      }
+                      if(slide3.length >0){
+                        element.slide.push({name: 'slide3', list: slide3});
+                      }
+                      if(slide4.length >0){
+                        element.slide.push({name: 'slide4', list: slide4});
+                      }
+                      if(slide5.length >0){
+                        element.slide.push({name: 'slide5', list: slide5});
+                      }
+                      if(slide6.length >0){
+                        element.slide.push({name: 'slide6', list: slide6});
+                      }
+                      
+                      element.listflighttopdealoneway = element.slide;
+                    }
+  
+                    if(element.listroundtrip && element.listroundtrip.length >0){
+                      let slide1:any = [];
+                      let slide2:any = [];
+                      let slide3:any = [];
+                      let slide4:any = [];
+                      let slide5:any = [];
+                      let slide6:any = [];
+                      for (let index = 0; index < element.listroundtrip.length; index++) {
+                        const elementList = element.listroundtrip[index];
+                        
+                        if(index < 3){
+                          slide1.push(elementList);
+                        }
+                        else if(index >= 3 && index < 6){
+                          slide2.push(elementList);
+                        }
+                        else if(index >= 6 && index < 9){
+                          slide3.push(elementList);
+                        }
+                        else if(index >= 9 && index < 12){
+                          slide4.push(elementList);
+                        }
+                        else if(index >= 12 && index < 15){
+                          slide5.push(elementList);
+                        }
+                        else if(index >= 15 && index < 18){
+                          slide6.push(elementList);
+                        }
+                      }
+                     
+                      element.slide = [];
+                      if(slide1.length >0){
+                        element.slide.push({name: 'slide1', list: slide1});
+                      }
+                      if(slide2.length >0){
+                        element.slide.push({name: 'slide2', list: slide2});
+                      }
+                      if(slide3.length >0){
+                        element.slide.push({name: 'slide3', list: slide3});
+                      }
+                      if(slide4.length >0){
+                        element.slide.push({name: 'slide4', list: slide4});
+                      }
+                      if(slide5.length >0){
+                        element.slide.push({name: 'slide5', list: slide5});
+                      }
+                      if(slide6.length >0){
+                        element.slide.push({name: 'slide6', list: slide6});
+                      }
+                      element.listflighttopdealroundtrip = element.slide;
+                    }
+                    
+                  };
+                  console.log(se.listinternationalflighttopdeal);
+                  setTimeout(()=>{
+                    
+                    se.hassomelistinteroneway = se.listinternationalflighttopdeal.some(l => l.listflighttopdealoneway) ;
+                    se.hassomelistintertwoway = se.listinternationalflighttopdeal.some(l => l.listflighttopdealroundtrip) ;
+                  },100)
+              }
+              
+              setTimeout(()=>{
+                if(se.listflighttopdealoneway && se.listflighttopdealoneway.length >0){
+                  let slide1:any = [];
+                  let slide2:any = [];
+                  let slide3:any = [];
+                  let slide4:any = [];
+                  let slide5:any = [];
+                  let slide6:any = [];
+                    for (let index = 0; index < se.listflighttopdealoneway.length; index++) {
+                      const elementList = se.listflighttopdealoneway[index];
+                      if(index < 3){
+                        slide1.push(elementList);
+                      }
+                      else if(index >= 3 && index < 6){
+                        slide2.push(elementList);
+                      }
+                      else if(index >= 6 && index < 9){
+                        slide3.push(elementList);
+                      }
+                      else if(index >= 9 && index < 12){
+                        slide4.push(elementList);
+                      }
+                      else if(index >= 12 && index < 15){
+                        slide5.push(elementList);
+                      }
+                      else if(index >= 15 && index < 18){
+                        slide6.push(elementList);
+                      }
+                    }
+                    se.listflighttopdealoneway.slide = [];
+                    if(slide1.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide1', list: slide1});
+                    }
+                    if(slide2.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide2', list: slide2});
+                    }
+                    if(slide3.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide3', list: slide3});
+                    }
+                    if(slide4.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide4', list: slide4});
+                    }
+                    if(slide5.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide5', list: slide5});
+                    }
+                    if(slide6.length >0){
+                      se.listflighttopdealoneway.slide.push({name: 'slide6', list: slide6});
+                    }
+                 
+                }
+                
+                if(se.listflighttopdealroundtrip && se.listflighttopdealroundtrip.length >0){
+                  let slideroundtrip1:any = [];
+                  let slideroundtrip2:any = [];
+                  let slideroundtrip3:any = [];
+                  let slideroundtrip4:any = [];
+                  let slideroundtrip5:any = [];
+                  let slideroundtrip6:any = [];
+                  for (let index = 0; index < se.listflighttopdealroundtrip.length; index++) {
+                    const elementList = se.listflighttopdealroundtrip[index];
+                    
+                    if(index < 3){
+                      slideroundtrip1.push(elementList);
+                    }
+                    else if(index >= 3 && index < 6){
+                      slideroundtrip2.push(elementList);
+                    }
+                    else if(index >= 6 && index < 9){
+                      slideroundtrip3.push(elementList);
+                    }
+                    else if(index >= 9 && index < 12){
+                      slideroundtrip4.push(elementList);
+                    }
+                    else if(index >= 12 && index < 15){
+                      slideroundtrip5.push(elementList);
+                    }
+                    else if(index >= 15 && index < 18){
+                      slideroundtrip6.push(elementList);
+                    }
+                  }
+                  se.listflighttopdealroundtrip.slide = [];
+                  if(slideroundtrip1.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide1', list: slideroundtrip1, selected: true});
+                  }
+                  if(slideroundtrip2.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide2', list: slideroundtrip2});
+                  }
+                  if(slideroundtrip3.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide3', list: slideroundtrip3});
+                  }
+                  if(slideroundtrip4.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide4', list: slideroundtrip4});
+                  }
+                  if(slideroundtrip5.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide5', list: slideroundtrip5});
+                  }
+                  if(slideroundtrip6.length >0){
+                    se.listflighttopdealroundtrip.slide.push({name: 'slide6', list: slideroundtrip6});
+                  }
+                  
+                }
+                
+                  //console.log(se.listflighttopdealoneway);
+                  //console.log(se.listflighttopdealroundtrip);
+                  se.loadflighttopdealdone = true;
+              },50)
+              
+              
+            },100)
+            
+  
+          }else{
+            data.forEach(element => {
               element.roundTrip = false;
-              element.timesortorder = new Date(element.depart.departTime).getTime();
               if(element.depart){
                 element.fromPlaceName =  element.depart.fromPlaceName;
-                element.toPlaceNameDisplay = element.depart.toPlaceName;
+                element.toPlaceNameDisplay = element.depart.toPlaceName.split(',')[0];
                 element.dateDisplay = moment(element.depart.departTime).format('DD.MM');
                 element.dateDepartDisplay = se.getDayOfWeek(element.depart.departTime).dayname + ", " + moment(element.depart.departTime).format('DD') + ' thg '+moment(element.depart.departTime).format('MM');
               }
-              if(element.return && element.return.fromPlaceName){
+              if(element.return && element.return.toPlace){
                 element.dateDisplay += " - " + moment(element.return.departTime).format('DD.MM');
                 element.dateReturnDisplay = se.getDayOfWeek(element.return.departTime).dayname + ", " + moment(element.return.departTime).format('DD') + ' thg '+ moment(element.return.departTime).format('MM');
                 element.roundTrip = true;
@@ -1462,269 +1711,12 @@ tabInbound: number=1;
               
               element.priceDisplay = se.gf.convertNumberToString(element.price);
             });
-          });
-          se.listflighttopdeal = data[0].list;
-          se.listflighttopdealoneway = se.listflighttopdeal.filter((item) => {return item.roundTrip = false});
-          se.listflighttopdealroundtrip = se.listflighttopdeal.filter((item) => {return item.roundTrip = true});
-
-           
-          if(data.length >1){
-            se.listinternationalflighttopdeal = data.splice(1,data.length -1);
-            se.showDivFlightTopDeal = se.listflighttopdeal.some(item => item.roundTrip == (this.flighttype == 'twoway'));
+            se.listflighttopdeal = data.filter((item) => {return item.source == 'inbound'});
+            se.listinternationalflighttopdeal = data.filter((item) => {return item.source == 'outbound' && (!item.roundTrip || (item.roundTrip && item.return.price))});
           }
-         
-          setTimeout(()=>{
-            if(se.listinternationalflighttopdeal && se.listinternationalflighttopdeal.length >0 && se.listinternationalflighttopdeal[0] && se.listinternationalflighttopdeal[0].list){
-             
-                for (let index = 0; index < se.listinternationalflighttopdeal.length; index++) {
-                    const element = se.listinternationalflighttopdeal[index];
-                
-                  element.tabInbound =1;
-                  element.listoneway = element.list.filter((item) => {return item.return && !item.return.fromPlaceName });
-                  element.listroundtrip = element.list.filter((item) => {return item.return && item.return.fromPlaceName});
-                  if(element.listoneway && element.listoneway.length >0){
-                    let slide1:any = [];
-                    let slide2:any = [];
-                    let slide3:any = [];
-                    let slide4:any = [];
-                    let slide5:any = [];
-                    let slide6:any = [];
-                    for (let index = 0; index < element.listoneway.length; index++) {
-                      const elementList = element.listoneway[index];
-                      if(index < 3){
-                        slide1.push(elementList);
-                      }
-                      else if(index >= 3 && index < 6){
-                        slide2.push(elementList);
-                      }
-                      else if(index >= 6 && index < 9){
-                        slide3.push(elementList);
-                      }
-                      else if(index >= 9 && index < 12){
-                        slide4.push(elementList);
-                      }
-                      else if(index >= 12 && index < 15){
-                        slide5.push(elementList);
-                      }
-                      else if(index >= 15 && index < 18){
-                        slide6.push(elementList);
-                      }
-                    }
-                    element.slide = [];
-                    if(slide1.length >0){
-                      element.slide.push({name: 'slide1', list: slide1});
-                    }
-                    if(slide2.length >0){
-                      element.slide.push({name: 'slide2', list: slide2});
-                    }
-                    if(slide3.length >0){
-                      element.slide.push({name: 'slide3', list: slide3});
-                    }
-                    if(slide4.length >0){
-                      element.slide.push({name: 'slide4', list: slide4});
-                    }
-                    if(slide5.length >0){
-                      element.slide.push({name: 'slide5', list: slide5});
-                    }
-                    if(slide6.length >0){
-                      element.slide.push({name: 'slide6', list: slide6});
-                    }
-                    
-                    element.listflighttopdealoneway = element.slide;
-                  }
-
-                  if(element.listroundtrip && element.listroundtrip.length >0){
-                    let slide1:any = [];
-                    let slide2:any = [];
-                    let slide3:any = [];
-                    let slide4:any = [];
-                    let slide5:any = [];
-                    let slide6:any = [];
-                    for (let index = 0; index < element.listroundtrip.length; index++) {
-                      const elementList = element.listroundtrip[index];
-                      
-                      if(index < 3){
-                        slide1.push(elementList);
-                      }
-                      else if(index >= 3 && index < 6){
-                        slide2.push(elementList);
-                      }
-                      else if(index >= 6 && index < 9){
-                        slide3.push(elementList);
-                      }
-                      else if(index >= 9 && index < 12){
-                        slide4.push(elementList);
-                      }
-                      else if(index >= 12 && index < 15){
-                        slide5.push(elementList);
-                      }
-                      else if(index >= 15 && index < 18){
-                        slide6.push(elementList);
-                      }
-                    }
-                   
-                    element.slide = [];
-                    if(slide1.length >0){
-                      element.slide.push({name: 'slide1', list: slide1});
-                    }
-                    if(slide2.length >0){
-                      element.slide.push({name: 'slide2', list: slide2});
-                    }
-                    if(slide3.length >0){
-                      element.slide.push({name: 'slide3', list: slide3});
-                    }
-                    if(slide4.length >0){
-                      element.slide.push({name: 'slide4', list: slide4});
-                    }
-                    if(slide5.length >0){
-                      element.slide.push({name: 'slide5', list: slide5});
-                    }
-                    if(slide6.length >0){
-                      element.slide.push({name: 'slide6', list: slide6});
-                    }
-                    element.listflighttopdealroundtrip = element.slide;
-                  }
-                  
-                };
-                console.log(se.listinternationalflighttopdeal);
-                setTimeout(()=>{
-                  
-                  se.hassomelistinteroneway = se.listinternationalflighttopdeal.some(l => l.listflighttopdealoneway) ;
-                  se.hassomelistintertwoway = se.listinternationalflighttopdeal.some(l => l.listflighttopdealroundtrip) ;
-                },100)
-            }
-            
-            setTimeout(()=>{
-              if(se.listflighttopdealoneway && se.listflighttopdealoneway.length >0){
-                let slide1:any = [];
-                let slide2:any = [];
-                let slide3:any = [];
-                let slide4:any = [];
-                let slide5:any = [];
-                let slide6:any = [];
-                  for (let index = 0; index < se.listflighttopdealoneway.length; index++) {
-                    const elementList = se.listflighttopdealoneway[index];
-                    if(index < 3){
-                      slide1.push(elementList);
-                    }
-                    else if(index >= 3 && index < 6){
-                      slide2.push(elementList);
-                    }
-                    else if(index >= 6 && index < 9){
-                      slide3.push(elementList);
-                    }
-                    else if(index >= 9 && index < 12){
-                      slide4.push(elementList);
-                    }
-                    else if(index >= 12 && index < 15){
-                      slide5.push(elementList);
-                    }
-                    else if(index >= 15 && index < 18){
-                      slide6.push(elementList);
-                    }
-                  }
-                  se.listflighttopdealoneway.slide = [];
-                  if(slide1.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide1', list: slide1});
-                  }
-                  if(slide2.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide2', list: slide2});
-                  }
-                  if(slide3.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide3', list: slide3});
-                  }
-                  if(slide4.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide4', list: slide4});
-                  }
-                  if(slide5.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide5', list: slide5});
-                  }
-                  if(slide6.length >0){
-                    se.listflighttopdealoneway.slide.push({name: 'slide6', list: slide6});
-                  }
-               
-              }
-              
-              if(se.listflighttopdealroundtrip && se.listflighttopdealroundtrip.length >0){
-                let slideroundtrip1:any = [];
-                let slideroundtrip2:any = [];
-                let slideroundtrip3:any = [];
-                let slideroundtrip4:any = [];
-                let slideroundtrip5:any = [];
-                let slideroundtrip6:any = [];
-                for (let index = 0; index < se.listflighttopdealroundtrip.length; index++) {
-                  const elementList = se.listflighttopdealroundtrip[index];
-                  
-                  if(index < 3){
-                    slideroundtrip1.push(elementList);
-                  }
-                  else if(index >= 3 && index < 6){
-                    slideroundtrip2.push(elementList);
-                  }
-                  else if(index >= 6 && index < 9){
-                    slideroundtrip3.push(elementList);
-                  }
-                  else if(index >= 9 && index < 12){
-                    slideroundtrip4.push(elementList);
-                  }
-                  else if(index >= 12 && index < 15){
-                    slideroundtrip5.push(elementList);
-                  }
-                  else if(index >= 15 && index < 18){
-                    slideroundtrip6.push(elementList);
-                  }
-                }
-                se.listflighttopdealroundtrip.slide = [];
-                if(slideroundtrip1.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide1', list: slideroundtrip1, selected: true});
-                }
-                if(slideroundtrip2.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide2', list: slideroundtrip2});
-                }
-                if(slideroundtrip3.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide3', list: slideroundtrip3});
-                }
-                if(slideroundtrip4.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide4', list: slideroundtrip4});
-                }
-                if(slideroundtrip5.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide5', list: slideroundtrip5});
-                }
-                if(slideroundtrip6.length >0){
-                  se.listflighttopdealroundtrip.slide.push({name: 'slide6', list: slideroundtrip6});
-                }
-                
-              }
-              
-                //console.log(se.listflighttopdealoneway);
-                //console.log(se.listflighttopdealroundtrip);
-                se.loadflighttopdealdone = true;
-            },50)
-            
-            
-          },100)
-          
-
-        }else{
-          data.forEach(element => {
-            element.roundTrip = false;
-            if(element.depart){
-              element.fromPlaceName =  element.depart.fromPlaceName;
-              element.toPlaceNameDisplay = element.depart.toPlaceName.split(',')[0];
-              element.dateDisplay = moment(element.depart.departTime).format('DD.MM');
-              element.dateDepartDisplay = se.getDayOfWeek(element.depart.departTime).dayname + ", " + moment(element.depart.departTime).format('DD') + ' thg '+moment(element.depart.departTime).format('MM');
-            }
-            if(element.return && element.return.toPlace){
-              element.dateDisplay += " - " + moment(element.return.departTime).format('DD.MM');
-              element.dateReturnDisplay = se.getDayOfWeek(element.return.departTime).dayname + ", " + moment(element.return.departTime).format('DD') + ' thg '+ moment(element.return.departTime).format('MM');
-              element.roundTrip = true;
-            }
-            
-            element.priceDisplay = se.gf.convertNumberToString(element.price);
-          });
-          se.listflighttopdeal = data.filter((item) => {return item.source == 'inbound'});
-          se.listinternationalflighttopdeal = data.filter((item) => {return item.source == 'outbound' && (!item.roundTrip || (item.roundTrip && item.return.price))});
         }
+
+        
         
 
         // setTimeout(()=>{

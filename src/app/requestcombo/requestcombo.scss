@@ -8,11 +8,20 @@
 .hotel-request-combo-content{
     padding: calc(env(safe-area-inset-top) + 15px) 15px 15px 15px;
 }
-.text-label{
+.text-label1{
     font-size: 14px;
-    color: #818180;
-    font-weight: 400;
+    color: #828282;
+    font-weight: 500;
 }
+.text-label{
+    font-size: 16px;
+    color: #cdcdcd;
+    font-weight: 500;
+}
+.item-has-focus .text-label, .item-has-value .text-label {
+    color: #828282 !important;
+    font-size: 16px;
+  }
 .text-cin{
     border: solid 1px #cdcdcd;
     border-radius: 5px;

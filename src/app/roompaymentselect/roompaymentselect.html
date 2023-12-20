@@ -8,7 +8,7 @@
               src="./assets/imgs/ios-arrow-round-back.svg">
           </div>
 
-          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thanh toán</label>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Thông tin thanh toán</label>
           </div>
         </div>
       </ion-col>
@@ -91,13 +91,13 @@
 
   <div [ngClass]="(_voucherService.hotelPromoCode) ? 'cls-divpayment m-bottom-20' : 'cls-divpayment'">
     <ion-row class="cls-rowheight">
-      <ion-col size="5">
+      <ion-col size="6">
         <div>
           <h2 class="text-name" style="font-size: 18px;margin: 0" position="stacked">Tổng cộng</h2>
           <p style="font-size: 10px;font-weight: 300;margin: 0">Giá đã bao gồm thuế & phí</p>
         </div>
       </ion-col>
-      <ion-col size="7">
+      <ion-col size="6">
         <p class="total-price" style="text-align: right;margin: 0" *ngIf="!_voucherService.hotelPromoCode">
           {{priceshow}}đ
           <sup>

@@ -37,6 +37,7 @@
   <div class="cls-m16" *ngIf="_voucherService.hasVoucher">
     <div class="title-voucher">Voucher của bạn</div>
     <app-voucherslide class="voucher-list cls-flightaddservice" *ngIf="_voucherService.openFrom == 'flightaddservice'"></app-voucherslide>
+    <app-voucherslideinternational class="voucher-list cls-flightaddservice" *ngIf="_voucherService.openFrom == 'flightadddetailsinternational'"></app-voucherslideinternational>
     <app-voucherslidehotel class="voucher-list cls-roomdetailreview" *ngIf="_voucherService.openFrom == 'roomdetailreview'"></app-voucherslidehotel>
     <app-voucherslidecarcombo class="voucher-list cls-carcomboreview" *ngIf="_voucherService.openFrom == 'combocarnew'"></app-voucherslidecarcombo>
     <app-voucherslideflightcombo class="voucher-list cls-flightcomboreview" *ngIf="_voucherService.openFrom == 'flightcomboreview'"></app-voucherslideflightcombo>

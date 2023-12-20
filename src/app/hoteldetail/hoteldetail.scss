@@ -1335,7 +1335,7 @@
     .text-departure{
         text-align: right;
         color: #003c71;
-        //text-decoration: underline;
+        text-decoration: underline;
         font-weight: bold;
         letter-spacing: -0.4px;
     }
@@ -1532,6 +1532,8 @@
             --ion-color-primary:#26bed6;
         }
           ion-badge{
+            width: 34px !important;
+            padding: 3px !important;
               height: 20px;
               border-radius: 6px;
               font-size: 14px;
@@ -1991,14 +1993,14 @@ small
 }
 .cls-ionbadge
 {
-    width: 49px;
-    height: 32px;
+    width: 49px !important;
+    height: 32px !important;
     border-radius: 6px;
     font-size: 18px;
     font-weight: bold;
     letter-spacing: -0.51px;
     align-self: center;
-    padding: 6px 0px 6px 0px;
+    padding: 6px 0px 6px 0px !important;
     background: #A0C246;
 }
 .cls-ml16
@@ -2044,8 +2046,8 @@ small
 }
 .cls-ionbadgerw
 {
-    width: auto;
-    padding: 4px 6px;
+    width: auto !important;
+    padding: 4px 6px !important;
     height: 24px;
     border-radius: 6px;
     font-size: 18px;

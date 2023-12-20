@@ -103,27 +103,18 @@ export class RoompaymentselectEanPage implements OnInit {
     });
     this.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-            let text = "Bearer " + auth_token;
-            let headers =
-                {
-                    'cache-control': 'no-cache',
-                    'content-type': 'application/json',
-                    authorization: text
-                }
-
-            this.gf.RequestApi('GET', C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo', headers, {}, 'roompaymentselect', 'initpage').then((data)=>{
-              if(data && data.bizAccount){
+        this.gf.getUserInfo(auth_token).then((data) => {
+             if(data && data.bizAccount){
                 this.zone.run(()=>{
                   this.bizTravelService.bizAccount = data.bizAccount;
                   this.bizTravelService.isCompany = true;
                 })
-               
+                this.auth_token = auth_token;
               }else{
                 this.bizTravelService.isCompany = false;
+                this.auth_token = auth_token;
               }
             })
-          }else{
-            this.bizTravelService.isCompany = false;
           }
         });
     //google analytic
@@ -136,9 +127,9 @@ export class RoompaymentselectEanPage implements OnInit {
   }
   ionViewWillEnter() {
     this.bookingCode=this.bookingCode?this.bookingCode:this.Roomif.bookingCode;
-    this.storage.get('auth_token').then(auth_token => {
-      this.auth_token = auth_token;
-    })
+    // this.storage.get('auth_token').then(auth_token => {
+    //   this.auth_token = auth_token;
+    // })
     C.writePaymentLog("hotel", "paymentselect", "purchase", this.bookingCode);
   }
   roompaymentbank() {

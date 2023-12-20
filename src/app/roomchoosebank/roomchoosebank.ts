@@ -72,8 +72,12 @@ export class RoomchoosebankPage implements OnInit {
   ionViewWillEnter() {
     
     this.storage.get('auth_token').then(auth_token => {
-      this.auth_token = auth_token;
-    })
+      if (auth_token) {
+       
+          this.auth_token = auth_token;
+        
+      }
+    });
     this.storage.get('jti').then(jti => {
       if (jti) {
         this.jti = jti;

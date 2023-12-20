@@ -148,7 +148,7 @@
           <ion-item-group  *ngFor="let item of itemsSkeleton">
               <ion-row class="row-item-hotellist-sk">
                   <ion-col size="4" class="col-img-hotellist-sk" >
-                      <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px"></ion-skeleton-text>
+                      <ion-skeleton-text animated style="width:104px;height:123px;border-radius:6px"></ion-skeleton-text>
                   </ion-col>
                   <ion-col size="8" class="col-description-hotellist-sk" style="line-height: 18px;padding-top: 0">
                       <div style="height: 100%">
@@ -298,7 +298,7 @@
       </div>
     </div>
     <div *ngIf="valueGlobal.ischeckFavourite=='Tour'">
-      <ion-list *ngIf="ishide && isConnected">
+      <ion-list *ngIf="ishidetour && isConnected">
         <div class="card-background-detailpage">
           <div *ngFor="let msg of slideData; let i = index">
             <div  class="row-item-hotellist">
@@ -395,11 +395,11 @@
   
         </div>
       </ion-list>
-      <div *ngIf="!ishide && loginuser" style="text-align: center">
+      <div *ngIf="!ishidetour && loginuser" style="text-align: center">
         <ion-item-group  *ngFor="let item of itemsSkeleton">
             <ion-row class="row-item-hotellist-sk">
                 <ion-col size="4" class="col-img-hotellist-sk" >
-                    <ion-skeleton-text animated style="width:104px;height:104px;border-radius:6px"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width:104px;height:123px;border-radius:6px"></ion-skeleton-text>
                 </ion-col>
                 <ion-col size="8" class="col-description-hotellist-sk" style="line-height: 18px;padding-top: 0">
                     <div style="height: 100%">
@@ -418,7 +418,7 @@
             <p class="h-line-sk"></p>
         </ion-item-group>
       </div>
-      <div *ngIf="nodata==true || !isConnected && slideData.length==0" style="text-align: center;margin-top: 10px">
+      <div *ngIf="(nodatatour==true&& slideData.length==0) || !isConnected " style="text-align: center;margin-top: 10px">
           <img src="./assets/imgs/empty.svg">
           <div *ngIf="!isConnected">
             <p class="text-empty">Vui lòng kết nối mạng để sử dụng các tính năng của ứng dụng.</p>
@@ -428,15 +428,6 @@
             <p class="text-empty">Không có tour yêu thích!</p>
           </div>
       
-          <!-- <div *ngIf="istext && isConnected">
-            <div class="text-trip-empty">
-              <label>Đăng nhập để xem khách sạn đã yêu thích.</label>
-            </div>
-            <div class="button-trip-empty">
-              <button ion-button round outline class="button btn-trip-empty" (click)="goToLogin()">Đăng nhập ngay</button>
-            </div>
-          </div> -->
-         
         </div> 
     </div>
   </div>

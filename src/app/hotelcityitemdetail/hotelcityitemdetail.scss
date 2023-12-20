@@ -31,10 +31,13 @@
     .div-go-back{
         z-index: 100;
         position: absolute;
-          top: 1% !important;
+          top: env(safe-area-inset-top) !important;
           color: #ffffff;
           width: 48px;
           height: 48px;
+          
+          background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 50%;
     .img-back{
         position: absolute;
         height: 36px;
@@ -46,7 +49,7 @@
 }
     .img-heart{
         position: absolute;
-        top: 4%;
+        top: env(safe-area-inset-top);
         right: 2px;
         //color: #ffffff;
         z-index: 10;
@@ -57,10 +60,13 @@
             padding-top:12px;
             width: 18px;
         }
+        
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
     }
     .img-share{
         position: absolute;
-            top: 4%;
+            top: env(safe-area-inset-top);
             right: 50px;
             color: #ffffff;
             z-index: 10;
@@ -71,6 +77,9 @@
                 padding-top:10px;
                 width: 18px;
             }
+            
+          background-color: rgba(0, 0, 0, 0.25);
+          border-radius: 50%;
     }
     
 
@@ -124,6 +133,7 @@
 
     .swiper-slide img{
         width: 100%;
+        min-width: 100%;
     }
     
     .div-facility, .div-info, .div-policy, .div-hotel-review{

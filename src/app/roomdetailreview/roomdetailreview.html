@@ -14,7 +14,7 @@
               src="./assets/imgs/ios-arrow-round-back.svg">
           </div>
 
-          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Kiểm tra</label>
+          <div style="padding-top: 6px;font-size: 20px;font-weight: bold;"><label class="text-title">Xác nhận đặt phòng</label>
           </div>
         </div>
       </ion-col>
@@ -102,7 +102,7 @@
       {{children}} trẻ em {{textage}}
       <p>
         <p class="text-detail">
-          <img class="image-card" *ngIf="breakfast" src="./assets/ic_facility/ic_food_b.svg"> {{breakfast}}
+          <img class="image-card" *ngIf="breakfast" src="./assets/ic_facility/ic_food_b.svg">{{breakfast}}
           <p>
             <div *ngIf="titlecombo" class="d-flex">
               <div class="div-location">
@@ -236,13 +236,13 @@
   <app-voucherslidehotel *ngIf="Roomif.objMealType.Status != 'RQ'"></app-voucherslidehotel>
     <div *ngIf="!ischeckbtnpromo && !strPromoCode">
       <ion-row>
-        <ion-col size="5" style="padding: 0;">
+        <ion-col size="6" style="padding: 0;">
           <div>
             <h2 class="text-name" style="font-size: 18px;" position="stacked">Tổng cộng</h2>
             <p style="font-size: 10px;font-weight: 300;margin-top: -10px">Giá đã bao gồm thuế & phí</p>
           </div>
         </ion-col>
-        <ion-col (click)="roompaymentbreakdow()" size="7" style="padding: 0;">
+        <ion-col (click)="roompaymentbreakdow()" size="6" style="padding: 0;">
           <p class="total-price" style="text-align: right">
             {{PriceAvgPlusTAStr}}đ
             <sup>
@@ -255,15 +255,14 @@
 
     <div *ngIf="ischeckbtnpromo || strPromoCode">
       <ion-row>
-        <ion-col size="5" style="padding: 0;">
+        <ion-col size="6" style="padding: 0;">
           <div>
             <h2 class="text-name" style="font-size: 18px;" position="stacked">Tổng cộng</h2>
-            <p style="font-size: 10px;font-weight: 300;margin-top: -10px">Giá đã bao gồm thuế & phí</p>
+            <p style="font-size: 10px;font-weight: 300;margin-top: -10px">Giá phòng đã bao gồm thuế & phí dịch vụ</p>
           </div>
         </ion-col>
-        <ion-col (click)="roompaymentbreakdow()" size="7" style="padding: 0;">
-          <p class="total-price" style="text-align: right">
-            {{Pricepointshow}}đ
+        <ion-col (click)="roompaymentbreakdow()" size="6" style="padding: 0;">
+          <p class="total-price" style="text-align: right">{{Pricepointshow}}đ
             <sup>
               <img  src="./assets/ic_green/ic_info.svg">
             </sup>

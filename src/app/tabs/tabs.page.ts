@@ -17,6 +17,7 @@ import { AppRoutingPreloaderService } from '../providers/AppRoutingPreloaderServ
 import { MytripService } from '../providers/mytrip-service.service';
 import * as moment from 'moment';
 import { tourService } from 'src/app/providers/tourService';
+import { ticketService } from 'src/app/providers/ticketService';
 import { Location } from '@angular/common';
 import { Browser } from '@capacitor/browser';
 var document:any;
@@ -48,6 +49,7 @@ export class TabsPage implements OnInit {
     public activityService: ActivityService,
     public _mytripservice: MytripService,public tourService: tourService,
     private location: Location,
+    public ticketService: ticketService,
     private routerOutlet: IonRouterOutlet) { }
 
   async ionViewDidEnter() {
@@ -210,6 +212,16 @@ export class TabsPage implements OnInit {
             
           }
         }
+        // else if(data.dataLink.indexOf('ticketdetail') != -1){
+        //   let arr = data.dataLink.toString().split(':');
+        //   if(arr && arr.length ==2){
+        //     this.ticketService.itemTicketDetail = {};
+        //     this.ticketService.itemTicketDetail.experienceId = arr[1];
+        //     this.ticketService.backPage = 'hometicket';
+        //     this.navCtrl.navigateForward('/ticketdetail');
+        //   }
+        
+        // }
         else {
           this.navCtrl.navigateForward(data.dataLink);
         }

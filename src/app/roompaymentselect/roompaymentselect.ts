@@ -126,18 +126,29 @@ export class RoompaymentselectPage implements OnInit {
                 }
 
             this.gf.RequestApi('GET', C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo', headers, {}, 'flightcombopaymentselect', 'initpage').then((data)=>{
-              if(data && data.bizAccount){
+              if(data && data.statusCode == 401){
+                this.storage.get('jti').then((memberid) => {
+                  this.storage.get('deviceToken').then((devicetoken) => {
+                    this.gf.refreshToken(memberid, devicetoken).then((token) => {
+                      if(token){
+                        this.auth_token = token;
+                      }
+                    });
+    
+                  })
+                })
+              }else if(data && data.bizAccount){
                 this.zone.run(()=>{
                   this.bizTravelService.bizAccount = data.bizAccount;
                   this.bizTravelService.isCompany = true;
+                  this.auth_token = auth_token;
                 })
                
               }else{
                 this.bizTravelService.isCompany = false;
+                this.auth_token = auth_token;
               }
             })
-          }else{
-            this.bizTravelService.isCompany = false;
           }
         });
     //google analytic
@@ -150,9 +161,9 @@ export class RoompaymentselectPage implements OnInit {
   }
   ionViewWillEnter() {
     this.bookingCode=this.bookingCode?this.bookingCode:this.Roomif.bookingCode;
-    this.storage.get('auth_token').then(auth_token => {
-      this.auth_token = auth_token;
-    })
+    // this.storage.get('auth_token').then(auth_token => {
+    //   this.auth_token = auth_token;
+    // })
     C.writePaymentLog("hotel", "paymentselect", "purchase", this.bookingCode);
   }
   roompaymentbank() {
@@ -704,25 +715,7 @@ export class RoompaymentselectPage implements OnInit {
     var se = this;
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
-        let headers = {
-          'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        authorization: text
-      };
-      let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
-      this.gf.RequestApi('GET', strUrl, headers, {}, 'roompaymentselect', 'GetUserInfo').then((data)=>{
+        this.gf.getUserInfo(auth_token).then((data) => {
             if (data) {
               se.storage.set("point", data.point);
             }
