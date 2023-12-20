@@ -186,6 +186,12 @@ PODS:
     - nanopb/encode (= 2.30909.1)
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
+  - NativescriptCapacitor (5.0.2):
+    - Capacitor
+    - NativeScriptSDK (~> 8.4.2)
+    - NativeScriptUI (~> 0.1.2)
+  - NativeScriptSDK (8.4.2)
+  - NativeScriptUI (0.1.2)
   - PantristCapacitorFirebaseDynamicLinks (0.2.2):
     - Capacitor
     - Firebase/Analytics
@@ -219,6 +225,7 @@ DEPENDENCIES:
   - "CapawesomeCapacitorBadge (from `../../node_modules/@capawesome/capacitor-badge`)"
   - CapCodepush (from `../../node_modules/cap-codepush`)
   - "CodetrixStudioCapacitorGoogleAuth (from `../../node_modules/@codetrix-studio/capacitor-google-auth`)"
+  - "NativescriptCapacitor (from `../../node_modules/@nativescript/capacitor`)"
   - "PantristCapacitorFirebaseDynamicLinks (from `../../node_modules/@pantrist/capacitor-firebase-dynamic-links`)"
 
 SPEC REPOS:
@@ -244,6 +251,8 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - nanopb
+    - NativeScriptSDK
+    - NativeScriptUI
     - PromisesObjC
     - SSZipArchive
 
@@ -298,6 +307,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/cap-codepush"
   CodetrixStudioCapacitorGoogleAuth:
     :path: "../../node_modules/@codetrix-studio/capacitor-google-auth"
+  NativescriptCapacitor:
+    :path: "../../node_modules/@nativescript/capacitor"
   PantristCapacitorFirebaseDynamicLinks:
     :path: "../../node_modules/@pantrist/capacitor-firebase-dynamic-links"
 
@@ -348,10 +359,13 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
+  NativescriptCapacitor: 9d402d59e06ac9831791fe966d0e0d7f412c8c71
+  NativeScriptSDK: 52c027949a94137d9215c2a955f8e1102cbb34a6
+  NativeScriptUI: b7352a0cf41db1b57f97f4dfa63fb592e1778040
   PantristCapacitorFirebaseDynamicLinks: e4c083f27d6783e0b189cbdf3fe13c04aecf81eb
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
 
-PODFILE CHECKSUM: c4d30a038dd2c0bb8c1c11769d33b507929bbba4
+PODFILE CHECKSUM: 4f55821b40722f181063ac65611485d53c582bf2
 
 COCOAPODS: 1.14.3

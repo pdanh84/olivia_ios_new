@@ -43,8 +43,11 @@
                     </div>
                     <div class="div-width-100 d-flex h-22" >
                         <div class="item-list">iVIVUPoint</div>
-                        <div class="text-color div-width-100 text-right f-point">
+                        <div class="text-color div-width-100 text-right f-point" *ngIf="point>=0">
                             {{ point }} điểm
+                        </div>
+                        <div class="text-color div-width-100 text-right f-point div-align-end" *ngIf="point<0">
+                            <ion-skeleton-text animated style="width:50px;height:24px;border-radius:6px;margin: 0;"></ion-skeleton-text>
                         </div>
                     </div>
                    

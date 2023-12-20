@@ -3467,7 +3467,9 @@ export class HotelDetailPage implements OnInit {
    * PDANH  22/02/2018
    */
   async requestCombo(value, combolist, input) {
-  
+  if(this.loader){
+    this.loader.dismiss();
+  }
     this.valueGlobal.notRefreshDetail = true;
     this.searchhotel.showPopup = true;
     this.bookCombo.HotelCode = this.hotelcode;
@@ -4152,6 +4154,7 @@ export class HotelDetailPage implements OnInit {
     se.searchhotel.ischeckBOD = se.ischeckBOD;
     se.bookCombo.ComboDetail = combolist;
     se.bookCombo.objComboDetail = se.comboDetail;
+    se.valueGlobal.notRefreshDetail = false;
     const modal: HTMLIonModalElement =
       await se.modalCtrl.create({
         component: DepartureCalendarPage

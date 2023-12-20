@@ -792,9 +792,6 @@ export class Tab2Page implements OnInit {
                 se.jsonhtprice.push(itemprice);
     
               }
-              // se.storage.remove('tab2_listHotelPrice').then(()=>{
-              //   se.storage.set('tab2_listHotelPrice', JSON.stringify(se.jsonhtprice));
-              // })
               //Bind giá vào list ks đã search
               se.zone.run(() => se.fillDataPrice());
               
@@ -1033,20 +1030,6 @@ export class Tab2Page implements OnInit {
       if (auth_token) {
         se.bindItemUnLike(item);
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/RemoveFavouriteBlogByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': 'a19ecc0a-cb83-4dd9-3fd5-71062937a931',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { postId: item },
-        //   json: true
-        // };
 
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/RemoveFavouriteBlogByUser';
         let headers = { 
@@ -1070,21 +1053,7 @@ export class Tab2Page implements OnInit {
       if (auth_token) {
         se.bindItemLike(item);
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/AddFavouriteBlog',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': 'a19ecc0a-cb83-4dd9-3fd5-71062937a931',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { postId: item },
-        //   json: true
-        // };
-
+        
         let urlStr = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/AddFavouriteBlog';
         let headers = { 
           'cache-control': 'no-cache',

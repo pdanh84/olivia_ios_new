@@ -36,7 +36,7 @@ export class Tab5Page implements OnInit {
   username;
   listSupport:any = [];
   isShowConfirm = false;
-  point = 0;
+  point = -1;
   private subscription:any;
   public isConnected: boolean = true;
   base64Image: any;
@@ -62,6 +62,7 @@ export class Tab5Page implements OnInit {
     });
     this.storage.get('userInfoData').then((data)=>{
       if(data.point){
+        
         this.point = data.point;
       }
     });
@@ -96,7 +97,7 @@ export class Tab5Page implements OnInit {
           se.zone.run(() => {
             se.loginuser = auth_token;
             se.refreshUserName();
-            se.point = 0;
+            se.point = -1;
           })
 
           if (event instanceof NavigationEnd && (event.url.indexOf("tab5") != -1)) {
@@ -213,7 +214,7 @@ export class Tab5Page implements OnInit {
     if (this.valueGlobal.pagechangetab5) {
       this.navCtrl.navigateForward([this.valueGlobal.pagechangetab5]);
     } else {
-      se.point = 0;
+      se.point = -1;
       if (this.networkProvider.isOnline()) {
         this.isConnected = true;
         
@@ -949,6 +950,7 @@ export class Tab5Page implements OnInit {
               se.username = username;
             });
             se.storage.get('point').then(point => {
+              
               se.point = point;
             });
           }

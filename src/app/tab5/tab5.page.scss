@@ -74,6 +74,11 @@
         height: 16px;
         opacity: 0.4;
     }
+    .div-align-end {
+        display: flex;
+        justify-content: end;
+    }
+
     @media (min-width:351px) and (max-width:400px){
         .support-text{
             color:#26bed6;
