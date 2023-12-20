@@ -197,6 +197,6 @@ export class HotelReviewsPage implements OnInit {
   }
 
   seemoreimgrv() {
-    this.navCtrl.navigateForward('/cusimgreview/'+this.HotelID+'');
+    this.navCtrl.navigateForward('/cusimgreview/0');
   }
 }

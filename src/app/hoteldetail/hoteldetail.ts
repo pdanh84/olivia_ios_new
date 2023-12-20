@@ -4427,7 +4427,7 @@ export class HotelDetailPage implements OnInit {
     this.searchhotel.hotelID = this.HotelID;
     this.searchhotel.hotelName = this.hotelname;
     this.valueGlobal.backValue = "notrefreshdetail";
-    this.navCtrl.navigateForward('/cusimgreview/1');
+    this.navCtrl.navigateForward('/cusimgreview/0');
   }
 
   showInstallmentDetail() {

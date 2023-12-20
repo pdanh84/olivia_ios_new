@@ -598,6 +598,9 @@ ion-searchbar {
       color: #828282;
       margin-top: 2px;
       margin-left: 8px;
+
+      display: flex;
+      align-items: center;
   }
   .m-bottom-6 {
       margin-bottom: 6px;
@@ -610,7 +613,13 @@ ion-searchbar {
     font-weight: 300;
     color: #828282;
   }
+  .icon-zalo, .icon-mail {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+  }
 }
+
 
 }
 

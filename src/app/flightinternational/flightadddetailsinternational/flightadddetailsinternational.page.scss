@@ -147,7 +147,7 @@
         overflow-y: scroll;
         background: #fff;
         z-index: 99;
-        margin-top: 58px;
+        margin-top: 68px;
 
         .item-country{
             font-size: 14px;
@@ -349,6 +349,9 @@
             color: #3f3b3b;
             margin-top: 2px;
             margin-left: 4px;
+
+            display: flex;
+            align-items: center;
         }
         .m-bottom-6 {
             margin-bottom: 6px;
@@ -418,6 +421,11 @@
       }
       .m-top-6 {
         margin-top: 6px;
+      }
+      .icon-zalo, .icon-mail {
+        width: 24px;
+        height: 24px;
+        margin-right: 6px;
       }
 }
 .cls-error{

@@ -331,30 +331,7 @@ export class Tab1Page implements OnInit {
               }
             })
       }
-      // se.storage.get('listtopdealdefault').then(data => {
-      //   if (data && data.length >0) {
-      //     se.loadTopDeal(data);
-      //     se.getHotelDealPaging();
-      //     se.loadCacheRegion();
-      //     //se.getbloglike(1);
-      //     if (se.blog.length == 0) {
-      //       se.getNewsBlog(0);
-      //     }
-      //     // setTimeout(() => {
-      //     //   this.zone.run(() => {
-      //     //     se.getHoteldeal()
-      //     //   })
-      //     // }, 30000);
-      //   } else {
-      //     se.slideData1 = [];
-      //     se.blog = [];
-      //     setTimeout(() => {
-      //       se.getHoteldeal();
-      //       se.getNewsBlog(0);
-      //       //se.getbloglike(0);
-      //     }, 50)
-      //   }
-      // })
+      
       //Nếu vẫn không có data thì lấy từ cache
       if (se.slideData1.length == 0) {
         se.loaddata();
@@ -2601,15 +2578,7 @@ export class Tab1Page implements OnInit {
   }
   getdata() {
     var se = this;
-    // var options = {
-    //   method: 'GET',
-    //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/Relogions',
-    //   headers:
-    //   {
-    //     apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
-    //     apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
-    //   }
-    // };
+    
     let headers =
       {
         apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
@@ -2618,7 +2587,7 @@ export class Tab1Page implements OnInit {
     let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/Relogions';
         se.gf.RequestApi('GET', strUrl, headers, {}, 'Tab1', 'getdata').then((data) => {
       se.json = data;
-      se.getRegions();
+      //se.getRegions();
     });
   }
   search() {
