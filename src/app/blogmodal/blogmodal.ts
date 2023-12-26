@@ -107,7 +107,7 @@ export class BlogModalPage implements OnInit{
             authorization: text
         };
         let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteBlogByUser';
-        se.gf.RequestApi('GET', strUrl, headers,  { }, 'blogmodal', 'getblog').then((data) => {
+        se.gf.RequestApi('GET', strUrl, headers,  { }, 'blogmodal', 'getblog',auth_token).then((data) => {
         se.zone.run(() => {
           se.arrblog = data;
           se.Liked=false;

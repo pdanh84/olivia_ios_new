@@ -522,18 +522,12 @@ export class OrderPage {
         this.gf.RequestApi('GET', urlPath, headers, {}, 'MytripHistory', 'getdatanewtoken').then((data) => {
           
           if (data && data.statusCode == 401) {
-            se.storage.get('jti').then((memberid) => {
-              se.storage.get('deviceToken').then((devicetoken) => {
-                if (devicetoken) {
-                  se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                    setTimeout(() => {
-                      se.getdatanewtoken(token, ishistory);
-                    }, 100)
-                  });
-                }
-
-
-              })
+            se.gf.refreshTokenNew(auth_token).then(async (datanew)=>{
+              await se.storage.remove('auth_token');
+              await se.storage.set('auth_token', datanew.auth_token);
+              setTimeout(() => {
+                se.getdatanewtoken(datanew.auth_token, ishistory);
+              }, 100)
             })
           }
           else {
@@ -583,15 +577,12 @@ export class OrderPage {
 
               }
               else if (data.statusCode == 401) {
-                se.storage.get('jti').then((memberid) => {
-                  se.storage.get('deviceToken').then((devicetoken) => {
-                    se.gf.refreshToken(memberid, devicetoken).then((token) => {
-                      setTimeout(() => {
-                        se.getdatanewtoken(token, ishistory);
-                      }, 100)
-                    });
-
-                  })
+                se.gf.refreshTokenNew(auth_token).then(async (datanew)=>{
+                  await se.storage.remove('auth_token');
+                  await se.storage.set('auth_token', datanew.auth_token);
+                  setTimeout(() => {
+                    se.getdatanewtoken(datanew.auth_token, ishistory);
+                  }, 100)
                 })
               }
             }

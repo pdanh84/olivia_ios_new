@@ -125,6 +125,7 @@
             border-radius: 4px;
             text-align: center;
             padding: 5px;
+
         }
     }
 
@@ -740,6 +741,13 @@
       max-width: 190px !important;
      }
   }
+
+  @media (min-width: 350px) and (max-width: 375px) {
+    .div-button .button{
+        font-size: 15px !important;
+        width: 105%;
+    }
+}
 
   .p-bottom-4 {
     padding-bottom: 4px;

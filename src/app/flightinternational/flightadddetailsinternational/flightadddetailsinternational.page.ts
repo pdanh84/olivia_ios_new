@@ -540,11 +540,10 @@ export class FlightAdddetailsInternationalPage implements OnInit {
             let itema = se.adults[0];
             if(!itema.name){
               itema.name =  se.hoten ? se.hoten : ( se.email ? se.email : '');
-              if(se.gender){
-                itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông') !=-1 || se.gender.toLowerCase().indexOf('Nam')!=-1 || se.gender.toLowerCase().indexOf('m') !=-1) ? 1 : 2;
-                itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m') !=-1) ? 'Ông' : 'Bà';
-              }
-              
+            }
+            if(se.gender && !(itema.gender && itema.genderdisplay)){
+              itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông') !=-1 || se.gender.toLowerCase().indexOf('Nam')!=-1 || se.gender.toLowerCase().indexOf('m') !=-1) ? 1 : 2;
+              itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m') !=-1) ? 'Ông' : 'Bà';
             }
               
           }
@@ -729,7 +728,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
           var se = this;
           if(se.adults && se.adults.length>0){
             let itema = se.adults[0];
-            if(se.gender){
+            if(se.gender && !(itema.gender && itema.genderdisplay)){
               itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
               itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
             }
@@ -1661,17 +1660,20 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                   }
                 }
                 if(type == 4){
-                  if(!inputcheck.countryName){
-                    inputcheck.errorCountry = true;
-                    inputcheck.showSelectCountry = false;
-                    inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch Người lớn "+(inputcheck.id);
-                    $(`.div-adult-country-${idx} ion-item`).removeClass('item-has-value');
-                    return;
-                    }
-                    else{
-                      inputcheck.errorCountry = false;
-                      inputcheck.textErrorCountry = "";
-                    }
+                  setTimeout(()=>{
+                    if(!inputcheck.countryName){
+                      inputcheck.errorCountry = true;
+                      inputcheck.showSelectCountry = false;
+                      inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch Người lớn "+(inputcheck.id);
+                      $(`.div-adult-country-${idx} ion-item`).removeClass('item-has-value');
+                      return;
+                      }
+                      else{
+                        inputcheck.errorCountry = false;
+                        inputcheck.textErrorCountry = "";
+                      }
+                  },10)
+                  
                 }
   
                 if(type == 5){
@@ -1695,17 +1697,19 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                 }
   
                 if(type == 6){
-                  if(!inputcheck.passportCountryName){
-                    inputcheck.errorPassportCountry = true;
-                    inputcheck.showSelectPassportCountry = false;
-                    inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp Người lớn "+(inputcheck.id);
-                    $(`.div-adult-passportcountry-${idx} ion-item`).removeClass('item-has-value');
-                    return;
-                  }
-                  else{
-                    inputcheck.errorPassportCountry = false;
-                    inputcheck.textErrorPassportCountry = "";
-                  }
+                  setTimeout(()=>{
+                    if(!inputcheck.passportCountryName){
+                      inputcheck.errorPassportCountry = true;
+                      inputcheck.showSelectPassportCountry = false;
+                      inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp Người lớn "+(inputcheck.id);
+                      $(`.div-adult-passportcountry-${idx} ion-item`).removeClass('item-has-value');
+                      return;
+                    }
+                    else{
+                      inputcheck.errorPassportCountry = false;
+                      inputcheck.textErrorPassportCountry = "";
+                    }
+                  },10)
                 }
   
                 if(type == 7){
@@ -1832,6 +1836,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
               }
 
               if(type == 4){
+                setTimeout(()=>{
                 if(!inputcheck.countryName){
                   inputcheck.errorCountry = true;
                   inputcheck.showSelectCountry = false;
@@ -1843,6 +1848,7 @@ export class FlightAdddetailsInternationalPage implements OnInit {
                     inputcheck.errorCountry = false;
                     inputcheck.textErrorCountry = "";
                   }
+                },10)
               }
 
               if(type == 5){
@@ -1865,17 +1871,19 @@ export class FlightAdddetailsInternationalPage implements OnInit {
               }
 
               if(type == 6){
-                if(!inputcheck.passportCountryName){
-                  inputcheck.errorPassportCountry = true;
-                  inputcheck.showSelectPassportCountry = false;
-                  inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp "+ (!inputcheck.isInfant ? "Trẻ em" : "Em bé") +" "+ (!inputcheck.isInfant ? inputcheck.id : inputcheck.iddisplay);
-                  $(`.div-child-passportcountry-${idx} ion-item`).removeClass('item-has-value');
-                  return;
-                }
-                else{
-                  inputcheck.errorPassportCountry = false;
-                  inputcheck.textErrorPassportCountry = "";
-                }
+                setTimeout(()=>{
+                  if(!inputcheck.passportCountryName){
+                    inputcheck.errorPassportCountry = true;
+                    inputcheck.showSelectPassportCountry = false;
+                    inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp "+ (!inputcheck.isInfant ? "Trẻ em" : "Em bé") +" "+ (!inputcheck.isInfant ? inputcheck.id : inputcheck.iddisplay);
+                    $(`.div-child-passportcountry-${idx} ion-item`).removeClass('item-has-value');
+                    return;
+                  }
+                  else{
+                    inputcheck.errorPassportCountry = false;
+                    inputcheck.textErrorPassportCountry = "";
+                  }
+                },10)
               }
 
               if(type == 7){
@@ -3401,6 +3409,21 @@ alert.present();
 
             if(index != -1){
               let field = '';
+              se.zone.run(()=>{
+                if(!se.listcountry || se.listcountry.length ==0){
+                  se.listcountry = [...se.listcountryFull];
+                }
+
+                if(!se.listpassportcountry || se.listpassportcountry.length ==0){
+                  se.listpassportcountry = [...se.listcountryFull];
+                }
+              })
+              if(type == 6){
+                item.showSelectPassportCountry = true;
+              }else if(type ==4){
+                item.showSelectCountry = true;
+              }
+              
               if(item.isChild){
                 field = (type == 6) ? 'ipPassportChild_' : (type == 2 ? 'ipNameChild_' : (type ==5 ? 'ipPPChild_' : 'ipPassportChild_'));
               }else {

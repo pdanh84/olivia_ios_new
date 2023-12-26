@@ -25,7 +25,7 @@ import { AuthService } from './providers/auth-service';
 import { SearchHotel, ValueGlobal, Bookcombo, RoomInfo, DeviceLocation, Booking } from './providers/book-service';
 import { ComboPrice} from './providers/comboPrice';
 import { C } from './providers/constants';
-import { GlobalFunction, ActivityService } from './providers/globalfunction';
+import { GlobalFunction, ActivityService, AlertService } from './providers/globalfunction';
 import { DepartureCalendarPageModule} from './departurecalendar/departurecalendar.module';
 import { PickupCalendarPageModule} from './pickup-calendar/pickup-calendar.module';
 import { RequestComboPageModule} from './requestcombo/requestcombo.module';
@@ -243,7 +243,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     Facebook,
     YoutubeVideoPlayer,
     PhotoLibrary,
-    
+    AlertService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent],

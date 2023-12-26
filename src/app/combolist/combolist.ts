@@ -237,7 +237,7 @@ export class ComboListPage implements OnInit{
         var text = "Bearer " + auth_token;
         let headers = { authorization: text };
         let strUrl = C.urls.baseUrl.urlMobile +'/mobile/OliviaApis/GetFavouriteHotelByUser';
-        this.gf.RequestApi('GET', strUrl, headers, {}, 'combolist', 'pushdata').then((data)=>{
+        this.gf.RequestApi('GET', strUrl, headers, {}, 'combolist', 'pushdata', auth_token).then((data)=>{
             if(data){
               se.zone.run(() => {
                 se.dataListLike = data;

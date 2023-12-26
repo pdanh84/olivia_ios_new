@@ -57,7 +57,7 @@ export class CuspointsPage implements OnInit{
           }
         };
         
-        se.gf.RequestApi('GET', options.url, options.headers, '', 'cuspoints', 'getPoint').then((data) => {
+        se.gf.RequestApi('GET', options.url, options.headers, '', 'cuspoints', 'getPoint',auth_token).then((data) => {
          
           //let item = data.actionHistory;
             se.zone.run(()=>{

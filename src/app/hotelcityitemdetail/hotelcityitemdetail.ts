@@ -207,18 +207,7 @@ export class HotelCityItemDetailPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     //'postman-token': '89692e55-6555-1572-db28-4becc311f0ba',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
+       
         let urlPath = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
         let headers = {
           'cache-control': 'no-cache',

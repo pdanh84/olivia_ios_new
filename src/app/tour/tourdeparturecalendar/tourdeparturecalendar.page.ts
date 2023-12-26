@@ -593,9 +593,9 @@ export class TourDepartureCalendarPage implements OnInit{
       if (auth_token) {
         this.gf.getUserInfo(auth_token).then((data) => {
             if (data && data.statusCode != 401) {
-              se.storage.get('point').then(point => {
-                se.point = point;
-              });
+              // se.storage.get('point').then(point => {
+              //   se.point = point;
+              // });
               if (data.point) {
                   se.point = data.point;
                 }

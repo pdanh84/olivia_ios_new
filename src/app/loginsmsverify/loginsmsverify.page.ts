@@ -185,7 +185,7 @@ export class LoginsmsverifyPage implements OnInit,AfterViewInit {
             }
             se.storage.set("point", decoded.point);
             se.searchhotel.rootPage ='login';
-            se.countdownRefreshToken();
+            //se.countdownRefreshToken();
            
             if (se.valueGlobal.logingoback) {
               if(se.valueGlobal.logingoback == "flightadddetails"|| se.valueGlobal.logingoback == "flightadddetailsinternational"){

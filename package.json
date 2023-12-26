@@ -68,7 +68,6 @@
     "@codetrix-studio/capacitor-google-auth": "^3.3.4",
     "@ionic/angular": "^7.0.0",
     "@ionic/storage": "^4.0.0",
-    "@nativescript/capacitor": "^5.0.2",
     "@pantrist/capacitor-firebase-dynamic-links": "^5.0.1",
     "appcenter-cli": "^2.14.0",
     "ionicons": "^7.0.0",

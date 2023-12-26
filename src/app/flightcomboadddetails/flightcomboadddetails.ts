@@ -288,7 +288,7 @@ export class FlightComboAddDetailsPage implements OnInit {
     var se = this;
     if(se.arradult && se.arradult.length>0){
       let itema = se.arradult[0];
-      if(gender){
+      if(gender && !(itema.gender && itema.genderdisplay)){
         itema.gender = (gender == 1 || gender.toLowerCase().indexOf('ông')!= -1 || gender.toLowerCase().indexOf('nam')!= -1 || gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
         itema.genderdisplay = (gender == 1 || gender.toLowerCase().indexOf('ông') != -1 || gender.toLowerCase().indexOf('nam') != -1 || gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
       }

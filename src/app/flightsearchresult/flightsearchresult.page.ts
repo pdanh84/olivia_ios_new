@@ -1075,15 +1075,7 @@ export class FlightsearchresultPage implements OnInit {
       se.storage.get('auth_token').then(auth_token => {
         if (auth_token) {
           var text = "Bearer " + auth_token;
-          // var options = {
-          //   method: 'GET',
-          //   url: C.urls.baseUrl.urlMobile + "/get-flight-for-olivia?apiToken=3b760e5dcf038878925b5613c32615ea3&departDate=" + moment(obj.departDate).format("YYYY-MM-DD") + '&returnDate=' + moment(obj.returnDate).format("YYYY-MM-DD") + '&departCode=' + (obj.itemDepartSameCity ? element.Code : obj.departCode) + '&arrivalCode=' + (obj.itemReturnSameCity ? element.Code: obj.arrivalCode) + '&adult=' + obj.adult + '&child=' + obj.child + '&infant=' + obj.infant + '&FlagInt=false',
-          //   timeout: 180000, maxAttempts: 5, retryDelay: 20000,
-          //   headers: {
-          //     apiToken: '3b760e5dcf038878925b5613c32615ea3',
-          //   }
-          // };
-
+         
           let urlPath = C.urls.baseUrl.urlMobile + "/get-flight-for-olivia?apiToken=3b760e5dcf038878925b5613c32615ea3&departDate=" + moment(obj.departDate).format("YYYY-MM-DD") + '&returnDate=' + moment(obj.returnDate).format("YYYY-MM-DD") + '&departCode=' + (obj.itemDepartSameCity ? element.Code : obj.departCode) + '&arrivalCode=' + (obj.itemReturnSameCity ? element.Code: obj.arrivalCode) + '&adult=' + obj.adult + '&child=' + obj.child + '&infant=' + obj.infant + '&FlagInt=false';
           let headers = {
             'apiToken': '3b760e5dcf038878925b5613c32615ea3',
@@ -1093,10 +1085,6 @@ export class FlightsearchresultPage implements OnInit {
 
             if (data) {
               let jsondata = data;
-              // se.storage.set('listflight_' + obj.departDate + '_' + obj.returnDate + '_' + obj.departCode + '_' + obj.arrivalCode + '_' + obj.adult + '_' + obj.child + '_' + obj.infant, jsondata);
-              // se.loadcachedata(jsondata);
-
-             // se.loadmultidata(jsondata);
              
             }
           })

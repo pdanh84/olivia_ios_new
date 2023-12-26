@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>iVIVU.com</string>
+	<string>iVIVU.com</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,10 +18,89 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.936105820400-6hh4r5l1qgvkjkua746j4c2ceaag91t4</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb628025334278848</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ivivuapp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>true</string>
+	<key>FacebookAppID</key>
+	<string>628025334278848</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<string>true</string>
+	<key>FacebookClientToken</key>
+	<string>81400e5b53b504163e707289ca2b3ecc</string>
+	<key>FacebookDisplayName</key>
+	<string>iVIVU.com</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>NO</string>
+	<key>LSApplicationCategoryType</key>
+	<string>Ứng dụng cần truy cập thư viện camera cho tính năng chia sẻ ảnh nhận xét khách sạn và cập nhật ảnh của thông tin cá nhân.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbapi20160328</string>
+		<string>fbauth</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Ứng dụng cần truy cập thư viện lịch cho tùy chọn thêm ghi chú vào lịch cá nhân</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Ứng dụng cần truy cập thư viện camera cho tính năng chia sẻ ảnh nhận xét khách sạn và cập nhật ảnh của thông tin cá nhân.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Ứng dụng cần truy cập thư viện lịch cho tùy chọn thêm ghi chú vào lịch cá nhân</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Ứng dụng cần truy cập thư viện camera cho tính năng chia sẻ ảnh nhận xét khách sạn và cập nhật ảnh của thông tin cá nhân.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Ứng dụng cần truy cập thư viện camera cho tính năng chia sẻ ảnh nhận xét khách sạn và cập nhật ảnh của thông tin cá nhân.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Vui lòng cấp phép để chúng tôi có thể mang đến cho bạn những đề xuất chính xác hơn</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -32,16 +111,10 @@
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>

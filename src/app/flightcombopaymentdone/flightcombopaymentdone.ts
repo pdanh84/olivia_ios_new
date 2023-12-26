@@ -226,43 +226,6 @@ export class FlightComboPaymentDonePage implements OnInit {
     this.navCtrl.navigateBack('/');
   }
 
-  refreshToken() {
-    var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims',
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        // }
-        let headers = {
-          'cache-control': 'no-cache',
-          'content-type': 'application/json',
-          authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims';
-        this.gf.RequestApi('GET', strUrl, headers, {}, 'flightComboPaymentDone', 'reloadTokenClaims').then((data)=>{
-
-            var au = data;
-            se.zone.run(() => {
-              se.storage.remove('auth_token');
-              se.storage.set('auth_token', au.auth_token);
-              var decoded = jwt_decode<any>(au.auth_token);
-              se.storage.remove('point');
-              se.storage.set('point', decoded.point);
-
-            })
-          
-        })
-      }
-    })
-  }
   public async showConfirm() {
     this.storage.set("checkreview", 1);
     let alert = await this.alertCtrl.create({

@@ -572,6 +572,7 @@
         .text-see-detail{
             color:#26bed6;
             font-size: 14px;
+            text-decoration: underline;
         }
         // .lh-12{
         //     line-height: 12px !important;
@@ -1331,7 +1332,9 @@
         line-height: 20px;
         letter-spacing: -0.4px;
         font-size: 14px;
+       
     }
+    
     .text-departure{
         text-align: right;
         color: #003c71;
@@ -2214,7 +2217,7 @@ small
     border: solid 1px #f59233;
     color: #ffffff;
     background: #f59233;
-    width: 104px;
+    width: 100%;
     text-transform: none;
     font-size: 15px !important;
     font-weight: normal;

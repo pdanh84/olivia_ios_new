@@ -176,7 +176,7 @@ export class LoginusernamePage implements OnInit {
               se.storage.remove('listtopdealdefault');
               se.gf.setParams(true,'resetBlogTrips');
               se.searchhotel.rootPage ='login';
-              se.countdownRefreshToken();
+              //se.countdownRefreshToken();
               //ẩn menu footer food
               // if(window.document.getElementsByClassName("homefood-footer").length >0){
               //   window.document.getElementsByClassName("homefood-footer")[0]['style'].display ='none';

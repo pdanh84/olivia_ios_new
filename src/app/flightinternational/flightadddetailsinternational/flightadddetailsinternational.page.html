@@ -57,9 +57,9 @@
                         
                     </ion-radio-group>
                 </div>
-                <div [ngClass]="((hasinput && !email) || emailinvalid) ? 'm-bottom-12 cls-error': 'm-bottom-12' " *ngIf="contactOption=='mail'">
+                <div [ngClass]="((hasinput && !email) || emailinvalid) ? 'm-top-8 m-bottom-12 cls-error': 'm-top-8 m-bottom-12' " *ngIf="contactOption=='mail'">
                     <ion-item style="padding-inline-start: 0;padding-inline-end: 0;--padding-start: 0">
-                        <ion-label class="sub-label m-bottom-6" position="floating">Email (để xác nhận đặt phòng)</ion-label>
+                        <ion-label class="sub-label m-bottom-6" position="floating">Email (để xác nhận đặt vé)</ion-label>
                         <ion-input class="cls-input-custom" [(ngModel)]="email" type="email" (ionBlur)="checkInputUserInfo(3)" (ionFocus)="inputOnFocus(null, 11,-1)"></ion-input>
                     </ion-item>
                 </div>
@@ -205,7 +205,7 @@
                                     <ion-item  class="max-height-68" style="--padding-start: 0px;" [ngClass]="itemAdult.countryName ? 'border-bottom' : ''">
                                         <ion-label class="sub-label m-bottom-6" position="floating">Quốc tịch</ion-label>
                                         <ion-searchbar [ngClass]="itemAdult.countryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemAdult.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemAdult, idxa)" (ionBlur)="checkInput(itemAdult, 4, true, idxa)"  (ionFocus)="inputOnFocus(itemAdult, 4, idxa)"></ion-searchbar> 
-                                        <img class="img-down bottom-2" *ngIf="itemAdult.countryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down " *ngIf="itemAdult.countryName" src="./assets/imgs/ic_down_b.svg">
                                         <img class="img-down" *ngIf="!itemAdult.countryName" src="./assets/ic_flight/ic_down_orange.svg">
                                     </ion-item>
                                    
@@ -230,7 +230,7 @@
                                     <ion-item  [ngClass]="itemAdult.errorPassportCountry? 'max-height-68' : 'max-height-68 border-bottom-custom' " style="--padding-start: 0px;">
                                         <ion-label class="sub-label m-bottom-6" position="floating">Quốc gia cấp</ion-label>
                                         <ion-searchbar [ngClass]="itemAdult.passportCountryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemAdult.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemAdult)" (ionBlur)="checkInput(itemAdult, 6, true, idxa)"  (ionFocus)="inputOnFocus(itemAdult, 6, idxa)"></ion-searchbar>
-                                        <img class="img-down bottom-2" *ngIf="itemAdult.passportCountryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down " *ngIf="itemAdult.passportCountryName" src="./assets/imgs/ic_down_b.svg">
                                         <img class="img-down" *ngIf="!itemAdult.passportCountryName" src="./assets/ic_flight/ic_down_orange.svg">
                                     </ion-item>
                                 </div>
@@ -374,7 +374,7 @@
                                     <ion-item  class="max-height-68" style="--padding-start: 0px;" [ngClass]="itemChild.countryName ? 'border-bottom' : ''">
                                         <ion-label class="sub-label m-bottom-6" position="floating">Quốc tịch</ion-label>
                                         <ion-searchbar [ngClass]="itemChild.countryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemChild.countryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getCountry($event, itemChild, idxc)" (ionBlur)="checkInput(itemChild, 4, false, idxc)"  (ionFocus)="inputOnFocus(itemChild, 4, idxc)"></ion-searchbar> 
-                                        <img class="img-down bottom-2" *ngIf="itemChild.countryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down " *ngIf="itemChild.countryName" src="./assets/imgs/ic_down_b.svg">
                                         <img class="img-down" *ngIf="!itemChild.countryName" src="./assets/ic_flight/ic_down_orange.svg">
                                     </ion-item>
                                    
@@ -400,7 +400,7 @@
                                     <ion-item  [ngClass]="itemChild.errorPassportCountry? 'max-height-68' : 'max-height-68 border-bottom-custom' " style="--padding-start: 0px;">
                                         <ion-label class="sub-label m-bottom-6" position="floating">Quốc gia cấp</ion-label>
                                         <ion-searchbar [ngClass]="itemChild.passportCountryName ? 'cls-input-country-custom m-top-20' : 'cls-input-country-custom'" [(ngModel)]="itemChild.passportCountryName" searchIcon="false" clearIcon="false" cancelIcon="false" #input id="input" style="padding: 0;" autocomplete="on" autocorrect="true" debounce="10" placeholder="" (ionInput)="getPassportCountry($event, itemChild)" (ionBlur)="checkInput(itemChild, 6, false, idxc)"  (ionFocus)="inputOnFocus(itemChild, 6, idxc)"></ion-searchbar>
-                                        <img class="img-down bottom-2" *ngIf="itemChild.passportCountryName" src="./assets/imgs/ic_down_b.svg">
+                                        <img class="img-down " *ngIf="itemChild.passportCountryName" src="./assets/imgs/ic_down_b.svg">
                                         <img class="img-down" *ngIf="!itemChild.passportCountryName" src="./assets/ic_flight/ic_down_orange.svg">
                                     </ion-item>
                                 </div>

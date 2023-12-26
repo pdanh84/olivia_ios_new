@@ -45,15 +45,7 @@ export class CombocarlivePage implements OnInit {
     var se = this;
     var form = this.listcars;
     form.HotelBooking.PaymentMethod="51";
-      // var options = {
-      //   method: 'POST',
-      //   url: C.urls.baseUrl.urlContracting+'/api/ToolsAPI/CreateComboTransferBooking',
-      //   headers:
-      //   {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   },
-      //   form
-      // };
+      
       let headers=
       {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -61,21 +53,7 @@ export class CombocarlivePage implements OnInit {
       let strUrl = C.urls.baseUrl.urlContracting+'/api/ToolsAPI/CreateComboTransferBooking';
         se.gf.RequestApi('POST', strUrl, headers, form, 'combocarlive', 'CreateCombo').then((data) => {
         var obj = data;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlContracting+'/api/ToolsAPI/CreateTransactionIDComboTransfer',
-        //   headers:
-        //     {
-        //       'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        //   form:
-        //   {
-        //     BookingCode: obj.Code,
-        //     DepartATCode: obj.TransferReserveCode.DepartReserveCode,
-        //     ReturnATCode: obj.TransferReserveCode.ReturnReserveCode,
-        //     FromPlaceCode: se.listcars.TransferBooking.fromPlaceCode
-        //   }
-        // };
+        
         let headers=
         {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -100,43 +78,6 @@ export class CombocarlivePage implements OnInit {
           }
         });
       })
-  }
-  refreshToken() {
-    var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims',
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        // }
-        let headers=
-        {
-          'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-        
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims';
-          se.gf.RequestApi('GET', strUrl, headers, {}, 'combocarlive', 'refreshToken').then((data) => {
-            var au = data;
-            se.zone.run(() => {
-              se.storage.remove('auth_token');
-              se.storage.set('auth_token', au.auth_token);
-              var decoded = jwt_decode<any>(au.auth_token);
-              se.storage.remove('point');
-              se.storage.set('point', decoded.point);
-            })
-          
-        })
-      }
-    })
   }
   
   async presentLoading() {

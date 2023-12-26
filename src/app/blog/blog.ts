@@ -133,7 +133,7 @@ export class BlogPage implements OnInit{
                 'content-type': 'application/json',
                 authorization: text
               };
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'blog', 'getdata').then((data) => {
+        se.gf.RequestApi('GET', strUrl, headers, {}, 'blog', 'getdata', auth_token).then((data) => {
           se.zone.run(() => {
             se.arrblog = data;
             se.Liked=false;

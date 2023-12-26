@@ -2549,53 +2549,7 @@ export class FlightComboReviewsPage implements OnInit {
       }
     })
   }
-  refreshToken() {
-    var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json-patch+json',
-        //     authorization: text
-        //   },
-        // }
-        let headers = {
-          'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-        let strUrl = C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims';
-          this.gf.RequestApi('GET', strUrl, headers, {}, 'flightComboReview', 'reloadTokenClaims').then((data)=>{
-            
-            var au = data;
-            se.zone.run(() => {
-              se.storage.remove('auth_token');
-              se.storage.set('auth_token', au.auth_token);
-              var decoded = jwt_decode<any>(au.auth_token);
-              se.storage.remove('point');
-              se.storage.set('point', decoded.point);
-              se.storage.get('point').then(point => {
-                if (point) {
-                  if (point > 0) {
-                    se.pointshow = point;
-                    se.Roomif.point = point;
-                    se.point = point * 1000;
-                    se.price = se.point.toLocaleString();
-                  }
-                }
-              });
-            })
-          
-        })
-      }
-    })
-  }
+  
   public async showConfirm() {
     let alert = await this.alertCtrl.create({
       message: "Phiên đăng nhập hết hạn. Xin vui lòng đăng nhập lại để sử dụng chức năng này.",

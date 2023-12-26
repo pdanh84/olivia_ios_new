@@ -57,6 +57,7 @@ export class TourPaymentDonePage implements OnInit {
   }
 
   async ionViewWillEnter() {
+    this.gf.hideLoading();
     if(this.tourService.BookingTourMytrip) {
       this.bookingCode = this.tourService.BookingTourMytrip.booking_id;
       this.total = this.gf.convertNumberToString(this.tourService.BookingTourMytrip.amount_after_tax);

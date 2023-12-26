@@ -551,10 +551,10 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
             let itema = se.adults[0];
             if(!itema.name){
               itema.name =  se.hoten ? se.hoten : ( se.email ? se.email : '');
-              if(se.gender){
-                itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
-                itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
-              }
+            }
+            if(se.gender && !(itema.gender && itema.genderdisplay)){
+              itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
+              itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
             }
           }
         }
@@ -563,7 +563,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
           var se = this;
           if(se.adults && se.adults.length>0){
             let itema = se.adults[0];
-            if(se.gender){
+            if(se.gender && !(itema.gender && itema.genderdisplay)){
               itema.gender = (se.gender == 1 || se.gender.toLowerCase().indexOf('Ông')!= -1 || se.gender.toLowerCase().indexOf('Nam')!= -1 || se.gender.toLowerCase().indexOf('m')!= -1 ) ? 1 : 2;
               itema.genderdisplay = (se.gender == 1 || se.gender.toLowerCase().indexOf('ông') != -1 || se.gender.toLowerCase().indexOf('nam') != -1 || se.gender.toLowerCase().indexOf('m')!= -1) ? 'Ông' : 'Bà';
             }
@@ -582,7 +582,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                         this.maxAgeOfChild = moment(new Date()).format('YYYY').toString();
                         let mindob ='2007', maxdob = '2020';
                         let amindob ='1900', amaxdob = new Date().getFullYear() - 12, maxepdate = 2100;
-                        let departdate = moment(this._flightService.itemFlightCache.checkOutDate);
+                        let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
 
                         for (let index = 0; index < data.response.length; index++) {
                           const element = data.response[index];
@@ -849,7 +849,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                             resolve(false);
                           }
                           else if(elementAdult.passportExpireDate){
-                            let departdate = moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD');
+                            let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
                             let diffdate = moment(moment(elementAdult.passportExpireDate).format('YYYY-MM-DD')).diff(moment(departdate), 'days');
                             if(diffdate < 0){
                               elementAdult.errorPassportExpireDate = true;
@@ -885,7 +885,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                   elementChild.textErrorPassportExpireDate = '';
                   elementChild.textErrorInfo ='';
 
-                  let departdate = moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD');
+                  let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
 
                   if(!elementChild.genderdisplay && !elementChild.name){
                     resolve(false);
@@ -1082,7 +1082,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                                   return;
                                 }
                                 else if(elementAdult.passportExpireDate){
-                                  let departdate = moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD');
+                                  let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
                                   let diffdate = moment(moment(elementAdult.passportExpireDate).format('YYYY-MM-DD')).diff(moment(departdate), 'days');
                                   if(diffdate < 0){
                                     elementAdult.errorPassportExpireDate = true;
@@ -1095,7 +1095,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                               }
                             }
                           }
-                          else if(se._flightService.itemFlightCache.priceCathay>0&&!se.isExtenal){
+                          else {
                             if(!elementAdult.dateofbirth){
                               elementAdult.errorDateofbirth = true;
                               elementAdult.textErrorDateofbirth = "Vui lòng nhập ngày sinh Người lớn "+(elementAdult.id);
@@ -1103,7 +1103,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                               return;
                             }
                             else{
-                              let departdate = moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD');
+                              let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
                               let dateofbirth = moment(elementAdult.dateofbirth).format('YYYY-MM-DD');
                               let diffdate = moment(departdate).diff(dateofbirth, 'months');
                               if(diffdate < 144){
@@ -1542,16 +1542,18 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                   }
                 }
                 if(type == 4){
-                  if(!inputcheck.countryName){
-                    inputcheck.errorCountry = true;
-                    inputcheck.showSelectCountry = false;
-                    inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch Người lớn "+(inputcheck.id);
-                    return;
-                    }
-                    else{
-                      inputcheck.errorCountry = false;
-                      inputcheck.textErrorCountry = "";
-                    }
+                  setTimeout(()=>{
+                    if(!inputcheck.countryName){
+                      inputcheck.errorCountry = true;
+                      inputcheck.showSelectCountry = false;
+                      inputcheck.textErrorCountry = "Vui lòng nhập quốc tịch Người lớn "+(inputcheck.id);
+                      return;
+                      }
+                      else{
+                        inputcheck.errorCountry = false;
+                        inputcheck.textErrorCountry = "";
+                      }
+                    },10)
                 }
   
                 if(type == 5){
@@ -1575,16 +1577,18 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                 }
   
                 if(type == 6){
-                  if(!inputcheck.passportCountryName){
-                    inputcheck.errorPassportCountry = true;
-                    inputcheck.showSelectPassportCountry = false;
-                    inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp Người lớn "+(inputcheck.id);
-                    return;
-                  }
-                  else{
-                    inputcheck.errorPassportCountry = false;
-                    inputcheck.textErrorPassportCountry = "";
-                  }
+                  setTimeout(()=>{
+                    if(!inputcheck.passportCountryName){
+                      inputcheck.errorPassportCountry = true;
+                      inputcheck.showSelectPassportCountry = false;
+                      inputcheck.textErrorPassportCountry = "Vui lòng nhập quốc gia cấp Người lớn "+(inputcheck.id);
+                      return;
+                    }
+                    else{
+                      inputcheck.errorPassportCountry = false;
+                      inputcheck.textErrorPassportCountry = "";
+                    }
+                  },10)
                 }
   
                 if(type == 7){
@@ -1595,7 +1599,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                   }
                   else{
                     inputcheck.passportExpireDateDisplay = moment(inputcheck.passportExpireDate).format('DD/MM/YYYY');
-                    let departdate = moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD');
+                    let departdate = se._flightService.itemFlightCache.roundTrip ? moment(se._flightService.itemFlightCache.checkOutDate).format('YYYY-MM-DD') : moment(se._flightService.itemFlightCache.checkInDate).format('YYYY-MM-DD');
                     let diffdate = moment(moment(inputcheck.passportExpireDate).format('YYYY-MM-DD')).diff(moment(departdate), 'days');
                     if(diffdate < 0){
                       inputcheck.errorPassportExpireDate = true;
@@ -1761,6 +1765,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
               }
 
               if(type == 4){
+                setTimeout(()=>{
                 if(!inputcheck.countryName){
                   inputcheck.errorCountry = true;
                   inputcheck.showSelectCountry = false;
@@ -1771,6 +1776,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                     inputcheck.errorCountry = false;
                     inputcheck.textErrorCountry = "";
                   }
+                },10)
               }
 
               if(type == 5){
@@ -1793,6 +1799,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
               }
 
               if(type == 6){
+                setTimeout(()=>{
                 if(!inputcheck.passportCountryName){
                   inputcheck.errorPassportCountry = true;
                   inputcheck.showSelectPassportCountry = false;
@@ -1803,6 +1810,7 @@ let totalprice:any = this._flightService.itemFlightCache.departFlight.totalPrice
                   inputcheck.errorPassportCountry = false;
                   inputcheck.textErrorPassportCountry = "";
                 }
+              },10)
               }
 
               if(type == 7){
@@ -2543,7 +2551,7 @@ alert.present();
                   })
           }
           
-          inputOnFocus(item, type){
+          inputOnFocus(item, type, index?){
             var se = this;
             if(se.activeStep == 2 && se.hasinput){
               se.hasinput = false;
@@ -2570,6 +2578,23 @@ alert.present();
                           }
                       }
                     })
+              }
+            }
+            if(index != -1){
+              let field = '';
+              se.zone.run(()=>{
+                if(!se.listcountry || se.listcountry.length ==0){
+                  se.listcountry = [...se.listcountryFull];
+                }
+
+                if(!se.listpassportcountry || se.listpassportcountry.length ==0){
+                  se.listpassportcountry = [...se.listcountryFull];
+                }
+              })
+              if(type == 6){
+                item.showSelectPassportCountry = true;
+              }else if(type ==4){
+                item.showSelectCountry = true;
               }
             }
           }

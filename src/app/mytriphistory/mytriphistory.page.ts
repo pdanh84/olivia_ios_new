@@ -166,17 +166,6 @@ export class MytripHistoryPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/dashboard/getMyTripPaging?getall=true&getHistory=true&pageIndex=1&pageSize=100',
-        //   //url: 'http://localhost:34290/api/dashboard/getmytrip?getall=true',
-        //   headers:
-        //   {
-        //     'accept': 'application/json',
-        //     'content-type': 'application/json-patch+json',
-        //     authorization: text
-        //   }
-        // };
         let urlPath = C.urls.baseUrl.urlMobile + '/api/dashboard/getMyTripPaging?getall=true&getHistory=true&pageIndex='+se.pageIndex+'&pageSize='+se.pageSize;
         let headers = {
           'accept': 'application/json',

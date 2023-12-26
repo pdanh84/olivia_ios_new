@@ -893,7 +893,7 @@ export class HotelListPage implements OnInit {
             {
               authorization: text
             }
-          se.gf.RequestApi('GET', strUrl, headers, {}, 'hotellist', 'pushdata').then((data) => {
+          se.gf.RequestApi('GET', strUrl, headers, {}, 'hotellist', 'pushdata',auth_token).then((data) => {
               if (data) {
                     se.zone.run(() => {
                       se.dataListLike = data;

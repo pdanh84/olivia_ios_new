@@ -12,12 +12,13 @@
       import { flightService } from './flightService';
       import * as clone from 'clone';
       import jwt_decode from 'jwt-decode';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tourService } from './tourService';
 import { ticketService } from './ticketService';
 import { debounceTime } from 'rxjs';
 import { App } from '@capacitor/app';
 import { FCM } from '@capacitor-community/fcm';
+import { TimeoutError, catchError, throwError, timeout } from 'rxjs';
       @Injectable({
           providedIn: 'root'  // <- ADD THIS
       })
@@ -80,7 +81,8 @@ import { FCM } from '@capacitor-community/fcm';
             private httpClient: HttpClient,
             public tourService: tourService,
             public roomInfo: RoomInfo,
-            public bookcombo: Bookcombo,private ticketService:ticketService){
+            public bookcombo: Bookcombo,private ticketService:ticketService,
+            private alertService: AlertService){
       
           }
           
@@ -913,13 +915,27 @@ import { FCM } from '@capacitor-community/fcm';
         * @param pageName Tên page gọi api
         * @param funcName Tên fucntion gọi api
         */
-        async RequestApi(methodFunc, strUrl, headerObj, bodyObj, pageName, funcName): Promise<any> {
+        async RequestApi(methodFunc, strUrl, headerObj, bodyObj, pageName, funcName, auth_token?): Promise<any> {
           var se = this; 
           return new Promise(
               (resolve, reject) => {
                 if(methodFunc == 'GET'){
                   try {
-                    se.httpClient.get(strUrl, {headers: headerObj}).pipe(debounceTime(60000)).subscribe((data:any)=> {
+                    se.httpClient.get(strUrl, {headers: headerObj}).pipe(timeout(60 * 1000), catchError(async error => {
+                      if (error instanceof TimeoutError) {
+                        // Handle timeout error here
+                        se.navCtrl.navigateBack('/app/tabs/tab1');
+                        return throwError(() => new Error('Request timed out'));
+                      } else if (error instanceof HttpErrorResponse) {
+                        resolve({statusCode: 401})
+                        return throwError(() => new Error(`HTTP Error: ${error.status} ${error.statusText}`));
+                      } else {
+                        // Handle generic errors
+                        se.navCtrl.navigateBack('/app/tabs/tab1');
+                        return throwError(() => new Error('An unknown error occurred'));
+                      }
+                    })
+                    ).subscribe((data:any)=> {
                       if(data && data.StatusCode && data.StatusCode == 401){
                         resolve({statusCode: 401})
                       }else if(data && data.status ==401){
@@ -930,7 +946,7 @@ import { FCM } from '@capacitor-community/fcm';
                         resolve(data);
                       }
                       
-                    }, error => { 
+                    }, async error => { 
                      
                       var objError = {
                             page: pageName,
@@ -942,7 +958,20 @@ import { FCM } from '@capacitor-community/fcm';
                         };
                         C.writeErrorLog(objError,error);
                         if(error.status == 401 ){
-                          resolve({statusCode: 401})
+                          if(auth_token){
+                            const newtoken = await this.refreshTokenNew(auth_token);
+                            let text = "Bearer " + newtoken.auth_token;
+                            let headers =  {
+                              'cache-control': 'no-cache',
+                              'content-type': 'application/json',
+                              authorization: text
+                            };
+                            const data = await this.RequestApi(methodFunc, strUrl, headers, bodyObj, pageName, funcName, newtoken.auth_token);
+                            resolve(data);
+                          }else{
+                            resolve({statusCode: 401})
+                          }
+                          
                         }
                     })
                   } catch (error) {
@@ -2085,13 +2114,15 @@ import { FCM } from '@capacitor-community/fcm';
                       if(datanew && datanew.auth_token){
                         this.storage.remove('auth_token').then(()=>{
                           this.storage.set('auth_token', datanew.auth_token).then(()=>{ 
-                            this.getUserInfo(datanew.auth_token);
+                            this.getUserInfo(datanew.auth_token).then((datanew)=>{
+                              resolve(datanew);
+                            });
                           })
                         })
                        
                       }else{
                         this.storage.remove('auth_token').then(()=>{
-                          this.showAlertLogin();
+                          this.alertService.presentAlertLogin('Mã token hết hạn. Vui lòng đăng nhập lại để tiếp tục sử dụng dịch vụ!');
                         })
                       }
                     })
@@ -2101,13 +2132,15 @@ import { FCM } from '@capacitor-community/fcm';
                       if(datanew && datanew.auth_token){
                         this.storage.remove('auth_token').then(()=>{
                           this.storage.set('auth_token', datanew.auth_token).then(()=>{ 
-                            this.getUserInfo(datanew.auth_token);
+                            this.getUserInfo(datanew.auth_token).then((datanew)=>{
+                              resolve(datanew);
+                            });
                           })
                         })
                        
                       }else{
                         this.storage.remove('auth_token').then(()=>{
-                          this.showAlertLogin();
+                          this.alertService.presentAlertLogin('Mã token hết hạn. Vui lòng đăng nhập lại để tiếp tục sử dụng dịch vụ!');
                         })
                       }
                     })
@@ -4090,3 +4123,37 @@ export class Place {
         ischeckPage:any
         //abortSearch: boolean;
       }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlertService {
+  private isAlertPresent = false;
+
+  constructor(private alertCtrl: AlertController,private navCtrl: NavController) {}
+
+  async presentAlertLogin(message: string) {
+    if (this.isAlertPresent) {
+      return;
+    }
+
+    this.isAlertPresent = true;
+    const alert = await this.alertCtrl.create({
+      message: message,
+      cssClass: "cls-alert-refreshPrice",
+      backdropDismiss: false,
+      buttons: [
+      {
+        text: 'OK',
+        role: 'OK',
+        handler: () => {
+          this.isAlertPresent = false;
+          this.navCtrl.navigateForward('login');
+        }
+      }
+    ]
+    });
+
+    await alert.present();
+  }
+}

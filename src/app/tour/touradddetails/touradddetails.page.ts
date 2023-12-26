@@ -138,6 +138,8 @@ export class TourAddDetailsPage implements OnInit {
           if (event instanceof NavigationEnd && (event.url.indexOf('touradddetails') != -1) ) {
             if (!this.tourService || (this.tourService && !this.tourService.itemDepartureCalendar)) {
               this.navCtrl.navigateBack('/app/tabs/tab1');
+            }else {
+              this.GetUserInfo();
             }
           }
         })
@@ -206,7 +208,7 @@ export class TourAddDetailsPage implements OnInit {
       priceBooking = this.gf.convertStringToNumber(this.booking.cost);
     }
    
-    this.GetUserInfo();
+   
     //tour nước ngoài mặc định tích chọn xuất HD
       if(!this.tourService.itemDetail.Inbound){
         this.ishide = true;
@@ -226,67 +228,90 @@ export class TourAddDetailsPage implements OnInit {
   }
   GetUserInfo() {
     var se = this;
-    se.storage.get('auth_token').then(auth_token => {
+    se.storage.get('auth_token').then(async auth_token => {
       this.auth_token = auth_token;
+      console.log(auth_token)
       if (auth_token) {
-        this.gf.getUserInfo(auth_token).then((data) => {
-            if(data){
-              se.zone.run(() => {
-                if(data.email){
-                  se._email = data.email;
-                }
-                var corpInfomations=data.corpInfomations[0];
-                if(corpInfomations){
-                  se.companyname = corpInfomations.legalName;
-                  se.address = corpInfomations.address;
-                  se.tax = corpInfomations.taxCode;
-                  // se.addressorder = corpInfomations.addressorder;
-                  // se.hotenhddt=corpInfomations.hotenhddt;
-                  // se.emailhddt=corpInfomations.emailhddt;
-                  // se.ishideNameMail=corpInfomations.ishideNameMail;
-                }
-                else{
-                  se.storage.get('order').then(order => {
-                    if (order) {
-                      se.companyname = order.companyname;
-                      se.address = order.address;
-                      se.tax = order.tax;
-                      se.addressorder = order.addressorder;
-                      se.hotenhddt=order.hotenhddt;
-                      se.emailhddt=order.emailhddt;
-                      se.ishideNameMail=order.ishideNameMail;
-                    }
-                  })
-                }
 
-                if (data.point) {
-                  se.Roomif.point = data.point;
-                  se.point = data.point * 1000;
-                  //se.price = se.point.toLocaleString();
-                }
-              })
-            }
-            else{
-              se.storage.get('order').then(order => {
-                if (order) {
-                  se.companyname = order.companyname;
-                  se.address = order.address;
-                  se.tax = order.tax;
-                  se.addressorder = order.addressorder;
-                  se.hotenhddt=order.hotenhddt;
-                  se.emailhddt=order.emailhddt;
-                  se.ishideNameMail=order.ishideNameMail;
-                }else {
-                  se.ishide = false;
-                  se.ischeck = false;
-                }
-              })
-            }
-        });
+        var text = "Bearer " + auth_token;
+        let headers =
+        {
+          'cache-control': 'no-cache',
+          'content-type': 'application/json',
+          authorization: text
+        }
+        let strUrl = C.urls.baseUrl.urlMobile + '/api/Dashboard/GetUserInfo';
+
+        const data = await this.gf.RequestApi('GET', strUrl, headers, {}, 'globalFunction', 'getUserInfo');
+          if(data && data.statusCode != 401){
+            se.zone.run(() => {
+              if(data.email){
+                se._email = data.email;
+              }
+              var corpInfomations=data.corpInfomations[0];
+              if(corpInfomations){
+                se.companyname = corpInfomations.legalName;
+                se.address = corpInfomations.address;
+                se.tax = corpInfomations.taxCode;
+               
+              }
+              else{
+                se.storage.get('order').then(order => {
+                  if (order) {
+                    se.companyname = order.companyname;
+                    se.address = order.address;
+                    se.tax = order.tax;
+                    se.addressorder = order.addressorder;
+                    se.hotenhddt=order.hotenhddt;
+                    se.emailhddt=order.emailhddt;
+                    se.ishideNameMail=order.ishideNameMail;
+                  }
+                })
+              }
+              if (data.point) {
+                
+                se.Roomif.point = data.point;
+                se.point = data.point * 1000;
+              }
+            })
+          }else if ((data && data.statusCode == 401) || (data && data.error) ){
+            const res = await se.gf.refreshTokenNew(auth_token);
+            await se.storage.remove('auth_token');
+            await se.storage.set('auth_token', res.auth_token);
+            se.GetUserInfo();
+          }
+        //.then((data) => {
+            // if(data){
+              
+            // }
+            // else{
+            //   se.storage.get('order').then(order => {
+            //     if (order) {
+            //       se.companyname = order.companyname;
+            //       se.address = order.address;
+            //       se.tax = order.tax;
+            //       se.addressorder = order.addressorder;
+            //       se.hotenhddt=order.hotenhddt;
+            //       se.emailhddt=order.emailhddt;
+            //       se.ishideNameMail=order.ishideNameMail;
+            //     }else {
+            //       se.ishide = false;
+            //       se.ischeck = false;
+            //     }
+            //   })
+            // }
+       // });
       }
     })
   }
+
+  ionViewDidEnter(){
+    setTimeout(()=>{
+      this.GetUserInfo();
+    },350)
+  }
   ionViewWillEnter(){
+    
     this.storage.get('email').then(email => {
       if(email){
         this._email = email;
@@ -532,30 +557,37 @@ export class TourAddDetailsPage implements OnInit {
     this.createObjectBooking(1).then((checkvalid)=>{
       if(checkvalid){
         this.gf.showLoading();
-        this.checkTourAllotment().then((data)=>{
-          if(data.Status != 'Error' && data.Status != 'False' && data.Response.TourRate && data.Response.TourRate.Status == 'AL'){
-            if(this.tourService.discountPrice == 0 && (this.tourService.promocode || this.ischeckpoint)){
-              this.createBookingTour().then((code)=>{
+        try {
+          this.checkTourAllotment().then((data)=>{
+            if(data.Status != 'Error' && data.Status != 'False' && data.Response.TourRate && data.Response.TourRate.Status == 'AL'){
+              if(this.tourService.discountPrice == 0 && (this.tourService.promocode || this.ischeckpoint)){
+                this.createBookingTour().then((code)=>{
+                  if(code){
+                    this.tourService.tourBookingCode = code;
+                    this.tourService.BookingTourMytrip = null;
+                    this.gf.hideLoading();
+                    this.createBookingTourDiscountTransaction(code);
+                 
+                  }else{
+                    this.gf.hideLoading();
+                  }
+                })
+              }else{
+                this.tourService.dataBookResponse = data.Response;
+                this.tourService.BookingTourMytrip = null;
                 this.gf.hideLoading();
-                if(code){
-                  this.tourService.tourBookingCode = code;
-                  this.tourService.BookingTourMytrip = null;
-                  this.createBookingTourDiscountTransaction(code);
-               
-                }
-              })
+                this.navCtrl.navigateForward('/tourpaymentselect');
+              }
+              
             }else{
-              this.tourService.dataBookResponse = data.Response;
-              this.tourService.BookingTourMytrip = null;
               this.gf.hideLoading();
-              this.navCtrl.navigateForward('/tourpaymentselect');
+              this.gf.showAlertMessageOnly(data.Msg);
             }
-            
-          }else{
-            this.gf.hideLoading();
-            this.gf.showAlertMessageOnly(data.Msg);
-          }
-        })
+          })
+        } catch (error) {
+          this.gf.hideLoading();
+        }
+        
       }
       
     })
@@ -1121,7 +1153,6 @@ export class TourAddDetailsPage implements OnInit {
 
           createBookingTour():Promise<any> {
             var se = this;
-            this.gf.showLoading();
             return new Promise((resolve, reject) => {
               if (se._email) {
                 var Invoice=0;
@@ -1170,11 +1201,13 @@ export class TourAddDetailsPage implements OnInit {
                       se.gf.RequestApi('POST', urlApiSendMail, '', objTourSendMail, 'touradddetails', 'AppSendEmailCustomer').then((data)=>{
                     
                       });
+                      se.gf.hideLoading();
                       resolve(data.Response.BookingCode)
                     }else{
+                      se.gf.hideLoading();
                       resolve(false);
                     }
-                    se.gf.hideLoading();
+                    
                   });
             }else{
               se.gf.hideLoading();
@@ -1192,10 +1225,10 @@ export class TourAddDetailsPage implements OnInit {
               apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
             };
             this.gf.RequestApi('GET', urlApiTrans, headers, null , 'tourpaymentbank', 'UpdateTransaction').then((dataTrans)=>{
-              console.log(dataTrans);
               if(dataTrans){
                 this.tourService.paymentType = 1;
                 this.tourService.BookingTourMytrip = null;
+                this.gf.hideLoading();
                 this.navCtrl.navigateForward('/tourpaymentdone');
               }
             });

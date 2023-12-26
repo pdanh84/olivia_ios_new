@@ -162,7 +162,7 @@
         margin-top: 12px;
         background: transparent;
         z-index: 9;
-        width: 90%;
+        width: 100%;
         border-bottom: solid 0.5px #828282;
 
         .searchbar-input.sc-ion-searchbar-ios{
@@ -188,7 +188,7 @@
         margin-top: 16px;
         background: transparent;
         z-index: -1;
-        width: 90%;
+        width: 100%;
         border-bottom: solid 0.5px #828282;
 
         .searchbar-input.sc-ion-searchbar-ios, .searchbar-input-container.sc-ion-searchbar-ios{
@@ -660,7 +660,7 @@
         background: transparent;
         padding-inline-start: 0 !important;
         padding-inline-end: 0 !important;
-
+        padding-top: 0;
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;

@@ -99,7 +99,7 @@ export class BlogListPage implements OnInit {
             authorization: text
         }
           let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GeBlogByTripLatestOfUser' + '?pageIndex=' + this.page + '&pageSize=10';
-          se.gf.RequestApi('GET', strUrl, headers,  { }, 'blog', 'likeItem').then((data) => {
+          se.gf.RequestApi('GET', strUrl, headers,  { }, 'blog', 'likeItem', auth_token).then((data) => {
             if (data && data.items && data.items.length > 0) {
               var data = data;
               var listBlogtemp = data.items;
@@ -157,7 +157,7 @@ export class BlogListPage implements OnInit {
             authorization: text
         }
           let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteBlogByUser';
-          se.gf.RequestApi('GET', strUrl, headers,  { }, 'bloglist', 'getbloglike').then((data) => {
+          se.gf.RequestApi('GET', strUrl, headers,  { }, 'bloglist', 'getbloglike', auth_token).then((data) => {
           se.zone.run(() => {
             se.arrbloglike = data;
             if (data.msg) {

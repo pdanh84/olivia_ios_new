@@ -1303,6 +1303,7 @@ tabInbound: number=1;
                 se._flightService.itemFlightCache.isInternationalFlight = false;
                 se._flightService.itemFlightCache.isExtenalDepart = false;
                 se._flightService.itemFlightCache.isExtenalReturn = false;
+                se._flightService.itemFlightCache.isExtenal = false;
                 se.navCtrl.navigateForward("/flightsearchresult");
             }
             
@@ -1310,12 +1311,14 @@ tabInbound: number=1;
             se._flightService.itemFlightCache.isInternationalFlight = false;
             se._flightService.itemFlightCache.isExtenalDepart = false;
             se._flightService.itemFlightCache.isExtenalReturn = false;
+            se._flightService.itemFlightCache.isExtenal = false;
             se.navCtrl.navigateForward("/flightsearchresult");
           }
         }else{
           se._flightService.itemFlightCache.isInternationalFlight = false;
           se._flightService.itemFlightCache.isExtenalDepart = false;
           se._flightService.itemFlightCache.isExtenalReturn = false;
+          se._flightService.itemFlightCache.isExtenal = false;
           se.navCtrl.navigateForward("/flightsearchresult");
         }
         
@@ -1347,6 +1350,7 @@ tabInbound: number=1;
                 se._flightService.itemFlightCache.isInternationalFlight = false;
                 se._flightService.itemFlightCache.isExtenalDepart = false;
                 se._flightService.itemFlightCache.isExtenalReturn = false;
+                se._flightService.itemFlightCache.isExtenal = false;
                 se.navCtrl.navigateForward("/flightsearchresult");
               }
             }
@@ -1791,7 +1795,6 @@ tabInbound: number=1;
 
           se._flightService.itemFlightCache.objSearch = se._flightService.objSearch;  
           se._flightService.itemFlightCache.showCalendarLowestPrice = se.showlowestprice;
-
           if(se._flightService.listAirport && se._flightService.listAirport.length >0){
             let placeFrom = se._flightService.listAirport.filter((itemairport) => {return itemairport.code == item.depart.fromPlace});
             let placeTo = se._flightService.listAirport.filter((itemairport) => {return itemairport.code == item.depart.toPlace});
@@ -1809,6 +1812,7 @@ tabInbound: number=1;
                   se._flightService.itemFlightCache.isInternationalFlight = false;
                   se._flightService.itemFlightCache.isExtenalDepart = false;
                   se._flightService.itemFlightCache.isExtenalReturn = false;
+                  se._flightService.itemFlightCache.isExtenal = false;
                   se.navCtrl.navigateForward("/flightsearchresult");
               }
               
@@ -1816,12 +1820,14 @@ tabInbound: number=1;
               se._flightService.itemFlightCache.isInternationalFlight = false;
               se._flightService.itemFlightCache.isExtenalDepart = false;
               se._flightService.itemFlightCache.isExtenalReturn = false;
+              se._flightService.itemFlightCache.isExtenal = false;
               se.navCtrl.navigateForward("/flightsearchresult");
             }
           }else{
             se._flightService.itemFlightCache.isInternationalFlight = false;
             se._flightService.itemFlightCache.isExtenalDepart = false;
             se._flightService.itemFlightCache.isExtenalReturn = false;
+            se._flightService.itemFlightCache.isExtenal = false;
             se.navCtrl.navigateForward("/flightsearchresult");
           }
          

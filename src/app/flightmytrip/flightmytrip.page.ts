@@ -171,17 +171,7 @@ export class FlightmytripPage {
           se.loginuser = auth_token;
           if (auth_token || token) {
             var text = "Bearer " + (token ? token : auth_token);
-            // var options = {
-            //   method: 'GET',
-            //   url: C.urls.baseUrl.urlMobile + '/api/dashboard/getmytrip?getall=true',
-            //   //url: 'http://localhost:34290/api/dashboard/getmytrip?getall=true&memberid=91f60b04-328e-4e04-a603-cd49139e2c0c',
-            //   headers:
-            //   {
-            //     'accept': 'application/json',
-            //     'content-type': 'application/json-patch+json',
-            //     authorization: text
-            //   }
-            // };
+            
             let urlPath = C.urls.baseUrl.urlMobile + '/api/dashboard/getmytrip?getall=true';
             let headers = {
               'accept': 'application/json',

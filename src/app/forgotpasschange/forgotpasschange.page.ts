@@ -117,7 +117,7 @@ export class ForgotpasschangePage implements OnInit {
               se.gf.setParams(true,'resetBlogTrips');
               se.storage.set("point", decoded.point);
               se.searchhotel.rootPage ='login';
-              se.countdownRefreshToken();
+              //se.countdownRefreshToken();
               if (se.valueGlobal.logingoback) {
                 se.navCtrl.navigateBack([se.valueGlobal.logingoback]);
               }
@@ -150,51 +150,12 @@ export class ForgotpasschangePage implements OnInit {
 
         if (timer < 0) {
           clearInterval(this.valueGlobal.interval);
-          this.reloadToken()
         }
       }, 1000);
 
     }
   }
-  reloadToken() {
-    this.refreshToken(); 
-  }
 
-  refreshToken() {
-    var se = this;
-    se.storage.get('auth_token').then(auth_token => {
-      if (auth_token) {
-        var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims',
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        // }
-        
-        let urlPath = C.urls.baseUrl.urlMobile + '/api/Account/reloadTokenClaims';
-        let headers = {
-          'cache-control': 'no-cache',
-            'content-type': 'application/json',
-            authorization: text
-        };
-        this.gf.RequestApi('GET', urlPath, headers, {}, 'forgotPassChange', 'refreshToken').then((data)=>{
-
-            var json= data;
-            if (json.auth_token) {
-              se.storage.remove('auth_token');
-              se.storage.set("auth_token", json.auth_token);
-              se.countdownRefreshToken();
-            }
-          
-        })
-      }
-    })
-  }
   hasWhiteSpace(s) {
     return s.indexOf(' ') >= 0;
   } 

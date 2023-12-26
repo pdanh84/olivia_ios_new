@@ -1247,7 +1247,7 @@ export class HotelDetailPage implements OnInit {
         se.PriceFor = jsondata.Combos.PriceFor;
         se.SpecialNote = jsondata.Combos.SpecialNote ? jsondata.Combos.SpecialNote.replace(/\r\n/g, "") : "";
       }
-      se.Description = jsondata.ComboPromtion && jsondata.ComboPromtion.Description ? jsondata.ComboPromtion.Description.replace(/\r\n/g, "<br/>") : (jsondata.Combos ? jsondata.Combos.Description.replace(/\r\n/g, "<br/>") : '');
+      se.Description = jsondata.ComboPromtion && jsondata.ComboPromtion.Description ? jsondata.ComboPromtion.Description.replace(/\r\n/g, "") : (jsondata.Combos ? jsondata.Combos.Description.replace(/\r\n/g, "") : '');
       se.Description = se.Description.replace("Trọn gói bao gồm:", "");
       se.Description = se.Description.replace(/#r/g, "");
       se.Description = se.Description.replace(/r#/g, "");
@@ -3132,17 +3132,7 @@ export class HotelDetailPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'GET',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   }
-        // };
+        
         let headers =
         {
           'cache-control': 'no-cache',
@@ -3150,7 +3140,7 @@ export class HotelDetailPage implements OnInit {
           authorization: text
         };
         let strUrl = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
-        se.gf.RequestApi('GET', strUrl, headers, {}, 'hoteldetail', 'getdataroom').then((data) => {
+        se.gf.RequestApi('GET', strUrl, headers, {}, 'hoteldetail', 'getdataroom', auth_token).then((data) => {
             if (data) {
               se.zone.run(() => {
                 se.dataListLike = data;
@@ -3198,20 +3188,7 @@ export class HotelDetailPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/AddFavouriteHotel',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': '9fd84263-7323-0848-1711-8022616e1815',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { hotelId: se.HotelID },
-        //   json: true
-        // };
+       
         let headers =
         {
           'postman-token': '9fd84263-7323-0848-1711-8022616e1815',
@@ -3247,22 +3224,7 @@ export class HotelDetailPage implements OnInit {
     se.storage.get('auth_token').then(auth_token => {
       if (auth_token) {
         var text = "Bearer " + auth_token;
-        // var options = {
-        //   method: 'POST',
-        //   url: C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/RemoveFavouriteHotelByUser',
-        //   timeout: 10000, maxAttempts: 5, retryDelay: 2000,
-        //   headers:
-        //   {
-        //     'postman-token': 'a19ecc0a-cb83-4dd9-3fd5-71062937a931',
-        //     'cache-control': 'no-cache',
-        //     'content-type': 'application/json',
-        //     authorization: text
-        //   },
-        //   body: { hotelId: se.HotelID },
-        //   json: true
-        // };
-
-       // request(options, function (error, response, body) {
+       
         let headers =
         {
           'postman-token': '9fd84263-7323-0848-1711-8022616e1815',
@@ -4100,6 +4062,7 @@ export class HotelDetailPage implements OnInit {
     self.bookCombo.MealTypeName = self.comboDetail.mealTypeName;
     self.bookCombo.MealTypeCode = self.comboDetail.mealTypeCode;
     self.formParam.CheckOutDate = moment(self.cout).format('YYYY-MM-DD');
+    self.formParam.CheckInDate = moment(self.cin).format('YYYY-MM-DD');
     self.bookCombo.FormParam = self.formParam;
     self.bookCombo.arrPassengers = [];
     self.bookCombo.arrlugage = [];

@@ -169,7 +169,7 @@ export class RegisterverifyPage implements OnInit {
             }
             se.storage.set("point", decoded.point);
             se.searchhotel.rootPage ='login';
-            se.countdownRefreshToken();
+            //se.countdownRefreshToken();
             if (se.valueGlobal.logingoback) {
               se.navCtrl.navigateBack([se.valueGlobal.logingoback]);
             }

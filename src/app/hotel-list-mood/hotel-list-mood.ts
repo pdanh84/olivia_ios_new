@@ -335,7 +335,7 @@ export class HotelListMoodPage implements OnInit {
 
         let urlPath = C.urls.baseUrl.urlMobile + '/mobile/OliviaApis/GetFavouriteHotelByUser';
         let headers = {authorization: text};
-        this.gf.RequestApi('GET', urlPath, headers, {}, 'hotellistmood', 'pushdatanew').then((data)=>{
+        this.gf.RequestApi('GET', urlPath, headers, {}, 'hotellistmood', 'pushdatanew',auth_token).then((data)=>{
 
             if (data) {
               se.zone.run(() => {
