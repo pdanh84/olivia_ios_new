@@ -18,6 +18,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
 })
 export class HomeTicketPage implements OnInit {
   itemSearch: any;
+topsale: any;
   
   constructor(private navCtrl: NavController, public gf: GlobalFunction,
     private modalCtrl: ModalController,
@@ -28,12 +29,23 @@ export class HomeTicketPage implements OnInit {
     private platform: Platform,
     public networkProvider: NetworkProvider,
     public ticketService: ticketService) {
-    
+    this.loadTopSale();
+  }
+  loadTopSale(){
+    let url = C.urls.baseUrl.urlTicket + '/api/Home/GetTotalBooking';
+    let headers = {
+      apisecret: '2Vg_RTAccmT1mb1NaiirtyY2Y3OHaqUfQ6zU_8gD8SU',
+      apikey: '0HY9qKyvwty1hSzcTydn0AHAXPb0e2QzYQlMuQowS8U'
+    };
+    this.gf.RequestApi('GET', url, headers, null, 'hometicketslide', 'GetExperienceSameTopic').then((data) => {
+      let res = data;
+      this.topsale = res.data
+ 
+    });
   }
 
-
   ngOnInit(){
-  
+   
   }
 
   ionViewDidEnter() {

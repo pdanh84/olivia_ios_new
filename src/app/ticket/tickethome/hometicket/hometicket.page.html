@@ -1,7 +1,13 @@
 <div class="cls-tab-visible">
     <app-hometicketsearch></app-hometicketsearch>
 
-    
+    <div *ngIff="topsale > 0" class="div-topSale">
+      <img class="img-fire" src="./assets/imgs/ic_fire_homeflight.svg"/>
+      <div class="text-topSale">
+      {{topsale}} khách đã đặt vé trong 24h qua
+      </div>
+  
+    </div>
 
     <app-hometicketslide></app-hometicketslide>
 

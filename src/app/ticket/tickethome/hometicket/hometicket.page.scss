@@ -84,3 +84,19 @@
   .p-bottom-72 {
     padding-bottom: 72px;
 }
+.div-topSale{
+  background-color: #f4dcdb;
+  padding: 10px 0px 10px 8px;
+  font-size: 16px;
+  color: #e52822;
+  display: flex;
+  align-items: center;
+
+  .img-fire{
+    width: 20px;
+    height: 20px;
+  }
+  .text-topSale{
+    padding-top: 2px;
+  }
+}
